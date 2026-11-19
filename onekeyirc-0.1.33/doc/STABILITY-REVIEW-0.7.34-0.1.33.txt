@@ -1,0 +1,265 @@
+vipirc 0.7.34 / onekeyirc 0.1.33
+Stability, recovery and security follow-up
+2026-11-16 (America/Los_Angeles)
+STATUS: FINAL REVIEW
+
+OUTCOME
+
+Three concrete defects were reproduced and corrected in both clients: an
+idle CPU spin after interrupted send-review rendering, a channel-directory
+request that remained busy after connection loss or explicit rejection,
+and unsafe replacement of an installed executable. A misleading partial-save
+diagnostic was also corrected. The changes preserve the preceding security
+fixes and user-selected-only custom bindings.
+
+This is evidence of specific source review and reproducible tests. It is not
+a claim that either program is invulnerable, that every platform was tested,
+or that a short local run establishes months of unattended reliability.
+
+BASELINE AND CHANGE CONTROL
+
+Work began from the previously delivered vipirc 0.7.33 / onekeyirc 0.1.32
+source archives. Every regular archive member was verified against its
+manifest before creating immutable baseline and independent working trees.
+Both products share 38 C/header files; their final bytes match exactly.
+
+Runtime logic changed only in shared src/app.c and src/idle.c. The shared
+src/idle_commands.c change is diagnostic/help text, src/app.h carries release
+versions, and full vipirc src/manual.c is generated from MANUAL.txt.
+Makefile installation and focused checks, five new test files, and current
+documentation were updated. Historical release reviews were preserved.
+
+1. MINIMALIST REVIEW COULD SPIN WHILE IDLE
+
+Affected interfaces: onekeyirc and vipirc -i.
+
+With terminal output paused, an editor repaint could remain partially
+queued. Enter opened send review, and subsequent ordinary typing returned
+to editing before the review frame could be queued. The pending review
+redraw flag survived that transition. It then kept requesting zero-timeout
+polling even after terminal output resumed and the editor had settled.
+
+Actual baseline pseudoterminals consumed about 0.79 CPU seconds in a
+0.80-second quiet interval. The fix retires the obsolete review flags,
+send plan and token on the transition back to editing, while preserving
+the draft and whether it belongs to command entry or message composition.
+
+Both corrected normal and ASan/UBSan binaries measured 0.00 CPU seconds in
+the same 0.80-second interval, at the process counter's resolution. They
+kept the edited draft visible, accepted cancellation, and restored terminal
+attributes. An independent reviewer reproduced both baselines and fixes
+using separate frozen builds.
+
+tests/test_idle_recovery.c additionally covers COMPOSE/COMMAND transitions
+behind partial output and exact remaining-byte preservation through short
+writes, EAGAIN, EINTR and EIO. The correction is in src/idle.c.
+
+2. INTERRUPTED LIST COULD REMAIN PERMANENTLY BUSY
+
+An active /list request belonged to the old connection but was not released
+when that connection closed. After reconnect, refresh and clear still saw
+the request as active. Command-qualified numeric 263, 421 or 461 replies
+also left it active when the server rejected LIST without an end marker.
+
+The fix releases that active latch on disconnect and those qualified
+rejections. It preserves partial cached entries, filters, ordering and
+limits, marks the interrupted snapshot incomplete, and allows an explicit
+retry or clear. It does not invent missing results or retry automatically.
+Completed caches remain intact. Unrelated, incomplete or historical replies
+do not cancel a current request.
+
+The baseline probes failed as expected. tests/test_list_recovery.c passes
+normally and under ASan/UBSan for queued/sent requests, EOF, explicit
+disconnect, server restart, transient/fatal failure, reconnect, qualified
+rejections and cache-preservation controls. The correction is in src/app.c.
+
+3. EXECUTABLE INSTALLATION COULD FAIL OR DESTROY THE OLD BINARY
+
+Both install recipes copied directly over the destination executable. On
+the tested Linux host, replacing a running executable failed with ETXTBSY.
+An injected partial-copy failure could truncate the previous executable;
+a later permission failure could leave the replacement already published.
+A directory at the intended executable path could also produce the wrong
+installation result.
+
+The recipe now creates a private temporary file beside the destination,
+copies the new executable, sets mode 0755, and renames the complete file
+into place. Staging failures remove the temporary file and preserve an
+existing binary. Failed fresh staging publishes no partial executable.
+Directories and symlinks to directories at the executable path are refused.
+The installation directory and source tree remain trusted local inputs.
+
+tests/test_install.py runs the actual Makefile.in install recipe against
+private test executables and paths, including a prefix containing spaces.
+Seven cases per product pass: running executable replacement, partial-copy
+failure with/without a prior file, chmod failure, rename failure, directory
+refusal, and directory-symlink refusal. An independent review repeated all
+14 cases. These are executable-publication tests; documentation installation
+is separate and the entire install is not a multi-file transaction.
+
+4. PARTIAL-SAVE MESSAGE NOW MATCHES THE POSSIBLE FILE STATE
+
+A configuration save can replace its file and then fail to synchronize the
+parent directory. The lower-level error reports that state, but the command
+prefix used to say "Server N was not saved". It now says "Server N save did
+not complete". Save transaction behavior was not changed. Existing fault
+tests verify the post-replacement state and retention of referenced encrypted
+credentials. Users should read the accompanying detailed diagnostic.
+
+REVIEW AND REGRESSION COVERAGE
+
+Network and bouncer state, normal and ASan/UBSan:
+- LIST recovery, full App suite and LIST-security regressions.
+- 1,024 generated CAP sequences, 7,484 BATCH steps and 13 malformed batches
+  per mode; 504 replay-authentication privacy cases per mode.
+- Real private loopback transport: 10 TLS fairness/buffering/write-retry
+  cases and 31 transport classification scenarios per mode.
+- Manual review of disconnect/retry classification, immutable in-flight
+  writes, output cancellation, bounded dispatch and CAP/BATCH cleanup.
+
+Input and presentation:
+- New recovery fixture in both trees, normal and ASan/UBSan.
+- Nine existing minimalist input-state groups per run, both products and
+  both modes: draft ownership, empty key defaults, paste, held input and
+  deferred setup remained correct.
+- Fourteen full-interface state groups in both modes with an explicitly
+  non-native aborting curses fixture. This does not validate native curses.
+- Actual baseline, fixed normal and fixed sanitizer minimalist PTYs, plus
+  the independent baseline/fixed CPU-spin reproduction.
+
+Local resources and persistence:
+- New tests/test_credential_resources.c injects 44 distinct allocation,
+  pipe, fork, descriptor-protection and file/directory-open failures.
+  Each case verifies descriptor/child cleanup and successful later retry
+  through real fork/exec of a private helper fixture.
+- These 44 cases already pass on the baseline. They add durable coverage
+  of correct behavior; they are not 44 newly fixed vulnerabilities.
+- Eighteen recorded local executable runs passed across baseline/current
+  normal and sanitizer checks, covering configuration creation, profiles,
+  setup cancellation/partial-save, control replies, process ownership and
+  native socketpair/SCM_RIGHTS descriptor transfer.
+- No additional runtime defect was confirmed in config, credentials,
+  background, client or setup production modules; their bytes are unchanged.
+
+Editor, directory browsing, allocation and transfer stress:
+- 471,052 editor checks per mode, plus nickname completion, command catalog/
+  history and bounded file-picker checks, normal and ASan/UBSan.
+- 11,920 checked App allocation-failure cases and 12,000 injected ENOMEM
+  events per mode, with exact allocation balance, rollback and retry checks.
+- 200,000 exact-allocation DCC/IRC mutations plus 80,000 offer-state cases
+  per mode, then bounded actual transfer/fault/cancellation cycles.
+- Normal: 1,551 live cycles and 393,608,151 verified bytes. Sanitized:
+  1,514 live cycles and 384,195,939 verified bytes. Both ended with exactly
+  their initial three open descriptors; peak observed descriptors were 20.
+  Offer-state counts are not all real transfers. Fixture memory figures
+  are not whole-client memory limits or production benchmarks.
+
+BOUNDED WHOLE-CLIENT LOAD
+
+The private load fixture runs eight TLS peers, each with eight channels,
+while preserving an unsent draft through review, two forced reconnects,
+and terminal shrink/restore. It checks PING/PONG progress, no outgoing chat
+from the draft, hostile terminal-text handling, and quiet CPU after traffic.
+Only loopback peers, synthetic text and temporary credentials/configurations
+are used. No public IRC server or account is contacted.
+
+  onekeyirc: 120 seconds requested, 8 TLS peers x 8 channels; 74190 peer
+  chat frames sent; two forced reconnects; maximum sampled PING/PONG delay
+  47.183 ms; quiet CPU 0.0 seconds over 2.001 wall seconds.
+  vipirc -i: 120 seconds requested, 8 TLS peers x 8 channels; 74192 peer
+  chat frames sent; two forced reconnects; maximum sampled PING/PONG delay
+  44.252 ms; quiet CPU 0.0 seconds over 2.001 wall seconds.
+
+Counts are peer-sent frames, not a claim that every line is retained or
+rendered. The client's bounded history/display policies still apply.
+The receipt states which process measurements the host permitted. These
+120-second runs exercise overlap and recovery; they are not long soaks.
+
+BUILD, DOCUMENTATION AND PACKAGE CHECKS
+
+The normal onekeyirc build uses configure-selected hardening and strict
+warnings. Final focused recovery targets also pass under ASan/UBSan.
+Final actual minimalist binaries carry the current versions, help text
+and generated manual; their source inputs stayed unchanged during builds.
+
+README, INSTALL, DESIGN, SECURITY, changelog, /help list, printable manuals,
+and installed man pages describe the current behavior. Full vipirc's
+2,039-line manual passes the real Help-buffer capacity regression, including
+first/last lines at minimum history. Generated exports, shipped examples,
+relative documentation links and ASCII formatting are checked separately.
+
+The clean package gate rebuilds onekeyirc from staged source, runs the
+maintained recovery target and generated-documentation check, and installs/
+uninstalls into a private destination. Every installed documentation copy
+must match source bytes and permissions. Production source hashes must
+match the tested candidate. The final source archives include checksums
+and a per-file manifest, and exclude binaries, private validation stubs,
+temporary configs, credentials and compiler outputs.
+
+Receipts retain exact input hashes and commands. Some unchanged-module
+checks precede version/help-only edits; their scope is explicit. The exact
+final builds, focused recovery target, PTYs and clean package gate cover
+the final release. No source change is justified solely by a test count.
+
+LIMITS AND REMAINING TARGET VALIDATION
+
+- The host is Linux. Native wide-curses development files are unavailable;
+  a fresh full-vipirc configure attempt fails that prerequisite. The real
+  vipirc -i/main/core path is tested with unavailable UI entrypoints set to
+  abort in private validation builds. Those stubs are not shipped.
+- Full UI state tests cannot establish native rendering, key decoding or
+  curses ABI behavior. Existing synchronous full-curses output can still
+  delay control polling if an open terminal remains permanently stalled.
+- A fresh pathname AF_UNIX listener probe fails with EPERM in this runner.
+  Native socketpair, SCM_RIGHTS and PTY boundaries do run; a full named-
+  socket detach/resume lifecycle still needs a suitable target host.
+- Native OpenBSD/LibreSSL, real ZNC/soju daemons, an IRCNow account, and the
+  deployment VPS were not exercised. Loopback fixtures are not substitutes
+  for those platform and service integration checks.
+- ASan/UBSan use halt-on-error with LeakSanitizer disabled on this traced
+  host. Explicit allocation, descriptor and child checks supply narrower
+  cleanup evidence; they do not constitute a universal memory-leak proof.
+- This release does not update system TLS, curses, SSH or operating-system
+  packages. Deployment TLS patch/backport status remains a separate check;
+  the preceding security review records its dependency observations.
+- DCC retains its documented unencrypted direct-connection limitations.
+  No automatic transfer acceptance or network security policy was added.
+
+REPRODUCING THE MAINTAINED CHECKS
+
+From an extracted source tree on a host with its build/test dependencies:
+
+    ./configure
+    make
+    make check-stability
+    make check-stability-sanitize
+    make check-install
+    make check-idle-load
+    make check-docs
+
+check-idle-load defaults to a bounded 60-second private TLS run. The recorded
+120-second runs used tests/test_idle_load.py with --seconds 120 and the exact
+binary paths/hashes in the receipt; add --full for vipirc -i. Existing broader
+targets remain available for the specific modules changed on a target host.
+An unavailable prerequisite must be reported as unavailable, not passed.
+
+UPGRADING A RUNNING DEPLOYMENT
+
+Build and review the new source on the intended host, then install it using
+the existing prefix/service layout. Binary publication can now coexist with
+a running old executable. The old worker still runs old code until it exits.
+Save wanted settings and finish or deliberately discard transfers/drafts,
+then quit or use the existing --close-session NUMBER command when ready.
+Closing ends that worker's connections and loses RAM-only drafts/history.
+Start a new worker to use the fixes. Resuming an old worker does not upgrade it.
+
+Use --sessions to identify the intended job; --detach-session NUMBER only
+releases its terminal and does not change its executable. This review did
+not install over any live application or terminate any user session.
+
+EVIDENCE FILES
+
+doc/STABILITY-PASS-RESULTS.json contains scoped machine-readable receipts,
+commands, input hashes, final mirrored-source hashes and environment limits.
+SOURCE-MANIFEST.json and SHA256SUMS describe the shipped archive members.
+Earlier dated security and stability reports remain historical records.

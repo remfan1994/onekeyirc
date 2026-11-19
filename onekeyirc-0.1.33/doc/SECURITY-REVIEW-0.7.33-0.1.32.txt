@@ -1,0 +1,318 @@
+SECURITY REVIEW: vipirc 0.7.33 AND onekeyirc 0.1.32
+Review date: 2026-11-16 (America/Los_Angeles)
+
+Release status: Completed; fixed-source checks passed within the stated platform limits.
+
+1. OUTCOME AND SCOPE
+
+This pass started from the delivered vipirc 0.7.32 and onekeyirc 0.1.31
+source archives. Their SHA-256 checksums and every source-manifest member
+were verified before review. The resulting source releases repair confirmed
+defects in three areas: terminal paste handling, optional
+transcript privacy, and configuration initialization.
+
+The work combined source review, reproduced failures, targeted regression
+tests, private pseudoterminals, local transport fixtures, fault injection,
+compiler diagnostics, and AddressSanitizer/UndefinedBehaviorSanitizer runs.
+An independent reviewer challenged the paste changes and found additional
+asynchronous setup transitions that the initial fix did not protect.
+Those transitions were included in the correction and regression coverage.
+
+No new remote code execution was demonstrated. That observation is limited
+to the reviewed code and executed tests; it is not a claim that either
+client is free of vulnerabilities. Host, terminal and TLS-library security
+remain separate dependencies. A relevant TLS dependency patch check remains
+necessary and is explained in section 5; version strings alone do not prove
+whether a vendor has backported a correction.
+
+The audit did not connect to IRCNow, a production ZNC/soju account, or any
+user server. It did not change installed applications, active workers,
+real credentials, existing configurations, transcripts or session state.
+
+2. CONFIRMED FINDINGS AND FIXES
+
+F1. Full vipirc accepted ordinary command activation after a paste end.
+
+Affected: the full interface in the verified vipirc 0.7.32 baseline.
+Priority: moderate, conditional on terminal input or pasted content.
+
+The old paste-end protection covered custom shortcut dispatch but did not
+consistently cover ordinary keys and modal activation. A bracketed command
+paste followed immediately by Enter could execute a command such as /quit
+before the user had a fresh opportunity to review it. A baseline test using
+the actual full-UI state machine reproduced that unintended quit.
+
+The fixed state machine applies one input guard to ordinary keys, custom
+actions, command execution and mouse activation. It requires a successful
+physical refresh of a sufficiently large editor/form, a later input batch,
+and a quiet interval. Rejected held keys extend the interval. Failed refresh
+keeps the screen dirty so it can be retried. Resize and terminal restoration
+discard stale display credit.
+
+Asynchronous guided setup can finish while input is being discarded. The
+fix also postpones that transition when necessary and transfers the guard
+to the new input owner. An independent fixture reproduced the incomplete
+first fix and verified deliberate later command recovery after correction.
+
+The full-UI tests execute production state and dispatch code but use private
+curses declarations with aborting rendering functions. They do not establish
+native curses ABI, rendering, mouse-device or physical-key correctness.
+
+F2. Minimalist paste handling could lose review protection on transitions.
+
+Affected: onekeyirc 0.1.31 and vipirc 0.7.32 -i.
+Priority: moderate, conditional on terminal input or pasted content.
+
+A closing paste marker followed by two Escape keys, /quit and Enter in the
+same input burst could leave the editor, clear its guard and execute the
+command. A very small terminal could also count a resize/overflow notice as
+if the actual pasted editor had been displayed. Both baseline behaviors
+were reproduced through an actual private pseudoterminal.
+
+The fix guards every ordinary key after a recognized paste, including Escape
+and navigation. Review credit requires the complete accepting editor/form
+to have been queued and fully drained to the terminal. Tiny and overflowed
+frames receive no credit. A new batch and quiet interval are required;
+continued key repeat postpones acceptance. Draft text remains available.
+
+Independent review also tested the transition from asynchronous setup back
+to the log. The earlier setup settling time was shorter than the paste
+review delay, and resetting the editor erased the guard. Successful and
+failed setup completion now preserve/rearm the boundary. The resulting
+screen or log notice must drain before later deliberate input can recover.
+
+This is a boundary for recognized bracketed paste. Before recognition,
+ordinary typing and unframed paste cannot be distinguished. A terminal,
+malicious same-account process, or input deliberately delayed beyond the
+review boundary remains outside this guarantee. Review pasted material.
+
+F3. Replayed authentication could enter optional transcript files.
+
+Affected: both verified baseline releases when persistent logging is on.
+Priority: moderate, conditional credential confidentiality defect.
+
+A bouncer can replay an outgoing authentication message under an earlier
+nickname or copy one from another attached client. The old persistent-log
+filter depended on ordinary chat dispatch recognizing our current nickname.
+Recognized authentication could therefore be saved as ordinary incoming
+text. Qualified targets such as NickServ@services.example and fallback
+display paths also required coverage.
+
+The fix classifies recognized private authentication before dispatch,
+independently of the sender's current nickname. It includes non-channel
+fallback targets while retaining existing service-reply protections.
+Live text remains visible; only persistent logging is suppressed for the
+current message. The flag resets before subsequent ordinary chat. Incoming
+and replayed copies do not establish a local last-sent catch-up anchor.
+
+The shipped test exercises 504 combinations of profile mode, source form,
+framing and message shape. The baseline failed 306 cases. The final code
+passes all 504 in normal and ASan/UBSan builds. Tests also verify that later
+ordinary messages still log and that ordinary channel/private text is not
+silently lost.
+
+Logging remains off by default, and the finding did not bypass private
+file permissions. Recognition covers known authentication/control forms,
+not arbitrary passwords hidden in prose or every third-party service.
+This update does not remove old records or backups, or affect logs kept
+by a terminal, another client, a bouncer or a server. If an affected log
+actually contains a live credential, handle that log privately and rotate
+that credential through the service's normal account procedure.
+
+F4. --init-config could replace a concurrently created configuration.
+
+Affected: both verified baseline releases.
+Priority: low, local configuration integrity.
+
+Initialization first loaded the path to check that it was missing, then
+used ordinary config_save(), whose final rename could replace a config
+created during that interval. This violated the command's promise to
+refuse overwriting. No cross-account privilege escalation was established.
+
+The new config_create() validates and writes a complete private temporary
+file, then publishes it with same-directory linkat() without replacing an
+existing name. A competing regular file, symlink or FIFO remains untouched.
+Explicit Save retains its existing replacement behavior. Filesystems that
+cannot provide the required hard link fail safely, without a replacing
+fallback. A cleanup or directory-sync failure after publication reports
+that the completed config was created and leaves it in place.
+
+A wrapper around the actual CLI's config load inserted an owned mode-0600
+competitor after the missing result. The baseline exited successfully and
+replaced its 63 bytes with a 1236-byte config. The fixed CLI exited with an
+error and preserved all 63 bytes and mode 0600. Additional fault-injection
+tests cover competitors at publication and cleanup/synchronization failures.
+
+3. OTHER SECURITY BOUNDARIES REVIEWED
+
+Network and authentication: IRC framing and allocation limits; CAP/SASL
+state; playback/BATCH handling; endpoint identity; TLS certificate checking;
+CA-file parsing; TLS record fairness and write retries; resolver ownership;
+outgoing authentication; transcript boundaries; roster and query growth.
+
+Local execution and files: strict config parsing; private path traversal;
+config/profile publication; secret-file modes; GPG invocation without a
+shell; bounded helper output; waitable child/process-group ownership;
+inherited descriptors; managed-session leases, incarnation tokens and
+descriptor transfer; UID/GID and core-dump protections at startup.
+
+Terminal and actions: custom key validation; literal paste; ordinary and
+custom dispatch; reader/setup/password/confirmation ownership; draft
+retention; repeated input; small displays; refresh failures; asynchronous
+setup; and terminal restore/resize transitions.
+
+DCC and commands: offer parsing, filename and file identity, transfer
+accounting, timeout/cancel behavior, partial writes, descriptor cleanup,
+allowed application commands, and guarded external input. No additional
+production defect was confirmed in these reviewed DCC/command paths.
+
+Custom hotkeys remain empty by default. Their values are allowlisted local
+action identifiers, not shell commands, arbitrary IRC frames or send macros.
+This pass did not assign Ctrl-C, Ctrl-Z or any other custom key by default.
+
+4. VALIDATION EVIDENCE
+
+Normal and sanitizer testing was separated from expected baseline failures.
+Test counts below describe exercised cases; they are not a count of unique
+real-world attacks or a proof that every path was explored.
+
+- Local controls: 11 focused executable groups passed normally and under
+  ASan/UBSan, including config, creation races, hotkeys, preferences, helper
+  lifecycle, waitable ownership and native socketpair/SCM_RIGHTS handling.
+- Protocol/application: 11 relevant executable groups passed normally and
+  under ASan/UBSan. Coverage includes 40,000 deterministic hostile wire
+  cases; 91,184 exact-allocation/truncation parser cases plus 25,000 seeded
+  random cases; 1,024 CAP sequences; 7,484 BATCH transitions; 13 malformed
+  batch cases; and the 504-case authentication privacy matrix.
+- TLS/transport: private fixtures exercised CA/AUX/CRL parsing, fairness,
+  retry ordering, resolver ownership, 31 failure classifications, real
+  loopback plaintext/TLS, DNS and IP identities, wrong identity, untrusted
+  CA, expired certificates, setup deadlines and byte integrity.
+- DCC/command regressions: six focused executable groups passed normally
+  and under ASan/UBSan. Transfer tests include ENOSPC, partial writes,
+  EINTR/EAGAIN, cancellation, socket failures, bad/duplicate acknowledgments,
+  deadline behavior, file identity and descriptor counts. Counter-edge
+  fixtures transferred short tails near boundaries; no multi-gigabyte
+  end-to-end transfer is claimed.
+- New DCC parser property test: 364,188 deterministic seeded/mutated cases
+  passed normally and under ASan/UBSan. It checks exact-sized allocations,
+  error canaries, immutable input, unchanged output on failure and canonical
+  round trips on success. This is not coverage-guided fuzzing.
+- Frontends: Fourteen production full-UI state groups and nine minimalist
+  state groups per product passed in normal and sanitizer builds. Actual
+  private PTYs passed 28 hotkey/paste cases and 12 asynchronous setup cases
+  across both minimalist frontends and both build modes. Exact commands,
+  cases and source hashes are recorded in the accompanying JSON; full curses
+  rendering is untested.
+- Reproducible targets: make check-security-pass and
+  make check-security-pass-sanitize cover the new regressions and affected
+  key/paste boundaries. The broad existing security targets include them.
+- Build, documentation and packaging: Clean onekeyirc source configured and
+  built with -Werror; focused security tests and generated-doc checks
+  passed. Private DESTDIR install/uninstall verified documentation bytes,
+  links and file modes. The vipirc minimalist harness built with strict
+  warnings. Both manual generators, shipped config examples, current
+  documentation structure and full embedded manual capacity were checked.
+  Archive member verification is performed after this report is finalized.
+
+Compiler review used strict warnings and actual GCC -fanalyzer compilation
+on selected local, command and DCC modules. Reported descriptor-retention
+paths were read and checked against ownership/cleanup behavior. Intentionally
+retaining a standard descriptor or an accepted transfer socket is not a
+demonstrated leak. Diagnostics are supporting evidence, not complete analysis.
+
+An initial strict build caught a nonliteral format in the new privacy test.
+The test was corrected to use a literal bounded format, then rerun against
+both the baseline and fixed source. That intermediate failure is retained
+as provenance; it is not reported as a passing run or a production exploit.
+
+The final frontend PTY executions preceded three help-string precision
+edits. Runtime dispatch source did not change. Fresh strict parent builds
+and documentation checks cover those final strings; the JSON records this
+limited source delta rather than implying identical earlier binaries.
+
+Final source identities and selected command/output receipts are embedded
+in doc/SECURITY-PASS-RESULTS.json. Historical reports remain unchanged.
+The archive's SOURCE-MANIFEST.json and SHA256SUMS cover its final contents,
+including both new reports. External archive hashes are supplied separately
+to avoid self-referential checksums.
+
+5. EXTERNAL TLS DEPENDENCY REQUIRES DEPLOYMENT ATTENTION
+
+The review environment reports OpenSSL 3.5.7. OpenSSL documents
+CVE-2026-35189: memory amplification during certificate CRL-distribution-point
+caching, including ordinary TLS processing. The upstream 3.5-branch fix is
+3.5.9. This application release does not patch the linked TLS library.
+Check the deployment vendor's maintained package and applicable backports.
+The deployment's actual library and patch status were not inspected.
+
+The clients use TLS over TCP and X.509 verification. Relevance of this
+certificate path follows from source/API review, not a reproduced exploit
+against a public server. The review did not find application use of QUIC,
+DTLS, CMS, CMP, OCSP fetching, raw-public-key/client-key setup or
+SSL_set_SSL_CTX. Those observations are not a blanket exemption from other
+TLS-library vulnerabilities. No dependency was upgraded during this work.
+
+6. LIMITATIONS
+
+The host is Linux x86_64, glibc 2.41, GCC 14.2.0 and OpenSSL 3.5.7.
+Native wide-curses development headers are unavailable. Full vipirc's
+native configure was attempted and stopped at that missing dependency.
+Full-UI state fixtures use private aborting curses stubs; vipirc -i tests
+use the actual shared core/minimalist frontend with unreachable full-UI
+entry stubs. Neither substitute is a native full-curses build validation.
+Those environment-only stubs are excluded from the source archives.
+
+This host prohibits creating pathname AF_UNIX listeners. Real socketpairs,
+SCM_RIGHTS and isolated registry/lease/control logic were exercised, but a
+complete native pathname session listener lifecycle was not. No live SSH
+drop/resume, production daemon restart or reboot test is claimed.
+
+ASan/UBSan ran with leak detection disabled because LeakSanitizer is not
+usable under the host's tracing environment. System OpenSSL was not rebuilt
+with sanitizers. Resource-count checks provide narrower cleanup evidence;
+they are not a successful LeakSanitizer run.
+
+No native OpenBSD/LibreSSL build, physical-terminal matrix, live IRCNow
+deployment, real-account ZNC/soju interoperability run, real GPG keyring,
+long soak, formal verification or independent third-party audit is claimed.
+Private fake helpers use real process/pipe/signal operations. Loopback TLS
+uses generated test certificates. The test harnesses deliberately exercise
+specific invariants and do not model every possible host or network.
+
+7. USING THE RELEASE
+
+Build the appropriate source archive using its top-level INSTALL. Verify
+the supplied archive checksums before extracting. Keep the OS and linked
+TLS library maintained and build with the supported hardening options.
+Full vipirc also needs the platform's wide-curses development package.
+
+On a suitable build host, run the focused regression targets described
+above. ASan/UBSan support and any host restrictions should be recorded
+separately from ordinary test results. Tests use private fixtures; they
+are not a substitute for checking the intended deployment platform.
+
+Run the new build and verify its --version output. A detached or resumed
+worker keeps running its old executable; installing a new file does not
+replace that process. Save intended settings, identify the old worker with
+the documented session commands, and start a fresh worker from the updated
+build when ready. Session closing is destructive to that live connection;
+it was not performed as part of this review.
+
+The patch does not retrospectively scrub transcripts. If persistent logging
+was disabled, the newly fixed transcript path was not writing those files.
+If it was enabled, assess any known authentication exposure privately.
+
+PRIMARY EXTERNAL REFERENCES
+
+OpenSSL security advisory, September 29, 2026:
+https://openssl-library.org/news/secadv/20260929.txt
+
+OpenSSL 3.5 vulnerability status:
+https://openssl-library.org/news/vulnerabilities-3.5/
+
+OpenBSD link/linkat semantics (atomic name creation and EEXIST):
+https://man.openbsd.org/OpenBSD-7.8/link.2
+
+XTerm control sequences, bracketed paste mode:
+https://invisible-mirror.net/xterm/ctlseqs/ctlseqs.html

@@ -1,0 +1,29 @@
+onekeyirc 0.1.13 / vipirc 0.7.14 - OpenBSD validation scope
+Date: 2026-11-08 (America/Los_Angeles)
+
+NO NEW NATIVE OPENBSD RUN FOR THIS SESSION/RESUME/LOGGING RELEASE
+
+Current executed validation was performed on Linux. Do not interpret earlier
+native OpenBSD results as a new native validation of vipirc 0.7.14 or
+onekeyirc 0.1.13.
+
+This release changes behavior that matters to OpenBSD deployment: the local
+background/resume attach request, ownership of frontend-independent session
+state, single-session endpoint allocation, resume repainting, and optional
+0600 transcript sidecar logging. vipirc can also request ncurses or minimalist
+presentation when attaching to a current worker. Older workers may be recovered
+through the established attach packet when they reject the frontend extension.
+
+The OpenBSD rc.d wrapper files themselves were not redesigned. However, no new
+native OpenBSD compiler/link, rcctl start/stop/restart, reboot, SSH detach/resume,
+filesystem logging, legacy-worker fallback, or frontend-switch run was performed
+for this release. Those behaviors therefore remain unvalidated natively here.
+
+Linux validation covered owner-only endpoint checks, stale/live lease behavior,
+single-session collision refusal, current and legacy attach handshakes, retained
+scrollback repaint, private log-file checks, and the standalone terminal paths.
+The changed full vipirc sources were strict-syntax checked, but the Linux host
+lacks wide-character curses development headers so no new full vipirc binary
+was linked or run.
+
+See doc/VALIDATION.txt for the exact executed checks and limitations.

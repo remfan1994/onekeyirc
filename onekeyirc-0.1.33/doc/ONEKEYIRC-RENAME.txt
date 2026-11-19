@@ -1,0 +1,156 @@
+onekeyirc 0.1.13 - rename and upgrade guide
+========================================
+
+The standalone application formerly called 1keyirc is now onekeyirc.
+Its executable, source archive, manual page, examples, installed document
+folder and OpenBSD daemon path use onekeyirc. The OpenBSD service name was
+already onekeyirc and does not change. vipirc and vipirc -i keep their names.
+
+Executable filenames may begin with a digit. OpenBSD rc.d service script
+names must follow shell variable naming rules. Using onekeyirc consistently
+avoids two different application/service names; it does not remove the
+need for a separate rc.d control script.
+
+Build and installed files
+-------------------------
+
+Unpack onekeyirc-0.1.13-source.tar.gz and build in its source directory:
+
+    ./configure --prefix=/usr/local
+    make
+    ./onekeyirc --version
+
+The version is onekeyirc 0.1.13. Ordinary installation is:
+
+    doas make install
+
+Linux installations may use sudo in place of doas. At a root prompt, omit
+both prefixes. Installed application files include:
+
+    /usr/local/bin/onekeyirc
+    /usr/local/share/man/man1/onekeyirc.1
+    /usr/local/share/doc/onekeyirc/
+
+No 1keyirc command alias is installed. The old executable, manual and document
+folder are not deleted automatically. Use onekeyirc to start the new release.
+Use the old installation's uninstall procedure only when its old processes
+have stopped and you no longer need those files. Configuration is separate
+from installed application files and is never removed by make uninstall.
+
+Existing settings and credentials
+--------------------------------
+
+For new installations the default primary configuration is:
+
+    $XDG_CONFIG_HOME/onekeyirc/config.ini
+
+If XDG_CONFIG_HOME is unset or empty, it is:
+
+    $HOME/.config/onekeyirc/config.ini
+
+A nonempty XDG_CONFIG_HOME must be absolute. When the new default config is
+absent, onekeyirc checks the former 1keyirc/config.ini under the same base.
+An existing old default is used in place. Its adjacent .servers catalog,
+.d profile directory, .commands usage file and saved credential locations
+therefore remain associated with that configuration. Nothing is copied,
+renamed, decrypted or chmodded by default-path selection.
+
+If both config files exist, onekeyirc/config.ini takes precedence. Invalid
+or inaccessible candidates are reported rather than silently skipped.
+--config FILE selects exactly that file and bypasses default-path selection.
+--init-config never overwrites an existing selected configuration.
+
+For an installation that already uses the old location, this remains valid:
+
+    onekeyirc --config /home/tutan/.config/1keyirc/config.ini
+
+Do not move GPG ciphertext or configuration sidecars merely to change their
+folder name. Saved absolute credential paths must continue to identify their
+existing files. /autoauth status shows the configured credential locations.
+When creating a new encrypted credential, /panel offers a private destination
+beside whichever configuration was actually selected.
+
+Both vipirc interfaces continue to use vipirc/config.ini and the vipirc
+saved-server catalog. The standalone rename does not switch their config.
+All three interfaces retain their existing IRC features and shared behavior.
+
+Upgrade an existing OpenBSD service
+----------------------------------
+
+If the old client has unsaved settings, first resume it as its ordinary
+service user with 1keyirc --resume, use /saveconf, and /background.
+Then return to the administrative shell for the upgrade commands.
+
+Stop an existing onekeyirc service BEFORE installing the new wrapper. The
+old wrapper still names /usr/local/bin/1keyirc and must be used to stop that
+old process correctly:
+
+    doas rcctl stop onekeyirc
+
+If the service has never been installed or is already stopped, no running
+service needs to be stopped. For manually started old clients, resume using
+the old command and exit with /quit. Do not start a second copy on the same
+IRC account while the old client remains connected.
+
+After building the new source, install the application and control script:
+
+    doas make install-openbsd-service
+    file /usr/local/bin/onekeyirc /etc/rc.d/onekeyirc
+
+These files share a basename but have different roles:
+
+    /usr/local/bin/onekeyirc    compiled application executable
+    /etc/rc.d/onekeyirc         text control script beginning #!/bin/ksh
+
+The target copies packaging/openbsd/onekeyirc to rc.d. Copying or renaming
+the compiled executable into rc.d still produces an invalid service script.
+The guarded target requires OpenBSD, root and the /usr/local/bin layout;
+it does not enable/start a service or edit rc.conf.local settings.
+
+Keep the existing user and --config path if they already work. To configure
+an existing installation for user tutan and its legacy config explicitly:
+
+    doas rcctl enable onekeyirc
+    doas rcctl set onekeyirc user tutan
+    doas rcctl set onekeyirc flags --background --reconnect --config /home/tutan/.config/1keyirc/config.ini
+    doas rcctl start onekeyirc
+    doas rcctl check onekeyirc
+
+For a new setup, use /home/tutan/.config/onekeyirc/config.ini instead, after
+creating and saving it as tutan. Enable before setting user and flags.
+The placeholder service account _onekeyirc is not created by the package;
+set the intended ordinary user before starting the service.
+
+Log in as the same ordinary user to inspect or resume the new worker:
+
+    onekeyirc --sessions
+    onekeyirc --resume
+
+Use /background to detach while keeping it running. Use /quit to stop it.
+A process restart starts a fresh session and does not retain in-memory
+scrollback or unfinished drafts. Save settings before stopping the old one.
+
+Older detached sessions
+-----------------------
+
+New standalone jobs use /tmp/onekeyirc-jobs-UID. onekeyirc --sessions and
+numbered --resume search that new registry. The old 1keyirc command can
+still list and resume its old jobs until you stop them. A specific older
+session may also be resumed by its explicit socket path:
+
+    onekeyirc --resume /tmp/1keyirc-jobs-UID/job-N/session
+
+Replace UID with the numeric user ID from id -u and N with the old job number.
+This attaches to the existing old process; it does not upgrade or rename
+that running process. Its old name remains visible until it exits.
+Full vipirc and vipirc -i keep their existing job registry and resume behavior.
+
+References and validation
+-------------------------
+
+    https://man.openbsd.org/OpenBSD-7.8/rc.subr.8
+    https://man.openbsd.org/OpenBSD-7.8/rcctl.8
+
+See doc/OPENBSD-VPS.txt for fresh configuration and boot-start instructions.
+See doc/VALIDATION.txt and doc/OPENBSD-VALIDATION.txt for the executed checks
+and their limits. The included IALA license is unchanged.

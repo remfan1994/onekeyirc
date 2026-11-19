@@ -1,0 +1,122 @@
+SESSION CONTROL RELEASE VALIDATION
+Date: 2026-11-09
+vipirc 0.7.16 / onekeyirc 0.1.15
+
+Executed final checks:
+- Hardened optimized onekeyirc build with strict warnings: PASS.
+- make check-session-controls: PASS for onekeyirc; vipirc's non-curses
+  focused gate also passed using verified compiler/TLS flags in a scratch
+  Makefile. This is not a normal vipirc configure or full UI build pass.
+- make check-session-controls-sanitize: PASS, including all seven terminal-
+  loss cases. Both control-protocol namespaces passed ASan/UBSan checks.
+- Actual-main CLI fixtures: PASS normal and ASan/UBSan in both namespaces.
+- make check-security, check-security-sanitize and check-security-detach:
+  PASS for the shared/standalone code. Prior security controls remained intact.
+- Compiled full embedded manual and shipped text: byte-identical.
+- Shared production source files: 38 byte-identical between packages.
+- Final onekeyirc ELF: PIE, RELRO, immediate binding, non-executable stack,
+  stack protector and fortified imports verified.
+
+Production hostile-idle workload:
+  Duration: 90.006 seconds.
+  Incoming records: 135008.
+  PING replies: 180.
+  Worst/median PING latency: 2.421/0.143 ms.
+  Completely unread PTY: 30.0 seconds.
+  Actual terminal bytes inspected: 6444225.
+  Unexpected commands, unsolicited DCC connections, unsafe remote controls,
+  and persistent logs with logging disabled: all zero.
+  Identity-verified steady baseline/max descriptors: 4/4.
+  Peak steady RSS: 4720 KiB; growth after warm-up: 92 KiB.
+  Sampled client CPU time: 0.77 seconds.
+
+The workload used local fixture peers and the final production binary.
+This is a bounded regression workload, not a days-long availability proof.
+
+NEW FEATURE COVERAGE
+
+The close protocol fixture checks attached/detached identity, separate
+controller EOF, second attachment refusal, UID/token/reused-job rejection,
+unexpected rights and reserved fields, partial replies, acceptance without
+completion, original lease release before completion, legacy fallback,
+bounded HUP/close waits and restored shared tty flags/alternate screen.
+Socket calls/file type are mocked; files, locks, PTYs and signal handlers
+are real. This is not native AF_UNIX or SCM_RIGHTS runtime coverage.
+
+The actual-main fixture checks saved startup choice, nonpersistent -i/-N
+overrides, -n nickname compatibility, fixed standalone mode, management
+without config/TTY, malformed/conflicting options, result propagation and
+IRC/DCC teardown before background_finish can confirm completion.
+
+Config/client/command/panel regressions verify strict transactional parsing,
+legacy absence, both serialized values, primary ownership, live/lazy/new
+profile propagation, Save/Apply/cancel behavior and active-session retention.
+The full ncurses Settings regression is included but remains unexecuted.
+
+The idle terminal-loss fixture passes all seven cases, normal and ASan/UBSan:
+master closure, backlogged closure, managed HUP, controller EOF, stdin EOF,
+stdin EIO and unmanaged HUP. Managed cases retain draft/history, keep IRC
+PING responsive, detach actual standard descriptors, restore shared tty flags,
+reattach to a fresh terminal and honor subsequent TERM. Initial managed setup
+and handshake are substituted because AF_UNIX is denied. EOF/EIO are injected
+at the production read boundary; PTY master closure/backlog are real.
+
+The full-UI cleanup-boundary fixture extracts the production loss branch and
+checks actual backend detach before deliberately blocking stdio cleanup. It
+does not link or run the complete curses UI. Baseline blocks until its alarm.
+
+Baseline idle comparisons: simple PTY closure already passed; backlogged
+closure failed with exit 1, managed HUP with 129, stdin EOF/EIO with 0/1.
+The corresponding fixed managed cases all pass with continuing IRC traffic.
+
+NATIVE GATES AND ENVIRONMENT
+
+AF_UNIX creation returns EPERM. tests/test_session_hangup.py reports
+UNAVAILABLE, status 77, rather than PASS. Native tests/test_background.c
+including attached/detached public close lifecycle compile under strict
+warnings but are not executed here. The complete ipc/SCM_RIGHTS session
+lifecycle needs a normal host.
+
+vipirc ./configure fails because curses development headers are unavailable.
+No complete ncurses build/runtime pass, fake headers, or native OpenBSD pass
+is claimed. No actual user SSH, rc.d/reboot or complete make check pass.
+LeakSanitizer remains unavailable under host tracing; ASan/UBSan runs set
+ASAN_OPTIONS=detect_leaks=0:halt_on_error=1 and
+UBSAN_OPTIONS=halt_on_error=1:print_stacktrace=1.
+
+Run these gates from each extracted source package on a capable target host:
+
+  ./configure
+  make
+  make check-session-controls
+  make check-session-lifecycle
+  make check-security
+  make check-session-controls-sanitize
+  make check-security-sanitize
+
+Native lifecycle tests exercise real AF_UNIX, SCM_RIGHTS, attached/detached
+close, PTY master closure, waiter HUP/termination and numbered reattachment.
+The vipirc native target includes both its minimalist and full frontends.
+
+PACKAGE CHECKS
+
+Clean staged onekeyirc ./configure and make: PASS. The staged executable
+is byte-identical to the final tested production binary:
+SHA256 9f9a458c9dc409e491eb3310f267755a8ea5485f0d7add1ad172a10680e78ec5
+
+Private DESTDIR installation: PASS. Installed binary/version, man page,
+new session-control docs/current JSON and historical review/validation
+files are present. No host or VPS installation was changed.
+
+All shipped Python tests parse; both man pages render with groff -Tascii -man
+without diagnostics. New user-facing documentation is ASCII. Source-only
+archives have per-file manifests/checksums and verified sizes/modes/content.
+No build outputs, test homes, credentials or temporary runtime files are
+included. These packaging checks do not expand the native-runtime coverage.
+
+HISTORICAL EVIDENCE
+
+doc/SECURITY-REVIEW.txt, doc/SECURITY-VALIDATION.txt and
+doc/SECURITY-TEST-RESULTS.json retain the preceding 0.7.15/0.1.14 audit scope.
+Historical OPENBSD-VALIDATION.txt applies only to its named older releases.
+Current machine-readable evidence is doc/SESSION-CONTROL-TEST-RESULTS.json.

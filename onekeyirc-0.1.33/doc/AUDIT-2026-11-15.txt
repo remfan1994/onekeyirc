@@ -1,0 +1,323 @@
+ONEKEYIRC AND VIPIRC SECURITY, EFFICIENCY AND STABILITY REVIEW
+
+Report date: 2026-11-15, America/Los_Angeles (2026-11-16 UTC).
+Baseline releases: onekeyirc 0.1.24 and vipirc 0.7.25.
+Reviewed release outputs: onekeyirc 0.1.25 and vipirc 0.7.26.
+Status: security, efficiency and supported stability gates completed.
+Native-platform limitations are recorded below.
+
+Purpose and scope
+
+This review addressed a client intended to remain connected to a public IRC
+network for long periods. Work proceeded in the requested order: security,
+then measured efficiency, then stability. Hostile IRC text, stalled peers,
+authentication, private files, session controls and terminal behavior were
+considered together because a client can become unavailable without crashing
+or exposing memory.
+
+Two reproducible CPU-consumption defects were confirmed and fixed. Two
+separate efficiency changes reduce repeated roster sorting and persistent-log
+scanning. Shared source changes were mirrored into vipirc; the recorded parity
+check found 38 common source/header files identical. The primary runtime
+target for this pass was onekeyirc. This was a bounded source review and local
+test campaign, not a security certification or a guarantee against every
+hostile network condition. No public IRC network was used as an attack target.
+
+Detailed measurements, commands, outcomes and limitations accompany this
+report in doc/AUDIT-TEST-RESULTS.json. References below identify the production
+source and reproducible tests, rather than requiring the reader to interpret
+raw diagnostic logs.
+
+1. Confirmed availability defects
+
+1.1. An incoming message could make send review consume a CPU core
+
+While the user was reviewing an unsent message, one ordinary incoming chat
+record could leave retained traffic pending. The event loop selected a zero
+poll timeout because traffic was pending, but REVIEW intentionally retained
+that traffic until the user left the screen. Nothing consumed the condition,
+so the process repeatedly woke without useful work. The trigger required an
+open review screen; ordinary idle WATCH behavior was not the failing state.
+
+The matched two-second regression measured 2.01 process CPU seconds on the
+baseline and 0.00 seconds at the sampler's resolution on the candidate. The
+latter does not mean the process performs literally no work. The test also
+verified PING/PONG handling, retention of the unsent draft, no unintended send,
+and exactly one presentation of the held message after leaving review.
+
+The fix wakes immediately for retained chat only in WATCH, where it can be
+drained, and preserves redraw scheduling for REVIEW. It does not discard
+messages or bypass confirmation. Evidence: src/idle.c,
+tests/test_idle_availability.py and the before/after availability records in
+doc/AUDIT-TEST-RESULTS.json.
+
+1.2. A stalled DCC acknowledgement could cause repeated readiness wakes
+
+During an explicitly accepted DCC receive transfer, the receiver must flush
+its acknowledgement before consuming further payload. The baseline kept
+POLLIN interest while an ACK was blocked. A peer that stopped reading ACKs
+while leaving incoming data readable could therefore cause immediate poll
+wakes followed by another unsuccessful ACK write.
+
+The trigger requires an active, user-accepted transfer; receiving an
+unsolicited DCC offer alone cannot activate it. The existing 120-second
+no-progress timeout bounds an entirely stalled transfer. The fix selects
+writable readiness while an ACK is pending, including partial writes and
+empty-file ACK0, then restores normal input readiness after it flushes.
+
+A local TCP fixture filled the actual ACK send buffer and left payload
+unread. The baseline produced 256 readiness wakes without progress in 256
+iterations; the fixed source produced zero. After the peer drained its
+buffer, the transfer resumed and exact final file bytes were verified.
+Normal and AddressSanitizer/UndefinedBehaviorSanitizer runs passed. This is a
+focused real-socket fixture, not a complete interactive DCC session.
+Evidence: src/dcc.c, tests/test_dcc_backpressure.c and the DCC results in
+doc/AUDIT-TEST-RESULTS.json.
+
+2. Security controls reviewed and exercised
+
+The transport/application review covered src/net.c, src/protocol.c, src/app.c
+and src/autocommands.c. No additional confirmed transport or authentication
+defect was found. Inspection covered certificate and hostname/IP verification,
+the TLS 1.2 minimum, absence of automatic plaintext fallback, fatal versus
+retryable failures, bounded framing and queues, authentication sequencing,
+secret-log suppression and reconnect boundaries. Local transport tests passed
+DNS/IP identity verification, wrong identity, untrusted and expired
+certificates, deadlines, byte integrity and resolver descriptor isolation.
+The retry suite passed 31 classification scenarios. These observations are
+evidence about the tested paths, not proof of every TLS or network outcome.
+Evidence: tests/test_net.py, tests/test_net_retry.py and
+tests/test_security_auth.c.
+
+The new tests/test_security_state.c passed 40,000 deterministic hostile wire
+cases, seed 0x76312425, with 11,686 bounded disconnect/reset outcomes. It uses
+real application handlers with an in-memory transport and checks receive,
+history, roster, channel-list and queue bounds, log-byte accounting and
+sanitized display strings. Tested inputs did not initiate credential reads,
+GPG credential startup or configuration saves. The sanitizer run passed both
+before and after the roster change. This is finite regression coverage, not
+exhaustive fuzzing or a substitute for the separate socket tests.
+
+Local review covered src/config.c, src/credentials.c, src/background.c,
+src/main.c and the OpenBSD service script. Reviewed controls included pinned
+private directories, owned regular-file checks, symlink refusal, bounded
+reads, transactional configuration publication, redacted diagnostics, literal
+GPG argument execution without a shell, subprocess deadlines and descriptor
+isolation, and guarded cleanup. Session control inspection covered tokens,
+peer UID checks, descriptor validation, leases and bounded handshakes. Entry
+guards reject mismatched process identities and disable credential-bearing
+core dumps before reading configuration. No new concrete local-control defect
+was confirmed. Normal and sanitizer configuration, credential and controlled
+background tests passed; their IPC limitations are stated below.
+
+DCC review also checked strict parsing, explicit acceptance, eight-offer and
+four-transfer bounds, exclusive private receive creation, no-overwrite
+behavior, source inode identity, ACK validation, cancellation and timeouts.
+Existing DCC and file-identity regressions passed. Classic DCC remains
+unencrypted and unauthenticated: an offered IRC nickname is not cryptographic
+proof of the TCP peer's identity. No change here adds that protection.
+Evidence: tests/test_dcc.c and tests/test_dcc_file_identity.c.
+
+3. Measured efficiency changes
+
+3.1. Maintain roster order without repeated complete sorting
+
+The baseline sorted an entire roster after each NAMES record, JOIN and
+affected NICK event, even for a duplicate JOIN. The candidate uses binary
+lookup and bounded insertion/repositioning. Nickname ordering, prefix modes,
+array capacity and the 4096-user cap are preserved. An actual CASEMAPPING
+change re-sorts the roster so later lookup remains valid.
+
+Median process CPU time in milliseconds, baseline -> candidate:
+
+- 4096 users in 410 reverse-order NAMES records: 131.678 -> 8.134.
+- 1000 PART/JOIN pairs: 448.854 -> 9.102.
+- 1000 duplicate JOINs: 394.592 -> 0.961.
+- 1000 nickname changes: 429.057 -> 4.393.
+
+These are medians of three alternating runs per version, using separate
+uninstrumented GCC 14.2 -O2 binaries and the same local handler workload.
+Startup and teardown were excluded. Separate instrumented runs counted
+410/1000/1000/1000 full sorts in the baseline phases and zero in the candidate;
+binary comparisons and bounded memory moves remain. These measurements do
+not predict whole-client or OpenBSD performance.
+
+The existing application suite and new roster regression passed. The latter
+covers all three case mappings, prefix preservation, duplicates, nickname
+moves, removals and capacity reuse, including sanitizer execution. Evidence:
+src/app.c, tests/test_roster.c and the roster measurements in
+doc/AUDIT-TEST-RESULTS.json.
+
+3.2. Index persistent catchup history once, then read the needed page
+
+The previous catchup reader repeatedly scanned its pinned log interval during
+navigation. The candidate retains at most 512 sparse checkpoints, an 8192-byte
+array on the tested 64-bit host. It counts rows once, finds a preceding record
+boundary and scans until the requested page is filled. Existing bounded
+record buffers, sanitization and the 16 MiB log ceiling remain.
+
+A real-PTY fixture with 32,768 generated records and a 14,713,283-byte log
+measured these wall times in seconds, baseline -> candidate:
+
+- Open catchup: 0.7143 -> 0.3162.
+- End: 1.0126 -> 0.0013.
+- Home: 0.6200 -> 0.0007.
+- Three successive Page Down actions: 0.6230/0.6391/0.6362 ->
+  0.0007/0.0007/0.0007.
+
+These are one before/after sequence on one host, not repeated-run medians or
+latency guarantees. Very short actions approach the fixture's timing
+resolution. Opening still performs a bounded initial scan.
+
+Width, UTF-8 mode, locale and output-format changes invalidate the index.
+Observed shrink or same-size timestamp changes also invalidate it. Reads stop
+at the captured endpoint, including an unterminated final record; subsequent
+append cannot extend that interval. An independent source review found no
+concrete new indexing or bounds defect. Normal and sanitizer tests compare
+pages with an independent sequential traversal, including long forged-prefix
+records, Unicode, checkpoints, truncation and regrowth. The pinned inode is
+not an immutable copy: arbitrary external overwrite plus growth between
+observations can escape the append-only cache assumption. Evidence:
+src/idle.c, tests/test_idle_catchup.c and the catchup measurements/results in
+doc/AUDIT-TEST-RESULTS.json.
+
+4. Stability results and remaining validation boundaries
+
+The supported final gates passed. This included check-security,
+check-security-sanitize, check-efficiency, session-control and detach fixtures,
+additional application/editor/nickname/DCC/credential unit checks, CLI and
+manual consistency, contextual commands, setup and fake-GPG subprocess handling,
+foreground autojoin/reconnect, DCC terminal interaction, rename checks and
+wrapped message display. All 24 supported functions selected by the original
+terminal suite were executed: one helper, eight offline functions and fifteen
+complete live functions. No assertions were removed to skip the three native
+background-session functions listed in the machine-readable report.
+
+The tested Linux executable's ELF headers confirmed PIE, RELRO, immediate
+binding and a non-executable stack. Its symbols include stack-protector and
+fortified-libc checks, and it has no curses dependency. These are observations
+of this build, not claims about every target toolchain or OpenBSD executable.
+
+The final standalone build also passed review-availability and wrapping tests
+under AddressSanitizer and UndefinedBehaviorSanitizer. The vipirc -i harness
+passed CLI/manual, wrapping, review-availability and three catchup/scrollback
+functions normally and under those sanitizers. Its ordinary curses entry
+points deliberately abort if called; these results cover the minimalist path.
+
+A final 300.001-second hostile-traffic soak sent
+450,016 IRC records through a private local peer, with the PTY
+deliberately left unread for 100.000 seconds. Results:
+
+- 599 PING replies; maximum 1.883 ms and median
+  0.107 ms observed response latency.
+- 21,275,986 terminal-output bytes inspected; zero remote
+  terminal-control scalars, unexpected client sends or unsolicited DCC connections.
+- 172 bounded-queue omission notices, as expected
+  during backpressure; the final traffic marker was received after output resumed.
+- Identity-verified process samples: 2.720 CPU seconds,
+  5208 KiB steady peak RSS, and 92 KiB growth
+  from the warm-up sample. Descriptor-count samples were unavailable; no
+  measured descriptor plateau is claimed.
+- Persistent logging was disabled for this fixture; zero transcript log files
+  were created. This result does not describe logging-enabled disk usage.
+
+This is a five-minute stress observation on one host. It does not establish
+days-long uptime, every kernel/library combination or behavior under every
+IRC server policy. The native session probe returned UNAVAILABLE (exit 77)
+because this environment denies named AF_UNIX socket creation.
+
+
+Older terminal and CLI test expectations were corrected after
+reproducing each mismatch against the untouched baseline. No production
+behavior was changed to address these fixture failures.
+
+In tests/test_idle_context.py, the old predicate could pass on the previous five-byte /quit screen before
+reading any output from the completion keystrokes. Both baseline and candidate
+correctly inserted a space for the optional argument, yielding six bytes, and
+both cleared selection when the terminal became too small. The corrected test
+waits for the new draft and explicitly verifies hidden-selection removal and
+redisplay after growth. Its separate no-execution assertion remains intact.
+The corrected case passed on the baseline; the complete corrected context
+suite passed on the candidate. No production change was made for this issue.
+The original failure, step trace and successful reruns remain in the evidence.
+
+The application-preferences fixture in tests/test_idle_setup.py assumed a
+headline without composer mode and the byte meter, and assumed presentation
+could not change when saving a global composer preference. The corrected
+case requires the exact server/channel and unchanged draft meter, while
+checking the new presentation against the saved preference. Its connection,
+configuration, backlog-once and no-send assertions remain. The isolated case
+passed on the baseline and the complete candidate setup suite passed.
+
+In tests/test_idle_wrapping.py, split-send confirmation now correctly waits
+for the existing alternate-screen review. All four complete wrapping cases
+passed with exact payload, caret, Unicode, resize and logging assertions;
+an additional assertion prohibits sending before confirmation.
+
+In tests/test_idle_terminal.py, direct_limit_and_bounds explicitly returns
+from split review to the retained budget+1 draft before cancelling it. The
+corrected case verifies draft retention, split state and no extra sends.
+The corrected whole function passed on the baseline before the supported
+candidate live suite was run. These changes strengthen synchronization and
+match documented behavior instead of suppressing failed product assertions.
+
+The paired CLI/manual fixtures no longer ban documented references to
+onekeyirc within vipirc's full manual. The baseline full manual already
+contained legitimate shared session and upgrade guidance. Full-manual
+identity/version and the exact supplied manual comparison remain checked;
+standalone, help, version and minimalist-manual branding checks remain strict.
+Both complete normal CLI/manual gates passed after that fixture correction.
+
+
+Validation limits:
+
+- Execution used Linux/GCC 14.2/OpenSSL 3.5.7; no native OpenBSD runtime or
+  deployment was validated.
+- AF_UNIX creation returned EPERM. Session-control fixtures use controlled
+  socket boundaries with real files, descriptors, leases and PTYs; native
+  SCM_RIGHTS attach/resume was not established.
+- Credential subprocess tests use a controlled executable. They do not prove
+  real GnuPG keyring/agent integration.
+- vipirc's shared minimalist code was compiled through a harness with unused
+  curses entry points substituted. This is not a curses UI validation.
+- Sanitizer runs disabled leak detection. No LeakSanitizer pass is claimed.
+- Passing focused gates and static analysis does not constitute a complete
+  make check pass; unavailable gates and the corrected fixture's original failure remain distinct.
+
+5. Reproduction and operational upgrade
+
+After configuring and building the extracted source on a suitable host, the
+focused reproduction targets are make check-security, make check-efficiency,
+make check-idle-availability, make check-security-sanitize,
+make check-session-controls and make check-security-detach. The five new
+focused regressions are test_security_state.c, test_dcc_backpressure.c,
+test_idle_availability.py, test_roster.c and test_idle_catchup.c under tests/.
+
+On a host with the required facilities, complete the broader make check,
+make check-session-lifecycle, make check-gpg and make check-setup-gpg gates.
+Build and exercise vipirc's actual curses frontend separately. The existence
+of a target is not evidence that it passed in this environment.
+
+Replacing the executable does not update an existing background worker.
+Resuming that worker resumes its old code. Plan a controlled restart of each
+worker after installing the new release, accounting for pending drafts and
+transfers. Inspect --sessions and use the documented --close-session ID
+workflow when ready to end the old connection, then start the updated client.
+The audit does not require abandoning verified TLS or weakening private-file
+permissions to obtain the improvements.
+
+6. Release packaging
+
+The source inventories were staged without build products or private runtime
+files. The standalone source built cleanly with strict warning and hardening
+flags. Version and embedded-manual checks passed. A private DESTDIR installation
+and uninstall verified executable/document permissions, installed content and
+the current/historical audit documents; the host installation was not changed.
+The clean staged binary was byte-identical to the tested standalone binary.
+
+Each source archive includes SOURCE-MANIFEST.json and SHA256SUMS. The separate
+release checksum file covers both source archives and this report. Earlier
+validation records remain explicitly historical in doc/PRE-AUDIT-VALIDATION.txt
+and the dated feature-specific documents. doc/VALIDATION.txt points to this
+current report and its machine-readable evidence.
+

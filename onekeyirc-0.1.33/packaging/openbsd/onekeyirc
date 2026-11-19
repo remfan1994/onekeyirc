@@ -1,0 +1,24 @@
+#!/bin/ksh
+# Original example service for onekeyirc. See doc/OPENBSD-VPS.txt.
+# Enable it, then set its user and absolute config path before starting it.
+# The placeholder account is deliberately not root and is not created here.
+
+daemon="/usr/local/bin/onekeyirc"
+daemon_user="_onekeyirc"
+daemon_flags="--background --reconnect"
+
+. /etc/rc.d/rc.subr
+
+rc_reload=NO
+
+rc_pre() {
+    typeset service_uid
+    service_uid=$(/usr/bin/id -u "${daemon_user}" 2>/dev/null) || service_uid=0
+    if [[ ${service_uid} == 0 ]]; then
+        print -u2 "onekeyirc: select an existing non-root service user with rcctl set onekeyirc user USER"
+        return 1
+    fi
+    return 0
+}
+
+rc_cmd "$1"

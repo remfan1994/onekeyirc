@@ -1,0 +1,210 @@
+USER-DEFINED KEY BINDINGS
+=========================
+
+Custom bindings are optional and empty by default. The ordinary navigation,
+editor and menu controls still work. A binding that you explicitly create
+overrides that key only in the main chat and command prompt. Removing the
+binding restores its ordinary behavior there.
+
+The same binding format is used by onekeyirc, vipirc -i and full vipirc.
+The clients have separate primary configuration files; editing one program's
+preferences does not edit the other's file. Within one client process, the
+primary configuration owns the table for all server profiles.
+
+COMMAND WORKFLOW
+
+    /bindings
+    /bindings keys
+    /bindings actions
+    /bind F7 summary
+    /bind Alt-c command
+    /bind Ctrl-K clearinput
+    /save input
+
+These are examples for users to choose, not assignments installed by the
+program. /bind KEY ACTION adds or replaces one entry immediately in memory.
+The key and action names are case-insensitive. Only complete, supported
+names are accepted; arguments after ACTION are an error.
+
+    /unbind F7
+    /unbind all
+    /save input
+
+/unbind KEY removes one entry; an already unbound key remains unbound.
+/unbind all removes all custom bindings. Neither command changes the
+ordinary keyboard controls. Changes apply immediately, and /save input
+persists them. Editing bindings alone never writes a configuration file.
+
+/save input targets the primary configuration even when another server is
+selected. A plain /save targets the selected server; use /save input when
+saving application preferences. Offline --test-mode permits binding edits
+in memory and refuses saves, as it does for other settings.
+
+FULL VIPIRC TABLE
+
+In full ncurses vipirc, choose App -> Key bindings, or enter /bindings.
+The table has Key and Action columns. Add creates an entry; Edit changes
+the selected entry; Remove deletes it. The key field accepts a canonical
+name, and the action chooser lists supported program functions.
+
+Apply commits the edited table in memory for all servers. Save commits and
+saves application preferences to the primary file. Escape returns from the
+action chooser to the key field, then to the table. Escape from the table
+closes it and discards unapplied edits. Applied or saved changes remain.
+The chat draft is preserved while the table is open. Table navigation uses
+its own displayed controls; custom shortcuts cannot override those controls.
+From the table, a adds, Enter or e edits, d or Delete removes, p applies and
+s saves. Arrows select rows; Home/End selects the first/last row.
+
+/bindings actions and /bindings keys still print the available names in
+the command response reader. In minimalist mode, plain /bindings lists the
+current table instead of opening an ncurses screen.
+
+KEY NAMES AND TERMINAL ALIASES
+
+    F1 through F12
+    Ctrl-A through Ctrl-Z
+    Alt-a through Alt-z, Alt-0 through Alt-9
+    Up Down Left Right Home End PageUp PageDown Insert Delete
+    Backspace Tab Shift-Tab Enter Escape
+
+Esc, Return, PgUp and PgDn are also accepted spellings. Saved output uses
+canonical names. Alt letters use unshifted lowercase terminal bytes: the
+spelling Alt-A is accepted as Alt-a, not as a distinct Alt-Shift-A binding.
+There is no arbitrary printable-key, Unicode-key, multi-key chord, modifier
+combination, mouse, terminal escape-string or shell binding syntax.
+
+Some terminal key combinations produce the same bytes:
+
+    Ctrl-H             Backspace
+    Ctrl-I             Tab
+    Ctrl-J, Ctrl-M     Enter
+    Ctrl-[             Escape
+
+These names share one binding. /bind Ctrl-I summary followed by /bind Tab
+command replaces the same entry. Duplicate aliases in a hand-written file
+are rejected instead of silently choosing one.
+
+Terminal emulators, SSH clients and multiplexers may consume or translate
+keys before the application sees them. F1..F12 and Alt use the sequences
+provided by the terminal. The minimalist decoder supports ordinary CSI/SS3
+function-key sequences and the Linux console's F1..F5 forms. Modified
+function-key sequences are not additional bindable identities.
+
+The terminal's inherited interrupt, quit and suspend mappings still take
+precedence. A custom Ctrl-C or Ctrl-Z action can run only if its byte reaches
+the program rather than generating a terminal signal. The client does not
+change those assignments. [input] force_terminal_signals=false remains the
+default; true enables terminal signals without assigning signal keys.
+Ctrl-D is ignored by default, but an explicit binding can use it in the main
+chat or command prompt. Ordinary signal restoration on exit is unchanged.
+
+AVAILABLE ACTIONS
+
+    compose       Focus the chat composer.
+    command       Open the command prompt.
+    bindings      Open the full table, or list bindings in minimalist mode.
+    help          Open context help for the current screen.
+    manual        Open the complete manual.
+    summary       Review activity across server sessions.
+    servers       Open or list server connections.
+    channels      Open or list this server's channels.
+    queries       Open or list private conversations.
+    unread        Open or list unread conversations.
+    mentions      Review retained mentions.
+    transfers     Open or list file transfers.
+    settings      Open interactive application settings.
+    quickstart    Open connection setup.
+    next          Select the next conversation.
+    prev          Select the previous conversation.
+    clearinput    Deliberately clear the current input draft.
+    cancel        Stop this server's queued chat/startup commands.
+    background    Detach the terminal, retaining the running session.
+    quit          End all server sessions using the normal quit path.
+
+Actions follow the interface's existing behavior. Opening a transfer list
+does not accept a transfer; opening settings does not apply them. cancel
+cannot retract messages already received by the server. background retains
+the running worker's state; quit ends it and loses unsaved drafts/history.
+The full interface asks its normal quit question for a quit shortcut.
+
+DRAFTS, PASTE AND CONFIRMATIONS
+
+Custom bindings are active only in the main chat and command prompt.
+Readers, configuration/password fields, file-transfer dialogs, the binding
+table, and send/close/quit confirmations retain their ordinary controls.
+Shortcuts do not act as confirmation buttons and cannot bypass send review.
+
+In the minimalist interface, shortcut response readers preserve the exact
+Compose/Command draft and caret. Return from the reader to continue editing.
+A shortcut that would change the draft's destination or switch editors
+refuses a nonempty draft. Finish the draft, cancel it, or deliberately use
+clearinput before changing destination. This prevents silent retargeting.
+The full interface retains its per-conversation drafts and command editor
+when temporarily opening a screen through a shortcut. An unfinished full-mode
+command refuses shortcuts that change its conversation or connection. When
+restored, it returns to its original conversation. If that conversation has
+closed, the command stays visible but cannot run; Escape cancels it.
+
+After returning from a shortcut reader, the minimalist editor must be fully
+visible and receive a fresh Enter after a short pause. In full mode, the
+first fresh Enter acknowledges a restored command, and another Enter after
+a pause runs it. Holding Enter or a buffered reader-exit/Enter burst cannot
+execute the retained command.
+
+Recognized bracketed paste remains literal. Its key-looking bytes never
+execute bindings. Ordinary Enter/Escape, mode changes and shortcuts
+adjacent to the paste terminator are blocked until a later input turn
+after display and a short quiet interval. Holding a key extends that
+interval. A tiny or failed frame does not count as review; resize so
+the editor is visible, release the key, then act deliberately.
+Legacy unframed paste is indistinguishable from typing. The existing Escape
+timing limits still apply before an opening paste marker is recognized.
+Use a terminal with bracketed-paste support and do not paste untrusted
+control sequences. See the main manual for input limits and review behavior.
+
+CONFIGURATION AND VALIDATION
+
+An initially generated config has an empty section:
+
+    [hotkeys]
+
+If you choose to bind F7 yourself, its saved form is:
+
+    [hotkeys]
+    F7=summary
+
+Up to 64 entries are supported. Unknown keys/actions, duplicate logical keys,
+extra action arguments, and overflow fail the entire configuration load.
+The caller's previous configuration remains intact on a failed load. An
+omitted or empty section loads with no custom bindings. Save writes only
+canonical key/action names through the existing atomic private-file writer.
+
+Run the program with --check-config after hand editing. Configuration files
+are local trusted preferences and keep the ownership/path checks described
+in SECURITY.md. No shortcut expands shell commands, raw IRC, arbitrary
+command strings, message templates or credentials. There is no send action.
+
+RECOVERY AND OLDER VERSIONS
+
+An explicit Enter or Escape binding can replace a control you usually use
+for command submission or cancellation. Choose such bindings carefully.
+The full Key bindings table retains its own controls. In either client,
+you can edit the primary file externally, remove unwanted [hotkeys] rows,
+validate with --check-config, and start a fresh process. Resuming an existing
+worker retains its in-memory bindings; it does not reload the edited file.
+Use the documented session controls if an old worker needs to be closed.
+
+Versions before onekeyirc 0.1.31 and vipirc 0.7.32 do not recognize [hotkeys].
+Saving with these new versions writes that section even when it is empty.
+Before downgrading, restore a compatible config backup or remove the entire
+[hotkeys] section and its rows, then validate with the older binary.
+
+BUILD AND CHECKS
+
+make check-hotkeys builds the config, preference/command and minimalist
+input regression tests. Full vipirc also checks its ncurses table and key
+dispatch state. make check-hotkeys-terminal exercises the actual minimalist
+binary in a pseudo-terminal. Run these from a configured source directory;
+Python 3 is required for the terminal suite. See doc/HOTKEYS-VALIDATION.txt
+for the release's recorded results and environment limitations.

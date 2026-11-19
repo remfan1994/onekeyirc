@@ -1,0 +1,213 @@
+onekeyirc 0.1.31 - getting started
+=================================
+
+This is a short walkthrough for the standalone minimalist client. README.md
+at the source root is the main user guide; MANUAL.txt and onekeyirc --manual
+are the complete reference. INSTALL covers building and installation.
+The standalone program was formerly named 1keyirc; see ONEKEYIRC-RENAME.txt
+before upgrading an older service or moving configuration.
+
+1. CONNECT AND CHAT
+
+Run the installed executable (or ./onekeyirc in the build directory):
+
+    onekeyirc
+
+Dismiss the welcome. Replace the host and nickname with your own:
+
+    /connect -nick mynick irc.example.org 6697
+
+Wait for registration, then join a channel:
+
+    /join #mychannel
+
+A new destination defaults to verified TLS on port 6697. A matching saved
+server reuses its own settings. A bare port does not turn TLS off; -tls or
++PORT selects TLS explicitly, and -plain explicitly selects unencrypted IRC.
+Credential authentication requires verified TLS. Without an explicit nick,
+a valid Unix login name is used, or user as a fallback.
+
+If you need SASL or a bouncer, use /panel to edit the intended server's
+profile, then connect it. See BOUNCERS.txt for ZNC and soju. Use a separate
+profile per upstream network and the required bouncer credential source.
+The bouncer restores channel membership instead of replaying saved autojoin.
+
+Ordinary typing opens Compose with its first character intact. The default
+one-row input sits below the live conversation tail. Enter sends and returns
+to the log; Escape cancels the draft. For a larger multi-row editor, use:
+
+    /set composer_mode fullscreen
+    /save input
+
+Use line instead of fullscreen to return to the compact layout. Both show
+incoming chat while you edit. /set send_mode review adds a review step.
+Long text that needs multiple IRC messages requires explicit split-send
+approval; screen rows and the protocol byte limit are different things.
+
+2. SAVE WHAT YOU WANT NEXT TIME
+
+To remember the current connection and enable it at startup:
+
+    /autoconnect on
+    /saveconf
+
+/saveconf saves application preferences and healthy server profiles and
+remembers the selected server as the next-launch default when it saves
+successfully. Saving alone never enables autoconnect. Leave autoconnect off
+if you prefer to use /connect after starting the client.
+
+/save writes the selected server. /save input and /save output save
+application preferences to the primary config. /save all writes healthy
+server profiles separately. Check diagnostics: successful writes are not
+rolled back if another profile fails.
+
+/join updates the running autojoin list. /autojoin add #anotherchannel
+stages a list for the next explicit connection; it does not join now.
+Staged autojoin edits take precedence when saving. Channel keys supplied to
+/join are not persisted. Authentication, TLS, and endpoint edits apply on
+an explicit /disconnect then /connect; automatic retries keep the interrupted
+connection settings.
+
+The default primary file is $XDG_CONFIG_HOME/onekeyirc/config.ini, or
+$HOME/.config/onekeyirc/config.ini if XDG_CONFIG_HOME is unset. XDG_CONFIG_HOME
+must be absolute. If the new default is absent, the old 1keyirc/config.ini
+under the same base is reused in place. The new file wins if both exist.
+No configuration or credential files are moved automatically.
+
+--config FILE selects an exact existing file; --init-config creates a new
+private one and refuses to overwrite an existing one. --check-config checks
+the primary file and saved profiles without connecting or reading secrets.
+INI paths are literal; ~ and $HOME do not expand. Relative paths use the
+launch directory, so prefer absolute paths for credentials and services.
+
+3. FIND YOUR CONVERSATIONS
+
+    /servers                 list profiles; /sl is an alias
+    /server 2                select profile 2 without connecting it
+    /connect 2               connect profile 2
+    /channels                list channel views; /cl is an alias
+    /channel #mychannel      select an existing channel view
+    /channel 0               show the selected server's messages and MOTD
+    /queries                 list queries; /ql is an alias
+    /query alice             open a query; /pm is an alias
+    /part                    leave the current channel
+    /close                   close the current retained conversation
+
+Server numbers start at 1. Profile 1 is the permanent primary profile;
+there are at most eight. Query list numbers start at 1 and may change when
+entries are closed. /list asks the network for its channel directory; it is
+separate from the local /channels list.
+
+/panel opens settings: 0 Application preferences, 1 through 8 server
+profiles. Enter keeps a displayed answer; Escape or Up goes back. At the
+selector, Escape discards unapplied answers and closes setup. Read the final
+action: application preferences default to Save, server panels to Save only.
+/quickstart is an optional short connection wizard; it defaults to Connect
+once. Saving or applying a profile does not interrupt a live socket.
+
+4. COMMANDS, HISTORY, AND PASTE
+
+From the watch log, / opens Command. In Command, Up recalls matching accepted
+commands. Down moves back toward your typed input or into suggestions.
+Enter on a highlighted suggestion inserts it; a fresh Enter executes it.
+Tab completes commands and nicknames. /help COMMAND gives syntax and examples.
+
+Compose is different: Up/Down moves the caret. It does not retrieve sent chat
+messages. Complete command history stays in RAM and excludes sensitive
+commands. The adjacent .commands file contains only bounded canonical command
+name counts, never arguments or conversation text.
+
+In the watch log, Up/Down scroll rows, PageUp/PageDown scroll pages, Home
+moves to the oldest retained text, and End returns to the live tail.
+Recognized bracketed paste is literal and cannot execute or send on its
+own; a pasted slash stays message text. A fresh Enter is required. Unframed
+paste cannot reliably be distinguished from typing.
+
+If a displayed row seems clipped, return to the same conversation or its
+live tail and inspect the retained text before sending again. A display
+redraw is separate from confirmation that a peer received the message.
+For a report, include the version, terminal, dimensions, composer mode,
+paste method, and harmless reproduction text.
+
+5. LEAVE IT RUNNING AND RECOVER A BUSY SESSION
+
+Inside the client:
+
+    /background
+
+Then in the shell:
+
+    onekeyirc --sessions
+    onekeyirc --resume
+
+These refer to a background job, which may contain several IRC connections.
+Job numbers are not server numbers or PIDs. If an SSH drop leaves a job
+marked attached/busy, use its current number:
+
+    onekeyirc --detach-session NUMBER
+    onekeyirc --resume NUMBER
+
+Detach preserves the worker, its connections, drafts, and retained history.
+To terminate the entire job instead:
+
+    onekeyirc --close-session NUMBER
+
+Closing ends every connection and transfer and cannot be resumed. /quit does
+that from inside the client. If close times out, the accepted request may
+still finish; inspect --sessions again. These management options are separate
+operations; do not combine them with --config or connection options.
+
+To start unattended from a saved configuration with autoconnect enabled:
+
+    onekeyirc --background --reconnect
+
+The local worker can be ready before registration finishes. Resume and check
+/servers or /summary. --reconnect retries eligible transient failures; it
+does not enable startup connection or save a preference. Authentication and
+TLS verification failures remain held for correction. Use /background before
+relying on managed survival of SSH-controller loss. Reboot or process exit
+ends RAM-only drafts/history; boot startup creates a new worker.
+
+Escape in the watch log backgrounds the job; Escape in an editor cancels
+that editor. Without an explicit custom binding, Ctrl-D is not an exit key.
+Existing terminal interrupt/quit/suspend keys and their enabled state are
+inherited, including any signal key mapped to that byte. [input]
+force_terminal_signals=false is the default; true enables signals without
+assigning keys. If the terminal uses Ctrl-Z to suspend, fg resumes it.
+Suspension differs from /background.
+
+6. LOGS AND FURTHER HELP
+
+Persistent logs are off by default. To enable and save that preference:
+
+    /set persistent_logging on
+    /save output
+
+Each saved profile uses an adjacent private .log. A log must be an owned
+regular 0600 file in an owned 0700 directory, and stops at 16 MiB. Live chat
+continues when logging stops. Turn logging off, archive the old file, then
+enable it again. Unsaved profiles keep only in-memory history.
+
+/catchup uses the selected channel/query's last locally sent composition
+anchor. An eligible log recorded since that anchor is tried first; otherwise
+retained memory is used when available. It does not import old logs at
+startup or recover anchors from an exited worker. See the manual for the
+disk-reader and normal-scrollback navigation differences.
+
+Useful next references:
+
+    onekeyirc --help            short command-line help
+    onekeyirc --manual          complete standalone manual
+    man onekeyirc               installed system manual
+    /help                      in-program help reader
+    /help connect              help for a particular command
+    /summary                   current client state, without remote requests
+
+README.md, MANUAL.txt, and SECURITY.md are at the source root. The guides
+BOUNCERS.txt, SESSION-CONTROLS.txt, and OPENBSD-VPS.txt are in doc/. Dated or
+versioned validation reports describe their original scope; they are not
+evidence of every platform, provider, or terminal behaving identically.
+
+Optional key bindings are empty by default. Use /bindings actions and
+/bindings keys to choose names, /bind KEY ACTION to assign, and /save input
+to persist. /unbind KEY or /unbind all removes assignments. See HOTKEYS.txt.

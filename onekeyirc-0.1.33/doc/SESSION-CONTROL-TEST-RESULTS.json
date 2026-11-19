@@ -1,0 +1,447 @@
+{
+  "date": "2026-11-09",
+  "base_releases": [
+    "vipirc 0.7.15",
+    "onekeyirc 0.1.14"
+  ],
+  "releases": [
+    "vipirc 0.7.16",
+    "onekeyirc 0.1.15"
+  ],
+  "environment": {
+    "os": "Linux x86_64",
+    "kernel": "6.18.57",
+    "compiler": "cc (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0",
+    "openssl": "OpenSSL 3.0.13 30 Jan 2024 (Library: OpenSSL 3.0.13 30 Jan 2024)",
+    "python": "3.12.14",
+    "native_openbsd_run": false,
+    "full_ncurses_frontend_built": false,
+    "af_unix_available": false
+  },
+  "final_gates": [
+    {
+      "id": "final-build",
+      "argv": [
+        "make",
+        "-j4",
+        "CFLAGS=-O2 -std=c11 -Wall -Wextra -Wpedantic -Werror -fstack-protector-strong -Wformat=2 -Werror=format-security -fPIE",
+        "onekeyirc",
+        "build/test_background_control",
+        "build/test_session_cli",
+        "build/idle_hangup_fixture",
+        "build/test_config",
+        "build/test_client",
+        "build/test_idle_config",
+        "build/test_idle_commands",
+        "build/test_idle_setup",
+        "build/test_background"
+      ],
+      "package": "onekeyirc-0.1.15",
+      "status": "PASS",
+      "returncode": 0,
+      "seconds": 11.318,
+      "log_sha256": "9b5d888b9a45319cac5ee1640a6e1d33d472bf541fd7e64ac9e8415e5642d3a0"
+    },
+    {
+      "id": "session-controls-normal",
+      "argv": [
+        "make",
+        "CFLAGS=-O2 -std=c11 -Wall -Wextra -Wpedantic -Werror -fstack-protector-strong -Wformat=2 -Werror=format-security -fPIE",
+        "check-session-controls"
+      ],
+      "package": "onekeyirc-0.1.15",
+      "status": "PASS",
+      "returncode": 0,
+      "seconds": 5.178,
+      "log_sha256": "88bb959661efb3619464c2c02bc7eb34bd7343271dfcd765d61351ea0e11a2bc"
+    },
+    {
+      "id": "security-normal",
+      "argv": [
+        "make",
+        "CFLAGS=-O2 -std=c11 -Wall -Wextra -Wpedantic -Werror -fstack-protector-strong -Wformat=2 -Werror=format-security -fPIE",
+        "check-security"
+      ],
+      "package": "onekeyirc-0.1.15",
+      "status": "PASS",
+      "returncode": 0,
+      "seconds": 29.057,
+      "log_sha256": "740f2b40b0b09181fb8a839fc55b4afd7a8550ae7d482b430f722a12a9299dd1"
+    },
+    {
+      "id": "security-detach",
+      "argv": [
+        "make",
+        "CFLAGS=-O2 -std=c11 -Wall -Wextra -Wpedantic -Werror -fstack-protector-strong -Wformat=2 -Werror=format-security -fPIE",
+        "check-security-detach"
+      ],
+      "package": "onekeyirc-0.1.15",
+      "status": "PASS",
+      "returncode": 0,
+      "seconds": 9.246,
+      "log_sha256": "e6b61c9b073f37dd1ebc98afecbe7c20d9595ba5ea550b27cd6b81b0f0145b20"
+    },
+    {
+      "id": "session-controls-sanitize",
+      "argv": [
+        "make",
+        "SANFLAGS=-O1 -g -std=c11 -Wall -Wextra -Wpedantic -Werror -fsanitize=address,undefined -fno-omit-frame-pointer",
+        "check-session-controls-sanitize"
+      ],
+      "package": "onekeyirc-0.1.15",
+      "status": "PASS",
+      "returncode": 0,
+      "seconds": 29.652,
+      "log_sha256": "9c413868cc80f83d18e0bf5931a8956d62e25b8ddd335ba71e366fe8ac1cf939"
+    },
+    {
+      "id": "security-sanitize",
+      "argv": [
+        "make",
+        "SANFLAGS=-O1 -g -std=c11 -Wall -Wextra -Wpedantic -Werror -fsanitize=address,undefined -fno-omit-frame-pointer",
+        "check-security-sanitize"
+      ],
+      "package": "onekeyirc-0.1.15",
+      "status": "PASS",
+      "returncode": 0,
+      "seconds": 66.163,
+      "log_sha256": "7c6dc81905f1d07277f4614322000d9ed7474913f454921bcbe218384ce67d69"
+    },
+    {
+      "id": "hostile-idle-90s",
+      "argv": [
+        "make",
+        "check-security-idle"
+      ],
+      "package": "onekeyirc-0.1.15",
+      "status": "PASS",
+      "returncode": 0,
+      "seconds": 90.345,
+      "log_sha256": "886dc8162a39b9c87480a8ddfd8b992bf5247e77622e480123c30aaf0a0bea5d"
+    },
+    {
+      "id": "native-session-lifecycle",
+      "argv": [
+        "python3",
+        "tests/test_session_hangup.py",
+        "--binary",
+        "./onekeyirc"
+      ],
+      "package": "onekeyirc-0.1.15",
+      "status": "UNAVAILABLE",
+      "returncode": 77,
+      "seconds": 0.115,
+      "log_sha256": "1295eb178546e5a96ab4b2ac45ca3f01df2c9692b670e748351f65acb15bd8f2"
+    },
+    {
+      "id": "vipirc-focused-normal",
+      "argv": [
+        "make",
+        "-f",
+        "/workspace/scratch/906cef4a9bba/session-control-validation/vipirc-focused.mk",
+        "-j4",
+        "CFLAGS=-O2 -std=c11 -Wall -Wextra -Wpedantic -Werror -fstack-protector-strong -Wformat=2 -Werror=format-security -fPIE",
+        "check-session-controls"
+      ],
+      "package": "vipirc-0.7.16",
+      "status": "PASS",
+      "returncode": 0,
+      "seconds": 14.254,
+      "log_sha256": "4a26554518f5492de7cc114862ac0e157a32cf9f382d96af68f9f31aefb2db6e",
+      "scope": "Non-curses main/config/UI-preference helpers, shared protocol and real idle terminal-loss fixture, extracted full-UI cleanup boundary. Scratch Makefile uses verified Linux compiler/TLS flags; this is not a full vipirc configure/build pass."
+    }
+  ],
+  "sanitizer_environment": {
+    "ASAN_OPTIONS": "detect_leaks=0:halt_on_error=1",
+    "UBSAN_OPTIONS": "halt_on_error=1:print_stacktrace=1",
+    "leak_sanitizer": "UNAVAILABLE; no leak pass claimed"
+  },
+  "production_idle": {
+    "client_cpu_seconds": 0.77,
+    "history_omission_notices": 52,
+    "persistent_log_files": 0,
+    "ping_max_ms": 2.421,
+    "ping_median_ms": 0.143,
+    "ping_replies": 180,
+    "pty_bytes_inspected": 6444225,
+    "resource_identity_verified": true,
+    "result": "PASS",
+    "seconds": 90.006,
+    "steady_baseline_fds": 4,
+    "steady_max_fds": 4,
+    "steady_peak_rss_kib": 4720,
+    "steady_rss_growth_kib": 92,
+    "terminal_controls_from_remote_data": 0,
+    "unexpected_client_sends": 0,
+    "unread_pty_seconds": 30.0,
+    "unsolicited_dcc_connections": 0,
+    "wire_records": 135008
+  },
+  "explicit_detach_fixture": {
+    "af_unix_used": false,
+    "background_worker_created": false,
+    "canonical_history_retained": true,
+    "editor_and_paste_do_not_detach": true,
+    "prepare_delay_ms": 506.712,
+    "prepare_error_displayed": true,
+    "pty_unread_until_prepare": true,
+    "result": "PASS"
+  },
+  "terminal_loss_normal": [
+    {
+      "case": "master",
+      "detach_ms": 0.132
+    },
+    {
+      "case": "backlog",
+      "detach_ms": 0.207
+    },
+    {
+      "case": "hup",
+      "detach_ms": 0.181
+    },
+    {
+      "case": "controller",
+      "detach_ms": 0.16
+    },
+    {
+      "case": "eof",
+      "detach_ms": 0.177
+    },
+    {
+      "case": "eio",
+      "detach_ms": 0.167
+    },
+    {
+      "case": "unmanaged-hup",
+      "exit_status": 129
+    },
+    {
+      "af_unix_handshake_tested": false,
+      "cases": 7,
+      "real_managed_detach": true,
+      "real_pty_closure": true,
+      "result": "PASS"
+    }
+  ],
+  "terminal_loss_sanitized": [
+    {
+      "case": "master",
+      "detach_ms": 0.143
+    },
+    {
+      "case": "backlog",
+      "detach_ms": 0.184
+    },
+    {
+      "case": "hup",
+      "detach_ms": 0.223
+    },
+    {
+      "case": "controller",
+      "detach_ms": 0.244
+    },
+    {
+      "case": "eof",
+      "detach_ms": 0.203
+    },
+    {
+      "case": "eio",
+      "detach_ms": 0.175
+    },
+    {
+      "case": "unmanaged-hup",
+      "exit_status": 129
+    },
+    {
+      "af_unix_handshake_tested": false,
+      "cases": 7,
+      "real_managed_detach": true,
+      "real_pty_closure": true,
+      "result": "PASS"
+    }
+  ],
+  "terminal_loss_vipirc_source": [
+    {
+      "case": "master",
+      "detach_ms": 0.181
+    },
+    {
+      "case": "backlog",
+      "detach_ms": 0.24
+    },
+    {
+      "case": "hup",
+      "detach_ms": 0.188
+    },
+    {
+      "case": "controller",
+      "detach_ms": 0.16
+    },
+    {
+      "case": "eof",
+      "detach_ms": 0.178
+    },
+    {
+      "case": "eio",
+      "detach_ms": 0.182
+    },
+    {
+      "case": "unmanaged-hup",
+      "exit_status": 129
+    },
+    {
+      "af_unix_handshake_tested": false,
+      "cases": 7,
+      "real_managed_detach": true,
+      "real_pty_closure": true,
+      "result": "PASS"
+    }
+  ],
+  "elf": {
+    "result": "PASS",
+    "PIE": true,
+    "RELRO": true,
+    "bind_now": true,
+    "nonexecuting_stack": true,
+    "stack_protector": true,
+    "fortified_imports": true
+  },
+  "tested_onekeyirc_binary_sha256": "9f9a458c9dc409e491eb3310f267755a8ea5485f0d7add1ad172a10680e78ec5",
+  "manual_synchronization": "PASS: full embedded manual compiled/dumped byte-for-byte; minimalist manuals generated from current code",
+  "native_background_tests": "Compiled with strict warnings in both namespaces; native AF_UNIX runtime not executed",
+  "native_lifecycle": {
+    "result": "UNAVAILABLE",
+    "reason": "[Errno 1] Operation not permitted",
+    "af_unix_handshake_tested": false
+  },
+  "source_hashes": {
+    "vipirc-0.7.16": {
+      "src/app.c": "a9aec666137ba751df14798ca2b9c83cfec068e21cd41da82b556474e5700727",
+      "src/app.h": "a113a118b182e450921618a36efd08bbcf506bad762bb51a5601bbcf22fd0a1b",
+      "src/autocommands.c": "b93b59a25766441bbbae21ce0418d86a8ad24cd397ad1b82693de18f03ece301",
+      "src/background.c": "f539c4ad68c806e7e0ef6247c290c2881d8392aa3b2a44c01eaeee838bffc841",
+      "src/background.h": "4119b0d267ffcd380b174aa1ac4ea88e3d84723a7663c21e2a458b7d53f368a7",
+      "src/client.c": "7882c70ed77775e74819497b540ef352eb2655981fcbab91fc82175a838a50cd",
+      "src/client.h": "cc7f25a6dfc24f15ce01456dc87888ab770bddf643a8d8a435fe958293834b1e",
+      "src/commands.c": "149730d9f349cd7545e7371d497219e131a77d0b73ba4a421dfd553c6a51d1e2",
+      "src/commands.h": "3775dded0e3da48b4e26a9ba0b966f21180ff35f2886ae01900ee17a7d10bf45",
+      "src/config.c": "2a9fb7026a116a39db01f68a5e95b129c660b187d5ce7159ff09c31db5cb14e6",
+      "src/config.h": "8d68c7d49e5e2e566e11954a637701984a89f2c5f0f64510ea14589c7f47d9ce",
+      "src/credentials.c": "c8ea4976dae04e10993a00683ff2606098906449a8471193396709400c7fe50d",
+      "src/credentials.h": "a2f99f94050fb20b370dcd6167e5f1396c242374b8bef005f8e8092df2b3b94f",
+      "src/dcc.c": "7d7b83965e9e13b5bef44f946224340f4a7cf308f40309aa4f789a7bbfde6f1d",
+      "src/dcc.h": "fe3936e1ffdc197fa9c78a0dbcd34aadd31430f4e7797260205ce0d66f6e7a2f",
+      "src/dcc_commands.c": "b4c04ca392db54865fac91ba542660bf893f0939901890f0c4e4887818ff4557",
+      "src/dcc_commands.h": "ac1ed22c2e71c58bd36848f232a1c7e898f20d198c4b57683d2d8f5171535605",
+      "src/editor.c": "8e2702a6b8a8f9319c7ca14524d30b8c4febe459ebc106dc27abadf5fc59519f",
+      "src/editor.h": "91da290b4265227fe240eab5bed62fc0c6aca89531f828835de448c006282866",
+      "src/filepicker.c": "3861015064c7439e593683e3e36c48962a08450d7db4e5062b41d064e0fafa8d",
+      "src/filepicker.h": "6dc547aad2f511a8e1c623d221d037025ea4b59875d2d90dd6b9c7c897ead1ef",
+      "src/focus.h": "dadcd6da0fb984110f5539accee08c783ff35f36c296e69ce035f237c14be8fc",
+      "src/guided.c": "4d2461e287c42ba12b103f78ee2858438be579c61211bfb1f445cf7a05c47b33",
+      "src/guided.h": "f306d44102dda4846da4d5b542666dca7ee2fac5b6093d5309666573819c98b5",
+      "src/idle.c": "477353559f812ad7a77c79b4b55dac89977e6cc877d493a23406ee19120f545f",
+      "src/idle.h": "7dc2b66da16a81516beb7dc181ae14e71936efc1fb7a218767dd59c88457ff0f",
+      "src/idle_commands.c": "1aa737ed0284e8a48f365fa572dc4175a96029af25cbb14fe90f9b336ca7bc37",
+      "src/idle_commands.h": "de2c5a0c2c0e06e50c288b40f06165aeb01224dbe23dbb120ab4ae0df9ac690a",
+      "src/idle_setup.c": "9df1db6b06d0ea36ca8dd1c14f3b49a64317be99ec9b514e2b44cd04a231cd18",
+      "src/idle_setup.h": "9350b365fea12adab3f2b818e2ef88cafd72ecfb6834746bfa26451a10d66b0d",
+      "src/license.h": "f2b8bb5012177300ef8c03739f8b2a78a4c989eb89b663603aa80ca388d15f4b",
+      "src/main.c": "66d37b5961786ff31b0373096dc678fa40a81a2aa9f77208120e09cfad6f2e6c",
+      "src/manual.c": "bdcff47fa792c6740c15afef23b7c122b7f33c3e3e3e8f3437a220ad02d190dc",
+      "src/manual.h": "2786dc36c1ce84a4f7175c0383f000a4ae13592574f24acb5f01282f1c5d85d2",
+      "src/net.c": "87774e91d7394bd71931d28f7d6aa1e364f929b7d198c5b6f4f0563da1811603",
+      "src/net.h": "d0969e79df6e56e63c9db82d3baa7d9fb370834e498f84ac18cc5da3c964e76d",
+      "src/nicks.c": "f9b7a98706eb7ecff076be59b9d20fc1341d162df0e8e06606af195d2c13ceac",
+      "src/nicks.h": "4e1065cf8c1abe712189b7077454a534371aa4ff115ebee47009c42f1de7b27f",
+      "src/prompt.c": "2b8320a8781249975a089b7a7e4799b474be0d4bcf0bba6f9cf58521af435d0b",
+      "src/prompt.h": "de986c1cb73212e2360682c3d8de0818acd2b290a576830d156ebe846e8b407a",
+      "src/protocol.c": "7d8da00f6242884a011c8e6f230aae0fb34a4f869662cbb6777002e96b4346fc",
+      "src/protocol.h": "e9de84a45595d3d08a6da3ba4c91405a8f33425ea8d80a67477ff035689ee30a",
+      "src/readpage.c": "c8dd0af519560754ae40faa11f55f24b37fd5ca9e4a589c1b98ea78301b0f664",
+      "src/readpage.h": "ed660506cf5208b995869d8595c7e8761020f497a1609710d755eb10c2559efc",
+      "src/settings.c": "d4a8b92cbd0605d93b1974024b9166374d0b1fcb23e4034217e255af7664b540",
+      "src/settings.h": "e05dcfbb6ee36941e53a1036d29820a6ac11bdb69231a344ef1a9d6ca8d67d5a",
+      "src/sim.c": "9affd4be7588f4efb6bcc2099ca334683f331a58f47c7c580deba05d65fcf78d",
+      "src/sim.h": "9128b1cc1cf14fe69a55b6e879640cb444e28449606c09adaa81c696566cab82",
+      "src/summary.c": "712b11807b4e0e7f161abec9e69cbe6a6b60213a09b1ccad0d5c117677cd6f23",
+      "src/summary.h": "9b21e63490bf85fd45e5f4b9d318ac2d1221c530079fc9fadb2cee6707eb3eb0",
+      "src/transfers.c": "3b3b0d5b252343881343869007213b06f79dd2d2478f858f12b76f4bb636d577",
+      "src/transfers.h": "d335f195a21443517c74925e03e168b7ba7b8510381fc5746051061325b52097",
+      "src/ui.c": "72981b2633bc1c0bd53c5c556c9b801d97677d0d496d286cbabaf529fe042844",
+      "src/ui.h": "3342daa28f400cf356ed550b58e6b2ba0a0c5ae08f76a392088b9411f1722922"
+    },
+    "onekeyirc-0.1.15": {
+      "src/app.c": "a9aec666137ba751df14798ca2b9c83cfec068e21cd41da82b556474e5700727",
+      "src/app.h": "a113a118b182e450921618a36efd08bbcf506bad762bb51a5601bbcf22fd0a1b",
+      "src/autocommands.c": "b93b59a25766441bbbae21ce0418d86a8ad24cd397ad1b82693de18f03ece301",
+      "src/background.c": "f539c4ad68c806e7e0ef6247c290c2881d8392aa3b2a44c01eaeee838bffc841",
+      "src/background.h": "4119b0d267ffcd380b174aa1ac4ea88e3d84723a7663c21e2a458b7d53f368a7",
+      "src/client.c": "7882c70ed77775e74819497b540ef352eb2655981fcbab91fc82175a838a50cd",
+      "src/client.h": "cc7f25a6dfc24f15ce01456dc87888ab770bddf643a8d8a435fe958293834b1e",
+      "src/commands.c": "149730d9f349cd7545e7371d497219e131a77d0b73ba4a421dfd553c6a51d1e2",
+      "src/commands.h": "3775dded0e3da48b4e26a9ba0b966f21180ff35f2886ae01900ee17a7d10bf45",
+      "src/config.c": "2a9fb7026a116a39db01f68a5e95b129c660b187d5ce7159ff09c31db5cb14e6",
+      "src/config.h": "8d68c7d49e5e2e566e11954a637701984a89f2c5f0f64510ea14589c7f47d9ce",
+      "src/credentials.c": "c8ea4976dae04e10993a00683ff2606098906449a8471193396709400c7fe50d",
+      "src/credentials.h": "a2f99f94050fb20b370dcd6167e5f1396c242374b8bef005f8e8092df2b3b94f",
+      "src/dcc.c": "7d7b83965e9e13b5bef44f946224340f4a7cf308f40309aa4f789a7bbfde6f1d",
+      "src/dcc.h": "fe3936e1ffdc197fa9c78a0dbcd34aadd31430f4e7797260205ce0d66f6e7a2f",
+      "src/dcc_commands.c": "b4c04ca392db54865fac91ba542660bf893f0939901890f0c4e4887818ff4557",
+      "src/dcc_commands.h": "ac1ed22c2e71c58bd36848f232a1c7e898f20d198c4b57683d2d8f5171535605",
+      "src/editor.c": "8e2702a6b8a8f9319c7ca14524d30b8c4febe459ebc106dc27abadf5fc59519f",
+      "src/editor.h": "91da290b4265227fe240eab5bed62fc0c6aca89531f828835de448c006282866",
+      "src/idle.c": "477353559f812ad7a77c79b4b55dac89977e6cc877d493a23406ee19120f545f",
+      "src/idle.h": "7dc2b66da16a81516beb7dc181ae14e71936efc1fb7a218767dd59c88457ff0f",
+      "src/idle_commands.c": "1aa737ed0284e8a48f365fa572dc4175a96029af25cbb14fe90f9b336ca7bc37",
+      "src/idle_commands.h": "de2c5a0c2c0e06e50c288b40f06165aeb01224dbe23dbb120ab4ae0df9ac690a",
+      "src/idle_setup.c": "9df1db6b06d0ea36ca8dd1c14f3b49a64317be99ec9b514e2b44cd04a231cd18",
+      "src/idle_setup.h": "9350b365fea12adab3f2b818e2ef88cafd72ecfb6834746bfa26451a10d66b0d",
+      "src/main.c": "66d37b5961786ff31b0373096dc678fa40a81a2aa9f77208120e09cfad6f2e6c",
+      "src/manual.h": "2786dc36c1ce84a4f7175c0383f000a4ae13592574f24acb5f01282f1c5d85d2",
+      "src/net.c": "87774e91d7394bd71931d28f7d6aa1e364f929b7d198c5b6f4f0563da1811603",
+      "src/net.h": "d0969e79df6e56e63c9db82d3baa7d9fb370834e498f84ac18cc5da3c964e76d",
+      "src/nicks.c": "f9b7a98706eb7ecff076be59b9d20fc1341d162df0e8e06606af195d2c13ceac",
+      "src/nicks.h": "4e1065cf8c1abe712189b7077454a534371aa4ff115ebee47009c42f1de7b27f",
+      "src/protocol.c": "7d8da00f6242884a011c8e6f230aae0fb34a4f869662cbb6777002e96b4346fc",
+      "src/protocol.h": "e9de84a45595d3d08a6da3ba4c91405a8f33425ea8d80a67477ff035689ee30a",
+      "src/sim.c": "9affd4be7588f4efb6bcc2099ca334683f331a58f47c7c580deba05d65fcf78d",
+      "src/sim.h": "9128b1cc1cf14fe69a55b6e879640cb444e28449606c09adaa81c696566cab82",
+      "src/summary.c": "712b11807b4e0e7f161abec9e69cbe6a6b60213a09b1ccad0d5c117677cd6f23",
+      "src/summary.h": "9b21e63490bf85fd45e5f4b9d318ac2d1221c530079fc9fadb2cee6707eb3eb0",
+      "src/ui.h": "3342daa28f400cf356ed550b58e6b2ba0a0c5ae08f76a392088b9411f1722922"
+    }
+  },
+  "fixture_limits": [
+    "Control fixture mocks socket syscalls and socket-file type; files, leases, PTYs and signal handlers are real.",
+    "Idle fixture substitutes initial managed setup and reattachment handshake; actual terminal loss, managed detach and IRC IO run production code.",
+    "Full UI boundary extracts the actual loss branch and instruments blocking cleanup; it is not a full curses build or run.",
+    "CLI fixture includes actual main.c with controlled frontend/session boundaries; it is not a native session IPC test."
+  ],
+  "operational_limits": [
+    "Existing older workers need restart to acquire the new close protocol.",
+    "Close is cooperative; unresponsive workers may time out and accepted close may complete later.",
+    "Completion confirms IRC/DCC teardown and original lease release, not independent kernel process exit observation.",
+    "Ordinary full curses rendering remains synchronous on an open unread terminal.",
+    "Unmanaged initial foreground SIGHUP retains its original exit behavior.",
+    "No native OpenBSD, real user SSH, rc.d/reboot or complete make check pass claimed."
+  ],
+  "shared_source_files_identical": 38,
+  "clean_build_and_install": {
+    "status": "PASS",
+    "build": "Clean staged source ./configure and make",
+    "staged_binary_identical": true,
+    "installed_binary_identical": true,
+    "binary_sha256": "9f9a458c9dc409e491eb3310f267755a8ea5485f0d7add1ad172a10680e78ec5",
+    "new_docs_and_manpage_installed": true,
+    "install_scope": "Private DESTDIR only; no host/VPS installation",
+    "seconds": 7.52
+  },
+  "release_checks": {
+    "python_test_syntax": "PASS in both packages",
+    "ascii_man_rendering": "PASS in both packages; no groff diagnostics",
+    "new_docs_ascii": "PASS",
+    "source_archive_integrity": "PASS: manifest hashes, file sizes, modes and safe source-only membership verified against generated archives"
+  }
+}

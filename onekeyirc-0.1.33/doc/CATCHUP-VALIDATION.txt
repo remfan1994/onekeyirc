@@ -1,0 +1,112 @@
+VIPIRC / ONEKEYIRC MINIMALIST CATCH-UP AND REVIEW-ESCAPE VALIDATION
+Date: 2026-11-10 (America/Los_Angeles)
+Releases: vipirc 0.7.23 / onekeyirc 0.1.22
+
+SCOPE
+
+This release changes the shared minimalist frontend used by vipirc -i and
+standalone onekeyirc. The regular ncurses vipirc conversation renderer is not
+changed by the disk-backed catch-up feature.
+
+REVIEW ESCAPE
+
+In send review, Enter still confirms the displayed plan. Escape now returns to
+the same Compose or Command editor with its exact draft and caret preserved.
+It does not discard the draft and does not append a cancellation line to the
+chat transcript. Typing from Review continues to return to editing as before.
+
+/CATCHUP
+
+/catchup is available in a selected channel or private query. It starts at the
+first IRC line of the user's most recent locally sent composition in that
+conversation and presents subsequent transcript records through a stable
+snapshot of the newest available record.
+
+The anchor is per server and per conversation. The same channel name on two
+servers has independent state, and each query has its own state. Server/status
+and mentions views do not have a sent-message anchor.
+
+If the anchor is still in the bounded in-memory transcript, /catchup uses that
+retained history without requiring disk logging. If it has rolled out of
+memory, durable recovery requires persistent_logging to have already been on
+when the anchor was sent and to have remained healthy. The command never
+enables logging automatically. When neither source can reconstruct the
+interval, it reports the limitation instead of showing a partial interval as
+though it were complete.
+
+Persistent catch-up reads the saved profile's existing plaintext .log file on
+demand. It does not import a long absence into permanent chat RAM. The file is
+opened read-only and pinned for the reader, and the byte length at open time is
+used as the snapshot end, so traffic arriving after /catchup opens remains for
+the live view rather than moving the reader.
+
+Navigation in the minimalist catch-up reader:
+
+  Up/Down       one visual row
+  Page Up/Down  one page
+  Home          most recent sent-message anchor
+  End           newest record in the snapshot
+  Escape        return to the live conversation
+
+A split composition anchors its first IRC chunk, not its last chunk, so a long
+message does not reopen halfway through itself.
+
+SECURITY AND RESOURCE BOUNDARIES
+
+Persistent logging remains disabled by default and remains plaintext when
+explicitly enabled. The existing 16 MiB per-profile log ceiling is unchanged.
+The catch-up reader uses the same private path boundary as the hardened writer:
+parent directory owned by the user with exact mode 0700, no symlink path
+components, leaf opened with O_NOFOLLOW/O_CLOEXEC/O_NONBLOCK, and an owned,
+single-link regular file with exact mode 0600. FIFOs, unsafe directory modes,
+symlinks and oversized files are rejected. Read records are sanitized before
+terminal display. Known sensitive authentication records that the logger
+intentionally excludes cannot become durable catch-up anchors.
+
+Runtime anchor metadata is intentionally in memory. --background/--resume
+preserves it because the IRC worker remains alive. A process exit, host reboot
+or new client process does not infer a historical "most recent activity" anchor
+from an old log by itself.
+
+EXECUTED VALIDATION
+
+Focused PTY regressions exercised:
+
+- Review Escape returns to the exact editor draft/caret and a later Escape can
+  cancel the editor normally.
+- Memory-only /catchup succeeds while the anchor is retained and explicitly
+  refuses to imply complete recovery after the bounded history evicts it.
+- Disk-backed channel catch-up works after more than the normal retained line
+  count has arrived.
+- Query catch-up uses its own anchor and does not leak the channel anchor.
+- A catch-up reader is a stable snapshot while new IRC traffic continues.
+- --background, more than the retained line count while detached, PING/PONG,
+  bare --resume, and /catchup recover from the pre-detach sent message through
+  the detached traffic.
+- Split outgoing messages anchor at the first chunk.
+- Read-path tests reject a symlink leaf, symlink ancestor, unsafe parent mode,
+  FIFO and an over-16-MiB log.
+- The prior F06 detach/backpressure boundary and focused security regressions
+  still pass after the idle-loop changes.
+- The review, memory catch-up, disk catch-up and detached-resume catch-up cases
+  pass under AddressSanitizer plus UndefinedBehaviorSanitizer in this Linux
+  environment with leak detection disabled.
+
+The final release archives should be rebuilt and re-run through these focused
+checks after extraction; this file records the feature boundary and expected
+target-host acceptance rather than claiming native OpenBSD execution.
+
+LIMITATIONS
+
+No native OpenBSD 7.8 build, rc.d lifecycle, reboot or SSH loss/reconnect run is
+performed in this environment. The full ncurses vipirc frontend keeps its
+existing bounded in-memory Page Up/Page Down history behavior in this release;
+disk-backed /catchup is a minimalist vipirc -i / onekeyirc feature.
+
+For durable catch-up across a long absence in the minimalist frontend:
+
+  /set persistent_logging on
+  /save output
+
+Then keep the same background worker alive and later use --resume followed by
+/catchup in each channel or query that should be reviewed.

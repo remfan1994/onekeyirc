@@ -1,0 +1,326 @@
+onekeyirc 0.1.30 - OpenBSD build and VPS idling
+==============================================
+
+This guide uses the ordinary account tutan and /home/tutan. Substitute your
+own login name and home directory. Administrative installation uses doas;
+the IRC process itself runs as the ordinary user.
+
+Upgrading from 1keyirc
+----------------------
+
+The executable is now onekeyirc, matching the existing service name.
+If its old session has unsaved settings, first log in as the service
+user, resume it with 1keyirc --resume, use /saveconf, and /background.
+Then return to the administrative shell.
+Before replacing an older service script, stop its old process while the
+old script still points at /usr/local/bin/1keyirc:
+
+    doas rcctl stop onekeyirc
+
+For a manually started old session, use 1keyirc --sessions and --resume,
+then /saveconf if needed and /quit. A process restart does not preserve its
+in-memory scrollback or unfinished drafts. The new install leaves the old
+executable and personal configuration files in place.
+
+Keep an existing --config path, including
+/home/tutan/.config/1keyirc/config.ini. The new default is onekeyirc/config.ini,
+but an existing old default is reused in place when the new one is absent.
+Do not move credential files or adjacent server profiles merely for the
+rename. The steps below use the new path for fresh installations; substitute
+your existing path when upgrading. doc/ONEKEYIRC-RENAME.txt gives a complete
+upgrade sequence and explains old detached-session access.
+
+Build and install
+-----------------
+
+From the unpacked onekeyirc-0.1.30 source directory:
+
+    ./configure --prefix=/usr/local
+    make
+    ./onekeyirc --version
+    doas make install
+
+Use the compiler and development dependencies described in INSTALL. The
+configure script checks the APIs actually used. Reconfigure on OpenBSD; do
+not reuse a generated Makefile or executable from another OS. If a probe
+fails, read config.log. Certificate-verification settings cannot repair a
+compile or link failure.
+
+Optional local verification:
+
+    make check-unit
+    make check
+
+The full integration suite additionally needs Python 3, Bash, local sockets,
+PTYs, and openssl for local TLS fixtures. These are test dependencies, not
+requirements of ordinary installed operation. No precompiled OpenBSD binary
+is included. The historical OPENBSD-VALIDATION.txt records the actual prior
+checks; this guide does not establish a new native OpenBSD boot test.
+
+Configure and test the account
+------------------------------
+
+Log in as tutan. Keep your existing working configuration if you have one.
+For a new account configuration only:
+
+    umask 077
+    /usr/local/bin/onekeyirc --config /home/tutan/.config/onekeyirc/config.ini --init-config
+
+The default file is /home/tutan/.config/onekeyirc/config.ini when
+XDG_CONFIG_HOME is unset. If this file is absent, an existing
+/home/tutan/.config/1keyirc/config.ini is used in place. If both exist, the
+new onekeyirc path wins. Invalid or inaccessible candidates are reported,
+not silently skipped. An explicit --config path avoids differences between
+your login environment and the service environment and bypasses that search.
+
+Start interactively using that exact file:
+
+    /usr/local/bin/onekeyirc --config /home/tutan/.config/onekeyirc/config.ini
+
+Dismiss the welcome. Configure the desired server, nickname, channels and
+authentication using /panel or the commands. For example, replace the
+example hostname, nickname and channel with your own. Wait for registration
+before entering /join:
+
+    /connect -nick mynick irc.example.org 6697
+    /join #mychannel
+    /autoconnect on
+    /saveconf
+
+A successful /join updates the running channel list; /saveconf persists it.
+An explicitly staged /autojoin list takes precedence over that running list,
+and channel keys from /join are not persisted. Each server profile has its
+own automatic connection, channel and authentication settings. Check
+/servers and configure every profile you want to start automatically.
+/saveconf preserves settings; it does not silently turn automatic connection
+on. For a ZNC or soju profile, use BOUNCERS.txt and a separate profile for
+each upstream network. Its saved autojoin list is not replayed because the
+bouncer restores membership; explicit autocommands still run.
+
+For a direct server that requires SASL, /panel can configure it. Alternatively:
+
+    /autoauth sasl myaccount file /home/tutan/.config/onekeyirc/irc.secret
+    /saveconf
+
+The password file must be an owned regular file with mode 0600 or 0400;
+symlinks are rejected. Enter the password using your editor or another
+private input method. Passwords do not belong in service command arguments.
+Use absolute credential paths: config paths and credential paths are
+literal, so ~ and $HOME inside the INI file do not expand.
+
+GPG-encrypted credential files also work when the user's GPG agent can
+decrypt them without prompting. An encrypted file alone cannot supply an
+unlocked key after reboot. A passphrase-protected key may need an explicit
+unlock before authentication can succeed. Choose a credential arrangement
+that matches the unattended startup you require; the client does not save
+the key passphrase or defeat GPG protection.
+
+To create an encrypted credential in /panel, accept its offered absolute path
+under the selected config's credentials directory. For the primary example:
+
+    /home/tutan/.config/onekeyirc/credentials/account-password.gpg
+
+Existing names receive numbered alternatives. Accepting the default prepares
+private directories; the encrypted file is published only at Finish. A parent
+directory error at the path step means no credential file was created there.
+/autoauth status shows the selected server's full configured file paths.
+/autojoin shows registration/authentication plus running and pending lists.
+If settings were changed while connected, /disconnect then /connect applies
+them. Automatic retries retain the interrupted connection's settings. A GPG
+or required-SASL failure prevents registration and automatic channel joins.
+
+After confirming that the connection, authentication and channel joins work,
+exit this test instance with /quit, then validate the saved syntax:
+
+    /usr/local/bin/onekeyirc --config /home/tutan/.config/onekeyirc/config.ini --check-config
+
+This check validates configuration and saved profiles without reading or
+decrypting credentials. It does not log in, test the network, or prove that
+GPG will be unlocked at the next boot.
+
+Test unattended startup before enabling boot startup
+---------------------------------------------------
+
+Still as tutan:
+
+    /usr/local/bin/onekeyirc --background --reconnect --config /home/tutan/.config/onekeyirc/config.ini
+    /usr/local/bin/onekeyirc --sessions
+    /usr/local/bin/onekeyirc --resume
+
+--background starts a new resumable worker without a terminal or a welcome
+keypress. It prints the existing warning and a job number, then returns
+after the local worker is ready. That success means the local job started;
+IRC DNS, TLS, authentication and registration happen afterward. Inspect
+/summary or /servers after resuming to check the remote connection.
+
+onekeyirc always uses its minimalist interface; -N and --ncurses are not
+supported frontend choices.
+
+If a dropped SSH terminal leaves a job marked attached/busy, list the jobs
+and use the current job number:
+
+    /usr/local/bin/onekeyirc --sessions
+    /usr/local/bin/onekeyirc --detach-session NUMBER
+    /usr/local/bin/onekeyirc --resume NUMBER
+
+Detach releases the old terminal controller and preserves the IRC worker,
+connections, drafts, and retained history. To terminate the entire job
+instead, use --close-session NUMBER. That closes every connection and
+transfer in the job and cannot be resumed. A timed-out close can still
+finish later; recheck --sessions before assuming it is still running.
+Job numbers are not PIDs or server-profile numbers. These are separate
+management operations: do not add --config or connection options to them.
+See SESSION-CONTROLS.txt for old-worker and control-protocol limits.
+
+--reconnect opts this process into retrying transient connection failures.
+It does not imply --server, /autoconnect on, or an initial connection. Retry
+delays increase from 5 seconds to a maximum of 300 seconds. TLS verification,
+authentication, configuration and protocol errors remain held for correction.
+An explicit /disconnect cancels automatic retries for that connection until
+you explicitly connect it again. --no-connect suppresses startup connections,
+even with --reconnect.
+
+Authentication runs on each connection. Direct-server profiles replay their
+startup channel list; bouncer profiles leave restoration to the bouncer.
+Configured autocommands run after each successful registration and required
+SASL, so choose them with reconnection in mind. Pending chat is discarded on
+a lost connection rather than automatically resubmitted.
+
+From the resumed client, /background returns to your shell and keeps the
+worker running. --resume NUMBER selects a particular job when several exist.
+Set `single_session=true` in the main config (or `/set single_session on` then
+save) if this account should have only one onekeyirc background job; a second
+Background attempt is then refused and bare --resume stays unambiguous. One
+worker can still connect to all supported IRC servers. Resume redraws retained
+scrollback even when no IRC activity occurred while detached.
+The terminal's inherited signal state and key assignments are preserved.
+[input] force_terminal_signals=false is the default. True enables signals
+at launch without assigning Ctrl-C, Ctrl-Z, or any other key. If your
+terminal already uses Ctrl-Z to suspend, fg resumes it. Suspension differs
+from /background, which keeps the worker running and releases the terminal.
+No terminal multiplexer is required for managed background operation.
+
+Finish this manual startup test with /quit before starting the rc.d service,
+so that there is only one instance using this account.
+
+Enable the OpenBSD service
+--------------------------
+
+For an upgrade, stop the older service with its old wrapper first as shown
+above. From the unpacked source directory, install the supplied script:
+
+    doas make install-openbsd-service
+    file /usr/local/bin/onekeyirc /etc/rc.d/onekeyirc
+    doas rcctl enable onekeyirc
+    doas rcctl set onekeyirc user tutan
+    doas rcctl set onekeyirc flags --background --reconnect --config /home/tutan/.config/onekeyirc/config.ini
+    doas rcctl start onekeyirc
+    doas rcctl check onekeyirc
+
+The installed /etc/rc.d/onekeyirc file must be a Korn shell script
+beginning with #!/bin/ksh. The compiled application belongs at
+/usr/local/bin/onekeyirc. The target copies packaging/openbsd/onekeyirc
+into rc.d; it does not rename the application.
+
+install-openbsd-service installs the executable and the text service script
+from their correct separate source locations. Renaming the compiled executable
+to a service name does not turn it into an rc.d script. The target supports
+the bundled /usr/local/bin layout, requires OpenBSD and root, and performs no
+enable, start, account or rc.conf changes. The plural target name is an alias.
+
+The example enables the boot setting, then sets the runtime user and flags,
+then starts the process explicitly. Confirm the user and config path before
+start. Enablement alone does not start the worker.
+
+OpenBSD rc.d script names must also be valid shell variable names; they
+cannot begin with a digit. Executable filenames do not have that restriction.
+The standalone application and service now both use onekeyirc for consistency.
+The example's _onekeyirc user is only a placeholder, not an account created
+by the package. Set the user as shown before starting it.
+
+The service uses OpenBSD rc.subr to run under the selected account. Use
+absolute config and credential paths rather than assuming its environment
+or working directory matches an interactive login. The wrapper refuses a
+missing or root runtime user. It does not alter the firewall or open a public
+management listener; resume uses the private local session socket.
+
+At the next VPS boot, rc starts a fresh worker from the saved configuration.
+You do not have to log in first. To inspect and use it after logging in as
+tutan:
+
+    /usr/local/bin/onekeyirc --sessions
+    /usr/local/bin/onekeyirc --resume
+
+Use /background to leave the resumed worker running when you log out. If
+the SSH-side resume process loses its terminal, the managed worker detaches
+and continues. To stop the service or deliberately restart it:
+
+    doas rcctl stop onekeyirc
+    doas rcctl restart onekeyirc
+
+To prevent future boot startup and stop the current process:
+
+    doas rcctl stop onekeyirc
+    doas rcctl disable onekeyirc
+
+There is no reload operation. Saved connection settings take effect at the
+documented next explicit connection or process startup; use restart when you
+want to apply a changed service invocation. rc.d starts and stops processes;
+it is not a continuous crash supervisor. --reconnect handles eligible network
+failures inside a running worker, not a crashed or intentionally quit process.
+
+Troubleshooting
+---------------
+
+If rcctl says the service is a "meta script" and refuses to set user or
+flags, inspect the installed control file:
+
+    file /etc/rc.d/onekeyirc /usr/local/bin/onekeyirc
+
+The rc.d file should be a shell script, while the program is an executable.
+Installing the compiled program in rc.d makes rcctl pass its action name
+(such as start) directly to the IRC program, which reports "unexpected
+operand". An incomplete or changed wrapper can cause similar errors.
+Reinstall the supplied script from the extracted source directory:
+
+    doas make install-openbsd-service
+
+Then repeat enable, set user, set flags, start and check as shown above.
+This replacement does not edit your IRC configuration or credentials.
+
+If rcctl start fails, inspect the startup diagnostic without hiding stderr:
+
+    doas rcctl -d start onekeyirc
+    doas rcctl get onekeyirc
+
+A service start may find an already matching process instead of creating a
+new one. To diagnose remote problems in a live worker, resume it and read
+channel 0, /servers, or /summary. Process status does not prove registration.
+
+No job shown after login usually means startup failed, the worker exited, or
+you are inspecting as a different user. Run --sessions and --resume as the
+same account selected with rcctl. Job numbers may be reused after exit; always
+list the current jobs rather than keeping an old number as a durable identity.
+
+If authentication is held after boot, inspect the chosen credential source,
+its ownership/mode, and the user's GPG agent if applicable. Correct the cause,
+then use /connect. Disabling TLS verification is not a credential repair.
+
+Installing a new executable does not replace code in a running worker.
+Save wanted settings and stop the service with its existing wrapper before
+replacing it, then start the new version. Worker exit or a VPS reboot loses
+RAM-only history and unfinished drafts. A new worker uses saved settings;
+it is not the old resumable job. A bouncer may supply retained playback on
+reconnection, but the client is not an IRC history server.
+
+Primary OpenBSD references
+--------------------------
+
+    https://man.openbsd.org/rc.d.8
+    https://man.openbsd.org/rc.subr.8
+    https://man.openbsd.org/rcctl.8
+
+The service examples follow these primary manuals, reviewed for this
+documentation pass. Use the installed manual pages for the OpenBSD release
+on your VPS. See OPENBSD-VALIDATION.txt for tests actually run; Linux checks
+alone do not establish an OpenBSD boot test.

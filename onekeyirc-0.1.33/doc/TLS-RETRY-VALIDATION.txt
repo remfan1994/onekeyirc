@@ -1,0 +1,65 @@
+TLS RETRY CLASSIFICATION VALIDATION
+Date: 2026-11-10 (America/Los_Angeles)
+vipirc 0.7.22 / onekeyirc 0.1.21
+
+RESULT
+
+A verified TLS connection reset during SSL_write is again eligible for the
+existing automatic reconnect policy on OpenSSL versions that represent the
+socket failure both as SSL_ERROR_SYSCALL and as an ERR_LIB_SYS entry on the
+OpenSSL error queue. The earlier classifier required an empty error queue for
+SSL_ERROR_SYSCALL transport retries, which made the same ECONNRESET fail held
+on OpenSSL 3.5.5.
+
+The correction is deliberately narrow. Certificate verification is checked
+first. A non-system TLS error remains held. A queued system errno must use the
+existing transient errno allowlist. If both the immediately saved errno and
+the queued system errno are nonzero and disagree, the connection is held.
+There is no plaintext fallback and no weakening of server identity checks.
+
+REPRODUCTION
+
+The 0.7.21/0.1.20 transport classifier on this Linux host used OpenSSL 3.5.5.
+A loopback TLS server completed a verified handshake, received application
+data, then reset the TCP connection. SSL_write returned -1; SSL_get_error
+reported SSL_ERROR_SYSCALL; errno was ECONNRESET; and the OpenSSL error queue
+contained ERR_LIB_SYS with reason ECONNRESET. The old classifier returned
+retryable=0.
+
+VALIDATION COMPLETED
+
+- Clean optimized onekeyirc build: PASS with project warning/hardening flags.
+- Transport identity/integrity suite: PASS for plaintext, TLS DNS/IP identity,
+  wrong identity, untrusted CA, expired certificate, deadlines and 12,345-byte
+  bidirectional integrity.
+- Transport classification suite: 31 scenarios PASS on OpenSSL 3.5.5.
+- TLS write reset: retryable=1 after verified handshake.
+- TLS read reset and unnotified EOF: retryable=1.
+- TLS bad descriptor: retryable=0.
+- TLS protocol violation: retryable=0.
+- Untrusted certificate and hostname mismatch: retryable=0.
+- Earlier connection refusal does not override later TLS certificate/protocol
+  hold: PASS.
+- ASan/UBSan transport classification suite: 31 scenarios PASS with
+  halt-on-error; leak detection disabled in this environment.
+- Security app, LIST sanitization, authentication/privacy, DCC identity,
+  process guards, session CLI, terminal-output detach and idle detach boundary
+  regressions completed before the aggregate command hit its execution limit.
+- Config security, command-history privacy, resolver/transport suite and the
+  protocol suite were then run separately and passed. The protocol run covered
+  91,184 exact-allocation/truncation cases plus 25,000 randomized cases.
+
+PORTABILITY
+
+The implementation uses ERR_LIB_SYS, ERR_GET_LIB and ERR_GET_REASON, interfaces
+available in both OpenSSL and LibreSSL/OpenBSD. No OpenSSL-3-only API was added.
+Native OpenBSD 7.8 execution was not available in this environment, so the
+release should still be built and run through its security gates on the target
+OpenBSD host.
+
+LIMITATIONS
+
+This is bounded regression testing, not a proof of indefinite availability or
+absence of every TLS/library interaction. The full vipirc ncurses frontend was
+not linked here because the environment lacks its wide-character curses
+development inputs; the modified transport source is shared with vipirc -i.
