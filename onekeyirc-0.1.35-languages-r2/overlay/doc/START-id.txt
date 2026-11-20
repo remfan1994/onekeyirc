@@ -1,0 +1,46 @@
+vipirc / onekeyirc - bantuan perintah
+========================================
+
+Pilih bahasa tampilan sebelum menjalankan klien.
+
+Contoh: VIPIRC_LANG=id onekeyirc
+
+Contoh: VIPIRC_LANG=tr vipirc -i
+
+Kode tersedia: id ms tr es pt fr de ru it ar.
+
+Gunakan terminal dan font UTF-8 serta lokal UTF-8 yang terpasang.
+
+Perintah IRC, topik bantuan, dan kunci konfigurasi tetap berbahasa Inggris.
+
+Teks Arab memerlukan pembentukan huruf dan dukungan dua arah pada terminal.
+
+Lihat topik bantuan: /help ls.
+
+Daftar perintah: /help commands. Rincian: /help COMMAND.
+
+Koneksi pertama: /connect irc.example.org, lalu /join #channel.
+
+Obrolan pribadi: /query NICK atau /msg NICK TEXT.
+
+Pengaturan terpandu: /quickstart atau /panel.
+
+Simpan pengaturan: /saveconf. Menyimpan tidak mengaktifkan autoconnect.
+
+Ganti tampilan: /servers, /channels, /ql.
+
+Opsi awal: /help autoconnect, /help autojoin, /help autoauth.
+
+Pulihkan sesi SSH: /help sessions.
+
+Petunjuk bouncer: /help bouncers.
+
+Pengaturan dan pintasan: /help configuration, /help hotkeys.
+
+Masalah dan keamanan TLS: /help troubleshooting, /help security, /help tls.
+
+Riwayat dan log: /help history, /help logging.
+
+Referensi lengkap: /help all atau /manual.
+
+Mulai ulang program untuk mengganti bahasa pekerja yang sudah berjalan.

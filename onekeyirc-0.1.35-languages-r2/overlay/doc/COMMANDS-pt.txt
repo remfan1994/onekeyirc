@@ -1,0 +1,73 @@
+vipirc / onekeyirc - command guide (pt)
+=======================================
+
+Commands, argument names and saved configuration keys remain literal.
+For complete reference and security details see MANUAL.txt and SECURITY.md.
+
+/autoconnect
+------------
+Sem argumentos, mostra a configuração do servidor selecionado. As alterações valem na próxima inicialização.
+
+Use /connect para conectar imediatamente; use /save para salvar a conexão inicial.
+
+Cada servidor salvo tem suas próprias opções de conexão automática, canais automáticos e autenticação.
+
+/away and /back
+---------------
+É preciso estar registrado. O servidor confirma o estado de ausência. MESSAGE é texto literal.
+
+Equivale a /away sem mensagem. Exige uma conexão registrada.
+
+/cancel
+-------
+Remove mensagens em espera e interrompe comandos automáticos pendentes no servidor selecionado.
+
+Um quadro que já está sendo escrito pode terminar.
+
+Cancelar não retira mensagens que o servidor já recebeu.
+
+/query, /ql, /pm
+----------------
+Seleciona uma conversa privada sem enviar mensagem. Digite normalmente para falar com esse apelido.
+
+Use /ql para listar conversas numeradas e /close NICK para fechar uma. /pm aceita os mesmos nomes e números.
+
+O número deve indicar uma conversa existente no servidor selecionado; 0 nunca seleciona nem cria uma.
+
+/background
+-----------
+Use /background para manter as conexões ativas.
+
+/whois
+------
+Exige registro. Abre a visão do servidor para mostrar a resposta. Nenhum comando local é executado.
+
+/nick
+-----
+Os apelidos seguem a sintaxe IRC ASCII aceita e têm limite de 63 bytes.
+
+/server
+-------
+Um perfil carregado continua disponível mesmo desconectado.
+
+Um servidor correspondente mantém porta, transporte, apelido e autenticação configurados.
+
+/autoauth
+---------
+Use /save para salvar. Desconecte primeiro e depois use /connect para aplicar; a conexão ativa não é redirecionada.
+
+/autojoin
+---------
+As alterações são verificadas antes de aplicar e não entram nem saem de um canal ativo.
+
+/bindings
+---------
+Nenhuma tecla personalizada vem definida. Use /bindings keys e /bindings actions para ver os nomes aceitos.
+
+/connect
+--------
+PORT é 6697 por padrão. Outra porta não desativa TLS; a conexão sem criptografia deve ser escolhida explicitamente.
+
+/help
+-----
+Comando desconhecido. Use /help commands ou /help COMMAND; comandos de shell e IRC bruto não estão disponíveis.

@@ -1,0 +1,68 @@
+vipirc / onekeyirc - authentication and bouncers (de)
+=====================================================
+
+DRAFT TRANSLATIONS - native-speaker review is outstanding.
+Commands, flags, values and config keys must be entered literally.
+The English SECURITY.md and MANUAL.txt remain authoritative.
+
+/help soju
+----------
+Ein verbundenes, in /panel eingerichtetes soju-Profil ist nötig. Ohne Argument wird BouncerServ um Hilfe gebeten.
+
+COMMAND wird als eine zeitlich begrenzte Privatnachricht gesendet, ohne lokales Echo oder Befehlsverlauf.
+
+Eine direkte IRC-Verbindung kann diesen Kurzbefehl nicht nutzen. Antworten erscheinen in der Serveransicht.
+
+Für Konto- und Netzwerkbefehle die eigene Hilfe des Bouncers verwenden.
+
+/help znc
+---------
+Ein verbundenes, in /panel eingerichtetes ZNC-Profil ist nötig. Ohne Argument wird *status um Help gebeten.
+
+COMMAND wird als eine zeitlich begrenzte Privatnachricht gesendet, ohne lokales Echo oder Befehlsverlauf.
+
+Mit /msg *module COMMAND ein aktives ZNC-Modul ansprechen. Antworten erscheinen in der Serveransicht.
+
+Eine direkte IRC-Verbindung kann diesen Kurzbefehl nicht nutzen. Siehe die Bouncer-Hilfe für seine Befehle.
+
+/help authentication
+--------------------
+Die Kennung stammt aus der Passwortdatei oder entschlüsseltem GPG-Inhalt; Pfade gelten wörtlich.
+
+Mit /panel ein neues GPG-verschlüsseltes Geheimnis für einen vorhandenen lokalen Public-Key-Fingerabdruck anlegen.
+
+Einen bereits entsperrten GPG-Schlüssel verwenden. Im Chat-Editor startet kein pinentry.
+
+Klartextwerte password= und server_password= sind auch in privaten Konfigurationsdateien möglich.
+
+Je Kennung nur eine Quelle wählen. /settings und /summary verbergen Dateipfade.
+
+/autoauth status zeigt aktuelle und vorgemerkte Pfade, ohne Dateien zu lesen oder Passwörter anzuzeigen.
+
+Bei einem Bouncer-Profil Anmeldung und Quelle gemeinsam in /panel verwalten; /autoauth-Änderungen sind gesperrt.
+
+Kennungsdateien müssen eigene reguläre Dateien mit Modus 0600 oder 0400 sein; Symlinks und Elternpfad-Durchquerung sind verboten.
+
+SASL erlaubt 1024 Byte, normales Server-PASS 503 Byte. Der zusammengesetzte ZNC-Login muss in eine IRC-Zeile passen.
+
+--check-config prüft Konfiguration und Quelle, nicht Kennungen oder Anmeldung. Siehe /help tls und /help bouncers.
+
+/help tls
+---------
+Ein eigenes CA-Bündel muss eine nichtleere reguläre Datei bis 16 MiB sein. Symlink zur CA-Datei ist zulässig; für Geheimnisse/Konfig gelten strengere Regeln.
+
+Die CA-Datei wird einmal geöffnet, begrenzt und beim Lesen auf Größe geprüft. FIFO, Geräte und Nichtdateien sind verboten; geschütztes PEM kann kein Passwort abfragen.
+
+Die Größenbegrenzung verhindert keine I/O-Verzögerung von Dateien oder Netzdateisystemen. Ein vertrauenswürdiges CA-Bündel auf geeignetem Speicher nutzen.
+
+/help bouncers
+--------------
+Bouncer-Host und TLS-Port, Bouncer-Benutzer, vorhandenes Upstream-Netz und optional festen Clientnamen eingeben.
+
+Explizite Startbefehle laufen weiterhin. Vor Aktivierung des Profils prüfen, damit keine unerwünschten Joins oder Dienstbefehle wiederholt werden.
+
+Automatisches Away bei Leerlauf/Hintergrund ist je Bouncer-Profil aus, sofern nicht aktiviert. Manuelles /away und /back funktioniert.
+
+Verlauf bleibt begrenzt. Keine Archivanfrage, automatische Netzwerkerkennung oder automatische Profilerstellung je Netz.
+
+Für Einrichtung und geprüfte Grenzen siehe doc/BOUNCERS.txt sowie Bouncer-Beispiele unter examples/.

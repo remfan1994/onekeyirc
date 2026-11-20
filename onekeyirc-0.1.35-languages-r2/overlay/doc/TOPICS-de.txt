@@ -1,0 +1,64 @@
+vipirc / onekeyirc - help topics (de)
+========================================
+
+Commands and option tokens stay in English. Refer to MANUAL.txt and SECURITY.md for exact details.
+
+AUTHENTICATION
+--------------
+Nutzen Sie geprüftes TLS mit /autoauth sasl USER file PATH oder /autoauth sasl USER gpg PATH.
+
+Authentifizierungseinstellungen gelten erst beim nachsten /connect nach Trennung; /save speichert sie.
+
+BOUNCERS (ZNC / soju)
+---------------------
+Öffnen Sie /panel, wählen Sie einen Server und dann den Typ znc oder soju.
+
+Speichern Sie pro Upstream-Netz ein Profil. Bei gleichem Host vor /connect ohne Argument das richtige Profil wählen.
+
+Bouncer stellen Kanäle wieder her. Lokales /autojoin wird nicht ausgefuhrt oder bearbeitet; nutzen Sie /join und /part.
+
+Der Client verbindet sich nur zum Bouncer. Upstream-TLS, Authentifizierung und Speicherung separat einrichten.
+
+SESSION RECOVERY
+----------------
+Im Terminal --sessions ausführen. Den Status angehangt/getrennt prüfen und die Job-ID benutzen, nicht die Prozess-ID.
+
+Wenn ein altes SSH-Terminal den Job halt, --detach-session NUMBER und dann --resume NUMBER nutzen. IRC bleibt aktiv.
+
+--close-session NUMBER beendet den ganzen Job, IRC und Transfers. Entwürfe und RAM-Verlauf gehen verloren; gespeicherte Konfiguration und Logs bleiben erhalten.
+
+TLS
+---
+Geprüftes TLS ist Standard. Hostname/Adresse und Zertifikatskette mussen stimmen; kein Umgehen und kein Plaintext-Rückfall.
+
+Ein Port schaltet TLS nicht ab. --plain oder /connect -plain wahlt unverschlüsseltes IRC ohne Konto- und Server-Zugangsdaten.
+
+--check-config prüft keinen TLS-Handshake und bestätigt nicht, dass CA oder Zugangsdaten funktionieren. --test-mode verbindet sich nicht.
+
+TLS schutzt nur diese Verbindung. Upstream-TLS und Plaintext-Verlauf des Bouncers werden separat verwaltet.
+
+LOGGING
+-------
+Persistente Logs sind optional und standardmäßig aus. /set persistent_logging on aktiviert; /save output speichert.
+
+Logs sind Plaintext, keine verschlusselten Sicherungen. Limit 16 MiB je Datei; Schreibfehler stoppt Logs, nicht Chat.
+
+/clear leert nur RAM. Logs bleiben nach Beenden, --close-session und Speichern erhalten. Logging aus stoppt neue Einträge, löscht aber keine alten.
+
+RECONNECT
+---------
+--reconnect aktiviert erneute Versuche für diesen Prozess; speichert nichts und startet keine Verbindung.
+
+Wartende Chatnachrichten werden bei Trennung verworfen und nie automatisch erneut gesendet.
+
+TROUBLESHOOTING
+---------------
+Nach SSH-Verlust besetzt? --sessions aufrufen, Job prüfen, --detach-session NUMBER und --resume NUMBER. --close-session vermeiden. See /help sessions.
+
+Keine Kanäle? Serveransicht und Anmeldung prüfen. Direkt: /autojoin list; Bouncer: /join oder /part.
+
+Anmeldung fehlgeschlagen? Konto, Quelle, Dateirechte, TLS und GPG-Agent prüfen. /autoauth status liest keine Geheimnisse.
+
+Änderung wirkungslos? /connect erst nach Trennung. Speichern aktiviert autoconnect nicht; Startoptionen brauchen Neustart.
+
+Nutzen Sie --check-config und doc/TROUBLESHOOTING.txt. --test-mode pruft nur die Oberflache, nicht DNS, TLS, Daten oder echten Bouncer.

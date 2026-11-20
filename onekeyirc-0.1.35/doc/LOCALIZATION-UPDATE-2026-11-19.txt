@@ -1,0 +1,18 @@
+LOCALIZATION UPDATE - onekeyirc 0.1.40
+2026-11-19
+
+Base: vipirc 0.7.40 and onekeyirc 0.1.39.
+Catalog: 326 terms per language, ten languages and English fallback.
+Added: 20 command-help lines and 16 runtime diagnostics; 10 generated
+COMMANDS-XX.txt reference supplements; exact C help coverage audit.
+Runtime help catalog coverage: 43 of 477 complete command/topic lines.
+Some help and most manuals remain in English.
+
+Safety: IRC commands, token spelling and argument placeholders retained.
+Translation data does not affect command parsing or authentication decisions.
+Utf-8 heading underlines are measured in terminal cells, not encoded bytes.
+A compiler option permits building the same source without translations.
+
+Validation and limitations are in the paired release notes. Arabic
+bidirectional terminal layout and native-speaker proofreading are pending.
+The full vipirc ncurses build was not available on the release host.

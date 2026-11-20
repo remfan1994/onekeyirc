@@ -1,0 +1,73 @@
+vipirc / onekeyirc - command guide (ms)
+=======================================
+
+Commands, argument names and saved configuration keys remain literal.
+For complete reference and security details see MANUAL.txt and SECURITY.md.
+
+/autoconnect
+------------
+Tanpa argumen, papar tetapan pelayan dipilih. Perubahan berkuat kuasa pada permulaan program seterusnya.
+
+Gunakan /connect untuk sambungan segera; gunakan /save untuk menyimpan pilihan sambungan semasa mula.
+
+Setiap pelayan tersimpan mempunyai tetapan sambungan automatik, saluran sertai automatik dan pengesahan sendiri.
+
+/away and /back
+---------------
+Perlu berdaftar pada pelayan. Pelayan mengesahkan status tiada. MESSAGE ialah teks sebenar.
+
+Sama seperti /away tanpa mesej. Memerlukan sambungan berdaftar.
+
+/cancel
+-------
+Buang mesej sembang yang menunggu giliran dan hentikan arahan automatik tertunda pada pelayan dipilih.
+
+Bingkai yang sedang ditulis dibenarkan selesai.
+
+Pembatalan tidak menarik balik mesej yang sudah diterima pelayan.
+
+/query, /ql, /pm
+----------------
+Pilih perbualan peribadi tanpa menghantar mesej. Taip seperti biasa untuk menulis kepada nama gelaran itu.
+
+Gunakan /ql untuk senarai perbualan bernombor dan /close NICK untuk menutupnya. /pm menerima nama dan nombor sama.
+
+Nombor mesti merujuk perbualan sedia ada pada pelayan dipilih; 0 tidak memilih atau mencipta perbualan.
+
+/background
+-----------
+Gunakan /background supaya sambungan terus berjalan.
+
+/whois
+------
+Perlu berdaftar. Pilih paparan pelayan agar balasannya kelihatan. Tiada arahan tempatan dijalankan.
+
+/nick
+-----
+Nama gelaran menggunakan sintaks IRC ASCII yang disokong dan terhad kepada 63 bait.
+
+/server
+-------
+Profil yang dimuatkan masih tersedia walaupun tidak bersambung.
+
+Pelayan sepadan yang sedia ada mengekalkan port, pengangkutan, nama gelaran dan pengesahannya.
+
+/autoauth
+---------
+Gunakan /save untuk menyimpan. Putuskan sambungan dahulu, kemudian /connect untuk perubahan; sambungan aktif tidak dialih.
+
+/autojoin
+---------
+Perubahan disahkan sebelum digunakan dan tidak menyertai atau meninggalkan saluran aktif.
+
+/bindings
+---------
+Tiada kekunci tersuai secara lalai. Gunakan /bindings keys dan /bindings actions untuk nama yang disokong.
+
+/connect
+--------
+PORT lalai ialah 6697. Port lain tidak mematikan TLS; sambungan tanpa enkripsi mesti dipilih secara nyata.
+
+/help
+-----
+Arahan tidak dikenali. Gunakan /help commands atau /help COMMAND; arahan shell dan IRC mentah tidak tersedia.

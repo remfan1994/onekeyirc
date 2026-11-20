@@ -1,0 +1,64 @@
+vipirc / onekeyirc - help topics (id)
+========================================
+
+Commands and option tokens stay in English. Refer to MANUAL.txt and SECURITY.md for exact details.
+
+AUTHENTICATION
+--------------
+Gunakan TLS terverifikasi dengan /autoauth sasl USER file PATH atau /autoauth sasl USER gpg PATH.
+
+Pengaturan autentikasi berlaku pada /connect berikutnya setelah terputus; /save menyimpannya.
+
+BOUNCERS (ZNC / soju)
+---------------------
+Gunakan /panel, pilih server, lalu jenis koneksi znc atau soju.
+
+Simpan satu profil per jaringan hulu. Pilih profil yang tepat sebelum /connect tanpa argumen jika nama host sama.
+
+Bouncer memulihkan kanal yang diikuti. /autojoin lokal tidak dijalankan dan tidak dapat diubah; gunakan /join dan /part.
+
+Klien hanya terhubung ke bouncer. Atur TLS, autentikasi, dan penyimpanan riwayat di sisi hulu secara terpisah.
+
+SESSION RECOVERY
+----------------
+Dari shell jalankan --sessions. Gunakan ID pekerjaan yang terdaftar, bukan ID proses; periksa status terpasang atau terlepas.
+
+Jika terminal SSH lama masih menguasai sesi, jalankan --detach-session NUMBER lalu --resume NUMBER. IRC tetap berjalan.
+
+Gunakan --close-session NUMBER hanya untuk mengakhiri seluruh job. Semua sambungan IRC dan transfer ditutup; draf dan riwayat RAM hilang. Konfigurasi dan log tersimpan tetap ada.
+
+TLS
+---
+TLS terverifikasi adalah bawaan. Nama host atau alamat server serta rantai sertifikat harus valid; tidak ada jalan pintas atau fallback plaintext.
+
+Nomor port tidak mematikan TLS. --plain atau /connect -plain memilih IRC tanpa enkripsi dan tidak dapat memakai kredensial akun/server.
+
+--check-config tidak menguji koneksi TLS atau memastikan berkas CA dan sumber kredensial berfungsi. --test-mode tidak menghubungi server.
+
+TLS hanya melindungi koneksi ini. TLS hulu dan riwayat plaintext pada bouncer diatur terpisah.
+
+LOGGING
+-------
+Log persisten opsional dan mati secara bawaan. /set persistent_logging on mengaktifkan; /save output menyimpan pilihan.
+
+Log berupa plaintext, bukan cadangan terenkripsi. Batasnya 16 MiB per berkas; kegagalan penulisan menghentikan log, bukan obrolan.
+
+/clear hanya membersihkan RAM. Log tetap ada setelah keluar, --close-session, atau menyimpan. Mematikan log menghentikan catatan baru, bukan menghapus yang lama.
+
+RECONNECT
+---------
+--reconnect mengaktifkan percobaan ulang pada proses ini; tidak menyimpan pengaturan atau memulai koneksi.
+
+Pesan yang mengantre dibuang saat terputus dan tidak dikirim ulang otomatis.
+
+TROUBLESHOOTING
+---------------
+Sibuk setelah SSH putus? Jalankan --sessions, periksa pekerjaan, lalu --detach-session NUMBER dan --resume NUMBER. Hindari --close-session. See /help sessions.
+
+Kanal kosong? Periksa tampilan server dan autentikasi. Profil langsung memakai /autojoin list; bouncer memulihkan kanal; gunakan /join atau /part.
+
+Autentikasi gagal? Periksa akun, sumber kredensial, izin berkas, TLS, dan agen GPG. /autoauth status tidak membaca rahasia.
+
+Perubahan belum berlaku? Ubah koneksi dengan /connect setelah terputus. Menyimpan berbeda dari autoconnect; preferensi awal perlu proses baru.
+
+Gunakan --check-config dan doc/TROUBLESHOOTING.txt. --test-mode hanya menguji antarmuka, bukan DNS, TLS, kredensial, atau bouncer nyata.

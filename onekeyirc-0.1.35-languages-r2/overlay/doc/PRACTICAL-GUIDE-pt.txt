@@ -1,0 +1,213 @@
+Guia prático de vipirc / onekeyirc
+==================================
+
+TRADUÇÃO PRELIMINAR. Escreva os comandos e opções exatamente como aparecem.
+Para os detalhes de segurança, consulte MANUAL.txt e SECURITY.md em inglês.
+
+/help startup
+-------------
+
+Execute o programa, feche a tela de boas-vindas e digite /connect irc.example.org e /join #channel.
+
+Não é preciso criar perfil de servidor, alias ou número antes. /server HOST é um alias para conexão direta.
+
+Sem apelido informado, usa-se um login válido do sistema ou, se inadequado, user. Não há pergunta de apelido.
+
+Use /saveconf para salvar a configuração e o padrão selecionado. Na próxima execução, /connect os reutiliza.
+
+Salvar não ativa a conexão automática; ela é uma escolha separada. /quickstart e /panel são guias opcionais.
+
+Também valem opções do shell: --server HOST, --channel '#CHANNEL' e --nick NICK. Coloque #CHANNEL entre aspas no shell.
+
+Na inicialização normal, --nick, --port, --channel, --tls, --plain e --ca-file substituem o padrão salvo.
+
+Um --server explícito seleciona a primeira conexão. --init-config e --check-config usam o arquivo principal de configuração.
+
+Mudar --server para outro host elimina credenciais antigas, CA personalizada, identidade do bouncer, canais e comandos iniciais.
+
+Se o padrão salvo não estiver disponível, informe --server ou corrija o padrão antes de substituir opções de conexão.
+
+Autoconnect, autojoin e autoauth pertencem a cada perfil de servidor salvo. Consulte /help autoconnect para ativá-los.
+
+--no-connect impede conexões na inicialização; --test-mode simula atividade sem rede ou gravação de configuração.
+
+--sessions lista tarefas com terminal anexado ou solto. --resume [NUMBER] reconecta o terminal; veja /help background.
+
+--close-session NUMBER encerra a tarefa inteira e todas as suas conexões IRC após confirmar o encerramento. NUMBER é ID da tarefa, não PID.
+
+Depois de perder o terminal, use --sessions, --detach-session NUMBER e --resume NUMBER. O processo mantém o código antigo até reiniciar; veja /help sessions.
+
+-h/--help e -v/--version funcionam sem terminal.
+
+/help messages
+--------------
+
+Use /join #channel para entrar e selecionar um canal, ou /query NICK para abrir uma conversa privada.
+
+Selecione um canal retido com /channel. /msg TARGET TEXT envia ao destino; /me TEXT envia uma ação.
+
+/query abre uma conversa sem enviar nada; /pm é um alias. /ql mantém conversas privadas separadas dos canais.
+
+O envio direto é o padrão; /set send_mode review adiciona revisão. /set composer_mode line|fullscreen muda a apresentação.
+
+Ao atingir o limite de uma mensagem, confirme para continuar editando; dividir mensagens exige outra autorização.
+
+É preciso concluir a entrada e autenticação antes de enfileirar mensagens. /cancel cancela a fila, não o que já foi enviado.
+
+/help limits
+------------
+
+Os limites de IRC contam bytes, não caracteres exibidos. Um caractere UTF-8 pode ocupar vários bytes.
+
+O cliente calcula o espaço incluindo destino, comando e sobrecarga de retransmissão; nunca divide um caractere UTF-8.
+
+No limite de uma mensagem, mais texto é bloqueado até Enter confirmar que deseja continuar editando; esse Enter não envia.
+
+Uma mensagem dividida exige consentimento separado, mesmo no modo direto. O chat envia uma linha a cada 1.2 segundos.
+
+Um plano de envio comporta no máximo 64 mensagens e 16384 bytes de texto. Reduza o texto ou envie em partes deliberadamente.
+
+Há no máximo 8 espaços de servidor e 32 visualizações por servidor, incluindo as reservadas.
+
+/help quickstart
+----------------
+
+Edite servidor, transporte TLS, porta e alcunha do perfil atual por essa ordem e reveja as definições.
+
+TLS verificado e predefinido. E preciso escolher explicitamente uma ligação em texto simples.
+
+Enter conserva o valor mostrado. Escape recua uma pergunta; repita para sair sem aplicar. Respostas não entram no histórico dos comandos.
+
+Na revisão final escolha 1 Guardar e ligar, 2 So guardar, 3 Ligar uma vez (predefinido) ou 4 So aplicar.
+
+Abrir o assistente e responder perguntas não aplica definições, grava ficheiros nem estabelece ligação.
+
+Ligar uma vez aplica sem guardar; So aplicar não grava nem liga. Uma ligação ativa não muda destino nem religa automaticamente.
+
+Uma ligação falhada não desfaz alterações já aplicadas ou guardadas pela ação final.
+
+Use /panel para perfis de bouncer e mais opções. Quickstart não altera uma autenticação de bouncer já existente.
+
+/help save
+----------
+
+/save simples grava as definições efetivas do servidor selecionado, incluindo alterações de ligação pendentes.
+
+/save input e /save output gravam ambos o perfil principal completo, preferencias e ligação preparada. Nao gravam apenas a secao indicada.
+
+/save all guarda cada perfil valido separadamente. Se um falhar, os anteriores mantem-se e as falhas são comunicadas.
+
+Cada substituicao de ficheiro e privada e atómica, mas não e uma transacao para todos os ficheiros. O modo de teste nunca grava configuracoes.
+
+/help documentation
+-------------------
+
+Procure uma tarefa com /help ls; /help commands explica a entrada e lista os comandos aceites. Use um topico ou comando de cada vez.
+
+/help COMMAND mostra sintaxe, efeitos e exemplos. /help /ls explica a lista local; /help ls lista os topicos.
+
+/help all ou /manual abre esta referência. --help apresenta opções de arranque; a saida de --manual minimalista pode ser redirecionada para um ficheiro.
+
+README.md orienta a documentação; MANUAL.txt cobre a interface e INSTALL a compilacao. A pagina man instalada explica a shell.
+
+CONTRIBUTING.md explica alterações; doc/SOURCE-MAP.txt localiza código e tests/README.md descreve testes. DESIGN.md documenta propriedade e ordem.
+
+doc/TROUBLESHOOTING.txt traz verificacoes por sintomas. SECURITY.md define ameacas; doc/BOUNCERS.txt e doc/SESSION-CONTROLS.txt explicam operacoes. Auditorias só valem nas versoes e ambientes indicados.
+
+/help security
+--------------
+
+Texto remoto é filtrado antes de aparecer no terminal. A entrada é interpretada como comandos IRC locais, nunca comandos shell.
+
+Não há /raw, escape para shell nem aceitação automática de ficheiros. Colagem delimitada reconhecida nunca executa comandos.
+
+TLS verifica a identidade do servidor. SASL, PASS e comandos privados de autenticação exigem TLS verificado. Atualize a biblioteca TLS do sistema e o cliente; veja SECURITY.md.
+
+Um pacote CA personalizado deve ser um ficheiro PEM normal não vazio, até 16 MiB, sem pedir palavra-passe.
+
+As palavras-passe configuradas são ocultadas na ajuda e definições. Comandos de credenciais conhecidos não entram no histórico; segredos enviados como texto normal podem ficar guardados.
+
+Não se grava conversa no disco por omissão. Alterações de configuração precisam de gravação explícita.
+
+Processos na mesma conta, servidor IRC ou bouncer e terminal ou sistema comprometido ficam fora destas protecoes. TLS não e cifragem de chat ponta a ponta.
+
+Registos opcionais e segredos na configuração são texto simples. Comandos sensiveis conhecidos são filtrados, mas segredos arbitrarios em mensagens não são detetados de forma fiavel.
+
+Consulte /help tls, /help authentication, /help logging e SECURITY.md para limites e análises anteriores.
+
+/help sessions
+--------------
+
+Uma tarefa e um processo cliente com servidores, transferencias, rascunhos e histórico. O número de servidor no programa não e um ID de tarefa da shell.
+
+Na shell execute --sessions. Verifique o estado ligado/desligado e use o ID do trabalho, não o do processo.
+
+Se o antigo terminal SSH ainda detem o trabalho, use --detach-session NUMBER e depois --resume NUMBER. O IRC continua.
+
+--resume sem número escolhe só uma tarefa destacada verificada. Varias tarefas exigem número; uma anexada esta ocupada ate se destacar. Os números podem ser reutilizados.
+
+Use --close-session NUMBER só para terminar o trabalho inteiro. Fecha IRC e transferências; perde rascunhos e histórico RAM, mas mantém as configurações e os logs guardados.
+
+Fechar confirma sucesso só apos limpeza verificada. Se expirar, consulte --sessions: a operacao pode terminar depois. A falha não elimina um ponto ativo nem sinaliza um PID adivinhado.
+
+So uma tarefa gerida sobrevive a perda do terminal. Um processo normal em primeiro plano não se torna retomavel ao perder SSH. Inicie com --background ou use /background primeiro.
+
+A tarefa pertence a mesma conta Unix e host, com um terminal anexado de cada vez. Outros programas nessa conta partilham o limite de confianca.
+
+Instalar um executavel não muda o código de um processo ativo. Guarde a configuração, termine o processo antigo, confirme --version e inicie outro.
+
+Um processo antigo pode não ter novos controlos ou troca de interface. Mantenha o executavel compativel ate parar o processo se precisar de o anexar.
+
+O cliente não altera a politica de inatividade SSH. Consulte /help background, /help deployment e doc/SESSION-CONTROLS.txt.
+
+/help troubleshooting
+---------------------
+
+Ocupado após falha SSH? Use --sessions, verifique o trabalho, depois --detach-session NUMBER e --resume NUMBER. Evite --close-session. See /help sessions.
+
+Up não recupera texto: Compose edita mensagens; Command recupera comandos aceites. Abra Command com / a partir do registo. Mensagens enviadas e comandos sensiveis não são recuperados.
+
+Se uma mensagem parecer cortada: a vista reserva linhas para o editor e mostra as linhas visuais recentes. Saia do editor ou volte ao canal; a vista não prova entrega remota.
+
+Se mudar de canal mostrar o texto completo, e uma diferenca de vista. Se persistir, registe interface, modo, dimensoes, locale e passos sem palavras-passe nem conversas privadas.
+
+Sem canais? Verifique a vista do servidor e a autenticação. Perfis diretos: /autojoin list; bouncer: /join ou /part.
+
+Falhou autenticação? Verifique conta, origem, permissões, TLS e agente GPG. /autoauth status não le segredos.
+
+Sem recuperacao: a ancora pode ter saído do histórico, o registo ter iniciado tarde ou parado, ou o ficheiro mudado. Veja /help catchup e /help logging; logs não recriam um processo terminado.
+
+Mudanca ignorada? E preciso /connect após desligar. Guardar não ativa autoconnect; preferencias de arranque exigem reinício.
+
+Se o arranque de auxiliares falhar, corrija a politica SIGCHLD ou recolha automatica de filhos do iniciador, para que o cliente possa aguardar os processos filhos.
+
+Use --check-config e doc/TROUBLESHOOTING.txt. --test-mode só testa a interface, não DNS, TLS, credenciais ou bouncer real.
+
+/help bouncers
+--------------
+
+Abra /panel, escolha o servidor e selecione o tipo znc ou soju.
+
+Informe host e porta TLS do bouncer, usuário do bouncer, rede upstream existente e nome estavel de cliente opcional.
+
+Guarde um perfil por rede a montante. Se varios partilham o host, selecione o perfil certo antes de /connect sem argumentos.
+
+O cliente monta a identidade. ZNC usa a fonte da palavra-passe do servidor; soju usa a de autenticação. Introduza só a senha do bouncer, não uma identidade junta nem senha NickServ.
+
+O bouncer repoe os canais. /autojoin local não e repetido e não aceita alteracoes; use /join e /part.
+
+Comandos explícitos de inicialização ainda rodam. Revise-os antes de ativar o perfil para evitar entradas e comandos de servico repetidos.
+
+Away automatico por inatividade/segundo plano fica desligado salvo ativação. /away e /back manuais continuam funcionando.
+
+O histórico recebido usa datas UTC originais, envia mensagens privadas ao destinatario e não cria mencoes, executa CTCP/DCC ou altera o estado ativo.
+
+O histórico e limitado. Nao ha busca de arquivo sob demanda, descoberta automatica de redes nem perfil automatico por rede.
+
+Use /znc ou /soju sem argumentos para ajuda do servico. Texto de controlo não entra no histórico nem eco; respostas surgem na vista do servidor sem registo persistente.
+
+Copias reconhecidas de controlo enviado são ocultadas mesmo com alcunhas antigas no replay. O texto editado pode surgir e o bouncer tem a propria politica de registos.
+
+O cliente liga-se apenas ao bouncer. Configure TLS, autenticação e retencao da ligação a montante separadamente.
+
+Consulte doc/BOUNCERS.txt e os exemplos do bouncer em examples/ para configuração e limites da validação.

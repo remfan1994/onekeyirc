@@ -1,0 +1,209 @@
+TROUBLESHOOTING VIPIRC AND ONEKEYIRC
+
+Replace PROGRAM with vipirc or onekeyirc in shell examples. Use the same
+program and Unix account that started the session. Replace sample job/server
+number 1 and /absolute/path/config.ini with your actual selection. Lines
+under "Shell" run in your operating-system shell; lines under "In program"
+run in the client's Command prompt, never as chat text.
+
+1. SSH DROPPED; RESUME IS BUSY OR UNAVAILABLE
+
+Shell:
+  PROGRAM --sessions
+
+A listed job is one local worker, potentially containing several IRC server
+connections. Its number is neither a PID nor a server number from /servers.
+Numbers can be reused after a worker exits. Listing under another Unix
+account, including root, checks that account's jobs instead.
+
+For a verified detached job, use:
+
+Shell:
+  PROGRAM --resume 1
+
+For the intended job still listed as attached, release its terminal first:
+
+Shell:
+  PROGRAM --detach-session 1
+  PROGRAM --resume 1
+
+Detach keeps IRC connections, accepted transfers and retained state alive.
+Read the detach result before resuming. "no unique verified detached job"
+means bare --resume could not select safely; use the listed number.
+"that job is not available" requires checking its current listed state.
+
+If a request times out, list again: acceptance and completed release are
+separate. An unresponsive, unverified or incompatible old worker may refuse
+control. Keep its diagnostic; do not delete its socket/lease or infer a PID
+from its job number. Full ncurses output can delay control polling when an
+open terminal stops accepting output. See doc/SESSION-CONTROLS.txt.
+
+Resume needs stdin, stdout and stderr on the same interactive terminal;
+remove piping/redirection if it reports that terminal requirement. Session
+management commands cannot be combined with --config or connection options.
+
+No listed job may mean the original process never became managed or has
+exited. For future sessions, use /background while running, or launch with
+--background and saved startup settings. Resume cannot reconstruct a dead
+process. These controls do not change an SSH server's idle-disconnect policy.
+
+2. A FIX OR NEW OPTION SEEMS MISSING AFTER AN UPGRADE
+
+Shell:
+  command -v PROGRAM
+  PROGRAM --version
+
+These inspect the executable your shell invokes. Installing a new executable
+does not replace code already loaded by a running worker; resuming it keeps
+that code. Check for another executable earlier in PATH and whether you
+resumed a worker started before installation.
+
+For a deliberate restart, save wanted settings and copy wanted drafts first;
+then quit that worker normally and start a fresh process. Exit ends its IRC
+connections, transfers and in-memory history. An older worker may need its
+compatible older executable to resume and quit. Use the upgrade procedure in
+doc/SESSION-CONTROLS.txt; --close-session is an explicit whole-worker exit,
+not a remedy for a display problem. Bare resume preserves the frontend;
+requesting the other vipirc frontend discards that frontend's unsaved input.
+
+3. WRONG CONFIGURATION, MISSING SETTINGS, OR SAVE FAILURE
+
+Check the intended file without connecting:
+
+Shell:
+  PROGRAM --config /absolute/path/config.ini --check-config
+
+This checks configuration values, the adjacent saved-server catalog and its
+profiles. It does not test credential access, GPG, DNS, certificates or login.
+An explicit --config file must exist; --init-config creates a new file and
+refuses to overwrite an existing one.
+
+Defaults use absolute XDG_CONFIG_HOME, or HOME/.config, under the program's
+name; account information supplies HOME when needed. A relative
+XDG_CONFIG_HOME is rejected. onekeyirc can use an existing
+1keyirc/config.ini when its new default is absent. vipirc -i shares vipirc's
+configuration. Explicit --config avoids guessing which workspace is selected.
+
+Paths belong to the host running the client, including over SSH. Inside a
+config, values are literal: no shell quoting, ~ or variable expansion.
+Unknown keys/sections are errors. Secret values preserve spaces
+after =; do not append quotes or inline comments. Save rewrites supported
+settings and discards hand-written formatting/comments.
+
+In program:
+  /servers
+  /settings
+
+Confirm the selected server before saving. /save writes that server.
+/save input and /save output are identical aliases: both save the primary
+effective profile, including staged connection settings and application
+preferences. /saveconf saves profiles and remembers the selected default;
+it does not enable autoconnect. These are file writes, not one workspace-wide
+transaction. "Configuration save incomplete" can leave successful writes
+saved. A directory-synchronization error can follow publication; inspect and
+recheck the intended file before assuming nothing changed.
+
+For permission/path errors, use an owned private directory and real files;
+symlinks in these paths are refused. Credential files require ownership and
+mode 0600 or 0400. Do not make secrets public to bypass an error. --test-mode
+never saves configuration. Editing a file also does not reload an already
+loaded worker: apply settings in the program, or restart deliberately.
+
+4. BACKGROUND STARTED, BUT IRC DID NOT CONNECT OR JOIN
+
+In program:
+  /servers
+  /autoconnect
+  /autoauth status
+  /autojoin
+
+--background success confirms local worker setup. It does not enable startup
+connection or confirm IRC registration. On the intended selected profile,
+enable and save future startup connection if wanted:
+
+In program:
+  /autoconnect on
+  /save
+
+Use /connect for an immediate connection. --no-connect suppresses all startup
+connections. /saveconf alone does not enable them. --reconnect enables
+retries for eligible temporary failures in this process without initiating
+a connection by itself.
+Authentication/certificate failures remain held instead of being retried as
+ordinary network outages. Reconnect also does not replay discarded pending
+chat or restart a crashed process.
+
+Autojoin waits for registration and required authentication. On ZNC/soju,
+the bouncer restores memberships; use /join or /part there, not local autojoin
+configuration. Consult doc/BOUNCERS.txt for the correct per-network profile.
+
+5. TLS, AUTHENTICATION OR CREDENTIAL ERRORS
+
+Keep the exact diagnostic. "TLS certificate rejected:" is different from
+"TLS handshake failed (no plaintext fallback)" or a name-lookup failure.
+Check the configured hostname, the provider's TLS port and the intended
+trust store. A custom CA must contain trusted PEM certificates; a malformed,
+empty, nonregular or oversized file is rejected. Keep verification enabled
+and correct the endpoint/trust configuration rather than hiding the failure.
+
+"Required SASL PLAIN is unavailable; no credentials sent" means the required
+mechanism was not offered. "SASL authentication failed; no channels joined"
+requires checking the selected account and credential source with the
+provider. For bouncers, use the bouncer password and its configured network,
+not an unrelated network-service password; /panel manages these together.
+
+In program:
+  /autoauth status
+
+This explicitly shows current/pending credential paths without opening them
+or displaying passwords. Check the path and private-file diagnostic locally.
+GPG needs a usable, already-unlocked local key; the client does not run a
+passphrase prompt inside the editor. After correcting applied pending
+connection/authentication settings, /disconnect then /connect uses them;
+automatic retries keep the current connection settings. /save persists the
+changes. See MANUAL.txt and doc/BOUNCERS.txt for full credential setup.
+
+6. UP DOES NOT RECALL TEXT; A WRAPPED LINE SEEMS CLIPPED
+
+Check which input is focused. In minimalist Compose, Up/Down moves the caret;
+it does not recall sent chat. From the live log, / opens Command. Up from
+Command input recalls accepted commands matching the original typed prefix
+for that server; Down while browsing moves back toward the original input.
+If a suggestion is selected, arrows navigate suggestions; Up from the first
+suggestion returns to input. Holding Up does not change these rules.
+
+"No matching command history." can mean no accepted matching command, the
+wrong server/prefix, or evicted history. Recall is bounded to 64 entries and
+64 KiB; failed commands and sensitive authentication/service/keyed-join text
+are excluded. Full vipirc also separates its chat editor from Command input.
+Inspect /bindings if a custom key action changes navigation; bindings start
+empty. See doc/HOTKEYS.txt and the manual's input sections.
+
+The minimalist input pane shares the screen with a tail of wrapped chat.
+Only the newest visual rows that fit are shown; less room does not mean the
+stored record was truncated. "Terminal too small; draft retained." calls for
+resizing, without discarding the draft. From the live log, Up/Page Up reads
+retained scrollback; End returns to the live tail. Selecting the conversation
+again also replays retained records. Preserve unfinished input before leaving
+its editor. Do not resend solely because a tail row disappeared; local
+history alone does not prove remote receipt. If clipping persists, check the
+loaded worker version and record terminal dimensions and composer mode.
+
+7. HISTORY OR LOGGING DID NOT SURVIVE RESTART
+
+Drafts, command recall and catch-up anchors belong to the running process.
+Same-frontend detach/resume preserves them; exit/reboot does not. Retention
+also evicts old records. Existing logs are not automatically imported into a
+new session or editor. Saved .commands files contain command names/counts,
+not previous arguments or messages.
+
+Logging is off by default. A saved profile uses its config path plus .log.
+"Persistent logging unavailable for this server:"
+means chat can continue while disk logging stops. Check the specific reason:
+private directory/file permissions, a busy file, a write error, or the 16 MiB
+limit. At that limit, archive the log and toggle logging off/on as described
+by /help logging. Logs are plaintext; /clear does not erase them. /catchup
+requires a retained anchor or an eligible log anchor created in this process.
+
+For a report, include version, frontend, terminal size, exact redacted error
+and the smallest reproducible steps. Omit passwords and private transcripts.

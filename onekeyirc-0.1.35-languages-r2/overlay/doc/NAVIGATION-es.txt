@@ -1,0 +1,105 @@
+vipirc / onekeyirc - navigation help (es)
+==========================================
+
+IRC commands and uppercase arguments are entered literally.
+For full English security and protocol details see MANUAL.txt.
+
+/channel
+--------
+Los números aparecen en /channels. La selección cambia la conversación visible y el destino del próximo texto normal.
+Esto no entra en un canal. Debes volver a entrar en un canal abandonado antes de enviar mensajes.
+
+/channels
+---------
+El canal 0 siempre muestra los mensajes del servidor/MOTD. Las conversaciones privadas tienen su propia lista /ql.
+Las filas muestran el estado de entrada/salida y los recuentos de no leídos y menciones.
+
+/cl
+---
+Enumera los canales de este servidor, incluido el canal 0 para mensajes del servidor y el estado de entrada/salida de cada canal.
+Usa /channel NUMBER o /channel #NAME para seleccionar uno. Las conversaciones privadas tienen su propia lista /ql.
+
+/close
+------
+Sin argumento, cierra la conversación actual. Se sale del canal antes de quitar su vista.
+Las vistas permanentes del servidor y de menciones no se pueden cerrar. Los números de canal aparecen en /channels.
+
+/disconnect
+-----------
+Sin número, desconecta el servidor seleccionado. El historial y la configuración siguen disponibles.
+Esto no modifica su ajuste de conexión automática al próximo inicio.
+
+/help
+-----
+Usa /help ls para el índice de temas, /help commands para los comandos y su lista, o /help autoconnect para un comando.
+Indica un tema o nombre de comando sin argumentos. /help /ls explica la lista local; /help ls enumera temas. La barra inicial es opcional.
+/help all abre el manual completo en un lector de ayuda independiente.
+
+/me
+---
+Requiere un canal al que te hayas unido o una conversación privada y una conexión registrada. Se aplican los límites de mensaje y las reglas de envío.
+La interfaz revisa un mensaje dividido antes de ponerlo en cola.
+
+/mentions
+---------
+Selecciona las menciones de este servidor. Contiene líneas recientes limitadas y sus marcas de tiempo originales.
+/mentions clear elimina las copias de menciones guardadas de todos los servidores actuales sin cambiar de vista.
+Se conservan el historial de la conversación original, los contadores de no leídos y las tareas pendientes.
+Usa /watch para añadir textos literales; /channel o /pm vuelve a una conversación donde puedes enviar.
+
+/msg
+----
+Requiere registro. Crea un plan de envío; siguen vigentes el modo directo/revisión y el consentimiento para dividir mensajes.
+No cambia a escondidas el destinatario actual. Los mensajes de servicios/credenciales se excluyen del historial de comandos.
+
+/next
+-----
+Recorre las vistas de servidor, menciones, canales y privados; omite el búfer del manual interno.
+
+/nick
+-----
+Al estar conectado, solicita un cambio confirmado por el servidor. Desconectado, actualiza la identidad de la próxima conexión.
+Los apodos deben seguir la sintaxis IRC ASCII admitida y no superar 63 bytes.
+
+/pm
+---
+Los nombres abren o seleccionan un privado. Los números seleccionan uno existente de la lista /ql de este servidor.
+Abrir un privado no contacta al usuario hasta enviar un mensaje. Los números pueden cambiar al cerrar uno.
+
+/prev
+-----
+Es lo contrario de /next. No conecta, entra en canales ni envía mensajes.
+
+/ql
+---
+Los privados se numeran desde 1, aparte de los canales. Usa /query NICK o /query NUMBER para seleccionar uno.
+Usa /close NICK para cerrar un privado; repite /ql porque los números siguientes pueden cambiar.
+
+/queries
+--------
+Utiliza la misma lista de privados que /ql. La numeración de canales sigue aparte.
+
+/settings
+---------
+Muestra las preferencias de la aplicación separadas de las opciones de conexión pendientes del servidor elegido.
+Los valores de autenticación se muestran por tipo de origen; nunca se imprimen contraseñas ni rutas de credenciales.
+Usa /autoconnect, /autojoin, /autoauth y /set para modificar sus ajustes respectivos.
+
+/sl
+---
+Usa la misma lista de servidores configurados y números de posición estables que /servers.
+Usa /server NUMBER para seleccionar uno.
+
+/unread
+-------
+Las filas incluyen número de servidor, nombre de conversación, mensajes no leídos y cantidad de menciones.
+Usa /server NUMBER seguido de /channel o /pm para elegir una conversación.
+
+/view
+-----
+Los canales se numeran en /channels y los privados se nombran en /ql. También se aceptan servidor y menciones.
+Usa /help en lugar de seleccionar el búfer del manual interno.
+
+/views
+------
+Este alias utiliza números de canal; los privados siguen en /ql.

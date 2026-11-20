@@ -1,0 +1,64 @@
+vipirc / onekeyirc - help topics (tr)
+========================================
+
+Commands and option tokens stay in English. Refer to MANUAL.txt and SECURITY.md for exact details.
+
+AUTHENTICATION
+--------------
+Doğrulanmış TLS ile /autoauth sasl USER file PATH veya /autoauth sasl USER gpg PATH kullanın.
+
+Kimlik doğrulama ayarları, bağlantı kesildikten sonraki /connect ile etkinleşir; /save kaydeder.
+
+BOUNCERS (ZNC / soju)
+---------------------
+/panel acin, sunucu seçin, sonra znc veya soju bağlantı turunu seçin.
+
+Her üst ağ icin ayri profil kaydedin. Ayni ana makineyi kullanan profillerde /connect oncesi dogru profili seçin.
+
+Bouncer kanallari geri getirir. Yerel /autojoin çalıştırılmaz ve değiştirilemez; /join ve /part kullanın.
+
+Istemci yalniz bouncer'a baglanir. Ust bağlantının TLS, kimlik doğrulama ve saklama ayarlarini ayrica yapin.
+
+SESSION RECOVERY
+----------------
+Kabukta --sessions çalıştırın. Bagli/ayrik durumunu kontrol edin; iş kimligini kullanın, surec kimligini değil.
+
+Eski SSH terminali işi tutuyorsa --detach-session NUMBER, ardindan --resume NUMBER kullanın. IRC etkin kalir.
+
+--close-session NUMBER yalniz tum işi bitirir. Tum IRC baglantilari ve aktarimlar kapanir, taslak ve RAM gecmisi silinir; kayitli ayarlar ve gunlukler kalir.
+
+TLS
+---
+Doğrulanmış TLS varsayılandır. Sunucu adi/adresi ve sertifika zinciri dogrulanir; guvensiz gecis veya plaintext yedegi yoktur.
+
+Port numarasi TLS'yi kapatmaz. --plain veya /connect -plain şifresiz IRC seçer; hesap/sunucu kimlik bilgilerini kullanamaz.
+
+--check-config TLS el sıkışmasını veya CA ve kimlik bilgisi kaynağının çalışacağını doğrulamaz. --test-mode sunucuya bağlanmaz.
+
+TLS yalniz bu bağlantıyı korur. Bouncer'in üst TLS baglantisi ve plaintext gecmisi ayri yönetilir.
+
+LOGGING
+-------
+Kalici günlük istege bagli ve varsayilan olarak kapalidir. /set persistent_logging on acar; /save output kaydeder.
+
+Gunlukler plaintext'tir, şifreli yedek degildir. Dosya basi sinir 16 MiB; yazma hatasi gunlugu durdurur, sohbet surer.
+
+/clear yalnız RAM'i temizler. Loglar çıkış, --close-session ve kayıttan sonra kalır. Günlüğü kapatmak yeni kayıtları durdurur; eskileri silmez.
+
+RECONNECT
+---------
+--reconnect bu surec icin tekrar denemeyi acar; ayar kaydetmez veya bağlantı baslatmaz.
+
+Kuyruktaki mesajlar bağlantı kopunca atilir, otomatik tekrar gönderilmez.
+
+TROUBLESHOOTING
+---------------
+SSH sonrasinda meşgul mu? --sessions, ardindan --detach-session NUMBER ve --resume NUMBER kullanın. --close-session yikicidir. See /help sessions.
+
+Kanal yok mu? Sunucu görünümünü ve dogrulamayi denetleyin. Dogrudan profilde /autojoin list; bouncer'da /join veya /part.
+
+Doğrulama başarısız mi? Hesap, kaynak, dosya izinleri, TLS ve GPG aracisini denetleyin. /autoauth status sirri okumaz.
+
+Ayar etkisiz mi? Baglanti degisikligi icin kopukken /connect gerekir. Kayit autoconnect degildir; acilis tercihi yeni surec ister.
+
+--check-config ve doc/TROUBLESHOOTING.txt kullanın. --test-mode DNS, TLS, kimlik bilgileri veya gercek bouncer'i sınamaz.

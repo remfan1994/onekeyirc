@@ -1,0 +1,62 @@
+vipirc / onekeyirc - selected operations help (id)
+====================================================
+
+DRAFT - selected help excerpts only; not a complete security manual.
+Commands, numeric limits and file names must be entered literally.
+Authoritative reference: English MANUAL.txt and SECURITY.md.
+
+/help deployment
+----------------
+Gunakan --background untuk menjalankan sesi tanpa terminal atau menekan tombol pembuka.
+
+Atur dan simpan /autoconnect on pada setiap server yang harus dimulai.
+
+--background tidak otomatis mengaktifkan autoconnect; --no-connect tetap mencegah koneksi saat mulai.
+
+Peringatan biasa ditampilkan sekali sebelum lepas dari terminal. Sukses berarti tugas lokal berjalan, bukan login IRC berhasil.
+
+Dari terminal lain pada akun pengguna yang sama, gunakan --sessions dan --resume [NUMBER].
+
+Mulai ulang VPS mengakhiri tugas lama, draf, dan riwayat RAM. Tugas awal OS dapat memulai klien baru.
+
+Petunjuk OpenBSD dan contoh rc.d opsional ada di doc/OPENBSD-VPS.txt.
+
+Jalankan sebagai pengguna biasa dengan jalur konfigurasi dan kredensial absolut. Kunci GPG yang terkunci tidak dapat meminta input saat boot.
+
+--check-config memeriksa pengaturan, bukan akses kredensial, DNS, TLS, atau login IRC.
+
+Gunakan --reconnect saat jaringan putus sementara; pengawasan proses yang crash adalah tugas sistem operasi terpisah.
+
+/help security
+--------------
+Teks jarak jauh disaring sebelum tampil di terminal. Input ditafsirkan sebagai perintah IRC lokal, bukan perintah shell.
+
+Tidak ada /raw, pelarian shell, atau penerimaan berkas otomatis. Tempelan bracketed yang dikenali tidak pernah menjalankan perintah.
+
+Bundel CA khusus harus berkas PEM biasa yang tidak kosong, maksimal 16 MiB, dan tidak meminta kata sandi.
+
+Transkrip percakapan tidak disimpan ke disk secara baku. Perubahan konfigurasi harus disimpan secara eksplisit.
+
+Lihat /help tls, /help authentication, /help logging, dan SECURITY.md untuk batas perlindungan dan riwayat audit.
+
+/help history
+-------------
+Riwayat tampilan dan perintah dibatasi di RAM. Log persisten bersifat opsional dan mati secara baku.
+
+Beralih tampilan memutar ulang riwayat terakhirnya; /mentions memutar ulang baris sumber yang cocok.
+
+/clear menghapus riwayat RAM tampilan, bukan transkrip lama di disk. Pemutaran ulang bouncer berasal dari bouncer.
+
+Up/Down di Compose memindahkan kursor, bukan memanggil chat terkirim. Hanya perintah diterima dapat dipanggil di Command.
+
+/help hotkeys
+-------------
+Pintasan tombol khusus opsional dan awalnya kosong. Navigasi dan editor bawaan tetap tersedia.
+
+Gunakan /bindings untuk daftar, /bindings keys untuk tombol, dan /bindings actions untuk fungsi lokal.
+
+Tetapkan dengan /bind KEY ACTION; tetapkan lagi untuk mengganti. Hapus dengan /unbind KEY atau /unbind all.
+
+/help logging
+-------------
+/clear hanya membersihkan RAM. Log tetap ada setelah keluar, --close-session, atau menyimpan. Mematikan log menghentikan catatan baru, bukan menghapus yang lama.

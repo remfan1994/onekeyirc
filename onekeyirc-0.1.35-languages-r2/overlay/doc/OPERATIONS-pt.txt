@@ -1,0 +1,62 @@
+vipirc / onekeyirc - selected operations help (pt)
+====================================================
+
+DRAFT - selected help excerpts only; not a complete security manual.
+Commands, numeric limits and file names must be entered literally.
+Authoritative reference: English MANUAL.txt and SECURITY.md.
+
+/help deployment
+----------------
+Use --background para iniciar uma sessão sem terminal nem tecla de boas-vindas.
+
+Configure e guarde /autoconnect on em cada servidor que deva iniciar.
+
+--background não ativa autoconnect sozinho; --no-connect continua a impedir ligações no arranque.
+
+O aviso habitual surge uma vez antes de desligar o terminal. Sucesso significa tarefa local, não início de sessão IRC.
+
+Noutro terminal com a mesma conta, use --sessions e --resume [NUMBER].
+
+Reiniciar o VPS termina tarefas, rascunhos e histórico na RAM. Uma tarefa do sistema pode iniciar outro cliente.
+
+As instruções OpenBSD e um exemplo rc.d opcional estão em doc/OPENBSD-VPS.txt.
+
+Execute como utilizador normal e use caminhos absolutos para configurações e credenciais. Uma chave GPG bloqueada não pode pedir entrada no arranque.
+
+--check-config valida definições, não acesso a credenciais, DNS, TLS nem início de sessão IRC.
+
+Use --reconnect para falhas temporárias da rede; supervisionar falhas do processo cabe ao sistema operativo.
+
+/help security
+--------------
+Texto remoto é filtrado antes de aparecer no terminal. A entrada é interpretada como comandos IRC locais, nunca comandos shell.
+
+Não há /raw, escape para shell nem aceitação automática de ficheiros. Colagem delimitada reconhecida nunca executa comandos.
+
+Um pacote CA personalizado deve ser um ficheiro PEM normal não vazio, até 16 MiB, sem pedir palavra-passe.
+
+Não se grava conversa no disco por omissão. Alterações de configuração precisam de gravação explícita.
+
+Consulte /help tls, /help authentication, /help logging e SECURITY.md para limites e análises anteriores.
+
+/help history
+-------------
+O histórico mostrado e de comandos é limitado na RAM. O registo persistente é opcional e vem desativado.
+
+Mudar de vista repete os seus registos recentes; /mentions repete linhas de origem correspondentes.
+
+/clear apaga o histórico RAM da vista, não o registo antigo em disco. O bouncer fornece a sua própria reprodução.
+
+Up/Down em Compose move o cursor, não recupera mensagens enviadas. Só Command recupera comandos aceites.
+
+/help hotkeys
+-------------
+Atalhos personalizados são opcionais e inicialmente vazios. Navegação e editor originais continuam disponíveis.
+
+Use /bindings para listar, /bindings keys para teclas e /bindings actions para funções locais.
+
+Atribua com /bind KEY ACTION; volte a atribuir para substituir. Remova com /unbind KEY ou /unbind all.
+
+/help logging
+-------------
+/clear limpa só a RAM. Os registos persistem após sair, --close-session e guardar. Desativar o log impede novas entradas; não elimina as anteriores.

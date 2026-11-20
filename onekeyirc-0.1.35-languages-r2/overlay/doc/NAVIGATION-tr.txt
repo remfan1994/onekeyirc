@@ -1,0 +1,105 @@
+vipirc / onekeyirc - navigation help (tr)
+==========================================
+
+IRC commands and uppercase arguments are entered literally.
+For full English security and protocol details see MANUAL.txt.
+
+/channel
+--------
+Numaralar /channels ile listelenir. Seçim, görüntülenen sohbeti ve sonraki düz metin mesajının hedefini değiştirir.
+Bu komut kanala katılmaz. Ayrıldığınız kanala mesaj göndermeden önce yeniden katılmanız gerekir.
+
+/channels
+---------
+Kanal 0 her zaman sunucu iletileri/MOTD görünümüdür. Özel sohbetlerin ayrı bir /ql listesi vardır.
+Satırlar katılma/ayrılma durumunu ve okunmamış ileti/bahsetme sayılarını gösterir.
+
+/cl
+---
+Sunucu iletileri için kanal 0 ve her kanalın katılma/ayrılma durumu dahil, bu sunucunun kanal görünümlerini listeler.
+Seçmek için /channel NUMBER veya /channel #NAME kullanın. Özel sohbetlerin ayrı bir /ql listesi vardır.
+
+/close
+------
+Bağımsız değişken olmadan mevcut sohbeti kapatır. Kanal görünümü kaldırılmadan önce kanaldan ayrılınır.
+Kalıcı sunucu ve bahsetme görünümleri kapatılamaz. Kanal numaraları /channels ile bulunur.
+
+/disconnect
+-----------
+Numara verilmezse seçili sunucunun bağlantısını keser. Geçmiş ve yapılandırma korunur.
+Bu işlem sonraki başlangıçta otomatik bağlanma ayarını değiştirmez.
+
+/help
+-----
+Konu dizini için /help ls, komut açıklamaları ve listesi için /help commands, tek komut için /help autoconnect kullanın.
+Bağımsız değişken olmadan bir konu veya komut adı girin. /help /ls yerel listeyi açıklar; /help ls konuları listeler. İlk eğik çizgi isteğe bağlıdır.
+/help all, tam kılavuzu ayrı yardım okuyucusunda açar.
+
+/me
+---
+Katılınmış bir kanal veya özel sohbet ve kayıtlı bağlantı gerektirir. İleti sınırı ve gönderim modu kuralları geçerlidir.
+Arayüz, bölünen iletiyi sıraya almadan önce incelemeye sunar.
+
+/mentions
+---------
+Bu sunucunun bahsetme görünümünü seçer. Sınırlı sayıda yeni kaynak satırı ve özgün zaman damgalarını içerir.
+/mentions clear, görünümü değiştirmeden tüm açık sunuculardaki saklanan bahsetme kopyalarını siler.
+Özgün sohbet geçmişi, okunmamış sayıları ve bekleyen işler korunur.
+Ek düz metinler için /watch kullanın; /channel veya /pm mesaj gönderilebilen sohbete döner.
+
+/msg
+----
+Kayıt gerektirir. Bu komut gönderim planı oluşturur; doğrudan/inceleme modu ve bölünmüş ileti onayı geçerlidir.
+Geçerli gönderim hedefini sessizce değiştirmez. Servis/kimlik bilgisi iletileri komut geçmişine alınmaz.
+
+/next
+-----
+Sunucu, bahsetme, kanal ve özel sohbet görünümleri arasında geçer; dahili kılavuz arabelleğini atlar.
+
+/nick
+-----
+Bağlıyken sunucu onaylı ad değişikliği ister. Bağlı değilken sonraki bağlantı kimliğini günceller.
+Takma adlar desteklenen IRC ASCII sözdizimini kullanır ve 63 bayt ile sınırlıdır.
+
+/pm
+---
+İsimler özel sohbeti açar veya seçer. Numaralar bu sunucunun /ql listesindeki mevcut sohbeti seçer.
+Özel sohbet açmak, ileti gönderilene kadar kullanıcıya ulaşmaz. Sohbet kapatılınca numaralar değişebilir.
+
+/prev
+-----
+/next komutunun tersidir. Bağlanmaz, kanala katılmaz veya ileti göndermez.
+
+/ql
+---
+Özel sohbet numaraları 1 ile başlar ve kanal numaralarından ayrıdır. /query NICK veya /query NUMBER kullanın.
+Özel sohbeti kapatmak için /close NICK kullanın; sonraki numaralar değişebileceğinden /ql komutunu yineleyin.
+
+/queries
+--------
+/ql ile aynı özel sohbet listesini kullanır. Kanal numaraları ayrıdır.
+
+/settings
+---------
+Uygulama tercihlerini seçili sunucunun bekleyen bağlantı seçeneklerinden ayrı gösterir.
+Kimlik doğrulama değerleri kaynak türüne göre gösterilir; parolalar ve kimlik dosyası yolları yazdırılmaz.
+İlgili ayarları değiştirmek için /autoconnect, /autojoin, /autoauth ve /set kullanın.
+
+/sl
+---
+/servers ile aynı yapılandırılmış sunucu listesini ve sabit yuva numaralarını kullanır.
+Birini seçmek için /server NUMBER kullanın.
+
+/unread
+-------
+Satırlarda sunucu numarası, sohbet adı, okunmamış iletiler ve bahsetme sayısı bulunur.
+Sohbet seçmek için /server NUMBER, ardından /channel veya /pm kullanın.
+
+/view
+-----
+Kanal numaraları /channels, özel sohbet adları /ql ile listelenir. Sunucu ve bahsetme adları da kabul edilir.
+Dahili kılavuz arabelleğini seçmek yerine /help kullanın.
+
+/views
+------
+Bu takma komut kanal numaralarını kullanır; özel sohbetler /ql içinde kalır.

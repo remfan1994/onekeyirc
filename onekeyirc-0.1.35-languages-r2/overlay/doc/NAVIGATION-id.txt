@@ -1,0 +1,105 @@
+vipirc / onekeyirc - navigation help (id)
+==========================================
+
+IRC commands and uppercase arguments are entered literally.
+For full English security and protocol details see MANUAL.txt.
+
+/channel
+--------
+Nomor tersedia di /channels. Pilihan ini mengubah percakapan yang ditampilkan dan tujuan pesan biasa berikutnya.
+Perintah ini tidak bergabung ke kanal. Kanal yang sudah ditinggalkan harus dimasuki lagi sebelum mengirim.
+
+/channels
+---------
+Kanal 0 selalu menampilkan pesan server/MOTD. Percakapan pribadi memiliki daftar /ql sendiri.
+Baris menunjukkan status bergabung/keluar serta jumlah belum dibaca dan sebutan.
+
+/cl
+---
+Menampilkan kanal server ini, termasuk kanal 0 untuk pesan server dan status bergabung/keluar setiap kanal.
+Gunakan /channel NUMBER atau /channel #NAME untuk memilih kanal. Percakapan pribadi memiliki daftar /ql sendiri.
+
+/close
+------
+Tanpa argumen, tutup percakapan saat ini. Kanal ditinggalkan sebelum tampilannya dihapus.
+Tampilan server dan sebutan yang permanen tidak dapat ditutup. Nomor kanal ada di /channels.
+
+/disconnect
+-----------
+Tanpa nomor, putuskan sambungan server yang dipilih. Riwayat dan konfigurasi tetap tersedia.
+Ini tidak mengubah pengaturan koneksi otomatis saat mulai berikutnya.
+
+/help
+-----
+Gunakan /help ls untuk indeks topik, /help commands untuk perintah dan daftarnya, atau /help autoconnect untuk satu perintah.
+Minta satu topik atau nama perintah tanpa argumen. /help /ls menjelaskan daftar lokal; /help ls menampilkan topik. Garis miring awal boleh diabaikan.
+/help all membuka panduan lengkap dalam pembaca bantuan terpisah.
+
+/me
+---
+Memerlukan kanal yang telah dimasuki atau percakapan pribadi dan koneksi terdaftar. Batas pesan dan aturan pengiriman berlaku.
+Antarmuka meninjau pesan yang terpecah sebelum memasukkannya ke antrean.
+
+/mentions
+---------
+Memilih tampilan sebutan server ini. Berisi baris sumber terbaru yang terbatas dan waktu aslinya.
+/mentions clear menghapus salinan sebutan tersimpan dari semua server aktif tanpa berpindah tampilan.
+Riwayat percakapan asal, jumlah belum dibaca, dan pekerjaan tertunda tetap disimpan.
+Gunakan /watch untuk teks tambahan; /channel atau /pm kembali ke percakapan yang bisa dikirimi pesan.
+
+/msg
+----
+Memerlukan registrasi. Perintah ini menyusun rencana pengiriman; mode langsung/tinjau dan persetujuan pemecahan pesan tetap berlaku.
+Tidak diam-diam mengubah tujuan kirim saat ini. Pesan layanan/kredensial tidak masuk riwayat perintah.
+
+/next
+-----
+Beralih bergiliran di antara tampilan server, sebutan, kanal, dan percakapan pribadi; buffer panduan internal dilewati.
+
+/nick
+-----
+Saat tersambung, meminta perubahan yang dikonfirmasi server. Saat terputus, memperbarui identitas koneksi berikutnya.
+Nama panggilan memakai sintaks IRC ASCII yang didukung dan dibatasi 63 byte.
+
+/pm
+---
+Nama membuka atau memilih percakapan pribadi. Nomor memilih percakapan yang sudah ada dari daftar /ql server ini.
+Membuka percakapan pribadi tidak menghubungi pengguna sampai pesan dikirim. Nomor dapat berubah setelah menutup percakapan.
+
+/prev
+-----
+Kebalikan dari /next. Tidak menyambung, bergabung, atau mengirim.
+
+/ql
+---
+Nomor percakapan pribadi dimulai dari 1 dan terpisah dari nomor kanal. Gunakan /query NICK atau /query NUMBER.
+Gunakan /close NICK untuk menutup percakapan; jalankan /ql lagi karena nomor berikutnya mungkin berubah.
+
+/queries
+--------
+Menggunakan daftar percakapan pribadi yang sama dengan /ql. Penomoran kanal tetap terpisah.
+
+/settings
+---------
+Menampilkan preferensi aplikasi terpisah dari pilihan koneksi server yang masih tertunda.
+Nilai autentikasi dilaporkan menurut jenis sumber; sandi dan jalur kredensial tidak pernah dicetak.
+Gunakan /autoconnect, /autojoin, /autoauth dan /set untuk mengubah pengaturannya masing-masing.
+
+/sl
+---
+Menggunakan daftar server terkonfigurasi dan nomor slot tetap yang sama dengan /servers.
+Gunakan /server NUMBER untuk memilih server.
+
+/unread
+-------
+Baris berisi nomor server, nama percakapan, pesan belum dibaca, dan jumlah sebutan.
+Gunakan /server NUMBER lalu /channel atau /pm untuk memilih percakapan.
+
+/view
+-----
+Nomor kanal ada di /channels; nama percakapan pribadi di /ql. Nama server dan sebutan juga diterima.
+Gunakan /help daripada memilih buffer panduan internal.
+
+/views
+------
+Alias ini memakai nomor kanal; percakapan pribadi tetap ada di /ql.

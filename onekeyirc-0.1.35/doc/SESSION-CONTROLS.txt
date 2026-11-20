@@ -1,0 +1,178 @@
+SESSION CONTROLS, SSH RECOVERY AND DEFAULT INTERFACE
+Current guide: vipirc 0.7.36 / onekeyirc 0.1.35
+
+THREE DIFFERENT IDENTIFIERS
+
+A job number from PROGRAM --sessions identifies one managed local worker.
+A server number inside that worker selects one of its IRC connections.
+An operating-system PID is a different identifier. Never pass a guessed PID
+as a job number or assume --close-session closes only one IRC connection.
+The examples below use PROGRAM for vipirc or onekeyirc and 1 as a sample job.
+Use the number actually reported for the same program and Unix account.
+
+CREATE A RESUMABLE WORKER
+
+The following launch needs an existing configuration. Alternatively provide
+an explicit --server and the other desired connection options.
+
+  PROGRAM --background
+  PROGRAM --sessions
+  PROGRAM --resume 1
+
+The normal profile and its autoconnect setting still determine which IRC
+connections start. Background does not itself enable autoconnect. An explicit
+host/port/nickname invocation can be used as described by --help and MANUAL.txt.
+From a running interface, use /background; Escape from the minimalist live
+log also backgrounds. Make the worker managed before relying on recovery.
+
+An ordinary foreground process that never became managed has no resume
+endpoint and retains its ordinary SIGHUP termination behavior. A worker
+survives terminal loss while the process/host remains alive; it does not
+survive a reboot, crash, explicit Quit or successful --close-session.
+
+RECOVER AFTER A LOST SSH TERMINAL
+
+First list jobs:
+
+  PROGRAM --sessions
+
+If the intended job is detached and available, resume its number. Bare
+--resume selects only a sole verified available detached job, with no
+unverified candidate. It does not steal an attached terminal. Several jobs
+require a number.
+
+If a stale terminal is still attached, detach it without ending IRC:
+
+  PROGRAM --detach-session 1
+  PROGRAM --resume 1
+
+Detach authenticates that worker through its private local endpoint and
+waits for confirmed terminal/controller release. IRC connections, accepted
+transfers, drafts, retained history and the worker's job number survive.
+An old foreground resume controller, if still alive, receives the ordinary
+detach acknowledgement and restores its terminal before exiting.
+
+The operation can intentionally detach another terminal belonging to the
+same account. Use it only for the job you intend to take over. Listing as
+root lists root's registry, not a service account's. On OpenBSD, for example:
+
+  doas -u SERVICEUSER onekeyirc --sessions
+  doas -u SERVICEUSER onekeyirc --detach-session 1
+  doas -u SERVICEUSER onekeyirc --resume 1
+
+For an already managed worker, loss of terminal/controller, stdin EOF/EIO,
+stdout failure and direct SIGHUP release the attachment while retaining IRC
+state. This recovery behavior does not change the SSH server's idle policy.
+Use the host administrator's SSH configuration for that separate problem.
+
+END A WORKER DELIBERATELY
+
+  PROGRAM --close-session 1
+
+Close ends every IRC connection and transfer in that job and discards its
+unsaved in-memory state. A successfully closed worker cannot be resumed.
+Saved configuration and optional transcript files are separate persistent
+data; they do not reconstruct that terminated session.
+
+Both --detach-session=1 and --close-session=1 are accepted. These commands
+need no interactive terminal and do not load config/credentials. They cannot
+be combined with --resume, --sessions, each other, --config or connection
+options. Resume itself needs stdin/stdout/stderr on the same interactive tty.
+
+BUSY, UNAVAILABLE AND TIMEOUT RESULTS
+
+An attached job is busy for attachment; external detach releases it. A live
+unresponsive or unsafe/unverified entry is not reported as available. Run
+--sessions again and keep the diagnostic. Do not delete socket/lease files
+or send a signal based on a job number as an ordinary recovery step.
+
+Controls verify private endpoint ownership, same-user peer identity where
+available and the exact worker's incarnation token. They have deadlines and
+never signal a guessed PID. Detach success means terminal release completed;
+close success means worker endpoint/lease teardown completed. A request merely
+being accepted is insufficient. Failure is reported instead of pretending
+that unlinking an endpoint stopped a worker.
+
+Full vipirc curses drawing uses synchronous terminal output. An open terminal
+that permanently stops accepting output may delay a control poll. A close
+timeout is therefore not a forced-kill facility. Minimalist output uses a
+bounded queue and can service explicit background requests under backpressure.
+If OS-level intervention becomes necessary, identify the actual process and
+its owner independently; do not derive a PID from the application's job ID.
+
+REMEMBER THE VIPIRC INTERFACE
+
+In either vipirc interface, enter:
+
+  /set default_interface idle
+  /save input
+
+In full vipirc, use Settings > Interface > Default interface and explicitly
+Save. The minimalist Application preferences panel offers the same preference.
+Alternatively edit the existing primary config's [session] section:
+
+  [session]
+  default_interface=idle
+
+Keep single_session and any other session keys in that same section; do not
+add a duplicate [session]. The next fresh launch honors the saved preference:
+
+  vipirc                   Saved default; ncurses when unset.
+  vipirc -i                Minimalist for this invocation.
+  vipirc --idle            Same as -i.
+  vipirc -N                Ncurses for this invocation.
+  vipirc --ncurses         Same as -N.
+
+-n and --nick still take a nickname. If both -i and -N appear, the last one
+wins. The command-line choice does not overwrite the saved preference, even
+through a later unrelated Save. The primary config owns this application
+preference; a secondary server cannot choose a different startup interface.
+To restore the full default from vipirc -i, use /set default_interface ncurses
+and /save input, or change and save it in Settings.
+
+RESUME KEEPS AN EXISTING WORKER
+
+  vipirc --resume 1         Keep that worker's current interface.
+  vipirc -i --resume 1      Reattach it in minimalist mode.
+  vipirc -N --resume 1      Reattach it in ncurses mode.
+
+Reattaching the same interface preserves its drafts and command recall.
+Selecting the other vipirc interface keeps the worker, IRC connections,
+retained conversation history and accepted transfers, but discards the
+old frontend's drafts, pending send reviews, command recall and unapplied
+forms. Finish or copy wanted drafts before changing interfaces.
+
+A saved default selects a new worker; it does not reinterpret an existing
+one on bare resume. An older worker without frontend switching can only keep
+its own interface. onekeyirc always uses minimalist mode and rejects -N and
+--ncurses. Its shared config reader can preserve a recognized interface value
+without making the standalone program provide a full frontend.
+
+TERMINAL SIGNALS
+
+The client inherits the terminal's signal-enable state and interrupt, quit
+and suspend key assignments. It does not bind Ctrl-C/Ctrl-Z to new actions.
+The optional primary-config setting [input] force_terminal_signals=true enables
+signals while preserving those assignments. Its default is false. If signals
+were disabled by the terminal/session, the default does not turn them on.
+Use /quit to request an ordinary client exit.
+
+UPGRADES, BOUNCERS AND FURTHER READING
+
+Installing a newer executable does not change an already running worker.
+Older workers may not understand close/detach/switch requests. Keep the old
+binary if it is needed to attach and quit that worker, then start a fresh
+worker with the new binary. Check PROGRAM --version. Existing configuration
+remains readable by these releases; an older binary can reject newer keys.
+
+These local controls work independently of whether IRC goes through ZNC/soju.
+They do not stop or administer the remote bouncer. Closing the client may
+leave the bouncer's upstream IRC session connected according to its policy.
+single_session=true restricts new local jobs in one program/user registry;
+it does not limit the IRC connections inside a worker or affect other clients.
+
+Read MANUAL.txt and INSTALL at the source root, SECURITY.md for boundaries,
+doc/BOUNCERS.txt for bouncer setup, and doc/OPENBSD-VPS.txt for service usage.
+Historical session-control test results remain in their original version-
+scoped validation files. This documentation release's checks are recorded in
+doc/DOCUMENTATION-VALIDATION.txt; it adds no new runtime recovery behavior.

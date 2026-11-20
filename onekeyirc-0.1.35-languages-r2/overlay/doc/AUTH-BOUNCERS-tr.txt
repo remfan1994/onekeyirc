@@ -1,0 +1,68 @@
+vipirc / onekeyirc - authentication and bouncers (tr)
+=====================================================
+
+DRAFT TRANSLATIONS - native-speaker review is outstanding.
+Commands, flags, values and config keys must be entered literally.
+The English SECURITY.md and MANUAL.txt remain authoritative.
+
+/help soju
+----------
+/panel ile ayarlanmış bağlı bir soju profili gerekir. Parametre verilmezse BouncerServ'den yardım istenir.
+
+COMMAND tek, aralıklı bir özel mesaj olarak gönderilir; yerel yankiya veya komut geçmişine eklenmez.
+
+Doğrudan IRC bağlantısı bu kısayolu kullanamaz. Yanıtlar sunucu görünümünde belirir.
+
+Hesap ve ağ komutlari için bouncer'in kendi yardimini kullanın.
+
+/help znc
+---------
+/panel ile ayarlanmış bağlı bir ZNC profili gerekir. Parametre verilmezse *status'a Help sorulur.
+
+COMMAND tek, aralıklı bir özel mesaj olarak gönderilir; yerel yankiya veya komut geçmişine eklenmez.
+
+Etkin ZNC modülü için /msg *module COMMAND kullanın. Modul yanitlari sunucu görünümünde belirir.
+
+Doğrudan IRC bağlantısı bu kısayolu kullanamaz. Komutlar için bouncer yardimina bakın.
+
+/help authentication
+--------------------
+Parola dosyası veya çözülmüş GPG içeriği kimlik bilgisini sağlar; yollar oldugu gibi kullanilir.
+
+Yerel açık anahtar parmak izi için GPG ile şifreli yeni kimlik bilgisi oluşturmak üzere /panel kullanın.
+
+Kilidi açılmış bir GPG anahtari kullanın. Sohbet düzenleyicisinde pinentry çalıştırılmaz.
+
+Özel yapılandırma dosyalarinda düz metin password= ve server_password= da desteklenir.
+
+Her kimlik bilgisi için yalnizca bir kaynak seçin. /settings ve /summary dosya konumlarini gizler.
+
+/autoauth status dosyalari okumadan veya parolalari gostermeden etkin ve bekleyen kimlik dosyası yollarini gösterir.
+
+Bouncer profilinde giriş ve kaynagi birlikte /panel ile yonetin; /autoauth değişiklikleri reddedilir.
+
+Kimlik dosyalari sahibine ait normal dosyalar olmali, kip 0600 veya 0400 olmali; sembolik bağlar ve üst dizin geçişi reddedilir.
+
+SASL kimlik sınırı 1024 bayt; normal sunucu PASS sınırı 503 bayt. Birlesik ZNC girişi de tek IRC satirina sığmalıdır.
+
+--check-config kimlik dosyalarini okumadan ve girişi denemeden yapılandırmayı ve kaynak secimini denetler. Bkz. /help tls ve /help bouncers.
+
+/help tls
+---------
+Özel CA paketi boş olmayan, en cok 16 MiB boyunda normal dosya olmalıdır. CA dosyasına sembolik bağ serbesttir; gizli/yapılandırma yollari daha katidir.
+
+CA dosyası bir kez acilir, sinirlanir ve okunurken boyutu izlenir. FIFO, aygit ve normal olmayan girdi reddedilir; şifreli PEM parola soramaz.
+
+Dosya boyutu sınırı normal dosya veya ağ dosya sistemi I/O gecikmesini sinirlamaz. Uygun depoda güvenilir bir CA paketi kullanın.
+
+/help bouncers
+--------------
+Saglayicinin bouncer sunucu adı ve TLS portunu, bouncer kullanıcı adini, mevcut üst agi ve istege bağlı sabit istemci adini girin.
+
+Acik baslangic komutlari yine çalışır. Istenmeyen tekrar /join veya servis komutlarini önlemek için profili açmadan once denetleyin.
+
+Bouncer profilinde otomatik bosta/arka planda away, özellikle açılmadıkça kapalıdır. Elle /away ve /back çalışır.
+
+Geçmiş sinirlidir. Istek uzerine arşiv arama, otomatik ağ kesfi ya da ağ basina otomatik profil olusturma yoktur.
+
+Kurulum ve doğrulanmış kapsam sınırları için doc/BOUNCERS.txt ile examples/ icindeki bouncer örneklerine bakın.

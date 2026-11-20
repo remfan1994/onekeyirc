@@ -1,0 +1,121 @@
+vipirc / onekeyirc - connection help (pt)
+============================================
+
+Translation draft. Commands, options and config keys must be entered literally.
+For full security details read the authoritative English SECURITY.md and MANUAL.txt.
+
+/help connect
+-------------
+Comece com /connect irc.example.org. Nao e preciso criar perfil, alias ou número de servidor antes.
+
+Um servidor novo usa TLS verificado na porta 6697 e o nome de sessão do sistema, ou user se não servir.
+
+Um servidor correspondente mantém porta, transporte, apelido e autenticação configurados.
+
+Use -nick NICK para uma alcunha especifica ou /nick NICK antes de ligar. Senhas não são argumentos posicionais.
+
+Use -plain para IRC sem cifra (porta inicial 6667). -tls e -ssl selecionam TLS verificado.
+
++PORT também seleciona TLS. Uma porta numerica normal não desativa TLS. --tls, --plain e --nick também são aceites.
+
+A ligação e selecionada e abre a vista servidor/MOTD. Uma ligação ativa correspondente não e duplicada.
+
+Um destino diferente recebe novas definições de autenticação; credenciais e canais de outros servidores não são copiados.
+
+/connect sem argumentos usa o servidor selecionado e definições aplicadas. /saveconf memoriza o padrao para o proximo arranque.
+
+Em perfis bouncer com o mesmo host, selecione o perfil com /server NUMBER e depois use /connect sozinho.
+
+Numeros de servidor existentes são aceites por compatibilidade. O modo de teste não usa rede; grave as alteracoes expressamente.
+
+/help autoauth
+--------------
+Altera a autenticação do servidor selecionado para a próxima ligação. Exige TLS verificado.
+
+Sem argumentos ou com status, mostra o estado da ligação/autenticação e caminhos de credenciais, nunca senhas.
+
+Distingue definições atuais e pendentes. Caminhos longos aparecem completos em linhas de continuacao identificadas.
+
+PATH e todo o texto restante, incluindo espaços; não ha expansão do shell nem interpretacao de aspas.
+
+Este comando não abre ficheiros. As chaves GPG devem ser desbloqueadas fora do programa.
+
+Senhas em texto simples só podem ser configuradas explicitamente num ficheiro privado, nunca como argumentos.
+
+Use /panel para perfis bouncer; /autoauth e recusado porque a identidade e a fonte de credenciais são geridas juntas.
+
+Use /save para salvar. Desconecte primeiro e depois use /connect para aplicar; a conexão ativa não é redirecionada.
+
+/help autojoin
+--------------
+Sem argumentos ou com list, mostra servidor, registo/autenticação e listas ativa e pendente.
+
+Edita a lista de entrada automática do proximo /connect. add/remove aceita um canal sem chave.
+
+As alterações são verificadas antes de aplicar e não entram nem saem de um canal ativo.
+
+As novas tentativas automáticas mantem a lista ativa. Desligue e use /connect para aplicar a lista pendente.
+
+Use /join ou /part na ligação atual e /save para guardar as alteracoes de arranque.
+
+Os perfis bouncer restauram os seus canais; /autojoin e recusado. Use /join e /part.
+
+/help saveconf
+--------------
+Guarda preferências da aplicação e todos os servidores válidos, lembrando o selecionado como padrão.
+
+Na próxima execução, /connect usa o padrão guardado; não é preciso número de servidor nem nova configuração.
+
+Inclui alcunha, canais, autenticação e escolhas de início; alterações explícitas pendentes têm prioridade.
+
+Isto não ativa ligação automática ao iniciar. Use primeiro /autoconnect on se desejar.
+
+Cada ficheiro é substituído de forma privada e atómica. Gravações concluídas persistem mesmo se outra falhar.
+
+O padrão só é lembrado se a própria gravação resultar; erros são comunicados, perfis ilegíveis não são substituídos.
+
+O modo de teste nunca grava configuração. /save oferece formas mais específicas por perfil e preferências.
+
+/help tls
+---------
+TLS verificado e o padrao. Nome/endereco do servidor e cadeia de certificados devem validar; não ha excecao nem retorno a plaintext.
+
+A porta não desativa TLS. --plain ou /connect -plain escolhe IRC sem cifra e não pode usar credenciais da conta/servidor.
+
+Use o nome de host e porta TLS exatos do fornecedor. Falhas podem ser destino errado, certificado expirado/não fiável ou confiança local; leia o erro primeiro.
+
+TLS usa por padrão a confiança do sistema. --ca-file FILE ou ca_file= escolhe um pacote PEM CA próprio, não fixa o certificado final.
+
+O conjunto CA personalizado deve ser arquivo comum não vazio, até 16 MiB. Link simbolico para CA e permitido; caminhos de segredo/configuração são mais rigidos.
+
+O arquivo CA e aberto uma vez, limitado e tem tamanho verificado durante a leitura. FIFO, dispositivos e entradas não regulares são rejeitados; PEM com senha não pode solicitar entrada.
+
+O limite do arquivo não limita a latência I/O de arquivos comuns ou em rede. Use um conjunto CA confiável em armazenamento adequado.
+
+--check-config não testa a ligação TLS nem confirma que CA ou credenciais funcionem. --test-mode não contacta servidores.
+
+TLS protege só esta ligação. O TLS a montante e o histórico plaintext do bouncer sao geridos separadamente.
+
+/help reconnect
+---------------
+--reconnect ativa novas tentativas neste processo; não guarda definições nem inicia ligação.
+
+Sem esta opção, uma ligação falhada ainda requer /connect. /autoconnect controla apenas o início.
+
+Falhas temporárias de DNS, ligações recusadas/perdidas e tempos limite repetem após 5, 10, 20, 40, 80, 160 e 300 segundos.
+
+Uma ligação registada durante pelo menos 60 segundos reinicia a espera. A sondagem não usa pausas bloqueantes.
+
+Erros de certificados, autenticação, protocolo inválido e configuração ficam desligados até correção.
+
+Um ERROR do servidor antes do registo é retido; depois pode provocar nova ligação.
+
+/disconnect explícito cancela a repetição pendente. Novo /connect inicia outra tentativa.
+
+As novas tentativas usam as definições atuais; alterações pendentes exigem /connect explícito.
+
+Mensagens pendentes sao descartadas ao desligar e nunca reenviadas automaticamente.
+
+Autenticação e comandos iniciais ativos repetem-se. Perfis diretos repetem autojoin após registo; bouncers restauram canais.
+
+O modo de teste sem rede nunca volta a ligar à rede.

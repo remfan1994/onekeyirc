@@ -1,0 +1,17 @@
+[
+  "No channel views. Use /join #channel after connecting.",
+  "No private queries. Use /pm NICK to open one without sending.",
+  "No unread conversations.",
+  "Select a channel or use /users #channel.",
+  "GPG credential decryption is pending; registration and autojoin wait.",
+  "Autojoin waits for required SASL authentication and successful IRC registration.",
+  "Autojoin waits for successful IRC registration.",
+  "That channel is not in the auto-join list; nothing changed.",
+  "No server is configured. Use /connect irc.example.org, then /join #channel.",
+  "Command exceeds the input byte limit.",
+  "No application configuration is available.",
+  "Invalid custom key binding table.",
+  "Auto-join list is too long; nothing changed.",
+  "All custom key bindings removed. /save input saves this preference.",
+  "No retained channel with that name. Use /channels."
+]

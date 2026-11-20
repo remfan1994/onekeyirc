@@ -1,0 +1,50 @@
+{
+  "groups": [
+    {
+      "kind": "topic",
+      "name": "deployment",
+      "lines": [
+        "Use --background to launch a client session without a terminal or a welcome keypress.",
+        "Configure and save /autoconnect on for every server to start.",
+        "--background does not enable autoconnect by itself; --no-connect still suppresses startup connections.",
+        "The usual warning is printed once before detaching. Success confirms a local background job, not a successful IRC login.",
+        "Use --sessions and --resume [NUMBER] from a later terminal under the same user account.",
+        "A VPS reboot ends all old jobs, drafts and in-memory history. An OS startup job can launch a fresh client.",
+        "OpenBSD instructions and an optional rc.d example are in doc/OPENBSD-VPS.txt.",
+        "Run the client as a normal user with absolute config and credential paths. A locked GPG key cannot prompt at boot.",
+        "--check-config validates settings, not credential access, DNS, TLS or IRC login.",
+        "Use --reconnect for temporary network outages; process-crash supervision is a separate operating-system task."
+      ]
+    },
+    {
+      "kind": "topic",
+      "name": "security",
+      "lines": [
+        "Remote text is sanitized before terminal output. Inputs are parsed as local IRC commands, never shell commands.",
+        "There is no /raw, shell escape or automatic file acceptance. Recognized bracketed paste never submits a command.",
+        "A custom CA bundle must be a nonempty regular PEM file of at most 16 MiB; it never prompts for a password.",
+        "No disk conversation transcript is enabled by default. Configuration changes require an explicit save.",
+        "See /help tls, /help authentication, /help logging and SECURITY.md for exact boundaries and historical review scope."
+      ]
+    },
+    {
+      "kind": "topic",
+      "name": "history",
+      "lines": [
+        "Recent displayed records and command history are bounded in memory. Persistent logging is optional and disabled by default.",
+        "Changing a view replays its retained recent records; /mentions replays retained matching source lines.",
+        "/clear removes retained memory for a view, not its old disk transcript. Bouncer replay is separately supplied by the bouncer.",
+        "Compose Up/Down moves the caret; it does not recall sent chat. Only accepted command lines are recalled in Command."
+      ]
+    },
+    {
+      "kind": "topic",
+      "name": "hotkeys",
+      "lines": [
+        "Custom key bindings are optional and empty by default. Existing navigation and editor controls remain available.",
+        "Use /bindings to inspect the list, /bindings keys for key names and /bindings actions for the local function list.",
+        "Assign with /bind KEY ACTION; replace by binding the same key again. Remove with /unbind KEY or /unbind all."
+      ]
+    }
+  ]
+}

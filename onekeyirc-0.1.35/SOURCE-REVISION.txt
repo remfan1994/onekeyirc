@@ -1,0 +1,16 @@
+APPLICATION VERSION: 0.1.35
+ENGLISH SOURCE REVISION: r1
+
+This is the English, localization-ready source revision. It retains
+the completed explanatory source-comment pass and translated-display
+call sites, but does not include the optional language catalogs.
+Its built-in translation lookup is an English pass-through.
+This is a source revision of the 0.1.35 application, not the original
+byte-for-byte pre-localization source archive. Upstream IRC command,
+transport, authentication and persistence behavior is unchanged by
+the localization project. Keep this revision label with the source.
+
+Translation packs for this source are version-matched and optional.
+For the translated build, also identify the language pack revision.
+Previous translation-development package numbers are historical and
+are not the application's maintained version numbering convention.

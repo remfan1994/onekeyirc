@@ -1,0 +1,68 @@
+vipirc / onekeyirc: first-use help (tr)
+============================================
+
+DRAFT TRANSLATIONS - complete excerpts of three interactive help topics.
+Command names and option tokens are entered literally.
+For authoritative security details, read the English SECURITY.md and MANUAL.txt.
+
+/help startup
+-------------
+Programı başlatın, karşılama ekranını kapatın; ardından /connect irc.example.org ve /join #channel yazın.
+
+Önceden sunucu profili, takma ad veya numara oluşturmanız gerekmez. /server HOST doğrudan bağlantı için eş addır.
+
+Takma ad verilmezse geçerli sistem kullanıcı adı, uygun değilse user kullanılır. Takma ad sorulmaz.
+
+Yapılandırmayı ve seçili varsayılanı /saveconf ile kaydedin. Sonraki açılışta /connect bunları kullanır.
+
+Kaydetmek otomatik bağlanmayı açmaz; ayrıca seçilmelidir. /quickstart ve /panel isteğe bağlı rehberlerdir.
+
+Komut satırı seçenekleri de çalışır: --server HOST, --channel '#CHANNEL' ve --nick NICK. Kabukta #CHANNEL değerini tırnaklayın.
+
+Normal açılışta --nick, --port, --channel, --tls, --plain ve --ca-file kayıtlı varsayılanı geçersiz kılar.
+
+Açıkça belirtilen --server ilk bağlantıyı seçer. --init-config ve --check-config ana yapılandırma dosyasını kullanır.
+
+--server başka bir ana bilgisayara çevrilirse eski kimlik bilgileri, CA seçimi, bouncer kimliği, kanallar ve başlangıç komutları silinir.
+
+Kayıtlı varsayılan kullanılamıyorsa bağlantı seçeneklerini geçersiz kılmadan önce --server belirtin veya varsayılanı düzeltin.
+
+Autoconnect, autojoin ve autoauth her kayıtlı sunucu profiline özeldir. Açıp kapatmak için /help autoconnect yazın.
+
+--no-connect başlangıç bağlantılarını engeller; --test-mode ağ ve yapılandırma yazımı olmadan etkinliği simüle eder.
+
+--sessions bağlı ve ayrılmış işleri listeler. --resume [NUMBER] yeniden bağlar; seçim için /help background yazın.
+
+--close-session NUMBER seçili işi ve tüm IRC bağlantılarını doğrulanmış kapanıştan sonra sonlandırır. NUMBER iş kimliğidir, PID değildir.
+
+Terminal kaybolursa --sessions, sonra --detach-session NUMBER ve --resume NUMBER kullanın. Çalışan süreç yeniden başlatılana dek eski kodu kullanır; bkz. /help sessions.
+
+-h/--help ve -v/--version terminal olmadan çalışır.
+
+/help messages
+--------------
+Kanala girip seçmek için /join #channel, özel konuşma açmak için /query NICK kullanın.
+
+Kayıtlı bir kanalı /channel ile seçin. /msg TARGET TEXT hedefe mesaj, /me TEXT eylem gönderir.
+
+/query mesaj göndermeden konuşma açar; /pm eş addır. /ql özel konuşmaları kanallardan ayrı tutar.
+
+Varsayılan doğrudan göndermedir; /set send_mode review onay aşaması ekler. /set composer_mode line|fullscreen görünümü değiştirir.
+
+Tek mesaj sınırına gelince düzenlemeyi sürdürmek için onay gerekir; bölerek gönderme ayrıca onay ister.
+
+Mesaj sıraya alınmadan önce kanala katılma ve kimlik doğrulama bitmelidir. /cancel yalnızca sıradakileri iptal eder.
+
+/help limits
+------------
+IRC sınırları ekrandaki harf sayısına değil bayta dayanır. UTF-8 karakterleri birden çok bayt kullanabilir.
+
+İstemci hedef, komut ve aktarma yükünü hesaba katar; hiçbir UTF-8 karakterini ortasından bölmez.
+
+Tek mesaj sınırında yeni metin, Enter ile düzenlemeye devam onayına kadar engellenir; bu Enter mesaj göndermez.
+
+Çok parçalı mesaj doğrudan modda bile ayrı onay gerektirir. Sohbet her 1.2 saniyede bir satır gönderilir.
+
+Bir gönderim planında en çok 64 mesaj ve 16384 bayt metin bulunur. Fazlasını kısaltın veya ayrı gönderin.
+
+Ayrılmış görünümler dahil en çok 8 sunucu yuvası ve sunucu başına 32 görünüm vardır.

@@ -1,0 +1,73 @@
+vipirc / onekeyirc - command guide (tr)
+=======================================
+
+Commands, argument names and saved configuration keys remain literal.
+For complete reference and security details see MANUAL.txt and SECURITY.md.
+
+/autoconnect
+------------
+Argüman olmadan seçili sunucunun ayarını gösterir. Değişiklikler sonraki program açılışında geçerli olur.
+
+Hemen bağlanmak için /connect, başlangıç seçimini kaydetmek için /save kullanın.
+
+Her kayıtlı sunucunun kendi otomatik bağlantı, otomatik kanala katılım ve kimlik doğrulama ayarları vardır.
+
+/away and /back
+---------------
+Sunucuya kayıtlı olmanız gerekir. Sunucu uzakta durumunu onaylar. MESSAGE düz metindir.
+
+Mesajsız /away ile aynıdır. Sunucuya kayıtlı bağlantı gerektirir.
+
+/cancel
+-------
+Sırada bekleyen sohbet mesajlarını siler ve seçili sunucudaki bekleyen otomatik komutları durdurur.
+
+Yazılmakta olan bir çerçevenin tamamlanmasına izin verilir.
+
+İptal, sunucunun aldığı mesajları geri çekmez.
+
+/query, /ql, /pm
+----------------
+Mesaj göndermeden özel konuşma seçer. Bu takma ada yazmak için normal şekilde yazın.
+
+Numaralı özel konuşmalar için /ql, birini kapatmak için /close NICK kullanın. /pm aynı adları ve numaraları kabul eder.
+
+Numara seçili sunucudaki mevcut bir özel konuşmayı göstermelidir; 0 konuşma seçmez veya oluşturmaz.
+
+/background
+-----------
+Bağlantılar açık kalsın diye /background kullanın.
+
+/whois
+------
+Sunucuya kayıt gerektirir. Yanıtı görmek için sunucu görünümünü seçer. Yerel komut çalıştırılmaz.
+
+/nick
+-----
+Takma adlar desteklenen IRC ASCII sözdizimini kullanır ve 63 bayt ile sınırlıdır.
+
+/server
+-------
+Yüklenmiş profil bağlı olmasa da kullanılabilir.
+
+Eşleşen mevcut sunucu, ayarlı portunu, aktarım türünü, takma adını ve kimlik doğrulamasını korur.
+
+/autoauth
+---------
+Kalıcı kılmak için /save kullanın. Önce bağlantıyı kesin, sonra değişiklikler için /connect; etkin bağlantı yönlendirilmez.
+
+/autojoin
+---------
+Değişiklikler uygulanmadan önce doğrulanır; canlı kanala katılma veya ayrılma yapılmaz.
+
+/bindings
+---------
+Varsayılan özel tuş ataması yoktur. Desteklenen adlar için /bindings keys ve /bindings actions kullanın.
+
+/connect
+--------
+Varsayılan PORT 6697'dir. Başka port TLS'yi kapatmaz; şifresiz bağlantı açıkça seçilmelidir.
+
+/help
+-----
+Bilinmeyen komut. /help commands veya /help COMMAND kullanın; kabuk ve ham IRC komutları kullanılamaz.

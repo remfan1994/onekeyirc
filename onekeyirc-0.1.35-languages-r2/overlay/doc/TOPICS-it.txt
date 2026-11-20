@@ -1,0 +1,64 @@
+vipirc / onekeyirc - help topics (it)
+========================================
+
+Commands and option tokens stay in English. Refer to MANUAL.txt and SECURITY.md for exact details.
+
+AUTHENTICATION
+--------------
+Usa TLS verificato con /autoauth sasl USER file PATH oppure /autoauth sasl USER gpg PATH.
+
+Le impostazioni di autenticazione valgono al prossimo /connect dopo la disconnessione; /save le salva.
+
+BOUNCERS (ZNC / soju)
+---------------------
+Apri /panel, scegli un server e il tipo di connessione znc o soju.
+
+Salva un profilo per rete a monte. Se vari profili usano lo stesso host, seleziona quello giusto prima di /connect senza argomenti.
+
+Il bouncer ripristina i canali. /autojoin locale non viene ripetuto e non si può modificare; usa /join e /part.
+
+Il client si collega solo al bouncer. Configura a parte TLS, autenticazione e conservazione a monte.
+
+SESSION RECOVERY
+----------------
+Nella shell esegui --sessions. Controlla se il job è collegato/staccato e usa il suo ID, non il PID.
+
+Se il vecchio terminale SSH controlla il job, usa --detach-session NUMBER e poi --resume NUMBER. IRC resta attivo.
+
+Usa --close-session NUMBER solo per chiudere tutto il lavoro. Chiude IRC e trasferimenti; perdi bozze e cronologia RAM, ma configurazioni e log restano.
+
+TLS
+---
+TLS verificato è predefinito. Nome/indirizzo del server e catena di certificati devono essere validi; nessun bypass o fallback plaintext.
+
+La porta non disattiva TLS. --plain o /connect -plain sceglie IRC non cifrato e non può usare credenziali account/server.
+
+--check-config non prova la connessione TLS né garantisce che CA e credenziali funzionino. --test-mode non contatta server.
+
+TLS protegge solo questa connessione. TLS a monte e cronologia plaintext del bouncer sono gestiti separatamente.
+
+LOGGING
+-------
+Il log persistente è facoltativo è spento di base. /set persistent_logging on attiva; /save output salva.
+
+I log sono plaintext, non backup cifrati. Limite 16 MiB per file; un errore interrompe il log, non la chat.
+
+/clear svuota solo la RAM. I log restano dopo uscita, --close-session e salvataggio. Disattivare i log ferma le nuove voci, non cancella quelle vecchie.
+
+RECONNECT
+---------
+--reconnect abilita nuovi tentativi in questo processo; non salva opzioni e non avvia la connessione.
+
+I messaggi in coda vengono scartati alla disconnessione e mai reinviati automaticamente.
+
+TROUBLESHOOTING
+---------------
+Occupato dopo caduta SSH? Usa --sessions, controlla il job, poi --detach-session NUMBER e --resume NUMBER. Evita --close-session. See /help sessions.
+
+Nessun canale? Controlla vista server e autenticazione. Profilo diretto: /autojoin list; bouncer: /join o /part.
+
+Autenticazione fallita? Controlla account, fonte, permessi, TLS e agente GPG. /autoauth status non legge segreti.
+
+Modifica ignorata? Serve /connect dopo la disconnessione. Salvare non abilita autoconnect; opzioni iniziali richiedono riavvio.
+
+Usa --check-config e doc/TROUBLESHOOTING.txt. --test-mode prova solo l'interfaccia, non DNS, TLS, credenziali o bouncer reale.

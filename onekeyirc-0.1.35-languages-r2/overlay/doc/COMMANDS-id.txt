@@ -1,0 +1,73 @@
+vipirc / onekeyirc - command guide (id)
+=======================================
+
+Commands, argument names and saved configuration keys remain literal.
+For complete reference and security details see MANUAL.txt and SECURITY.md.
+
+/autoconnect
+------------
+Tanpa argumen, tampilkan pengaturan server terpilih. Perubahan berlaku saat program berikutnya dimulai.
+
+Gunakan /connect untuk langsung terhubung; gunakan /save untuk menyimpan pilihan sambungan saat mulai.
+
+Setiap server tersimpan memiliki pengaturan koneksi otomatis, gabung kanal otomatis, dan autentikasi sendiri.
+
+/away and /back
+---------------
+Harus sudah terdaftar di server. Server mengonfirmasi status pergi. MESSAGE adalah teks apa adanya.
+
+Sama dengan /away tanpa pesan. Memerlukan koneksi yang sudah terdaftar.
+
+/cancel
+-------
+Menghapus pesan obrolan yang menunggu antrean dan menghentikan perintah otomatis tertunda pada server terpilih.
+
+Bingkai yang sedang ditulis boleh diselesaikan.
+
+Pembatalan tidak menarik kembali pesan yang sudah diterima server.
+
+/query, /ql, /pm
+----------------
+Memilih percakapan pribadi tanpa mengirim pesan. Ketik seperti biasa untuk menulis kepada nama panggilan itu.
+
+Gunakan /ql untuk daftar percakapan bernomor dan /close NICK untuk menutupnya. /pm menerima nama dan nomor yang sama.
+
+Nomor harus merujuk ke percakapan yang ada pada server terpilih; 0 tidak pernah memilih atau membuat percakapan.
+
+/background
+-----------
+Gunakan /background agar koneksi tetap berjalan.
+
+/whois
+------
+Harus terdaftar. Membuka tampilan server agar balasan terlihat. Tidak ada perintah lokal yang dijalankan.
+
+/nick
+-----
+Nama panggilan memakai sintaks IRC ASCII yang didukung dan dibatasi 63 byte.
+
+/server
+-------
+Profil yang sudah dimuat tetap tersedia meskipun tidak terhubung.
+
+Server cocok yang sudah ada mempertahankan port, transport, nama panggilan, dan autentikasi yang dikonfigurasi.
+
+/autoauth
+---------
+Gunakan /save untuk menyimpan. Putuskan koneksi dahulu, lalu /connect untuk memakai perubahan; koneksi aktif tidak dialihkan.
+
+/autojoin
+---------
+Perubahan diperiksa sebelum diterapkan dan tidak menggabungkan atau meninggalkan kanal yang aktif.
+
+/bindings
+---------
+Secara bawaan tidak ada tombol khusus. Gunakan /bindings keys dan /bindings actions untuk melihat nama yang didukung.
+
+/connect
+--------
+PORT bawaan adalah 6697. Port lain tidak menonaktifkan TLS; koneksi tanpa enkripsi harus dipilih secara eksplisit.
+
+/help
+-----
+Perintah tidak dikenal. Gunakan /help commands atau /help COMMAND; perintah shell dan IRC mentah tidak tersedia.

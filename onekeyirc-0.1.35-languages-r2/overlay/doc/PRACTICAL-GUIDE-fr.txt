@@ -1,0 +1,213 @@
+Guide pratique vipirc / onekeyirc
+=================================
+
+TRADUCTION PROVISOIRE. Tapez les commandes et options exactement comme indiqué.
+Pour la sécurité, consultez MANUAL.txt et SECURITY.md en anglais.
+
+/help startup
+-------------
+
+Lancez le programme, fermez l'accueil, puis tapez /connect irc.example.org et /join #channel.
+
+Il n'est pas nécessaire de créer un profil, un alias ou un numéro au préalable. /server HOST est un alias de connexion directe.
+
+Sans pseudo fourni, le nom de connexion système valide est utilisé, sinon user. Aucune saisie de pseudo n'est demandée.
+
+Enregistrez la configuration et le choix par défaut avec /saveconf. Au prochain lancement, /connect les réutilise.
+
+L'enregistrement n'active pas la connexion automatique : c'est un choix distinct. /quickstart et /panel sont facultatifs.
+
+Les options shell fonctionnent aussi : --server HOST, --channel '#CHANNEL' et --nick NICK. Mettez #CHANNEL entre guillemets.
+
+Au démarrage normal, --nick, --port, --channel, --tls, --plain et --ca-file remplacent les valeurs par défaut mémorisées.
+
+Un --server explicite choisit la première connexion. --init-config et --check-config utilisent le fichier principal de configuration.
+
+Changer --server vers un autre hôte efface les anciens identifiants, la CA personnalisée, l'identité du bouncer, les canaux et les commandes de démarrage.
+
+Si le défaut mémorisé manque, indiquez --server ou corrigez-le avant de remplacer les paramètres de connexion.
+
+Autoconnect, autojoin et autoauth sont propres à chaque profil de serveur enregistré. Voir /help autoconnect.
+
+--no-connect empêche les connexions au démarrage ; --test-mode simule sans réseau ni écriture de configuration.
+
+--sessions répertorie les tâches attachées et détachées. --resume [NUMBER] les rattache ; voir /help background.
+
+--close-session NUMBER ferme toute la tâche choisie et ses connexions IRC après confirmation. NUMBER est un ID de tâche, pas un PID.
+
+Après perte du terminal, utilisez --sessions, puis --detach-session NUMBER et --resume NUMBER. Le processus garde son ancien code jusqu'au redémarrage ; voir /help sessions.
+
+-h/--help et -v/--version fonctionnent sans terminal.
+
+/help messages
+--------------
+
+Utilisez /join #channel pour rejoindre et choisir un canal, ou /query NICK pour ouvrir une conversation privée.
+
+Choisissez un canal conservé avec /channel. /msg TARGET TEXT envoie à une cible ; /me TEXT envoie une action.
+
+/query ouvre une conversation sans envoyer ; /pm est un alias. /ql sépare les conversations privées des canaux.
+
+L'envoi direct est le mode par défaut ; /set send_mode review ajoute une révision. /set composer_mode line|fullscreen modifie l'affichage.
+
+À la limite d'un message, confirmez la poursuite de l'édition ; la division exige encore un accord distinct.
+
+Il faut avoir rejoint et être authentifié avant la mise en file de messages. /cancel annule la file, pas les envois déjà faits.
+
+/help limits
+------------
+
+Les limites IRC portent sur les octets, non sur les caractères affichés. Un caractère UTF-8 peut occuper plusieurs octets.
+
+Le client calcule l'espace en comptant cible, commande et relais ; il ne coupe jamais un caractère UTF-8.
+
+À la limite d'un message, tout ajout attend la confirmation par Enter de poursuivre l'édition ; cet Enter n'envoie rien.
+
+Un message fractionné exige un accord distinct, même en mode direct. Le chat envoie une ligne toutes les 1.2 secondes.
+
+Un envoi contient au plus 64 messages et 16384 octets de texte. Raccourcissez ou envoyez séparément.
+
+Il y a au plus 8 emplacements de serveur et 32 vues par serveur, y compris les vues réservées.
+
+/help quickstart
+----------------
+
+Modifiez dans l'ordre le serveur, le transport TLS, le port et le pseudo du profil courant, puis verifiez les réglages.
+
+TLS vérifié est la valeur par defaut. Une liaison en clair doit être choisie explicitement.
+
+Enter conserve la valeur affichée. Escape remonte d'une question; repetez pour sortir sans appliquer. Les réponses n'entrent pas dans l'historique des commandes.
+
+A la verification finale: 1 Enregistrer et connecter, 2 Enregistrer seul, 3 Connecter une fois (defaut), 4 Appliquer seul.
+
+Ouvrir l'assistant et repondre aux questions ne change rien, n'enregistré aucun fichier et ne connecte pas.
+
+Connecter une fois applique sans enregistrer; Appliquer seul n'enregistré ni ne connecte. Une liaison active ne change jamais de cible ni ne se reconnecte implicitement.
+
+Un échec de connexion n'annule pas les changements déjà appliques ou enregistrés par l'action finale.
+
+Utilisez /panel pour les profils de bouncer et les choix avances. Quickstart ne modifie pas un identifiant de bouncer existant.
+
+/help save
+----------
+
+/save seul enregistré les réglages effectifs du serveur choisi, y compris les modifications de connexion en attente.
+
+/save input et /save output enregistrent tous deux le profil principal complet: preferences et connexion preparee. Ils ne limitent pas la sauvegarde au sous-ensemble nomme.
+
+/save all enregistré chaque profil sain séparément. Si l'un échoue, les precedents restent sauves et les erreurs sont indiquees.
+
+Chaque remplacement de fichier est prive et atomique, mais l'ensemble n'est pas une transaction unique. Le mode test n'ecrit jamais de configuration.
+
+/help documentation
+-------------------
+
+Cherchez une tâche avec /help ls; /help commands explique la saisie et liste les commandes. Consultez un sujet ou une commande a la fois.
+
+/help COMMAND donne la syntaxe, les effets et les exemples. /help /ls explique la liste locale; /help ls enumere les sujets.
+
+/help all ou /manual ouvre cette référence. --help explique les options de lancement; la sortie de --manual en mode minimal peut aller dans un fichier.
+
+README.md guide la documentation; MANUAL.txt décrit l'interface et INSTALL la compilation. La page man installee explique l'emploi depuis le shell.
+
+CONTRIBUTING.md explique les modifications; doc/SOURCE-MAP.txt repere le code; tests/README.md repertorie les tests. DESIGN.md explique la propriété et l'ordre.
+
+doc/TROUBLESHOOTING.txt guide par symptome. SECURITY.md definit les menaces; doc/BOUNCERS.txt et doc/SESSION-CONTROLS.txt décrivent les operations. Les audits ne valent que pour leurs versions et environnements.
+
+/help security
+--------------
+
+Le texte distant est assaini avant affichage. L'entrée est interprétée comme commande IRC locale, jamais comme shell.
+
+Pas de /raw, d'échappement shell ni d'acceptation automatique de fichiers. Un collage balisé reconnu n'exécute jamais de commande.
+
+TLS vérifié l'identité du serveur. SASL, PASS et les commandes privees d'authentification exigent TLS vérifié. Maintenez a jour la bibliotheque TLS du systeme; voir SECURITY.md.
+
+Un bundle CA personnalisé doit être un fichier PEM ordinaire non vide, de 16 MiB au maximum, sans demande de mot de passe.
+
+Les mots de passe configures sont masques dans l'aide et les réglages. Les commandes de secrets connues sont exclues du rappel; les secrets saisis comme texte peuvent rester en mémoire.
+
+Aucune transcription sur disque par défaut. Les modifications de configuration nécessitent un enregistrement explicite.
+
+Les autres processus du meme compte, le serveur IRC ou bouncer et un terminal ou systeme compromis echappent a ces protections. TLS ne chiffre pas les discussions de bout en bout.
+
+Les journaux facultatifs et secrets dans la configuration sont en clair. Les commandes sensibles connues sont filtrees, mais les secrets dans les messages ne sont pas toujours reconnaissables.
+
+Voir /help tls, /help authentication, /help logging et SECURITY.md pour les limites et anciens audits.
+
+/help sessions
+--------------
+
+Une tâche est un processus client avec ses serveurs, transferts, brouillons et historique. Un numéro de serveur dans l'application n'est pas un ID de tâche du shell.
+
+Depuis le shell, lancez --sessions. Consultez l'etat attache/detache et utilisez l'ID du travail, pas le PID.
+
+Si l'ancien terminal SSH garde le travail, faites --detach-session NUMBER puis --resume NUMBER. IRC reste actif.
+
+--resume seul ne reprend qu'une tâche detachee verifiee. Plusieurs taches exigent un numéro; une tâche attachee est occupee jusqu'au detachement. Les numéros peuvent être reutilises.
+
+N'utilisez --close-session NUMBER que pour terminer tout le travail. Il ferme IRC et les transferts; brouillons et historique RAM sont perdus, fichiers et journaux conservés.
+
+La fermeture reussit seulement après nettoyage vérifié. En cas d'expiration, verifiez --sessions: elle peut finir plus tard. Un échec ne supprime pas la connexion active ni n'envoie un signal a un PID suppose.
+
+Seule une tâche geree survit a la perte du terminal. Un processus normal au premier plan n'est pas récupérable après perte de SSH. Demarrez avec --background ou utilisez /background avant.
+
+Une tâche appartient au meme compte Unix et au meme hote; un seul terminal peut être attache. Un autre programme de ce compte est dans le meme perimetre de confiance.
+
+Installer un executable ne remplace pas le code du processus actif. Enregistrez la configuration, arretez l'ancien, verifiez --version et demarrez un nouveau processus.
+
+Une ancienne tâche peut manquer de contrôles recents ou du changement d'interface. Gardez l'executable compatible jusqu'a son arret si necessaire.
+
+Le client ne change pas la politique d'inactivite SSH. Voir /help background, /help deployment et doc/SESSION-CONTROLS.txt.
+
+/help troubleshooting
+---------------------
+
+Occupe apres coupure SSH ? Faites --sessions, vérifiez le travail, puis --detach-session NUMBER et --resume NUMBER. Évitez --close-session. See /help sessions.
+
+Up ne rappelle rien: Compose edite les messages; Command rappelle les commandes acceptees. Ouvrez Command avec / depuis le journal. Messages envoyes et commandes sensibles ne sont pas rappeles.
+
+Si un message renvoye a la ligne semble coupe: l'editeur reserve des lignes et affiche les plus recentes. Quittez l'editeur ou reselctionnez le salon; l'affichage ne prouve pas la livraison distante.
+
+Si changer de salon montre tout, c'est une difference de fenetre. Si le probleme dure, notez interface, mode, taille du terminal, locale et etapes expurgees sans mots de passe ni conversations privees.
+
+Aucun canal ? Vérifiez l'ecran serveur et l'authentification. Profil direct : /autojoin list; bouncer : /join ou /part.
+
+Echec d'authentification ? Vérifiez compte, source, droits, TLS et agent GPG. /autoauth status ne lit aucun secret.
+
+Rattrapage indisponible: l'ancre a pu disparaitre, la journalisation demarrer plus tard ou s'arreter, ou le fichier changer. Voir /help catchup et /help logging; les journaux ne recreent pas le processus termine.
+
+Changement ignore ? Reconnectez avec /connect apres déconnexion. Sauvegarder n'active pas autoconnect; options de lancement demandent un redémarrage.
+
+Si le lancement d'un auxiliaire échoue, corrigez la politique SIGCHLD ou de collecte automatique des enfants du lanceur pour permettre leur attente.
+
+Utilisez --check-config et doc/TROUBLESHOOTING.txt. --test-mode teste l'interface, pas DNS, TLS, identifiants ou bouncer réel.
+
+/help bouncers
+--------------
+
+Ouvrez /panel, choisissez un serveur, puis le type znc ou soju.
+
+Saisissez hôte et port TLS du bouncer, son identifiant, le réseau amont existant et, si souhaité, un nom client stable.
+
+Enregistrez un profil par reseau en amont. Si l'hote est partage, choisissez le bon profil avant /connect sans argument.
+
+Le client construit l'identité. ZNC utilise le mot de passe serveur; soju utilise celui d'authentification. Saisissez seulement le secret du bouncer, ni identifiant combine ni mot de passe NickServ.
+
+Le bouncer restaure les canaux. /autojoin local n'est pas rejoue et ne peut etre modifie; utilisez /join et /part.
+
+Les commandes de démarrage explicites s'exécutent encore. Vérifiez-les avant d'activer le profil pour éviter des jointures ou commandes de service répétées.
+
+L'absence automatique en veille/arrière-plan est désactivée par profil bouncer sauf activation. /away et /back manuels fonctionnent toujours.
+
+L'historique transmis garde les dates UTC d'origine, dirige les messages prives vers leur destinataire et ne cree ni mentions, ni CTCP/DCC, ni changement d'etat actif.
+
+L'historique est limité. Pas de recherche d'archives à la demande, de découverte de réseaux ni de profil automatique par réseau.
+
+Utilisez /znc ou /soju sans argument pour l'aide du service. Les contrôles n'entrent ni dans l'historique ni dans l'echo; les réponses vont a la vue serveur sans journal persistant.
+
+Les copies connues des contrôles sortants sont masquees meme lors d'une relecture sous un ancien pseudo. Le texte edite peut apparaitre et le bouncer applique sa politique de journaux.
+
+Le client se connecté uniquement au bouncer. Configurez séparément TLS, authentification et conservation en amont.
+
+Voir doc/BOUNCERS.txt et les exemples bouncer dans examples/ pour la configuration et les limites des tests réalisés.

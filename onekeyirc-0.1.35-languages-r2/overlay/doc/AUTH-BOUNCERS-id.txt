@@ -1,0 +1,68 @@
+vipirc / onekeyirc - authentication and bouncers (id)
+=====================================================
+
+DRAFT TRANSLATIONS - native-speaker review is outstanding.
+Commands, flags, values and config keys must be entered literally.
+The English SECURITY.md and MANUAL.txt remain authoritative.
+
+/help soju
+----------
+Perlu profil soju tersambung yang diatur lewat /panel. Tanpa argumen, meminta bantuan BouncerServ.
+
+COMMAND dikirim sebagai satu pesan pribadi berjarak, tanpa gema lokal atau riwayat perintah.
+
+Koneksi IRC langsung tidak dapat memakai pintasan ini. Balasan muncul di tampilan server.
+
+Gunakan bantuan bouncer untuk perintah akun dan jaringan.
+
+/help znc
+---------
+Perlu profil ZNC tersambung yang diatur lewat /panel. Tanpa argumen, meminta Help dari *status.
+
+COMMAND dikirim sebagai satu pesan pribadi berjarak, tanpa gema lokal atau riwayat perintah.
+
+Gunakan /msg *module COMMAND untuk modul ZNC aktif. Balasan modul muncul di tampilan server.
+
+Koneksi IRC langsung tidak dapat memakai pintasan ini. Lihat bantuan bouncer untuk perintahnya.
+
+/help authentication
+--------------------
+Berkas kata sandi atau isi GPG yang didekripsi menyediakan kredensial; jalur digunakan apa adanya.
+
+Gunakan /panel untuk membuat kredensial terenkripsi GPG bagi sidik jari kunci publik lokal yang sudah ada.
+
+Gunakan kunci GPG yang telah dibuka. pinentry tidak dijalankan dalam editor chat.
+
+password= dan server_password= teks biasa juga didukung dalam berkas konfigurasi privat.
+
+Pilih satu sumber saja per kredensial. /settings dan /summary menyembunyikan lokasi berkas.
+
+/autoauth status menampilkan lokasi berkas kredensial aktif dan tertunda tanpa membacanya atau menampilkan kata sandi.
+
+Pada profil bouncer, kelola login dan sumbernya bersama lewat /panel; perubahan /autoauth ditolak.
+
+Berkas kredensial harus berjenis biasa, dimiliki pengguna, bermode 0600 atau 0400; symlink dan lintasan direktori induk ditolak.
+
+Batas kredensial SASL ialah 1024 byte; server PASS biasa 503 byte. Login ZNC gabungan juga harus muat dalam satu baris IRC.
+
+--check-config memvalidasi konfigurasi dan pilihan sumber tanpa membaca kredensial atau menguji login. Lihat /help tls dan /help bouncers.
+
+/help tls
+---------
+Bundel CA khusus harus berkas biasa tak kosong, maksimal 16 MiB. Symlink biasa ke berkas CA diizinkan; jalur rahasia/konfigurasi lebih ketat.
+
+Berkas CA dibuka sekali, dibatasi dan ukurannya dicek saat dibaca. FIFO, perangkat dan input nonberkas ditolak; PEM bersandi tak dapat meminta sandi.
+
+Batas ukuran berkas tidak membatasi latensi I/O berkas biasa atau sistem berkas jaringan. Pakai bundel CA tepercaya di penyimpanan sesuai.
+
+/help bouncers
+--------------
+Masukkan hostname dan port TLS bouncer, nama pengguna bouncer, nama jaringan upstream yang ada, serta nama klien tetap opsional.
+
+Perintah startup eksplisit tetap dijalankan. Tinjau sebelum mengaktifkan profil bouncer agar join atau perintah layanan tidak berulang tanpa niat.
+
+Away otomatis saat idle/latar belakang mati pada tiap profil bouncer kecuali diaktifkan. /away dan /back manual tetap berlaku.
+
+Riwayat dibatasi. Tak ada pencarian arsip sesuai permintaan, penemuan jaringan otomatis, atau pembuatan profil otomatis per jaringan.
+
+Lihat doc/BOUNCERS.txt dan contoh bouncer di examples/ untuk pengaturan dan batas validasi yang dicatat.

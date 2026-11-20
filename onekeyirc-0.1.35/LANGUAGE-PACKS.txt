@@ -1,0 +1,10 @@
+LANGUAGE PACKS FOR onekeyirc 0.1.35 / ENGLISH SOURCE r1
+
+Build the English source with ./configure and make. For a localized
+build, first apply the onekeyirc-0.1.35-languages-r2 overlay to an
+unmodified copy of this English r1 source, then configure and build.
+The overlay contains JSON catalogs, generated translation code,
+translated offline guides and corresponding Makefile/install entries.
+Select a locale with ONEKEYIRC_LANG=id ./onekeyirc.
+Commands, configuration keys and IRC protocol fields stay literal.
+Existing long-form manuals remain authoritative English documents.

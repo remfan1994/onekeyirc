@@ -1,0 +1,46 @@
+vipirc / onekeyirc - справка по командам
+========================================
+
+Выберите язык до запуска клиента.
+
+Пример: VIPIRC_LANG=id onekeyirc
+
+Пример: VIPIRC_LANG=tr vipirc -i
+
+Доступные коды: id ms tr es pt fr de ru it ar.
+
+Используйте терминал, шрифт и установленную локаль UTF-8.
+
+Команды IRC, темы справки и ключи конфигурации остаются на английском.
+
+Для арабского нужна поддержка формирования букв и двунаправленного текста.
+
+Темы справки: /help ls.
+
+Список команд: /help commands. Подробно: /help COMMAND.
+
+Первое подключение: /connect irc.example.org, затем /join #channel.
+
+Личная беседа: /query NICK или /msg NICK TEXT.
+
+Мастер настройки: /quickstart или /panel.
+
+Сохранить настройки: /saveconf. Это не включает autoconnect.
+
+Переключение экранов: /servers, /channels, /ql.
+
+Настройки запуска: /help autoconnect, /help autojoin, /help autoauth.
+
+Восстановить сессии SSH: /help sessions.
+
+Инструкция по bouncer: /help bouncers.
+
+Настройки и клавиши: /help configuration, /help hotkeys.
+
+Проблемы и безопасность TLS: /help troubleshooting, /help security, /help tls.
+
+История и журналы: /help history, /help logging.
+
+Полная справка: /help all или /manual.
+
+Перезапустите программу, чтобы изменить язык работающего процесса.

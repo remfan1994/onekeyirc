@@ -1,0 +1,325 @@
+onekeyirc 0.1.35 - build and installation
+========================================
+
+This file covers installation and maintenance. Start with README.md for
+normal use, MANUAL.txt for the full reference, SECURITY.md for operational
+limits, and doc/OPENBSD-VPS.txt for unattended OpenBSD startup.
+doc/TROUBLESHOOTING.txt covers runtime symptoms and recovery. Commands
+in this file run in your shell from the extracted source directory.
+Replace example paths; do not type a shell prompt as part of a command.
+
+REQUIREMENTS
+
+    C11 compiler, standard C library, POSIX shell, and make
+    POSIX terminal, poll, socket, fork, and descriptor interfaces
+    Descriptor-relative filesystem operations (openat/fstatat/mkdirat)
+        and no-follow opens, plus a monotonic clock
+    GNU/BSD-style getopt_long option parsing
+    OpenSSL-compatible TLS development headers and libraries
+    A maintained certificate authority trust store for public TLS servers
+    An ANSI-compatible terminal for interactive operation
+
+onekeyirc has no curses or terminfo dependency. Its interface uses
+read/write, termios, poll, and ANSI terminal sequences directly.
+
+The TLS code requires OpenSSL 1.1.1-compatible APIs or newer. LibreSSL is
+usable when the installed headers and libraries provide those APIs; use
+matching development files and libraries maintained by your operating
+system. Configure checks compilation and linking, not a real TLS account
+or every platform behavior. API compatibility is not a security-update
+policy: use a vendor-maintained TLS library with current security fixes.
+The review environment used OpenSSL 3.5.7; its later certificate-processing
+fix for CVE-2026-35189 is in 3.5.9 or the vendor equivalent. Deployment
+libraries and backports must be checked separately; see SECURITY.md.
+
+The installed client does not require Python or Bash. Optional encrypted
+credentials invoke gpg from GnuPG 2.2.20 or newer in PATH and require an agent
+able to decrypt without prompting. No GPG library is linked. Private-file
+credentials and ordinary IRC do not require GnuPG.
+
+BUILD
+
+From the extracted source directory:
+
+    ./configure
+    make
+    ./onekeyirc --version
+    ./onekeyirc --help
+
+Configure does not download dependencies or install files. It writes a
+host-specific Makefile and config.log. A successful build leaves the
+program in this source directory; installation is a separate step.
+Reconfigure on the actual target OS;
+do not copy a generated Makefile or executable from another platform.
+Makefile.in is the distributed template. When changing the compiler or
+build flags, reconfigure, run make clean, then make. Make does not track
+changed flag values as dependencies, so reconfiguration alone can leave
+an executable or object files built with the earlier options.
+
+The configure command accepts --prefix=DIR. Supply build variables through
+the environment, before ./configure:
+
+    CC=cc CFLAGS='-O2 -g' ./configure
+    make clean
+    make
+
+For headers and libraries in an extra prefix:
+
+    CPPFLAGS=-I/usr/local/include LDFLAGS=-L/usr/local/lib ./configure
+
+For explicit TLS linkage:
+
+    TLS_LIBS='-lssl -lcrypto' ./configure
+
+CC, CPPFLAGS, CFLAGS, LDFLAGS, and TLS_LIBS are supported.
+Configure probes and adds supported compiler/linker hardening options,
+including stack protection, format diagnostics, PIE, and applicable ELF
+linker protections. Available flags vary by toolchain and OS; inspect
+config.log rather than assuming a particular protection was enabled.
+
+The source targets Unix-like systems, including Linux and BSD. Historical
+platform reports are in doc/OPENBSD-VALIDATION.txt and the dated validation
+files. They state what was actually run. This documentation release does
+not turn a previous Linux result into an OpenBSD, LibreSSL, or real-bouncer
+compatibility test.
+
+Resolver helpers close unrelated inherited descriptors before lookup.
+Supported facilities include close_range, closefrom, or a complete procfs/
+devfs descriptor scan. If the client cannot completely isolate a helper,
+connection setup reports a failure. Do not remove the check to make an
+unsupported environment appear compatible.
+
+LOCAL CHECKS
+
+    make check-unit
+    make check
+
+check-unit runs C tests and invokes Python-based deep/security checks,
+including local TLS, resolver and trust-store fixtures. It is not a
+C-only or socket-free target. make check adds CLI/PTY integration paths.
+These checks need Python 3 and local sockets; PTY suites need usable PTYs,
+and some checks use Bash job control or the openssl command. Read
+tests/README.md to select a smaller target and its prerequisites.
+These are development dependencies, not installed-client dependencies.
+Tests use temporary files and simulated/local peers rather than your real
+IRC account. A restricted runner that denies PTYs or local sockets cannot
+complete the corresponding tests; record that limitation separately.
+
+For a narrower change, use the appropriate existing target:
+
+    make check-security
+    make check-security-boundaries
+    make check-bouncers
+    make check-session-controls
+    make check-session-lifecycle
+    make check-idle-display
+    make check-efficiency
+    make check-terminal-signals
+
+Optional GPG checks need GnuPG:
+
+    make check-gpg
+    make check-setup-gpg
+
+For a compiler with AddressSanitizer and UndefinedBehaviorSanitizer:
+
+    make sanitize
+    make check-security-sanitize
+
+Instrumented test binaries are separate from the ordinary client. Consult
+the target recipe and test report before interpreting a skipped or failed
+sanitizer run; a restricted runtime may not support every sanitizer facility.
+
+Documentation maintainers additionally need Python 3:
+
+    make docs
+    make check-docs
+
+The checked-in manual exports are generated from the in-program help. Keep
+them synchronized using these targets when help changes. Ordinary end-user
+compilation and installation use the supplied exports and do not require
+Python. See CONTRIBUTING.md for the source-of-truth table and
+documentation maintenance workflow, and DESIGN.md for architecture.
+
+TRY WITHOUT INSTALLING
+
+    ./onekeyirc --test-mode
+    ./onekeyirc --manual
+
+Test mode disables IRC/DCC network activity, credential-file reads and
+decryption, config saves, and command-count persistence. Explicit session
+backgrounding can still create local session IPC. It is useful for
+inspecting the UI, not for validating your remote server or password.
+
+Normal interactive operation requires a terminal. --help, --version,
+--manual, and --check-config work without one. See README.md for first
+connection, saved configuration, and busy-session recovery. In a shell,
+quote channel arguments beginning with # so they are not parsed as comments:
+
+    ./onekeyirc --server irc.example.org --channel '#mychannel' --nick mynick
+
+INSTALL
+
+The default prefix is /usr/local. For a per-user installation:
+
+    ./configure --prefix="$HOME/.local"
+    make
+    make install
+
+After make install, add "$HOME/.local/bin" to your shell's PATH if needed.
+Use command -v onekeyirc to see which installed executable the shell
+will find, and onekeyirc --version to check its version. Neither
+command changes an already running worker. To install system-wide,
+configure the intended prefix first and use the privilege mechanism supplied
+by your OS. On OpenBSD, for example:
+
+    ./configure --prefix=/usr/local
+    make
+    doas make install
+
+The install layout is:
+
+    PREFIX/bin/onekeyirc
+    PREFIX/share/man/man1/onekeyirc.1
+    PREFIX/share/doc/onekeyirc/
+
+The source archive includes no precompiled OpenBSD executable. Installation
+does not create user configuration, connect to IRC, enable a service, or
+replace an already running worker's in-memory executable.
+
+For packaging, stage under an absolute DESTDIR while retaining the desired
+final prefix:
+
+    make install DESTDIR=/absolute/staging/root
+
+DESTDIR is prepended to installed paths; it is not the runtime prefix.
+Use the same configured paths for install and uninstall. Source-relative
+documentation is installed under share/doc/onekeyirc, including
+CONTRIBUTING.md, doc/SOURCE-MAP.txt, doc/TROUBLESHOOTING.txt and
+tests/README.md. Older flat document paths are also retained where they
+do not conflict with the root README. The test guide is documentation;
+the test programs and source remain in the extracted source archive.
+
+OPENBSD SERVICE WRAPPERS
+
+    doas make install-openbsd-service
+
+This optional target installs the executable, documentation, and
+the onekeyirc wrapper. The plural target name
+install-openbsd-services is an alias. It requires OpenBSD, root, and the
+bundled /usr/local/bin layout; it refuses a symlink/non-directory rc.d
+destination. It does not enable or start the service, create its account,
+or edit rc.conf settings.
+
+The compiled program belongs in /usr/local/bin. The installed /etc/rc.d
+file is the supplied text Korn shell wrapper, not a renamed executable.
+Choose an existing non-root runtime account and an absolute config path
+before starting it. Follow doc/OPENBSD-VPS.txt in order, including the
+interactive and unattended tests before boot enablement.
+
+UPGRADE AND REMOVE
+
+Back up the primary config, its .servers catalog and .d profiles, and any
+separate credential files and optional logs using private permissions.
+Read CHANGELOG.md and SECURITY.md for changes relevant to your deployment.
+Reconfigure and build the new source rather than reusing old build outputs.
+
+make install first copies and sets permissions on a temporary executable in
+its destination directory, then renames that complete file into place. This
+supports replacing an executable while an older worker is running. A failed
+binary staging step preserves the previous executable; a failed fresh staging
+step publishes no partial binary. A directory at the executable path is
+refused. The destination directory and build tree must be trusted. Man pages
+and documentation install separately: the whole install is not a transaction.
+
+A live worker keeps running the old code until it exits. Inspect --sessions,
+save wanted settings, and deliberately close or quit that job before starting
+the replacement. Closing ends all IRC connections and transfers and loses
+its RAM-only drafts/history. A new process is not a resumed old job. If an
+OpenBSD service owns it, stop that service with its existing wrapper before
+replacing the wrapper, then follow the service guide to restart it.
+
+If upgrading from the standalone name 1keyirc, read
+doc/ONEKEYIRC-RENAME.txt before replacing executables or service scripts.
+Stop the old service using its old wrapper first. Legacy configuration is
+reused in place only when the new default path is absent; no migration is
+performed automatically. vipirc configurations are independent.
+
+    make uninstall
+
+Run uninstall with the same prefix, DESTDIR, and privileges used to install.
+It removes the installed executable, man page, and installed documentation.
+It does not stop a running worker or delete your configurations, credentials,
+logs, or separately installed rc.d wrappers. Stop/disable a service before
+removing its executable; service management remains explicit.
+
+    make clean
+    make distclean
+
+clean removes build outputs. distclean also removes the generated Makefile
+and config.log so the next build starts with ./configure.
+
+SECURITY REGRESSIONS
+
+    make check-security-pass
+    make check-security-pass-sanitize
+    make check-hotkeys-terminal
+
+These targets cover config creation races, replayed authentication
+privacy, deterministic DCC parser mutations, and terminal paste/hotkey
+state. Full vipirc also runs its curses UI fixture; it needs native
+wide-curses development files. Sanitizer checks need compiler/runtime
+support. Existing check-security targets remain broader. Read the
+current review for executed workloads and unavailable checks.
+
+RECOVERY REGRESSIONS
+
+    make check-stability
+    make check-stability-sanitize
+    make check-install
+    make check-idle-load
+
+check-stability covers interrupted LIST requests, short/failed terminal writes,
+and credential-helper resource failures and retry. Its sanitizer variant needs
+ASan/UBSan support. check-install uses the actual install recipe in private
+staging directories, including replacement of a running test executable and
+injected copy/permission/rename failures; it does not install the client.
+check-idle-load runs a bounded 60-second load against eight private TLS peers
+through the minimalist terminal. It needs Python 3, openssl, loopback sockets
+and a PTY; it does not contact public IRC. This is not a long-running soak.
+The current review records what was run and any platform restrictions.
+
+BUILD TROUBLESHOOTING
+
+- Missing TLS headers or unresolved SSL symbols: inspect config.log and
+  supply matching headers/libraries through CPPFLAGS, LDFLAGS, and TLS_LIBS.
+  Certificate-verification settings cannot fix a compile/link failure.
+- Wrong executable after an upgrade: inspect your shell's command path and
+  onekeyirc --version, then check whether you resumed an old worker.
+- A configure result from another OS: regenerate it on the destination.
+- Tests fail before creating a PTY or local socket: report the runner's
+  restriction and the uncompleted test; do not call it a passing check.
+- Authentication fails only under a service: compare Unix user, absolute
+  config/credential paths, permissions, and the GPG agent environment.
+
+Use doc/TROUBLESHOOTING.txt and the in-program /help for runtime questions.
+For a build report, keep the exact configure command, compiler name,
+first failing command and diagnostic, and relevant config.log excerpt.
+A later failure may be a consequence of the first; do not report only the
+last line from make. Remove private paths or account information before
+sharing excerpts. Security-sensitive reports should follow SECURITY.md.
+
+Custom key bindings use a new [hotkeys] config section (see doc/HOTKEYS.txt).
+Older releases reject this section, even when empty. Before downgrading,
+restore a compatible backup or remove that whole section and its rows.
+Validate using the older binary before starting it.
+
+LANGUAGE SUPPORT
+
+Set VIPIRC_LANG=id (or ms, tr, es, pt, fr, de, ru, it, ar) before
+starting the client to select its interface language. For example:
+
+    VIPIRC_LANG=id onekeyirc
+
+Use an installed UTF-8 locale for LANG or LC_CTYPE as well. English
+is used for untranslated terms. See doc/LOCALIZATION.md.

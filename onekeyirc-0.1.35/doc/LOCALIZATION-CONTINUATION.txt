@@ -1,0 +1,38 @@
+LOCALIZATION CONTINUATION - onekeyirc 0.1.37
+2026-11-19
+
+Base: onekeyirc 0.1.36; this change is a localization-focused maintenance
+pass. Ten catalog languages are retained; all catalogs contain 217 keys.
+
+INTERFACE CHANGES
+- Minimalist: command suggestion categories, contextual channel labeling,
+  context-help heading, response/catch-up/scrollback/draft/sizing warnings,
+  no-match notices and paste capture status.
+- Full interface (vipirc only): channel directory empty/loading states,
+  unread-conversation empty state, missing-server status, more settings
+  navigation hints and command suggestion selection labels.
+- Larger bounded translated-text buffers for settings labels and guided help.
+- Deduplicate catalog storage in one translation unit for smaller binaries.
+- Optional CPPFLAGS=-DIRC_DISABLE_LOCALIZATION for a small English-only build.
+- No changes intentionally made to IRC wire syntax, command recognition,
+  authentication control values or configuration file grammar.
+
+CHECKS
+- JSON / generated header parity: pass for both source trees.
+- English-only no-catalog C compile test and English-only runtime: pass.
+- Ten-language C lookup, fallback and preserved /join, /msg, sasl, direct,
+  LIST and Enter tokens: pass.
+- Live offline minimalist PTY for ten languages, widths 45-100: pass
+  on the standalone Linux build. This test does not connect to an IRC server.
+- Standalone native idle-command and idle-setup C suites: pass.
+- Standalone complete unit suite: not complete (execution timeout during
+  compilation; no final all-suite result).
+- Full curses vipirc compile: not verified; no wide-curses development
+  headers/library were available in this container.
+- Native OpenBSD build, RTL display layout and human translations: not tested.
+
+TRANSLATOR REVIEW
+Run tools/review_localizations.py for CSV review of the English source,
+translation and unchanged-as-English fields. Do not translate protocol
+commands, literal example tokens or config names. Confirm natural wording in
+context, including whether terminal screen width can show the label.

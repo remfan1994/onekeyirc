@@ -1,0 +1,121 @@
+vipirc / onekeyirc - connection help (id)
+============================================
+
+Translation draft. Commands, options and config keys must be entered literally.
+For full security details read the authoritative English SECURITY.md and MANUAL.txt.
+
+/help connect
+-------------
+Mulai dengan /connect irc.example.org. Tidak perlu membuat profil, alias, atau nomor server dahulu.
+
+Server baru memakai TLS terverifikasi pada port 6697 dan nama login sistem, atau user jika nama itu tidak sesuai.
+
+Server cocok yang sudah ada mempertahankan port, transport, nama panggilan, dan autentikasi yang dikonfigurasi.
+
+Gunakan -nick NICK untuk nama panggilan khusus, atau /nick NICK sebelum terhubung. Sandi bukan argumen posisi.
+
+Gunakan -plain untuk IRC tanpa enkripsi (port bawaan 6667). -tls dan -ssl memilih TLS terverifikasi.
+
++PORT juga memilih TLS. Port angka biasa tidak mematikan TLS. --tls, --plain, dan --nick juga diterima.
+
+Koneksi dipilih dan membuka tampilan server/MOTD. Koneksi cocok yang sudah aktif dipilih tanpa duplikasi.
+
+Endpoint berbeda mendapat pengaturan autentikasi baru; kredensial dan kanal server lain tidak disalin.
+
+/connect tanpa argumen memakai server terpilih dan pengaturan berikutnya. /saveconf mengingat server bawaan untuk awal berikutnya.
+
+Untuk profil bouncer di host yang sama, pilih profil dengan /server NUMBER, lalu jalankan /connect saja.
+
+Nomor server lama juga diterima demi kompatibilitas. Mode uji tetap offline; edit konfigurasi harus disimpan secara eksplisit.
+
+/help autoauth
+--------------
+Mengubah autentikasi server terpilih untuk koneksi berikutnya. TLS terverifikasi wajib.
+
+Tanpa argumen atau dengan status, tampilkan status koneksi/autentikasi dan jalur berkas kredensial, bukan isi sandi.
+
+Pengaturan aktif dan tertunda dibedakan. Jalur panjang ditampilkan lengkap pada baris lanjutan berlabel.
+
+PATH adalah seluruh teks tersisa, termasuk spasi; tidak ada ekspansi shell atau pengolahan tanda kutip.
+
+Perintah ini tidak membuka berkas. Kunci GPG harus dibuka di luar program.
+
+Sandi teks biasa hanya boleh dikonfigurasi secara eksplisit dalam berkas konfigurasi privat, bukan argumen perintah.
+
+Gunakan /panel untuk profil bouncer; /autoauth ditolak karena identitas masuk dan sumber kredensial dikelola bersama.
+
+Gunakan /save untuk menyimpan. Putuskan koneksi dahulu, lalu /connect untuk memakai perubahan; koneksi aktif tidak dialihkan.
+
+/help autojoin
+--------------
+Tanpa argumen atau dengan list, tampilkan server, status registrasi/autentikasi, serta daftar aktif dan tertunda.
+
+Ubah daftar gabung otomatis server untuk /connect berikutnya. add/remove menerima satu kanal tanpa kunci.
+
+Perubahan diperiksa sebelum diterapkan dan tidak menggabungkan atau meninggalkan kanal yang aktif.
+
+Percobaan ulang otomatis memakai daftar aktif. Putuskan koneksi lalu /connect untuk menerapkan daftar tertunda.
+
+Gunakan /join atau /part untuk koneksi aktif; gunakan /save untuk menyimpan perubahan saat mulai.
+
+Profil bouncer memulihkan keanggotaan sendiri; /autojoin ditolak. Gunakan /join dan /part.
+
+/help saveconf
+--------------
+Menyimpan preferensi aplikasi dan semua konfigurasi server yang sehat, lalu mengingat server terpilih sebagai bawaan.
+
+Saat program dijalankan lagi, /connect memakai bawaan tersimpan; tidak perlu nomor server atau pengaturan terpisah.
+
+Nama panggilan, kanal yang diikuti, autentikasi, dan opsi awal disertakan; edit koneksi tertunda yang eksplisit diutamakan.
+
+Ini tidak mengaktifkan koneksi otomatis saat mulai. Gunakan /autoconnect on terlebih dahulu bila diinginkan.
+
+Setiap berkas diganti secara privat dan atomik. Simpanan sukses tetap ada walau berkas lain gagal.
+
+Server bawaan diingat jika penyimpanannya sukses; kegagalan dilaporkan dan profil tak terbaca tidak ditimpa.
+
+Mode uji tidak menulis konfigurasi. /save tetap menyediakan cara yang lebih khusus untuk profil dan preferensi.
+
+/help tls
+---------
+TLS terverifikasi adalah bawaan. Nama host atau alamat server serta rantai sertifikat harus valid; tidak ada jalan pintas atau fallback plaintext.
+
+Nomor port tidak mematikan TLS. --plain atau /connect -plain memilih IRC tanpa enkripsi dan tidak dapat memakai kredensial akun/server.
+
+Gunakan nama host dan port TLS tepat dari penyedia. Gagal bisa karena endpoint salah, sertifikat kedaluwarsa/tak dipercaya, atau trust lokal; lihat galat koneksi dahulu.
+
+Secara bawaan TLS memakai trust store sistem. --ca-file FILE atau ca_file= memilih bundel CA PEM khusus, bukan mematok sertifikat leaf.
+
+Bundel CA khusus harus berkas biasa tak kosong, maksimal 16 MiB. Symlink biasa ke berkas CA diizinkan; jalur rahasia/konfigurasi lebih ketat.
+
+Berkas CA dibuka sekali, dibatasi dan ukurannya dicek saat dibaca. FIFO, perangkat dan input nonberkas ditolak; PEM bersandi tak dapat meminta sandi.
+
+Batas ukuran berkas tidak membatasi latensi I/O berkas biasa atau sistem berkas jaringan. Pakai bundel CA tepercaya di penyimpanan sesuai.
+
+--check-config tidak menguji koneksi TLS atau memastikan berkas CA dan sumber kredensial berfungsi. --test-mode tidak menghubungi server.
+
+TLS hanya melindungi koneksi ini. TLS hulu dan riwayat plaintext pada bouncer diatur terpisah.
+
+/help reconnect
+---------------
+--reconnect mengaktifkan percobaan ulang pada proses ini; tidak menyimpan pengaturan atau memulai koneksi.
+
+Tanpa opsi ini, koneksi gagal masih memerlukan /connect. /autoconnect hanya mengatur saat mulai.
+
+Gangguan DNS sementara, koneksi ditolak/putus, dan batas waktu server dicoba lagi setelah 5, 10, 20, 40, 80, 160, lalu 300 detik.
+
+Koneksi yang terdaftar selama sekurangnya 60 detik mengatur ulang jeda itu. Polling tanpa tidur yang memblokir.
+
+Galat verifikasi sertifikat, autentikasi, protokol rusak, dan konfigurasi tetap terputus sampai diperbaiki.
+
+ERROR server sebelum registrasi dipertahankan; setelah registrasi dapat memicu koneksi ulang.
+
+/disconnect secara eksplisit membatalkan percobaan tertunda. /connect kemudian memulai upaya baru.
+
+Percobaan ulang memakai pengaturan koneksi saat ini; edit tertunda tetap memerlukan /connect secara eksplisit.
+
+Pesan yang mengantre dibuang saat terputus dan tidak dikirim ulang otomatis.
+
+Autentikasi dan perintah awal yang aktif berjalan lagi. Profil langsung mengulang autojoin setelah autentikasi; bouncer memulihkan kanalnya sendiri.
+
+Mode uji offline tidak pernah menghubungkan ulang ke jaringan.

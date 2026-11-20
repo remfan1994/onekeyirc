@@ -1,0 +1,121 @@
+vipirc / onekeyirc - connection help (de)
+============================================
+
+Translation draft. Commands, options and config keys must be entered literally.
+For full security details read the authoritative English SECURITY.md and MANUAL.txt.
+
+/help connect
+-------------
+Mit /connect irc.example.org beginnen. Profil, Alias oder Servernummer müssen nicht vorher angelegt werden.
+
+Ein neuer Server nutzt geprüftes TLS auf Port 6697 und den System-Login-Namen, ersatzweise user.
+
+Ein vorhandener passender Server behält Port, Transport, Nicknamen und Authentifizierung.
+
+Mit -nick NICK einen Nick angeben oder vor dem Verbinden /nick NICK nutzen. Passwoerter sind keine Positionsargumente.
+
+-plain wählt unverschlüsseltes IRC (Anfangsport 6667). -tls und -ssl wählen geprüftes TLS.
+
++PORT wählt ebenfalls TLS. Eine normale Portnummer deaktiviert TLS nicht. --tls, --plain und --nick gehen auch.
+
+Die Verbindung wird gewählt, die Server-/MOTD-Ansicht geöffnet. Eine schon aktive gleiche Verbindung bleibt einmalig.
+
+Ein anderer Endpunkt erhaelt neue Anmeldedaten; Zugangsdaten und Kanaele anderer Server werden nicht kopiert.
+
+/connect allein nutzt den gewählten Server mit aktiven Einstellungen. /saveconf merkt ihn als Standard für den nächsten Start.
+
+Bei Bouncer-Profilen auf demselben Host das Profil mit /server NUMBER wählen, dann /connect allein.
+
+Bestehende Servernummern bleiben kompatibel. Testmodus bleibt offline; Konfigurationsaenderungen separat speichern.
+
+/help autoauth
+--------------
+Ändert die Anmeldung des gewählten Servers für die nächste Verbindung. Geprüftes TLS ist erforderlich.
+
+Ohne Argument oder mit status zeigt es Verbindungs-/Anmeldestatus und Pfade zu Zugangsdaten, nie Passwoerter.
+
+Aktive und ausstehende Einstellungen bleiben getrennt. Lange Pfade erscheinen vollständig in beschrifteten Folgezeilen.
+
+PATH ist der restliche Text samt Leerzeichen; keine Shell-Erweiterung oder Auswertung von Anfuehrungszeichen.
+
+Dieser Befehl öffnet keine Datei. GPG-Schlüssel müssen außerhalb des Programms entsperrt werden.
+
+Klartextpasswoerter dürfen nur explizit in einer privaten Konfigurationsdatei stehen, nie als Befehlsargumente.
+
+Fuer Bouncer-Profile /panel verwenden: /autoauth ist gesperrt, da Anmeldename und Quelle gemeinsam verwaltet werden.
+
+Mit /save speichern. Erst trennen, dann /connect für die Änderungen; die aktive Verbindung wird nicht umgeleitet.
+
+/help autojoin
+--------------
+Ohne Argument oder mit list zeigt es Server, Registrierungs-/Anmeldestatus sowie aktive und ausstehende Liste.
+
+Bearbeitet die Autojoin-Liste für das nächste /connect. add/remove akzeptiert einen Kanal ohne Schlüssel.
+
+Änderungen werden vor Anwendung geprüft; aktive Kanäle werden weder betreten noch verlassen.
+
+Automatische Neuversuche behalten die aktive Liste. Trennen, dann mit /connect die ausstehende Liste anwenden.
+
+Fuer die aktive Verbindung /join oder /part, zum Speichern der Startaenderungen /save verwenden.
+
+Bouncer-Profile stellen Kanaele selbst wieder her; /autojoin ist gesperrt. /join und /part verwenden.
+
+/help saveconf
+--------------
+Speichert Einstellungen und alle intakten Serverprofile und merkt den gewählten Server als Standard.
+
+Beim nächsten Start nutzt /connect diesen Standard; weder Servernummer noch erneute Einrichtung sind nötig.
+
+Nick, beigetretene Kanäle, Anmeldung und Startoptionen sind enthalten; vorgemerkte Änderungen haben Vorrang.
+
+Das aktiviert nicht die automatische Startverbindung. Bei Bedarf zuerst /autoconnect on verwenden.
+
+Jede Datei wird privat und atomar ersetzt. Erfolgreiche Schreibvorgänge bleiben trotz anderer Fehler erhalten.
+
+Der Standard gilt nur bei erfolgreichem Speichern; Fehler werden gemeldet und unlesbare Profile nicht überschrieben.
+
+Der Testmodus schreibt keine Konfiguration. /save bietet gezielte Formen für Profile und Voreinstellungen.
+
+/help tls
+---------
+Geprüftes TLS ist Standard. Hostname/Adresse und Zertifikatskette mussen stimmen; kein Umgehen und kein Plaintext-Rückfall.
+
+Ein Port schaltet TLS nicht ab. --plain oder /connect -plain wahlt unverschlüsseltes IRC ohne Konto- und Server-Zugangsdaten.
+
+Den exakten TLS-Hostnamen und Port des Anbieters verwenden. Fehler: falsches Ziel, abgelaufenes/unvertrautes Zertifikat oder lokaler Trust; erst Fehlermeldung lesen.
+
+TLS nutzt standardmäßig den System-Vertrauensspeicher. --ca-file FILE oder ca_file= wählt ein PEM-CA-Bündel; kein Pinning des Endzertifikats.
+
+Ein eigenes CA-Bündel muss eine nichtleere reguläre Datei bis 16 MiB sein. Symlink zur CA-Datei ist zulässig; für Geheimnisse/Konfig gelten strengere Regeln.
+
+Die CA-Datei wird einmal geöffnet, begrenzt und beim Lesen auf Größe geprüft. FIFO, Geräte und Nichtdateien sind verboten; geschütztes PEM kann kein Passwort abfragen.
+
+Die Größenbegrenzung verhindert keine I/O-Verzögerung von Dateien oder Netzdateisystemen. Ein vertrauenswürdiges CA-Bündel auf geeignetem Speicher nutzen.
+
+--check-config prüft keinen TLS-Handshake und bestätigt nicht, dass CA oder Zugangsdaten funktionieren. --test-mode verbindet sich nicht.
+
+TLS schutzt nur diese Verbindung. Upstream-TLS und Plaintext-Verlauf des Bouncers werden separat verwaltet.
+
+/help reconnect
+---------------
+--reconnect aktiviert erneute Versuche für diesen Prozess; speichert nichts und startet keine Verbindung.
+
+Ohne diese Option braucht eine gescheiterte Verbindung erneut /connect. /autoconnect steuert nur den Start.
+
+Vorübergehende DNS-, Verbindungs- und Timeout-Fehler werden nach 5, 10, 20, 40, 80, 160 und 300 Sekunden erneut versucht.
+
+Eine mindestens 60 Sekunden registrierte Verbindung setzt die Wartezeit zurück. Polling blockiert nicht durch Schlafen.
+
+Zertifikats-, Anmelde-, Protokoll- und Konfigurationsfehler bleiben bis zur Korrektur getrennt.
+
+Ein Server-ERROR vor Registrierung wird gehalten; danach kann er einen Neuversuch auslösen.
+
+Ein ausdrückliches /disconnect stoppt wartende Versuche. Ein späteres /connect beginnt neu.
+
+Neuversuche verwenden aktuelle Verbindungswerte; vorgemerkte Änderungen brauchen ausdrückliches /connect.
+
+Wartende Chatnachrichten werden bei Trennung verworfen und nie automatisch erneut gesendet.
+
+Anmeldung und aktivierte Startbefehle laufen erneut. Direkte Profile wiederholen autojoin; Bouncer stellen Kanäle selbst her.
+
+Im Offline-Testmodus wird nie erneut zum Netz verbunden.

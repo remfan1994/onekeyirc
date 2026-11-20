@@ -1,0 +1,31 @@
+AUTHENTICATION AND BOUNCER HELP LOCALIZATION - 2026-11-19
+Product: onekeyirc 0.1.43
+Paired release: vipirc 0.7.44 and onekeyirc 0.1.43
+
+ADDITIONS
+  25 unique new display keys in each of ten language catalogs; total 430.
+  26 source help lines covered because one line is used by both /soju and /znc.
+  Interactive command/topic help: 148 of 477 lines (31.0 percent).
+  Remaining English-only help lines: 329.
+  The source audit is an exact-key count, not linguistic certification.
+
+COVERAGE
+  /help soju and /help znc: all original explanation lines.
+  /help authentication: credential source, permissions and limits.
+  /help tls: CA file type, size, symlink and latency boundaries.
+  /help bouncers: startup commands, away mode, history limits and setup.
+
+PROTECTION
+  Technical command/config terms remain literal and are checked across locales.
+  No protocol, credential-handling, file-access or authentication code changed.
+  Source comments/contributor docs remain intact and in English.
+  Native-speaker review and Arabic bidi behavior are NOT verified.
+  English SECURITY.md and MANUAL.txt are authoritative for details.
+
+CHECKS
+  python3 tools/generate_locale_bouncer_auth_guides.py --check
+  python3 tests/test_auth_bouncer_help_translation.py
+  python3 tests/test_l10n_auth_bouncer_terminal.py --binary ./onekeyirc
+
+These commands verify synchronization, syntax and runtime display, not
+translation quality, real network authentication or OpenBSD behavior.

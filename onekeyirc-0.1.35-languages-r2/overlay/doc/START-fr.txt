@@ -1,0 +1,46 @@
+vipirc / onekeyirc - aide aux commandes
+========================================
+
+Choisissez la langue avant de démarrer le client.
+
+Exemple : VIPIRC_LANG=id onekeyirc
+
+Exemple : VIPIRC_LANG=tr vipirc -i
+
+Codes disponibles : id ms tr es pt fr de ru it ar.
+
+Utilisez un terminal, une police et une locale UTF-8 installée.
+
+Les commandes IRC, rubriques d'aide et clés de configuration restent en anglais.
+
+L'arabe requiert la mise en forme et le sens bidirectionnel du terminal.
+
+Afficher les rubriques : /help ls.
+
+Liste des commandes : /help commands. Détails : /help COMMAND.
+
+Première connexion : /connect irc.example.org, puis /join #channel.
+
+Discussion privée : /query NICK ou /msg NICK TEXT.
+
+Configuration guidée : /quickstart ou /panel.
+
+Enregistrer : /saveconf. Cela n'active pas autoconnect.
+
+Changer de vue : /servers, /channels, /ql.
+
+Options de démarrage : /help autoconnect, /help autojoin, /help autoauth.
+
+Récupérer une session SSH : /help sessions.
+
+Aide pour bouncers : /help bouncers.
+
+Réglages et raccourcis : /help configuration, /help hotkeys.
+
+Dépannage et sécurité TLS : /help troubleshooting, /help security, /help tls.
+
+Historique et journaux : /help history, /help logging.
+
+Référence complète : /help all ou /manual.
+
+Redémarrez le programme pour changer la langue d'un processus en cours.
