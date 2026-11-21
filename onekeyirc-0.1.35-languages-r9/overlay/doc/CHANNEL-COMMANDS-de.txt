@@ -1,0 +1,55 @@
+Praxisleitfaden vipirc / onekeyirc - Hilfe
+==================================================
+
+ENTWURFSÜBERSETZUNG. Befehle und Optionen genauso wie gezeigt eingeben.
+Für Sicherheitsdetails die englischen Dateien MANUAL.txt und SECURITY.md lesen.
+
+/help clear
+-----
+
+Löscht den begrenzten RAM-Verlauf dieser Ansicht. Verlässt keinen Kanal, trennt nicht, holt keine Nachrichten zurück und löscht keine vorhandene Logdatei.
+
+Bereits ausgegebene Scrollback-Zeilen verwaltet das Terminal selbst.
+
+Im Chat: Up eine Zeile, Page Up eine Seite zurück, Home zur ältesten; Down/Page Down vorwärts. Neue Nachrichten verschieben die gelesene Seite nicht. End/Escape kehren zum Live-Ende zurück; Navigation öffnet keinen Editor.
+
+/help ignore
+------
+
+Akzeptiert Nick oder Maske nick!user@host mit * und ? als Platzhaltern. Passende Nutzernachrichten und Hinweise werden lokal ausgeblendet.
+
+Ignorierter Text erzeugt keine privaten Chats oder Erwähnungen. Protokollzustand, Serverhinweise und Mitgliedschaft bleiben aktiv.
+
+Mit /save werden die Masken dieses Servers gespeichert.
+
+/help join
+----
+
+Registrierung ist nötig. Ein Schlüssel ist genau ein druckbares ASCII-Token; er wird weder gespeichert noch im Befehlsverlauf behalten.
+
+Bei direkter Verbindung wird der Kanal in die laufende Autojoin-Liste aufgenommen; vorgemerkte /autojoin-Änderungen haben beim Speichern Vorrang.
+
+Mit /autojoin die nächste explizite Verbindung eines Direktprofils ändern, ohne jetzt beizutreten. Der Bouncer verwaltet Mitgliedschaften selbst.
+
+/help part
+----
+
+Ohne Kanal wird der ausgewählte beigetretene Kanal verlassen. Text nach einem Kanal ist der PART-Grund; ohne Kanal gilt der Text für den ausgewählten.
+
+Ohne Grund wird, falls konfiguriert, part_message verwendet. Der laufende Autojoin-Eintrag wird entfernt.
+
+Wartende Nachrichten für diesen Kanal werden verworfen; ein bereits gesendeter Frame darf enden. Mit /close die Ansicht schließen.
+
+/help topic
+-----
+
+Registrierung und Kanalbeitritt nötig. Ohne Text wird das Thema abgefragt; sonst wird TEXT wörtlich gesendet.
+
+Der Server entscheidet, ob Ihre Kanalrechte eine Änderung erlauben.
+
+/help quit
+----
+
+Sendet MESSAGE nach Möglichkeit als IRC QUIT-Grund an alle aktiven Server; ohne MESSAGE gilt quit_message. Danach Terminal wiederherstellen und beenden.
+
+Mit /background die Verbindungen weiterlaufen lassen.

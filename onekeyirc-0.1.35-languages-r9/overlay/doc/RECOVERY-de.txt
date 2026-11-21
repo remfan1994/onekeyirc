@@ -1,0 +1,66 @@
+Praxisleitfaden vipirc / onekeyirc - session recovery and logging
+=================================================================
+
+ENTWURFSÜBERSETZUNG. Befehle und Optionen genauso wie gezeigt eingeben.
+Für Sicherheitsdetails die englischen Dateien MANUAL.txt und SECURITY.md lesen.
+
+/help background
+----------------
+
+Stellt das Terminal wieder her und trennt die laufende Sitzung. Die Shell zeigt den nummerierten Befehl zum Fortsetzen.
+
+In der Shell listet --sessions angehängte und getrennte private Jobs; --resume setzt den einzigen verfügbaren getrennten Job fort.
+
+Bei mehreren Jobs --resume NUMBER verwenden. NUMBER ist die Job-ID, keine PID; sie bleibt bis zum Ende fest und kann danach neu vergeben werden.
+
+--detach-session NUMBER löst das angehängte Terminal, erhält aber Worker, IRC-Verbindungen, Entwürfe und Verlauf für --resume NUMBER.
+
+--close-session NUMBER beendet den ganzen Job samt IRC-Verbindungen, Transfers, ungesicherten Entwürfen und RAM-Verlauf. Erfolg wird erst nach bestätigtem Abschluss gemeldet.
+
+Ist Fortsetzen nach SSH-Abbruch belegt, Jobs auflisten, betreffenden Job trennen, dann fortsetzen. Siehe /help sessions.
+
+Ein nicht reagierender oder alter Worker ohne diesen Steuerbefehl kann scheitern. Ein neues Binary aktualisiert laufende Worker nicht; nach dem Upgrade bewusst neu starten.
+
+Fortsetzen zeigt den RAM-Verlauf auch ohne neue Nachrichten. /set single_session on verbietet einen zweiten Hintergrundjob, sodass --resume eindeutig bleibt.
+
+Für einen Start ohne Terminal --background in der Shell nutzen; Optionen stehen unter --help.
+
+Ist background_away aktiv und erlaubt, setzt /background oder Terminalverlust nach Trennung AWAY. Fortsetzen löscht nur diesen automatischen Status; manuelles /away bleibt.
+
+Mit --reconnect werden vorübergehende Verbindungsfehler erneut versucht. Siehe /help deployment und /help reconnect.
+
+Kein Terminal-Multiplexer nötig. Ausstehende Namensauflösung oder Anmeldedaten-Helfer können einen weiteren Versuch erfordern.
+
+Ein normaler angehaltener Vordergrundprozess pausiert seine Netzwerkaktivität. Bei einem fortgesetzten Job kann der Terminalcontroller ruhen, während der Worker weiterläuft.
+
+/help catchup
+-------------
+
+Beginnt bei der letzten lokal gesendeten Nachricht/Aktion im gewählten Kanal oder Chat. Server- und Erwähnungsansichten haben keinen Sendeanker.
+
+Zuerst wird ein geeignetes privates Log versucht. Es musste beim Senden des Ankers aktiv und weiter intakt sein; sensible Authentifizierung zählt nicht als Datenträgeranker. Sonst gilt der vorhandene RAM-Verlauf.
+
+Die Datenträgeransicht bleibt ein Standbild: Up/Down je Zeile, Page Up/Page Down je Seite, Home zum Anker, End zum neuesten Stand, Escape zurück zu live. Neuer Verkehr verschiebt sie nicht.
+
+Der RAM-Ersatz öffnet den Verlauf am Anker: Home zur ältesten Seite, End oder Escape zurück zu live. Ältere erhaltene Nachrichten sind weiterhin lesbar.
+
+Ein ersetzter oder veränderter Ankereintrag gilt auf Datenträger nicht mehr. Neue Prozesse übernehmen keine Anker aus alten Logs. Siehe /help logging und /help history.
+
+/help logging
+-------------
+
+Persistente Logs sind optional und standardmäßig aus. /set persistent_logging on aktiviert; /save output speichert.
+
+Gesicherte Serverprofile schreiben in CONFIG_PATH.log. Letzter Elternordner: eigener Besitz und Modus 0700. Datei: regulär, eigener Besitz, ein Link, exakt 0600. Symlinks und Pfad-Aufstieg werden verweigert.
+
+Logs sind Plaintext, keine verschlusselten Sicherungen. Limit 16 MiB je Datei; Schreibfehler stoppt Logs, nicht Chat.
+
+Volles Log außerhalb des aktiven Pfads archivieren, dann Logging aus- und einschalten. Rotation/Überschreiben kann den /catchup-Anker ungültig machen; vorher eine neue geeignete Nachricht senden.
+
+Bekannte Zugangsdaten und ungesendete Entwürfe werden ausgeschlossen, auch erneut gesendete Authentifizierung mit alten Nicks. Normaler Chat, unbekannte Dienste und eigene Geheimtexte können im Log landen. Server/Bouncer speichern unabhängig.
+
+/catchup verwendet nur ein gesundes Log mit exakt dem lokal gesendeten Anker aus diesem Prozess. Es holt kein Archiv vom Bouncer und importiert nach Neustart keine alten Logs.
+
+/clear leert nur RAM. Logs bleiben nach Beenden, --close-session und Speichern erhalten. Logging aus stoppt neue Einträge, löscht aber keine alten.
+
+Datenträger-E/A kann auf langsamem Speicher den Prozess verzögern. Siehe /help catchup, /help history und SECURITY.md.

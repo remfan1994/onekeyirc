@@ -1,0 +1,65 @@
+Guía práctica de vipirc / onekeyirc - Canales
+=======================================================
+
+TRADUCCIÓN PRELIMINAR. Escriba comandos y opciones exactamente como aparecen.
+Para los detalles de seguridad, consulte MANUAL.txt y SECURITY.md en inglés.
+
+/help list
+----------
+
+Solicita los canales del servidor IRC seleccionado; requiere registro. MASK es el único filtro enviado al servidor.
+
+Los filtros de mínimo/máximo de usuarios, nombre y tema se aplican localmente, aunque la red no admita filtros LIST avanzados.
+
+--sort admite channel, users o topic; por defecto, users descendente. --limit 0 no limita la vista dentro de la caché acotada.
+
+/list show muestra la caché; --sort, --asc/--desc y --limit ordenan o recortan localmente sin otra petición IRC. /list clear borra la caché.
+
+Al desconectarse o rechazarse LIST, se conserva la caché parcial, pero termina la petición; reintente /list tras registrarse o use /list clear.
+
+La interfaz completa abre el explorador ordenable de canales; el modo mínimo utiliza las mismas opciones y /list show.
+
+Use /ls o /cl para los canales locales; /list busca en la red.
+
+/help ls
+--------
+
+Sin argumentos, enumera los canales del servidor elegido. Es un comando local, no del sistema ni una petición IRC LIST a toda la red.
+
+Use /server N, /channel N y /pm NICK para seleccionar las entradas correspondientes.
+
+/help manual
+------------
+
+La ayuda de temas y comandos funciona sin conexión. /help TOPIC es la vía más corta.
+
+/help servers
+-------------
+
+Muestra los servidores 1..8 (principal 1) del modo mínimo, el seleccionado, su estado y autoconnect por servidor.
+
+Un perfil cargado sigue disponible aunque no esté conectado.
+
+/help unignore
+--------------
+
+Equivale a /ignore remove MASK. Guarde el perfil seleccionado para conservar el cambio.
+
+/help aliases
+-------------
+
+Los alias deben coincidir exactamente; no se ejecutan nombres ambiguos ni aproximados.
+
+/conn = /connect; /disc = /disconnect; /detach = /background; /exit = /quit
+
+/j = /join; /leave = /part; /message y /privmsg = /msg
+
+/nickname = /nick; /names y /nicks = /users; /unaway = /back
+
+/channellist = /cl; /querylist = /ql; /serverlist = /servers
+
+/configure y /preferences = /panel; /saveconfig = /saveconf
+
+/autocommand = /autocommands
+
+El autocompletado sugiere nombres canónicos; conserva los argumentos y el mismo filtro de historial sensible.

@@ -1,0 +1,57 @@
+Guida pratica a vipirc / onekeyirc - Server, riepilogo, utenti e parole monitorate
+======================================================
+
+TRADUZIONE PRELIMINARE. Digita comandi e opzioni esattamente come mostrati.
+Per i dettagli di sicurezza, consulta MANUAL.txt e SECURITY.md in inglese.
+
+/help summary
+-------------
+
+Mostra tutti i server, channel 0, canali/query, attività non letta, menzioni, code in uscita, comandi iniziali e trasferimenti di file.
+
+È un riepilogo locale, disponibile offline. Premere r nel lettore o riaprire il comando per aggiornarlo.
+
+Aprirlo non cambia chat né segna messaggi come letti. Le menzioni copiate non contano nelle attività totali.
+
+Le menzioni possono essere non lette: non sommare i totali. I canali raggiunti e lasciati sono distinti.
+
+Il report usa un lettore scorrevole e conserva bozze. Barra apre i comandi; annulla torna al riepilogo.
+
+Se l'aggiornamento fallisce, resta il riepilogo precedente. Aprire o aggiornare non invia richieste di rete.
+
+Credenziali e contenuti di messaggi in coda o comandi automatici non vengono mai stampati.
+
+/help server
+------------
+
+Con un nome host equivale a /connect diretto. Non serve creare prima un profilo.
+
+Senza argomenti mostra messaggi/MOTD del server corrente. NUMBER seleziona uno slot senza collegarsi.
+
+add crea un profilo con nuove credenziali, TLS verificato e autoconnect spento; non seleziona, collega né salva.
+
+PORT è 6697 per impostazione predefinita. Un'altra porta non disattiva TLS; il testo in chiaro va scelto esplicitamente.
+
+connect/disconnect non cambiano selezione. close rimuove sessione/voce secondaria, non il file del profilo.
+
+I numeri del server minimale sono 1..8, primario 1. Il primario resta disponibile: disconnetterlo, non chiuderlo.
+
+I numeri restano stabili durante la sessione. Panel 0 è riservato alle preferenze dell'applicazione.
+
+/help users
+-----------
+
+È un elenco testuale, non un comando di visibilità. Mostra i prefissi dei modi utente quando noti.
+
+L'elenco apre un lettore separato anche se vuoto. Enter, Escape o q torna alla chat selezionata.
+
+Up/Down e Page Up/Down scorrono. In Help, Enter prosegue lo scorrimento.
+
+Le risposte NAMES incomplete o limitate sono segnalate. Non invia richieste WHOIS.
+
+/help watch
+-----------
+
+Le menzioni del nickname sono sempre attive. Add/remove legge il resto come testo letterale, non regex.
+
+Fino a 32 stringhe extra da 1..127 byte UTF-8 per server. Usare /save per conservarle.

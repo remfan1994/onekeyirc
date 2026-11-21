@@ -1,6 +1,0 @@
-APPLICATION VERSION 0.1.35; SOURCE REVISION english-r1; LANGUAGE PACK r2.
-Fix translations by increasing r2 to r3, r4, etc. without incrementing
-the core application version. Do increment the core program version if
-actual IRC functionality, authentication, networking or saved format
-changes. Source revision r1 is distinct from the original historic 0.1.35
-release despite sharing its program version number.

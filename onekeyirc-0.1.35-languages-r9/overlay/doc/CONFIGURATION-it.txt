@@ -1,0 +1,62 @@
+Guida pratica a vipirc / onekeyirc - Configurazione
+======================================================
+
+TRADUZIONE PRELIMINARE. Digita comandi e opzioni esattamente come mostrati.
+Per i dettagli di sicurezza, consulta MANUAL.txt e SECURITY.md in inglese.
+
+/help configuration
+-------------------
+
+[connection] contiene server, port, tls, nick, username, realname, channel, autoconnect, auth e fonti delle credenziali.
+
+[bouncer] type=none|znc|soju, username, network, client e automatic_away definiscono il profilo bouncer per rete; vedi /help bouncers.
+
+[input] send_mode=direct|review e [output] format=compact|full, queue_notices=true|false, program_messages=true|false, persistent_logging=true|false sono preferenze del file principale.
+
+[input] command_suggestions=common|history|frequent|alphabetical|contextual ordina i comandi; common è il valore iniziale.
+
+[input] composer_mode=line|fullscreen sceglie l'editor/comandi minimalista; line è il valore iniziale. Entrambi mostrano i messaggi recenti.
+
+[input] force_terminal_signals=false mantiene i segnali ereditati; true li abilita senza assegnare tasti. Letto all'avvio.
+
+[hotkeys] contiene fino a 64 associazioni KEY=action opzionali, senza predefiniti. È nella configurazione principale; vedi /help hotkeys.
+
+[session] single_session=true|false permette o vieta più lavori in background; false è il valore iniziale.
+
+[session] default_interface=ncurses|idle è una preferenza principale. Le opzioni iniziali sono descritte sotto.
+
+Il formato compact è iniziale. history_lines nella configurazione principale limita la cronologia di tutti i server.
+
+[mentions] word= e [ignore] mask= possono ripetersi.
+
+[autocommands] contiene enabled, delay_seconds, interval_seconds e righe command= ripetute per server.
+
+Questi comandi sono testo semplice nel file privato. /autocommands li gestisce senza rivelare segreti in liste o cronologia.
+
+I server aggiuntivi salvati usano il catalogo .servers e la directory .d adiacenti.
+
+Connettersi con /connect HOST, poi usare /join #channel e /saveconf per ricordare la configurazione funzionante.
+
+/saveconf salva preferenze e profili server validi e ricorda il server scelto per un futuro /connect senza argomenti.
+
+/quickstart pone quattro domande di connessione. /panel usa 0 per le preferenze e 1..8 per i profili; 1 modifica il principale.
+
+Le modifiche del pannello restano private fino a Finish. Un percorso GPG accettato può preparare la cartella 0700; cifratura, scrittura e connessione attendono la scelta finale.
+
+Per mantenere le modifiche: /save sul server scelto, /save input o /save output sul principale, o /saveconf sui profili validi e predefinito.
+
+La configurazione salvata usa <config_path>.commands per leggere/scrivere conteggi di comandi; il file principale non li salva.
+
+Il file privato limitato contiene solo nomi canonici e conteggi, non argomenti o cronologia. La modalità test non lo legge né scrive.
+
+Le modifiche [connection] da /autojoin o /autoauth valgono al prossimo /connect da disconnessi; non alterano la connessione attiva.
+
+I file di configurazione sono privati; ogni file viene sostituito atomicamente, non tutto insieme. Nessun import/export.
+
+Sezioni, chiavi o valori sconosciuti generano errori. La configurazione usa valori letterali, senza quoting shell, escape, variabili o ~.
+
+Valori normali: spazi esterni rimossi. password= e server_password= preservano tutto dopo = salvo fine riga; non aggiungere commenti o virgolette.
+
+Il salvataggio riscrive le impostazioni supportate e sostituisce formattazione/commenti manuali. Conservare le note altrove.
+
+Vedi /help authentication per segreti, /help tls per CA, /help logging per log e /help sessions per sessioni attive.

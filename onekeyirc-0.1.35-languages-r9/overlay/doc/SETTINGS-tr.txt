@@ -1,0 +1,44 @@
+vipirc / onekeyirc pratik kilavuzu - Ayarlar
+=======================================================
+
+TASLAK CEVIRI. Komutlari ve secenekleri gosterildigi gibi aynen yazin.
+Kesin guvenlik sinirlari icin Ingilizce MANUAL.txt ve SECURITY.md dosyalarini okuyun.
+
+/help set
+---------
+
+direct varsayılandır: Enter mesajı gönderir; birden çok IRC mesajı gerekirse onay zorunludur.
+
+review sıradan mesajlar kuyruğa alınmadan önce bilinçli bir inceleme adımı ekler.
+
+output_format compact varsayılandır: seçili sohbet [HH:MM:SS] <nick> metin gösterir.
+
+output_format full her satırda sunucu, tarih ve hedefi gösterir. compact modunda anılmalar ve diğer sunucu tanıları kaynak bilgisini korur.
+
+queue_notices off normal kuyruk bildirimlerini gizler. Sade arayüzde önceden incelenen gönderim yinelenen bildirimi atlar. Hatalar ve çoklu mesaj onayı görünür.
+
+program_messages off taslak iptali, giriş temizliği ve korunan taslak gibi düşük öncelikli geri bildirimi gizler. Hatalar ve güvenlik onayları görünür.
+
+persistent_logging on sohbeti özel .log (0600) dosyasına, özel yapılandırma dizinine (0700) yazar. Varsayılan kapalı; sınır 16 MiB: arşivleyip off/on yapın. Güvensiz/meşgul dosya kaydı durdurur, sohbet sürer.
+
+single_session on bu istemcide tek arka plan işi sağlar; numarasız --resume açıktır. Aynı oturumda birden çok IRC sunucusu kullanılabilir.
+
+default_interface desteklenen yeni başlangıçta arayüzü belirler; mevcut olanı değiştirmez. /save input tercihi kaydeder.
+
+command_suggestions alfabetik, yaygın, son kullanılan, en çok kullanılan veya açıldığı ekrana uygun komutları seçer.
+
+composer_mode line canlı kuyruğun altında tek giriş satırı tutar; fullscreen çok satırlı düzenleyici ve canlı sohbet alanı kullanır. Varsayılan: line.
+
+part_message ve quit_message varsayılan IRC ayrılış nedenleridir; açık /part veya /quit mesajı bunların yerine geçer. Boş değer varsayılanı kaldırır.
+
+background_away, başarılı /background veya terminal kaybından sonra background_away_message gönderir. autoaway_minutes yerel hareketsizlikte away ayarlar; 0 kapatır.
+
+Yalnız istemcinin oluşturduğu away durumu devamda veya gerçek yerel girişte otomatik silinir. Elle /away asla değiştirilmez veya silinmez.
+
+Common varsayılandır. Contextual kanal, özel sohbet, sunucu veya istemci komutlarına öncelik verir; diğer eşleşmeleri de tutar.
+
+Common seçilmiş yararlı sırayı kullanır. Contextual, genel özet okuyucu dahil komutun açıldığı ekranı hatırlar.
+
+Bunlar bütün sunuculara uygulanan istemci tercihleridir. Kaydetmek için /save input veya /save output kullanın.
+
+/panel ardından 0, bu tercihleri ve genel geçmiş sınırını düzenler.

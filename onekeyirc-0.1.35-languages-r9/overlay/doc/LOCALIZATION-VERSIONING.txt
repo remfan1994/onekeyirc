@@ -1,0 +1,11 @@
+APPLICATION VERSION 0.1.35; SOURCE REVISION english-r1; LANGUAGE PACK r6.
+Language pack revisions increment without changing the core application
+version. Require a fresh matching English r1 source tree for each overlay;
+do not apply over an older language pack. English source r1 is distinct from
+the historic pre-localization release that had the same program version.
+
+In r6, 632 source keys are localized in 10 draft language catalogs, and
+352 of 477 detailed help lines are covered. Full manuals remain English.
+Changes are translation data, translated user guides, checks, package
+metadata, and installation/test recipes only; IRC protocol and networking
+code are unchanged. Arabic bidi display and OpenBSD use remain unverified.

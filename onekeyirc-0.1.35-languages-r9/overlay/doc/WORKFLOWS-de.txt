@@ -1,0 +1,122 @@
+Praxisleitfaden vipirc / onekeyirc - Tastenkürzel, automatische Befehle und DCC-Übertragungen
+======================================================
+
+ENTWURFSÜBERSETZUNG. Befehle und Optionen genauso wie gezeigt eingeben.
+Für Sicherheitsdetails die englischen Dateien MANUAL.txt und SECURITY.md lesen.
+
+/help autocommands
+------------------
+
+Die Befehle gehören zum gewählten Server. Sie laufen einmal nach Anmeldung und nötiger SASL-Authentifizierung.
+
+Standardverzögerung: 15 Sekunden; mindestens 2 Sekunden Abstand zwischen abgeschlossenen Befehlen.
+
+Mit delay 0..300 und interval 2..60 Zeiten ändern. Eine hängende Verbindung löst keinen Nachholschub aus.
+
+Erlaubt sind /msg, /join, /nick, /away, /back und /whois sowie ihre genau dokumentierten Aliase.
+
+Bis zu 16 Befehle mit je 511 UTF-8-Bytes. Jeder muss in eine IRC-Nachricht passen; er wird nie heimlich geteilt.
+
+Keine Shell, rohen IRC-Befehle oder Expansion des aktuellen Gesprächs. Automatisches Beitreten wechselt die Ansicht nicht.
+
+Änderungen gelten bei der nächsten Verbindung. /cancel stoppt noch nicht gesendete Startbefehle.
+
+Listen verbergen Nachrichtentext und Kanalpasswörter; Autobefehle landen weder im Verlauf noch im lokalen Echo.
+
+Mit /save speichern. Die Datei muss privat sein (0600 oder 0400); eine aktive, nichtleere Liste verlangt geprüftes TLS.
+
+Im Testmodus laufen keine Autobefehle. Ihr Text steht unverändert in der Konfigurationsdatei, ohne GPG-Verschlüsselung.
+
+/help bind
+----------
+
+Standardmäßig gibt es keine eigenen Tastenbelegungen. Namen zeigt /bindings keys bzw. /bindings actions.
+
+Eine neue Belegung ersetzt die alte Aktion dieser Taste auf allen Servern; andere bleiben erhalten.
+
+Belegungen wirken in Chat und Befehlseingabe, nicht beim Einfügen, in Passwörtern, Einrichtung, Lesern oder Bestätigungen.
+
+Sofort aktiv, aber ohne /save input nicht dauerhaft. Ohne aktive Sonderbelegung gilt normale Navigation.
+
+Nur benannte lokale Funktionen: keine beliebigen Befehle, Makros, Sendeaktionen oder Shell-Erweiterung.
+
+Terminalreservierte Tasten erreichen das Programm eventuell nie; die Belegung ändert keine Terminalsignale.
+
+/help bindings
+--------------
+
+Ohne Argumente alle anwendungsweiten eigenen Tastenbelegungen anzeigen. Leer bedeutet: keine angelegt.
+
+Mit /bind zuweisen/ersetzen, mit /unbind KEY entfernen und mit /unbind all alle löschen.
+
+Unterstützt: F1..F12, Ctrl-A..Ctrl-Z, Alt-a..Alt-z, Alt-0..Alt-9 und benannte Navigationstasten.
+
+Ctrl-H ist Backspace, Ctrl-I ist Tab, Ctrl-J und Ctrl-M sind Enter, Ctrl-[ ist Escape; jeweils dieselbe Belegung.
+
+Alt-Buchstaben nutzen unverschobene Kleinbuchstaben. Funktion/Alt hängt von Terminal und Multiplexer ab.
+
+Bis zu 64 KEY=action-Einträge in [hotkeys] der Hauptkonfiguration. /save input speichert Änderungen.
+
+Siehe /help hotkeys zu Gültigkeit, Entwurfsschutz und Terminalsignalen.
+
+/help unbind
+------------
+
+Entfernen stellt die normale Tastenfunktion wieder her. all löscht nur die eigenen Belegungen.
+
+Die Änderung gilt sofort serverübergreifend. Mit /save input nach Neustart behalten.
+
+/help hotkeys
+-------------
+
+Eigene Tastenbelegungen sind optional und anfangs leer. Normale Navigation und Editorfunktionen bleiben verfügbar.
+
+Mit /bindings Liste, /bindings keys Tasten und /bindings actions lokale Funktionen anzeigen.
+
+Mit /bind KEY ACTION zuweisen; erneut zuweisen ersetzt. Mit /unbind KEY oder /unbind all entfernen.
+
+Änderungen gelten sofort für alle Server; /save input speichert sie in der Hauptkonfiguration. Andere Profile ersetzen die Tabelle nicht.
+
+Format: [hotkeys] mit je einer KEY=action-Zeile, maximal 64. Doppelte Tasten einschließlich Terminal-Aliase sind Fehler.
+
+Eigene Aktionen gelten nur im Hauptchat und Befehlsfeld, nicht bei Passwörtern, Einrichtung, Einfügen, Lesern oder Bestätigung.
+
+Im Minimalmodus behalten Leser Entwurf und Cursor. Ein Shortcut zum Wechseln verlangt, einen nichtleeren Entwurf zu beenden oder zu leeren.
+
+Keine Sendeaktion, beliebigen Befehle, Shell oder Textmakros. Hintergrund und Beenden behalten ihre normalen Wirkungen.
+
+F1..F12, Ctrl-A..Z, Alt-a..z/0..9 und Navigationstasten sind möglich; druckbare Zeichen bleiben Text.
+
+Ctrl-H/Backspace, Ctrl-I/Tab, Ctrl-J/Ctrl-M/Enter und Ctrl-[/Escape teilen Bytes und sind nicht getrennt belegbar.
+
+Terminalsignale und Multiplexer-Shortcuts haben Vorrang. Ctrl-C und Ctrl-Z wirken nur, wenn ihre Bytes ankommen; keine Tastenänderung.
+
+Erkanntes Bracketed Paste löst keine Belegung aus. Ungerahmtes Einfügen wirkt wie Tippen; siehe /help keys.
+
+/help dcc
+---------
+
+Ohne Argumente Transfers anzeigen. /dcc NICK PATH bietet eine Datei auf dem gewählten Server an.
+
+PATH ist der restliche wörtliche Text einschließlich Leerzeichen; relativ zum Startverzeichnis dieses Prozesses.
+
+Der Client ändert dieses Verzeichnis nie, auch nicht beim Dateibrowsen oder im Hintergrund.
+
+Die Kurzform meldet die lokale IPv4 der IRC-Verbindung. Hinter NAT -address mit erreichbarer IPv4 und -port mit weitergeleitetem Port nutzen.
+
+Keine externe Adressermittlung. Bei reiner IPv6-IRC-Verbindung muss eine IPv4 ausdrücklich vorgegeben werden.
+
+DCC verbindet direkt und unverschlüsselt. Die Gegenstelle sieht die gemeldete IP; beim Annehmen erfährt sie Ihre IP.
+
+Eingehende Angebote bleiben zu bis /dcc accept NUMBER. DIRECTORY ist sonst das Startverzeichnis; es muss Ihnen gehören und privat sein.
+
+Bestehende Zieldateien werden nicht überschrieben; Symlinks und Spezialdateien sind verboten. Der Testmodus öffnet weder Dateien noch Sockets.
+
+Mit /dcc reject NUMBER ein Angebot ablehnen, mit /dcc cancel NUMBER einen aktiven Transfer abbrechen.
+
+Transfernummern gelten serverübergreifend im Prozess. Schließen des Ursprungsservers beendet dessen Transfers; IRC-Trennung beendet angenommene nicht.
+
+/help transfers
+---------------
+
+Gleiche Befehle und Schutzregeln wie /dcc. Siehe /help dcc für Senden, Empfangen und Abbruch.

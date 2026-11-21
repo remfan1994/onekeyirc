@@ -1,0 +1,55 @@
+Guia prático de vipirc / onekeyirc - Ajuda
+==================================================
+
+TRADUÇÃO PRELIMINAR. Escreva os comandos e opções exatamente como aparecem.
+Para os detalhes de segurança, consulte MANUAL.txt e SECURITY.md em inglês.
+
+/help clear
+-----
+
+Limpa o histórico limitado em memória desta vista. Não sai do canal, desconecta, desfaz mensagens enviadas nem apaga logs existentes.
+
+O histórico de rolagem já impresso é controlado pelo terminal.
+
+No chat: Up recua uma linha, Page Up uma página e Home vai ao início; Down/Page Down avançam. Novas mensagens não movem a página lida. End/Escape voltam ao mais recente; navegar não abre o editor.
+
+/help ignore
+------
+
+Aceita apelido ou máscara nick!user@host com curingas * e ?. Oculta localmente mensagens e avisos correspondentes.
+
+O texto ignorado não gera conversas privadas ou menções. Estado do protocolo, avisos do servidor e participação continuam ativos.
+
+Use /save para persistir as máscaras deste servidor.
+
+/help join
+----
+
+Exige registro. A chave deve ser um único token ASCII imprimível; não é salva nem registrada no histórico de comandos.
+
+Em conexão direta, o canal entra no autoingresso ativo; alterações pendentes em /autojoin prevalecem ao salvar.
+
+Use /autojoin para preparar a próxima conexão explícita de perfil direto, sem entrar agora. O bouncer gerencia suas próprias participações.
+
+/help part
+----
+
+Sem canal, sai do canal selecionado. Texto após o canal é o motivo PART; sem canal, é o motivo para o canal selecionado.
+
+Sem motivo explícito, usa part_message se configurado. A entrada do autoingresso atual é removida.
+
+Mensagens na fila do canal são canceladas; um envio em andamento pode terminar. Use /close para remover a vista.
+
+/help topic
+-----
+
+Exige registro e presença no canal. Sem texto, consulta o tópico; caso contrário, envia TEXT literalmente.
+
+O servidor decide se suas permissões no canal permitem alterá-lo.
+
+/help quit
+----
+
+Envia MESSAGE como motivo IRC QUIT, quando possível, a cada servidor ativo; sem MESSAGE usa quit_message. Depois restaura o terminal e sai.
+
+Use /background para manter as conexões ativas.

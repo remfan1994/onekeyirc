@@ -1,0 +1,122 @@
+Guía práctica de vipirc / onekeyirc - Atajos, comandos automáticos y transferencias DCC
+======================================================
+
+TRADUCCIÓN PRELIMINAR. Escriba comandos y opciones exactamente como aparecen.
+Para los detalles de seguridad, consulte MANUAL.txt y SECURITY.md en inglés.
+
+/help autocommands
+------------------
+
+Los comandos pertenecen al servidor seleccionado. Se ejecutan una vez tras registrarse y completar el SASL requerido.
+
+Espera predeterminada: 15 segundos; al menos 2 segundos entre comandos terminados.
+
+Use delay 0..300 e interval 2..60 para cambiar las esperas. Una conexión atascada no dispara una ráfaga posterior.
+
+Comandos admitidos: /msg, /join, /nick, /away, /back y /whois, con sus alias exactos documentados.
+
+Máximo 16 comandos de 511 bytes UTF-8 cada uno. Cada comando debe caber en un mensaje IRC; nunca se divide solo.
+
+No hay shell, IRC sin procesar ni expansión de la conversación actual. Unirse automáticamente no cambia la vista.
+
+Los cambios se aplican en la siguiente conexión. /cancel detiene los comandos iniciales aún sin enviar.
+
+Las listas ocultan mensajes y claves de acceso a canales; los comandos automáticos no aparecen en historial ni ecos locales.
+
+Guarde con /save. El archivo debe ser privado (0600 o 0400); una lista habilitada y no vacía exige TLS verificado.
+
+El modo de prueba no ejecuta comandos automáticos. Su texto se guarda literalmente en el archivo de configuración, sin cifrado GPG.
+
+/help bind
+----------
+
+No hay teclas personalizadas de forma predeterminada. Consulta /bindings keys y /bindings actions para los nombres admitidos.
+
+Una asignación nueva reemplaza la acción de esa tecla en todos los servidores; las demás se conservan.
+
+Los atajos actúan en chat y comandos, no durante pegado, contraseñas, configuración, lectura ni confirmaciones.
+
+Los cambios se aplican ya, pero requieren /save input para conservarse. La navegación normal vuelve si no hay atajo activo.
+
+Solo se aceptan funciones locales con nombre; no comandos arbitrarios, macros, envíos ni expansión de shell.
+
+Las teclas reservadas por el terminal pueden no llegar al programa; asignarlas no cambia las señales del terminal.
+
+/help bindings
+--------------
+
+Sin argumentos, muestra los atajos personalizados de toda la aplicación. Si no hay ninguno, la lista estará vacía.
+
+Use /bind para asignar o sustituir, /unbind KEY para quitar uno y /unbind all para borrar la lista.
+
+Admite F1..F12, Ctrl-A..Ctrl-Z, Alt-a..Alt-z, Alt-0..Alt-9 y teclas de navegación con nombre.
+
+Ctrl-H equivale a Backspace, Ctrl-I a Tab, Ctrl-J y Ctrl-M a Enter y Ctrl-[ a Escape; son el mismo atajo.
+
+Alt usa letras minúsculas sin Shift. La entrega de teclas de función/Alt depende del terminal y multiplexor.
+
+Se guardan hasta 64 atajos KEY=action en [hotkeys] del archivo principal. /save input guarda los cambios.
+
+Consulte /help hotkeys para el alcance, la protección de borradores y las señales del terminal.
+
+/help unbind
+------------
+
+Quitar una tecla restaura su comportamiento normal donde tenía un atajo. all borra solo los atajos personalizados.
+
+Se aplica de inmediato a todos los servidores. Use /save input para conservarlo tras reiniciar.
+
+/help hotkeys
+-------------
+
+Las teclas personalizadas son opcionales y no hay ninguna por defecto. Siguen funcionando la navegación y el editor.
+
+Use /bindings para ver la lista, /bindings keys para teclas y /bindings actions para funciones locales.
+
+Asigne con /bind KEY ACTION; vuelva a asignar para sustituir. Quite con /unbind KEY o /unbind all.
+
+Los cambios afectan de inmediato a todos los servidores; /save input los guarda en la configuración principal. Los perfiles extra no la sustituyen.
+
+El formato es [hotkeys] y una línea KEY=action por tecla, hasta 64. Las teclas duplicadas, incluidos alias del terminal, son errores.
+
+Las acciones solo funcionan en el chat principal y la línea de comandos; no en contraseñas, ajustes, pegado, lectores ni confirmaciones.
+
+En la interfaz mínima, los lectores conservan borrador y cursor. Un atajo que cambie de vista o editor exige terminar o borrar el borrador.
+
+No se admiten acciones de enviar, comandos arbitrarios, shell ni macros de texto. Segundo plano y salir conservan sus efectos habituales.
+
+Se admiten F1..F12, Ctrl-A..Z, Alt-a..z/0..9 y teclas de navegación; los caracteres imprimibles siguen siendo texto.
+
+Ctrl-H/Backspace, Ctrl-I/Tab, Ctrl-J/Ctrl-M/Enter y Ctrl-[/Escape comparten bytes; no se pueden asignar por separado.
+
+Las señales y atajos del terminal/multiplexor tienen prioridad. Ctrl-C o Ctrl-Z solo sirven si llegan a la aplicación; no se reasignan.
+
+El pegado delimitado reconocido no ejecuta atajos. El pegado sin delimitar parece escritura; consulte /help keys.
+
+/help dcc
+---------
+
+Sin argumentos, lista las transferencias. /dcc NICK PATH ofrece un archivo en el servidor seleccionado.
+
+PATH es el texto literal restante, con espacios; se interpreta respecto al directorio desde el que se inició el proceso.
+
+El cliente nunca cambia ese directorio, ni al explorar archivos ni al ejecutarse en segundo plano.
+
+El envío breve anuncia la IPv4 local del enlace IRC. Tras NAT, use -address con su IPv4 accesible y -port con un puerto redirigido.
+
+No consulta servicios externos para descubrir la dirección. Una conexión IRC solo IPv6 requiere indicar una IPv4.
+
+DCC es una conexión directa sin cifrar. El par recibe la IP anunciada; aceptar una oferta también le revela su IP.
+
+Las ofertas entrantes no se abren hasta /dcc accept NUMBER. DIRECTORY usa por defecto el directorio inicial y debe ser propio y privado.
+
+No sobrescribe destinos existentes; rechaza enlaces simbólicos y archivos especiales. El modo de prueba no toca archivos ni sockets.
+
+Use /dcc reject NUMBER para rechazar una oferta, o /dcc cancel NUMBER para cancelar una transferencia activa.
+
+Los números de transferencia se comparten entre servidores del proceso. Cerrar el servidor de origen las cancela; desconectar IRC no cancela una aceptada.
+
+/help transfers
+---------------
+
+Usa los mismos comandos y protecciones que /dcc. Consulte /help dcc para enviar, recibir y cancelar.

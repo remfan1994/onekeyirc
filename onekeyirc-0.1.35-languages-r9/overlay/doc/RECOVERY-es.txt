@@ -1,0 +1,66 @@
+Guía práctica de vipirc / onekeyirc - session recovery and logging
+=================================================================
+
+TRADUCCIÓN PRELIMINAR. Escriba comandos y opciones exactamente como aparecen.
+Para los detalles de seguridad, consulte MANUAL.txt y SECURITY.md en inglés.
+
+/help background
+----------------
+
+Restaura el terminal y separa la sesión activa. El shell muestra el comando numerado para reanudarla.
+
+En el shell, --sessions enumera los trabajos privados conectados o separados; --resume reanuda el único trabajo separado disponible.
+
+Si hay varios trabajos, use --resume NUMBER. NUMBER es el ID del trabajo, no el PID; permanece hasta salir y después puede reutilizarse.
+
+--detach-session NUMBER libera el terminal conectado, pero mantiene el proceso, las conexiones IRC, los borradores y el historial para --resume NUMBER.
+
+--close-session NUMBER termina el trabajo, sus conexiones IRC y transferencias, borradores sin guardar e historial en memoria. Solo confirma éxito tras verificar el cierre.
+
+Si la reanudación está ocupada tras perder SSH, enumere los trabajos, separe ese trabajo y reanúdelo. Consulte /help sessions.
+
+Un proceso que no responde o una versión antigua sin el control solicitado puede fallar. Instalar otro binario no actualiza el proceso activo: reinícielo tras actualizar.
+
+Al reanudar aparece el historial retenido, aunque no haya mensajes nuevos. /set single_session on impide otro trabajo en segundo plano, de modo que --resume sea inequívoco.
+
+Para iniciar sin terminal, use --background desde el shell. Consulte --help para las opciones.
+
+Si background_away está activo y el perfil lo permite, /background o la pérdida del terminal envía AWAY tras separarse. Al reanudar solo se quita ese estado automático; /away manual persiste.
+
+Añada --reconnect para reintentar fallos pasajeros de conexión. Consulte /help deployment y /help reconnect.
+
+No requiere multiplexor de terminal. Una resolución de nombres o un auxiliar de credenciales pendiente puede requerir otro intento.
+
+Suspender un proceso normal en primer plano pausa su red. Un trabajo reanudado puede suspender su controlador de terminal mientras el proceso gestionado sigue conectado.
+
+/help catchup
+-------------
+
+Comienza en el último chat o acción que envió localmente al canal o conversación elegida. Las vistas de servidor y menciones no tienen ese marcador.
+
+Primero se prueba un registro privado válido: debía estar activo al enviar el marcador y seguir sano. El texto confidencial de autenticación no sirve de marcador. Si falla, se usa el historial retenido disponible.
+
+El lector del disco es una instantánea fija: Up/Down avanza una fila; Page Up/Page Down, una página; Home vuelve al marcador; End va al final y Escape vuelve al directo. El tráfico nuevo no la desplaza.
+
+El respaldo en memoria abre el historial retenido desde el marcador. Home va a lo más antiguo retenido; End o Escape vuelve al directo. Se pueden explorar mensajes anteriores.
+
+Un registro de marcador alterado o reemplazado no vale como original. Un proceso nuevo no recupera marcadores de registros antiguos. Consulte /help logging y /help history.
+
+/help logging
+-------------
+
+El registro persistente es opcional y empieza apagado. /set persistent_logging on lo activa; /save output lo guarda.
+
+Cada perfil guardado añade a CONFIG_PATH.log. El directorio padre final debe pertenecer al usuario y tener modo 0700; el archivo debe ser regular, propio, de un enlace y modo exacto 0600. Se prohíben enlaces simbólicos y rutas por padres.
+
+Los registros son plaintext, no copias cifradas. Maximo 16 MiB por archivo; un fallo detiene el registro, no el chat.
+
+Archive el registro lleno fuera de su ruta activa y reactive el registro. La rotación o reescritura puede invalidar el marcador de /catchup: envíe otro mensaje válido antes de confiar en él.
+
+Se excluyen credenciales conocidas y borradores sin enviar, incluso autenticación repetida con apodos antiguos. Chats corrientes, servicios desconocidos y secretos escritos a mano sí pueden guardarse. El servidor y el bouncer retienen por separado.
+
+/catchup usa un registro sano solo si el marcador local exacto se guardó durante este proceso. No pide archivos históricos al bouncer ni importa registros de procesos anteriores.
+
+/clear solo borra la RAM. Los registros sobreviven a salir, --close-session y guardar. Desactivar el registro detiene entradas nuevas; no borra las anteriores.
+
+La E/S del disco puede retrasar el proceso con almacenamiento lento. Consulte /help catchup, /help history y SECURITY.md.

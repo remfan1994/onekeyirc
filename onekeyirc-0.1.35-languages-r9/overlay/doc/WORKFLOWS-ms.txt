@@ -1,0 +1,122 @@
+Panduan praktikal vipirc / onekeyirc - Pintasan, arahan automatik dan pemindahan DCC
+======================================================
+
+DRAF TERJEMAHAN. Taip arahan dan pilihan tepat seperti yang ditunjukkan.
+Untuk syarat keselamatan penuh, rujuk MANUAL.txt dan SECURITY.md dalam bahasa Inggeris.
+
+/help autocommands
+------------------
+
+Arahan milik pelayan terpilih. Ia berjalan sekali selepas pendaftaran dan SASL wajib berjaya.
+
+Jeda lalai ialah 15 saat, dengan sekurang-kurangnya 2 saat antara arahan yang selesai.
+
+Gunakan delay 0..300 dan interval 2..60 untuk melaras masa. Sambungan tersekat tidak mencetuskan arahan susulan bertubi-tubi.
+
+Arahan disokong: /msg, /join, /nick, /away, /back dan /whois, termasuk alias tepat yang didokumenkan.
+
+Maksimum 16 arahan, setiap satu 511 bait UTF-8. Satu arahan mesti muat dalam satu mesej IRC; tidak dipecah secara senyap.
+
+Tiada shell, IRC mentah atau pengembangan perbualan semasa. Sertai saluran secara automatik tidak menukar paparan.
+
+Perubahan berkuat kuasa pada sambungan berikutnya. /cancel menghentikan arahan permulaan yang belum dihantar.
+
+Senarai menyembunyikan teks mesej dan kunci saluran; arahan automatik tidak disimpan dalam sejarah atau gema tempatan.
+
+Simpan dengan /save. Fail mesti peribadi (0600 atau 0400); senarai aktif yang berisi arahan memerlukan TLS disahkan.
+
+Mod ujian tidak menjalankan arahan automatik. Teksnya disimpan sebagaimana asal dalam konfigurasi, tanpa penyulitan GPG.
+
+/help bind
+----------
+
+Tiada kekunci tersuai secara lalai. Gunakan /bindings keys dan /bindings actions untuk nama yang disokong.
+
+Ikatan baharu menggantikan tindakan lama kekunci itu pada semua pelayan; ikatan lain dikekalkan.
+
+Pintasan berfungsi di sembang dan prompt arahan, bukan dalam tampalan, kata laluan, persediaan, pembaca atau pengesahan.
+
+Perubahan berkuat kuasa kini tetapi memerlukan /save input untuk kekal. Navigasi biasa berfungsi jika tiada ikatan aktif.
+
+Hanya fungsi tempatan bernama dibenarkan; tiada arahan bebas, makro, tindakan hantar atau pengembangan shell.
+
+Kekunci yang ditempah terminal mungkin tidak sampai ke program; mengikatnya tidak menukar isyarat terminal.
+
+/help bindings
+--------------
+
+Tanpa argumen, senaraikan pintasan tersuai seluruh aplikasi. Senarai kosong bermakna tiada.
+
+Guna /bind untuk menetap atau mengganti, /unbind KEY untuk membuang dan /unbind all untuk mengosongkan senarai.
+
+Menyokong F1..F12, Ctrl-A..Ctrl-Z, Alt-a..Alt-z, Alt-0..Alt-9 serta kekunci navigasi bernama.
+
+Ctrl-H ialah Backspace, Ctrl-I ialah Tab, Ctrl-J dan Ctrl-M ialah Enter, Ctrl-[ ialah Escape; ikatannya sama.
+
+Huruf Alt menggunakan huruf kecil tanpa Shift. Kekunci fungsi/Alt bergantung pada terminal dan pemultipleks.
+
+Sehingga 64 ikatan KEY=action disimpan dalam [hotkeys] konfigurasi utama. /save input menyimpan perubahan.
+
+Lihat /help hotkeys untuk skop, perlindungan draf dan isyarat terminal.
+
+/help unbind
+------------
+
+Membuang ikatan memulihkan fungsi biasa kekunci. all hanya memadam senarai pintasan tersuai.
+
+Terus terpakai pada semua pelayan. Guna /save input agar kekal selepas dimulakan semula.
+
+/help hotkeys
+-------------
+
+Ikatan kekunci tersuai adalah pilihan dan kosong secara lalai. Navigasi dan editor asal masih berfungsi.
+
+Gunakan /bindings untuk senarai, /bindings keys untuk kekunci dan /bindings actions untuk fungsi setempat.
+
+Tetapkan melalui /bind KEY ACTION; tetapkan semula untuk mengganti. Buang dengan /unbind KEY atau /unbind all.
+
+Perubahan terus terpakai pada semua pelayan; /save input menyimpan pada konfigurasi utama. Profil tambahan tidak mengatasi jadual ini.
+
+Format [hotkeys] diikuti satu KEY=action setiap baris, sehingga 64. Kekunci pendua termasuk alias terminal ialah ralat.
+
+Tindakan tersuai hanya di sembang utama dan prompt arahan, bukan kata laluan, persediaan, tampalan, pembaca atau pengesahan.
+
+Dalam mod minimum, pembaca mengekalkan draf dan kursor. Pintasan pengalih paparan/editor menolak draf berisi; habiskan atau padam dahulu.
+
+Tiada tindakan hantar, arahan bebas, kod shell atau makro teks. Latar dan keluar kekal dengan fungsi asal.
+
+Tersedia F1..F12, Ctrl-A..Z, Alt-a..z/0..9 dan kekunci navigasi; aksara boleh cetak kekal teks.
+
+Ctrl-H/Backspace, Ctrl-I/Tab, Ctrl-J/Ctrl-M/Enter dan Ctrl-[/Escape berkongsi bait; tidak boleh diikat berasingan.
+
+Isyarat dan pintasan terminal/pemultipleks diutamakan. Ctrl-C atau Ctrl-Z hanya jika bait sampai; tiada pemetaan semula kekunci.
+
+Tampalan berbingkai yang dikenal pasti tidak menjalankan pintasan. Tampalan biasa menyerupai menaip; lihat /help keys.
+
+/help dcc
+---------
+
+Tanpa argumen, senaraikan pemindahan. /dcc NICK PATH menawarkan fail pada pelayan terpilih.
+
+PATH ialah baki teks literal termasuk ruang; laluannya relatif kepada direktori ketika proses bermula.
+
+Klien tidak pernah menukar direktori itu, termasuk ketika menyemak fail atau berjalan di latar.
+
+Bentuk hantar ringkas mengumumkan IPv4 setempat IRC. Di belakang NAT, guna -address dengan IPv4 boleh dicapai dan -port port dimajukan.
+
+Tiada permintaan carian alamat luaran. Sambungan IRC IPv6 sahaja memerlukan IPv4 dinyatakan jelas.
+
+DCC ialah sambungan terus tanpa penyulitan. Rakan menerima IP yang diumumkan; menerima tawaran turut mendedahkan IP anda.
+
+Tawaran masuk kekal tertutup sehingga /dcc accept NUMBER. DIRECTORY lalai ke direktori mula dan mesti milik anda serta peribadi.
+
+Fail destinasi sedia ada tidak ditimpa; pautan simbolik dan fail khas ditolak. Mod ujian tidak membuka fail atau soket.
+
+Guna /dcc reject NUMBER untuk menolak tawaran atau /dcc cancel NUMBER bagi membatalkan pemindahan aktif.
+
+Nombor pemindahan dikongsi antara pelayan proses ini. Menutup pelayan asal membatalkan pemindahannya; putus IRC tidak membatalkan yang diterima.
+
+/help transfers
+---------------
+
+Arahan dan perlindungan sama seperti /dcc. Lihat /help dcc untuk hantar, terima dan batal.

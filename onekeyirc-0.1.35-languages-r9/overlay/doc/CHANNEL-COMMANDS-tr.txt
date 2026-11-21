@@ -1,0 +1,55 @@
+vipirc / onekeyirc pratik kilavuzu - Yardım
+==================================================
+
+TASLAK CEVIRI. Komutlari ve secenekleri gosterildigi gibi aynen yazin.
+Kesin guvenlik sinirlari icin Ingilizce MANUAL.txt ve SECURITY.md dosyalarini okuyun.
+
+/help clear
+-----
+
+Bu görünümün sınırlı bellek geçmişini temizler. Kanaldan çıkmaz, bağlantıyı kesmez, gönderilen yazıyı geri almaz ve mevcut disk günlüğünü silmez.
+
+Programın önceden yazdırdığı terminal kaydırma geçmişini terminal yönetir.
+
+Ana sohbette Up bir satır, Page Up bir sayfa geriye; Home en eskiye gider. Down/Page Down ileri gider. Yeni trafik okunan sayfayı kaydırmaz. End/Escape canlı akışa döner; gezinme tuşları yazma alanını açmaz.
+
+/help ignore
+------
+
+* ve ? jokerleriyle bir takma ad veya nick!user@host maskesi kabul eder. Eşleşen kullanıcı mesajları/bildirimleri yerel olarak gizlenir.
+
+Yoksayılan metin özel sohbet veya bahsetme oluşturmaz. Protokol durumu, sunucu bildirimleri ve üyelik işlemeye devam eder.
+
+Bu sunucunun maskelerini kaydetmek için /save kullanın.
+
+/help join
+----
+
+Kayıtlı bağlantı gerekir. Anahtar tek bir yazdırılabilir ASCII sözcüğüdür; kaydedilmez ve komut geçmişinde tutulmaz.
+
+Doğrudan bağlantıda kanal adı etkin otomatik katılma listesine eklenir; kaydedilirken bekleyen /autojoin değişiklikleri önceliklidir.
+
+Şimdi katılmadan doğrudan profilin sonraki açık bağlantısını düzenlemek için /autojoin kullanın. Bouncer üyeliklerini kendi yönetir.
+
+/help part
+----
+
+Kanal verilmezse seçili katılınmış kanaldan çıkılır. Kanal sonrası metin PART nedenidir; kanalsız metin seçili kanalın nedenidir.
+
+Açık neden yoksa ayarlanmış part_message kullanılır. Etkin otomatik katılma girdisi kaldırılır.
+
+Bu kanala kuyruklanmış iletiler iptal edilir; gönderimi başlayan tek bir çerçeve bitebilir. Görünümü kaldırmak için /close kullanın.
+
+/help topic
+-----
+
+Kayıtlı ve kanala katılmış olmalısınız. Metin yoksa konu istenir; varsa TEXT aynen gönderilir.
+
+Sunucu, kanaldaki yetkinizin değiştirmeye izin verip vermediğine karar verir.
+
+/help quit
+----
+
+Her etkin sunucuya olabildiğince IRC QUIT nedeni olarak MESSAGE yollar; MESSAGE yoksa quit_message kullanır; terminali geri yükleyip çıkar.
+
+Bağlantılar açık kalsın diye /background kullanın.

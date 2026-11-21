@@ -1,0 +1,57 @@
+Panduan praktikal vipirc / onekeyirc - Pelayan, ringkasan, pengguna dan kata pantau
+======================================================
+
+DRAF TERJEMAHAN. Taip arahan dan pilihan tepat seperti yang ditunjukkan.
+Untuk syarat keselamatan penuh, rujuk MANUAL.txt dan SECURITY.md dalam bahasa Inggeris.
+
+/help summary
+-------------
+
+Memaparkan semua pelayan, channel 0, paparan saluran/pertanyaan, aktiviti belum dibaca, sebutan, giliran keluar, arahan mula dan pindahan fail.
+
+Ini ringkasan setempat yang berfungsi tanpa sambungan. Tekan r dalam pembacanya atau jalankan semula untuk kemas kini.
+
+Membukanya tidak menukar perbualan atau menanda dibaca. Salinan suapan sebutan tidak termasuk jumlah aktiviti.
+
+Sebutan mungkin juga belum dibaca; jangan tambah dua jumlah itu. Paparan saluran disertai dan ditinggalkan dibezakan.
+
+Laporan mempunyai pembaca boleh tatal dan mengekalkan draf. Garis miring membuka arahan; batal kembali ke ringkasan.
+
+Jika kemas kini gagal, ringkasan lama dikekalkan. Membuka atau mengemas kininya tidak membuat permintaan rangkaian.
+
+Kelayakan dan kandungan mesej beratur atau arahan automatik tidak pernah dipaparkan.
+
+/help server
+------------
+
+Dengan nama hos, ini sama seperti sambungan terus /connect. Tiada profil perlu diwujudkan dahulu.
+
+Tanpa argumen, memilih paparan mesej/MOTD pelayan semasa. NUMBER memilih slot tanpa menyambung.
+
+add mewujudkan profil berkelayakan baharu, TLS disahkan dan autoconnect mati; tidak memilih, menyambung atau menyimpan.
+
+PORT lalai ialah 6697. Port lain tidak mematikan TLS; sambungan tanpa enkripsi mesti dipilih secara nyata.
+
+connect/disconnect tidak menukar pilihan. close membuang sesi/entri katalog kedua, bukan fail profilnya.
+
+Nombor pelayan minimalis ialah 1..8, utama 1. Pelayan utama kekal; putuskan sambungan, jangan tutup.
+
+Nombor kekal sepanjang hayat sesi. Panel 0 dikhaskan untuk keutamaan aplikasi.
+
+/help users
+-----------
+
+Ini senarai pengguna berupa teks, bukan suis paparan. Awalan mod pengguna disertakan jika diketahui.
+
+Senarai dibuka dalam pembaca berasingan walaupun kosong. Enter, Escape atau q kembali ke log perbualan.
+
+Up/Down dan Page Up/Down menatal senarai. Dalam Help, Enter meneruskan tatal.
+
+Balasan NAMES yang tidak lengkap atau terhad kapasiti dilabel. Tiada permintaan WHOIS dihantar.
+
+/help watch
+-----------
+
+Sebutan nama samaran sentiasa aktif. Add/remove menganggap baki sebagai teks tepat, bukan ungkapan biasa.
+
+Setiap pelayan boleh ada hingga 32 teks tambahan 1..127 bait UTF-8. Guna /save untuk menyimpannya.

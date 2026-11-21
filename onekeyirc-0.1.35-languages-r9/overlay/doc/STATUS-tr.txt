@@ -1,0 +1,57 @@
+vipirc / onekeyirc pratik kilavuzu - Sunucular, özet, kullanıcılar ve izlenen sözcükler
+======================================================
+
+TASLAK CEVIRI. Komutlari ve secenekleri gosterildigi gibi aynen yazin.
+Kesin guvenlik sinirlari icin Ingilizce MANUAL.txt ve SECURITY.md dosyalarini okuyun.
+
+/help summary
+-------------
+
+Tüm sunucuları, channel 0, kanal/özel görüşmeleri, okunmamışları, anmaları, giden kuyrukları, başlangıç komutlarını ve dosya aktarımlarını gösterir.
+
+Bu yerel bir özettir; bağlantı olmadan da çalışır. Yenilemek için okuyucuda r tuşuna basın veya tekrar çalıştırın.
+
+Açmak görüşmeyi değiştirmez, okundu işareti koymaz. Kopya anma akışı etkinlik toplamına katılmaz.
+
+Anmalar okunmamış ileti de olabilir; toplamları toplamayın. Katılmış ve ayrılmış kanal görünümleri ayrı belirtilir.
+
+Raporun kaydırmalı okuyucusu taslakları korur. Eğik çizgi komut girişini açar; iptal özet sayfasına döner.
+
+Yenileme başarısızsa önceki özet kalır. Açmak veya yenilemek ağa istek göndermez.
+
+Kimlik bilgileri, kuyruktaki iletilerin ve otomatik komutların içerikleri asla yazdırılmaz.
+
+/help server
+------------
+
+Ana makine adı verilirse doğrudan /connect gibidir; önceden profil oluşturmak gerekmez.
+
+Argümansız mevcut sunucunun mesaj/MOTD görünümünü seçer. NUMBER bağlanmadan sunucu yuvası seçer.
+
+add yeni kimlik bilgili, doğrulanmış TLS ve kapalı autoconnect içeren profil ekler; seçmez, bağlanmaz, kaydetmez.
+
+Varsayılan PORT 6697'dir. Başka port TLS'yi kapatmaz; şifresiz bağlantı açıkça seçilmelidir.
+
+connect/disconnect seçimi değiştirmez. close ikincil oturumu/liste girdisini kaldırır, profil dosyasını değil.
+
+Sade sunucu numaraları 1..8, birincil 1. Birincil kalır; kapatmak yerine bağlantısını kesin.
+
+Numaralar oturum boyunca değişmez. Panel 0 uygulama tercihleri içindir.
+
+/help users
+-----------
+
+Bu metin kullanıcı listesidir, görünürlük düğmesi değildir. Bilinen kullanıcı modu önekleri gösterilir.
+
+Liste boşken de ayrı okuyucuda açılır. Enter, Escape veya q seçili sohbet günlüğüne döner.
+
+Up/Down ve Page Up/Down listeyi kaydırır. Help içinde Enter kaydırmaya devam eder.
+
+Eksik veya kapasite sınırına takılan NAMES yanıtı işaretlenir. WHOIS isteği gönderilmez.
+
+/help watch
+-----------
+
+Takma ad anmaları her zaman açıktır. Add/remove kalan kısmı düz metin sayar, düzenli ifade değil.
+
+Sunucu başına 1..127 UTF-8 baytlık en çok 32 ek dize vardır. /save ile saklayın.

@@ -1,0 +1,65 @@
+Guia prático de vipirc / onekeyirc - Canais
+=======================================================
+
+TRADUÇÃO PRELIMINAR. Escreva os comandos e opções exatamente como aparecem.
+Para os detalhes de segurança, consulte MANUAL.txt e SECURITY.md em inglês.
+
+/help list
+----------
+
+Solicita canais do servidor IRC selecionado; exige registro. MASK é o único filtro enviado ao servidor.
+
+Filtros de mínimo/máximo de usuários, nome e tópico são aplicados localmente, mesmo sem suporte a filtros LIST avançados.
+
+--sort aceita channel, users ou topic; o padrão é users decrescente. --limit 0 não limita a exibição no cache limitado.
+
+/list show exibe o cache; --sort, --asc/--desc e --limit ordenam ou limitam localmente sem nova consulta IRC. /list clear limpa o cache.
+
+Desconexão ou rejeição de LIST mantém o cache parcial, mas encerra a solicitação; repita /list após registrar ou use /list clear.
+
+O cliente de tela cheia abre um navegador de canais classificável; o modo mínimo usa as mesmas opções e /list show.
+
+Use /ls ou /cl para canais locais; /list pesquisa na rede.
+
+/help ls
+--------
+
+Sem argumento, lista os canais do servidor selecionado. É comando local do cliente, não do shell nem uma solicitação IRC LIST para a rede inteira.
+
+Use /server N, /channel N e /pm NICK para selecionar as entradas correspondentes.
+
+/help manual
+------------
+
+A ajuda de tópicos e comandos funciona desconectado. /help TOPIC é o atalho.
+
+/help servers
+-------------
+
+Exibe slots de servidores 1..8 (principal 1), servidor selecionado, estado da conexão e autoconnect por servidor no modo mínimo.
+
+Um perfil carregado continua disponível mesmo desconectado.
+
+/help unignore
+--------------
+
+Equivale a /ignore remove MASK. Salve o perfil selecionado para manter a alteração.
+
+/help aliases
+-------------
+
+Aliases exigem nomes exatos; não há execução ambígua ou aproximada.
+
+/conn = /connect; /disc = /disconnect; /detach = /background; /exit = /quit
+
+/j = /join; /leave = /part; /message e /privmsg = /msg
+
+/nickname = /nick; /names e /nicks = /users; /unaway = /back
+
+/channellist = /cl; /querylist = /ql; /serverlist = /servers
+
+/configure e /preferences = /panel; /saveconfig = /saveconf
+
+/autocommand = /autocommands
+
+A conclusão sugere nomes canônicos; argumentos ficam intactos e o filtro de histórico sensível é igual.

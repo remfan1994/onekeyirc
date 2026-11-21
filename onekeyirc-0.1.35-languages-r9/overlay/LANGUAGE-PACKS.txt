@@ -1,0 +1,18 @@
+onekeyirc 0.1.35 - OPTIONAL LANGUAGE PACK r9
+
+Use onekeyirc-0.1.35-english-source-r1.tar.gz and
+onekeyirc-0.1.35-languages-r9.tar.gz.
+Apply to a fresh extracted English r1 source before configure/make:
+  sh onekeyirc-0.1.35-languages-r9/apply.sh onekeyirc-0.1.35
+Never apply over r8 or another overlay. The pack's root contains ten localized
+README files. The application version remains 0.1.35; identify the pack
+revision as r9 when reporting a localized-build issue.
+
+Fixed help tables: 474 translated text lines, three literal alias mappings.
+All 477 lines are catalogued in id ms tr es pt fr de ru it ar.
+Full MANUAL.txt, SECURITY.md, shell --manual output and some other help and
+diagnostics remain English. Catalog counts do not certify translation quality.
+Native-speaker review and target-terminal checks remain outstanding.
+
+The optional Arabic display converter is experimental and display-only.
+See doc/ARABIC-TERMINALS.txt for its scope, commands and limitations.
