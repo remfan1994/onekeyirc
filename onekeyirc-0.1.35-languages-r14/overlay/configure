@@ -1,0 +1,138 @@
+#!/bin/sh
+# Original dependency probe. Only this package's standalone client is built.
+set -eu
+prefix=/usr/local
+for arg do
+    case "$arg" in
+        --prefix=*) prefix=${arg#--prefix=} ;;
+        --help|-h)
+            printf '%s\n' 'Usage: ./configure [--prefix=DIR]' \
+                'Environment: CC CPPFLAGS CFLAGS LDFLAGS TLS_LIBS' \
+                'Creates a Makefile for POSIX make. No programs are installed.'
+            exit 0 ;;
+        *) printf 'configure: unknown option: %s\n' "$arg" >&2; exit 2 ;;
+    esac
+done
+CC=${CC:-cc}
+CPPFLAGS=${CPPFLAGS:-}
+CFLAGS=${CFLAGS:--O2}
+LDFLAGS=${LDFLAGS:-}
+TLS_LIBS=${TLS_LIBS:--lssl -lcrypto}
+DL_LIBS=
+CPPFLAGS="$CPPFLAGS -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700 -D_XOPEN_SOURCE_EXTENDED=1"
+CFLAGS="$CFLAGS -std=c11 -Wall -Wextra -Wpedantic"
+for value in "$prefix" "$CC" "$CPPFLAGS" "$CFLAGS" "$LDFLAGS" "$TLS_LIBS"; do
+    case "$value" in
+        *'
+'*) printf '%s\n' 'configure: newlines are not supported in build variables' >&2; exit 2 ;;
+    esac
+done
+work=$(mktemp -d "${TMPDIR:-/tmp}/onekeyirc-config.XXXXXXXX")
+trap 'rm -rf "$work"' 0 HUP INT TERM
+: >config.log
+cat >"$work/check.c" <<'EOF'
+#include <getopt.h>
+#include <poll.h>
+#include <termios.h>
+#include <wchar.h>
+int main(int argc, char **argv) {
+    struct termios t;
+    static const struct option options[] = {{0,0,0,0}};
+    (void)getopt_long(argc, argv, "", options, 0);
+    (void)tcgetattr(0, &t); (void)wcwidth(L'a');
+    return poll(0, 0, 0);
+}
+EOF
+if ! $CC $CPPFLAGS $CFLAGS $LDFLAGS "$work/check.c" -o "$work/check" >>config.log 2>&1; then
+    printf '%s\n' 'configure: a C11 compiler, getopt_long, POSIX terminals and poll are required.' >&2
+    exit 1
+fi
+cat >"$work/check.c" <<'EOF'
+#include <openssl/ssl.h>
+#include <openssl/x509v3.h>
+int main(void) {
+    SSL_CTX *ctx = SSL_CTX_new(TLS_client_method());
+    SSL *ssl = SSL_new(ctx);
+    SSL_CTX_set_verify(ctx, SSL_VERIFY_PEER, 0);
+    (void)SSL_CTX_set_min_proto_version(ctx, TLS1_2_VERSION);
+    (void)X509_VERIFY_PARAM_set1_host(SSL_get0_param(ssl), "example.invalid", 0);
+    SSL_free(ssl); SSL_CTX_free(ctx);
+    return 0;
+}
+EOF
+if ! $CC $CPPFLAGS $CFLAGS $LDFLAGS "$work/check.c" -o "$work/check" $TLS_LIBS >>config.log 2>&1; then
+    printf '%s\n' 'configure: OpenSSL-compatible TLS headers/library with hostname verification are required.' \
+        'Install OpenSSL/LibreSSL development files or set CPPFLAGS/TLS_LIBS; see config.log.' >&2
+    exit 1
+fi
+# Optional right-to-left display needs the dynamic loader, but not a
+# mandatory FriBidi dependency. If neither libc nor libdl exposes dlopen,
+# retain normal logical UTF-8 rendering without failing the regular build.
+cat >"$work/check.c" <<'EOF'
+#include <dlfcn.h>
+int main(void) {
+    void *p = dlopen("libfribidi.so", RTLD_NOW | RTLD_LOCAL);
+    if (p) (void)dlclose(p);
+    return 0;
+}
+EOF
+if $CC $CPPFLAGS $CFLAGS $LDFLAGS "$work/check.c" -o "$work/check" >>config.log 2>&1; then
+    :
+elif $CC $CPPFLAGS $CFLAGS $LDFLAGS "$work/check.c" -o "$work/check" -ldl >>config.log 2>&1; then
+    DL_LIBS=-ldl
+else
+    CPPFLAGS="$CPPFLAGS -DIRC_NO_ARABIC_VISUAL"
+    printf '%s\n' 'configure: optional Arabic visual display unavailable (dlopen not supported)'
+fi
+# Probe defensive compiler/linker flags rather than assuming an ELF toolchain.
+# The configured Makefile records the exact flags supported on this host.
+cat >"$work/hardening.c" <<'EOF'
+#include <stdio.h>
+int main(int argc, char **argv) {
+    char text[32];
+    return snprintf(text, sizeof text, "%s", argc ? argv[0] : "");
+}
+EOF
+hardening=
+for flag in -fstack-protector-strong -Wformat=2 -Werror=format-security; do
+    if $CC $CPPFLAGS $CFLAGS $flag -Werror $LDFLAGS "$work/hardening.c" -o "$work/check" >>config.log 2>&1; then
+        CFLAGS="$CFLAGS $flag"
+        hardening="$hardening $flag"
+    fi
+done
+case "$CPPFLAGS $CFLAGS" in
+    *_FORTIFY_SOURCE*) ;;
+    *)
+        if $CC $CPPFLAGS -D_FORTIFY_SOURCE=2 $CFLAGS -Werror $LDFLAGS "$work/hardening.c" -o "$work/check" >>config.log 2>&1; then
+            CPPFLAGS="$CPPFLAGS -D_FORTIFY_SOURCE=2"
+            hardening="$hardening -D_FORTIFY_SOURCE=2"
+        fi ;;
+esac
+case "$CFLAGS $LDFLAGS" in
+    *-nopie*|*-no-pie*|*-fno-pie*|*-fno-PIE*) ;;
+    *)
+        if $CC $CPPFLAGS $CFLAGS -fPIE -Werror $LDFLAGS -pie "$work/hardening.c" -o "$work/check" >>config.log 2>&1; then
+            CFLAGS="$CFLAGS -fPIE"
+            LDFLAGS="$LDFLAGS -pie"
+            hardening="$hardening PIE"
+        fi ;;
+esac
+for flag in -Wl,-z,relro -Wl,-z,now -Wl,-z,noexecstack; do
+    if $CC $CPPFLAGS $CFLAGS -Werror $LDFLAGS $flag "$work/hardening.c" -o "$work/check" >>config.log 2>&1; then
+        LDFLAGS="$LDFLAGS $flag"
+        hardening="$hardening $flag"
+    fi
+done
+printf 'configure: supported hardening:%s\n' "${hardening:- none detected}"
+
+escape() { printf '%s' "$1" | sed 's/[\\&|]/\\&/g'; }
+sed -e "s|@PREFIX@|$(escape "$prefix")|g" \
+    -e "s|@CC@|$(escape "$CC")|g" \
+    -e "s|@CPPFLAGS@|$(escape "$CPPFLAGS")|g" \
+    -e "s|@CFLAGS@|$(escape "$CFLAGS")|g" \
+    -e "s|@LDFLAGS@|$(escape "$LDFLAGS")|g" \
+    -e "s|@DL_LIBS@|$(escape "$DL_LIBS")|g" \
+    -e "s|@TLS_LIBS@|$(escape "$TLS_LIBS")|g" Makefile.in >"$work/Makefile"
+cp "$work/Makefile" Makefile
+printf 'Configured onekeyirc: CC=%s, TLS=%s\n' "$CC" "$TLS_LIBS"
+printf '%s\n' 'Run make, then make check. Use make install PREFIX=... DESTDIR=... for installation.'

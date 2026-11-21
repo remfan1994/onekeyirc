@@ -1,0 +1,55 @@
+COMPLETE MINIMALIST MANUALS - LANGUAGE PACK r10
+================================================
+
+CLIENT: onekeyirc 0.1.35; English source r1.
+APPLICATION VERSION: unchanged.
+
+Read doc/MINIMAL-MANUAL-XX.txt, replacing XX with a code:
+  en English       id Indonesian  ms Malay       tr Turkish
+  es Spanish       pt Portuguese fr French      de German
+  ru Russian       it Italian    ar Arabic
+
+Or export the running client directly:
+  ONEKEYIRC_LANG=ar ./onekeyirc --manual > manual-ar.txt
+Use the same command with en to force English. A UI-language override does
+not select a terminal's UTF-8 locale. Plain file exports need no terminal,
+connection or configuration and are always logical UTF-8, never visual forms.
+
+COVERAGE
+
+The actual minimalist manual formatter requests 582 distinct prose keys
+for this client; every one is translated in all ten languages. Together,
+the two clients use 594 distinct prose keys. The catalog has 844 entries in
+each language, including UI labels outside the manual.
+
+The manual includes all 59 command sections, 19 topic sections, generated
+configuration/interface/history/session help, command descriptions and
+command-entry explanations. All 128 literal command examples, three pure
+alias mappings, 19 topic identifiers and command usage syntax are preserved.
+These figures do not measure native-speaker translation quality.
+
+Other artifacts have narrower scope: HELP-REFERENCE-XX.txt contains the fixed
+command/topic tables; COMMANDS-XX.txt and CHANNEL-COMMANDS-XX.txt are focused
+guides. Their earlier fixed-table count is not the whole-manual count.
+
+MAINTAINING THESE FILES
+
+After editing catalogs, run:
+  python3 tools/generate_localizations.py
+  ./configure
+  make localized-manuals
+  make check-localized-manuals
+
+The test fixture uses the same formatter as interactive /manual and the
+minimalist CLI --manual. The export audit checks actual lookup requests,
+untranslated prose, translated text surviving output without truncation,
+literal command syntax/examples, language precedence and percent formatting.
+The English manual API stays deterministic, independent of the UI language.
+scripts/sync_docs.py pins the language for the original English documentation.
+
+LIMITS AND REMAINING WORK
+
+The full vipirc ncurses manual, SECURITY.md, some contextual help and
+diagnostics still need translation. Draft wording awaits native-speaker
+review. Arabic rendering/editor/platform limitations are separate from text
+coverage; read ARABIC-TERMINALS.txt or ARABIC-TERMINALS-ar.txt.

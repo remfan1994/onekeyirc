@@ -1,0 +1,27 @@
+APPLICATION VERSION: 0.1.35
+ENGLISH SOURCE REVISION: r1
+LANGUAGE + RTL PATCH REVISION: r14
+
+r12 (retained in r14) refines optional Arabic right-to-left text and visual editing in
+onekeyirc, vipirc -i and full vipirc --ncurses. Each editor redraw uses one
+prepared snapshot for text and cursor, or one complete logical fallback.
+Clamped vertical movement preserves its insertion stop. Ncurses preserves
+base/mark cells at the window margin and shares history count/paint maps.
+Scoped paragraph reuse reduces repeated work in minimalist readers.
+Early capability checks avoid unnecessary wide-text fallback allocations.
+
+This cumulative source pack retains r11 paragraph/caret/mouse maps and r10
+complete minimalist manuals. All ten translated catalogs retain 844 entries.
+Logical UTF-8 storage, parsing, transmission and manual exports are preserved.
+The original English r1 archives and application versions are unchanged.
+
+Native OpenBSD 7.8 execution, physical Crostini/terminal/font checks and
+native-speaker review remain pending. Full ncurses MANUAL.txt, SECURITY.md
+and some other help/diagnostics still need translation. This is text bidi
+support, not a mirrored arrangement of the application's controls.
+See doc/ARABIC-TERMINALS.txt and doc/ARABIC-TERMINALS-ar.txt.
+
+PATCH IDENTITY: The unpatched application remains 0.1.35.
+When compiled with this overlay, --version reports 0.1.35 [lang-rtl-r14].
+The optional patch contains both translated data and executable RTL code.
+The original English source r1 has NOT been modified.
