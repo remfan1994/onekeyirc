@@ -1,0 +1,338 @@
+[
+  {
+    "client": "vipirc",
+    "source": "src/transfers.c",
+    "english": "Directory",
+    "kind": "display-only",
+    "locale_count": 10
+  },
+  {
+    "client": "vipirc",
+    "source": "src/transfers.c",
+    "english": "Save as",
+    "kind": "display-only",
+    "locale_count": 10
+  },
+  {
+    "client": "vipirc",
+    "source": "src/transfers.c",
+    "english": "Source file",
+    "kind": "display-only",
+    "locale_count": 10
+  },
+  {
+    "client": "vipirc",
+    "source": "src/transfers.c",
+    "english": "Advertised IPv4",
+    "kind": "display-only",
+    "locale_count": 10
+  },
+  {
+    "client": "vipirc",
+    "source": "src/transfers.c",
+    "english": "Listen port",
+    "kind": "display-only",
+    "locale_count": 10
+  },
+  {
+    "client": "vipirc",
+    "source": "src/transfers.c",
+    "english": "Receive file",
+    "kind": "display-only",
+    "locale_count": 10
+  },
+  {
+    "client": "vipirc",
+    "source": "src/transfers.c",
+    "english": "Send file",
+    "kind": "display-only",
+    "locale_count": 10
+  },
+  {
+    "client": "vipirc",
+    "source": "src/transfers.c",
+    "english": "Choose file",
+    "kind": "display-only",
+    "locale_count": 10
+  },
+  {
+    "client": "vipirc",
+    "source": "src/transfers.c",
+    "english": "Reading directory...",
+    "kind": "display-only",
+    "locale_count": 10
+  },
+  {
+    "client": "vipirc",
+    "source": "src/transfers.c",
+    "english": "No sendable files here.",
+    "kind": "display-only",
+    "locale_count": 10
+  },
+  {
+    "client": "vipirc",
+    "source": "src/transfers.c",
+    "english": "Listing limit reached; Type path for another file.",
+    "kind": "display-only",
+    "locale_count": 10
+  },
+  {
+    "client": "vipirc",
+    "source": "src/transfers.c",
+    "english": "Unencrypted; IP sent",
+    "kind": "display-only",
+    "locale_count": 10
+  },
+  {
+    "client": "vipirc",
+    "source": "src/transfers.c",
+    "english": "Input is on the chat screen.",
+    "kind": "display-only",
+    "locale_count": 10
+  },
+  {
+    "client": "vipirc",
+    "source": "src/transfers.c",
+    "english": "(unavailable)",
+    "kind": "display-only",
+    "locale_count": 10
+  },
+  {
+    "client": "vipirc",
+    "source": "src/transfers.c",
+    "english": "Enter: stage | Esc: cancel",
+    "kind": "display-only",
+    "locale_count": 10
+  },
+  {
+    "client": "vipirc",
+    "source": "src/transfers.c",
+    "english": "File selection",
+    "kind": "display-only",
+    "locale_count": 10
+  },
+  {
+    "client": "vipirc",
+    "source": "src/transfers.c",
+    "english": "file browser",
+    "kind": "display-only",
+    "locale_count": 10
+  },
+  {
+    "client": "vipirc",
+    "source": "src/transfers.c",
+    "english": "Receive file screen",
+    "kind": "display-only",
+    "locale_count": 10
+  },
+  {
+    "client": "vipirc",
+    "source": "src/transfers.c",
+    "english": "Send file screen",
+    "kind": "display-only",
+    "locale_count": 10
+  },
+  {
+    "client": "vipirc",
+    "source": "src/transfers.c",
+    "english": "File transfers screen",
+    "kind": "display-only",
+    "locale_count": 10
+  },
+  {
+    "client": "vipirc",
+    "source": "src/transfers.c",
+    "english": "This entry is a directory.",
+    "kind": "display-only",
+    "locale_count": 10
+  },
+  {
+    "client": "vipirc",
+    "source": "src/transfers.c",
+    "english": "This entry is a file selection.",
+    "kind": "display-only",
+    "locale_count": 10
+  },
+  {
+    "client": "vipirc",
+    "source": "src/transfers.c",
+    "english": "Use Up/Down to select, Enter to open or choose, and Backspace to visit the parent directory. Choosing a file fills the transfer form for review; it does not send it.",
+    "kind": "display-only",
+    "locale_count": 10
+  },
+  {
+    "client": "vipirc",
+    "source": "src/transfers.c",
+    "english": "This field belongs to the transfer review form. Edit changes its value.",
+    "kind": "display-only",
+    "locale_count": 10
+  },
+  {
+    "client": "vipirc",
+    "source": "src/transfers.c",
+    "english": "Directory and Save as determine the local destination after you choose Accept.",
+    "kind": "display-only",
+    "locale_count": 10
+  },
+  {
+    "client": "vipirc",
+    "source": "src/transfers.c",
+    "english": "Nickname, source file, advertised IPv4 and listen port determine the offer after you choose Offer.",
+    "kind": "display-only",
+    "locale_count": 10
+  },
+  {
+    "client": "vipirc",
+    "source": "src/transfers.c",
+    "english": "Left/Right chooses an action; Enter activates it. Escape returns without approving the transfer.",
+    "kind": "display-only",
+    "locale_count": 10
+  },
+  {
+    "client": "vipirc",
+    "source": "src/transfers.c",
+    "english": "Open a new file-transfer form. There are currently no retained transfer entries. An offer requires an explicit reviewed action.",
+    "kind": "display-only",
+    "locale_count": 10
+  },
+  {
+    "client": "vipirc",
+    "source": "src/filepicker.c",
+    "english": "Choose an absolute directory path without terminal controls.",
+    "kind": "display-only",
+    "locale_count": 10
+  },
+  {
+    "client": "vipirc",
+    "source": "src/filepicker.c",
+    "english": "Use the parent-directory entry instead of '..' in a path.",
+    "kind": "display-only",
+    "locale_count": 10
+  },
+  {
+    "client": "vipirc",
+    "source": "src/filepicker.c",
+    "english": "OFFLINE TEST MODE: file browsing is disabled; Type path can edit a sample.",
+    "kind": "display-only",
+    "locale_count": 10
+  },
+  {
+    "client": "vipirc",
+    "source": "src/filepicker.c",
+    "english": "Directory path is too long or contains unsupported text.",
+    "kind": "display-only",
+    "locale_count": 10
+  },
+  {
+    "client": "vipirc",
+    "source": "src/filepicker.c",
+    "english": "Choose an absolute directory path.",
+    "kind": "display-only",
+    "locale_count": 10
+  },
+  {
+    "client": "vipirc",
+    "source": "src/filepicker.c",
+    "english": "OFFLINE TEST MODE: file selection is disabled.",
+    "kind": "display-only",
+    "locale_count": 10
+  },
+  {
+    "client": "vipirc",
+    "source": "src/filepicker.c",
+    "english": "Select a file or directory after the listing finishes.",
+    "kind": "display-only",
+    "locale_count": 10
+  },
+  {
+    "client": "vipirc",
+    "source": "src/filepicker.c",
+    "english": "That directory changed. Reopen it before selecting a file.",
+    "kind": "display-only",
+    "locale_count": 10
+  },
+  {
+    "client": "vipirc",
+    "source": "src/filepicker.c",
+    "english": "That entry changed. Reopen its directory before selecting it.",
+    "kind": "display-only",
+    "locale_count": 10
+  },
+  {
+    "client": "vipirc",
+    "source": "src/filepicker.c",
+    "english": "The selected path is too long. Use Type path.",
+    "kind": "display-only",
+    "locale_count": 10
+  },
+  {
+    "client": "vipirc",
+    "source": "src/filepicker.c",
+    "english": "The selected path does not fit the source field.",
+    "kind": "display-only",
+    "locale_count": 10
+  },
+  {
+    "client": "vipirc",
+    "source": "src/filepicker.c",
+    "english": "File browser unavailable.",
+    "kind": "display-only",
+    "locale_count": 10
+  },
+  {
+    "client": "vipirc",
+    "source": "src/idle_commands.c",
+    "english": "Servers:",
+    "kind": "display-only",
+    "locale_count": 10
+  },
+  {
+    "client": "vipirc",
+    "source": "src/idle_commands.c",
+    "english": "Unread conversations:",
+    "kind": "display-only",
+    "locale_count": 10
+  },
+  {
+    "client": "vipirc",
+    "source": "src/idle_commands.c",
+    "english": "Authentication: bypassed in offline test mode.",
+    "kind": "display-only",
+    "locale_count": 10
+  },
+  {
+    "client": "vipirc",
+    "source": "src/idle_commands.c",
+    "english": "Required SASL: off",
+    "kind": "display-only",
+    "locale_count": 10
+  },
+  {
+    "client": "vipirc",
+    "source": "src/idle_commands.c",
+    "english": "File paths are shown only by this explicit inquiry. No credential file was read and no password content is displayed.",
+    "kind": "display-only",
+    "locale_count": 10
+  },
+  {
+    "client": "vipirc",
+    "source": "src/idle_commands.c",
+    "english": "Automatic retries keep current authentication. /disconnect then /connect applies pending settings; /save persists them.",
+    "kind": "display-only",
+    "locale_count": 10
+  },
+  {
+    "client": "vipirc",
+    "source": "src/idle_commands.c",
+    "english": "Bouncer profiles restore their own channel memberships; saved auto-join lists are not replayed.",
+    "kind": "display-only",
+    "locale_count": 10
+  },
+  {
+    "client": "vipirc",
+    "source": "src/idle_commands.c",
+    "english": "Use /join and /part while connected, or /channels to inspect restored channels.",
+    "kind": "display-only",
+    "locale_count": 10
+  }
+]

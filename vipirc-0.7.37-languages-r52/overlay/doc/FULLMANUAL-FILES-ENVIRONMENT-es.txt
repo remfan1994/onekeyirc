@@ -1,0 +1,25 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / FILES AND ENVIRONMENT
+English source SHA-256: 3f0929a090403aa838e2094592ede3b01d8a8cac7f8b23ff6c35f31b3321edf6
+Source lines: 1901-1962
+
+ARCHIVOS Y ENTORNO
+
+Ubicaciones predeterminadas de la configuración principal:
+
+    $XDG_CONFIG_HOME/vipirc/config.ini
+    $HOME/.config/vipirc/config.ini
+
+XDG_CONFIG_HOME tiene prioridad cuando no está vacía y debe ser una ruta absoluta. HOME sirve de alternativa; se consulta la base de datos de cuentas cuando no se puede obtener una carpeta personal absoluta de HOME. --config FILE selecciona otra configuración principal y su espacio de perfiles de servidor adyacente. Las rutas escritas en la configuración se interpretan literalmente, sin expansión de variables, de virgulillas ni del shell. Las variables del ejemplo solo explican cómo se escogen las rutas predeterminadas. Su shell sigue realizando las expansiones y comillas habituales antes de entregar los argumentos de línea de comandos.
+
+Para una ruta principal P, P.servers guarda los identificadores de perfiles y la opción [servers] default=PROFILE_ID, gestionada por /saveconf. P.d/ contiene los archivos de perfiles secundarios. Cada configuración guardada puede tener un archivo .commands de recuentos de comandos canónicos y, opcionalmente, un registro .log. Las configuraciones generadas y los perfiles secundarios requieren Save explícito; los recuentos de comandos aceptados se actualizan automáticamente en el espacio ya guardado. Si el perfil predeterminado recordado falta o no puede leerse, se informa del problema en lugar de redirigir silenciosamente la conexión.
+
+La interfaz completa ofrece $XDG_DATA_HOME/vipirc/downloads como directorio predeterminado de recepción DCC si XDG_DATA_HOME es absoluto; de lo contrario ofrece $HOME/.local/share/vipirc/downloads cuando HOME es absoluto. Solo crea el directorio ofrecido tras la aceptación explícita. El comando /dcc accept NUMBER sin DIRECTORY utiliza el directorio desde el que se inició el proceso, que debe ser privado y pertenecer al usuario. Elegir o explorar una ruta no cambia ese directorio inicial.
+
+PATH permite localizar el ejecutable opcional gpg. No se ejecuta ningún shell, y ese programa forma parte del entorno local de confianza. GNUPGHOME lo interpreta GnuPG para su entorno de claves y agente. El cliente no expande GNUPGHOME dentro de las rutas de credenciales. En conexiones SSH remotas se utilizan el entorno y los archivos del equipo donde se ejecuta vipirc.
+
+TERM describe las capacidades del terminal para ncurses, no el juego de caracteres. LANG, LC_CTYPE y LC_ALL determinan la configuración regional (locale). Use una configuración regional UTF-8 instalada y compatible con el terminal para editar Unicode y calcular anchuras. locale, locale charmap y locale -a ayudan a inspeccionar el equipo; los nombres de locale varían según el sistema.
+
+Traducción de la interfaz: al iniciar vipirc establezca VIPIRC_LANG en id (indonesio), ms (malayo), tr (turco), es (español), pt (portugués), fr (francés), de (alemán), ru (ruso), it (italiano) o ar (árabe). También admite valores como id_ID.UTF-8. ncurses y -i usan el mismo catálogo. El inglés es el idioma de reserva. Un proceso separado mantiene el idioma elegido al iniciarse. Los comandos IRC con barra, las claves de configuración y los valores de control permanecen en inglés. Esta versión traduce algunos controles de la interfaz, no todas las ayudas, advertencias de seguridad ni mensajes de error. Consulte doc/LOCALIZATION.md.
+
+Se respeta el LC_CTYPE activo. Una configuración regional inválida o que no sea UTF-8 activa el modo terminal ASCII explícito, indicado en la pantalla de bienvenida. La entrada no ASCII se rechaza con un aviso; los puntos de código no ASCII recibidos se muestran como '?' sin alterar el texto de red almacenado. El cliente no adivina ni transcodifica codificaciones antiguas ni fuerza una configuración regional. Seleccione una locale UTF-8 instalada y reinicie para utilizar Unicode. ASCII sigue siendo el subconjunto de un byte de UTF-8; SSH no modifica los límites de bytes de IRC.

@@ -1,0 +1,36 @@
+VERBATIM ENGLISH SOURCE REFERENCE
+Source: MANUAL.txt / OFFLINE TEST MODE
+English source SHA-256: e89ff4106e3e5a0bba3bbcac6d2d3f1eb41f410ac6a2f153aaed310c84b51cab
+
+OFFLINE TEST MODE
+
+vipirc --test-mode
+    vipirc --test-mode --config /absolute/config.ini --no-connect
+
+Simulation exercises the real interface/editor/filters and applicable
+protocol/queue handling without network sockets, DNS, password/CA reads, GPG
+or saves. Configured hostnames are labels. Each profile has an independent
+simulator; New server adds another. Missing server/nickname values do not
+prompt; default demo channels are #test-one and #test-two when none are
+configured.
+
+Simulation starts after welcome regardless of saved autoconnect;
+--no-connect leaves it stopped. /disconnect and /connect stop/start the
+selected simulator. Exit and restart without --test-mode for real
+networking. The local C simulator needs no external daemon or Python.
+
+Events occur every two seconds: chat, mentions, watch strings, a query and
+roster changes. Custom watch strings rotate one per 16-second cycle. /msg
+gets a labelled simulated reply; JOIN/PART/NICK/WHOIS/TOPIC/AWAY have
+simulated responses. This does not reproduce every server rule,
+keyed-channel admission, SASL or actual delivery.
+
+Try wrapping, editing across rows, resize, paste, warning/confirmation,
+mentions and lists. The sample DCC offer is memory-only:
+review/reject/cancel works, Send/Accept is refused before file/socket
+access. Closing a secondary changes runtime only. Configuration and
+count-file writes are disabled; edit configuration externally and restart
+for permanent changes.
+
+--check-config is a separate syntax/value check of saved files. Neither mode
+proves real DNS, TLS, credentials or bouncer interoperability.

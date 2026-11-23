@@ -1,0 +1,58 @@
+OTURUM YÖNETİMİ VE ARKA PLANDA ÇALIŞMA - vipirc 0.7.36
+MANUAL.txt dosyasındaki RUNNING IN THE BACKGROUND ile UPGRADING A RUNNING WORKER arasındaki bölümlerin eksiksiz taslak çevirisi.
+Durum: Taslak. Uyuşmazlık durumunda İngilizce MANUAL.txt esas alınır.
+
+ARKA PLANDA ÇALIŞTIRMA
+
+/background veya F1 > Background, terminali eski hâline getirirken IRC bağlantılarını, kabul edilmiş aktarımları, taslakları ve bellekteki geçmişi çalışır durumda tutar. Örneğin vipirc --resume 1 biçiminde numaralı devam komutunu yazdırır. İlk ayrılma bir çalışan süreç ve özel iletişim uç noktası oluşturur; sonraki ayrılmalarda numara, durum ve uç nokta korunur. Normal ön plan kullanımında bu uç nokta veya ek yardımcı süreç bulunmaz.
+
+Devam edildiğinde terminalin özellikleri, boyutu ve yerel ayarı aynı ana makinede, aynı Unix hesabıyla yeniden okunur. stdin/stdout/stderr tek bir etkileşimli tty üzerinde olmalıdır. Ön plandaki bir denetleyici sinyalleri ve boyut değişikliklerini yönetir; aynı anda yalnızca bir terminal bağlanabilir. SESSION RECOVERY AND UPGRADES, çalışan iş seçimini ve meşgul bağlantıları açıklar.
+
+Başıboş çalıştırmak için önce otomatik bağlanmasını istediğiniz profilleri kaydedin, ardından vipirc --background --reconnect --config /absolute/config.ini komutunu çalıştırın. --background otomatik bağlanmayı etkinleştirmez; --no-connect bunu engeller. Başarı yalnızca yerel hazırlığın tamamlandığını gösterir. Bir terminal bağlanıncaya kadar tty ve TERM gerekmez. Özel uç nokta DNS çözümleyicisi ve kimlik bilgisi yardımcılarından önce hazırlanır. Tek başına --resume çalışanın mevcut arayüzünü korur; açıkça verilen -i/-N, yeniden bağlanmadan veya çalışanı değiştirmeden arayüzü değiştirir. Arayüz değişikliği konuşma geçmişini ve kabul edilmiş aktarımları korur; taslakları, bekleyen gönderim onaylarını, komut geçmişini ve uygulanmamış formları atar. Geçişten önce taslaklarınızı bitirin veya kopyalayın. Aynı arayüzle ayrılmak ve devam etmek bu yerel durumu korur. Eski çalışan süreçler yalnızca kendi ilk arayüzlerini destekleyebilir.
+
+Yapılandırılmış terminal sinyalleri görevlerini sürdürür. Devam edilmiş bir denetleyiciyi askıya almak, çalışan süreç ağ iletişimini sürdürürken denetleyiciyi duraklatır; fg etkileşimi geri getirir. Normal bir ön plan sürecini askıya almak ise ağ iletişimini duraklatır. Devralınan tuş/sinyal eşlemeleri için TERMINAL SIGNALS, terminal kaybı için SESSION RECOVERY bölümüne bakın.
+
+İlk ayrılma, DNS veya kimlik bilgisi yardımcıları bitene kadar yeniden deneme gerektirebilir. SIGCHLD sinyalinin yok sayılması ya da alt süreçlerin otomatik toplanması ilk arka plan başlangıcını ve yardımcı süreçlerin oluşturulmasını engeller; başlatıcı alt süreçlerin beklenebilir kalmasına izin vermelidir. Yönetilen bir işten yeniden ayrılmak başka bir çalışan süreç oluşturmaz.
+
+Dizin ve soket yalnızca sahibine özeldir. Keşif tek bir 1500 ms zaman sınırında en fazla 64 konumu dener; yalnızca etkin yaşam süresi kilidi bulunmayan, gerçekten eski olduğu doğrulanmış girdileri siler. Tahmin edilen PID değerlerine sinyal göndermez. Yanıt vermeyen işler doğrulanmamış kalır. Kimlik ve örnek denetimleri, yeniden kullanılan bir iş numarasının devir sırasında bağlantıyı başka bir çalışana yönlendirmesini önler. Aynı hesabın yetkilerine sahip başka bir süreç güvenilir kabul edilmeye devam eder. single_session=true, vipirc ad alanında ikinci bir çalışan süreci reddeder; ilk çalışanın içindeki sunucuları sınırlamaz.
+
+Çalışanın durumu diske serileştirilmez: yeniden başlatma, çıkış veya sonlandırma taslakları, yakalama işaretlerini ve bellekteki geçmişi siler. İsteğe bağlı günlükler yalnızca ileti dökümünü saklar. Test modunda yerel uç nokta kullanılarak IRC/DCC ağı etkinleştirilmeden arka planda çalışılabilir. Terminal çoklayıcı gerekmez.
+
+OTURUM KURTARMA VE SÜRÜM YÜKSELTMELERİ
+
+Bir kabuk işi, bir istemci çalışan sürecini ve onun bütün IRC bağlantılarını, aktarımlarını, taslaklarını ve saklanan geçmişini kapsar. İş numarası işletim sistemi PID değerinden de istemcide gösterilen sunucu numarasından da farklıdır.
+
+Eski SSH terminali hâlâ bağlı olan bir işi kurtarmak için:
+
+    vipirc --sessions
+    vipirc --detach-session 1
+    vipirc --resume 1
+
+Güncel listeden NUMBER değerini seçin. --detach-session doğrulanmış denetleyiciyi serbest bırakır, ayrılma durumunu bekler ve çalışan süreci/IRC durumunu canlı tutar. Numarasız --resume yalnızca tek bir doğrulanmış, ayrılmış işi seçebilir; birden fazla veya doğrulanmamış aday varsa açık seçim gerekir. Bağlı bir terminalin kontrolünü zorla ele geçirmez. İş numaraları çıkışa kadar sabittir; çıkıştan sonra yeniden kullanılabilir.
+
+KABUKTAN OTURUM KAPATMA
+
+Yalnızca tüm işi bitirmek istediğinizde kullanın:
+
+    vipirc --sessions
+    vipirc --close-session 1
+
+Kapatma, çalışan sürecin tüm IRC bağlantılarını ve aktarımlarını sonlandırır; kaydedilmemiş taslakları ve bellek geçmişini atar. Kaydedilmiş yapılandırma ve mevcut düz metin günlük dosyaları kalır. --close-session=1 ve --detach-session=1 biçimleri de kabul edilir. Bu yönetim komutları etkileşimli terminal gerektirmez ve yapılandırma dosyasını yüklemez. Bunları --resume, --sessions, birbirleriyle, --config veya bağlantı seçenekleriyle birleştirmeyin. Desteklenen arayüz bayrakları bir takma adda kalabilir ve seçilen işi değiştirmez.
+
+İstemci sahibine özel uç noktayı, eşin sahiplik denetimlerini ve seçilen çalışanın kimlik belirtecini kullanır. Başarılı sonuç, yalnızca isteğin kabul edildiğini veya işletim sistemi sürecinin bittiğinin bağımsız olarak gözlendiğini değil, uygulamanın temizleme işleminin ve özgün iş kilidinin bırakılmasının doğrulandığını belirtir. İsteklerin süre sınırı vardır. Başarısız veya zaman aşımına uğramış bir işlem canlı bir uç noktayı silmez ve tahmin edilen PID değerine sinyal göndermez. Zaman aşımından önce kabul edilen istek daha sonra tamamlanabilir; --sessions çıktısını yeniden kontrol edin.
+
+Açık fakat sürekli okunmayan bir terminale yazarken takılmış bir çalışan, çıktı boşalana veya terminal kapanana kadar kontrol yoklamasına ulaşamayabilir. Tamamen kilitlenmiş bir çalışan için gerçek süreç belirlendikten sonra işletim sistemi düzeyinde müdahale gerekebilir. Sıfır dışı kapanış durumu, bitişin doğrulanmadığı anlamına gelir.
+
+SSH KOPMASINDAN SONRA KURTARMA
+
+Zaten yönetilen bir işte terminal veya denetleyicinin kaybı çalışan süreci ayırır. Bağlantı kopması/hata durumu, stdin EOF/EIO, stdout hatası, denetleyici EOF ve SIGHUP bağlantıları ve saklanan durumu korur. Tam arayüz modunda terminal kaybı veya dışarıdan istenen kapanış temizliği, curses temizlenmeden önce artık kullanılmayan çalışan çıktısını başka yere yönlendirir; ön plan denetleyicisi kendi tty ayarlarını geri yükler.
+
+Hiç yönetilen duruma geçmemiş normal ön plan süreci, SIGHUP ile olağan sonlandırma davranışını korur. Kurtarılabilir bir iş gerekiyorsa --background ile başlayın veya önce /background kullanın. İstemci SSH istemci/sunucu boşta kalma zaman aşımı politikasını değiştirmez. Açık kalmış ancak artık okunmayan bir terminalde eşzamanlı çizim işlemi hâlâ engellenebilir.
+
+ÇALIŞAN BİR SÜRECİ GÜNCELLEME
+
+Kurulum veya yeniden derleme, çalışan bir sürecin içindeki kodu değiştirmez. İstenen yapılandırmayı kaydedin, işi bilerek sonlandırın/kapatın, kurulu --version değerini denetleyin ve yeni bir iş başlatın. Güvenlik güncellemelerinde de aynısını yapın. Günlükler kalır; taslaklar, komut geçmişi ve yakalama işaretleri kalmaz.
+
+Eski çalışanlarda yeni ayırma/kapatma kontrolleri veya arayüz değiştirme bulunmayabilir. Var olan kontrollerle bağlanıp çıkmak için gerekliyse uyumlu eski yürütülebilir dosyayı iş durana kadar saklayın. Bir uç noktanın kaybolması tek başına eski bir işlemin başarısız sonucunu başarıya dönüştürmez. Mevcut yapılandırma dosyaları geçerli sürümle kullanılabilir; daha eski yürütülebilir dosyalar yeni sürümün özellikle kaydettiği anahtarları reddedebilir.
+
+Aynı işlem adımları için doc/SESSION-CONTROLS.txt, ana makinede başıboş çalıştırma için doc/OPENBSD-VPS.txt dosyasına bakın. Bu kaynak arşivinin kurulması uzak bir ana makinede otomatik olarak hiçbir şeyi durdurmaz veya dağıtmaz.

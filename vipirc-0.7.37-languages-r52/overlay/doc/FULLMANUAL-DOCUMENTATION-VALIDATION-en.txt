@@ -1,0 +1,23 @@
+VERBATIM ENGLISH SOURCE REFERENCE
+Source: MANUAL.txt / DOCUMENTATION AND VALIDATION
+English source SHA-256: 473247fbc03339063a7a803330c7b183708cbfe0ce8c56840245322454f570cc
+
+DOCUMENTATION AND VALIDATION
+
+Root MANUAL.txt is canonical for full vipirc; doc/manual.txt mirrors it and
+src/manual.c embeds it. vipirc --manual and vipirc(1) expose it. vipirc -i
+--manual and doc/vipirc-idle-manual.txt provide the minimalist reference.
+Each frontend also has /help and /manual.
+
+README.md maps setup/docs; INSTALL covers building; SECURITY.md states the
+boundaries. CONTRIBUTING.md gives the edit/review workflow, doc/SOURCE-MAP.txt
+locates code, tests/README.md maps checks and DESIGN.md explains invariants.
+doc/TROUBLESHOOTING.txt maps symptoms to checks; doc/BOUNCERS.txt,
+doc/SESSION-CONTROLS.txt and doc/OPENBSD-VPS.txt cover operations. Replace
+example hosts/accounts/absolute paths before use.
+
+Maintainers edit authoritative prose/help, then run make docs and make
+check-docs. The docs target embeds this manual before rebuilding/exporting.
+Audits/JSON apply only to their named versions/environments, not untested
+platforms/services. Documentation adds no runtime defense; fixtures cannot
+prove absence of flaws.

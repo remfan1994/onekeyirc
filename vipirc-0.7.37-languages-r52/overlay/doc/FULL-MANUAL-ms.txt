@@ -1,0 +1,1027 @@
+CURRENT SIGNAL POLICY (vipirc-0.7.37):
+Use signals = no secara lalai. Ctrl-C dan Ctrl-Z membatalkan mesej atau arahan yang belum dihantar, bukan menamatkan aplikasi. Pilih yes dalam panel 0 (atau tetapan Interface vipirc) untuk mengaktifkan isyarat terminal. Apply berkuat kuasa serta-merta; Save turut menyimpan [input] use_signals=true|false. Tetapan terminal asal dipulihkan apabila keluar atau digantung.
+
+vipirc 0.7.36 - FULL MANUAL COMPANION DRAFT (ms)
+Manual terjemahan ini kini tersedia dalam pembaca bantuan ncurses dan melalui --manual jika fail tersedia. Draf ini masih perlu semakan penutur jati; MANUAL.txt bahasa Inggeris kekal sebagai rujukan.
+Based on the original English r1 MANUAL.txt and source-linked chapters.
+All IRC commands, file keys, and network arguments remain literal.
+
+===== SOURCE CHAPTER: CONTENTS =====
+Mula: READING EXAMPLES; QUICK START; GETTING HELP; MINIMALIST INTERFACE.
+    Permulaan: DEFAULT INTERFACE; COMMAND-LINE OPTIONS; OFFLINE TEST MODE.
+    Kawalan: GLOBAL HEADER; COMMAND PROMPT; COMMAND REFERENCE INDEX.
+    Sambungan: CONNECTION AND STARTUP COMMANDS; SESSION SUMMARY; SETTINGS.
+    Sesi: TERMINAL SIGNALS; RUNNING IN THE BACKGROUND; SESSION RECOVERY.
+    Perbualan: SERVERS AND UNREAD; VIEWS AND USERS; CHANNEL/QUERY LISTS.
+    Mesej: MENTIONS; CONVERSATION COMMANDS; IGNORE; STARTUP COMMANDS.
+    Input/output: FILE TRANSFERS; INPUT EDITING; MOUSE; MESSAGE LENGTH.
+    Penyimpanan: CONFIGURATION; HISTORY, LOGGING AND PRIVACY; SAVED PROFILES.
+    Kelayakan: AUTHENTICATION; BOUNCER CONNECTIONS; TLS AND CUSTOM TRUST.
+    Keselamatan/bantuan: SECURITY; ENCRYPTED PASSWORD FILES; TROUBLESHOOTING.
+    Rujukan: FILES AND ENVIRONMENT; EXIT STATUS; BUILD/LICENSE; DOCUMENTATION.
+
+
+Dalam mod penuh, /help TEXT atau / dalam pembaca manual mencari tajuk dan frasa. Jika padanan pertama bagi tajuk ialah senarai kandungan ini, guna n/Next untuk terus mencari. Nama tajuk seksyen dikekalkan dalam bahasa Inggeris supaya carian tepat.
+
+===== SOURCE CHAPTER: READING EXAMPLES =====
+CARA MEMBACA CONTOH
+
+Contoh yang bermula dengan vipirc dijalankan dalam shell; /arahan dimasukkan dalam Command. Masukkan satu arahan pada satu masa. Dalam ringkasan sintaks, perkataan HURUF BESAR ialah tempat letak yang perlu diganti, [items] adalah pilihan dan | memisahkan alternatif.
+Apabila Command dibuka, / sudah disediakan. Sebelum menampal /arahan lengkap, buang garis miring awal itu, semak hasilnya, kemudian tekan Enter. Blok arahan yang ditampal bukan skrip: baris baharu menjadi ruang. Teks yang ditampal ke chat/watch kekal sebagai teks perbualan.
+
+===== SOURCE CHAPTER: QUICK START =====
+EXACT COMMAND/CONTROL EXAMPLES (not translated):
+vipirc -h
+vipirc -v
+vipirc --test-mode
+vipirc --server irc.ircnow.org --channel '#ircnow' --nick tutankh-aten
+
+Tiga contoh pertama memaparkan bantuan, versi dan membuka simulasi luar talian. Contoh terakhir membuat sambungan sebenar: letakkan '#ircnow' dalam tanda petik pada shell dan gunakan titik akhir TLS sebenar penyedia. TLS yang disahkan pada port 6697 ialah tetapan lalai; teks biasa memerlukan --plain.
+
+Pelancaran interaktif memaparkan kata alu-aluan "Not vegetarian? www.bloodguiltcurse.net will change your mind". Kekunci boleh cetak, Enter, Tab atau kekunci navigasi menutupnya. Isyarat terminal yang ditetapkan mengekalkan fungsi asalnya; kawalan lain tidak menutup skrin ini. Tanpa pelayan, klien membuka ruang kerja terputus sambungan. Gunakan Settings, /connect HOST atau --server untuk menetapkan pelayan.
+
+Dalam antara muka penuh, nama samaran utama yang belum ditetapkan akan diminta dengan nama log masuk sistem sebagai nilai awal. Enter menerimanya; menaip menggantikannya. Profil sekunder yang disimpan dan pelancaran tanpa pengawasan menggunakan nama log masuk atau pengguna yang sah tanpa soalan. --nick mengatasinya, tetapi pelayan boleh menolaknya.
+
+Paparan pelayan pertama menunjukkan pendaftaran dan MOTD. Profil langsung menyertai saluran yang ditetapkan selepas pendaftaran dan pengesahan wajib; bouncer memulihkan keahliannya sendiri. Ruang sembang sedia menerima teks. Enter menghantar kepada saluran atau perbualan peribadi terpilih; paparan pelayan dan sebutan tidak mempunyai penerima tersirat. / pada kedudukan kursor sifar membuka Command. Untuk garis miring awal yang harfiah, gunakan //; garis miring yang ditampal dalam kurungan kekal harfiah.
+
+Kekunci biasa: F1 membuka vipirc; F2 Servers; F3 Channels; F4 Queries; F5 Mentions/unread; F6 File transfers. Escape dari perbualan peribadi membuka Queries, dari sembang lain membuka vipirc, dari panel biasa kembali ke sembang, dan dari Settings kembali ke vipirc. Warna terminal dikekalkan; kurungan tebal menandakan fokus. Lihat GLOBAL HEADER AND CHAT CONTROLS untuk navigasi senarai.
+
+===== SOURCE CHAPTER: LOCAL SESSION REMINDER =====
+PERINGATAN SESI SETEMPAT
+
+Proses pekerja memaparkan peringatan setempat ini sekali sahaja pada paparan pertama yang dilampirkan pada terminal:
+
+    Cow killing is the bloodshed of the innocent. www.bloodguiltcurse.net - ban beef.
+
+Ia merupakan entri sejarah setempat biasa: tiada soalan, tiada baris input yang dikhaskan dan tiada penghantaran IRC. Penanda sudah dipaparkan kekal selepas sambungan semula, pertukaran pelayan, lampiran terminal semula dan pertukaran antara muka. Selagi entri masih disimpan dalam sejarah, ia boleh dilihat semula. Peringatan ini berasingan daripada skrin alu-aluan ketika pelancaran.
+
+===== SOURCE CHAPTER: GETTING HELP =====
+EXACT COMMAND/CONTROL EXAMPLES (not translated):
+vipirc -h
+vipirc -v
+vipirc --manual
+vipirc -i --manual
+man vipirc
+/help
+/manual
+/help TEXT
+
+vipirc -h atau --help memaparkan ringkasan CLI; vipirc -v atau --version memaparkan versi; vipirc --manual mencetak manual penuh pada output piawai; vipirc -i --manual mencetak rujukan topik dan arahan minimalis. man vipirc membuka halaman manual terpasang. Dalam mod penuh, /help atau /manual membuka manual ini; /help TEXT mencari TEXT di dalamnya.
+
+Dalam mod penuh, /help TEXT mencari manual, bukannya membuka topik minimalis. /help commands dan /help ls mencari COMMAND PROMPT; /help all membuka keseluruhan manual; /view help juga tersedia. Frasa carian tidak perlu tanda petik. Pembaca berfungsi tanpa sambungan dan mengekalkan paparan, draf serta kedudukan kursor. Di sini / memulakan carian; dalam pembaca bantuan/respons minimalis, / membuka Command. Rujuk doc/TROUBLESHOOTING.txt untuk langkah mengikut gejala.
+
+Tekan ? semasa navigasi untuk penjelasan item dan skrin terpilih. Bantuan konteks mempunyai pautan About; Left/Right atau Tab memilih tindakan, Enter melaksanakannya dan Escape kembali ke tempat serta pilihan asal. Dalam medan boleh sunting, ? kekal huruf harfiah. Pilih cadangan Command dahulu sebelum meminta bantuannya.
+
+Tindakan manual ialah Back, Search, Previous dan Next. Left/Right atau h/l memilih, Enter melaksanakan. Up/Down atau k/j menatal satu baris, Page Up/Down satu halaman, Home/End atau g/G ke hujung. Escape/q/Back kembali ke panel vipirc atau sembang sebelumnya. F1..F6 membuka kategori tersedia; pertukaran paparan melangkau manual. / atau Search menyunting pertanyaan UTF-8 harfiah sehingga 256 bait. Enter mencari; Escape membatalkan suntingan. n/Next dan N/Previous berpusing melalui padanan. Perbezaan huruf besar-kecil ASCII diabaikan; aksara lain dibanding secara harfiah. Tiada regex, sintaks shell atau sejarah carian. Tampal diabaikan dalam pembaca dan carian.
+
+F1 mengandungi Server, Nick, Settings, Manual, Command, Background, About dan perjanjian lesen Insha-Allah. Server/Nick membuka tetapan profil semasa; Nick memfokuskan medannya. About menunjukkan versi, kredit dan petikan setempat apabila diminta: PID, masa beroperasi, jumlah CPU terkumpul, memori puncak yang disokong serta bilangan pelayan/paparan. Memori puncak bukan penggunaan semasa; jumlah CPU bukan peratus masa nyata. Pembaca lesen memaparkan seluruh LICENSE.md. Escape/Enter/q/Back kembali daripada About atau lesen ke vipirc.
+
+===== SOURCE CHAPTER: MINIMALIST INTERFACE =====
+ANTARA MUKA MINIMALIS
+
+    vipirc -i
+    vipirc --idle --test-mode
+    /connect irc.ircnow.org
+    /join #ircnow
+    /saveconf
+
+-i menggunakan konfigurasi vipirc dan katalog pelayan yang sama. Nama samaran lalai diambil daripada nama log masuk atau pengguna yang sah. /saveconf menyimpan keutamaan dan profil yang sihat, serta mengingati sambungan yang dipilih, termasuk profil sekunder, untuk /connect seterusnya tanpa hujah. Menyimpan tidak menghidupkan autoconnect. /quickstart dan /panel ialah panduan pilihan.
+
+Log ialah paparan biasa. / membuka Command, ? membuka bantuan mengikut konteks, manakala aksara boleh cetak yang lain memulakan Compose dan dikekalkan. Enter atau Insert membuka Compose kosong. Dalam log langsung, Up menatal satu baris tersimpan ke belakang, Page Up satu halaman, Home ke halaman tersimpan paling lama; Down/Page Down/End kekal di hujung terkini. Left/Right/Delete/Backspace tidak berfungsi di situ. Dalam pembaca sejarah, End atau Escape kembali ke paparan langsung.
+
+Kekunci anak panah dalam Compose menyunting teks; ia tidak mendapatkan semula mesej sembang yang telah dihantar. Tab/Shift-Tab melengkapkan nama samaran dalam Compose dan nama arahan dalam Command. Down pada Command memilih cadangan; Up/Down menelusurinya dan Up dari cadangan pertama kembali ke input. Enter memasukkan pilihan; Enter berasingan selepas ia dipaparkan menjalankannya. Up dari input Command memanggil semula arahan sepadan yang diterima, manakala Down kembali ke draf asal. Rujuk /help keys dan /help commands untuk semua kawalan.
+
+Mod penggubah satu baris menggunakan satu baris input di bawah penghujung log langsung; fullscreen menyediakan penyunting berbilang baris dengan anak tetingkap log langsung lebih kecil. Lukisan semula akibat trafik mengekalkan draf dan kedudukan kursor. Escape meninggalkan penyunting untuk log; Escape pada log meletakkan proses di latar belakang. Dalam Review, Escape atau menaip memulihkan penyunting, draf dan kursor yang sama, manakala Enter baharu mengesahkan. Ctrl-D tidak berfungsi kecuali diikat secara jelas; isyarat terminal mengikut tetapan yang diwarisi. Tampalan yang dikenali kekal sebagai teks harfiah dan tidak boleh menghantar mesej.
+
+    /set send_mode direct|review
+    /set composer_mode line|fullscreen
+    /set output_format compact|full
+    /save input
+    /save output
+
+Lalai ialah penghantaran terus, penggubahan satu baris dan output ringkas [HH:MM:SS] <nick> text. Output full mengandungi tarikh/pelayan/sasaran; sebutan dan diagnostik merentas pelayan mengekalkan konteks yang diperlukan dalam kedua-dua format. Keutamaan milik profil utama ini terpakai untuk semua pelayan. Pengakuan bajet bait dan persetujuan berasingan untuk berbilang mesej masih diperlukan.
+
+/help ls menyenaraikan topik; /help /ls menerangkan arahan senarai setempat. Gunakan /help COMMAND untuk sintaks dan contoh, satu nama topik atau arahan pada satu masa. /manual dan vipirc -i --manual memberikan rujukan minimalis lengkap, juga dalam doc/vipirc-idle-manual.txt. Arahan/kawalan berbeza daripada ncurses penuh. Bantuan dan hasil arahan yang panjang menggunakan pembaca berasingan dengan had. Anak panah/Page Up/Page Down/Home/End menatal; Escape kembali. Enter menatal bantuan tetapi menutup senarai /users yang berjaya. / membuka Command dari pembaca; pembatalan kembali ke pembaca. Output arahan baharu menggantikan respons lama. r dalam Summary menyegarkan ringkasan. Rangkaian terus berfungsi semasa membaca.
+
+/panel bermula dengan 0 Application preferences, meliputi sejarah, mod penghantaran/penggubah, output, notis, log, mod satu sesi, cadangan arahan dan antara muka lalai. Pada akhir panduan, pilihan Save atau Apply without saving ditawarkan; ia tidak menyambung atau menukar sembang. Kedua-dua antara muka menomborkan panel profil 1..8: panel 1 menyunting profil utama, berlabel server 0 dalam mod penuh dan 1 dalam mod minimalis. Panel ini menyunting tetapan setiap pelayan termasuk identiti bouncer. Akhirnya ditawarkan Save and connect, Save only (lalai), Connect once atau Apply only. /quickstart meminta pelayan/TLS/port/nama samaran dan lalai kepada Connect once; ia tidak menyunting log masuk bouncer yang sedia ada.
+
+Enter mengekalkan jawapan yang dipaparkan; '-' mengosongkan medan pilihan. Escape mengundur selangkah atau keluar dari soalan pertama. Tab memilih tajuk untuk bantuan ?, kemudian Tab/Enter menyambung penyuntingan. Kata laluan dan jawapan tersembunyi tidak pernah dimasukkan dalam sejarah arahan. Hanya pilihan akhir menerapkan/menyimpan/menyambung; sambungan aktif tidak dialihkan ke sasaran lain dan kegagalan sambungan kemudian tidak membatalkan perubahan yang dipilih secara jelas. vipirc penuh turut menyokong panduan ini; /settings di situ membuka borang grafik.
+
+/servers minimalis menggunakan 1..8; /servers mod penuh menggunakan 0..7. Channel 0 ialah pelayan/MOTD dalam kedua-dua antara muka. Tetapan sejarah utama mengehadkan penyimpanan dalaman semua perbualan mengikut had tegas dalam /help history. Log teks biasa pilihan dimatikan secara lalai. DCC menggunakan arahan /dcc jelas yang dikongsi, tanpa borang grafik.
+
+===== SOURCE CHAPTER: DEFAULT INTERFACE =====
+ANTARA MUKA LALAI
+
+Untuk mengingati mod minimalis, jalankan dalam mana-mana antara muka:
+
+    /set default_interface idle
+    /save input
+
+Anda juga boleh memilih Settings > Interface > Default interface atau /panel > 0. Sebagai pilihan lain, letakkan default_interface=idle dalam seksyen [session] sedia ada bagi konfigurasi utama, tanpa membuang kekunci lain. Jika tidak ditetapkan, lalainya ncurses. Tetapan ini menentukan antara muka untuk pelancaran baharu termasuk --background; ia tidak mengubah antara muka semasa atau menyambung semula IRC.
+
+-i/--idle atau -N/--ncurses memilih antara muka bagi pelancaran ini; pilihan terakhir diguna pakai, dan menyimpan tetapan yang tidak berkaitan tidak menjadikannya kekal. -n/--nick dengan huruf kecil kekal sebagai pilihan nama samaran. Untuk memulihkan antara muka penuh sebagai lalai, gunakan /set default_interface ncurses dan /save input. Profil sekunder tidak memiliki pilihan ini.
+
+--resume tanpa pilihan antara muka mengekalkan antara muka proses sedia ada. -i --resume NUMBER meminta minimalis; -N --resume NUMBER meminta ncurses tanpa menyambung semula atau menggantikan proses pekerja. Proses lama yang tiada ciri pertukaran kekal dengan antara muka asal. Pertukaran membuang draf dan ingatan arahan khusus antara muka; lihat RUNNING IN THE BACKGROUND. onekeyirc sentiasa menggunakan antara muka minimalis dan menolak -N/--ncurses. dahulu.
+
+===== SOURCE CHAPTER: MINIMALIST WRAPPING AND INPUT HISTORY =====
+PEMBALUTAN BARIS DAN SEJARAH INPUT MINIMALIS
+
+Compose memperuntukkan baris untuk input dan memaparkan baris visual terkini yang dibalut di atasnya; baris lebih lama boleh hilang daripada ruang pandangan yang kecil itu. Teks tersimpan dan rancangan penghantaran tidak dipendekkan. Keluar daripada input atau pilih semula perbualan untuk melihat baris yang masih disimpan; gema setempat bukan bukti mesej telah diterima. Perubahan saiz terminal mengira semula susun atur tanpa kehilangan draf atau kursor.
+
+Atas/Bawah dalam Compose menggerakkan kursor walaupun kekunci terus ditekan. Hanya Atas dalam Command mengingat arahan yang diterima; mesej sembang yang telah dihantar, baris perkhidmatan sensitif dan penyertaan saluran berkunci tidak diingat semula. Fail .commands hanya menyimpan nama dan kiraan. Lihat COMMAND PROMPT, INPUT EDITING dan TROUBLESHOOTING.
+
+===== SOURCE CHAPTER: MINIMALIST CATCH-UP AFTER RESUME =====
+MENGEJAR SEJARAH SELEPAS MENYAMBUNG SESI DALAM MOD MINIMALIS
+
+Dalam vipirc -i, /catchup membuka saluran atau perbualan peribadi terpilih pada baris IRC pertama bagi karangan mesej terakhir yang anda hantar secara setempat. Penanda adalah berasingan bagi setiap pelayan dan saluran atau perbualan; paparan status pelayan dan sebutan tiada penanda. Selepas menyambung sesi, pilih setiap perbualan dan jalankan /catchup secara berasingan.
+
+Pembaca akan cuba menggunakan log peribadi yang layak terlebih dahulu. Pengelogan berterusan mestilah sudah diaktifkan semasa mesej penanda dihantar, masih berfungsi dengan baik, dan masih mengandungi rekod penanda yang tepat dalam fail yang sama. Aktifkannya dengan sengaja sebelum meninggalkan sesi:
+
+    /set persistent_logging on
+    /save output
+
+Pembaca cakera mengambil gambaran hujung semasa fail tanpa memuatkan semua perbualan semasa ketiadaan anda ke dalam ingatan sembang kekal. Up/Down bergerak mengikut baris paparan, PageUp/PageDown mengikut halaman, Home kembali ke penanda mesej yang dihantar, End menuju halaman terbaru gambaran itu, dan Escape kembali ke perbualan langsung. Trafik rangkaian baharu terus diterima tanpa mengalih gambaran tersebut.
+
+Jika penanda cakera tidak tersedia tetapi mesej yang dihantar masih disimpan dalam ingatan, arahan ini membuka sejarah tatal biasa pada penanda tersebut. Dalam mod sandaran ini, Home menuju halaman tersimpan paling lama, End atau Escape kembali langsung, dan mesej tersimpan yang lebih awal juga boleh dibaca. Ini pembaca ingatan biasa dengan had penyingkiran lazim, bukannya arkib cakera yang dipulihkan.
+
+Fail log yang digilir atau diganti, ataupun rekod penanda yang berubah, tidak boleh digunakan sebagai penanda cakera asal. Semakan rekod mengesan perubahan tidak sengaja tetapi tidak mengesahkan kesahihan data terhadap proses lain di bawah akaun yang sama. Trafik pengesahan sensitif tidak digunakan sebagai penanda tahan lama. Jika tiada penanda yang layak di cakera atau ingatan, /catchup menerangkan sejarah yang hilang dan tidak mendakwa pemulihan lengkap.
+
+Penanda milik proses pekerja yang masih berjalan. Menanggalkan dan menyambung sesi mengekalkannya; proses baharu tidak membina semula penanda atau memuat semula fail transkrip lama secara automatik. /catchup bersandarkan cakera hanya tersedia dalam antaramuka minimalis. Antaramuka ncurses penuh menggunakan sejarah terhad dalam ingatan melalui PageUp/PageDown.
+
+===== SOURCE CHAPTER: COMMAND-LINE OPTIONS =====
+PILIHAN BARIS ARAHAN
+
+-i, --idle: Pilih antara muka minimalis untuk pelancaran ini; --help dan --manual menerangkan mod ini.
+-N, --ncurses: Pilih antara muka penuh untuk pelancaran ini. Bendera antara muka eksplisit yang terakhir digunakan; pilihan lalai tersimpan tidak berubah. -n masih bererti nama samaran.
+-s, --server HOST: Pilih pelayan utama mengikut nama hos atau alamat IPv4/IPv6 berangka, bukan URL.
+-p, --port PORT: Port 1..65535. Lalai 6697 untuk TLS atau 6667 apabila IRC teks biasa dipilih secara nyata.
+-c, --channel LIST: Senarai saluran untuk disertai selepas pendaftaran bagi profil langsung. Senarai dipisahkan koma atau pilihan boleh diulang. Petik '#channel' dalam shell; bouncer memulihkan keahlian sendiri.
+-n, --nick NICK: Gantikan nama samaran profil berkesan semasa permulaan.
+-C, --config FILE: Pilih fail konfigurasi utama bersama katalog .servers dan direktori profil .d. Fail mesti wujud melainkan --init-config menciptanya; laluan konfigurasi dianggap harfiah.
+--tls: Wajibkan TLS yang disahkan, pilihan lalai. Menentukan port sahaja tidak mematikan TLS.
+--plain: Pilih sambungan teks biasa secara nyata; pengesahan menggunakan kelayakan tersimpan ditolak.
+--ca-file FILE: Gunakan fail autoriti PEM khusus menggantikan sumber kepercayaan sistem. Fail biasa tidak kosong, paling besar 16 MiB; pautan simbolik biasa dibenarkan. Tiada gesaan kata laluan.
+--no-connect: Sekat semua sambungan atau simulator ketika permulaan. Sambung secara nyata kemudian.
+--background: Mulakan worker terpisah tanpa tty, TERM atau tekan kekunci aluan. Antara muka lalai tersimpan digunakan melainkan -i/-N mengatasinya. Simpan profil sambung automatik atau bekalkan --server; --no-connect tetap mengatasi. Kejayaan hanya mengesahkan persediaan setempat, bukan log masuk IRC berjaya.
+--reconnect: Cuba semula gangguan rangkaian sementara bagi proses ini sahaja, tanpa memulakan sambungan atau menyimpan pilihan. Tempoh tunggu: 5,10,20,40,80,160,300 saat; selepas 60 saat berdaftar, tempoh direset. /disconnect menghentikan, /connect memulakan semula. Ralat sijil, pengesahan, konfigurasi dan protokol kekal terputus. Sembang tertunda dibuang. Sambungan baharu mengulangi arahan pengesahan dan permulaan; profil langsung menyertai saluran secara automatik, manakala bouncer memulihkan keahlian. Tetapan yang belum diterapkan tetap memerlukan /connect yang jelas setelah terputus.
+--test-mode: Simulasi interaktif luar talian tanpa rangkaian/DNS atau membaca/menyimpan kelayakan.
+--resume [JOB]: Lampirkan satu kerja terpisah yang disahkan atau nyatakan nombornya; --resume=JOB juga diterima. Laluan soket mutlak eksplisit boleh digunakan bagi worker lama yang serasi. Resume tanpa nombor mengekalkan antara mukanya; -i/-N meminta mod berlainan. stdin, stdout dan stderr mesti pada tty interaktif yang sama. Banyak kerja atau kerja tidak disahkan menghalang pemilihan automatik; kerja yang sudah dilampirkan sibuk.
+--sessions: Senaraikan kerja terlampir dan terpisah milik akaun tanpa tty atau memuatkan konfigurasi.
+--detach-session NUMBER: Lepaskan pengawal yang disahkan sambil mengekalkan worker dan keadaan; gunakan --resume NUMBER kemudian. --detach-session=NUMBER turut diterima.
+--close-session NUMBER: Tamatkan seluruh worker, semua IRC/pemindahan, draf dan sejarah dalam memori. Fail konfigurasi/log kekal. Pembersihan yang disahkan diwajibkan; had masa mungkin berlaku sebelum tamat, maka semak semula --sessions. --close-session=NUMBER turut diterima.
+--init-config: Cipta konfigurasi peribadi tanpa menggantikan fail sedia ada atau penciptaan serentak. Ralat penyegerakan/pembersihan yang dilaporkan mungkin meninggalkan fail yang sudah lengkap.
+--check-config: Sahkan konfigurasi, pilihan penggantian, katalog dan profil tersimpan, lalu keluar. Tidak membaca rahsia, menjalankan GPG, menguji CA/TLS atau membuktikan capaian/log masuk.
+--manual: Cetak manual lengkap antara muka terpilih tanpa terminal.
+-h, --help: Cetak bantuan CLI tanpa terminal.
+-v, -V, --version: Cetak versi, atribusi dan lesen tanpa terminal.
+
+Pilihan panjang menerima --name=value; pilihan pendek boleh dikelompokkan seperti biasa. -- menamatkan pilihan; operan kedudukan tidak digunakan. Nilai CLI mengatasi konfigurasi kemudian lalai. Pada permulaan biasa, penggantian bukan hos digunakan pada profil lalai yang diingati; --server nyata memilih utama. --init-config/--check-config digunakan pada utama. Profil lalai diingati yang hilang memerlukan pembaikan atau --server sebelum penggantian bukan hos.
+
+Apabila --server berbeza tanpa mengira huruf besar/kecil, sumber kelayakan, pengesahan, CA khusus, identiti bouncer/pilihan away automatik, saluran dan arahan permulaan warisan dipadam. Konfigurasikan hos baharu dengan nyata. Penggantian hos yang sama dan --nick sahaja mengekalkan profil. --config yang berlainan memilih ruang kerja berasingan.
+
+--resume, --sessions, --detach-session dan --close-session ialah operasi pengurusan yang berasingan: jangan gabungkan antara satu sama lain atau dengan pilihan konfigurasi/sambungan/permulaan. Bendera antara muka yang disokong boleh kekal dalam alias. --background tidak boleh digabung dengan operasi ini, --init-config atau --check-config. --test-mode tidak boleh digabung dengan --init-config/--check-config (status penggunaan 2).
+
+===== SOURCE CHAPTER: OFFLINE TEST MODE =====
+EXACT COMMAND/CONTROL EXAMPLES (not translated):
+vipirc --test-mode
+vipirc --test-mode --config /absolute/config.ini --no-connect
+
+Simulasi menggunakan antara muka, penyunting, penapis serta pengendalian protokol dan baris gilir yang berkenaan, tetapi tanpa soket rangkaian, DNS, pembacaan kata laluan/fail CA, GPG atau penyimpanan. Nama hos yang ditetapkan hanya label. Setiap profil ada simulator berasingan; New server menambah satu lagi. Nilai pelayan/nama samaran yang tiada tidak ditanya; saluran demo lalai ialah #test-one dan #test-two apabila tiada saluran ditetapkan.
+
+Simulasi bermula selepas kata alu-aluan tanpa mengira autoconnect tersimpan; --no-connect menghalangnya. /disconnect dan /connect menghentikan atau memulakan simulator yang dipilih. Keluar dan mulakan semula tanpa --test-mode untuk rangkaian sebenar. Simulator C setempat tidak memerlukan daemon luar atau Python.
+
+Peristiwa berlaku setiap dua saat: sembang, sebutan, rentetan pantauan, perbualan peribadi dan perubahan senarai ahli. Rentetan watch tersuai bergilir satu setiap kitaran 16 saat. /msg menerima jawapan simulasi berlabel; JOIN/PART/NICK/WHOIS/TOPIC/AWAY turut mempunyai jawapan simulasi. Ini tidak meniru semua peraturan pelayan, kemasukan saluran berkunci, SASL atau penghantaran sebenar.
+
+Cuba pembalutan baris, suntingan merentas baris, ubah saiz, tampal, amaran/pengesahan, sebutan dan senarai. Tawaran DCC contoh hanya wujud dalam memori: semak/tolak/batal berfungsi, tetapi Send/Accept ditolak sebelum sebarang akses fail atau soket. Menutup pelayan sekunder hanya mengubah keadaan semasa. Penulisan konfigurasi dan fail kiraan dinyahdayakan; sunting konfigurasi di luar aplikasi dan mulakan semula untuk perubahan kekal.
+
+--check-config ialah pemeriksaan berasingan bagi sintaks dan nilai konfigurasi tersimpan. Kedua-dua mod tidak membuktikan DNS, TLS, kelayakan atau keserasian bouncer sebenar.
+
+===== SOURCE CHAPTER: GLOBAL HEADER AND CHAT CONTROLS =====
+PENGEPALA GLOBAL DAN KAWALAN SEMBANG
+
+    F1 vipirc                Aplikasi, tetapan, bantuan, About dan lesen.
+    F2 Servers (N)           Sesi pelayan yang dikonfigurasikan atau disimpan.
+    F3 Channels (N)          Saluran tersimpan pada pelayan yang dipilih.
+    F4 Queries (N)           Perbualan peribadi pada pelayan terpilih.
+    F5 Mentions/unread (M/U) Sebutan tersimpan / perbualan asal yang belum dibaca.
+    F6 File transfers (N)    Pemindahan tersimpan merentas semua pelayan.
+
+Hanya kategori yang mempunyai kandungan dipaparkan; vipirc sentiasa ada. Saluran yang telah ditinggalkan tetapi masih mempunyai sejarah serta rekod pemindahan selesai masih dikira. Nombor kekunci fungsi tetap dan tidak berubah apabila kategori disembunyikan. Pintasan kategori tersembunyi tidak menciptanya; arahan senarai yang jelas masih boleh membuka senarai kosong. TERM menentukan penyahkodan kekunci; kekunci yang dikhaskan terminal mesti diteruskan kepada klien. Urutan yang ditampal tidak mengaktifkan pintasan.
+
+Perbualan mempunyai baris sendiri di bawah pengepala; nama samaran query tidak menggantikan Queries. Pengepala sempit masih menunjukkan kategori yang dipilih. Settings > Interface > Shortcut labels menyembunyikan label biasa F1..F6; kekunci yang tidak diikat masih berfungsi. Hints mengawal panduan pilihan secara berasingan. Kedua-dua keutamaan dimiliki profil utama dan memerlukan Save untuk kekal.
+
+Anak panah mengendalikan badan paparan atau penyunting, bukan bar atas. Escape dari query membuka Queries dengan query itu dipilih; dari sembang lain membuka vipirc; dari panel biasa memulihkan sembang/draf/kursor; Settings dan lesen kembali ke vipirc. F1 membuka vipirc secara terus. Dialog keselamatan dan tangkapan tampalan memproses input terlebih dahulu.
+
+Pada panel vipirc, b/Back kembali ke sembang; Escape bertanya Really quit? [Y/N]. Hanya y/Y yang baharu mengesahkan. Kekunci biasa lain membatalkan; tampalan, klik dan perubahan saiz tidak boleh mengesahkan. Gangguan/penggantungan terminal mengikuti TERMINAL SIGNALS.
+
+Senarai berkongsi kawalan: Up/Down atau k/j memilih baris, Left/Right atau h/l memilih tindakan, Enter melaksanakan. Home/End atau g/G memilih hujung. Open dipilih pada awalnya; menukar baris mengekalkan tindakan yang dipilih. Baris berhenti di hujung senarai. Kedua-dua baris dan tindakan kekal diserlahkan. Klik item untuk membukanya atau baris tindakannya untuk bertindak pada pilihan. Delete melaksanakan Close pada baris pelayan/saluran/query dengan perlindungan/pengesahan biasa; dalam penyunting ia memadam teks.
+
+Anak panah dalam sembang menyunting teks, hjkl ialah teks harfiah, Tab/Shift-Tab melengkapkan nama samaran, Page Up/Page Down melayari sejarah, / pada kedudukan kursor sifar membuka Command. Enter menghantar; /clearinput mengosongkan seluruh draf. Mod tetikus turut menunjukkan Clear/Send di bawah medan tetap. Kedua-dua cara menggunakan pemeriksaan mesej yang sama. Tampalan sembang berkurung (bracketed paste) ialah teks harfiah; tab ditukar kepada ruang dan tampalan tidak menghantar. Selepas tampalan tamat, kekunci/klik menunggu skrin lengkap kelihatan, kelompok input berikutnya dan sela tenang. Menahan kekunci memanjangkan tempoh menunggu. Bingkai terlalu kecil atau gagal tidak dikira; ubah saiz, lepaskan kekunci, kemudian bertindak. Senarai/pembaca/dialog keselamatan mengabaikan tampalan. Penyunting aktif Command/Settings/pemindahan menerima data mengikut peraturan masing-masing.
+
+===== SOURCE CHAPTER: NICKNAME COMPLETION =====
+PELENGKAPAN NAMA SAMARAN
+
+Tab melengkapkan nama samaran di kedudukan kursor sembang. Tekanan Tab berikutnya mengitar nama yang sepadan dalam turutan abjad mengikut peraturan huruf besar/kecil; Shift-Tab mengundur. Padanan mengikut peraturan ASCII, strict RFC1459 atau RFC1459 yang diumumkan pelayan. Tiada carian rangkaian atau penghantaran mesej diperlukan. Penyuntingan biasa menamatkan kitaran pelengkapan.
+
+Pada awal draf, pelengkapan menambah ': '; selepas perkataan yang bukan pertama, ia menambah ruang. Pelengkapan di tengah draf mengekalkan tanda baca dan perkataan selepasnya. Saluran dan URL tidak dianggap awalan nama samaran. Jika calon melebihi had bait atau aksara, seluruh draf dibiarkan tanpa perubahan. Jika melepasi had mesej IRC yang lebih kecil, amaran biasa dipaparkan; pelengkapan tidak pernah menghantar mesej.
+
+Dalam saluran, senarai ahli semasa digunakan. Dalam perbualan peribadi, calon ialah rakan perbualan dan nama samaran sendiri. Paparan pelayan dan sebutan menggunakan pengguna yang diketahui daripada saluran disertai dan perbualan peribadi pelayan itu. Pengguna pelayan lain tidak pernah menjadi calon. Perubahan ahli digunakan untuk pelengkapan seterusnya tanpa menyimpan senarai pengguna tambahan.
+
+===== SOURCE CHAPTER: COMMAND PROMPT =====
+PROM ARAHAN
+
+Buka Command melalui F1 > Command, melalui /, atau dengan menaip / pada kedudukan sifar kursor sembang. Draf dan kursor sembang disimpan secara bebas. Garis miring di tempat lain atau dalam tampalan sembang bracketed paste ialah teks biasa. Enter/Run menghantar arahan; Escape/Cancel kembali ke skrin pembuka, termasuk Summary. Input kosong tidak bertindak. Arahan diterima kembali ke sembang kecuali membuka skrin lain; arahan tidak sah/ditolak kekal boleh disunting.
+
+Settings > Interface > Command suggestions menawarkan lima susunan: Commonly used (lalai dipilih mengikut sambungan/paparan), Recent history (baris arahan lengkap yang diterima, terkini dahulu), Most used (bilangan arahan kanonik bagi profil tersimpan), Alphabetical (nama arahan yang dilaksanakan), dan Contextual (keutamaan pada skrin asal sambil mengekalkan padanan lain).
+
+Taip awalan nama arahan tanpa mengira huruf besar/kecil untuk menapis cadangan; argumen tidak diramal. Down memilih cadangan, Up/Down melayari, dan Up dari baris pertama kembali ke input. Enter pada pilihan hanya memasukkannya tanpa menjalankan: baris katalog mengekalkan argumen sedia ada, baris sejarah memasukkan seluruh baris. Semak/sunting kemudian tekan Enter sekali lagi selepas ia dipaparkan. Byte Enter tambahan dalam kelompok input sama tidak dapat melaksanakannya. ? pada pilihan membuka bantuan dan memulihkan pilihan; ? dalam input ialah teks biasa.
+
+Delete membuang entri Recent terpilih atau menetapkan semula bilangan Most used; ia tidak menghapuskan arahan yang disokong. Page Up/Page Down atau roda tetikus melayari cadangan. Baris tidak kelihatan pada terminal kecil tidak boleh dipilih. Right pada hujung awalan nama melengkapkan/menukar pilihan; klik cadangan memasukkannya. Tab bukan navigasi header atau pelaksanaan. Pelengkapan nama samaran kekal di sembang.
+
+Up dari input memanggil arahan diterima yang sepadan dengan awalan asal; Down kembali ke entri lebih baharu dan draf asal. Argumen dibandingkan byte-for-byte. Arahan gagal tidak direkod. Sejarah maksimum 64 entri/64 KiB setiap pelayan, mengelak duplikasi berturut-turut dan membuang yang tertua. Pemanggilan sejarah hanya wujud selagi frontend dan pelayan terbuka; menukar frontend atau menamatkan worker membuangnya.
+
+Bilangan penggunaan berterusan adalah berasingan: CONFIG_PATH.commands menyimpan maksimum 96 nama kanonik dan bilangan terhad, bukan argumen/sasaran/sembang. Profil tersimpan membolehkan kemas kini peribadi atomik automatik apabila arahan diterima atau bilangan direset; profil belum disimpan menyimpan bilangan dalam memori sehingga Save. Fail bilangan rosak/hilang tidak menghalang permulaan. Test mode tidak membaca atau menulis bilangan; konfigurasi utama tidak menyimpannya.
+
+Arahan join dengan kunci dan mesej perkhidmatan/pengesahan yang dikenali dikecualikan sepenuhnya daripada ingatan. Mesej tidak berbahaya kepada perkhidmatan sensitif yang dikenali turut dikecualikan. Penapisan ini tidak dapat mengenali setiap rahsia sewenang-wenangnya; jangan masukkan rahsia dalam sembang biasa. Kawalan bouncer diterangkan dalam BOUNCER CONNECTIONS.
+
+Tampalan Command ialah data: CR/LF/Tab bertukar kepada ruang, kawalan atau saiz yang tidak disokong dilaporkan dan Enter/Run baharu masih diwajibkan. Tiada petikan shell, penggantian, rangkaian arahan atau pelaksanaan shell. Argumen TEXT/PATH mengambil baki teks secara literal; petik #channel hanya dalam shell sebenar, bukan di sini. /msg, /me dan // tetap tertakluk pada had mesej, sela penghantaran dan kebenaran pecahan dengan pilihan lalai No. // ialah sembang literal, bukan sejarah Command. Tindakan Join/New mengisi awal /join atau /pm.
+
+===== SOURCE CHAPTER: COMMAND REFERENCE INDEX =====
+Berikut ialah sintaks kanonik mod penuh. Kesan dan contoh ada dalam seksyen berkaitan; alias turut didokumenkan di situ. /help COMMAND mencari manual ini. Katalog minimalis berasingan tersedia melalui vipirc -i --manual. Baris arahan di bawah dikekalkan secara harfiah.
+
+    /autoauth [status|off|sasl USER file PATH|sasl USER gpg PATH]
+    /autocommands [list|add COMMAND|remove NUMBER|clear|on|off|delay
+      SECONDS|interval SECONDS]
+    /autoconnect [on|off]
+    /autojoin [list|add #CHANNEL|remove #CHANNEL|clear]
+    /away [MESSAGE]
+    /back
+    /background
+    /bind KEY ACTION
+    /bindings [actions|keys]
+    /cancel
+    /channel NUMBER|#CHANNEL
+    /channels
+    /cl
+    /clear
+    /clearinput
+    /close [NAME|NUMBER]
+    /connect [-tls|-plain] [-nick NICK] HOST [PORT] | /connect
+    /dcc [NICK PATH|list|send|accept|reject|cancel ...]
+    /disconnect [SERVER_NUMBER]
+    /help [TEXT]
+    /ignore [list|clear|[add|remove] MASK]
+    /join #CHANNEL [KEY]
+    /keymap [original|vim]
+    /list [MASK] [--min-users N] [--max-users N] [--name TEXT] [--topic
+      TEXT] [--sort channel|users|topic] [--asc|--desc] [--limit N] | /list
+      show [--sort channel|users|topic] [--asc|--desc] [--limit N] | /list
+      clear
+    /ls [servers|channels|queries|unread]
+    /manual
+    /me TEXT
+    /mentions [clear]
+    /mouse [on|off]
+    /msg TARGET TEXT
+    /next
+    /nick NICK
+    /panel
+    /part [#CHANNEL] [MESSAGE]
+    /pm NICK|NUMBER
+    /prev
+    /ql
+    /queries
+    /query NICK|NUMBER
+    /quickstart
+    /quit [MESSAGE]
+    /save [input|output|all]
+    /saveconf
+    /server [-tls|-plain] [-nick NICK] HOST [PORT] | /server [NUMBER|add
+      HOST [PORT] [NICK]|connect NUMBER|disconnect NUMBER|close NUMBER]
+    /servers
+    /set send_mode direct|review | composer_mode line|fullscreen |
+      output_format compact|full | queue_notices on|off | program_messages
+      on|off | persistent_logging on|off | single_session on|off |
+      default_interface idle|ncurses | command_suggestions
+      common|history|frequent|alphabetical|contextual | part_message [TEXT]
+      | quit_message [TEXT] | background_away on|off |
+      background_away_message TEXT | autoaway_minutes 0..1440 |
+      autoaway_message TEXT
+    /settings
+    /sl
+    /soju [COMMAND]
+    /summary
+    /topic [TEXT]
+    /transfers
+    /unbind KEY|all
+    /unignore MASK
+    /unread
+    /users [on|off|toggle|up|down]
+    /view NAME|NUMBER
+    /views
+    /watch [list|add TEXT|remove TEXT]
+    /whois NICK
+    /znc [COMMAND]
+
+===== SOURCE CHAPTER: CONNECTION AND STARTUP COMMANDS =====
+ARAHAN SAMBUNGAN DAN PERMULAAN
+
+/connect dengan pilihan menyambung terus ke HOST; /connect tanpa argumen menggunakan profil terpilih yang disimpan atau diterapkan. /server HOST [PORT] mengikuti laluan langsung yang sama. /server NUMBER memilih profil tanpa menyambung, /server sahaja membuka paparan pelayan/MOTD; /server add HOST [PORT] [NICK] menambah profil yang belum bersambung dan belum disimpan. /server connect NUMBER, /server disconnect NUMBER dan /disconnect [NUMBER] mengawal sambungan bernombor. /server close NUMBER menutup profil sekunder sambil mengekalkan fail profil pada cakera.
+
+Destinasi baharu menggunakan TLS yang disahkan pada 6697 dan nama samaran atau nama pengguna masuk yang sah; kelayakan dan saluran tidak diwarisi. Destinasi sepadan mengekalkan transport, port, nick, auth dan memilih sambungan aktif sedia ada tanpa menduplikasikannya. Jika beberapa profil bouncer berkongsi hos, pilih NUMBER yang betul sebelum /connect. Tiada arahan sambungan menyimpan secara tersirat. Slot mod penuh ialah 0..7 (utama 0), mod minimalis 1..8 (utama 1). Arahan connect/disconnect tidak menukar pilihan. Gunakan nombor daripada /servers dalam frontend, bukan nombor pilihan /panel yang berbeza.
+
+Pilihan /connect mendahului HOST. -ssl ialah alias -tls; +PORT meminta TLS, manakala nombor port biasa tidak pernah mematikan TLS. Bentuk --tls, --plain dan --nick turut sah; teks biasa baharu menggunakan 6667. Kata laluan bukan argumen kedudukan. Close sekunder mengeluarkan rujukan katalog, draf/sejarah dan pemindahan tetapi mengekalkan fail profil sebenar.
+
+/autoconnect mengubah permulaan seterusnya, bukan sambungan semasa. /autojoin menyediakan senarai saluran profil langsung untuk /connect jelas berikutnya tanpa menyertai/meninggalkan sekarang. Pertanyaan menunjukkan pendaftaran serta keahlian aktif dan tertunda. Cubaan sambung semula automatik mengekalkan tetapan yang sedang berjalan; /connect ketika terputus menggunakan perubahan yang diterapkan. /join bertindak selepas pendaftaran. Bouncer memulihkan keahlian sendiri dan menolak suntingan autojoin; perubahan /autoauth juga ditolak untuk bouncer, gunakan Settings atau /panel.
+
+/autoauth menyediakan SASL melalui TLS disahkan sahaja. Status menunjukkan laluan kelayakan semasa/tertunda secara penuh setempat tanpa membacanya; paparan Settings biasa menyembunyikannya. Pertanyaan mod penuh mempunyai Refresh/Back serta mengekalkan draf. PATH ialah baki teks literal termasuk ruang. Rahsia langsung hendaklah disimpan dalam konfigurasi peribadi/Settings, bukan pada baris arahan.
+
+/save tanpa argumen menulis profil berkesan terpilih, termasuk pilihan tertunda. /save input dan /save output kedua-duanya menulis profil utama yang mengandungi pilihan aplikasi; ia alias, bukan simpan input atau output sahaja. Perubahan sambungan utama tertunda turut disimpan. /save all menulis profil sihat; /saveconf juga mengingati profil lalai terpilih untuk /connect kemudian. Menyimpan tidak mengaktifkan autoconnect. Setiap fail ditulis secara peribadi dan atomik, tetapi keseluruhan ruang kerja bukan satu transaksi: kejayaan awal kekal apabila tindakan kemudian gagal. Profil tidak boleh dibaca tidak ditimpa. Test mode tidak menyimpan.
+
+/set autoconnect on|off ialah alias keserasian mod penuh. /set pilihan aplikasi berfungsi pada kedua-dua antara muka; tetapan penghantaran/komposer/paparan output mempengaruhi minimalis. /panel membuka tetapan berpandu di kedua-duanya; /quickstart menanyakan empat keperluan sambungan. /settings membuka borang dalam mod penuh dan laporan dalam mod minimalis.
+
+/list [MASK] [OPTIONS] meminta direktori saluran rangkaian selepas pendaftaran. Hanya MASK dihantar ke pelayan; --min-users/--max-users, --name dan --topic menapis setempat. --sort channel|users|topic, --asc/--desc dan --limit N mengawal paparan; lalai ialah pengguna menurun, --limit 0 bermakna tiada sekatan paparan dalam cache 8192 entri. /list show boleh mengubah susunan/had tanpa permintaan baharu; /list clear mengosongkan cache. /ls dan /cl hanya memaparkan pandangan tempatan.
+
+Apabila sambungan putus atau pelayan menolak LIST secara jelas, hasil separa cache kekal tetapi permintaan dilepaskan. Cuba semula /list selepas pendaftaran, atau /list clear; hasil tidak lengkap bukan direktori rangkaian penuh.
+
+Pelayar penuh menggunakan Up/Down atau j/k untuk baris, Left/Right atau h/l untuk lajur pengisihan, s untuk membalikkan, Page Up/Page Down dan g/G untuk gerak, Enter untuk join, r untuk mengulangi permintaan, / untuk Command dan Escape untuk kembali. Klik lajur mengisihnya. Dalam mod minimalis, /list show mencetak cache; /summary memberikan ringkasan ruang kerja setempat yang berasingan.
+
+EXACT COMMAND SYNTAX (not translated):
+
+    /connect [-tls|-plain] [-nick NICK] HOST [PORT]
+    /connect
+    /server HOST [PORT]
+    /server NUMBER
+    /server
+    /server add HOST [PORT] [NICK]
+    /server connect NUMBER
+    /server disconnect NUMBER
+    /disconnect [NUMBER]
+    /server close NUMBER
+
+    /autoconnect [on|off]
+    /autojoin [list|add #CHANNEL|remove #CHANNEL|clear]
+    /autoauth [status|off|sasl USER file PATH|sasl USER gpg PATH]
+    /save [input|output|all]
+    /saveconf
+    /set autoconnect on|off
+    /panel
+    /quickstart
+    /settings
+
+    /list [MASK] [OPTIONS]
+    /list show
+    /list clear
+    /ls
+    /cl
+    /summary
+
+    -ssl   -tls   +PORT   --tls   --plain   --nick
+    --min-users   --max-users   --name   --topic
+    --sort channel|users|topic   --asc   --desc   --limit N
+
+===== SOURCE CHAPTER: SESSION SUMMARY =====
+/summary membuka gambaran keadaan setempat bagi seluruh klien yang sedang berjalan dalam pembaca boleh tatal berasingan. Ia berfungsi tanpa sambungan dan mengumpulkan maklumat mengikut pelayan. Kandungannya: status sambungan dan nama samaran, saluran 0, paparan saluran disertai atau ditinggalkan, perbualan peribadi, bilangan belum baca dan sebutan, giliran keluar, arahan permulaan tertangguh serta pemindahan fail dengan status terkini. Jumlah tidak menggandakan suapan sebutan salinan. Sebutan mungkin juga belum baca, jadi dua jumlah itu tidak dicampurkan.
+
+Membuka atau menyegarkan ringkasan tidak menukar perbualan, menandakan mesej sudah dibaca, menghantar permintaan rangkaian atau mengganti draf. Ia memaparkan bilangan baris gilir tanpa membocorkan teks mesej tertangguh, arahan automatik atau kelayakan. Ringkasan melaporkan keadaan semasa, bukan mentafsir kandungan sembang.
+
+Dalam antara muka penuh, gunakan Up/Down atau k/j, Page Up/Page Down dan Home/End atau g/G. Tekan r atau R, aktifkan Refresh dengan papan kekunci atau klik Refresh untuk petikan baharu. Escape atau Back kembali ke asal. Dalam vipirc -i, r menyegarkan pembaca respons. Jika penyegaran gagal, petikan lama dikekalkan. Rangkaian terus berjalan ketika membaca. / membuka Command; membatalkannya kembali ke petikan tadi. ? menunjukkan bantuan ringkasan dan pembaca.
+
+===== SOURCE CHAPTER: SETTINGS =====
+TETAPAN
+
+F1 > Settings atau /settings membuka tetapan antara muka, semua profil pelayan dan pilihan New server tanpa menukar perbualan. Baris memaparkan status sambungan automatik dan status simpanan. Medan pelayan merangkumi pengangkutan, identiti, penyertaan saluran automatik, sambungan automatik, sumber akaun dan kata laluan pelayan (PASS), CA tersuai, jenis/nama pengguna/rangkaian/klien bouncer dan status jauh automatik, sejarah, sebutan serta peraturan abaikan. Tetapan antara muka merangkumi User list, Mouse, Hints, Shortcut labels, pemberitahuan, pengelogan, mod satu sesi, cadangan perintah dan antara muka lalai.
+
+    Edit    Apply    Save    Back    Cancel
+
+Up/Down atau k/j memilih medan; Left/Right atau h/l memilih tindakan; Enter melaksanakannya. Home/End atau g/G pergi ke hujung senarai. Edit menogol nilai boolean, membuka pilihan atau menyunting teks/nombor. Enter dalam penyunting hanya menyediakan nilai berkenaan; Tab/Shift-Tab mengesahkannya lalu menyediakan nilai sebelum bergerak. Input tidak sah kekal boleh disunting. Huruf dalam penyunting dianggap teks. Medan watch/ignore sedia ada yang dikosongkan akan dipadamkan; Add menambah entri baharu dalam had yang dibenarkan.
+
+Apply mengesahkan dan mengemas kini keutamaan aktif, watch/ignore serta sambungan automatik, kemudian kekal di Settings dengan Edit dipilih. Medan sambungan, termasuk identiti bouncer, menjadi perubahan tertangguh sehingga Connect yang dinyatakan secara jelas selepas terputus sambungan. Apply tidak sekali-kali menyimpan, menyambung semula atau menghalakan semula sesi aktif. /nick, /join dan /part mengubah sambungan yang sedang berjalan. Save menulis profil berkesan secara persendirian dan atomik, kemudian menerapkannya; /save juga mengekalkan pilihan tertangguh. Save pertama bagi pelayan sekunder menghasilkan profil terasing dan entri katalog.
+
+Interface Apply mengemas kini semua slot pelayan semasa dan akan datang. Interface Save menulis konfigurasi utama sebelum menerapkan perubahan. Jika Interface Save gagal atau disekat, semua sesi tidak berubah. Kunci antara muka pada profil sekunder tidak boleh mengatasi tetapan utama semasa permulaan. Sejarah kekal mengikut pelayan dalam mod penuh. Antara muka lalai hanya dipilih apabila pelancaran baharu dilakukan.
+
+Hints menyembunyikan panduan pilihan tetapi mengekalkan tajuk, kawalan, ralat dan pengesahan keselamatan. Shortcut labels menyembunyikan awalan F1..F6 yang biasa. Kedua-duanya dihidupkan secara lalai dan disimpan di bawah [interface]. Tetapan ini tidak bergantung pada warna terminal biasa atau penegasan tebal untuk fokus.
+
+Menukar Server kepada nilai yang berbeza tanpa mengira huruf besar/kecil membuang pengesahan yang diwarisi, auth user, semua sumber kata laluan akaun/PASS dan autojoin daripada borang yang disediakan. Menukar jenis bouncer membuang kelayakan/perintah lama; masukkan semula nilai yang dikehendaki. Sesi aktif tidak terjejas. Fail tidak dibaca atau dinyahsulit semasa penyuntingan; kata laluan sebaris disembunyikan tetapi ruang kosongnya dikekalkan. Transport memilih TLS yang disahkan atau teks biasa secara jelas, berasingan daripada penyimpanan kata laluan yang disulitkan.
+
+Back kembali ke halaman utama Settings. Cancel/Escape menutup seluruh borang, walaupun ketika berada di medan atau tetingkap timbul, membuang perubahan yang belum diterapkan dan kembali ke vipirc. Keutamaan atau pilihan tertangguh yang telah diterapkan serta draf perbualan kekal. Mod ujian membenarkan Apply dalam ingatan tetapi menolak Save. Mencipta atau menyambung pelayan melalui Settings mengekalkan pilihan perbualan aktif.
+
+Bracketed paste hanya berfungsi dalam medan aktif, menyisipkan teks tanpa mengesahkannya dan menukar tab kepada ruang. CR/LF/Escape serta kawalan tidak disokong ditolak. Tampalan dalam senarai atau pilihan timbul diabaikan. Semak teks, kemudian tekan Enter untuk menyediakannya. Aliran berpandu /panel ialah sesi soal jawab berasingan yang diterangkan dalam MINIMALIST INTERFACE.
+
+===== SOURCE CHAPTER: CUSTOM KEY BINDINGS =====
+IKATAN KEKUNCI TERSUAI
+
+Tiada kekunci tersuai ditetapkan secara lalai. App > Key bindings atau /bindings membuka jadual dalam vipirc penuh. Add/Edit memilih nama kekunci dan tindakan setempat; Remove membuang baris. Apply menggunakan perubahan dalam ingatan; Save turut menulis konfigurasi utama. Escape/Cancel membatalkan suntingan yang belum digunakan. Draf sembang dikekalkan. Jadual mempunyai kawalan tersendiri yang tidak dipengaruhi ikatan tersuai.
+
+Dalam kedua-dua antaramuka, /bindings keys dan /bindings actions menyenaraikan nama yang tersedia. Contoh pilihan pengguna: /bind F7 summary dan /bind Alt-c command, dimasukkan sebagai arahan berasingan. /unbind F7 membuang satu ikatan, manakala /unbind all mengosongkan jadual tersuai. /save input menyimpan perubahan bagi semua profil pelayan. Dalam mod -i, /bindings memaparkan jadual; /bind dan /unbind menyuntingnya menerusi arahan.
+
+Kekunci yang disokong: F1..F12, Ctrl-A..Z, Alt-a..z/0..9, Up, Down, Left, Right, Home, End, PageUp, PageDown, Insert, Delete, Backspace, Tab, Shift-Tab, Enter, Escape. Alias: Ctrl-H/Backspace, Ctrl-I/Tab, Ctrl-J/Ctrl-M/Enter dan Ctrl-[/Escape. Huruf Alt menggunakan bait huruf kecil terminal. Pintasan yang dipintas oleh terminal atau pemultipleks dan pemetaan isyarat diberi keutamaan; tiada kekunci isyarat ditugaskan semula.
+
+Tindakan yang disokong: compose, command, bindings, help, manual, summary, servers, channels, queries, unread, mentions, transfers, settings, quickstart, next, prev, clearinput, cancel, background, quit. Tiada makro untuk menghantar mesej atau menjalankan arahan sewenang-wenangnya. Dalam mod penuh, arahan yang dipulihkan memerlukan Enter baharu sekali untuk mengakuinya, kemudian Enter kedua selepas jeda untuk menjalankannya. Jika sasaran asal telah ditutup, Run disekat.
+
+Tindakan tersuai hanya berfungsi dalam sembang utama dan masukan arahan, bukan semasa tampalan teks, dalam medan kata laluan, persediaan awal, pembaca atau dialog pengesahan. Tampalan tanpa pembingkaian tetap dianggap taipan. Pembaca pintasan minimalis mengekalkan draf dan kursor; pertukaran sasaran atau penyunting menolak draf yang tidak kosong. clearinput sengaja menghapuskan draf semasa.
+
+Bahagian [hotkeys] konfigurasi utama menyimpan baris KEY=action tanpa baris lalai. Entri tidak dikenali, berganda atau melebihi had menyebabkan keseluruhan muatan ditolak secara atomik. Sehingga 64 entri disokong. Rujuk doc/HOTKEYS.txt untuk penyimpanan, had terminal dan contoh.
+
+===== SOURCE CHAPTER: TERMINAL SIGNALS =====
+ISYARAT TERMINAL
+
+Ctrl-D yang ditaip secara langsung diabaikan kecuali ditetapkan secara khusus dalam input sembang/arahan utama; ia juga boleh membatalkan soalan keluar F1. Ctrl-D yang ditampal tidak boleh menjawab soalan tersebut. Untuk keluar secara biasa, jalankan /quit dalam Command. Pemetaan isyarat terminal tersuai kekal mengatasi pengendalian kekunci biasa.
+
+Secara lalai, pengendalian isyarat diwarisi daripada terminal. Klien tidak menetapkan Ctrl-C atau Ctrl-Z: kekunci ini hanya bertindak jika terminal memetakannya kepada isyarat dan pengendalian isyarat diaktifkan. Kekunci gangguan, keluar dan gantung tersuai dikekalkan. Untuk mengaktifkan pengendalian isyarat secara jelas, tetapkan keutamaan konfigurasi utama ini dan mulakan proses klien baharu:
+
+    [input]
+    use_signals=true
+
+Nilai lalai false mengekalkan keadaan aktif atau tidak aktif yang diwarisi. Tetapan ini tidak mengubah pemetaan kekunci terminal. Klien memulihkan tetapan terminal asal apabila digantung atau ditamatkan.
+
+Apabila diaktifkan, gangguan terminal menamatkan klien tanpa menyimpan draf. Menggantung proses biasa di latar hadapan menghentikan rangkaiannya dan boleh menyebabkan tamat masa; fg menyambungkannya. Dalam kerja yang diurus/disambung semula, hanya pengawal latar hadapan digantung manakala proses pekerja terus berhubung dengan rangkaian; lihat RUNNING IN THE BACKGROUND.
+
+===== SOURCE CHAPTER: RUNNING IN THE BACKGROUND =====
+PENGURUSAN SESI DAN PROSES LATAR BELAKANG - vipirc 0.7.36
+Terjemahan lengkap bahagian MANUAL.txt daripada RUNNING IN THE BACKGROUND hingga UPGRADING A RUNNING WORKER.
+Status: draf; jika terdapat percanggahan, MANUAL.txt bahasa Inggeris menjadi rujukan utama.
+
+BERJALAN DI LATAR BELAKANG
+
+/background atau F1 > Background mengekalkan sambungan IRC, pemindahan yang diterima, draf dan sejarah dalam ingatan sambil memulihkan terminal. Program memaparkan arahan bernombor untuk menyambung semula, contohnya vipirc --resume 1. Pemisahan pertama mewujudkan satu proses pekerja dan titik komunikasi peribadi; pemisahan seterusnya mengekalkan nombor, keadaan dan titik tersebut. Penggunaan biasa di latar depan tidak mempunyai titik komunikasi atau proses pembantu tambahan ini.
+
+Apabila disambung semula, keupayaan, saiz dan tetapan locale terminal dibaca semula pada hos dan akaun Unix yang sama. stdin/stdout/stderr mesti berkongsi satu tty interaktif. Satu pengawal latar depan mengendalikan isyarat dan perubahan saiz; hanya satu terminal boleh dilampirkan pada satu-satu masa. Bahagian SESSION RECOVERY AND UPGRADES menerangkan pemilihan kerja dan lampiran yang sedang digunakan.
+
+Untuk memulakan tanpa pengawasan, simpan dahulu profil yang ingin disambungkan secara automatik, kemudian jalankan vipirc --background --reconnect --config /absolute/config.ini. --background tidak menghidupkan sambungan automatik dan --no-connect menghalangnya. Kejayaan hanya mengesahkan persediaan setempat. tty dan TERM tidak diperlukan sehingga terminal dilampirkan. Titik peribadi disediakan sebelum pembantu resolusi DNS dan kelayakan. --resume tanpa pilihan antara muka mengekalkan antara muka pekerja; -i/-N menukarnya secara nyata tanpa menyambung semula atau menggantikan pekerja. Penukaran antara muka mengekalkan sejarah perbualan dan pemindahan yang diterima, tetapi membuang draf, semakan penghantaran yang belum selesai, sejarah arahan dan borang yang belum digunakan. Selesaikan atau salin draf sebelum menukar. Pisah dan sambung semula dengan antara muka yang sama untuk mengekalkan keadaan setempat ini. Pekerja lama mungkin hanya menyokong antara muka asalnya.
+
+Isyarat terminal yang dikonfigurasi mengekalkan fungsinya. Menggantung pengawal yang disambung semula menghentikan sementara pengawal, sementara pekerja masih berhubung melalui rangkaian; fg memulihkan interaksi. Menggantung proses latar depan biasa pula menghentikan sementara rangkaiannya. Lihat TERMINAL SIGNALS tentang pemetaan isyarat warisan dan SESSION RECOVERY tentang kehilangan terminal.
+
+Pemisahan pertama mungkin memerlukan cubaan semula sementara pembantu DNS atau kelayakan menyelesaikan tugas. SIGCHLD yang diabaikan atau pembersihan automatik proses anak menghalang permulaan pekerja latar belakang pertama dan penciptaan pembantu; pelancar mesti membenarkan proses anak ditunggu. Pemisahan semula kerja yang telah diurus tidak mewujudkan pekerja baharu.
+
+Direktori dan soket hanya boleh diakses pemilik. Pencarian menyemak maksimum 64 slot dalam satu had masa 1500 ms dan membuang hanya entri lapuk yang disahkan tanpa kunci hayat yang masih dipegang. Program tidak menghantar isyarat kepada PID yang diteka. Kerja yang tidak bertindak balas kekal belum disahkan. Pemeriksaan identiti dan kejadian menghalang nombor yang digunakan semula daripada mengalihkan lampiran semasa serah tugas. Proses lain dengan keistimewaan akaun yang sama masih dianggap dipercayai. single_session=true menolak proses pekerja kedua dalam ruang nama vipirc tanpa mengehadkan pelayan di dalam pekerja pertama.
+
+Keadaan pekerja tidak disirikan ke cakera: but semula, keluar atau penamatan menghilangkan draf, penanda dan sejarah dalam ingatan. Log pilihan hanya menyimpan transkrip. Mod ujian boleh berjalan di latar belakang menggunakan titik setempat tanpa menghidupkan rangkaian IRC/DCC. Pemultipleks terminal tidak diperlukan.
+
+PEMULIHAN SESI DAN NAIK TARAF
+
+Satu kerja shell ialah satu proses pekerja klien bersama semua sambungan IRC, pemindahan, draf dan sejarah tersimpannya. Nombor kerja berbeza daripada PID sistem pengendalian dan nombor pelayan yang dipaparkan dalam klien.
+
+Untuk memulihkan kerja yang terminal SSH lamanya masih dilampirkan:
+
+    vipirc --sessions
+    vipirc --detach-session 1
+    vipirc --resume 1
+
+Pilih NUMBER daripada senarai semasa. --detach-session melepaskan pengawal yang disahkan, menunggu sehingga terpisah dan mengekalkan pekerja serta keadaan IRC. --resume tanpa nombor hanya memilih satu kerja terpisah yang telah disahkan; jika terdapat beberapa atau calon belum disahkan, pilihan nyata diperlukan. Ia tidak pernah mengambil alih terminal yang masih dilampirkan. Nombor kerja kekal sehingga keluar dan boleh digunakan semula selepas itu.
+
+MENUTUP SESI DARIPADA SHELL
+
+Gunakan hanya jika seluruh kerja hendak ditamatkan:
+
+    vipirc --sessions
+    vipirc --close-session 1
+
+Penutupan menamatkan semua sambungan IRC dan pemindahan pekerja, serta membuang draf tidak disimpan dan sejarah dalam ingatan. Konfigurasi yang disimpan dan fail log teks biasa yang sedia ada kekal. --close-session=1 dan --detach-session=1 juga diterima. Arahan pengurusan ini tidak memerlukan terminal interaktif dan tidak memuatkan konfigurasi. Jangan gabungkan dengan --resume, --sessions, sesama sendiri, --config atau pilihan sambungan. Bendera antara muka yang disokong boleh kekal dalam alias tanpa mengubah kerja terpilih.
+
+Klien menggunakan titik peribadi pemilik, pemeriksaan pemilikan pihak satu lagi dan token identiti pekerja terpilih. Kejayaan mengesahkan pembersihan aplikasi dan pelepasan kunci hayat kerja asal selesai; bukan sekadar permintaan diterima atau pengesahan bebas bahawa proses sistem pengendalian telah keluar. Permintaan mempunyai had masa tertentu. Kegagalan atau tamat masa tidak membuang titik pekerja yang masih hidup dan tidak menghantar isyarat kepada PID yang diteka. Permintaan yang diterima sebelum had masa mungkin selesai kemudian; semak --sessions sekali lagi.
+
+Pekerja yang tersekat semasa menulis kepada terminal terbuka tetapi tidak dibaca mungkin tidak dapat memproses permintaan kawalan sehingga aliran output lancar atau terminal ditutup. Pekerja yang benar-benar tersekat mungkin memerlukan campur tangan sistem pengendalian setelah proses sebenar dikenal pasti. Status tutup bukan sifar bermaksud penyelesaian belum disahkan.
+
+PEMULIHAN SELEPAS SSH TERPUTUS
+
+Kehilangan terminal atau pengawal bagi kerja yang telah diurus memisahkan pekerjanya. Keadaan hangup/ralat, stdin EOF/EIO, kegagalan stdout, EOF pengawal dan SIGHUP mengekalkan sambungan serta keadaan tersimpan. Dalam mod antara muka penuh, pembersihan selepas kehilangan terminal atau permintaan tutup dari luar mengalihkan output pekerja yang sudah tidak sah sebelum membersihkan curses; pengawal latar depan memulihkan tty sendiri.
+
+Proses latar depan biasa yang tidak pernah diurus masih ditamatkan secara lazim oleh SIGHUP. Mulakan dengan --background atau gunakan /background terlebih dahulu jika kerja perlu boleh disambung semula. Klien tidak mengubah dasar masa tamat melahu SSH pada klien atau pelayan. Paparan segerak terminal masih boleh tersekat jika terminal kekal terbuka tetapi tidak dibaca lagi.
+
+MENAIK TARAF PROSES PEKERJA YANG SEDANG BERJALAN
+
+Memasang atau menyusun semula kod tidak menggantikan kod proses yang masih berjalan. Simpan konfigurasi yang dikehendaki, keluar atau tutup kerja secara sengaja, semak versi dipasang dengan --version, kemudian mulakan kerja baharu. Lakukan perkara yang sama untuk kemas kini keselamatan. Log kekal; draf, sejarah arahan dan penanda pemulihan tidak.
+
+Pekerja lama mungkin tidak menyokong kawalan pisah/tutup baharu atau pertukaran antara muka. Simpan fail boleh laku yang serasi sehingga pekerja dihentikan jika diperlukan untuk melampir dan keluar menggunakan kawalan sedia ada. Operasi lama yang gagal tidak dianggap berjaya hanya kerana titik komunikasi hilang. Fail konfigurasi sedia ada masih boleh digunakan oleh keluaran semasa; fail boleh laku lama mungkin menolak kunci konfigurasi yang disimpan secara nyata oleh keluaran lebih baharu.
+
+Lihat doc/SESSION-CONTROLS.txt untuk proses yang sama dan doc/OPENBSD-VPS.txt untuk persediaan hos tanpa pengawasan. Memasang arkib kod sumber ini tidak menghentikan atau menggunakan apa-apa secara automatik pada hos jauh.
+
+===== SOURCE CHAPTER: SERVERS AND UNREAD ACTIVITY =====
+PELAYAN DAN AKTIVITI BELUM DIBACA
+
+Antaramuka ncurses penuh menyenaraikan slot pelayan 0..7 dengan pelayan utama 0. Semua slot berkongsi satu gelung peristiwa tetapi mempunyai kelayakan, identiti, saluran atau perbualan peribadi, sebutan, senarai pengguna, sejarah dan draf masing-masing. F2 atau /servers membuka tindakan:
+
+    Open    New    Connect    Disconnect    Close    Away    Back
+
+Navigasi senarai umum diterangkan dalam GLOBAL HEADER AND CHAT CONTROLS. Open menunjukkan MOTD pelayan (saluran 0) sambil mengekalkan draf dan kedudukan kursor. Connect/Disconnect bertindak pada baris terpilih. Away menogol status tiada di tempat yang diakui oleh pelayan berdaftar dengan mesej lalai Away. New (juga n) membuka borang; Back/Escape kembali ke sembang.
+
+Pelayan utama 0 tidak boleh ditutup. Disconnect mengekalkan paparan, draf serta pemindahan DCC yang telah diterima. Close pada pelayan sekunder sentiasa meminta pengesahan dengan No sebagai lalai; tindakan ini membuang ingatan pelayan itu, membatalkan tawaran dan pemindahan, mengeluarkan rujukan katalog tetapi mengekalkan fail profilnya. Menutup pelayan sekunder terpilih mengembalikan anda ke pelayan utama. Dalam mod ujian, Close hanya menukar keadaan semasa berjalan.
+
+Borang New mengandungi Server, Port, Transport, Nickname, Autojoin dan Autoconnect serta tindakan Edit, Add, Connect, Advanced, Cancel. Advanced mendedahkan identiti, sumber pengesahan dan pilihan CA sebelum sambungan pertama. Enter menyediakan nilai medan; Escape membatalkan borang. Profil baharu menggunakan TLS6697, identiti login/default dan autoconnect dimatikan, tanpa mewarisi rahsia, CA, saluran atau senarai watch/ignore. Hanya pilihan aplikasi dikongsi. Add mewujudkan pelayan tidak bersambung walaupun kotak autoconnect dipilih; Connect mewujudkan dan terus menyambung. Kedua-duanya memilih pelayan baharu serta memerlukan Save secara nyata untuk kekal disimpan.
+
+Baris memaparkan new N !M bagi aktiviti dan sebutan belum dibaca; paparan dihadkan pada 999+ tanpa mengubah pengira dalaman. Membuka perbualan mengosongkan hanya kiraan sumber itu; senarai yang menutupi perbualan tidak menandakan teks baharu sebagai dibaca. Jumlah mengecualikan salinan Mentions dan Help. Gema mesej keluar tidak menambah kiraan belum dibaca. Membaca Mentions menandakan suapannya secara berasingan, tanpa mengosongkan kiraan perbualan asal.
+
+F5 atau /unread menyusun sebutan yang disimpan dahulu, kemudian perbualan belum dibaca, mengikut pelayan. Sebutan menunjukkan teks penuh yang dibalut bersama cap masa; entri sumber mengenal pasti Server/Channel/Query. Tindakan ialah Open, Clear mentions dan Back. Open memilih sumber; perbualan peribadi yang ditutup boleh dibuka semula menggunakan nama panggilan yang direkodkan tanpa menghantar mesej atau memulihkan sejarah yang telah dibuang. Saluran yang ditutup tidak disertai semula dan pelayan yang tidak tersedia akan dimaklumkan. Identiti sumber yang stabil, bukannya kedudukan atau teks baris, menentukan navigasi.
+
+Clear mentions atau /mentions clear membuang salinan sebutan di semua pelayan tanpa mengubah sejarah perbualan, kiraan belum dibaca, draf atau baris gilir. Sebutan baharu boleh tiba serta-merta. Kekunci halaman menatal sebutan terpilih yang panjang sebelum beralih ke entri lain. /mentions tanpa argumen hanya memilih suapan pelayan semasa.
+
+===== SOURCE CHAPTER: VIEWS AND USERS =====
+Setiap pelayan mempunyai paparan pelayan/MOTD bernombor 0, saluran, perbualan peribadi bernombor berasingan, sebutan dan senarai ahli. Pengepala mengenal pasti pelayan; paparan pelayan mengandungi pendaftaran/MOTD/ralat. Sebutan menyimpan sumber, pengirim dan seluruh teks mesej dalam had protokol. Baris panjang dibalut pada skrin tanpa memendekkan teks tersimpan.
+
+/sl atau /servers membuka pelayan; /cl atau /channels membuka saluran; /ql atau /queries membuka perbualan peribadi. /server memilih MOTD; /channel NUMBER atau #NAME memilih saluran; /pm NICK|NUMBER memilih perbualan. /next dan /prev mengitar paparan. /summary merakam keadaan ruang kerja, /unread menggabungkan sumber/sebutan dan /list meminta direktori rangkaian. Sintaks tepat terdapat dalam COMMAND REFERENCE INDEX.
+
+/users menukar paparan senarai ahli saluran; on/off/up/down mengawal keterlihatan dan tatal. Settings > Interface menggunakan pilihan utama yang sama. Terminal kecil mungkin menyembunyikan panel sisi sehingga ruang mencukupi. Keahlian dan awalan hak mengikuti JOIN/PART/QUIT/NICK/KICK/NAMES pelayan, bukan andaian setempat. Paparan pelayan dan perbualan peribadi tidak ada senarai ahli saluran.
+
+Mesej peribadi yang datang tanpa diminta hanya membuka paparan baharu apabila jumlahnya kurang daripada lapan; selebihnya kekal kelihatan dengan konteks di pelayan/sebutan. /pm atau /msg boleh membuka lebih banyak hingga had 32 paparan. /clear mengosongkan sejarah paparan dalam memori tanpa memadam transkrip cakera; /clearinput mengosongkan drafnya secara berasingan.
+
+===== SOURCE CHAPTER: CHANNEL CHOOSER AND CLOSING CONVERSATIONS =====
+EXACT COMMAND/CONTROL EXAMPLES (not translated):
+Open    Join    Part    Close    Back
+
+F3 atau /channels (/cl, /views) memaparkan entri pelayan/MOTD nombor 0 dan paparan saluran tersimpan, termasuk yang sudah ditinggalkan. Navigasi senarai biasa terpakai; tindakannya Open, Join, Part, Close dan Back.
+
+Join membuka Command dengan /join disediakan tanpa kehilangan draf. Part meninggalkan saluran tetapi menyimpan sejarah; Close membuang paparan. p melakukan Part, c melakukan Close dan o membuka Join. /channel NUMBER atau #NAME memilih paparan tersimpan; /view NUMBER menggunakan penomboran saluran dan /view NAME memilih paparan bernama. Nombor boleh berubah selepas ditutup; rujuk senarai semasa.
+
+Close mula-mula meninggalkan saluran yang masih disertai, membuang sejarah/drafnya dan membatalkan mesej tertangguh untuk sasaran itu; mesej sedang dihantar mungkin selesai. Draf tidak kosong perlu disahkan dengan No sebagai lalai. Paparan pelayan dan sebutan tidak boleh ditutup; /disconnect menghentikan rangkaian pelayan. /close [NAME|NUMBER] menutup saluran/perbualan ditentukan atau perbualan semasa. Saluran 0 tidak boleh ditinggalkan. Back/Escape kembali ke sembang.
+
+===== SOURCE CHAPTER: QUERY LIST =====
+SENARAI PERBUALAN PERIBADI
+
+F4 atau /ql (/queries) menyenaraikan hanya perbualan peribadi pelayan ini, bernombor bermula 1 secara berasingan daripada saluran. Kawalan senarai biasa digunakan bersama tindakan berikut:
+
+    Open    New    Close    Back
+
+New membuka Command dengan /pm sedia ada; dalam senarai kosong, Open pada New query... melakukan perkara sama. c menutup dan o/n membuka New. Menutup draf yang tidak kosong memerlukan pengesahan, dengan No sebagai pilihan lalai. /pm NICK|NUMBER atau /query NICK|NUMBER membuka/memilih tanpa menghantar, walaupun di luar talian. /msg NICK TEXT menghantar secara jelas; /close NICK menutup mengikut nama.
+
+Escape daripada perbualan peribadi membuka Queries dengan perbualan itu dipilih, tidak kira bagaimana ia dibuka; Escape/Back daripada senarai memulihkannya bersama draf. Nama perbualan kekal pada baris perbualan dan tidak menggantikan kategori pengepala.
+
+===== SOURCE CHAPTER: MENTIONS AND WATCH STRINGS =====
+SEBUTAN DAN RENTETAN DIPANTAU
+
+Nama samaran semasa anda dipantau secara automatik. Padanan mengikut peraturan huruf besar/kecil dan sempadan nama samaran yang diumumkan pelayan IRC. Menukar nama samaran mengemas kini padanan automatik ini.
+
+    /watch add project name
+    /watch remove project name
+    /watch list
+
+Nilai tersuai ialah subrentetan harfiah, bukannya ungkapan biasa atau corak shell. Peraturan huruf dan simbol IRC/ASCII terpakai; aksara bukan ASCII mesti sepadan tepat. Sehingga 32 nilai tersuai, setiap satunya 127 bait UTF-8, diterima. Gunakan /save semasa operasi biasa untuk menyimpan perubahan dalam konfigurasi terpilih; dalam mod ujian, perubahan kekal dalam memori. Sebutan disimpan dalam memori tertakluk pada had sejarah, bukan arkib pemberitahuan kekal atau log cakera. Cap masa menunjukkan tarikh dan waktu penerimaan tempatan dalam format YYYY-MM-DD HH:MM:SS.
+
+===== SOURCE CHAPTER: CONVERSATION COMMANDS =====
+ARAHAN PERBUALAN
+
+/join CHANNEL [KEY] meminta menyertai satu saluran dengan KEY pilihan. /part [CHANNEL] [MESSAGE] meninggalkan saluran dengan alasan PART; /close [NAME|NUMBER] menutup paparan saluran atau perbualan peribadi, NUMBER ialah nombor saluran. /pm NICK|NUMBER membuka/menukar paparan peribadi tanpa menghantar mesej. /msg TARGET TEXT menghantar teks kepada nama samaran/saluran; /me TEXT menghantar tindakan IRC pada perbualan semasa. /nick NICK meminta nama baharu; /away [MESSAGE] menetapkan status away, /back membuangnya; /whois NICK meminta maklumat nama samaran. /topic tanpa teks meminta topik semasa, /topic TEXT meminta topik baharu. /connect dan /disconnect mengurus sambungan; /dcc atau /transfers membuka skrin pemindahan bersama. /cancel menghentikan sembang belum dihantar, /background terus berjalan dan kembali ke shell, /quit [MESSAGE] menamatkan semua sesi pelayan. /settings, /save, /saveconf dan /set autoconnect on/off mengurus pilihan, penyimpanan dan permulaan.
+
+/away MESSAGE menghantar satu mesej AWAY standard. Hadnya ialah had wayar semasa tolak 8 bait, lazimnya 504 bait daripada 512 bait. Teks terlalu panjang/kawalan ditolak dan tidak pernah dipecah. /away tanpa mesej dan /back mengosongkan away. Pendaftaran diperlukan. Penunjuk hanya berubah setelah pengakuan pelayan dan direset apabila terputus/tersambung semula. Tindakan Away dalam senarai pelayan menghantar perkataan Away sebagai mesej atau membuang status yang sudah diakui sambil mengekalkan paparan/draf. Pelayan terputus perlu disambung dahulu. Sunting pengirim diabaikan melalui medan Ignore di Settings atau /ignore serta /unignore tempatan.
+
+/join menerima satu saluran dan paling banyak satu token KEY. Kunci mestilah ASCII boleh cetak tanpa ruang, titik bertindih atau koma; seluruh JOIN mesti muat dalam had wayar. Kunci tidak dicatat atau disimpan; hanya nama saluran dimasukkan ke autojoin. Masukkan semula kunci apabila menyambung semula/memulakan semula jika perlu. Simulator offline mengakui perubahan away dan menerima kunci join sementara, tetapi tidak menguji kunci saluran sebenar atau dasar kemasukannya.
+
+Pelayan menentukan hak, ketersediaan nama samaran, kemasukan saluran dan hak menukar topik. Arahan diterima setempat bukan bukti pelayan menerimanya atau mesej dihantar kepada peserta lain. Mesej sembang beratur sebentar dan dihantar sekurang-kurangnya 1.2 saat antara baris. /cancel membuang mesej tertunda pada pelayan terpilih merentas saluran/perbualan, bukan draf atau teks sudah dihantar; mesej yang sedang dihantar mungkin selesai. Dalam profil langsung, /join dan /part mengemas kini autojoin; /save mengekalkannya untuk pelancaran masa depan melainkan Settings tertunda mengatasinya. Bouncer memulihkan keahliannya sendiri. /part juga membuang teks dalam barisan saluran itu sambil mengekalkan paparan/sejarah; mesej sedang dihantar mungkin selesai sebelum PART. Teks selepas nama saluran ialah alasan PART; jika saluran tiada, teks itu alasan saluran terpilih. Tanpa alasan nyata digunakan [presence] part_message. Menutup saluran yang disertai menggunakan alasan PART lalai sama.
+
+/quit MESSAGE menggunakan mesej itu sebagai alasan IRC QUIT secara usaha terbaik pada sesi pelayan aktif. Tanpa teks digunakan [presence] quit_message; jika lalai kosong, QUIT tanpa alasan dihantar. Penamatan terhad masa dan tidak menunggu rangkaian mati selama-lamanya.
+
+Status away automatik berasingan daripada /away manual. Jika background_away aktif, tindakan Background berjaya atau kehilangan terminal terkawal hanya membariskan AWAY selepas terminal telah berpisah. Resume membuang hanya status automatik itu. autoaway_minutes berbuat begitu selepas tiada input pengguna setempat; 0 mematikan pemasa. Profil bouncer menekan perubahan automatik melainkan [bouncer] automatic_away=true diaktifkan. /away manual kekal hingga /back atau /away tanpa teks. Trafik IRC masuk bukan aktiviti pengguna setempat.
+
+EXACT IRC COMMAND SYNTAX (not translated):
+
+    /join CHANNEL [KEY]
+    /part [CHANNEL] [MESSAGE]
+    /close [NAME|NUMBER]
+    /pm NICK|NUMBER
+    /msg TARGET TEXT
+    /me TEXT
+    /nick NICK
+    /away [MESSAGE]
+    /back
+    /whois NICK
+    /topic
+    /topic TEXT
+    /connect [HOST [PORT]]
+    /disconnect [NUMBER]
+    /dcc
+    /transfers
+    /cancel
+    /background
+    /quit [MESSAGE]
+    /settings
+    /save [input|output|all]
+    /saveconf
+    /set autoconnect on
+    /set autoconnect off
+    /ignore
+    /unignore
+
+===== SOURCE CHAPTER: LOCAL IGNORE FILTERS =====
+EXACT COMMAND/CONTROL EXAMPLES (not translated):
+/ignore
+/ignore list
+/ignore MASK
+/ignore add MASK
+/unignore MASK
+/ignore remove MASK
+/ignore clear
+/ignore add NICK
+*!*@*.example
+
+Arahan setempat berfungsi tanpa sambungan. /ignore atau /ignore list menyenaraikan topeng; /ignore MASK atau /ignore add MASK menambahnya; /unignore MASK atau /ignore remove MASK membuangnya; /ignore clear membuang semuanya. Untuk nama samaran yang betul-betul bernama list, add, remove atau clear, gunakan /ignore add NICK.
+
+Maksimum 32 topeng sepanjang 127 bait ASCII setiap satu diterima. Topeng ringkas mesti nama samaran sah yang sepadan tepat. Kad bebas memerlukan format penuh nick!user@host dengan tiga komponen bukan kosong, contohnya *!*@*.example. Dalam setiap komponen, * sepadan dengan sifar atau lebih bait dan ? tepat satu bait. Bait dibenarkan yang lain adalah harfiah; tiada kelas regex, escape atau pengembangan shell. Nick menggunakan peraturan huruf besar-kecil IRC; user dan host mengabaikan kes ASCII. Ruang putih, aksara kawalan dan bukan ASCII tidak sah. Pembuangan membandingkan corak tersimpan mengikut peraturan itu, bukan mengembangkan kad bebas untuk membuang topeng lain.
+
+Hanya PRIVMSG/NOTICE masuk daripada pengguna ditapis sebelum sebutan atau perbualan peribadi dicipta. Sumber mesti mempunyai awalan pengguna nyata. Topeng nama samaran boleh sepadan walaupun butiran user/host tidak lengkap; topeng penuh memerlukan ketiga-tiganya. Notis pelayan tanpa pengirim pengguna serta semua keadaan protokol/keahlian kekal kelihatan. Sejarah sedia ada dikekalkan. Ini penapisan setempat, bukan larangan pelayan. Settings menyunting senarai yang sama; Apply berkuat kuasa serta-merta. /save atau Settings Save menyimpan dalam mod biasa; --test-mode hanya mengubah memori. Konfigurasi mengulangi mask= dalam [ignore].
+
+===== SOURCE CHAPTER: DELAYED STARTUP COMMANDS =====
+EXACT COMMAND/CONTROL EXAMPLES (not translated):
+/autocommands [list|add COMMAND|remove NUMBER|clear|on|off]
+/autocommands delay SECONDS       0..300
+/autocommands interval SECONDS    2..60
+/autocommands add /msg ChanServ OP #room mynick
+/save
+
+Setiap profil boleh melaksanakan sehingga 16 arahan harfiah selepas pendaftaran dan SASL wajib berjaya. Kelewatan lalai ialah 15 saat, kemudian sekurang-kurangnya 2 saat antara arahan siap. Sambungan tersangkut tidak menyebabkan lambakan arahan tertunggak.
+
+Gunakan /autocommands [list|add COMMAND|remove NUMBER|clear|on|off], /autocommands delay SECONDS (0..300), /autocommands interval SECONDS (2..60) dan /save untuk menyimpan. Contohnya, /autocommands add /msg ChanServ OP #room mynick.
+
+Arahan disokong: /msg, /join, /nick, /away, /back, /whois dan alias tepat yang didokumentasikan. Setiap satu paling panjang 511 bait UTF-8 dan mesti muat sebaris IRC; tiada pemisahan senyap, shell, IRC mentah, gelung atau penggantian perbualan semasa. /join menerima satu saluran serta kunci sementara pilihan. Senarai menyembunyikan teks mesej/kunci; pelaksanaan tidak merekod sejarah arahan, echo setempat atau mencipta perbualan peribadi. Respons tiba seperti biasa; penyertaan automatik tidak mengubah sembang terpilih.
+
+Suntingan berkuat kuasa pada sambungan seterusnya. /cancel menghentikan arahan permulaan berbaki dan sembang dalam giliran tanpa menarik balik bait sudah dihantar atau sedang dihantar. Menutup/meninggalkan sasaran membatalkan baki urutan kepadanya. Kegagalan membatalkan arahan berikut serta menunjukkan kedudukan tanpa teks rahsia. Sambungan semula memulakan urutan baharu; profil bouncer turut melaksanakan arahan permulaan nyata. Mod luar talian tidak melaksanakan apa-apa.
+
+[autocommands] menyimpan enabled, delay_seconds, interval_seconds dan baris command= berulang. Bait selepas = adalah harfiah, termasuk ruang, #, ; dan =. Senarai bukan kosong, walaupun dimatikan, memerlukan konfigurasi fail biasa milik pengguna bermod 0600/0400; senarai aktif bukan kosong memerlukan TLS disahkan. Profil baharu bermula kosong; perubahan destinasi mengosongkan senarai warisan yang belum disunting. Simpan dengan sengaja: simpanan kelayakan GPG tidak menyulitkan arahan ini di fail konfigurasi.
+
+===== SOURCE CHAPTER: PROGRAM AND QUEUE NOTIFICATIONS, QUERY NUMBERS, AND ALIASES =====
+/set queue_notices off menyembunyikan pemberitahuan rutin untuk mesej beratur atau dihantar berperingkat dalam semua antara muka dan pelayan; /set queue_notices on memulihkannya. Dalam antara muka minimalis, penghantaran yang disemak secara nyata mengabaikan pengakuan giliran yang berlebihan walaupun notis diaktifkan. Secara berasingan, /set program_messages off menyembunyikan maklum balas setempat keutamaan rendah seperti draf dibatalkan, input dikosongkan, draf dikekalkan dan notis kejayaan/pembatalan serupa. Ralat, amaran had bait dan pengesahan penghantaran kekal kelihatan. Kedua-duanya aktif secara lalai. /save output atau /saveconf menyimpan tetapan [output] global; pilihan yang sama tersedia dalam /panel Application preferences dan Interface grafik.
+
+/ql memberikan nombor berasingan kepada perbualan peribadi bermula daripada 1. /query 2 atau /pm 2 memilih yang kedua; nama samaran juga boleh digunakan. Menutup perbualan menomborkan semula entri selepasnya. Membukanya tidak menghantar mesej. Saluran 0 kekal memaparkan mesej pelayan dan MOTD.
+
+Alias tepat yang lazim termasuk /j, /leave, /message, /privmsg, /nickname, /names, /nicks, /conn, /disc, /unaway, /detach, /saveconfig, /configure dan /preferences. Semuanya menggunakan pengesahan, pelengkapan dan peraturan privasi arahan yang sama. Ejaan tidak dikenal pasti menjadi ralat, bukan tindakan yang diteka.
+
+Perubahan keahlian, MOTD, WHOIS, jemputan dan ralat biasa dipaparkan sebagai mesej boleh dibaca dengan butiran pelayan berguna. Respons dalaman identiti/keupayaan tidak menggandakan catatan protokol dalam sembang. Respons tidak dikenal pasti mengekalkan teks pelayan tanpa menganggap kod angka sebagai penerangannya.
+
+===== SOURCE CHAPTER: FILE TRANSFERS =====
+PEMINDAHAN FAIL
+
+F6, /dcc atau /transfers membuka senarai pemindahan bagi seluruh ruang kerja dan mengenal pasti pelayan asal setiap pemindahan. Kawalan senarai biasa digunakan. Tindakan yang tersedia ialah:
+
+    Accept    Reject    Send...    Cancel transfer    Back
+
+Semakan memerlukan sekurang-kurangnya 12 baris dan 20 lajur. Escape dari pelayar fail atau medan kembali ke borang; dari borang atau senarai kembali ke perbualan, sambil mengekalkan draf dan pemindahan yang telah diterima. Hanya DCC SEND IPv4 klasik yang aktif disokong: tiada CHAT, sambung semula pemindahan, pemindahan pasif/terbalik, penerimaan automatik, pengesanan alamat atau pemajuan port. Saiz fail maksimum ialah 4,294,967,295 bait. Fail yang diterima tidak dibuka atau dilaksanakan secara automatik.
+
+DCC ialah sambungan terus tanpa penyulitan, berasingan daripada TLS IRC, dan tidak mengesahkan identiti rakan secara kriptografi. Tawaran mendedahkan IPv4 yang diiklankan; penerimaan mendedahkan alamat IP penerima kepada rakan. Sahkan pengirim, titik hujung, fail yang dimaksudkan dan saiznya dalam bait sebelum menerima setiap tawaran.
+
+Tawaran masuk tidak membuka fail atau soket sehingga penerimaan yang nyata. Accept dalam senarai membuka borang semakan dengan Directory/Save as dan Edit/Accept/Cancel. Enter pada medan hanya menyediakan nilainya; hanya Accept pada borang memulakan pemindahan. Tampalan hanya memasukkan data dalam penyunting yang aktif dan tidak boleh menerima tawaran. Reject tidak menghasilkan apa-apa fail.
+
+Dalam antara muka penuh, direktori penerimaan yang dicadangkan ialah $XDG_DATA_HOME/vipirc/downloads jika laluan itu mutlak; jika tidak, $HOME/.local/share/vipirc/downloads apabila HOME mutlak. Jika tiada kedua-duanya, masukkan laluan dengan jelas. Direktori induk yang belum wujud dicipta dengan keizinan 0700 hanya selepas Accept. Direktori induk terakhir mesti milik pengguna dan peribadi; fail baharu berkeizinan 0600. Fail sedia ada, pautan simbolik dan '..' ditolak. Nama asas fail mesti kelihatan dan bukan tersembunyi, tanpa pemisah laluan, aksara kawalan atau pemformatan arah teks, atau tanda petik. Nama fail pada protokol yang dipetik boleh mengandungi ruang. Fail separa yang gagal atau dibatalkan hanya dipadam jika masih fail asal yang dicipta, bukan fail pengganti.
+
+Send... membuka Nickname, Source file, Advertised IPv4 dan Listen port, bersama Edit/Browse, Offer, Cancel. Perbualan peribadi memberikan nama rakan lalai; borang menunjukkan pelayan IRC. Hanya Offer memulakan pendengar dan mengatur tawaran secara berperingkat melalui pelayan berdaftar itu. Sumber mesti fail biasa yang sedia wujud, tanpa pautan simbolik atau '..'. Port 0 memilih port yang tersedia; port khusus mestilah 1..65535. NAT mungkin memerlukan IPv4 yang boleh dicapai dan pemajuan port; tiada perkhidmatan UPnP atau carian alamat awam dipanggil.
+
+Browse bermula di direktori semasa pelancaran: kekunci anak panah memilih, Enter membuka direktori atau memilih fail, parent/Backspace naik setingkat, Type path menerima nama fail mutlak dan Escape membatalkan tanpa mengubah sumber. Pemilihan mengisi borang tanpa menawarkan fail atau menukar cwd proses. Setiap pusingan memeriksa paling banyak 64 entri; senarai menyimpan 512 dan berhenti selepas memeriksa 4096. Gunakan Type path untuk entri yang tidak dipaparkan. Pautan simbolik dan nama tidak selamat diketepikan; metadata disemak semula ketika memilih atau membuat tawaran.
+
+    /dcc alice file.txt
+    /dcc send -address 203.0.113.10 -port 5000 alice file with spaces.txt
+    /dcc list
+    /dcc accept 1 /home/me/private-downloads
+    /dcc reject 2
+    /dcc cancel 3
+
+Gantikan IP contoh dengan alamat yang dapat dicapai. PATH dalam perintah ialah baki teks secara literal, termasuk ruang, tanpa tanda petik shell. Laluan relatif merujuk kepada cwd ketika pelancaran walaupun selepas proses berjalan di latar atau pelayaran fail. IP lalai yang diiklankan ialah IPv4 setempat soket IRC; sambungan IRC IPv6 sahaja memerlukan penggantian IPv4 yang nyata dan NAT mungkin juga memerlukannya. Perintah accept tanpa DIRECTORY menggunakan cwd asal dengan semakan direktori peribadi yang sama. /dcc tanpa argumen menyenaraikan pemindahan dalam mod minimalis. Kedua-dua antara muka berkongsi pengurus, had dan pembatalan.
+
+Melalui SSH, semua laluan, alamat dan sambungan adalah pada hos yang menjalankan vipirc, bukan komputer setempat yang memaparkan terminal. Pemindahan yang diterima diteruskan apabila perbualan atau paparan berubah dan apabila IRC terputus. Menutup pelayan asal membatalkan pemindahannya; keluar menghentikan semua pemindahan. Kegagalan, pembatalan atau tamat tempoh membuang tawaran yang masih beratur tetapi tidak dapat menarik semula tawaran yang sudah dihantar atau sedang dihantar.
+
+Had ruang kerja ialah 8 tawaran tertunda, 4 pemindahan aktif/mendengar/menyambung dan 12 rekod tersimpan. Hanya apabila penuh, rekod selesai atau gagal yang paling lama dikitar semula dahulu; ID tidak digunakan semula sepanjang satu sesi proses. Tawaran luput selepas 5 minit; pemindahan berhenti selepas 2 minit tanpa kemajuan. Penstriman menggunakan penimbal terhad dan pengakuan kumulatif 32-bit. Mod ujian membenarkan semak/tolak/batal sampel dalam memori; Send/Accept ditolak sebelum kerja fail atau soket.
+
+===== SOURCE CHAPTER: INPUT EDITING =====
+PENYUNTINGAN INPUT
+
+    Enter                 Hantar atau semak tulisan.
+    Left/Right            Kumpulan aksara sebelumnya/seterusnya.
+    Up/Down               Bergerak antara baris input berbalut, bukan ingatan chat.
+    Home/End              Awal/akhir keseluruhan tulisan.
+    Backspace/Delete      Padam kumpulan aksara sebelumnya/semasa.
+    Tab/Shift-Tab         Lengkapkan nama pengguna seterusnya/sebelumnya.
+    Escape                Buka Queries dari perbualan peribadi, selain itu vipirc.
+    /clearinput           Kosongkan seluruh draf termasuk teks di luar paparan.
+
+F1..F6 membuka panel yang tersedia. Huruf yang ditaip dalam perbualan, termasuk hjkl, ialah teks biasa. Enter yang ditaip menghantar mesej; baris baharu yang nyata masuk melalui bracketed paste, dan tab yang ditampal menjadi ruang. Garis miring yang ditaip pada kedudukan kursor sifar membuka Command berasingan sambil mengekalkan draf; garis miring berikutnya atau yang ditampal kekal sebagai teks.
+
+Draf ialah satu penimbal logik: pembalutan baris tidak memasukkan teks, Backspace menyeberangi baris visual, dan perubahan saiz mengekalkan teks serta kursor. Medan tetap menyediakan floor(B/W)+1 baris berdasarkan belanjawan muatan B dan lajur boleh guna W, tertakluk kepada ruang terminal. Menaip atau memadam tidak menukar saiz medan; draf panjang ditatal di dalamnya. Perubahan paparan, belanjawan protokol dan saiz terminal mengira semula ketinggian. Command mempunyai medan sendiri; /msg atau /me tidak menggantikan draf chat.
+
+Escape mentah tanpa sambungan menunggu kira-kira 500 ms; urutan separa membenarkan 1000 ms antara bait sambungan sementara rangkaian terus berjalan. Kekunci yang sudah dinyahkod sepenuhnya bertindak serta-merta. Penanda awal tampalan yang lewat melepasi tempoh Escape pertama boleh dianggap Escape; dalam log minimalis ini boleh menghantar klien ke latar. Selepas penangkapan tampalan bermula, penanda akhir tetap dikenali merentas bacaan terpisah yang sangat lambat. Kekunci selepas tampalan tidak boleh membatalkan draf atau menukar mod sebelum sempadan semakan atau input tenang yang dipaparkan.
+
+Input memerlukan UTF-8 yang sah atau mod locale ASCII yang dipilih secara nyata; lihat FILES AND ENVIRONMENT. Aksara asas dan tanda lebar sifar selepasnya bergerak/dipadam bersama; segmentasi gugusan grafem Unicode penuh belum disediakan. Glif tidak disokong mendapat pengganti yang terlihat. Had draf ialah 8192 skalar Unicode atau 16384 bait UTF-8, yang mana dicapai dahulu. Pengekodan dan aksara kawalan tidak sah ditolak. Baris baharu yang ditampal terus kelihatan dan mempengaruhi pelan penghantaran; belanjawan IRC yang lebih kecil menentukan amaran dan pemecahan mesej.
+
+KAWALAN TETIKUS
+
+Tetikus aktif secara lalai jika curses, TERM dan terminal menyokongnya. /mouse menukar keadaan, /mouse on|off menetapkannya dan Settings > Interface mengubah/menyimpan pilihan mouse [interface] milik konfigurasi utama. Semua operasi boleh menggunakan papan kekunci; terminal atau pemultipleks SSH mesti menghantar acara tetikus.
+
+Klik kategori pengepala untuk membukanya, kawasan chat untuk meletakkan kursor, Clear untuk mengosongkan seluruh draf dan Send untuk menghantar mengikut semakan biasa. Clear/Send disembunyikan apabila tidak tersedia. Nama pengguna dalam chat/senarai menawarkan Whois/Query; klik #channel memilih atau menyertai saluran. Identiti token yang dipaparkan ketika klik, bukan pengganti kemudian pada koordinat sama, menentukan tindakan. URL dan kandungan papan klip tidak dibuka.
+
+Klik baris membuka pelayan/saluran/perbualan peribadi; klik tindakan menjalankannya pada pilihan semasa. Roda mengubah pilihan tanpa mengubah tindakan. Pada sejarah chat/senarai pengguna, ia menatal tiga baris visual atau pengguna. Settings dan transfers mempunyai medan dan tindakan sendiri. Chat memerlukan sekurang-kurangnya 9 baris dan 20 lajur; pengepala sempit tetap menunjukkan fokus.
+
+Tetikus tidak mengesahkan dialog panjang awal atau pemecahan mesej; gunakan pilihan papan kekunci. Command Run/Cancel memerlukan tindakan baharu selepas tampalan. Urutan klik atau baris baharu yang ditampal tidak boleh mengaktifkannya, dan klik pada susun atur lama tidak dipakai semula pada skrin baharu.
+
+===== SOURCE CHAPTER: MESSAGE LENGTH AND FLOOD PREVENTION =====
+HAD PANJANG MESEJ DAN PENCEGAHAN BANJIRAN
+
+Had biasa bagi satu baris IRC ialah 512 bait termasuk CR/LF, bukannya 512 aksara yang dipaparkan. Satu skalar UTF-8 menggunakan 1..4 bait dan satu glif boleh terdiri daripada beberapa skalar. Arahan, sasaran dan identiti pengirim geganti turut menggunakan ruang. Bagi :nick!user@host PRIVMSG target :text, ruang muatan dikira seperti berikut:
+
+    B = L - (len(nick) + len(user) + len(host)
+             + len(target) + len("PRIVMSG") + 9)
+
+Semua panjang diukur dalam bait. L ialah 512 atau nilai LINELEN lebih kecil yang dikenal pasti. Mesej tindakan turut mengurangkan ruang bagi pembalutnya. Sebelum identiti diketahui, had konservatif digunakan. Perubahan identiti atau sasaran boleh mengubah B; vipirc tidak menganggap baris lebih panjang semestinya diterima.
+
+Penyunting ncurses penuh memberi amaran apabila satu baris logik mencapai B atau draf memerlukan beberapa mesej. Enter/Escape hanya mengakui amaran untuk meneruskan penyuntingan; tiada mesej dihantar. Kekunci lain tidak boleh menutup amaran, dan pengulangan kekunci dikawal. Amaran diaktifkan semula setelah panjang turun di bawah had.
+
+Penyunting minimalis pula menghalang sisipan tambahan pada had sehingga Enter membenarkan penyuntingan diteruskan secara nyata; Enter itu tidak menghantar mesej. Backspace/Delete boleh memendekkan teks dan Escape membatalkan. /msg, /me dan // diukur mengikut muatan sebenar, bukan arahan setempat lain yang tidak berkaitan. Tampalan dikekalkan selagi dalam had storan dan diperiksa selepas ditangkap.
+
+Mod ncurses penuh meminta persetujuan berasingan sebelum menghantar draf yang perlu dibahagi kepada beberapa mesej:
+
+    This text needs N IRC messages. Send all to TARGET? [y/N]
+
+Hanya jawapan y menghantar; Enter/n menolak dan mengekalkan teks. Mod minimalis memaparkan Review: Enter baharu mengesahkan, Escape kembali menyunting. Kedua-duanya memerlukan persetujuan jelas untuk pembahagian walaupun dalam mod direct. Pembahagian mengekalkan skalar UTF-8 lengkap dan teks tidak kosong; baris baharu yang nyata memisahkan mesej dan baris kosong dilangkau. Arahan kekal sebaris; tulis sembang berbilang baris dalam penyunting perbualan.
+
+Mesej sembang dijarakkan sekurang-kurangnya 1.2 saat melalui giliran 64 mesej. /cancel membuang kerja yang belum dihantar tetapi tidak boleh menarik balik mesej yang sedang atau sudah dihantar. Kawalan protokol seperti PONG berasingan. Rangkaian mungkin mengenakan had lebih ketat atau menolak teks; penerimaan atau gema setempat bukan bukti penghantaran jauh.
+
+===== SOURCE CHAPTER: CONFIGURATION =====
+KONFIGURASI
+
+Gunakan arahan berikut untuk membuat konfigurasi peribadi boleh sunting, sunting isinya, kemudian sahkan:
+
+    vipirc --init-config --server irc.ircnow.org --channel '#ircnow'
+    vipirc --check-config
+
+Satu fail mewakili satu profil; --config memilih konfigurasi utama serta katalog pelayan tersimpan di sebelahnya. Sehingga lapan profil berkongsi satu proses. Laluan utama berbeza membentuk ruang kerja berasingan. Contoh dibekalkan dan --init-config memberi sintaks lengkap. Peta kunci di bawah sekadar rujukan, bukan blok untuk ditampal: setiap key=value sebenar mesti mempunyai barisnya sendiri.
+
+Pilihan lalai ialah send_mode=direct, composer_mode=line, command_suggestions=common, format=compact dan default_interface=ncurses. Keutamaan aplikasi disimpan dalam konfigurasi utama untuk semua pelayan; senarai connection/auth/bouncer, watch, ignore dan perintah permulaan milik profil masing-masing. [hotkeys] kosong secara lalai dan menerima maksimum 64 baris KEY=action.
+
+Nickname berbeza daripada username IRC. Nama samaran utama interaktif kosong menyebabkan gesaan dengan nama akaun log masuk sebagai lalai. username lazimnya diambil daripada akaun; realname ialah keterangan USER, bukan semestinya nama sah. channel ialah senarai autojoin profil langsung dipisahkan koma tanpa ruang; kosong bermakna paparan pelayan. Bouncer memulihkan keahlian sendiri.
+
+Bagi SASL langsung, auth=sasl memerlukan auth_user dan tepat satu sumber password. PASS pelayan memilih satu sumber server_password secara bebas. Lebih daripada satu sumber bagi kelayakan sama ialah ralat tanpa pilihan sandaran; kedua-duanya mensyaratkan TLS disahkan. Bouncer memerlukan auth_user kosong dan membina log masuknya sendiri. Rahsia dalam baris kekal teks biasa; peraturan fail/GPG dijelaskan dalam AUTHENTICATION.
+
+history_lines menerima 50..5000 baris setiap paparan, lalai 500, dengan had teks 8 MiB setiap pelayan yang boleh mengusir lebih awal. Pengekalan minimalis mempunyai had global 2048 rekod/512 KiB. Nilai boolean menerima huruf kecil true/false, yes/no, 1/0. Bahagian/kunci tidak dikenali serta nilai tidak sah/terlampau besar gagal bersama nombor baris jika berkaitan. Kebanyakan pendua menggunakan nilai akhir; entri watch/ignore/autocommand berulang ditambah sehingga had.
+
+Baris bermula dengan # atau ; selepas ruang awal ialah komen; tiada komen sebaris selepas nilai. Tepi nilai biasa dibuang ruang. Tiada sintaks petikan, escape, pengembangan pemboleh ubah/tilde atau penilaian shell. Utamakan laluan mutlak literal. Apply/Save menolak ruang ASCII di hujung medan biasa supaya muat semula tidak mengubah nilainya; ruang di tengah dibolehkan jika nilai itu sah.
+
+password=, server_password= dan [autocommands] command= mengekalkan setiap bait selepas = kecuali hujung baris, termasuk ruang, =, # dan ;. Jangan tambah tanda petik atau komen inline. Password kosong bermakna tiada sumber; ruang semata-mata dianggap tidak kosong. Kawalan dan baris baharu password tidak sah.
+
+/save menjana semula tetapan yang disokong, termasuk pilihan tertunda, menggantikan komen dan format; simpan nota di tempat lain. Suntingan fail dibaca oleh proses baharu, bukan --resume. Save dilarang dalam test mode. Fail baharu bermod 0600 dalam direktori akhir 0700 milik pengguna; konfigurasi sedia ada mesti dimiliki pengguna dan tidak boleh ditulis orang lain. Symlink termasuk komponen laluan serta '..' ditolak. Password inline tidak kosong atau senarai arahan permulaan, walaupun dimatikan, mewajibkan fail biasa milik pengguna dengan mod 0600/0400. Satu fail diganti secara atomik; seluruh ruang kerja bukan satu transaksi.
+
+single_session=true melarang worker vipirc terurus kedua, bukan pelayan tambahan dalam worker yang sama. Pilihan presence lalai disenaraikan dalam peta; autoaway_minutes=0 mematikan pemasa. Pulang automatik hanya memadam away yang dicipta klien, tidak memadam /away manual. Away automatik bouncer dimatikan secara lalai.
+
+Kunci lama [interface] keymap=original|vim dan focus_style=reverse|brackets diterima tetapi diabaikan serta tidak disimpan semula dengan Save; nilai lain tidak sah. Navigasi biasa dan fokus kurungan tebal kekal. /keymap menerangkan keserasian ini, bukan memilih pemetaan. Pemberitahuan queue/program boleh disembunyikan berasingan; ralat dan pengesahan keselamatan tetap kelihatan.
+
+EXACT CONFIGURATION KEYS (reference only; not a block to paste):
+
+    [connection]
+    server, port, tls, nick, username, realname, channel, autoconnect,
+    auth, auth_user, password_file, password_gpg_file, password,
+    server_password_file, server_password_gpg_file, server_password, ca_file
+    [bouncer]
+    type=none|znc|soju, username, network, client, automatic_away=false
+    [interface]
+    user_list=true, mouse=true, hints=true, shortcut_labels=true,
+    history_lines=500
+    [input]
+    send_mode=direct|review, composer_mode=line|fullscreen,
+    command_suggestions=common|history|frequent|alphabetical|contextual,
+    use_signals=false
+    [hotkeys]
+    optional KEY=action rows; empty by default, at most 64
+    [output]
+    format=compact|full, queue_notices=true, program_messages=true,
+    persistent_logging=false
+    [session]
+    single_session=false, default_interface=ncurses|idle
+    [presence]
+    part_message=, quit_message=Client quit, background_away=true,
+    background_away_message=Detached from terminal,
+    autoaway_minutes=15, autoaway_message=Idle
+    [autocommands]
+    enabled=true, delay_seconds=15, interval_seconds=2, repeated command=
+    [mentions]
+    repeated word=literal phrase
+    [ignore]
+    repeated mask=nick!user@host
+
+    [interface] keymap=original|vim; focus_style=reverse|brackets
+
+===== SOURCE CHAPTER: HISTORY, LOGGING AND PRIVACY =====
+SEJARAH, PENGLOGAN DAN PRIVASI
+
+Terdapat beberapa jenis sejarah yang berbeza:
+
+    Rekod perbualan/sebutan: memori terhad untuk paparan.
+    Panggilan semula arahan: baris arahan diterima dalam memori, dengan penapisan rahsia.
+    Kekerapan arahan: nama dan bilangan kanonik dalam CONFIG_PATH.commands.
+    Transkrip pilihan: rekod teks biasa dalam fail .log bagi setiap profil disimpan.
+    Main semula bouncer: mesej yang dibekalkan bouncer mengikut dasarnya.
+
+Detach/resume mengekalkan memori sesi yang sedang berjalan. /quit, --close-session, kegagalan proses atau but semula menamatkannya. Proses baharu memuatkan konfigurasi dan, jika ada, bilangan arahan tersimpan; ia tidak mengimport fail transkrip lama sebagai sejarah perbualan aktif atau membina semula penanda catch-up terdahulu. /clear mengosongkan memori paparan semasa tanpa memadam transkrip cakera atau menarik balik mesej IRC.
+
+Aktifkan transkrip melalui /set persistent_logging on dan simpannya dengan /save output, atau pilih Settings > Interface > Persistent logging. Secara lalai ini dimatikan, terpakai merentas pelayan dan mempunyai fail berasingan bagi setiap profil disimpan. Semua pemeriksaan privasi laluan dan fail di bawah CONFIGURATION masih terpakai.
+
+Setiap log berhenti pada 16 MiB; tiada putaran atau pemadaman automatik. Laluan tidak selamat, kunci fail sibuk atau kegagalan menulis mematikan penglogan bagi profil berkenaan dengan ralat sementara sembang berterusan. Arkibkan fail lama, kemudian matikan dan hidupkan semula penglogan. Putaran boleh membatalkan penanda catch-up lama; hantar mesej baharu yang layak sebelum bergantung pada catch-up tahan lama ketika ketiadaan berikutnya.
+
+Mesej kelayakan/perkhidmatan yang diketahui dan salinan sensitif dengan nama samaran semasa atau lama dikecualikan, termasuk sasaran perkhidmatan berkelayakan. Sembang biasa, sintaks perkhidmatan tidak dikenali atau rahsia yang ditampal secara manual masih boleh masuk ke log; perkhidmatan jauh juga mungkin menyimpan salinan. Mematikan penglogan menghalang rekod baharu tanpa memadam rekod lama. Keizinan fail persendirian bukan penyulitan dan tidak melindungi daripada program lain di bawah akaun Unix yang sama. Fail biasa pada storan perlahan atau rangkaian masih boleh melengahkan I/O cakera.
+
+Transkrip disimpan sebagai CONFIG_PATH.log dalam direktori milik pengguna dengan mod tepat 0700. Setiap komponen laluan mesti lulus pemeriksaan tanpa symlink dan tanpa perentasan direktori induk. Fail dibuka mestilah milik pengguna, fail biasa, pautan tunggal dan mod tepat 0600. Pengendalian fail/kunci nonblocking menolak FIFO atau log sibuk; had 16 MiB terpakai bagi setiap profil disimpan.
+
+===== SOURCE CHAPTER: SAVED SERVER PROFILES =====
+PROFIL PELAYAN TERSIMPAN
+
+Bagi laluan utama P, katalog bersebelahan P.servers menyenaraikan sehingga tujuh profil sekunder dalam direktori persendirian P.d. Bagi laluan lalai, fail tersebut ialah config.ini.servers dan config.ini.d di sisi config.ini. Sintaks katalog ialah [servers] diikuti entri profile=ID berulang. Nama dijana sebagai server-<24 aksara heksadesimal huruf kecil>.ini. ID manual boleh mempunyai 1 hingga 63 huruf ASCII, angka, garis bawah, sempang atau noktah; aksara pertama mestilah huruf atau angka dan noktah berturutan dilarang. Komponen direktori dan laluan sewenang-wenangnya tidak diterima sebagai ID profil.
+
+Servers > New tidak mencipta fail. /save pertama yang nyata atau Settings Save mencipta profil mod 0600 berasingan dalam direktori mod 0700 dan mendaftarkannya dalam katalog. Simpanan seterusnya mengemas kini profil pelayan itu. Menyimpan profil sekunder tidak pernah menggantikan konfigurasi utama. Kemas kini katalog permulaan menggunakan kunci. Entri katalog/profil tidak sah menghasilkan ralat yang kelihatan; profil sihat terus boleh digunakan.
+
+Close membuang rujukan katalog profil sekunder tetapi mengekalkan fail profilnya. Profil utama tidak boleh ditutup. --check-config menyemak profil utama, katalog dan profil yang dirujuk tanpa menyambung. Semasa permulaan biasa, pilihan sambungan selain hos terpakai kepada pelayan lalai yang diingati; --server secara nyata memilih profil utama. --init-config dan --check-config juga menggunakan pilihan gantiannya pada profil utama. --no-connect menghalang sambungan awal semua profil. Dalam mod ujian, Save dimatikan dan Close hanya mengubah keadaan semasa.
+
+===== SOURCE CHAPTER: AUTOMATIC CONNECTION, JOIN, AND AUTHENTICATION =====
+SAMBUNGAN, PENYERTAAN SALURAN DAN PENGESAHAN AUTOMATIK
+
+Setiap profil yang disimpan mempunyai pilihan autoconnect, penyertaan saluran secara langsung dan kelayakan yang berasingan. Simpan pilihan permulaan yang dikehendaki melalui Settings atau arahan. --server yang dinyatakan untuk profil utama memulakan sambungan; profil autoconnect tersimpan bermula secara berasingan. --no-connect menghalang semua sambungan permulaan. /connect atau Servers > Connect memulakan sambungan secara jelas. Profil baharu tidak mewarisi rahsia profil lain.
+
+Untuk akaun rangkaian langsung, tetapkan:
+
+    [connection]
+    tls=true
+    auth=sasl
+    auth_user=your_registered_account
+    password_gpg_file=/home/yourname/.config/vipirc/sasl.gpg
+
+Pilih tepat satu sumber untuk setiap kelayakan yang berasingan:
+
+    Akaun SASL                    PASS pelayan
+    password_gpg_file              server_password_gpg_file
+    password_file                  server_password_file
+    password                       server_password
+
+Sumber *_gpg_file disulitkan, *_file ialah teks biasa peribadi, dan nilai sebaris ialah teks biasa secara literal dalam konfigurasi. Jenis sumber tidak diteka melalui sambungan nama fail dan tiada sumber gantian. Ruang di awal/akhir serta aksara #, ; dan = dalam nilai sebaris dikekalkan; jangan tambah tanda petikan atau komen. Konfigurasi dengan rahsia sebaris mesti fail biasa milik pengguna bermod 0600/0400; Save menjana mod 0600. Nilai kekal dalam konfigurasi sesi apabila diperlukan untuk sambungan semula atau simpanan.
+
+Kata laluan teks biasa/yang dinyahsulitkan mesti satu baris tidak kosong, boleh berakhir dengan LF/CRLF, tanpa bait kawalan: SASL paling banyak 1024 bait, PASS biasa 503 bait. Kedua-dua jenis fail mesti fail biasa milik pengguna bermod 0600/0400, tanpa pautan simbolik atau komponen '..' dalam laluan. Kata laluan tidak diterima sebagai pilihan CLI. Untuk identiti dan sekatan sumber bouncer, rujuk BOUNCER CONNECTIONS.
+
+Fail disulitkan mengandungi satu mesej OpenPGP yang dilindungi integriti, maksimum 65536 bait. Program gpg pilihan yang ditemui melalui PATH mesti menyokong pilihan tetap (GnuPG 2.2.20 atau lebih baharu). Ia dijalankan terus selepas TLS disahkan, tanpa shell, dengan output terhad dan tempoh lima saat. Tiada fail sementara kata laluan biasa atau permintaan frasa laluan dalam aplikasi; sesi lain terus berjalan. Kelayakan gagal, terkunci, tidak sah, terlalu besar atau luput masa menghentikan pengesahan.
+
+Pembantu menggunakan --no-options, --batch, --no-tty, --pinentry-mode error dan --no-autostart; pengambilan/import kunci serta dirmngr dilumpuhkan. Sediakan atau buka kunci di luar vipirc:
+
+    gpg --output /dev/null --decrypt /absolute/password.gpg
+
+Kemudian cuba /connect sekali lagi. Arahan ini mengandungi laluan, bukan kata laluan. Ejen sedia ada mesti dapat menyahsulit tanpa interaksi; hos atau sesi SSH mungkin mempunyai fail, PATH, direktori GnuPG dan cache ejen yang berbeza.
+
+--check-config menyemak pilihan sumber dan privasi konfigurasi tanpa membuka rahsia atau GPG. --test-mode tidak pernah membaca atau menyahsulit kelayakan; nilai sebaris dibaca untuk sintaks tetapi tidak digunakan. Kedua-duanya tidak membuktikan kelayakan sebenar berfungsi.
+
+SASL PLAIN yang diwajibkan hanya dihantar selepas pengesahan TLS dan sokongan pelayan. Kegagalan menghentikan sambungan sebelum penyertaan saluran automatik secara langsung, bukannya meneruskan tanpa pengesahan. Klien tidak mendaftar akaun rangkaian. Sintaks perkhidmatan nama samaran berbeza mengikut rangkaian; pengesahan akaun langsung secara automatik menggunakan SASL. PASS pelayan berbeza daripada akaun nama samaran; pengesahan huluan bouncer disediakan secara berasingan.
+
+===== SOURCE CHAPTER: BOUNCER CONNECTIONS =====
+SAMBUNGAN BOUNCER
+
+Dalam Settings atau /panel, pilih ZNC/soju, kemudian nama hos pembekal dan port TLS, nama pengguna bouncer, rangkaian upstream sedia ada dan pilihan nama klien yang tetap. Simpan satu profil bagi setiap rangkaian. Bagi profil berkongsi hos, pilih nombor pelayan sebelum /connect tanpa argumen.
+
+Bahagian [bouncer] menyokong type=none|znc|soju, username, network, client dan automatic_away. username dan network wajib; client pilihan. Setiap komponen menerima paling banyak 63 aksara ASCII daripada huruf, digit, titik, garis bawah atau tanda sempang. Masukkan komponen identiti secara berasingan dan letakkan kata laluan hanya dalam sumber kata laluan yang betul.
+
+ZNC memerlukan auth=none, auth_user kosong, tiada sumber SASL dan tepat satu sumber kata laluan pelayan. Identiti dibina sebagai username/network atau username@client/network dengan kata laluan ditambah untuk PASS. Identiti, pemisah dan kata laluan mesti muat dalam muatan 503 bait, maka panjang kata laluan yang boleh digunakan berkurang. soju memerlukan auth=sasl, auth_user kosong, satu sumber kata laluan pengesahan dan tiada sumber PASS. Identiti SASL berasal daripada username/network atau username/network@client. Kedua-duanya mewajibkan TLS yang disahkan. Konfigurasikan rangkaian upstream dan pengesahan NickServ secara berasingan pada bouncer.
+
+Bouncer memulihkan keahlian saluran; autojoin setempat tidak diulang dan perubahan /autojoin ditolak. /join dan /part mengubah keahlian. Perubahan /autoauth juga ditolak: gunakan Settings atau /panel untuk mengubah identiti dan sumber secara seragam. Arahan permulaan yang nyata masih dijalankan; semak arahan warisan daripada profil sambungan terus sebelum digunakan semula. Away automatik ketika melahu atau di latar belakang dimatikan melainkan automatic_away=true; /away dan /back manual masih tersedia.
+
+    /znc
+    /znc ListNetworks
+    /soju
+    /soju network status
+
+Pintasan memerlukan jenis bouncer yang sepadan. Argumen berupa teks perkhidmatan harfiah yang muat dalam satu mesej IRC dan mematuhi kadar penghantaran biasa. /msg *status atau /msg *module dihantar kepada ZNC; /msg BouncerServ kepada soju. Arahan yang tersedia bergantung pada bouncer jauh; mulakan dengan bantuan miliknya.
+
+Teks kawalan dikecualikan daripada gema setempat, ingatan arahan dan log berterusan. Salinan ulang main perkhidmatan keluar yang dikenali turut disekat walaupun menggunakan nama panggilan lama. Balasan muncul dalam paparan pelayan tanpa log berterusan. Teks yang ditaip dalam penyunting kekal kelihatan, dan log pada pihak jauh adalah berasingan.
+
+Sejarah yang ditolak masuk dan dikenali mengekalkan cap masa UTC asal serta menghalakan mesej peribadi keluar kepada penerimanya. Ulang main tidak mencetuskan CTCP/DCC, sebutan baharu atau perubahan keadaan langsung. Simpanan dihadkan; jenis kelompok yang tidak dikenali hanya dipaparkan secara konservatif tanpa mengubah keadaan. Tiada pelayar arkib mengikut permintaan, penemuan rangkaian automatik atau penciptaan profil automatik bagi setiap rangkaian.
+
+TLS hanya melindungi sambungan klien-ke-bouncer. TLS upstream, pengesahan, akses dan pengekalan memerlukan konfigurasi tersendiri. Rujuk doc/BOUNCERS.txt, examples/bouncer-znc.ini dan examples/bouncer-soju.ini. Keputusan ujian terkawal tidak membuktikan keserasian semua penyedia atau versi sebenar.
+
+===== SOURCE CHAPTER: TLS AND CUSTOM TRUST =====
+TLS DAN KEPERCAYAAN TERSUAI
+
+TLS yang disahkan menyemak nama hos atau alamat angka diminta serta rantaian sijil. Tiada pintasan pengesahan atau kembali senyap kepada teks biasa; nombor port sahaja tidak pernah mematikan TLS. Gunakan titik akhir pembekal yang tepat. --ca-file FILE atau [connection] ca_file=FILE memilih pihak berkuasa sijil PEM menggantikan stor kepercayaan lalai pustaka TLS; ini kepercayaan tersuai, bukannya pinning sijil hujung.
+
+Berkas himpunan tersuai mestilah fail biasa tidak kosong berukuran <=16 MiB. Symlink biasa kepada fail CA yang sah dibenarkan, tidak seperti laluan konfigurasi/kelayakan. Pemuat membuka sekali dengan bendera nonblocking, membaca menerusi deskriptor tetap dalam had saiz, dan menolak perubahan saiz yang dikesan. FIFO, peranti dan input bukan fail biasa ditolak. Penghurai PEM dengan memori terhad mengekalkan metadata kepercayaan sijil/CRL yang disokong dan tidak meminta kata laluan.
+
+Pemeriksaan ini tidak mengehadkan kependaman I/O fail biasa atau sistem fail rangkaian. Gunakan storan yang sesuai dan dipercayai. --check-config tidak menguji pemuatan CA atau handshake, manakala simulasi luar talian tidak menjalankan TLS. Siasat ralat sijil sebelum menukar kepercayaan; kelayakan teks biasa ditolak. TLS hanya melindungi sambungan ini, bukan sembang hujung ke hujung atau sambungan bouncer ke rangkaian huluan. DCC tidak disulitkan secara berasingan.
+
+===== SOURCE CHAPTER: SECURITY AND RESOURCE BOUNDS =====
+KESELAMATAN DAN HAD SUMBER
+
+TLS mengesahkan rantaian sijil serta nama hos atau alamat angka diminta. Tiada pintasan pengesahan sijil atau penurunan keselamatan senyap. IRC tanpa TLS hanya tersedia melalui tetapan nyata; lalu lintas IRC terdedah kepada pemerhati pada laluan sambungan dan rahsia tersimpan tidak boleh digunakan. TLS melindungi sambungan klien-ke-pelayan, bukannya privasi sembang hujung ke hujung.
+
+Permulaan operasi menolak ID pengguna atau kumpulan sebenar dan berkesan yang tidak sepadan, lalu mematikan core dump sebelum membaca konfigurasi. Linux juga mematikan kebolehan proses untuk didump. Klien ialah proses biasa tanpa sandbox OS; proses lain di bawah akaun yang sama berada dalam sempadan kepercayaannya.
+
+Arahan pengesahan persendirian yang dikenal pasti memerlukan TLS disahkan walaupun dimasukkan sebagai teks mesej biasa, dipecahkan dalam pelan penghantaran atau diletakkan dalam giliran. Pengesanan tidak mampu mengenal pasti setiap sintaks rahsia baharu dengan boleh dipercayai; jauhkan kelayakan daripada sembang dan argumen shell.
+
+Data IRC yang masuk tidak dipercayai. Urutan kawalan dan pemformatan tidak selamat disanitasi sebelum paparan. Penimbal input dan rangkaian mempunyai had. Klien tidak melaksanakan teks diterima, membuka URL, menjalankan arahan shell, memuatkan skrip atau plugin, atau membalas CTCP secara automatik. Mesej tindakan dipaparkan sebagai teks. Tawaran DCC SEND memerlukan semakan dan penerimaan nyata bagi setiap fail; sambungan langsungnya tidak disulitkan oleh TLS.
+
+Had dalam keluaran ini:
+
+    Sesi pelayan bagi setiap proses              8
+    Paparan bagi pelayan, termasuk terbina       32
+    Pengguna disimpan bagi saluran            4096
+    Rentetan sebutan khas bagi pelayan           32
+    Topeng abaikan bagi pelayan                  32
+    Mesej sembang beratur bagi pelayan           64
+    Entri sejarah arahan bagi pelayan            64
+    Teks sejarah arahan bagi pelayan         64 KiB
+    Teks sejarah disimpan bagi pelayan        8 MiB
+    Skalar Unicode input bagi draf             8192
+    Bait UTF-8 input bagi draf                16384
+    Tawaran DCC tertunda, seluruh ruang kerja    8
+    Pemindahan DCC aktif, seluruh ruang kerja    4
+    Rekod DCC disimpan, seluruh ruang kerja     12
+
+Had sejarah terpakai bagi setiap pelayan, bukan had memori keseluruhan proses. Dengan lapan sesi, teks sejarah tersimpan boleh mencapai 64 MiB. Keadaan pelayan diperuntukkan apabila diperlukan; sesi lebih sedikit tidak menempah lapan sejarah penuh. Pustaka, metadata paparan, senarai pengguna, input dan pengangkutan menggunakan memori tambahan. Sejarah perbualan berada dalam memori sahaja melainkan penglogan berterusan pilihan diaktifkan. Paparan sebutan berasingan bukan arkib kekal; perbualan sumber yang layak mungkin dilog. Tetapan, kelayakan dan log teks biasa pilihan ialah fail setempat; perisian lain dengan keistimewaan akaun anda boleh membacanya. Tiada klien boleh menjamin keselamatan daripada setiap pelayan bermusuhan atau terminal, sistem operasi, atau pustaka yang terjejas.
+
+===== SOURCE CHAPTER: CREATING ENCRYPTED PASSWORD FILES =====
+MENCIPTA FAIL KATA LALUAN YANG DISULITKAN
+
+Untuk mencipta kelayakan GPG, gunakan /panel dalam mana-mana antara muka. Pilih pelayan, pilih gpg sebagai sumber pengesahan atau kata laluan pelayan, kemudian pilih create. Sistem menawarkan destinasi mutlak dalam direktori kelayakan bersebelahan konfigurasi terpilih. Untuk konfigurasi utama lalai:
+
+    ~/.config/vipirc/credentials/account-password.gpg
+
+Kata laluan PASS pelayan menggunakan server-password.gpg. Nama yang sudah wujud dilangkau dan alternatif bernombor ditawarkan. Panel memaparkan laluan mutlak sebenar; tilde dalam contoh hanya penerangan, bukan sintaks konfigurasi literal. Enter menerima lokasi yang dicadangkan dan boleh menyediakan direktori peribadi dengan mod 0700. Melihat cadangan tidak mencipta apa-apa. Destinasi tersuai memerlukan direktori induk peribadi milik pengguna yang sudah wujud; direktori sedia ada tidak pernah diubah modnya. Destinasi dan ketersediaan gpg tempatan disemak sebelum meminta kunci dan kata laluan. Masukkan cap jari heksadesimal lengkap 40 atau 64 digit bagi kunci penyulitan yang sudah ada dalam gelang kunci GPG tempatan; kemudian masukkan dan ulang kata laluan tersembunyi. Fail disulitkan sedia ada masih boleh dipilih. Laluan yang dimasukkan ke panel disimpan sebagai laluan mutlak, jadi menukar direktori pelancaran tidak mengubah maksudnya. Tiada kunci dimuat turun atau dijana, dan tiada fail kata laluan teks biasa dicipta.
+
+Hanya tindakan akhir Save, Apply atau Connect yang memulakan penyulitan dan menerbitkan teks sifer baharu yang diminta secara jelas dengan mod 0600. Apply only dan Connect once boleh mencipta fail sifer tanpa menyimpan konfigurasi. Fail sedia ada dan pautan simbolik ditolak. Setiap pembantu mempunyai tempoh lima saat; antara muka terus memproses kejadian rangkaian. Kegagalan penyulitan membiarkan pilihan belum digunakan serta melaporkan laluan dan sebab tanpa mendedahkan rahsia atau output pembantu. Finish membezakan destinasi cadangan daripada fail yang telah dicipta. Kejayaan menunjukkan /autoauth status untuk laluan lengkap; jika simpanan gagal atau penerbitan sebahagian, lokasi berkaitan dikekalkan dalam paparan semakan yang boleh ditatal. Simpanan konfigurasi yang gagal boleh dicuba lagi tanpa penyulitan semula. Pembatalan hanya membuang fail baharu yang tidak berubah daripada percubaan itu; fail yang telah dirujuk oleh konfigurasi tersimpan dikekalkan. Escape kembali satu soalan dan membatalkan penciptaan tertunda; menutup persediaan mengosongkan input tersembunyi. Mod luar talian menolak penciptaan sebelum sebarang akses GPG, gelang kunci atau fail. Untuk penyahsulitan kemudian, buka kunci peribadi di luar aplikasi jika perlu.
+
+===== SOURCE CHAPTER: TROUBLESHOOTING =====
+Ikuti pemeriksaan berurutan dalam doc/TROUBLESHOOTING.txt. Jangan kongsi log peribadi atau rahsia.
+
+Sambungan: baca ralat pelayan; semak hos, port dan TLS. /connect mencuba semula secara manual; --reconnect cuba lagi untuk kegagalan sementara. Rujuk TLS AND CUSTOM TRUST. Jangan pintas kegagalan pengesahan dengan menghantar kelayakan melalui IRC tanpa penyulitan.
+
+Pengesahan: /autoauth status memaparkan laluan semasa dan tertangguh, bukan rahsia. Semak aturan akaun dan sumber di AUTOMATIC CONNECTION, JOIN, AND AUTHENTICATION.
+
+GPG: rujuk CREATING ENCRYPTED PASSWORD FILES untuk pemeriksaan destinasi dahulu dan AUTHENTICATION untuk had penyahsulitan, kebenaran serta buka kunci luar aplikasi.
+
+Saluran: lengkapkan pendaftaran/pengesahan. /autojoin menunjukkan penyertaan tertangguh profil langsung; bouncer memulihkan saluran. Lihat CONNECTION AND STARTUP COMMANDS.
+
+Sesi sibuk: semak --sessions, kemudian --detach-session NUMBER dan --resume NUMBER. --close-session menamatkan worker. Rujuk SESSION RECOVERY AND UPGRADES.
+
+Kekunci/paparan: anak panah Compose menyunting; Command mengingat arahan selamat yang diterima. Semak teks tersimpan untuk baris berbalut tersembunyi. Lihat MINIMALIST WRAPPING AND INPUT HISTORY.
+
+Lebar teks: padankan locale UTF-8, TERM dan fon; ubah saiz mengekalkan draf/kursor. Terminal kecil menghadkan panel. Rujuk FILES AND ENVIRONMENT.
+
+Simpan: mod ujian menolak penulisan. Semak laluan dan kebenaran peribadi dalam CONFIGURATION; Save, Apply dan autoconnect permulaan ialah tindakan berbeza.
+
+Log/catch-up: periksa ralat sebenar; sembang berterusan. Had, putaran, penanda mesej dihantar yang baharu dan kaedah sandaran terdapat dalam HISTORY, LOGGING AND PRIVACY.
+
+Pemilikan proses anak: proses anak SIGCHLD mesti boleh ditunggu. Mengabaikan isyarat itu atau menuai secara automatik menghalang permulaan pertama worker latar atau pembantu; betulkan pelancar.
+
+===== SOURCE CHAPTER: FILES AND ENVIRONMENT =====
+FAIL DAN PERSEKITARAN
+
+Lokasi lalai konfigurasi utama:
+
+    $XDG_CONFIG_HOME/vipirc/config.ini
+    $HOME/.config/vipirc/config.ini
+
+XDG_CONFIG_HOME diberi keutamaan jika tidak kosong dan mestilah laluan mutlak. HOME digunakan sebagai sandaran; maklumat pangkalan data akaun digunakan jika HOME tidak membekalkan direktori rumah mutlak. --config FILE memilih konfigurasi utama lain bersama ruang kerja profil pelayan bersebelahannya. Laluan yang ditulis dalam konfigurasi digunakan secara harfiah tanpa pengembangan pemboleh ubah, tilde atau shell. Pemboleh ubah yang dipaparkan di atas hanya menerangkan cara memilih lokasi lalai. Shell anda masih melakukan petikan dan pengembangan argumen biasa sebelum menghantar argumen baris perintah.
+
+Untuk laluan utama P, P.servers menyimpan ID profil pelayan dan pilihan [servers] default=PROFILE_ID yang diuruskan oleh /saveconf. P.d/ mengandungi fail profil sekunder. Setiap konfigurasi tersimpan mungkin mempunyai fail .commands berisi kiraan perintah kanonik dan transkrip .log pilihan. Konfigurasi yang dijana serta profil sekunder memerlukan Save yang jelas; kiraan perintah yang diterima dikemas kini secara automatik dalam ruang kerja tersimpan yang sedia ada. Profil lalai yang diingati tetapi hilang atau tidak boleh dibaca dilaporkan dan tidak akan diam-diam ditukar kepada sambungan lain.
+
+Antara muka penuh mencadangkan $XDG_DATA_HOME/vipirc/downloads sebagai direktori penerimaan DCC lalai jika XDG_DATA_HOME mutlak; jika tidak, $HOME/.local/share/vipirc/downloads digunakan apabila HOME mutlak. Direktori cadangan hanya dicipta selepas persetujuan jelas. Perintah /dcc accept NUMBER tanpa DIRECTORY menggunakan direktori pelancaran proses dan mensyaratkannya dimiliki pengguna serta persendirian. Memilih atau melayari laluan tidak pernah mengubah direktori pelancaran itu.
+
+PATH mencari program gpg pilihan. Tiada shell dijalankan; program tersebut adalah sebahagian daripada persekitaran setempat yang perlu dipercayai. GNUPGHOME ditafsirkan oleh GnuPG bagi persekitaran kunci dan agennya. Klien tidak mengembangkan GNUPGHOME dalam laluan kelayakan. Operasi SSH jauh menggunakan persekitaran dan fail pada hos tempat vipirc dijalankan.
+
+TERM menerangkan keupayaan terminal untuk ncurses, bukan pengekodan teks. LANG, LC_CTYPE dan LC_ALL memilih locale. Gunakan locale UTF-8 terpasang yang sepadan dengan terminal untuk penyuntingan Unicode dan lebar aksara. Perintah locale, locale charmap dan locale -a membantu memeriksa hos; nama locale berbeza antara sistem.
+
+Terjemahan antara muka: tetapkan VIPIRC_LANG kepada id (Indonesia), ms (Melayu), tr (Turki), es (Sepanyol), pt (Portugis), fr (Perancis), de (Jerman), ru (Rusia), it (Itali), atau ar (Arab) semasa memulakan vipirc. Nilai seperti id_ID.UTF-8 juga diterima. Antara muka ncurses dan -i menggunakan katalog yang sama. Bahasa Inggeris digunakan jika terjemahan tiada. Proses terpisah mengekalkan bahasa paparan yang dipilih semasa ia dilancarkan. Perintah IRC berawalan garis condong, kunci konfigurasi dan nilai kawalan kekal dalam bahasa Inggeris. Keluaran ini menterjemahkan sebahagian kawalan antara muka, bukan semua halaman bantuan, amaran keselamatan atau ralat. Lihat doc/LOCALIZATION.md.
+
+LC_CTYPE yang aktif dihormati. Locale tidak sah atau bukan UTF-8 mengaktifkan mod terminal ASCII secara jelas dan memaparkannya pada skrin alu-aluan. Input bukan ASCII ditolak dengan mesej status; titik kod masuk bukan ASCII dipaparkan sebagai '?' tanpa mengubah teks rangkaian yang disimpan. Klien tidak meneka atau menukar pengekodan lama dan tidak memaksa locale. Pilih locale UTF-8 terpasang dan mulakan semula untuk Unicode. ASCII kekal subset satu bait UTF-8; SSH tidak mengubah had bait IRC.
+
+===== SOURCE CHAPTER: EXIT STATUS =====
+STATUS KELUAR
+
+0     Penamatan biasa atau keluar secara interaktif.
+1     Kegagalan operasi, contohnya permulaan, simpanan atau kawalan sesi.
+2     Pilihan/konfigurasi tidak sah atau tiada terminal untuk penggunaan interaktif.
+130   SIGINT mengganggu skrin alu-aluan selepas terminal dibersihkan.
+131   SIGQUIT mengganggu skrin alu-aluan selepas terminal dibersihkan.
+
+Status kejayaan --background hanya mengesahkan persediaan pekerja setempat, bukan log masuk IRC jauh. Status gagal menutup sesi bermaksud penamatan belum disahkan; semak --sessions sekali lagi kerana permintaan yang telah diterima mungkin selesai kemudian.
+
+===== SOURCE CHAPTER: PLATFORMS, BUILD, AND LICENSE =====
+PLATFORM, BINAAN DAN LESEN
+
+Sasaran termasuk Linux, persekitaran Linux pada ChromeOS serta sistem BSD. Pembinaan memerlukan C11, antara muka POSIX, GNU/BSD getopt_long, curses aksara lebar dan fail pembangunan TLS yang serasi. Klien tidak memerlukan persekitaran masa jalan bahasa pengaturcaraan. Python 3 digunakan untuk ujian dan penjanaan dokumentasi; eksport yang dibekalkan membolehkan pembinaan dan sembang biasa tanpa Python. Rujuk INSTALL untuk kebergantungan.
+
+    ./configure
+    make
+    make check-offline
+    make check
+    make install PREFIX="$HOME/.local"
+
+Rujuk INSTALL untuk kebergantungan dan pembinaan, SECURITY.md untuk model keselamatan dan had, serta laporan pengesahan keluaran bagi platform yang benar-benar diuji. Pelaksanaan asli pada BSD memerlukan pengesahan berasingan: hasrat keboleh-alihan bukan bukti ujian semua sistem seakan Unix. make check-offline menjalankan ujian CLI/PTY tanpa soket rangkaian; make check turut menggunakan pelayan simulasi dalam loopback tempatan.
+
+Ini aplikasi ThatIAm.vip (www.thatiam.vip) yang direka oleh remfan1994. Kod sumber tersedia di bawah IALA (Insha-Allah License Agreement) yang dibekalkan, dengan teks penuh dalam LICENSE.md. Pustaka yang dipautkan kekal di bawah lesen masing-masing; lihat NOTICE. Pelaksanaan ini ditulis untuk spesifikasi tersebut tanpa menyalin kod atau bahasa konfigurasi klien IRC lain.
+
+===== SOURCE CHAPTER: DOCUMENTATION AND VALIDATION =====
+DOKUMENTASI DAN PENGESAHAN
+
+MANUAL.txt di direktori utama ialah rujukan rasmi vipirc penuh; doc/manual.txt menyalinnya dan src/manual.c membenamkannya. vipirc --manual dan vipirc(1) memaparkannya. vipirc -i --manual dan doc/vipirc-idle-manual.txt membekalkan rujukan minimalis. Kedua-dua antara muka juga mempunyai /help dan /manual.
+
+README.md memetakan pemasangan dan dokumen; INSTALL menerangkan pembinaan; SECURITY.md menetapkan sempadan keselamatan. CONTRIBUTING.md menerangkan aliran kerja suntingan/semakan, doc/SOURCE-MAP.txt menunjukkan kod, tests/README.md memetakan ujian dan DESIGN.md menjelaskan invarian. doc/TROUBLESHOOTING.txt memadankan gejala dengan semakan; doc/BOUNCERS.txt, doc/SESSION-CONTROLS.txt dan doc/OPENBSD-VPS.txt meliputi operasi. Ganti hos, akaun dan laluan mutlak contoh sebelum digunakan.
+
+Penyelenggara mengubah prosa dan bantuan berwibawa, kemudian menjalankan make docs dan make check-docs. Sasaran docs membenamkan manual sebelum membina/mengeksport semula. Audit dan fail JSON hanya terpakai kepada versi serta persekitaran yang dinyatakan, bukan platform/perkhidmatan yang belum diuji. Dokumentasi tidak menambah perlindungan ketika program berjalan; ujian tidak dapat membuktikan ketiadaan kecacatan.
+
+===== SOURCE CHAPTER: PROTOCOL REFERENCES =====
+RUJUKAN PROTOKOL
+
+https://www.rfc-editor.org/rfc/rfc2812
+https://modern.ircdocs.horse/
+https://ircv3.net/specs/extensions/capability-negotiation
+https://ircv3.net/specs/extensions/sasl-3.1
+https://www.irchelp.org/protocol/ctcpspec.html
+https://www.irchelp.org/protocol/dccspec.html
+
+Sintaks IRC dan keperluan saling kendali datang daripada dokumen protokol. Antara muka dan skop program mengikut keperluan projek.
+

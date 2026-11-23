@@ -1,0 +1,21 @@
+OPTIONAL LANGUAGE/ARABIC RTL PATCH r19 - DOCUMENTATION COVERAGE
+Client: vipirc 0.7.36; unchanged English source r1
+Patch: r19 (do not apply over another revision)
+Languages: id ms tr es pt fr de ru it ar. Drafts require fluent-speaker review.
+
+NEW EXACT SOURCE-LINKED CHAPTERS
+  MESSAGE LENGTH AND FLOOD PREVENTION: 310 words, SHA256 74197e1e6983ce301972c3ad55db5a844ff0ae8bde4ebc998ebfe85c8ddcae1c
+  HISTORY, LOGGING AND PRIVACY: 352 words, SHA256 b0c065ed46b6cbb73666075f1eee2d050a5a82160fac0ddadd98ad80d2910ee3
+  SAVED SERVER PROFILES: 216 words, SHA256 ff3b21055c0b13e827ba1c38f80fbe8db59163af5b82bb486626649d1f7a61f2
+  TLS AND CUSTOM TRUST: 163 words, SHA256 b1882bb7f49f2bb4bad68591a7b150c2f131435de0d93aefb2c35386db894309
+  SECURITY AND RESOURCE BOUNDS: 395 words, SHA256 0244a7b43c7e5e46a5b365e081fc7bc6654afe3069aea9e68c0e1d0f46c1277e
+
+New English source words covered: 1436 per target language (not a total-coverage percentage).
+13 of 52 top-level sections have complete source-linked standalone translations, 5 added this pass.
+
+
+REMAINING WORK
+- The full MANUAL.txt and SECURITY.md are still English and authoritative.
+- The separate translated documents are offline companions, not the full ncurses help reader.
+- Further manual chapters, diagnostics, CLI help, top-level documentation and native proofreading remain.
+- RTL program behavior and language catalogs (844 entries/locale) are unchanged from r18.

@@ -1,0 +1,18 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / CUSTOM KEY BINDINGS
+English source SHA-256: 947b11b40b8bb1c3fa32d14bc71aac77bc4ccb1186406a303e6b96d197a6b92d
+Source lines: 782-815
+
+ASSOCIAZIONI PERSONALIZZATE DEI TASTI
+
+Per impostazione predefinita non è assegnato alcun tasto personalizzato. App > Key bindings oppure /bindings apre la tabella nel vipirc completo. Add/Edit sceglie un nome di tasto e un'azione locale; Remove elimina una riga. Apply modifica la configurazione in memoria, mentre Save scrive anche il file di configurazione principale. Escape/Cancel scarta le modifiche non applicate. Le bozze di chat restano intatte. La tabella dispone di propri comandi, non influenzati dalle associazioni personalizzate.
+
+In entrambe le interfacce, /bindings keys e /bindings actions elencano i nomi disponibili. Esempi di scelta dell'utente: /bind F7 summary e /bind Alt-c command; inseriscili come comandi separati. /unbind F7 rimuove un'associazione, /unbind all svuota la tabella personalizzata. /save input salva le modifiche per tutti i profili server. In -i, /bindings mostra la tabella e /bind e /unbind la modificano tramite comandi.
+
+Tasti: F1..F12, Ctrl-A..Z, Alt-a..z/0..9, Up, Down, Left, Right, Home, End, PageUp, PageDown, Insert, Delete, Backspace, Tab, Shift-Tab, Enter, Escape. Sono alias Ctrl-H/Backspace, Ctrl-I/Tab, Ctrl-J/Ctrl-M/Enter e Ctrl-[/Escape. Le lettere con Alt usano byte minuscoli del terminale. Hanno precedenza le intercettazioni di terminale/multiplexer e le mappature dei segnali; nessun tasto di segnale viene riassegnato.
+
+Azioni: compose, command, bindings, help, manual, summary, servers, channels, queries, unread, mentions, transfers, settings, quickstart, next, prev, clearinput, cancel, background, quit. Non sono disponibili macro che inviano messaggi o eseguono comandi arbitrari. Nel modo completo, i comandi ripristinati richiedono un nuovo Enter per confermarli e, dopo una pausa, un secondo Enter per eseguirli. Se la destinazione originale è stata chiusa, Run viene impedito.
+
+Le azioni personalizzate funzionano soltanto nella chat principale e nel campo comandi, mai durante incolla, nei campi password, nella configurazione iniziale, nei lettori o nelle conferme. L'incolla senza delimitatori è comunque interpretato come digitazione. I lettori di scorciatoie minimalisti conservano bozza e cursore; cambi di destinazione o editor rifiutano una bozza non vuota. clearinput elimina deliberatamente la bozza corrente.
+
+La sezione [hotkeys] del file principale salva righe KEY=action e non ha righe predefinite. Voci sconosciute, duplicate o oltre il limite fanno rifiutare atomicamente l'intero caricamento. Sono supportate fino a 64 voci. Vedi doc/HOTKEYS.txt per salvataggio, limiti del terminale ed esempi.

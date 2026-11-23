@@ -1,0 +1,67 @@
+VERBATIM ENGLISH REFERENCE: vipirc 0.7.36 MANUAL.txt
+Source: INPUT EDITING through MOUSE CONTROLS
+English source SHA-256: efd7a5a2ee94dcc2a9923884399743cf9696f83790f9e79d1861b211d0a9453c
+
+INPUT EDITING
+
+Enter                  Submit or review composition.
+    Left/Right             Previous/next character group.
+    Up/Down                Move through wrapped input rows, not chat recall.
+    Home/End               Start/end of complete composition.
+    Backspace/Delete       Remove previous/current character group.
+    Tab/Shift-Tab          Complete next/previous nickname.
+    Escape                 Open Queries from a query, otherwise vipirc.
+    /clearinput            Clear entire draft, including offscreen text.
+
+F1..F6 opens available panels. Chat letters including hjkl are literal.
+Typed Enter sends; explicit newlines enter through bracketed paste, with
+pasted tabs becoming spaces. A typed slash at caret zero opens independent
+Command, preserving the draft; later/pasted slashes are text.
+
+The draft is one logical buffer: wrapping inserts no text, Backspace crosses
+visual rows, and resize preserves text/caret. The fixed field reserves
+floor(B/W)+1 rows for payload budget B and usable columns W, clamped to
+terminal space. Typing/deleting does not resize it; longer drafts scroll
+inside. View/protocol-budget/terminal-size changes recalculate height.
+Command has its own field and /msg or /me never replaces the chat draft.
+
+A bare raw Escape waits about 500 ms; a partial sequence permits 1000 ms
+between continuation bytes while networking continues. Complete decoded keys
+act immediately. An opening paste marker delayed beyond its first-Escape
+grace can act as Escape; in the minimalist log it can background the client.
+Once capture begins, closing paste markers remain recognized across
+arbitrarily delayed split reads. Its trailing keys cannot cancel the
+draft or change modes before the visible review/quiet-input boundary.
+
+Input needs valid UTF-8 or explicit ASCII locale mode; see FILES AND
+ENVIRONMENT. A base character and following zero-width marks move/delete
+together; full Unicode grapheme segmentation is not implemented. Unsupported
+glyphs get a visible replacement. Draft limits are 8192 Unicode scalars and
+16384 UTF-8 bytes, whichever arrives first. Invalid encoding/controls are
+rejected. Pasted newlines remain visible and affect the send plan; the
+smaller IRC budget governs warnings/splitting.
+
+MOUSE CONTROLS
+
+Mouse is enabled by default when curses/TERM/terminal support it. /mouse
+toggles, /mouse on|off sets it, and Settings > Interface edits/saves the
+primary-owned [interface] mouse preference. Keyboard operation works without
+it; the terminal/SSH multiplexer must forward events.
+
+Click a header category to open it, chat to place the caret, Clear to erase
+the entire draft, Send to submit through normal checks. Clear/Send hides
+when unavailable. Nicknames in chat/roster offer Whois/Query; clicking
+#channel selects or joins it. Displayed token identity, not a later
+replacement at those coordinates, determines the action. URLs and clipboard
+contents are not opened.
+
+Item clicks open server/channel/query rows; action clicks act on the
+selection. Wheel changes selection while preserving the action. Over chat
+history/roster it scrolls three visual rows/users. Settings and transfers
+retain their own field/action controls. Chat needs at least 9 rows by 20
+columns; narrow headers keep focus visible.
+
+Mouse does not acknowledge early-length or split-send dialogs; use their
+keyboard choices. Command Run/Cancel requires a fresh action after paste.
+Pasted click sequences/newlines cannot activate it, and clicks from an old
+layout are not reused on a newly opened screen.

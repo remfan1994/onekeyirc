@@ -1,0 +1,9 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / MINIMALIST WRAPPING AND INPUT HISTORY
+English source SHA-256: 530aeaefbd01d1eb2f184d0eabe5145550b9634fd9235a3f604b9f234b562160
+
+AJUSTE DE LÍNEAS E HISTORIAL DE ENTRADA MINIMALISTAS
+
+Compose reserva filas para la entrada y muestra arriba las últimas filas visuales ajustadas; las anteriores pueden quedar fuera de esa ventana reducida. El texto almacenado y los planes de envío no se acortan. Salga del campo de entrada o vuelva a seleccionar la conversación para examinar el texto conservado; el eco local no demuestra que el mensaje se haya entregado. Al cambiar el tamaño de la terminal se recalcula la disposición sin perder borrador ni cursor.
+
+Las teclas Arriba/Abajo en Compose mueven el cursor, incluso si se mantienen pulsadas. Solo Arriba en Command recupera comandos aceptados: no se recuperan mensajes enviados, líneas de servicio sensibles ni uniones con clave. El archivo .commands solo contiene nombres y recuentos. Consulte COMMAND PROMPT, INPUT EDITING y TROUBLESHOOTING.

@@ -1,0 +1,291 @@
+[
+  {
+    "source": "src/app.c",
+    "kind": "fixed-status",
+    "fields": [],
+    "english": "That retained query nickname is invalid. Clear mentions to remove its records."
+  },
+  {
+    "source": "src/app.c",
+    "kind": "fixed-status",
+    "fields": [],
+    "english": "Cannot retain this query's invalid nickname. Clear mentions before closing it."
+  },
+  {
+    "source": "src/app.c",
+    "kind": "fixed-status",
+    "fields": [],
+    "english": "Cannot retain this query's mentions: out of memory. Clear mentions before closing it."
+  },
+  {
+    "source": "src/app.c",
+    "kind": "fixed-status",
+    "fields": [],
+    "english": "OFFLINE TEST MODE: starting simulated registration."
+  },
+  {
+    "source": "src/app.c",
+    "kind": "fixed-status",
+    "fields": [],
+    "english": "Cannot allocate the complete send; nothing queued."
+  },
+  {
+    "source": "src/app.c",
+    "kind": "fixed-status",
+    "fields": [],
+    "english": "Server, mentions and help views cannot be closed; /disconnect leaves the server."
+  },
+  {
+    "source": "src/app.c",
+    "kind": "fixed-status",
+    "fields": [],
+    "english": "A nonempty UTF-8 bouncer command is required."
+  },
+  {
+    "source": "src/app.c",
+    "kind": "fixed-status",
+    "fields": [],
+    "english": "Bouncer commands cannot contain line breaks or control characters."
+  },
+  {
+    "source": "src/app.c",
+    "kind": "fixed-status",
+    "fields": [],
+    "english": "JOIN key must be one printable ASCII token without spaces, ':' or ','."
+  },
+  {
+    "source": "src/app.c",
+    "kind": "fixed-status",
+    "fields": [],
+    "english": "JOIN command exceeds the protocol byte limit; the key was not queued."
+  },
+  {
+    "source": "src/app.c",
+    "kind": "fixed-status",
+    "fields": [],
+    "english": "Configured channel list is full."
+  },
+  {
+    "source": "src/app.c",
+    "kind": "fixed-status",
+    "fields": [],
+    "english": "Input cannot contain control characters except composed newlines."
+  },
+  {
+    "source": "src/app.c",
+    "kind": "fixed-status",
+    "fields": [],
+    "english": "Select the matching ZNC or soju connection before using this command."
+  },
+  {
+    "source": "src/app.c",
+    "kind": "fixed-status",
+    "fields": [],
+    "english": "No such query number; /ql lists queries starting at 1."
+  },
+  {
+    "source": "src/app.c",
+    "kind": "fixed-status",
+    "fields": [],
+    "english": "No such channel; /channels lists channel numbers."
+  },
+  {
+    "source": "src/app.c",
+    "kind": "fixed-status",
+    "fields": [],
+    "english": "No such view; /channels and /ql list conversations."
+  },
+  {
+    "source": "src/app.c",
+    "kind": "fixed-status",
+    "fields": [],
+    "english": "Invalid or oversized input."
+  },
+  {
+    "source": "src/app.c",
+    "kind": "fixed-status",
+    "fields": [],
+    "english": "Choose a channel/query view or use /msg nick text."
+  },
+  {
+    "source": "src/app.c",
+    "kind": "fixed-status",
+    "fields": [],
+    "english": "Only message text can contain composed newlines."
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed-status",
+    "fields": [],
+    "english": "Input is on the chat screen. Press Esc to return."
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed-status",
+    "fields": [],
+    "english": "Server 0 is the primary entry; use Disconnect to stop it."
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed-status",
+    "fields": [],
+    "english": "Server, mentions and help stay available. Use /disconnect to leave the server."
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed-status",
+    "fields": [],
+    "english": "Opened the manual. /help TEXT searches it; it does not print topic help."
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed-status",
+    "fields": [],
+    "english": "No such conversation; use /channels or /ql."
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed-status",
+    "fields": [],
+    "english": "QUIT reason must be at most 255 UTF-8 bytes."
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed-status",
+    "fields": [],
+    "english": "QUIT reason could not be sent."
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed-status",
+    "fields": [],
+    "english": "Finish or cancel the command before a shortcut changes its conversation or connection."
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed-status",
+    "fields": [],
+    "english": "Conversation input focused. The Command action restores an unfinished command."
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed-status",
+    "fields": [],
+    "english": "That category is empty."
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed-status",
+    "fields": [],
+    "english": "Nickname does not fit; draft preserved."
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed-status",
+    "fields": [],
+    "english": "Resource snapshot refreshed."
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed-status",
+    "fields": [],
+    "english": "Input limit reached or unsupported control character."
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed-status",
+    "fields": [],
+    "english": "Incomplete UTF-8 input ignored before Escape."
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed-status",
+    "fields": [],
+    "english": "Incomplete UTF-8 input ignored before a terminal key."
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed-status",
+    "fields": [],
+    "english": "ASCII terminal mode: non-ASCII input rejected; select a UTF-8 LC_CTYPE."
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed-status",
+    "fields": [],
+    "english": "Invalid UTF-8 input ignored."
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed-status",
+    "fields": [],
+    "english": "Incomplete UTF-8 input ignored."
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed-status",
+    "fields": [],
+    "english": "Usage: /summary"
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed-status",
+    "fields": [],
+    "english": "Usage: /servers (or /sl); neither accepts arguments."
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed-status",
+    "fields": [],
+    "english": "Usage: /mouse [on|off]"
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed-status",
+    "fields": [],
+    "english": "Usage: /help [TEXT]. TEXT searches the manual (up to 256 UTF-8 bytes)."
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed-status",
+    "fields": [],
+    "english": "Usage: /mentions [clear]. Clear removes retained mentions across servers."
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed-status",
+    "fields": [],
+    "english": "Usage: /server close NUMBER. Use /servers to see server numbers."
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed-status",
+    "fields": [],
+    "english": "Usage: /ls [servers|channels|queries|unread]"
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "named-fields",
+    "fields": [
+      "error",
+      "nick"
+    ],
+    "english": "DCC offer from {nick} rejected: {error}"
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "named-fields",
+    "fields": [
+      "nick"
+    ],
+    "english": "File offer from {nick}. Open Transfers or /dcc to review."
+  },
+  {
+    "source": "src/app.c",
+    "kind": "named-fields",
+    "fields": [
+      "error"
+    ],
+    "english": "Channel list request failed: {error}. Use /list to retry."
+  }
+]

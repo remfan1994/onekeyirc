@@ -1,0 +1,18 @@
+TLS, credentials and endpoint identity
+Source: SECURITY.md, section "TLS, credentials and endpoint identity"
+English section SHA-256: 4ea410d65b0d7a489076cfd9898b5769f21e9e2f4fec63f7df8340f68bb5de45
+Paragraphs: 6
+Status: Translation draft; fluent-speaker security review required
+English SECURITY.md remains authoritative. This is only one section, not the full security document.
+
+TLS exige la versión 1.2 o posterior y verifica la cadena de certificados y el nombre de host seleccionado. SASL configurado, PASS del servidor y las listas automáticas de comandos habilitadas y no vacías requieren TLS verificado. No existe una degradación silenciosa a texto sin cifrar. Cifrar una contraseña en disco no cifra el transporte. TLS de IRC protege la conexión hasta el servidor o bouncer seleccionado; no cifra los mensajes de extremo a extremo.
+
+Mantenga actualizada la biblioteca TLS enlazada, además del código fuente. El equipo de revisión utilizó OpenSSL 3.5.7; OpenSSL documenta CVE-2026-35189, un crecimiento de memoria relacionado con certificados durante el procesamiento normal de TLS, corregido en 3.5.9 de esa rama. Esta versión del código fuente no corrige dicha biblioteca externa. Compruebe la versión, los parches retroportados y las actualizaciones de seguridad del proveedor de despliegue: https://openssl-library.org/news/secadv/20260929.txt
+
+Un ca_file vacío selecciona el almacén de confianza del sistema. Un paquete CA personalizado es un archivo PEM local de confianza: el cargador lo abre una sola vez, comprueba el archivo regular ya abierto, lee su contenido con límites y analiza esa copia sin solicitar contraseña. Rechaza archivos vacíos, superiores a 16 MiB, fuentes no regulares y cambios de tamaño detectados. Se conservan los certificados y las entradas de confianza AUX y CRL. Las rutas CA pueden atravesar enlaces simbólicos porque son material público de confianza seleccionado expresamente, a diferencia de las rutas privadas de configuración o credenciales. Seleccionar otra CA cambia qué emisores acepta el cliente. El cargador es síncrono y la E/S sobre archivos regulares aún puede bloquearse en almacenamiento lento.
+
+Cada credencial selecciona exactamente una fuente: archivo privado en texto sin cifrar, archivo privado cifrado con GPG o valor explícito en línea. Las fuentes SASL y PASS del servidor son distintas. Cambiar el nombre de host mediante --server borra la autenticación heredada, la CA seleccionada, la identidad del bouncer, los canales y los comandos de arranque. Cambiar el puerto o el apodo, o sustituir el servidor por el mismo host, no produce ese restablecimiento. Revise el perfil seleccionado antes de conectarse a otro servicio.
+
+SASL PLAIN directo requiere su cuenta configurada. soju deriva la identidad SASL de los campos del bouncer. La negociación utiliza la última declaración anunciada de mecanismos SASL, espera la confirmación o el desafío y solo entonces lee la credencial. Si falla la autenticación obligatoria, no se continúa como registro sin autenticar. ZNC utiliza en su lugar su fuente PASS de servidor.
+
+Los comandos privados de autenticación reconocidos y escritos manualmente también exigen TLS verificado. La validación se aplica a las líneas lógicas y a todos los fragmentos previstos; se repite al enviarlos. Las formas privadas reconocidas se excluyen del historial de comandos y del registro persistente de transcripciones. El terminal en vivo todavía puede mostrar el texto introducido. El reconocimiento cubre verbos habituales de servicios, no secretos arbitrarios dentro de mensajes ni todos los protocolos de servicios de terceros.

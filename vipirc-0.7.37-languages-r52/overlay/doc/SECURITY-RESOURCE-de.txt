@@ -1,0 +1,32 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / SECURITY AND RESOURCE BOUNDS
+English source SHA-256: 0244a7b43c7e5e46a5b365e081fc7bc6654afe3069aea9e68c0e1d0f46c1277e
+
+SICHERHEIT UND RESSOURCENGRENZEN
+
+TLS überprüft die Zertifikatskette und den angeforderten Hostnamen oder die numerische Adresse. Weder lässt sich die Zertifikatsprüfung umgehen noch erfolgt eine stille Herabstufung. IRC ohne TLS ist nur durch eine ausdrückliche Einstellung möglich; dabei ist der Verkehr für Beobachter entlang des Verbindungswegs sichtbar, und gespeicherte Geheimnisse dürfen nicht verwendet werden. TLS schützt die Client-Server-Verbindung, nicht die Ende-zu-Ende-Vertraulichkeit des Chats.
+
+Beim regulären Start werden unterschiedliche reale und effektive Benutzer- oder Gruppen-IDs abgewiesen und Core-Dumps vor dem Einlesen der Konfiguration deaktiviert. Unter Linux wird zusätzlich die Dumpbarkeit des Prozesses abgeschaltet. Der Client ist ein normaler Prozess ohne Betriebssystem-Sandbox; andere Prozesse unter demselben Konto liegen innerhalb seiner Vertrauensgrenze.
+
+Erkannte private Authentifizierungsbefehle erfordern verifiziertes TLS, selbst wenn sie als normaler Nachrichtentext eingegeben, über einen Sendeplan verteilt oder in die Warteschlange gestellt werden. Unbekannte neue Geheimnissyntax kann nicht zuverlässig erkannt werden; Zugangsdaten gehören weder in den Chat noch in Shell-Argumente.
+
+Eingehende IRC-Daten gelten als nicht vertrauenswürdig. Gefährliche Steuerfolgen und Formatierungen werden vor der Anzeige bereinigt. Eingabe- und Netzwerkpuffer sind begrenzt. Der Client führt empfangenen Text nicht aus, öffnet keine URLs, führt keine Shell-Befehle aus, lädt keine Skripte oder Plugins und antwortet nicht automatisch auf CTCP. Aktionsnachrichten erscheinen als Text. Jedes DCC SEND-Angebot muss ausdrücklich einzeln geprüft und angenommen werden; die direkte Verbindung ist nicht durch TLS verschlüsselt.
+
+Grenzwerte dieser Ausgabe:
+
+    Serversitzungen pro Prozess                  8
+    Ansichten pro Server, einschließlich intern 32
+    Gespeicherte Nutzer pro Kanal             4096
+    Eigene Erwähnungsstrings pro Server         32
+    Ignoriermasken pro Server                   32
+    Wartende Chatnachrichten pro Server         64
+    Befehlsverlaufseinträge pro Server          64
+    Befehlsverlaufstext pro Server          64 KiB
+    Gespeicherter Verlaufstext pro Server     8 MiB
+    Unicode-Skalare pro Entwurf                8192
+    UTF-8-Eingabebytes pro Entwurf           16384
+    Ausstehende DCC-Angebote, gesamt             8
+    Aktive DCC-Übertragungen, gesamt             4
+    Behaltene DCC-Einträge, gesamt              12
+
+Die Verlaufsgrenze gilt pro Server, nicht als Gesamtspeichergrenze des Prozesses. Bei acht Sitzungen kann der gespeicherte Verlaufstext 64 MiB erreichen. Serverzustand wird bei Bedarf angelegt; weniger Sitzungen reservieren nicht vorab acht vollständige Verläufe. Bibliotheken, Ansichtsmetadaten, Benutzerlisten, Eingaben und Transport benötigen zusätzlichen Speicher. Chatverläufe liegen nur im Arbeitsspeicher, sofern die optionale dauerhafte Protokollierung nicht aktiviert ist. Die separate Erwähnungsansicht ist kein dauerhaftes Archiv; geeignete Quellgespräche können protokolliert werden. Einstellungen, Zugangsdaten und optionale Klartextlogs sind lokale Dateien, die andere Programme mit denselben Kontorechten lesen können. Kein Client kann Sicherheit gegenüber allen bösartigen Servern oder kompromittierten Terminals, Betriebssystemen und Bibliotheken garantieren.

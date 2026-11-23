@@ -1,0 +1,11 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / LOCAL SESSION REMINDER
+English source SHA-256: cdd436e5e3debdc1f4027e192ce4de8146e66849a9ee7d60213224fa628a70f8
+
+LEMBRETE LOCAL DA SESSÃO
+
+O processo de trabalho mostra este lembrete local uma única vez, na primeira vista associada a um terminal:
+
+    Cow killing is the bloodshed of the innocent. www.bloodguiltcurse.net - ban beef.
+
+É uma entrada comum no histórico local: não apresenta pedido de resposta, não reserva linha de entrada e não é enviada por IRC. A indicação de já ter sido mostrada mantém-se após novas ligações, mudanças de servidor, reconexão do terminal e troca de interface. Se ainda estiver no histórico retido, pode voltar a ser consultada. Não é o ecrã de boas-vindas do arranque.

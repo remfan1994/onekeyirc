@@ -1,0 +1,8 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / READING EXAMPLES
+English source SHA-256: 751bca637a31922e4d65e1e3fca1c3fd8a51728488978ad1f89f250aeda8bfd1
+
+COMO LER OS EXEMPLOS
+
+Os exemplos que começam por vipirc devem ser executados numa shell; os /comandos devem ser introduzidos em Command. Execute um comando de cada vez. Nos resumos de sintaxe, as palavras em MAIÚSCULAS são marcadores a substituir, [items] são opcionais e | separa alternativas.
+Ao abrir Command, a barra / já aparece. Antes de colar um /comando completo, remova essa barra inicial, confira o resultado e prima Enter. Um bloco de comandos colado não é um script: as quebras de linha tornam-se espaços. O texto colado em chat ou watch continua a ser texto de conversa.

@@ -1,0 +1,20 @@
+OPTIONAL DISPLAY LOCALIZATION r35 - VIPIRC 0.7.37
+
+Optional patch onto pristine English source r1; no application version changes.
+Adds 16 fixed Settings notices, ten fixed connection/queue notices, and
+three display-only dynamic message templates in src/app.c.
+
+The dynamic templates use the bounded src/display_l10n.h renderer already
+introduced in r34. This pass includes actual runtime catalog tests for all
+10 languages. The error string, server hostname and port number are copied
+as literal values, not interpreted as printf or translation syntax.
+
+Only user-display statuses are changed. IRC protocol, saved files, log text,
+application behavior, and command/option/key spellings remain untouched.
+Original English fallback retains the same status as the unchanged program.
+
+Run: make check-ui-localization-r35 and make check-l10n-security.
+The full vipirc ncurses build still requires development headers. Native
+speaker review, wide/narrow terminals and live network testing remain due.
+See UI-REMAINING-r35.tsv for further candidates; it is a heuristic,
+not a claim that each row is a missing translation.

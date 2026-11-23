@@ -1,0 +1,11 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / VIEWS AND USERS
+English source SHA-256: c02a51adb2e96f61d113aee6ccd47ba792577ee3c03d8708020250ea07f94354
+
+Setiap pelayan mempunyai paparan pelayan/MOTD bernombor 0, saluran, perbualan peribadi bernombor berasingan, sebutan dan senarai ahli. Pengepala mengenal pasti pelayan; paparan pelayan mengandungi pendaftaran/MOTD/ralat. Sebutan menyimpan sumber, pengirim dan seluruh teks mesej dalam had protokol. Baris panjang dibalut pada skrin tanpa memendekkan teks tersimpan.
+
+/sl atau /servers membuka pelayan; /cl atau /channels membuka saluran; /ql atau /queries membuka perbualan peribadi. /server memilih MOTD; /channel NUMBER atau #NAME memilih saluran; /pm NICK|NUMBER memilih perbualan. /next dan /prev mengitar paparan. /summary merakam keadaan ruang kerja, /unread menggabungkan sumber/sebutan dan /list meminta direktori rangkaian. Sintaks tepat terdapat dalam COMMAND REFERENCE INDEX.
+
+/users menukar paparan senarai ahli saluran; on/off/up/down mengawal keterlihatan dan tatal. Settings > Interface menggunakan pilihan utama yang sama. Terminal kecil mungkin menyembunyikan panel sisi sehingga ruang mencukupi. Keahlian dan awalan hak mengikuti JOIN/PART/QUIT/NICK/KICK/NAMES pelayan, bukan andaian setempat. Paparan pelayan dan perbualan peribadi tidak ada senarai ahli saluran.
+
+Mesej peribadi yang datang tanpa diminta hanya membuka paparan baharu apabila jumlahnya kurang daripada lapan; selebihnya kekal kelihatan dengan konteks di pelayan/sebutan. /pm atau /msg boleh membuka lebih banyak hingga had 32 paparan. /clear mengosongkan sejarah paparan dalam memori tanpa memadam transkrip cakera; /clearinput mengosongkan drafnya secara berasingan.

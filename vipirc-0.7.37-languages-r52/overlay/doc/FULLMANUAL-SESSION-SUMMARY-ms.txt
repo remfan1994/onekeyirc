@@ -1,0 +1,9 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / SESSION SUMMARY
+English source SHA-256: b2af79e132d98cb37475f734dff71c96a322570b71164c116cf5b7d8aa548be2
+
+/summary membuka gambaran keadaan setempat bagi seluruh klien yang sedang berjalan dalam pembaca boleh tatal berasingan. Ia berfungsi tanpa sambungan dan mengumpulkan maklumat mengikut pelayan. Kandungannya: status sambungan dan nama samaran, saluran 0, paparan saluran disertai atau ditinggalkan, perbualan peribadi, bilangan belum baca dan sebutan, giliran keluar, arahan permulaan tertangguh serta pemindahan fail dengan status terkini. Jumlah tidak menggandakan suapan sebutan salinan. Sebutan mungkin juga belum baca, jadi dua jumlah itu tidak dicampurkan.
+
+Membuka atau menyegarkan ringkasan tidak menukar perbualan, menandakan mesej sudah dibaca, menghantar permintaan rangkaian atau mengganti draf. Ia memaparkan bilangan baris gilir tanpa membocorkan teks mesej tertangguh, arahan automatik atau kelayakan. Ringkasan melaporkan keadaan semasa, bukan mentafsir kandungan sembang.
+
+Dalam antara muka penuh, gunakan Up/Down atau k/j, Page Up/Page Down dan Home/End atau g/G. Tekan r atau R, aktifkan Refresh dengan papan kekunci atau klik Refresh untuk petikan baharu. Escape atau Back kembali ke asal. Dalam vipirc -i, r menyegarkan pembaca respons. Jika penyegaran gagal, petikan lama dikekalkan. Rangkaian terus berjalan ketika membaca. / membuka Command; membatalkannya kembali ke petikan tadi. ? menunjukkan bantuan ringkasan dan pembaca.

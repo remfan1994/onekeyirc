@@ -1,0 +1,33 @@
+vipirc 0.7.36 - optional r18 translation draft (id)
+Source: MANUAL.txt / INPUT EDITING through MOUSE CONTROLS
+English source SHA-256: efd7a5a2ee94dcc2a9923884399743cf9696f83790f9e79d1861b211d0a9453c
+Fluent review pending; original English manual is authoritative.
+
+PENYUNTINGAN INPUT
+
+    Enter                 Kirim atau tinjau tulisan.
+    Left/Right            Kelompok karakter sebelum/sesudah.
+    Up/Down               Berpindah antarbaris input terbungkus, bukan mengingat chat.
+    Home/End              Awal/akhir seluruh tulisan.
+    Backspace/Delete      Hapus kelompok karakter sebelum/saat ini.
+    Tab/Shift-Tab         Lengkapi nama pengguna berikut/sebelumnya.
+    Escape                Buka Queries dari percakapan pribadi, selain itu vipirc.
+    /clearinput           Hapus seluruh draf, termasuk bagian yang tidak terlihat.
+
+F1..F6 membuka panel yang tersedia. Huruf yang diketik saat mengobrol, termasuk hjkl, dimasukkan sebagai teks biasa. Enter yang diketik mengirim pesan; baris baru secara eksplisit hanya berasal dari tempelan bracketed paste, dan tab yang ditempel menjadi spasi. Garis miring yang diketik di posisi kursor nol membuka Command terpisah tanpa menghapus draf; garis miring berikutnya atau yang ditempel tetap berupa teks.
+
+Draf merupakan satu buffer logis: pembungkusan baris tidak menambahkan karakter, Backspace dapat melewati batas baris tampilan, dan perubahan ukuran terminal mempertahankan teks serta kursor. Kolom tetap menyisihkan floor(B/W)+1 baris untuk anggaran muatan B dan lebar W yang bisa digunakan, dibatasi tinggi terminal. Mengetik atau menghapus tidak mengubah ukuran kolom; draf panjang bergulir di dalamnya. Tinggi dihitung ulang ketika tampilan, anggaran protokol, atau ukuran terminal berubah. Command memiliki kolom sendiri; /msg atau /me tidak menggantikan draf obrolan.
+
+Escape mentah yang berdiri sendiri menunggu sekitar 500 ms; rangkaian tombol parsial dapat menunggu 1000 ms di antara byte lanjutan sementara jaringan tetap berjalan. Tombol yang telah didekode lengkap langsung bekerja. Awal tanda tempelan yang terlambat melewati toleransi Escape pertama dapat dianggap Escape; pada log minimalis hal itu dapat memindahkan klien ke latar. Setelah penangkapan tempelan dimulai, penanda penutup tetap dikenali walaupun bacaan terpisah tertunda lama. Tombol yang mengikuti tempelan tidak dapat membatalkan draf atau mengubah mode sebelum batas tinjauan atau input tenang yang tampak.
+
+Input harus berupa UTF-8 valid atau mode locale ASCII yang dipilih secara eksplisit; lihat FILES AND ENVIRONMENT. Karakter dasar dan tanda lebar-nol setelahnya bergerak atau dihapus bersama; pemisahan gugus grafem Unicode secara penuh belum diterapkan. Glif tak didukung diganti dengan tanda yang terlihat. Batas draf adalah 8192 skalar Unicode atau 16384 byte UTF-8, mana pun yang lebih dulu tercapai. Pengodean dan karakter kendali tak valid ditolak. Baris baru dari tempelan tetap terlihat dan memengaruhi rencana pengiriman; anggaran IRC yang lebih kecil menentukan peringatan atau pemecahan pesan.
+
+KONTROL TETIKUS
+
+Tetikus aktif secara bawaan apabila curses, TERM, dan terminal mendukungnya. /mouse beralih status, /mouse on|off mengaturnya secara eksplisit, dan Settings > Interface mengubah/menyimpan preferensi mouse dalam [interface] milik konfigurasi utama. Semua fungsi juga bisa dioperasikan dengan papan ketik; terminal atau multiplexer SSH harus meneruskan peristiwa tetikus.
+
+Klik kategori judul untuk membukanya, area obrolan untuk menempatkan kursor, Clear untuk menghapus seluruh draf, dan Send untuk mengirim melalui pemeriksaan biasa. Clear/Send tersembunyi bila tidak tersedia. Nama pengguna dalam obrolan/daftar pengguna menawarkan Whois/Query; klik #channel untuk memilih atau bergabung. Identitas token yang ditampilkan saat klik, bukan pengganti belakangan pada koordinat yang sama, menentukan tindakan. URL dan isi papan klip tidak dibuka.
+
+Klik baris membuka item server/kanal/percakapan pribadi; klik tindakan menjalankannya terhadap pilihan saat ini. Roda tetikus mengubah pilihan tanpa mengganti tindakan. Di riwayat obrolan atau daftar pengguna, roda menggulir tiga baris visual atau pengguna. Settings dan transfers menggunakan kontrol kolom/tindakan masing-masing. Obrolan memerlukan sekurangnya 9 baris dan 20 kolom; pada judul sempit fokus tetap terlihat.
+
+Tetikus tidak bisa menyetujui dialog peringatan panjang pesan atau pemecahan pengiriman; gunakan pilihan papan ketik. Command Run/Cancel memerlukan klik atau tindakan baru setelah tempelan. Rangkaian klik atau baris baru yang ditempel tidak bisa mengaktifkannya, dan klik dari tata letak lama tidak digunakan kembali di layar yang baru dibuka.

@@ -1,0 +1,20 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / LOCAL IGNORE FILTERS
+English source SHA-256: 5404c975ca8193797b0ed81b5a9611149cbaa34bff67676680655f01885e9693
+
+EXACT COMMAND/CONTROL EXAMPLES (not translated):
+/ignore
+/ignore list
+/ignore MASK
+/ignore add MASK
+/unignore MASK
+/ignore remove MASK
+/ignore clear
+/ignore add NICK
+*!*@*.example
+
+تعمل هذه الأوامر المحلية حتى دون اتصال. يعرض /ignore أو /ignore list قائمة الأنماط؛ ويضيف /ignore MASK أو /ignore add MASK نمطا؛ ويزيل /unignore MASK أو /ignore remove MASK نمطا؛ ويحذف /ignore clear الأنماط كلها. للألقاب المسماة حرفيا list أو add أو remove أو clear استخدم /ignore add NICK.
+
+يقبل البرنامج ما لا يزيد على 32 نمطا، طول كل منها حتى 127 بايت ASCII. يجب أن يطابق النمط البسيط لقبا صالحا مطابقا تماما. تتطلب أحرف البدل الشكل الكامل nick!user@host بثلاثة أجزاء غير فارغة، مثل *!*@*.example. داخل كل جزء يطابق * صفرا أو أكثر من البايتات، ويطابق ? بايتا واحدا. البايتات الأخرى المسموحة حرفية؛ لا توجد أصناف تعبيرات منتظمة أو قواعد هروب أو توسيع صدفة. يستخدم Nick قواعد مقارنة حالة الأحرف في IRC، ويتجاهل user وhost حالة أحرف ASCII. الفراغات ومحارف التحكم وغير ASCII غير صالحة. تقارن الإزالة الأنماط المخزنة وفق هذه القواعد، ولا توسع أحرف البدل لحذف أنماط أخرى.
+
+ترشح فقط رسائل PRIVMSG/NOTICE الواردة من مستخدمين، قبل إنشاء إشارات أو محادثات خاصة. يجب أن يحمل المصدر بادئة مستخدم صريحة. قد يطابق نمط اللقب فقط مع نقص بيانات user/host، بينما يتطلب النمط الكامل الأجزاء الثلاثة. تبقى إشعارات الخادم المباشرة وحالة البروتوكول والعضوية ظاهرة، كما يبقى التاريخ السابق. هذا ترشيح محلي وليس حظرا من الخادم. تعدل Settings القائمة نفسها، ويطبق Apply التغيير فورا. يحفظها /save أو Settings Save في الوضع العادي، أما --test-mode فيحتفظ بالتعديلات في الذاكرة. تكرر الإعدادات السطر mask= في قسم [ignore].

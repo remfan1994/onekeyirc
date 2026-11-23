@@ -1,0 +1,478 @@
+HISTORICAL SECURITY REVIEW
+This review covers vipirc 0.7.15 / onekeyirc 0.1.14. Its validation is
+preserved as doc/SECURITY-VALIDATION.txt; references below to the original
+doc/VALIDATION.txt refer to that historical file. Current session-control
+validation is recorded in doc/VALIDATION.txt and
+doc/SESSION-CONTROL-TEST-RESULTS.json.
+
+VIPIRC / ONEKEYIRC SECURITY REVIEW AND HARDENING
+Date: 2026-11-08
+Reviewed originals: vipirc 0.7.14 and onekeyirc 0.1.13
+Hardened source releases: vipirc 0.7.15 and onekeyirc 0.1.14
+Scope includes vipirc's shared minimalist mode, vipirc -i.
+
+ASSESSMENT
+
+The review found and fixed concrete confidentiality, resource-exhaustion,
+display-sanitization, file-selection and terminal-responsiveness problems.
+The projects already had substantial defensive controls; the findings below
+identify places where those controls were incomplete. The delivered source
+includes regression tests that reproduce the relevant old behavior and pass
+after the fixes. Shared production changes are synchronized between packages.
+
+The hardened standalone client passed the executed Linux security gates and
+hostile-input tests. This is a useful security improvement, not a guarantee
+against compromise or a professional third-party certification. No remote
+code-execution or remote memory-corruption exploit was established in this
+bounded review. Absence of such a finding does not prove absence of defects.
+
+For an unattended public IRC presence, use verified TLS, a dedicated ordinary
+account, no DCC, no SSH-agent forwarding, and transcript logging disabled
+unless it is deliberately wanted. A native build and session-lifecycle check
+on the deployment host remains necessary before treating this release as
+validated for long-running production use. In particular, the current review
+does not supply a native OpenBSD or complete ncurses frontend runtime pass.
+
+1. SOURCES, METHOD AND THREAT MODEL
+
+The original source archives were verified before review:
+
+vipirc-0.7.14-source.tar.gz
+SHA256 9a146214bebb59ccf9b8071c0f633d4c3cfc086fe8616320305b148251d5e346
+
+onekeyirc-0.1.13-source.tar.gz
+SHA256 44734f5a81b0329521c807ffb82ebe74dddfbc02d28ff50c76f0c25767ce75e6
+
+Untouched baseline trees were retained for reproductions. The work combined
+source review, deterministic regression fixtures, bounded mutation testing,
+ASan/UBSan, selected GCC analyzer runs, real TCP loopback tests, filesystem
+tests and real pseudo-terminal tests. No public IRC network was attacked or
+used as a test target. No live account password or user keyring was needed.
+
+The attacker model includes hostile IRC servers and peers, malformed frames,
+malicious nicknames/topics/message bodies, terminal-control payloads, CTCP and
+DCC offers, flooding and terminal backpressure. Local tests also exercise
+unsafe filesystem objects and source-path replacement during an explicit
+file transfer. Synthetic credentials are used for confidentiality tests.
+
+The OS, installed executable, TLS library, trust store and terminal remain
+trusted. A compromised administrator, kernel, terminal or same-user account
+can defeat important assumptions. Multiple IRC sessions share a process;
+they are not privilege-separated security compartments. This review does not
+audit the implementation of OpenSSL/LibreSSL, GPG, ncurses or the terminal.
+
+Severity below is qualitative and conditional on the stated prerequisites.
+No CVSS score, CVE identifier, or external certification is asserted.
+
+2. CONFIRMED FINDINGS AND FIXES
+
+F01. Optional logging could exhaust storage or block on a FIFO
+Priority: Medium when transcript logging is enabled.
+Evidence: src/app.c persistent_log_line; src/config.c config_open_log;
+tests/test_security_app.c; tests/test_config.c.
+
+The old logger appended without a file-size ceiling. A peer could therefore
+turn sustained received traffic into unbounded transcript growth when the
+user had enabled persistent_logging. Logging is disabled by default.
+
+It also opened the destination for writing before checking whether it was a
+regular file. A FIFO at the log path could block the open indefinitely. That
+case requires a local filesystem prerequisite, rather than an IRC message
+alone. The baseline FIFO regression timed out; the fixed test completes.
+
+The new helper walks parent directories by descriptor and rejects symlink
+components. The final parent must be owned by the user with exact mode 0700.
+It opens the leaf with O_NOFOLLOW, O_CLOEXEC, O_APPEND and O_NONBLOCK, then
+the logger verifies an owned, single-link regular file with exact mode 0600,
+including rejection of special permission bits. Logging creates no parents.
+
+Each log is capped at 16 MiB. A nonblocking advisory lock serializes the
+size check and append among cooperating clients. Overflow, unsafe paths,
+busy locks and write errors stop logging for that profile with a visible
+notice; chat continues. Existing files are never automatically truncated or
+deleted. After correcting the problem or archiving the file, toggle logging
+off and on to retry.
+
+O_NONBLOCK prevents the FIFO-open hang. It does not make regular-file writes
+asynchronous or eliminate slow/damaged-filesystem stalls. The ceiling is per
+log file, not a quota across historical archives or arbitrarily many configs.
+
+F02. Manually entered private authentication could use plaintext IRC
+Priority: Medium; requires an explicitly plaintext connection and a manual
+credential-bearing message. Potential consequence: credential disclosure.
+Evidence: src/app.c app_plan, app_send_plan, queued_fits and write_output;
+tests/test_security_auth.c.
+
+Configured SASL, server PASS and automatic commands already required TLS.
+Manual /msg NickServ IDENTIFY did not receive equivalent protection. A
+baseline fixture followed planning, queueing and transmission and observed
+the complete synthetic credential on the plaintext transport.
+
+Recognized private authentication now requires TLS during planning, queue
+submission and final queue preflight. Recognition checks original logical
+lines and actual split chunks. A sensitive late chunk cancels the pending
+chat batch before any ordinary earlier chunk in that batch is transmitted.
+The queue also honors sensitivity derived from the complete submitted plan.
+Rejection messages do not include the submitted secret.
+
+TLS authentication, ordinary explicit-plaintext chat, NickServ HELP, channel
+prose, CTCP ACTION and the offline simulator retain their intended behavior.
+There is no generic secret detector: unknown service syntax, keyed JOINs on
+explicit plaintext, or passwords written as ordinary prose are not covered
+by the private-authentication heuristic. Use TLS for every real connection.
+
+TLS verifies and encrypts the connection to the selected IRC server. It does
+not authenticate other IRC users or provide end-to-end message encryption;
+the server can read messages and service credentials sent through it. Choose
+the server and service carefully and keep credentials scoped to that use.
+
+F03. Authentication material could be retained in optional logs/history
+Priority: Medium for unnecessary disk retention; Low for bounded in-memory
+command-history omissions. Requires logging or a recognized affected command.
+Evidence: src/app.c authentication_service, own_echo and OutLine sensitivity;
+src/commands.c privacy classification; tests/test_security_app.c,
+tests/test_security_auth.c and tests/test_commands.c.
+
+The old persistent logger excluded known outgoing service commands but could
+retain incoming authentication-service replies, including reset tokens.
+Known service replies are now suppressed for persistence while the complete
+incoming-message handler runs. They remain visible in the live client.
+
+A separate baseline test found a split IDENTIFY command sent to a custom
+service could omit its first chunk from the log but retain later credential
+fragments. Each queued line now carries sensitivity derived from the whole
+validated private authentication plan. Every chunk of that batch suppresses
+disk persistence during own_echo, including ordinary earlier lines in a
+mixed batch. Subsequent ordinary messages still log normally.
+
+Command history now excludes custom-service SASET account PASSWORD/PASS and
+colon-prefixed variants consistently. This is memory-history protection;
+there was no demonstrated persistent command-history database leak.
+
+Live scrollback remains bounded but can still contain sensitive text. Unknown
+service replies and arbitrary chat secrets cannot be reliably identified.
+Private logs are access-controlled plaintext, not encrypted transcripts.
+Users who enabled logging on an older release should examine their own old
+logs for service tokens or passwords and rotate an affected credential if
+exposure warrants it. This review did not inspect personal log contents.
+
+F04. LIST directory topics bypassed a display-sanitization boundary
+Priority: Medium for display integrity, depending on terminal behavior.
+Evidence: src/app.c list_store; vipirc src/ui.c text_at;
+tests/test_security_list.c.
+
+Numeric 322 LIST topics were retained raw in the directory cache. Full vipirc
+rendering assumed that retained text had already been sanitized. A baseline
+probe confirmed that U+202E/U+202C bidi controls reached the wide-character
+ncurses output path, and a separate real libncursesw/PTY probe observed the
+bytes in terminal output. Actual visual reordering depends on the terminal.
+
+This establishes a filtering bypass and possible display spoofing. It does
+not establish clipboard theft, arbitrary terminal commands, or code execution.
+The minimalist LIST output already had an output-boundary sanitizer.
+
+list_store now sanitizes a bounded topic before matching, caching and sorting.
+Both frontends use the same safe visible representation. Regressions cover
+unsafe Unicode controls, ESC/BEL, malformed UTF-8, IRC styles, valid Unicode,
+long/empty topics and matching/sorting consistency. The baseline fails and
+the fixed source passes. The full frontend itself was not linked here.
+
+F05. Explicit DCC send/file selection had local replacement races
+Priority: Low; requires local pathname modification during explicit sending.
+Evidence: src/dcc.c dcc_send; vipirc src/filepicker.c;
+tests/test_dcc_file_identity.c and vipirc tests/test_filepicker.c.
+
+The DCC sender validated a source pathname and then opened it without
+comparing the device/inode of the selected and opened objects. A deterministic
+replacement at that boundary made the baseline accept a different source.
+The fixed code compares identities before creating a listening socket.
+
+In full vipirc's file picker, replacing the displayed directory could leave
+the retained directory descriptor pointing at the original directory while
+the returned pathname pointed into its replacement. The picker now reopens
+and checks the displayed directory identity before returning the entry.
+
+Both reproductions fail on the old source and pass after the fixes. They
+are additional path checks, not immutable snapshots or account isolation.
+A local writer can still change file contents while a transfer is running.
+
+Classic DCC remains unencrypted, unauthenticated and unsigned. The first TCP
+peer reaching an outgoing listener can receive the selected file; an IRC
+nickname does not authenticate that connection. An incoming offer alone
+opens neither a network connection nor a destination file. For unattended
+VPS idling, leave DCC unused and do not open an inbound port for it.
+
+F06. Explicit backgrounding could wait behind a stopped terminal
+Priority: Low availability; remote traffic plus terminal backpressure can
+postpone an explicit user action.
+Evidence: src/idle.c process_background_request; src/background.c
+quiet_terminal, terminal_write_best_effort and restore_foreground;
+tests/test_idle_background_boundary.c, tests/test_security_detach.py and
+tests/test_security_background_output.c.
+
+The minimalist event loop deferred a background request until output and
+retained display records had drained. With an unread PTY and a full output
+queue, Escape remained pending even though IRC PING responses continued.
+The identical baseline PTY regression failed to reach preparation within
+three seconds. The fixed callback boundary was reached in about 508 ms,
+consistent with the existing 500 ms Escape decoder delay.
+
+An explicit request now attempts preparation immediately. If preparation
+fails, queued terminal-mode transitions remain intact and a sanitized error
+is prioritized when output resumes. Successful preparation discards only
+obsolete presentation through the established terminal-release path. App
+history, retained stream records, drafts and pending-send state are preserved.
+Editor Escape still cancels editing, and bracketed pasted commands do not
+execute or detach.
+
+Three additional baseline tests reproduced blocking in pre-detach fflush,
+the initial parent's success notice and resume-controller cleanup. Obsolete
+stdio presentation is now drained only after redirecting it to /dev/null.
+Detach notices and resume cleanup use bounded nonblocking raw writes and
+restore the original shared descriptor flags. Notices/cleanup escapes are
+best effort and may be omitted on a stopped terminal. --sessions and --resume
+remain the ways to find or attach to a detached job.
+
+The boundary tests intentionally avoid AF_UNIX. The callback fixture rejects
+preparation, and the separate output test uses a dummy prepared listener with
+real PTYs, pipes and forked processes. They do not prove complete session
+IPC, attachment or descriptor passing on this host. Full vipirc's curses
+release still uses synchronous terminal operations before background_detach;
+its backpressure behavior is a remaining runtime-verification limitation.
+
+F07. A very narrow full-screen warning could loop indefinitely
+Priority: Low, local availability; no remote-only trigger demonstrated.
+Evidence: vipirc src/ui.c dialog_paragraph; tests/test_status_mouse.c.
+
+A command prompt warning could be laid out before the main small-terminal
+guard. At six terminal columns its inner width became zero, so paragraph
+wrapping never advanced. The exact extracted baseline function hit an alarm.
+The fixed function rejects nonpositive width and caps its local buffer width.
+An extracted-function ASan/UBSan check passed for zero, negative, narrow and
+oversized widths. Assertions are also included in the full UI unit suite,
+which requires a native curses development environment to run.
+
+3. ADDITIONAL HARDENING AND MAINTENANCE
+
+Process startup now applies these controls before configuration/credentials
+are read or resume operations begin:
+
+- Refuse mismatched real/effective user or group IDs.
+- Set soft and hard RLIMIT_CORE to zero.
+- On Linux, set PR_SET_DUMPABLE to zero and fail closed if it fails.
+- Set umask 0077.
+
+Informational --help/--version/--manual paths remain available. This does not
+prohibit an ordinary root invocation; deployment must still use a dedicated
+unprivileged account. Linux needs the additional dumpability control because
+RLIMIT_CORE alone is ignored by piped crash handlers [R1, R2]. These controls
+are not a promise about every unrelated executable after exec or protection
+against privileged memory inspection. No pledge/unveil, seccomp, chroot or
+privilege-separated architecture was added [R3, R4].
+
+configure probes compiler/linker support for stack protection, format-string
+diagnostics, fortified libc checks, PIE, RELRO, immediate binding and a
+non-executable stack. Supported flags are recorded in the generated Makefile.
+Explicit PIE opt-outs, including OpenBSD's -nopie spelling, are preserved.
+The produced Linux onekeyirc executable was inspected: ELF PIE, GNU_RELRO,
+BIND_NOW, a non-executable GNU_STACK, stack-check imports and fortified libc
+imports were all present. Mitigations reduce some exploitation opportunities;
+they do not replace bounds checks or process confinement [R5].
+
+app_config_apply now copies program_messages, persistent_logging and
+single_session consistently. This is a lower-level API consistency fix. The
+normal /set and Interface settings paths already updated these preferences;
+there was no demonstrated normal-UI failure to turn logging off.
+
+New security make targets cover the real config helper, auth privacy,
+protocol boundaries, DCC identity, process guards and detach boundaries.
+vipirc's targets also include its file-picker and warning-dialog tests.
+PTY tests were adjusted to set extra flags after posix_openpt, because
+OpenBSD accepts only O_RDWR/O_NOCTTY at allocation [R6]. This is a portability
+correction, not a claim that OpenBSD execution occurred.
+
+4. EXECUTED VALIDATION
+
+Environment: restricted Linux x86_64; GCC 13.3.0; OpenSSL 3.0.13;
+Python 3.12.14. Exact executed results are recorded in doc/VALIDATION.txt
+and doc/SECURITY-TEST-RESULTS.json within the source releases.
+
+A clean build from the staged source reproduced the tested onekeyirc binary
+byte for byte. A private staged installation also verified the executable,
+manual and review/validation documentation without altering the host install.
+
+Final optimized onekeyirc build: PASS. Focused make check-security and
+make check-security-detach: PASS. Focused ASan/UBSan gate: PASS, with leak
+detection explicitly disabled. The security and sanitizer gates include the
+production config_open_log helper and command-history privacy tests.
+
+Final hostile idle test: 134,752 incoming records over 90.003 seconds,
+180 PING replies, 5.798 ms worst measured PING latency and 0.129 ms median.
+The PTY remained entirely unread for 30 seconds. The test inspected
+6,394,755 terminal bytes and found zero unexpected client commands, zero
+unsolicited DCC connections, zero unsafe remote terminal controls and zero
+persistent logs with logging disabled. Identity-checked descriptor samples
+stayed at 4; peak steady RSS was 4,732 KiB, growth after warm-up was
+92 KiB, and sampled CPU time was about 1.12 seconds.
+
+The workload included OSC clipboard/title/hyperlink sequences, DCS and CSI
+sequences, raw and UTF-8 C1 controls, malformed UTF-8, bidi controls, IRC
+styles, literal slash commands, private-sender churn, roster changes and DCC
+offers. Resource identity was checked to avoid confusing namespace PIDs.
+These measurements describe this run; they are not service guarantees.
+
+The transport tests use a private local CA. Valid DNS and IP identities pass;
+wrong identities, an untrusted CA and an expired correctly named certificate
+are rejected. The expired leaf is signed by a currently valid trusted CA,
+so rejection is not confounded by an expired CA or hostname mismatch. Tests
+also cover deadlines, resolver cancellation/reaping, inherited-descriptor
+isolation including high descriptors above a lowered limit, partial I/O and
+12,345-byte bidirectional integrity. All 29 retry/hold classification cases
+passed; prior transient errors do not override certificate/protocol holds.
+
+Protocol validation includes the existing 25,000 randomized cases plus
+91,184 exact-allocation, truncation and seeded cases. Sanitizer properties
+include bounds, valid UTF-8 output, in-place equivalence, truncation behavior,
+idempotence and cleared parser outputs on failure. This is bounded mutation
+testing, not exhaustive fuzzing or a formal proof.
+
+DCC tests covered strict parsing, bounded offers/transfers, binary and empty
+round trips, unsafe paths, cancellation, deadlines and malformed acknowledgments.
+A ten-second stress run exercised 200,000 parser mutations, 80,000 unique
+offers, 91,278 completed lifecycles and 317,958,086 verified bytes, with the
+descriptor count returning to baseline. Its ASan/UBSan counterpart completed
+90,648 lifecycles and 300,170,361 verified bytes without a sanitizer report.
+The file-picker and source-identity regressions passed normally and under
+ASan/UBSan.
+
+The shared normal suites also passed for app behavior, configuration, clients,
+editor, nickname completion, command history, summaries, minimalist settings,
+command handling and setup. The editor suite reported 471,052 checks.
+Credential fixtures exercised bounded helper output, cancellation, deadlines,
+descriptor isolation and rollback. One ownership-switch case could not run
+because this host rejects chown to the test UID; only a scratch test copy
+skipped it, and the shipped test retains the original assertion.
+
+Selected GCC -fanalyzer runs passed for protocol, client, commands,
+autocommands, config, credentials and background. net.c produced one
+descriptor-leak diagnostic on a failing dup2 branch; manual review classified
+it as a false positive and resolver runtime tests passed. It is recorded,
+not represented as a completely clean whole-project analyzer result.
+
+5. LIMITATIONS AND OPEN ACCEPTANCE WORK
+
+- Native OpenBSD compilation, rc.d/rcctl behavior, reboot recovery, SSH
+  disconnect/reconnect, and frontend switching were not executed.
+- Full vipirc could not be linked because this environment lacks curses
+  development headers/link inputs. Extracted UI functions, real ncurses
+  output probes, shared code and file-picker tests are narrower evidence.
+- AF_UNIX creation is denied with EPERM in this host. Complete background/
+  resume IPC, descriptor passing and peer-UID checks could not run here.
+- ASan/UBSan passed with ASAN_OPTIONS=detect_leaks=0. LeakSanitizer itself
+  fails under this host's tracing arrangement; leak detection did not pass.
+- One credential ownership-switch fixture is host-blocked as described above.
+- A 90-second workload cannot prove stability over days, every flood pattern,
+  every IRC server extension, every terminal, or disk/memory exhaustion.
+- No OS sandbox was added. A future memory-safety bug would execute with the
+  user's account authority. Independent server sessions share that authority.
+- Classic DCC protocol weaknesses and synchronous regular-file logging remain.
+- Arbitrary secrets cannot be recognized reliably; TLS and careful retention
+  policy remain necessary even with the new command filters.
+
+Historical doc/OPENBSD-VALIDATION.txt describes earlier releases and must not
+be read as a new native validation of these security releases. Do not weaken
+runtime protections merely to obtain test measurements. Native sanitizer
+availability depends on the toolchain; Linux results are not a promise that
+base OpenBSD provides the same sanitizer runtimes.
+
+6. BUILD, UPGRADE AND DEPLOYMENT ACCEPTANCE
+
+For each source release, build with the target host's real compiler and
+dependencies. Do not carry over binaries built on a different operating
+system. From inside the extracted release directory:
+
+  ./configure
+  make
+  make check-security
+  make check-security-detach
+  make check
+  make check-security-idle
+
+The focused gates do not replace make check: the latter contains actual
+session lifecycle and full frontend tests. Run sanitizers when the host has
+the required runtime support. On the reviewed Linux host the focused command
+was:
+
+  ASAN_OPTIONS=detect_leaks=0:halt_on_error=1 \
+    UBSAN_OPTIONS=halt_on_error=1 make check-security-sanitize
+
+Use leak detection on a host that supports it. Do not suppress a real
+sanitizer diagnostic or present a skipped gate as a pass.
+
+Before starting the replacement, save desired configuration and quit the old
+background worker cleanly. Replacing the file on disk or running --resume
+does not upgrade an already running process. Confirm the new executable's
+--version, then start a fresh session using the existing config. No config
+format migration is required by these changes.
+
+On the actual VPS, check TLS failure behavior with local fixtures, normal
+connection and PING responsiveness, Escape detach, --sessions, --resume,
+SSH loss/reconnect, clean quit and restart. If using full vipirc, exercise
+small-terminal resizing and frontend switching with genuine curses support.
+If using the rc.d wrapper, validate its start/stop/restart and boot behavior
+under the dedicated account. This review did not perform those operations
+on a live server or deploy anything to the user's host.
+
+Recommended operating profile for public-network idling:
+
+1. Use a dedicated ordinary account without administrator rights or unrelated
+   secrets. Keep the host, TLS trust store and dependencies maintained.
+2. Use verified TLS to the intended server identity. Do not override an
+   identity or certificate error, or send credentials over explicit plaintext.
+3. Do not use DCC on the unattended VPS. Ordinary IRC/TLS idling needs no
+   additional public inbound port for this application.
+4. Do not forward an SSH agent into the IRC account. Limit the credentials
+   available to that account to what this client actually needs.
+5. Keep config/credential directories private and files at the documented
+   owner-only modes. Do not install the client setuid or setgid.
+6. Leave persistent_logging off unless deliberate plaintext retention is
+   wanted. For enabled logs, monitor the 16 MiB stop notice and manage old
+   archives separately; no automatic deletion or rotation was introduced.
+7. Run the target-host acceptance tests above before relying on unattended
+   operation. The best runtime evidence from this review is for onekeyirc's
+   minimalist loop; shared vipirc -i behavior is supported by common source
+   parity and the narrow tests, not a newly linked full vipirc executable.
+
+7. EVIDENCE AND PRIMARY REFERENCES
+
+Code paths and test names cited in each finding are the primary project
+evidence. The source archives include regenerated file manifests and SHA256
+checksums. The separate release checksum file covers the delivered archives
+and this report. Checksums establish integrity against the supplied digest;
+they are not a signed provenance or authenticity system.
+
+R1. Linux core(5): core files and the piped-handler RLIMIT_CORE exception.
+https://man7.org/linux/man-pages/man5/core.5.html
+
+R2. Linux PR_SET_DUMPABLE: process dumpability control and its limits.
+https://man7.org/linux/man-pages/man2/PR_SET_DUMPABLE.2const.html
+
+R3. OpenBSD setrlimit(2): resource-limit semantics.
+https://man.openbsd.org/OpenBSD-7.8/setrlimit.2
+
+R4. OpenBSD pledge(2) and unveil(2): examples of confinement not implemented
+by these clients in this release.
+https://man.openbsd.org/OpenBSD-7.8/pledge.2
+https://man.openbsd.org/unveil
+
+R5. GCC Instrumentation Options: supported hardening/instrumentation controls.
+https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html
+
+R6. OpenBSD posix_openpt(3): accepted allocation flags.
+https://man.openbsd.org/posix_openpt.3
+
+R7. OpenBSD linker reference used for portable PIE flag handling.
+https://man.openbsd.org/OpenBSD-7.8/ld.1
+
+All project claims above concern the stated sources and executed fixtures.
+No claim is made about the security of IRCNOW or any other network operator.

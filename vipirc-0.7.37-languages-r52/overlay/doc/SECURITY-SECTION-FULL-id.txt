@@ -1,0 +1,12 @@
+Full-interface review and file browsing
+Source: SECURITY.md, section "Full-interface review and file browsing"
+English section SHA-256: e2f59ccd783bd17feedcf3bc49a14a3085c7f21783755ee9b06c265dc0f1eb54
+Paragraphs: 3
+Status: Translation draft; fluent-speaker security review required
+English SECURITY.md remains authoritative. This is one source-linked section, not a security certification.
+
+Layar peninjauan transfer ncurses menampilkan alamat pihak lain, port, jumlah byte, dan tujuan sebelum tindakan Accept/Offer terpisah. Layar itu memakai ID tawaran yang stabil, bukan indeks baris yang bisa berubah, dan menolak persetujuan jika ukuran layar di bawah batas minimum untuk peninjauan. Memilih baris di penjelajah sumber tidak mengirim berkas. Penjelajah tidak mengikuti komponen jalur symlink, memeriksa ulang inode terpilih, tidak pernah mengubah cwd, dan tidak membaca isi berkas hanya untuk menampilkannya. Pekerjaan dibatasi menjadi 64 entri yang diperiksa per langkah, 4096 nama yang diperiksa, dan 512 baris; pemotongan hasil dilaporkan. Metadata sistem berkas tetap dapat menghambat operasi pada penyimpanan lambat.
+
+Tujuan penerimaan terpandu secara bawaan berada di XDG_DATA_HOME/vipirc/downloads atau HOME/.local/share/vipirc/downloads pada host tempat proses berjalan, dan baru dibuat setelah penerimaan eksplisit. Jalur relatif berbasis perintah dan direktori penerimaan yang dikosongkan menggunakan direktori peluncuran, dengan pemeriksaan privasi tetap berlaku. Jika IPv4 tidak diumumkan secara eksplisit, pengiriman menggunakan alamat soket IRC lokal; tidak ada penemuan alamat publik atau pengaturan penerusan port.
+
+Tindakan klik nama panggilan/kanal menyimpan salinan terbatas dari nilai yang ditampilkan. Perubahan daftar pengguna tidak boleh mengalihkan klik terdahulu ke sasaran lain. Klik nama panggilan membuka menu lokal; pilihan Whois/Query/Ignore berikutnya melakukan tindakan tersebut. Klik kanal yang belum diikuti dapat secara eksplisit bergabung dengannya. Penyelesaian otomatis dan penyisipan saran tidak mengirim data IRC. Persetujuan kirim/transfer tetap melalui jalur validasi biasa. Ketentuan sumber ini bukan klaim bahwa tahap dokumentasi ini telah menjalankan seluruh frontend curses.

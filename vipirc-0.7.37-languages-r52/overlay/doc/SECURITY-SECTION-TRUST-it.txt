@@ -1,0 +1,12 @@
+Trust boundary
+Source: SECURITY.md, section "Trust boundary"
+English section SHA-256: b206f366472f34a9c25e1096f15d6fe813e99115c1e789ab4fa3d857e18f7595
+Paragraphs: 3
+Status: Translation draft; fluent-speaker security review required
+English SECURITY.md remains authoritative. This is only one section, not the full security document.
+
+I server IRC, gli altri utenti, i nickname, gli argomenti, i campi del protocollo, i nomi dei file e il testo incollato sono input non attendibili. Rimangono componenti attendibili il sistema operativo, il terminale, le librerie C/TLS, l'archivio dei certificati attendibili e l'account dell'utente. Anche l'interfaccia completa di vipirc si affida a curses. GPG aggiunge il proprio eseguibile, portachiavi e agente. I profili server condividono un solo processo e non sono compartimenti di sicurezza isolati. In genere, un altro processo con gli stessi privilegi dell'account può ispezionare file privati e memoria.
+
+Eseguire il programma con un account ordinario. Prima di leggere la configurazione, le esecuzioni operative rifiutano differenze tra ID reali ed effettivi dell'utente o del gruppo, disabilitano i file di core dump e impostano umask 0077. Su Linux disabilitano anche la possibilità di effettuare dump del processo. I descrittori standard mancanti vengono riservati tramite /dev/null prima di aprire le risorse dell'applicazione; i flussi aperti ereditati e i relativi flag restano invariati. Se una protezione obbligatoria all'avvio non riesce, l'esecuzione si arresta. Queste misure non forniscono pledge/unveil, seccomp, separazione dei privilegi o protezione da una compromissione dell'host.
+
+configure verifica le misure di rafforzamento del compilatore e del linker supportate dall'host selezionato, tra cui protezione dello stack, controlli rafforzati di libc, diagnostica dei formati, PIE, RELRO, collegamento immediato e stack non eseguibile. Esaminare i flag configurati sull'host di distribuzione: non tutte le piattaforme supportano ogni flag.

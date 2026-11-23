@@ -1,0 +1,13 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / EXIT STATUS
+English source SHA-256: a4feff37ea5665514327eb0e9d3930712772f4ff6cf26bdcefb48492f71f9923
+
+ESTADOS DE SAÍDA
+
+0     Conclusão normal ou saída interativa.
+1     Falha operacional, como inicialização, gravação ou controlo de sessão.
+2     Opções/configuração inválidas ou falta de terminal para uso interativo.
+130   SIGINT interrompeu as boas-vindas após a limpeza do terminal.
+131   SIGQUIT interrompeu as boas-vindas após a limpeza do terminal.
+
+O sucesso de --background confirma apenas a preparação local do processo de trabalho, não a autenticação IRC remota. Falhar ao fechar uma sessão significa que o fim não foi verificado; volte a consultar --sessions, pois uma solicitação aceite pode terminar mais tarde.

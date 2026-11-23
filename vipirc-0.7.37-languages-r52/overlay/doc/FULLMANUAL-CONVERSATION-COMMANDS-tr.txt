@@ -1,0 +1,47 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / CONVERSATION COMMANDS
+English source SHA-256: afbb4f4772f74759ce06e6394d72bc10a6895c4731b886ced43996217fc5945d
+Source lines: 1102-1176
+
+SOHBET KOMUTLARI
+
+/join CHANNEL [KEY] gerekirse anahtarla bir kanala katılmayı ister. /part [CHANNEL] [MESSAGE] isteğe bağlı PART gerekçesiyle kanaldan ayrılır; /close [NAME|NUMBER] kanal/özel sohbet görünümünü kapatır, NUMBER kanal numarasıdır. /pm NICK|NUMBER mesaj göndermeden özel görünüme geçer. /msg TARGET TEXT takma ada veya kanala metin, /me TEXT geçerli sohbete IRC eylemi gönderir. /nick NICK farklı takma ad ister, /away [MESSAGE] away durumunu ayarlar, /back temizler, /whois NICK takma ad bilgisi ister. /topic tek başına mevcut konuyu sorar, /topic TEXT yenisini ister. /connect ve /disconnect bağlantıyı yönetir; /dcc veya /transfers ortak dosya aktarma ekranını açar. /cancel gönderilmemiş iletileri durdurur; /background çalışmayı sürdürüp kabuğa döner, /quit [MESSAGE] tüm sunucu oturumlarını bitirir. /settings, /save, /saveconf ve /set autoconnect on/off ayar, kayıt ve başlangıç içindir.
+
+/away MESSAGE tek bir standart AWAY gönderir. Metin uzunluğu geçerli hat sınırından 8 bayt eksiktir; olağan 512 bayt sınırında 504 bayttır. Fazla uzun metin veya kontroller reddedilir, asla bölünmez. Argümansız /away ve /back away durumunu siler. Kayıt olmak gerekir. Gösterge yalnız sunucunun onayıyla değişir ve bağlantı kesilip yeniden açılınca sıfırlanır. Sunucu listesindeki Away eylemi Away sözcüğünü iletir veya onaylanmış away'i temizler, görünümü ve taslağı korur. Bağlantısız sunucu önce bağlanmalıdır. Yok sayılan göndericileri Settings içindeki Ignore alanlarında veya yerel /ignore ve /unignore ile düzenleyin.
+
+/join tek kanal ve en fazla bir KEY öğesi alır. Anahtar boşluk, iki nokta veya virgül içermeyen yazdırılabilir ASCII olmalı, tam JOIN hat sınırına sığmalıdır. Anahtar günlüğe veya dosyaya kaydedilmez; autojoin'e yalnız kanal adı eklenir. Tekrar bağlanırken/başlatırken gerekirse anahtarı tekrar girin. Çevrimdışı simülatör away değişikliklerini onaylar, geçici join anahtarı alır ama gerçek kanal anahtarını veya kabul politikasını test etmez.
+
+İzinleri, takma ad kullanılabilirliğini, kanala girişi ve konu değiştirme hakkını sunucu belirler. Yerel komut kabulü sunucu kabulü veya diğer katılımcılara teslim kanıtı değildir. Sohbet satırları kısa süre bekler ve en az 1.2 saniye arayla gönderilir. /cancel seçili sunucunun tüm kanal/özel sohbetlerindeki henüz gönderilmemiş mesajları atar; taslak veya gönderilmiş metni silmez. Gönderilmekte olan ileti tamamlanabilir. Doğrudan profilde /join ve /part autojoin seçimini günceller; bekleyen Settings başlangıç tercihi geçersiz kılmadıkça /save bunu sonraki başlangıç için saklar. Bouncer üyeliklerini kendi geri yükler. /part ayrıca o kanalın bekleyen metnini atarken görünüm/geçmişi tutar; devam eden mesaj PART öncesinde tamamlanabilir. Kanal adından sonraki metin PART gerekçesidir; kanal verilmezse seçili kanalın gerekçesi olur. Açık gerekçe yoksa [presence] part_message kullanılır; katılmış kanalı kapatmak da aynı varsayılan gerekçeyi kullanır.
+
+/quit MESSAGE, açık sunucularda olabildiğince iyi biçimde IRC QUIT gerekçesi gönderir. Metin yoksa [presence] quit_message kullanılır; varsayılan boşsa yalın QUIT gönderilir. Kapanış sınırlıdır, ölü ağ için sonsuz beklemez.
+
+Otomatik away, elle verilen /away'den ayrıdır. background_away açıkken başarılı Background veya yönetilen terminal kaybı, ayarlı AWAY'i yalnız terminal ayrıldıktan sonra kuyruğa alır. Resume yalnız bu otomatik durumu temizler. autoaway_minutes yerel girdi hareketsizliği sonrası aynı davranışı uygular; 0 zamanlayıcıyı kapatır. Bouncer profilleri [bouncer] automatic_away=true açılmadıkça otomatik değişiklikleri bastırır. Elle /away, /back veya mesajsız /away yapılana kadar kalır. Gelen IRC trafiği yerel kullanıcı etkinliği sayılmaz.
+
+EXACT IRC COMMAND SYNTAX (not translated):
+
+    /join CHANNEL [KEY]
+    /part [CHANNEL] [MESSAGE]
+    /close [NAME|NUMBER]
+    /pm NICK|NUMBER
+    /msg TARGET TEXT
+    /me TEXT
+    /nick NICK
+    /away [MESSAGE]
+    /back
+    /whois NICK
+    /topic
+    /topic TEXT
+    /connect [HOST [PORT]]
+    /disconnect [NUMBER]
+    /dcc
+    /transfers
+    /cancel
+    /background
+    /quit [MESSAGE]
+    /settings
+    /save [input|output|all]
+    /saveconf
+    /set autoconnect on
+    /set autoconnect off
+    /ignore
+    /unignore

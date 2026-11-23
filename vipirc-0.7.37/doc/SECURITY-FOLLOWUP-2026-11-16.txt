@@ -1,0 +1,395 @@
+SECURITY FOLLOW-UP AND TERMINAL POLICY REVIEW
+Date: 2026-11-16 UTC
+Releases: onekeyirc 0.1.26 and vipirc 0.7.27
+Compared with: onekeyirc 0.1.25 and vipirc 0.7.26
+
+RESULT AND SCOPE
+
+The executed release gates passed. Confirmed findings were fixed in the
+shared core and both affected frontends. The full requested local notice
+and default-off terminal signal override are included. This is a bounded
+source review with reproducible regressions, not a security certification.
+
+Final gate groups: 62 PASS, 1 UNAVAILABLE, 0 FAIL.
+The unavailable group is native AF_UNIX session lifecycle; additional
+full-curses, native OpenBSD, real GnuPG and leak-scanning limits are explained
+below. A passing group may contain several C binaries or terminal cases.
+No full unrestricted make check or native OpenBSD pass is claimed.
+
+The threat model includes hostile IRC/server text, terminal-control bytes,
+malformed DCC traffic and offers, resource pressure, and other local UIDs.
+The account itself, administrator/kernel, executable, terminal, TLS library
+and trust store remain trusted. Local tests used an offline simulator,
+private temporary files, real PTYs and loopback TCP; they did not contact
+the public IRC network or modify a user's running worker.
+
+The prior audit remains in doc/AUDIT-2026-11-15.txt. Earlier controls for
+non-destructive terminal detach, whole-session close, saved interface choice,
+wrapped chat, history recall and managed hangup handling remain included.
+
+HOW TO READ THE EVIDENCE
+
+FOLLOWUP-TEST-RESULTS.json contains exact commands, results, output, source
+and binary hashes, source diffs, and scoped development snapshots. Evidence
+paths named below are keys in that file's evidence_documents mapping, relative
+to irc-security-followup-validation/. New regression sources are in tests/.
+Expected baseline failures and repaired fixture assumptions are kept separate
+from final release results; they are not silently converted into passes.
+
+1. Confirmed availability problem: failed automatic away
+
+A server can advertise a small valid LINELEN, making an enabled automatic-
+away message too long to queue. The old code left its automatic-away timer
+expired after that failure, so the event loop repeatedly returned a zero
+timeout and attempted the same impossible send. Temporary control-queue
+exhaustion could also trigger the failed-attempt path. This requires the
+server's advertised limit and an applicable local away configuration;
+ordinary channel text does not set LINELEN.
+
+The candidate schedules a one-second retry deadline, includes it in poll
+scheduling, and resets it after success, local activity or reconnect. Manual
+away keeps priority, and normal networking remains available during the wait.
+Deterministic tests cover the exact retry boundary, queue/line-limit recovery,
+PING/PONG, reconnect/activity reset and absence of duplicate successful AWAY.
+
+The unchanged baseline produced 1,000 zero timeouts in 1,000 deterministic
+iterations without advancing time. A separate three-second real-worker
+comparison measured about three worker CPU seconds in the baseline and no
+observable CPU-tick increment in the candidate, at 10 ms sampling resolution.
+Both answered all nine measured PINGs. This is a short diagnostic comparison,
+not a long-duration reliability claim or a claim of literally zero CPU use.
+That real worker used fixture-managed detach/reattach, not native session IPC.
+
+Evidence: network/final-findings.txt, network/presence-baseline.log,
+network/presence-fixed.log, network/results.json, dcc/presence-review.txt,
+dcc/presence-build-results.json and dcc/presence-results.json.
+
+2. Confirmed privacy problem: credential text in command recall
+
+The core accepted private authentication verbs after repeated or separated
+leading colons, while the minimalist history filter stripped only one colon.
+Accepted examples such as ::IDENTIFY, : : IDENTIFY and : LOGIN after /msg or
+/privmsg could therefore enter that frontend's in-memory recall history.
+The candidate aligns this normalization with the core classifier.
+
+A second mismatch affected both frontends. A logical command could start
+with ordinary HELP text, fill one IRC payload, then start the next payload
+with IDENTIFY. The core recognized the resulting wire plan as private, but
+the old history filters inspected only the original command's first word.
+Baseline tests reproduced actual retention, including the full frontend's
+production send/remember path. This demonstrates in-process command-recall
+retention; it does not demonstrate unintended-peer transmission or a disk
+credential leak.
+
+Both histories now use the exact accepted message plan as well as syntax
+classification. The shared helper validates bounded logical/wire slices and
+fails closed on malformed plans. Direct and review paths preserve ordinary
+history and canonical command-name counts while excluding recognized private
+plans. Cancellation, failed sends and subsequent commands cannot reuse an
+obsolete pending plan. Independent read-only review found no additional
+stale-plan/text mismatch in those paths.
+
+This remains a recognizer for known credential forms, not a general detector
+of secrets in arbitrary prose or unknown custom authentication commands.
+The user's editable draft and other process memory are separate from recall;
+this change does not promise to erase every copy of a secret.
+
+Evidence: network/history-baseline.log, network/ui-history-baseline.log,
+network/history-fixed.log, network/history-flow-normal.log,
+network/ui-history-normal.log, network/results.json and
+network/final-findings.txt. Focused normal and ASan/UBSan gates passed; leak
+scanning was disabled. The full-UI fixture extracts unchanged production
+blocks and uses real application/editor/prompt code with inert presentation
+callbacks. It does not validate curses rendering or terminal dispatch.
+
+3. Confirmed local integrity problem: stale catch-up anchor
+
+/catchup previously retained the byte offset of the last local sent record.
+If an owned private log was rotated/replaced, another record at that offset
+with the same channel prefix could be mistaken for the original anchor.
+The baseline reproduction used real private-file rotation and the production
+begin_catchup path. No hostile-network-only trigger was demonstrated.
+
+The candidate binds a successfully appended anchor to the original device,
+inode, exact record length and a checksum of the complete record. Reopening
+catch-up rechecks private-file policy, bounds, identity and record contents.
+Ordinary appends remain valid. Replacement, truncation or a changed anchor
+uses the original retained in-memory history if available, otherwise the
+existing unavailable-anchor notice. It does not claim continuity with an
+unrelated record. The reader retains its bounded storage and pinned end.
+
+Regressions cover an identical-content replacement inode, same-channel
+replacement, same-inode and same-size changes past the first 1 KiB, append,
+growth, truncation and the original rendered memory fallback. Normal and
+ASan/UBSan tests passed, and a second reviewer found no further bounds or
+identity defect. FNV-1a is accidental-change detection, not authentication.
+This is not an immutable transcript and does not protect against trusted
+same-UID rewriting, including changes that preserve the exact anchor.
+
+Evidence: dcc/probe_catchup_anchor.c, dcc/baseline-catchup-anchor.log,
+local/local-review-results.json, local/anchor-normal-results.json,
+local/anchor-sanitize-results.json and dcc/notice-presence-review.txt.
+
+4. Local security and DCC review boundaries
+
+No additional confirmed bypass, race or leak was found in the reviewed
+session IPC, private configuration/credential file operations, GPG child
+lifecycle or endpoint credential inheritance. Review covered peer UID and
+worker-token checks, descriptor/TTY validation and cleanup, lease/path
+identity, symlink/FIFO refusal, bounded reads, private atomic writes,
+no-clobber ciphertext creation, cancellation/rollback and child-slot reuse.
+It also checked that creating a different /connect or /server endpoint starts
+with fresh credentials, while deliberate edits to an existing profile retain
+that profile's explicitly staged settings. This bounded source review is
+evidence of inspection, not proof that those boundaries contain no defects.
+
+The new credential lifecycle fixture covers all eight combinations of
+initially missing standard descriptors, fixed helper arguments and descriptor
+isolation, completed-child slot reuse, cancellation, pre-fork failure,
+rollback, child collection and descriptor cleanup. It exercises real local
+fork/exec, pipes, signals and private files using an adversarial helper.
+It does not use real GnuPG or a real keyring/agent.
+
+No new production DCC defect was confirmed. New adversarial tests passed the
+untouched baseline and candidate, including short/blocked I/O, EINTR/EAGAIN,
+ENOSPC/EMFILE, EOF/reset, fragmented/invalid acknowledgments, byte-exact data,
+partial-file cleanup and concurrent-transfer isolation. These use real files
+and loopback TCP, with explicit syscall fault injection for selected failures.
+
+Evidence: local/local-review-results.json,
+local/credential-lifecycle-results.json, dcc/dcc-review.txt and
+dcc/dcc-results.json. The credential test was promoted to
+tests/test_credential_lifecycle.c for final aggregate execution.
+
+5. Terminal signal policy and local session notice
+
+The new configuration-only preference is:
+
+  [input]
+  force_terminal_signals=false
+
+False or omission preserves the terminal's inherited ISIG state; it does not
+disable signals that the user already enabled. True enables ISIG while
+retaining the inherited interrupt, quit and suspend character mappings.
+Neither mode assigns Ctrl-C or Ctrl-Z as a new client key binding. The primary
+application configuration owns the setting across server profiles. Saved
+true/false values round-trip, malformed values are rejected transactionally,
+and failed saves leave current and future profiles unchanged. Four isolated
+strict config/client/application tests passed. Terminal runtime results are recorded separately from these config checks.
+
+Evidence: local/terminal-signals/results.json and
+local/terminal-signals/mirror.json; dcc/terminal-signals-results.json and
+dcc/terminal-signals-baseline-final-results.json;
+network/terminal-signals-results.json. The baseline default -isig failure
+was reproduced. Final normal real-shell tests pass all three policy cases
+in onekeyirc and the vipirc -i harness, including mapped suspension at the
+welcome/composer,
+retained draft/caret and seven exact pre-shell terminal/descriptor restorations
+per tested minimalist executable. An initial shell-fixture mistake was corrected without relaxing
+assertions: terminal remappings must be installed in the parent shell before
+the job starts, so fg preserves the intended parent settings.
+
+The full curses helpers separately pass eight policy/mapping combinations,
+program-mode restoration, inactive stop, fresh entry after shell changes,
+and five initialization failures. These tests use exact production helpers
+and actual PTY termios, with curses calls simulated. They do not run a full
+curses application. Complete incoming termios is restored at stop; VMIN/VTIME
+are intentionally changed while the noncanonical frontend is active.
+The ncurses API documents def_prog_mode as saving current terminal modes
+for later program-mode restoration in that screen context. The implementation
+applies the selected signal policy before saving those modes. Reference:
+  https://invisible-island.net/ncurses/man/curs_kernel.3x.html
+
+The complete reminder is:
+
+  Cow killing is the bloodshed of the innocent. www.bloodguiltcurse.net - ban beef.
+
+It is local output, owned by the
+worker's Client state across servers, reconnects and frontend changes. It
+does not send an IRC message or edit the user's draft. The minimalist output
+path consumes its once-per-worker flag only after the reminder's last byte
+is written; discarded pending output can retry later. Operational notices
+keep priority. The full frontend inserts one normal history entry, which can
+be redisplayed and retained by already enabled persistent logging. Historical
+redisplay is distinct from a new insertion. The final notice gates cover the full requested wording at 80 and 24 columns,
+retained drafts, reconnects, managed reattachment and no outgoing notice chat
+or AWAY change.
+
+Evidence: notice-first-pty.log and dcc/notice-presence-review.txt;
+tests/test_session_notice.py and tests/test_notice_delivery.c.
+
+6. Exact environment and validation limits
+
+Execution here is Linux with GCC 14.2 and OpenSSL 3.5.7, not native OpenBSD.
+Named AF_UNIX socket creation returns EPERM. The fresh native session probe
+reports UNAVAILABLE, exit 77, with af_unix_handshake_tested=false. Controlled
+IPC-boundary fixtures and real PTYs still exercise selected behavior, but
+they do not establish native SCM_RIGHTS attach/resume, the complete registry
+lifecycle, real SSH disconnection, or rc.d/reboot behavior.
+
+No real GnuPG keyring/agent integration pass is established by this follow-up.
+Controlled helper tests validate the client subprocess boundary; they cannot
+substitute for make check-gpg and make check-setup-gpg on a suitable host.
+Do not infer a real GnuPG pass from the installed gpg executable or a passing
+credential unit test.
+
+Required wide-curses development inputs are unavailable here. Shared vipirc
+minimalist code is exercised through a harness with unused curses entry
+points substituted; extracted full-UI tests check specific code boundaries.
+Neither is a newly linked and exercised full curses application. ASan/UBSan
+results use detect_leaks=0. An explicit leak-scanning attempt failed because
+LeakSanitizer cannot operate under this host's tracing arrangement; no leak
+certification is claimed. Unavailable, failed and passed gates stay distinct.
+
+Evidence: local/environment.json, final-native-session-probe.log,
+local/anchor-lsan-unavailable-results.json, dcc/adversarial-leaks-unavailable.log
+and followup-gates.json. Final aggregate, source hashes and packaging checks are recorded in the
+validation section below and in FOLLOWUP-TEST-RESULTS.json.
+
+7. Retained design limits and safe upgrade
+
+Other local UIDs and hostile remote bytes are in the review threat model;
+the same UID, administrator/kernel, installed executable, terminal, TLS
+library and trust store remain trusted. Account-private IPC is not isolation
+from a compromised account. The client has no process sandbox or privilege
+separation. Continue using a dedicated ordinary account, verified TLS,
+private configuration/credential paths and no setuid/setgid installation.
+Avoid forwarding an SSH agent or exposing unrelated secrets to that account.
+
+Persistent logs remain opt-in, access-controlled plaintext, not encrypted or
+authenticated transcripts. Known credential/service filtering is incomplete
+for arbitrary secrets or unknown services. Logs survive exit; each active
+log has a 16 MiB stop limit, not an archive or disk-space quota. Existing logs
+are not automatically deleted or rotated. Regular-file I/O can still stall
+on underlying storage. Enabling logging is a deliberate retention decision.
+
+Classic DCC remains unencrypted and unauthenticated independently of IRC TLS.
+An accepted offer can reach its advertised endpoint, including a private
+address; a nickname does not authenticate the peer. Files are not executed
+automatically, but source contents can change while streaming. For ordinary
+unattended IRC idling, leave DCC unused; no extra public inbound port is
+needed. Per-file/transfer bounds do not provide a host-wide storage quota.
+
+Installing a replacement executable does not replace a running worker.
+--resume attaches to the old process and --detach-session releases a terminal
+while preserving that process. Neither applies these fixes. Save desired
+configuration and account for drafts, queued messages and active transfers
+before a controlled restart. Inspect --sessions and use the documented
+--close-session ID workflow when ready to end the old worker, then verify
+the installed --version and start a fresh worker. Closing ends its IRC
+connections and retained in-memory session; it is not just a detach.
+An unsupported/unresponsive old worker must not be represented as closed.
+
+Older executables can reject the new config key after a new release saves
+it. Preserve a private pre-upgrade config copy if rollback is required.
+Do not disable TLS verification, relax private permissions, blindly signal
+a job number as a PID, or remove live registry files to force an upgrade.
+On the actual host, verify session list/detach/resume/close, SSH loss and
+reconnect, terminal restoration/remapped signals and normal PING handling.
+Exercise actual full curses and rc.d behavior separately when used. No live
+IRCNOW connection, user service, or deployment was modified by this review.
+
+These cautions preserve the baseline doc/AUDIT-2026-11-15.txt operational
+upgrade section and doc/SECURITY-REVIEW.txt deployment guidance.
+
+8. Final validation and packaging
+
+The standalone release was built with strict C11 warnings promoted to errors,
+FORTIFY_SOURCE=2, stack-protector-strong, format-security checks and PIE; Linux
+linking requested RELRO, immediate symbol binding and a non-executable stack.
+ASan/UBSan builds use halt-on-error and retain the explicit no-leak-scan limit.
+
+Normal gates cover the security suite, efficiency checks, session CLI/control
+boundaries, managed hangup/detach fixtures, application/credential/editor/DCC
+units, CLI and embedded manual consistency, offline/live terminal behavior,
+setup and asynchronous helpers, reconnect/autojoin, rename, wrapping, pinned
+destinations, catch-up, slow terminal handling and retained history.
+
+Sanitizer gates cover the security and session-control suites, notice delivery,
+credential child lifecycle, DCC injected failures, real automatic-away retry
+availability, wrapping, reviewed-message availability and terminal signal
+policy. vipirc -i uses real main/core/minimalist code with aborting unused
+curses entry points. Full UI history and terminal policy have separate exact
+production-boundary tests; presentation/curses substitutions are disclosed.
+The vipirc Makefile's non-curses history and CLI test variants were also built
+and executed normally and with ASan/UBSan.
+
+The 90-second hostile-idle gate exercises hostile display payloads and malformed
+UTF-8 inside correctly framed IRC traffic, bounded state, resource behavior, continued PING handling and process cleanup.
+Its exact metrics and all assertions are recorded in final-hostile-idle-90s.log.
+Observed: 134,944 wire records, 180 PING replies,
+maximum PING latency 1.307 ms, and 0.69 client CPU seconds
+over 90.005 elapsed seconds. The terminal went unread for 30 seconds.
+Peak sampled RSS was 5,184 KiB, with 92 KiB growth over its
+steady baseline. No unexpected client sends, unsolicited DCC connections or
+terminal controls from remote data were observed. Per-process descriptor-count
+sampling was unavailable in this soak; direct cleanup assertions exist in
+the focused descriptor/child/DCC fixtures instead.
+It supplements the preceding audit's longer soak; neither is proof of indefinite
+uptime or resistance to all resource-exhaustion attacks.
+
+GCC's analyzer completed 10 selected translation units with zero
+diagnostics. All 38 common src files match byte-for-byte across the
+two source releases. This is bounded coverage, not a proof of memory safety.
+
+A clean staged standalone build matched the tested onekeyirc executable
+byte-for-byte. A private DESTDIR installation verified version, embedded manual,
+file modes and installed contents; uninstall left no files. Packaging uses the
+verified baseline file inventories plus explicit new regression/report files,
+excluding built binaries and unrelated workspace data. Each archive contains
+SOURCE-MANIFEST.json and SHA256SUMS. Final archive creation rechecks source/test
+hashes, reinstalls the finalized documents privately and validates every tar
+member's bytes, type and mode. The outside .sha256 file covers both source
+archives and this standalone report. Checksums detect changed bytes; they are
+not an independently authenticated release signature.
+
+Two validation-maintenance corrections are recorded explicitly. The expanded
+key-help text moved Escape documentation above the last page at an 18-row test
+geometry. The test now verifies the actual final paste guidance at End and
+the retained Escape instructions with Page Up; no renderer or assertion about
+drafts, caret, cancellation or chat isolation was removed. Initial source
+staging also found two shared DCC/presence test files missing from the vipirc
+tree; the identical already-tested files were added before final staging.
+
+Representative commands on a suitable development host:
+
+  ./configure
+  make
+  make check-security
+  make check-security-sanitize
+  make check-efficiency
+  make check-session-controls
+  make check-session-controls-sanitize
+  make check-session-lifecycle
+  make check-session-notice
+  make check-terminal-signals
+  make check-presence-availability
+
+The real-shell signal gate needs Python 3 and bash; those are test dependencies,
+not dependencies of the installed standalone client. vipirc additionally has
+check-security-ui-history and check-security-ui-terminal, with -sanitize forms,
+for the disclosed boundary fixtures. Full curses rendering and actual native
+session IPC must still be exercised on the deployment platform. Where GnuPG
+is used, run check-gpg and check-setup-gpg with an isolated test keyring before
+relying on that integration. Preserve a private rollback config because older
+executables may reject the newly serialized terminal-policy key.
+
+9. Deployment dependencies
+
+The observed test host was Linux x86_64, GCC 14.2.0 and OpenSSL 3.5.7. The client
+uses the system TLS implementation; these source changes do not update a VPS's
+kernel, SSH server, terminal or TLS packages. Official OpenSSL release notes
+list security fixes newer than the test library. Check the actual deployment's
+supported OS/TLS update status independently; this report does not establish
+that the running VPS has those updates.
+
+Primary vendor references checked during this review:
+  https://www.openssl-library.org/news/openssl-3.5-notes/index.html
+  https://openssl-library.org/news/vulnerabilities/
+  https://www.openbsd.org/stable.html
+  https://www.openbsd.org/errata80.html
+
+The source's verified-TLS defaults, certificate/hostname verification and
+credential policies should remain enabled. Use the documented session controls
+for a deliberate restart after saving desired settings; attaching to an older
+worker cannot install these changes into that running process.

@@ -1,0 +1,13 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / EXIT STATUS
+English source SHA-256: a4feff37ea5665514327eb0e9d3930712772f4ff6cf26bdcefb48492f71f9923
+
+STATUS KELUAR
+
+0     Penamatan biasa atau keluar secara interaktif.
+1     Kegagalan operasi, contohnya permulaan, simpanan atau kawalan sesi.
+2     Pilihan/konfigurasi tidak sah atau tiada terminal untuk penggunaan interaktif.
+130   SIGINT mengganggu skrin alu-aluan selepas terminal dibersihkan.
+131   SIGQUIT mengganggu skrin alu-aluan selepas terminal dibersihkan.
+
+Status kejayaan --background hanya mengesahkan persediaan pekerja setempat, bukan log masuk IRC jauh. Status gagal menutup sesi bermaksud penamatan belum disahkan; semak --sessions sekali lagi kerana permintaan yang telah diterima mungkin selesai kemudian.

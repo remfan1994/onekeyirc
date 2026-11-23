@@ -1,0 +1,62 @@
+vipirc / onekeyirc - selected operations help (de)
+====================================================
+
+DRAFT - selected help excerpts only; not a complete security manual.
+Commands, numeric limits and file names must be entered literally.
+Authoritative reference: English MANUAL.txt and SECURITY.md.
+
+/help deployment
+----------------
+Mit --background eine Sitzung ohne Terminal oder Begrüßungstaste starten.
+
+Für jeden zu startenden Server /autoconnect on setzen und speichern.
+
+--background aktiviert autoconnect nicht selbst; --no-connect unterbindet weiterhin Startverbindungen.
+
+Die übliche Warnung erscheint einmal vor dem Ablösen. Erfolg bestätigt einen lokalen Job, keine IRC-Anmeldung.
+
+Im nächsten Terminal desselben Kontos --sessions und --resume [NUMBER] nutzen.
+
+Ein VPS-Neustart beendet Jobs, Entwürfe und RAM-Verlauf. Ein Systemstartdienst kann einen neuen Client starten.
+
+OpenBSD-Anleitung und optionales rc.d-Beispiel: doc/OPENBSD-VPS.txt.
+
+Als normaler Nutzer mit absoluten Konfigurations- und Zugangsdatenpfaden starten. Ein gesperrter GPG-Schlüssel kann beim Booten nicht nachfragen.
+
+--check-config prüft Einstellungen, nicht Zugangsdatenzugriff, DNS, TLS oder IRC-Anmeldung.
+
+Bei kurzen Netzausfällen --reconnect nutzen; Prozessabstürze muss das Betriebssystem separat überwachen.
+
+/help security
+--------------
+Entfernter Text wird vor der Terminalausgabe bereinigt. Eingaben sind lokale IRC-Befehle, keine Shell-Befehle.
+
+Kein /raw, Shell-Zugang oder automatische Dateiannahme. Erkanntes Bracketed Paste sendet niemals einen Befehl.
+
+Ein eigenes CA-Bündel muss eine nichtleere reguläre PEM-Datei bis 16 MiB sein und fragt nie nach einem Passwort.
+
+Standardmäßig kein Chatprotokoll auf Platte. Konfigurationsänderungen müssen ausdrücklich gespeichert werden.
+
+Für Grenzen und frühere Prüfungen siehe /help tls, /help authentication, /help logging und SECURITY.md.
+
+/help history
+-------------
+Anzeige- und Befehlsverlauf sind im RAM begrenzt. Dauerhafte Logs sind optional und standardmäßig aus.
+
+Ein Ansichtswechsel zeigt letzte Einträge erneut; /mentions zeigt passende Quellzeilen.
+
+/clear löscht den RAM-Verlauf der Ansicht, nicht das alte Log auf Platte. Bouncer-Wiedergabe kommt vom Bouncer.
+
+Up/Down bewegt in Compose den Cursor, ruft aber keinen gesendeten Chat ab. Command ruft nur angenommene Befehle ab.
+
+/help hotkeys
+-------------
+Eigene Tastenbelegungen sind optional und anfangs leer. Normale Navigation und Editorfunktionen bleiben verfügbar.
+
+Mit /bindings Liste, /bindings keys Tasten und /bindings actions lokale Funktionen anzeigen.
+
+Mit /bind KEY ACTION zuweisen; erneut zuweisen ersetzt. Mit /unbind KEY oder /unbind all entfernen.
+
+/help logging
+-------------
+/clear leert nur RAM. Logs bleiben nach Beenden, --close-session und Speichern erhalten. Logging aus stoppt neue Einträge, löscht aber keine alten.

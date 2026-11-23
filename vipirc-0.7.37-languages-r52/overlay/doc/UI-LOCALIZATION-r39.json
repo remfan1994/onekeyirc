@@ -1,0 +1,278 @@
+[
+  {
+    "source": "src/ui.c",
+    "kind": "fixed",
+    "english": "An application of ThatIAm.vip",
+    "fields": []
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed",
+    "english": "Website: www.thatiam.vip",
+    "fields": []
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed",
+    "english": "Designed by remfan1994",
+    "fields": []
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed",
+    "english": "License: Insha-Allah license agreement (IALA)",
+    "fields": []
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed",
+    "english": "Process snapshot",
+    "fields": []
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed",
+    "english": "CPU time: unavailable",
+    "fields": []
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed",
+    "english": "Peak resident memory: unavailable on this platform",
+    "fields": []
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed",
+    "english": "CPU and memory cover this process; helper processes are excluded.",
+    "fields": []
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed",
+    "english": "About vipirc",
+    "fields": []
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed",
+    "english": "Help / Manual",
+    "fields": []
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed",
+    "english": "command screen",
+    "fields": []
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed",
+    "english": "Servers screen",
+    "fields": []
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed",
+    "english": "Network channel directory",
+    "fields": []
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed",
+    "english": "Activity screen",
+    "fields": []
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed",
+    "english": "nickname actions screen",
+    "fields": []
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed",
+    "english": "manual screen",
+    "fields": []
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed",
+    "english": "Server list",
+    "fields": []
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed",
+    "english": "Activity list",
+    "fields": []
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed",
+    "english": "auto-join inquiry screen",
+    "fields": []
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed",
+    "english": "authentication inquiry screen",
+    "fields": []
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed",
+    "english": "session summary screen",
+    "fields": []
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed",
+    "english": "Channels screen",
+    "fields": []
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed",
+    "english": "Queries screen",
+    "fields": []
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed",
+    "english": "About screen",
+    "fields": []
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed",
+    "english": "license screen",
+    "fields": []
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed",
+    "english": "not configured",
+    "fields": []
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed",
+    "english": "unavailable",
+    "fields": []
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed",
+    "english": "disconnected",
+    "fields": []
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed",
+    "english": "The client is receiving LIST replies; no matching channel has arrived yet.",
+    "fields": []
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed",
+    "english": "No cached channel matches the current LIST filters.",
+    "fields": []
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed",
+    "english": "There are no open private conversations. New opens a command input for a nickname; /query NICK opens a local conversation without sending a message.",
+    "fields": []
+  },
+  {
+    "source": "src/app.c",
+    "kind": "fixed",
+    "english": "A network channel list is already in progress.",
+    "fields": []
+  },
+  {
+    "source": "src/app.c",
+    "kind": "fixed",
+    "english": "That ignore mask is not in the list.",
+    "fields": []
+  },
+  {
+    "source": "src/app.c",
+    "kind": "fixed",
+    "english": "That ignore mask is already present.",
+    "fields": []
+  },
+  {
+    "source": "src/app.c",
+    "kind": "fixed",
+    "english": "Watch limit is 32 strings.",
+    "fields": []
+  },
+  {
+    "source": "src/app.c",
+    "kind": "fixed",
+    "english": "That watch string already exists.",
+    "fields": []
+  },
+  {
+    "source": "src/app.c",
+    "kind": "fixed",
+    "english": "That watch string was not found.",
+    "fields": []
+  },
+  {
+    "source": "src/app.c",
+    "kind": "fixed",
+    "english": "Invalid nickname (maximum 63 ASCII bytes).",
+    "fields": []
+  },
+  {
+    "source": "src/app.c",
+    "kind": "fixed",
+    "english": "Watch text must contain 1 to 127 UTF-8 bytes.",
+    "fields": []
+  },
+  {
+    "source": "src/app.c",
+    "kind": "fixed",
+    "english": "Select a joined channel first.",
+    "fields": []
+  },
+  {
+    "source": "src/app.c",
+    "kind": "fixed",
+    "english": "Join this channel first.",
+    "fields": []
+  },
+  {
+    "source": "src/app.c",
+    "kind": "fixed",
+    "english": "A command name cannot contain a newline.",
+    "fields": []
+  },
+  {
+    "source": "src/app.c",
+    "kind": "named-fields",
+    "english": "OFFLINE TEST MODE running as {nick}. No network or authentication.",
+    "fields": [
+      "nick"
+    ]
+  },
+  {
+    "source": "src/app.c",
+    "kind": "named-fields",
+    "english": "Connected as {nick}. /help opens the manual.",
+    "fields": [
+      "nick"
+    ]
+  },
+  {
+    "source": "src/app.c",
+    "kind": "named-fields",
+    "english": "Left {channel}; history retained. /close removes its view.",
+    "fields": [
+      "channel"
+    ]
+  }
+]

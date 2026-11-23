@@ -1,0 +1,97 @@
+VERBATIM ENGLISH SOURCE REFERENCE
+Source: MANUAL.txt / COMMAND-LINE OPTIONS
+English source SHA-256: 2dd0066181d81214b50bdc848d76a75ed557f6bc4b62982d6c1d0d251ef3c932
+Source lines: 281-373
+
+COMMAND-LINE OPTIONS
+
+-i, --idle
+        Select minimalist mode for this launch; --help/--manual describe it.
+    -N, --ncurses
+        Select full mode for this launch. Last explicit interface flag wins.
+        Neither override changes the saved default; -n still means nickname.
+    -s, --server HOST
+        Select the primary server: hostname or numeric IPv4/IPv6, not a URL.
+    -p, --port PORT
+        Port 1..65535. Defaults are TLS 6697 or explicitly plain IRC 6667.
+    -c, --channel LIST
+        Direct-profile autojoin after registration; comma lists/repeats work.
+        Quote #channel for the shell. Bouncers restore memberships instead.
+    -n, --nick NICK
+        Override the effective startup profile's nickname.
+    -C, --config FILE
+        Select primary config and its .servers catalog/.d profile directory.
+        File must exist unless --init-config creates it. See FILES AND
+        ENVIRONMENT for defaults and literal configuration-path syntax.
+    --tls
+        Require verified TLS, the default. A bare port does not disable it.
+    --plain
+        Explicit plaintext; saved credential authentication is refused.
+    --ca-file FILE
+        Custom PEM authorities instead of system trust. Nonempty regular file,
+        at most 16 MiB; an ordinary symlink is allowed. No password prompts.
+        See TLS AND CUSTOM TRUST for checks and limits.
+    --no-connect
+        Suppress all startup connections or simulators. Connect explicitly later.
+    --background
+        Start a detached worker without a tty, TERM or welcome keypress.
+        Saved default chooses its frontend unless -i/-N overrides it. Save
+        autoconnect profiles or provide --server; --no-connect wins.
+        Success confirms local setup, not a successful IRC login.
+    --reconnect
+        Retry transient network failures for this process, without initiating
+        connection or saving a preference. Backoff: 5,10,20,40,80,160,300 seconds;
+        60 registered seconds resets it. /disconnect cancels, /connect restarts.
+        Certificate/auth/config/protocol failures remain disconnected.
+        Pending chat is discarded. Auth/startup commands run on new connections;
+        direct profiles replay autojoin, bouncers restore membership.
+        Staged settings still need an explicit disconnected /connect.
+    --test-mode
+        Interactive offline simulation; no network/DNS/credential reads/saves.
+    --resume [JOB]
+        Attach the sole verified detached job or choose its number; --resume=JOB
+        also works. Explicit absolute socket paths support compatible older
+        workers. Bare resume retains its frontend; -i/-N requests one.
+        Requires stdin/stdout/stderr on the same interactive tty. Multiple or
+        unverified jobs prevent automatic selection; attached jobs are busy.
+    --sessions
+        List this account's attached/detached jobs without tty or config load.
+    --detach-session NUMBER
+        Release the verified controller while preserving the worker and state;
+        then --resume NUMBER. Also accepts --detach-session=NUMBER.
+    --close-session NUMBER
+        End that whole worker, all IRC/transfers, drafts and memory history.
+        Config/log files remain. Verified cleanup is required for success;
+        a timeout can precede later completion, so recheck --sessions.
+        Also accepts --close-session=NUMBER. See SESSION RECOVERY AND UPGRADES.
+    --init-config
+        Create a private config without replacing existing/concurrent files.
+        A reported cleanup/sync error may leave the completed file in place.
+    --check-config
+        Validate config, overrides, catalog and saved profiles, then exit.
+        Does not open secrets, run GPG, test CA/TLS, or prove reachability/login.
+    --manual
+        Print the complete selected interface's manual without a terminal.
+    -h, --help
+        Print CLI help without a terminal.
+    -v, -V, --version
+        Print version/attribution/license without a terminal.
+
+Long options accept --name=value; ordinary short-option grouping works. --
+ends options; positional operands are not used. CLI values override config,
+then defaults. At normal startup non-host overrides affect the remembered
+default; explicit --server selects the primary. --init-config/--check-config
+apply to the primary. An unavailable remembered default requires --server or
+repair before non-host overrides.
+
+A case-insensitively different --server clears inherited credential sources,
+auth, custom CA, bouncer identity/automatic-away choice, channels and
+startup commands. Configure the new host explicitly. Same-host overrides and
+--nick alone retain profile settings. A different --config selects a
+separate workspace.
+
+Resume/list/detach/close are separate management operations: do not combine
+them, or mix them with --config/connection/startup options. Supported
+interface flags may remain in an alias. --background cannot combine with
+those operations, --init-config or --check-config. --test-mode cannot
+combine with --init-config/--check-config (usage status 2).

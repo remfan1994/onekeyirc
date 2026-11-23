@@ -1,0 +1,11 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / SAVED SERVER PROFILES
+English source SHA-256: ff3b21055c0b13e827ba1c38f80fbe8db59163af5b82bb486626649d1f7a61f2
+
+PROFILS DE SERVEURS ENREGISTRÉS
+
+Pour le chemin principal P, le catalogue voisin P.servers énumère jusqu'à sept profils secondaires dans le répertoire privé P.d. Avec le chemin par défaut, il s'agit de config.ini.servers et config.ini.d à côté de config.ini. Sa syntaxe est [servers], puis des entrées profile=ID répétées. Les noms générés ont la forme server-<24 caractères hexadécimaux minuscules>.ini. Un ID manuel peut contenir de 1 à 63 lettres ASCII, chiffres, traits de soulignement, tirets ou points ; le premier caractère doit être une lettre ou un chiffre et deux points successifs sont interdits. Un élément de chemin ou un chemin quelconque ne peut servir d'ID.
+
+Servers > New ne crée aucun fichier. Le premier /save explicite ou Settings Save crée un profil séparé de mode 0600 dans le répertoire de mode 0700 et l'inscrit au catalogue. Les sauvegardes suivantes mettent à jour ce profil. Sauver un profil secondaire ne remplace jamais la configuration principale. Les mises à jour du catalogue au démarrage sont verrouillées. Les entrées invalides provoquent des erreurs visibles ; les profils sains restent utilisables.
+
+Close retire du catalogue la référence à un profil secondaire mais conserve son fichier. Le profil principal ne peut être fermé. --check-config vérifie le principal, le catalogue et les profils référencés sans connexion. Au démarrage normal, les options de connexion hors hôte s'appliquent au serveur par défaut mémorisé ; --server choisit explicitement le principal. --init-config et --check-config appliquent aussi leurs remplacements au principal. --no-connect supprime le démarrage automatique de tous les profils. En mode test, Save est désactivé et Close n'agit que sur l'état en cours.

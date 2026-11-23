@@ -1,0 +1,16 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / DEFAULT INTERFACE
+English source SHA-256: 9767b356dcf1c634d38900a5165f736d96e65c58251579e065cdfa4d44b92e3c
+
+STANDARDOBERFLÄCHE
+
+Um die minimalistische Oberfläche als Standard zu speichern, führen Sie in einer beliebigen Oberfläche Folgendes aus:
+
+    /set default_interface idle
+    /save input
+
+Alternativ wählen Sie Settings > Interface > Default interface oder /panel > 0. Sie können auch default_interface=idle im bereits vorhandenen Abschnitt [session] der Hauptkonfiguration setzen, ohne andere Schlüssel zu entfernen. Ohne Einstellung ist ncurses der Standard. Dies beeinflusst neue Starts einschließlich --background, wechselt aber weder die laufende Oberfläche noch baut es die IRC-Verbindung neu auf.
+
+-i/--idle beziehungsweise -N/--ncurses wählen die Oberfläche ausdrücklich nur für diesen Aufruf; die letzte Option gilt, und das Speichern anderer Einstellungen macht die Wahl nicht dauerhaft. Das kleine -n/--nick bezeichnet weiterhin den Spitznamen. Für die vollständige Standardoberfläche setzen Sie /set default_interface ncurses und /save input. Sekundäre Profile besitzen diese Einstellung nicht.
+
+--resume ohne Oberflächenoption übernimmt die Oberfläche des bestehenden Prozesses. -i --resume NUMBER fordert die minimalistische, -N --resume NUMBER die ncurses-Oberfläche an, ohne Verbindung oder Hintergrundprozess zu ersetzen. Ältere Prozesse ohne Umschaltmöglichkeit behalten ihre Oberfläche. Beim Wechsel gehen oberflächenspezifische Entwürfe und Befehlsrückrufe verloren; lesen Sie vorher RUNNING IN THE BACKGROUND. onekeyirc verwendet stets seine minimalistische Oberfläche und weist -N/--ncurses zurück..

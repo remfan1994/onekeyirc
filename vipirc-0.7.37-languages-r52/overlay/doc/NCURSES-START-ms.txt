@@ -1,0 +1,56 @@
+ANTARA MUKA PENUH VIPIRC: PETIKAN MANUAL TERJEMAHAN
+Petikan terpilih daripada MANUAL.txt: contoh, permulaan, bantuan, panel, penyuntingan input dan tetikus. Ini bukan terjemahan manual lengkap.
+
+Nama arahan dan pilihan tidak diterjemahkan:
+    vipirc -h
+    vipirc -v
+    vipirc --test-mode
+    vipirc --server irc.ircnow.org --channel '#ircnow' --nick tutankh-aten
+
+Membaca contoh
+--------------
+Contoh bermula dengan vipirc ialah arahan shell. Arahan bermula dengan / dimasukkan dalam paparan Command. Masukkan satu arahan setiap kali; perkataan HURUF BESAR ialah tempat letak nilai, [item] pilihan, dan | menunjukkan alternatif.
+
+Paparan Command menyediakan / di awal. Padam garis miring itu sebelum menampal /command penuh. Blok arahan yang ditampal bukan skrip: baris baharu menjadi ruang. Teks yang ditampal ke chat kekal sebagai teks chat.
+
+Memulakan sambungan
+-------------------
+Tanpa server, vipirc membuka ruang kerja yang belum bersambung. --server memilih server; /connect HOST juga menyambung. TLS yang disahkan pada port 6697 ialah tetapan lalai. Sambungan teks biasa memerlukan --plain; gunakan titik sambungan sebenar daripada penyedia.
+
+Paparan awal menunjukkan pendaftaran server dan MOTD. Dalam mod interaktif penuh, nama gelaran utama yang belum dikonfigurasi diminta dengan nama log masuk setempat sebagai lalai. Server boleh menolak nama itu.
+
+Enam panel utama
+----------------
+F1 membuka panel aplikasi, F2 Servers, F3 Channels, F4 Queries, F5 Mentions/unread dan F6 File transfers. Kategori kosong mungkin tersembunyi, tetapi nombor kekunci fungsi tidak berubah.
+
+Escape daripada perbualan peribadi membuka Queries; daripada chat lain membuka panel aplikasi; daripada panel biasa kembali ke chat. Pada panel aplikasi, keluar memerlukan jawapan y/Y yang baharu selepas pengesahan.
+
+Bantuan dan navigasi
+--------------------
+/help atau /manual membuka manual penuh dalam vipirc. /help TEXT mencari di dalam manual; dalam pembaca, / memulakan carian, n dan N menukar padanan, dan Escape kembali. Carian adalah harfiah, bukan ungkapan biasa.
+
+Dalam senarai, Up/Down atau k/j memilih item; Left/Right atau h/l memilih tindakan; Enter melaksanakannya. Home/End atau g/G ke hujung senarai. ? di luar medan suntingan membuka bantuan konteks.
+
+    vipirc --manual
+    /help
+    /help TEXT
+    /mouse on|off
+
+Menyunting, menghantar dan menampal
+-----------------------------------
+Chat sedia untuk ditaip. Enter menghantar ke saluran atau perbualan peribadi yang dipilih. Garis miring pada awal draf kosong membuka prompt Command berasingan; taip // untuk menghantar garis miring sebagai teks.
+
+Left/Right bergerak mengikut gugusan aksara. Up/Down bergerak antara baris input yang dilipat, bukan sejarah mesej terkirim. Home/End ke awal/akhir keseluruhan draf; Backspace/Delete membuang gugusan aksara.
+
+Draf ialah satu penimbal logik: pembalutan baris tidak menyisipkan baris baharu, dan mengubah saiz terminal mengekalkan teks serta kursor. Tab/Shift-Tab melengkapkan nama gelaran. /clearinput mengosongkan seluruh draf, termasuk teks di luar skrin.
+
+Tampalan berkurung kekal sebagai teks harfiah dan tidak boleh mengesahkan penghantaran sendiri. Mesej panjang mungkin memerlukan persetujuan panjang atau kebenaran berasingan untuk beberapa penghantaran. Semak teks yang dipaparkan sebelum menekan Enter.
+
+Tetikus dan keselamatan
+-----------------------
+Tetikus adalah pilihan. Klik kategori tajuk, kedudukan chat atau item senarai jika disokong; terminal mesti meneruskan peristiwa tetikus. /mouse on|off mengawalnya. URL dan kandungan papan klip tidak dibuka secara automatik.
+
+Jangan anggap rupa mesej tidak dipercayai sebagai bukti identiti. Aksara Unicode yang menyerupai aksara lain dan teks bercampur arah boleh mengelirukan. MANUAL.txt dan SECURITY.md bahasa Inggeris asal kekal sebagai rujukan.
+
+SOURCE: vipirc 0.7.36 / MANUAL.txt
+STATUS: Draft translation; English source takes precedence.

@@ -1,0 +1,10 @@
+KURZE SICHERHEITSHINWEISE: UEBERSETZUNG UND ARABISCHES RTL
+
+1. Pruefen Sie die SHA-256-Summen der englischen Originalquellen und des optionalen Sprach+RTL-Patches VOR dem Anwenden. Der Patch enthaelt ausfuehrbaren C-Code, nicht nur Uebersetzungen.
+2. Wenden Sie ihn nur auf unveraenderte r1-Quellen an, bevor configure oder make ausgefuehrt wird. Patches nicht stapeln; bei Ablehnung eine neue Kopie verwenden.
+3. IRC-Nachrichten, Nicknamen, Themen und Dateinamen sind nicht vertrauenswuerdig. Die Anzeige-Bereinigung ersetzt gefaehrliche Terminal-, Unicode-Richtungs- und Annotationssteuerzeichen; sie authentifiziert keine Absender und verhindert keine aehnlichen Unicode-Namen.
+4. Der visuelle Arabisch-Modus ist fuer UTF-8-Terminals ohne arabische Formung und Richtung bestimmt. FriBidi wird benoetigt; andernfalls bleibt die logische Textfolge erhalten.
+5. RTL aendert nur die Anzeige. IRC-Befehle, gesendete Nachrichten und gespeicherte Daten behalten die logische UTF-8-Reihenfolge. Die angezeigte Richtung beweist keine Identitaet.
+6. Geben Sie keine Passwoerter in Chats ein, veroeffentlichen Sie keine privaten Logs in Fehlerberichten und vertrauen Sie Befehlen oder URLs nicht allein wegen ihrer RTL-Darstellung.
+7. --check-config prueft weder entfernte Server noch TLS-Sitzung oder Passwort. SECURITY.md beschreibt das vollstaendige Bedrohungsmodell; dies ist keine Uebersetzung davon.
+8. Schalten Sie visuelles RTL ab, wenn Ihr Terminal bidirektionalen Text bereits korrekt darstellt oder die Ansicht vom Quelltext abweicht.

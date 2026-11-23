@@ -1,0 +1,13 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / EXIT STATUS
+English source SHA-256: a4feff37ea5665514327eb0e9d3930712772f4ff6cf26bdcefb48492f71f9923
+
+BEENDIGUNGSSTATUS
+
+0     Normales Ende oder interaktives Beenden.
+1     Betriebsfehler, etwa beim Initialisieren, Speichern oder bei der Sitzungssteuerung.
+2     Ungültige Optionen/Konfiguration oder kein Terminal für die interaktive Nutzung.
+130   SIGINT unterbrach die Begrüßung nach dem Aufräumen des Terminals.
+131   SIGQUIT unterbrach die Begrüßung nach dem Aufräumen des Terminals.
+
+Ein erfolgreicher --background-Status bestätigt nur die lokale Einrichtung des Hintergrundprozesses, nicht die Anmeldung am entfernten IRC-Server. Scheitert das Schließen einer Sitzung, wurde das Ende nicht bestätigt. Prüfen Sie --sessions erneut, da eine akzeptierte Anfrage später abgeschlossen werden kann.

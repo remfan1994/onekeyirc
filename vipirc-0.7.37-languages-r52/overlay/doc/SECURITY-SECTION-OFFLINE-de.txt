@@ -1,0 +1,12 @@
+Offline checks and evidence
+Source: SECURITY.md, section "Offline checks and evidence"
+English section SHA-256: 9c67268cfad3c6bc3c5553f23c932c342c3f11231b325d758eeade66d790b4bd
+Paragraphs: 3
+Status: Translation draft; fluent-speaker security review required
+English SECURITY.md remains authoritative. This is one source-linked section, not a security certification.
+
+--help, --version und --manual laden weder Konfiguration noch Zugangsdaten. --check-config prüft Syntax, Werte und Dateischutz von Konfiguration und Katalog; es prüft weder Passwortzugriff oder -entschlüsselung noch DNS, TLS oder eine tatsächliche Anmeldung. --test-mode lädt gültige Profile in einen Simulator innerhalb des Prozesses, ohne IRC/DCC-Netzwerk, Lesen von Zugangsdaten/CA, GPG oder Speichern der Konfiguration. Inline-Werte können eingelesen werden, werden aber niemals gesendet. Ein ausdrückliches Background kann dennoch lokale Sitzungs-IPC erzeugen. Ein erfolgreicher Simulationslauf belegt keine Kompatibilität mit realen Servern.
+
+Die damalige Wiederherstellungsprüfung betrifft vipirc 0.7.34 / onekeyirc 0.1.33 in doc/STABILITY-REVIEW-0.7.34-0.1.33.txt und doc/STABILITY-PASS-RESULTS.json. Sie dokumentiert reproduzierte Fehler, Korrekturen, Prüfungen bei Ressourcenmangel und begrenzter Last sowie Plattformgrenzen. Die vorherige Sicherheitsprüfung steht in doc/SECURITY-REVIEW-0.7.33-0.1.32.txt und doc/SECURITY-PASS-RESULTS.json. Ältere benannte oder datierte Berichte behalten ihre ursprünglichen Quellversionen, Testlasten und Plattformgrenzen; sie behaupten keine erneute Durchführung.
+
+Lokale Protokolltestfälle belegen keinen Betrieb mit einem echten ZNC/soju-Daemon oder IRCNow-Konto. Die vollständige ncurses-Laufzeit, der native Lebenszyklus benannter AF_UNIX-Sockets, OpenBSD/LibreSSL und das Verhalten auf dem Zielhost müssen auf den jeweiligen Plattformen geprüft werden. Ein kurzer Belastungstest belegt keine monatelange unbeaufsichtigte Zuverlässigkeit. Melden Sie Version, Plattform, reproduzierbare Schritte und bereinigte Diagnosedaten; lassen Sie Passwörter, private Schlüssel und private Chatprotokolle weg.

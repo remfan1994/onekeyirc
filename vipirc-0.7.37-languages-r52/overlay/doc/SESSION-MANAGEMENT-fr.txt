@@ -1,0 +1,58 @@
+GESTION DES SESSIONS ET ARRIÈRE-PLAN - vipirc 0.7.36
+Traduction intégrale des sections de MANUAL.txt allant de RUNNING IN THE BACKGROUND à UPGRADING A RUNNING WORKER.
+Statut : brouillon. En cas de divergence, MANUAL.txt en anglais fait foi.
+
+EXÉCUTION EN ARRIÈRE-PLAN
+
+/background ou F1 > Background maintient les connexions IRC, les transferts acceptés, les brouillons et l'historique en mémoire tout en restaurant le terminal. La commande numérotée permettant de reprendre s'affiche, par exemple vipirc --resume 1. Le premier détachement créé un processus de travail et un point de communication privé ; les détachements suivants conservent leur numéro, leur état et leur point de communication. En utilisation ordinaire au premier plan, ce point de communication et ce processus auxiliaire n'existent pas.
+
+Lors de la reprise, les capacités, la taille et les paramètres linguistiques du terminal sont relus sur le même hôte et sous le même compte Unix. stdin/stdout/stderr doivent partager un tty interactif. Un seul contrôleur au premier plan gère les signaux et les redimensionnements ; un seul terminal peut être rattaché à la fois. SESSION RECOVERY AND UPGRADES explique le choix du travail et les rattachements occupés.
+
+Pour démarrer sans terminal, enregistrez d'abord les profils devant se connecter automatiquement, puis utilisez vipirc --background --reconnect --config /absolute/config.ini. --background n'active pas la connexion automatique, et --no-connect l'interdit. Un retour positif confirme seulement la préparation locale. Aucun tty ni TERM n'est requis avant le rattachement. Le point de communication est préparé avant les auxiliaires de resolution DNS et d'identifiants. Un --resume simple garde l'interface du processus ; -i/-N change explicitement d'interface sans reconnecter ni remplacer le processus de travail. Ce changement conserve l'historique des conversations et les transferts acceptés, mais perd les brouillons, les demandes de confirmation d'envoi, l'historique des commandes et les formulaires non appliques. Terminez ou copiez vos brouillons auparavant. Un détachement et rattachement dans la même interface conservent cet état local. Les anciens processus peuvent ne gérer que leur interface initiale.
+
+Les signaux configurés du terminal conservent leur rôle. Suspendre un contrôleur repris n'arrête pas le reseau de son processus de travail ; fg restaure l'interaction. Suspendre un processus ordinaire au premier plan arrête temporairement son reseau. Voir TERMINAL SIGNALS pour les associations heritees et SESSION RECOVERY pour la perte du terminal.
+
+Le premier détachement peut demander un nouvel essai pendant que les auxiliaires DNS ou d'identifiants se terminent. SIGCHLD ignore ou la collecte automatique des enfants empechent la creation du premier processus en arriere-plan et des auxiliaires : le lanceur doit laisser ses enfants attendables. Un détachement supplementaire d'un travail déjà gère ne créé aucun nouveau processus.
+
+Le repertoire et le socket sont prives au propriétaire. La recherche examine au plus 64 emplacements dans un delai global de 1500 ms et ne supprime que les entrées périmées verifiees ne possedant plus de bail de duree de vie. Aucun signal n'est adresse a un PID devine. Les travaux sans réponse restent non vérifiés. Les vérifications d'identite et d'incarnation empechent qu'un numéro reutilise ne redirige un rattachement pendant la transition. Un autre processus du même compte reste considere comme fiable. single_session=true refuse un second processus de travail dans l'espace de noms vipirc sans limiter les serveurs de celui-ci.
+
+L'état du processus n'est pas serialise : redemarrage, sortie ou terminaison font disparaitre brouillons, reperes et historique en mémoire. Les journaux facultatifs ne conservent que la transcription. Le mode test peut fonctionner en arriere-plan avec un point local sans activer de reseau IRC/DCC. Aucun multiplexeur de terminal n'est nécessaire.
+
+RECUPERATION DES SESSIONS ET MISES A JOUR
+
+Un travail de shell represente un processus de travail et toutes ses connexions IRC, transferts, brouillons et historiques conservés. Son numéro de travail est different du PID du systeme et du numéro de serveur affiche dans le client.
+
+Pour recuperer un travail dont l'ancien terminal SSH est encore rattaché :
+
+    vipirc --sessions
+    vipirc --detach-session 1
+    vipirc --resume 1
+
+Choisissez NUMBER dans la liste actuelle. --detach-session libère le contrôleur vérifié, attend le détachement et maintient le processus de travail et son état IRC. Un --resume sans numéro ne choisit qu'un unique travail détaché et vérifié ; plusieurs candidats ou des candidats non vérifiés imposent un choix explicite. Il ne s'empare jamais d'un terminal encore rattaché. Les numéros de travail restent stables jusqu'a la sortie, puis peuvent être reutilises.
+
+FERMER UNE SESSION DEPUIS LE SHELL
+
+A utiliser uniquement pour terminer le travail entier :
+
+    vipirc --sessions
+    vipirc --close-session 1
+
+La fermeture terminé toutes les connexions IRC et tous les transferts de ce processus, et abandonne ses brouillons non enregistres et son historique en mémoire. La configuration enregistrée et les journaux en clair existants restent presents. --close-session=1 et --detach-session=1 sont egalement acceptés. Ces commandes de gestion n'exigent pas de terminal interactif et ne chargent pas la configuration. Ne les combinez ni avec --resume, --sessions, entre elles, --config, ni avec des options de connexion. Des options d'interface prises en charge peuvent rester dans un alias sans changer le travail choisi.
+
+Le client utilisé le point privé du propriétaire, des vérifications de propriété du pair et un jeton d'identite du processus sélectionné. Une réussite confirme le nettoyage de l'application et la libération du bail initial du travail, et pas simplement l'acceptation de la demande ou l'observation independante de la fin du processus OS. Les demandes ont un delai borne. Un échec ou depassement du delai ne supprime pas le point d'un processus vivant et n'envoie pas de signal a un PID suppose. Une demande acceptee juste avant l'expiration peut s'achever plus tard ; verifiez a nouveau --sessions.
+
+Un processus bloque en écriture sur un terminal ouvert que personne ne lit peut ne pas traiter les commandes de contrôle avant que la sortie ne se libère ou que le terminal se ferme. Un processus totalement bloque peut necessiter une intervention du systeme apres identification du vrai processus. Un code de fermeture non nul signifie que l'achevement n'est pas confirme.
+
+RECUPERATION APRES UNE PERTE DE SSH
+
+La perte du terminal ou du contrôleur d'un travail déjà gère détaché son processus de travail. Les evenements de raccrochage/erreur, stdin EOF/EIO, échec de stdout, EOF du contrôleur et SIGHUP conservent connexions et état. En interface complete, le nettoyage apres perte du terminal ou demande externe de fermeture redirige la sortie obsolete du processus avant de nettoyer curses ; le contrôleur au premier plan restaure son propre tty.
+
+Un processus ordinaire au premier plan jamais place sous gestion conserve le comportement normal de terminaison par SIGHUP. Demarrez avec --background ou utilisez d'abord /background si une reprise est nécessaire. Le client ne modifie pas les delais d'inactivite SSH. Le dessin synchrone du terminal peut encore bloquer sur un terminal ouvert dont la sortie n'est plus lue.
+
+MISE A JOUR D'UN PROCESSUS DE TRAVAIL ACTIF
+
+Installer ou recompiler ne remplace pas le code d'un processus déjà actif. Enregistrez la configuration voulue, quittez ou fermez volontairement le processus, verifiez la version installee avec --version, puis lancez un nouveau travail. Il en va de même pour les corrections de sécurité. Les journaux subsistent, mais pas les brouillons, l'historique des commandes ni les reperes de rattrapage.
+
+Un ancien processus peut ne pas disposer des nouveaux controles de détachement/fermeture ou du changement d'interface. Conservez son executable compatible tant qu'il est nécessaire pour vous rattacher et quitter avec ses controles. Une operation ancienne en échec n'est jamais declaree réussie uniquement parce qu'un point de communication a disparu. Les configurations existantes restent utilisables par la version actuelle ; un ancien executable peut refuser les cles enregistrees par une version plus recente.
+
+Voir doc/SESSION-CONTROLS.txt pour la même procedure et doc/OPENBSD-VPS.txt pour la mise en place sans terminal sur l'hôte. Installer cette archive source ne stoppe ni ne déploie automatiquement quoi que ce soit sur un hôte distant.

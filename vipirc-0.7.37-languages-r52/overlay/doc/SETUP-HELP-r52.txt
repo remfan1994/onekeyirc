@@ -1,0 +1,5 @@
+Language-pack r52 (app vipirc-0.7.37 unchanged).
+27 fixed setup help texts linked to real display paths (some previously in onekeyirc catalog).
+Added 27 new lookup keys in each of ten languages.
+Source tokens, validation and input remain English/canonical as required.
+Native speaker checks and real terminal tests still necessary.

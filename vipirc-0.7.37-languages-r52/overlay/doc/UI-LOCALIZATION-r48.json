@@ -1,0 +1,177 @@
+[
+  {
+    "english": "Accept",
+    "source": "src/transfers.c",
+    "category": "static control/state"
+  },
+  {
+    "english": "Reject",
+    "source": "src/transfers.c",
+    "category": "static control/state"
+  },
+  {
+    "english": "Send...",
+    "source": "src/transfers.c",
+    "category": "static control/state"
+  },
+  {
+    "english": "Cancel transfer",
+    "source": "src/transfers.c",
+    "category": "static control/state"
+  },
+  {
+    "english": "Browse",
+    "source": "src/transfers.c",
+    "category": "static control/state"
+  },
+  {
+    "english": "Offer",
+    "source": "src/transfers.c",
+    "category": "static control/state"
+  },
+  {
+    "english": "Choose",
+    "source": "src/transfers.c",
+    "category": "static control/state"
+  },
+  {
+    "english": "Type path",
+    "source": "src/transfers.c",
+    "category": "static control/state"
+  },
+  {
+    "english": "closed server",
+    "source": "src/transfers.c",
+    "category": "static control/state"
+  },
+  {
+    "english": "to",
+    "source": "src/transfers.c",
+    "category": "static control/state"
+  },
+  {
+    "english": "from",
+    "source": "src/transfers.c",
+    "category": "static control/state"
+  },
+  {
+    "english": "offered",
+    "source": "src/transfers.c",
+    "category": "static control/state"
+  },
+  {
+    "english": "waiting for peer",
+    "source": "src/dcc.c",
+    "category": "static control/state"
+  },
+  {
+    "english": "connecting",
+    "source": "src/dcc.c",
+    "category": "static control/state"
+  },
+  {
+    "english": "sending",
+    "source": "src/transfers.c",
+    "category": "static control/state"
+  },
+  {
+    "english": "receiving",
+    "source": "src/transfers.c",
+    "category": "static control/state"
+  },
+  {
+    "english": "complete",
+    "source": "src/transfers.c",
+    "category": "static control/state"
+  },
+  {
+    "english": "rejected",
+    "source": "src/transfers.c",
+    "category": "static control/state"
+  },
+  {
+    "english": "cancelled",
+    "source": "src/transfers.c",
+    "category": "static control/state"
+  },
+  {
+    "english": "failed",
+    "source": "src/dcc.c",
+    "category": "static control/state"
+  },
+  {
+    "english": "empty",
+    "source": "src/transfers.c",
+    "category": "static control/state"
+  },
+  {
+    "english": "Transfer #{number}: {filename}",
+    "source": "src/transfers.c",
+    "category": "named-field template"
+  },
+  {
+    "english": "{state} with {nick}: {transferred}/{size} bytes.",
+    "source": "src/transfers.c",
+    "category": "named-field template"
+  },
+  {
+    "english": "Accept reviews an offer; Reject declines it; Cancel transfer stops it. Viewing help never accepts a file.",
+    "source": "src/transfers.c",
+    "category": "static control/state"
+  },
+  {
+    "english": "Edit: {field}",
+    "source": "src/transfers.c",
+    "category": "named-field template"
+  },
+  {
+    "english": "{bytes} UTF-8 bytes | row {row} col {col}",
+    "source": "src/transfer_ui_l10n.h",
+    "category": "named-field template"
+  },
+  {
+    "english": "{count} entries; {hidden} unsupported entries hidden",
+    "source": "src/transfers.c",
+    "category": "named-field template"
+  },
+  {
+    "english": "{count} bytes",
+    "source": "src/transfers.c",
+    "category": "named-field template"
+  },
+  {
+    "english": "{count} entries",
+    "source": "src/transfers.c",
+    "category": "named-field template"
+  },
+  {
+    "english": "Peer {address}",
+    "source": "src/transfers.c",
+    "category": "named-field template"
+  },
+  {
+    "english": "{direction} {nick} | {state} | {progress} | ",
+    "source": "src/transfers.c",
+    "category": "named-field template"
+  },
+  {
+    "english": "Port {port} | {nick} on {server}",
+    "source": "src/transfers.c",
+    "category": "named-field template"
+  },
+  {
+    "english": "{address}:{port} | {size} bytes | ",
+    "source": "src/transfers.c",
+    "category": "named-field template"
+  },
+  {
+    "english": "{nick} on {server}",
+    "source": "src/transfers.c",
+    "category": "named-field template"
+  },
+  {
+    "english": "Offer through {server}:{port}",
+    "source": "src/transfers.c",
+    "category": "named-field template"
+  }
+]

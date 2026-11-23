@@ -1,0 +1,20 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / DELAYED STARTUP COMMANDS
+English source SHA-256: dfb1220936318c5cfbdf407d869067d3a84de7968c73aa4be34594630d3ee9e1
+
+EXACT COMMAND/CONTROL EXAMPLES (not translated):
+/autocommands [list|add COMMAND|remove NUMBER|clear|on|off]
+/autocommands delay SECONDS       0..300
+/autocommands interval SECONDS    2..60
+/autocommands add /msg ChanServ OP #room mynick
+/save
+
+Cada perfil pode executar até 16 comandos literais depois de completar registo e SASL obrigatório. O atraso padrão é 15 segundos e há pelo menos 2 segundos entre comandos concluídos. Uma ligação bloqueada não provoca um envio em rajada de comandos atrasados.
+
+Use /autocommands [list|add COMMAND|remove NUMBER|clear|on|off], /autocommands delay SECONDS (0..300), /autocommands interval SECONDS (2..60) e /save para gravar. Por exemplo: /autocommands add /msg ChanServ OP #room mynick.
+
+São aceites /msg, /join, /nick, /away, /back, /whois e os alias exatos documentados. Cada comando tem até 511 bytes UTF-8 e deve caber numa linha IRC; não há divisão silenciosa, shell, IRC bruto, ciclos ou substituição da conversa atual. /join usa um canal e chave transitória opcional. As listas ocultam texto de mensagens/chaves; executar não acrescenta histórico de comandos, eco local nem cria conversa privada. As respostas chegam normalmente; as entradas automáticas em canais não mudam o chat selecionado.
+
+As alterações só entram em vigor na ligação seguinte. /cancel para os comandos restantes e mensagens na fila sem retirar bytes enviados ou em trânsito. Fechar/abandonar um alvo cancela a sequência restante dirigida a ele. Uma falha cancela comandos posteriores e comunica a posição sem texto secreto. Nova ligação inicia nova sequência; perfis bouncer também executam comandos explícitos de arranque. Modo offline não executa nenhum.
+
+[autocommands] contém enabled, delay_seconds, interval_seconds e linhas command= repetidas. Bytes após = são literais, incluindo espaços, #, ; e =. Qualquer lista não vazia, mesmo desativada, exige configuração num ficheiro regular do proprietário com modo 0600/0400; listas ativas e não vazias exigem TLS verificado. Perfis novos começam vazios; ao mudar o destino, uma lista herdada e não editada é limpa. Guarde conscientemente: o armazenamento GPG de credenciais não cifra estes comandos na configuração.

@@ -1,0 +1,16 @@
+Managed sessions and SSH loss
+Source: SECURITY.md, section "Managed sessions and SSH loss"
+English section SHA-256: f44a63f7faada1375f5769e9dfe2235da96547fa535b07d1c9869cba13ca063f
+Paragraphs: 5
+Status: Translation draft; fluent-speaker security review required
+English SECURITY.md remains authoritative. This is only one section, not the full security document.
+
+Background membuat endpoint pekerjaan lokal yang privat bagi akun dan lease seumur pekerjaan. Registry terpisah untuk setiap program dan pengguna Unix, dengan 64 slot bernomor. Itu bukan pendengar Internet atau mekanisme bertahan setelah reboot. Discovery/attach/control memeriksa jalur privat, identitas berkas, serta token inkarnasi worker terpilih; nomor pekerjaan tidak pernah dianggap PID. Kredensial peer dengan pengguna yang sama diperiksa pada platform yang mendukungnya.
+
+Hanya satu terminal dapat terpasang pada satu waktu. Resume memvalidasi deskriptor terminal yang dipindahkan dan metadata TERM/locale yang terbatas. Penemuan dibatasi, melewati objek tidak aman, dan tidak menghapus isi registry yang tak terduga secara rekursif. Worker hidup yang tidak merespons tetap memegang lease dan dilaporkan belum terverifikasi. --resume tanpa argumen hanya memilih satu-satunya worker terlepas yang tersedia dan terverifikasi, tanpa kandidat yang belum terverifikasi. single_session membatasi pembuatan pekerjaan latar, bukan jumlah koneksi IRC dalam worker yang sudah ada.
+
+--detach-session NUMBER melepaskan terminal/pengendali terpilih sambil mempertahankan worker, koneksi, draf, transfer, dan riwayat tersimpan. --close-session NUMBER mengakhiri seluruh worker dan membuang keadaan RAM yang belum disimpan. Detach menunggu konfirmasi pelepasan terminal; close menunggu penutupan endpoint/lease. Diterimanya perintah belum berarti selesai. Kontrol memiliki tenggat dan tidak pernah membunuh PID yang hanya ditebak dari angka. Jangan hapus endpoint sebagai cara pemulihan.
+
+Hilangnya terminal/pengendali yang sudah terkelola membuat worker terlepas. Proses biasa di foreground yang tidak pernah menjadi terkelola tidak memiliki pekerjaan yang dapat dilanjutkan. Memasang executable baru tidak memperbarui protokol worker yang sudah berjalan; worker lama mungkin perlu dihentikan memakai kontrol lamanya.
+
+Antrean keluaran minimalis memiliki batas dan permintaan Background yang eksplisit tetap dapat dilayani ketika keluaran macet. Penulisan pesan pembersihan/pemberitahuan bersifat upaya terbaik dan dapat hilang saat terminal berhenti. Tampilan ncurses penuh tetap menulis ke terminal secara sinkron; terminal terbuka yang terus macet bisa menunda pemeriksaan kontrol. Tenggat yang habis dilaporkan apa adanya, bukan diklaim sebagai keberhasilan pematian paksa. Kedua klien tidak mengatur kebijakan pemutusan SSH karena menganggur di server.

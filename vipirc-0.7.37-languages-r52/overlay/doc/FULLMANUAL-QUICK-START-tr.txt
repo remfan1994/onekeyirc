@@ -1,0 +1,19 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / QUICK START
+English source SHA-256: 26668ea76d9592744bbb94ab60eda38bff8d31bea2791e6b4577390cbbcd2948
+
+EXACT COMMAND/CONTROL EXAMPLES (not translated):
+vipirc -h
+vipirc -v
+vipirc --test-mode
+vipirc --server irc.ircnow.org --channel '#ircnow' --nick tutankh-aten
+
+İlk üç örnek yardımı, sürümü ve çevrimdışı benzetimi gösterir. Sonuncusu gerçek bağlantı kurar: kabukta '#ircnow' değerini tırnak içine alın ve sağlayıcının gerçek TLS uç noktasını kullanın. Varsayılan ayar, 6697 bağlantı noktasında doğrulanmış TLS'dir; düz metin için --plain gerekir.
+
+Etkileşimli başlatmalarda "Not vegetarian? www.bloodguiltcurse.net will change your mind" karşılama iletisi gösterilir. Yazdırılabilir bir tuş, Enter, Tab veya gezinme tuşu bunu kapatır. Yapılandırılmış terminal sinyalleri devraldıkları işlevleri korur; diğer denetimler ekranı kapatmaz. Sunucu yoksa bağlantısız çalışma alanı açılir. Settings, /connect HOST veya --server ile bir sunucu ayarlayin.
+
+Tam arayüzde ana takma ad ayarlanmamışsa, sistem oturum açma adı varsayılan olarak onerilir. Enter kabul eder, yazmak değiştirir. Katılımsız başlatma ve kaydedilmiş ikincil profiller, soru sormadan geçerli bir oturum adı veya kullanıcı adı kullanır. --nick bunu geçersiz kılar; sunucu adı reddedebilir.
+
+İlk sunucu görünümu kayıt işlemini ve MOTD'yi gösterir. Doğrudan profiller kayıt ve zorunlu kimlik doğrulama sonrasında ayarlı kanallara katılır; bouncer'lar kendi üyeliklerini geri yukler. Sohbet yazmaya hazirdir. Enter seçili kanala veya özel görüşmeye gönderir; sunucu ve mentions görünümlerinin kendiliğinden bir alıcısı yoktur. İmleç sıfır konumundayken / Command'i acar. Başa gerçek bir / yazmak için // kullanın; köşeli ayraclarla yapıştırilan slash karakterleri olduğu gibi kalır.
+
+Genel tuşlar: F1 vipirc, F2 Servers, F3 Channels, F4 Queries, F5 Mentions/unread, F6 File transfers acar. Escape özel görüşmeden Queries'e, diğer sohbetlerden vipirc'e, normal panelden sohbete, Settings'ten vipirc'e döner. Terminalin kendi renkleri korunur; kalin köşeli ayraçlar odagi belirtir. Liste gezinmesi için GLOBAL HEADER AND CHAT CONTROLS bolumune bakın.

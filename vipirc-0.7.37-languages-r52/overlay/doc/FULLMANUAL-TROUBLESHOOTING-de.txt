@@ -1,0 +1,25 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / TROUBLESHOOTING
+English source SHA-256: b3416fb29408401823b85e292e40c40467a2ea2b528476630825bfbaeced49f5
+
+Gehen Sie die Prüfungen in doc/TROUBLESHOOTING.txt der Reihe nach durch. Geben Sie keine privaten Logs oder Geheimnisse weiter.
+
+Verbindung: Serverfehler lesen, Host, Port und TLS prüfen. /connect versucht manuell erneut; --reconnect wiederholt vorübergehende Fehler. Siehe TLS AND CUSTOM TRUST. Umgehen Sie keine Zertifikatsfehler, indem Sie Zugangsdaten unverschlüsselt per IRC senden.
+
+Authentifizierung: /autoauth status zeigt aktuelle/anstehende Dateipfade, nie Geheimnisse. Konto- und Quellenregeln stehen unter AUTOMATIC CONNECTION, JOIN, AND AUTHENTICATION.
+
+GPG: CREATING ENCRYPTED PASSWORD FILES erläutert die vorherige Zielprüfung; AUTHENTICATION die Entschlüsselungsgrenzen, Dateirechte und externes Entsperren.
+
+Kanäle: Registrierung/Authentifizierung abschließen. /autojoin zeigt ausstehende Beitritte direkter Profile; Bouncer stellen Kanäle wieder her. Siehe CONNECTION AND STARTUP COMMANDS.
+
+Fortsetzen belegt: --sessions prüfen, dann --detach-session NUMBER und --resume NUMBER verwenden. --close-session beendet den Worker. Siehe SESSION RECOVERY AND UPGRADES.
+
+Tasten/Anzeige: Compose-Pfeile bearbeiten; Command ruft angenommene sichere Befehle zurück. Bei unsichtbaren umgebrochenen Zeilen den gespeicherten Text prüfen. Siehe MINIMALIST WRAPPING AND INPUT HISTORY.
+
+Textbreite: passende UTF-8-Locale, TERM und Schrift verwenden; Größenänderung erhält Entwurf/Cursor. Kleine Terminals begrenzen Ansichten. Siehe FILES AND ENVIRONMENT.
+
+Speichern: Testmodus verweigert Schreibzugriffe. Private Pfade und Rechte unter CONFIGURATION prüfen; Save, Apply und Autoconnect beim Start sind verschiedene Aktionen.
+
+Logging/Aufholen: genauen Fehler prüfen; Chat läuft weiter. Grenzen, Rotation, neue Sendeanker und Rückfallmöglichkeiten stehen unter HISTORY, LOGGING AND PRIVACY.
+
+Kindprozesse: SIGCHLD-Kinder müssen für wait verfügbar bleiben. Ignorieren des Signals oder automatisches Einsammeln verhindert den ersten Start von Hintergrund- oder Hilfsprozessen; Startprogramm korrigieren.

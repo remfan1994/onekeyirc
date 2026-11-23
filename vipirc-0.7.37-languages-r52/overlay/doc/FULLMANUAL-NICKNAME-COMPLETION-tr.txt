@@ -1,0 +1,11 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / NICKNAME COMPLETION
+English source SHA-256: 89b368bbd759571d49afe8fccb96d986865af2f76dcd6d257f18cd768bda8e98
+
+TAKMA AD TAMAMLAMA
+
+Tab sohbet imlecinin yanındaki takma adı tamamlar. Sonraki Tab basışları eşleşen adları büyük/küçük harf kurallarına göre alfabetik sırayla, başa sararak dolaşır; Shift-Tab geriye gider. Eşleşme, sunucunun duyurduğu ASCII, strict RFC1459 veya RFC1459 takma ad harf kurallarına uyar. Ağ sorgusu ya da giden mesaj gerekmez. Normal düzenleme mevcut tamamlama döngüsünü bitirir.
+
+Taslağın başında ': ', sonraki bir sözcüğün sonunda boşluk eklenir. Taslağın ortasında tamamlama yapılırsa noktalama ve sonraki sözcükler korunur. Kanallar ve URL'ler takma ad öneki sayılmaz. Bir aday bayt veya karakter sınırını aşarsa tüm taslak değişmeden kalır. Daha küçük IRC mesaj sınırı aşılırsa olağan erken uyarı gösterilir; tamamlama hiçbir zaman göndermez.
+
+Kanallar güncel üye listesini kullanır. Özel konuşmada karşı tarafın ve kendi takma adınız kullanılır. Sunucu ve bahsetmeler görünümleri bu sunucunun katılınan kanallarından ve özel konuşmalarından bilinen kişileri kullanır. Başka sunucudaki kullanıcılar aday değildir. Üye değişiklikleri, ayrı bir liste saklanmadan bir sonraki tamamlamaya yansır.

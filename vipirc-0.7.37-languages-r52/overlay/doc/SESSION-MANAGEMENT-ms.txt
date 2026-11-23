@@ -1,0 +1,58 @@
+PENGURUSAN SESI DAN PROSES LATAR BELAKANG - vipirc 0.7.36
+Terjemahan lengkap bahagian MANUAL.txt daripada RUNNING IN THE BACKGROUND hingga UPGRADING A RUNNING WORKER.
+Status: draf; jika terdapat percanggahan, MANUAL.txt bahasa Inggeris menjadi rujukan utama.
+
+BERJALAN DI LATAR BELAKANG
+
+/background atau F1 > Background mengekalkan sambungan IRC, pemindahan yang diterima, draf dan sejarah dalam ingatan sambil memulihkan terminal. Program memaparkan arahan bernombor untuk menyambung semula, contohnya vipirc --resume 1. Pemisahan pertama mewujudkan satu proses pekerja dan titik komunikasi peribadi; pemisahan seterusnya mengekalkan nombor, keadaan dan titik tersebut. Penggunaan biasa di latar depan tidak mempunyai titik komunikasi atau proses pembantu tambahan ini.
+
+Apabila disambung semula, keupayaan, saiz dan tetapan locale terminal dibaca semula pada hos dan akaun Unix yang sama. stdin/stdout/stderr mesti berkongsi satu tty interaktif. Satu pengawal latar depan mengendalikan isyarat dan perubahan saiz; hanya satu terminal boleh dilampirkan pada satu-satu masa. Bahagian SESSION RECOVERY AND UPGRADES menerangkan pemilihan kerja dan lampiran yang sedang digunakan.
+
+Untuk memulakan tanpa pengawasan, simpan dahulu profil yang ingin disambungkan secara automatik, kemudian jalankan vipirc --background --reconnect --config /absolute/config.ini. --background tidak menghidupkan sambungan automatik dan --no-connect menghalangnya. Kejayaan hanya mengesahkan persediaan setempat. tty dan TERM tidak diperlukan sehingga terminal dilampirkan. Titik peribadi disediakan sebelum pembantu resolusi DNS dan kelayakan. --resume tanpa pilihan antara muka mengekalkan antara muka pekerja; -i/-N menukarnya secara nyata tanpa menyambung semula atau menggantikan pekerja. Penukaran antara muka mengekalkan sejarah perbualan dan pemindahan yang diterima, tetapi membuang draf, semakan penghantaran yang belum selesai, sejarah arahan dan borang yang belum digunakan. Selesaikan atau salin draf sebelum menukar. Pisah dan sambung semula dengan antara muka yang sama untuk mengekalkan keadaan setempat ini. Pekerja lama mungkin hanya menyokong antara muka asalnya.
+
+Isyarat terminal yang dikonfigurasi mengekalkan fungsinya. Menggantung pengawal yang disambung semula menghentikan sementara pengawal, sementara pekerja masih berhubung melalui rangkaian; fg memulihkan interaksi. Menggantung proses latar depan biasa pula menghentikan sementara rangkaiannya. Lihat TERMINAL SIGNALS tentang pemetaan isyarat warisan dan SESSION RECOVERY tentang kehilangan terminal.
+
+Pemisahan pertama mungkin memerlukan cubaan semula sementara pembantu DNS atau kelayakan menyelesaikan tugas. SIGCHLD yang diabaikan atau pembersihan automatik proses anak menghalang permulaan pekerja latar belakang pertama dan penciptaan pembantu; pelancar mesti membenarkan proses anak ditunggu. Pemisahan semula kerja yang telah diurus tidak mewujudkan pekerja baharu.
+
+Direktori dan soket hanya boleh diakses pemilik. Pencarian menyemak maksimum 64 slot dalam satu had masa 1500 ms dan membuang hanya entri lapuk yang disahkan tanpa kunci hayat yang masih dipegang. Program tidak menghantar isyarat kepada PID yang diteka. Kerja yang tidak bertindak balas kekal belum disahkan. Pemeriksaan identiti dan kejadian menghalang nombor yang digunakan semula daripada mengalihkan lampiran semasa serah tugas. Proses lain dengan keistimewaan akaun yang sama masih dianggap dipercayai. single_session=true menolak proses pekerja kedua dalam ruang nama vipirc tanpa mengehadkan pelayan di dalam pekerja pertama.
+
+Keadaan pekerja tidak disirikan ke cakera: but semula, keluar atau penamatan menghilangkan draf, penanda dan sejarah dalam ingatan. Log pilihan hanya menyimpan transkrip. Mod ujian boleh berjalan di latar belakang menggunakan titik setempat tanpa menghidupkan rangkaian IRC/DCC. Pemultipleks terminal tidak diperlukan.
+
+PEMULIHAN SESI DAN NAIK TARAF
+
+Satu kerja shell ialah satu proses pekerja klien bersama semua sambungan IRC, pemindahan, draf dan sejarah tersimpannya. Nombor kerja berbeza daripada PID sistem pengendalian dan nombor pelayan yang dipaparkan dalam klien.
+
+Untuk memulihkan kerja yang terminal SSH lamanya masih dilampirkan:
+
+    vipirc --sessions
+    vipirc --detach-session 1
+    vipirc --resume 1
+
+Pilih NUMBER daripada senarai semasa. --detach-session melepaskan pengawal yang disahkan, menunggu sehingga terpisah dan mengekalkan pekerja serta keadaan IRC. --resume tanpa nombor hanya memilih satu kerja terpisah yang telah disahkan; jika terdapat beberapa atau calon belum disahkan, pilihan nyata diperlukan. Ia tidak pernah mengambil alih terminal yang masih dilampirkan. Nombor kerja kekal sehingga keluar dan boleh digunakan semula selepas itu.
+
+MENUTUP SESI DARIPADA SHELL
+
+Gunakan hanya jika seluruh kerja hendak ditamatkan:
+
+    vipirc --sessions
+    vipirc --close-session 1
+
+Penutupan menamatkan semua sambungan IRC dan pemindahan pekerja, serta membuang draf tidak disimpan dan sejarah dalam ingatan. Konfigurasi yang disimpan dan fail log teks biasa yang sedia ada kekal. --close-session=1 dan --detach-session=1 juga diterima. Arahan pengurusan ini tidak memerlukan terminal interaktif dan tidak memuatkan konfigurasi. Jangan gabungkan dengan --resume, --sessions, sesama sendiri, --config atau pilihan sambungan. Bendera antara muka yang disokong boleh kekal dalam alias tanpa mengubah kerja terpilih.
+
+Klien menggunakan titik peribadi pemilik, pemeriksaan pemilikan pihak satu lagi dan token identiti pekerja terpilih. Kejayaan mengesahkan pembersihan aplikasi dan pelepasan kunci hayat kerja asal selesai; bukan sekadar permintaan diterima atau pengesahan bebas bahawa proses sistem pengendalian telah keluar. Permintaan mempunyai had masa tertentu. Kegagalan atau tamat masa tidak membuang titik pekerja yang masih hidup dan tidak menghantar isyarat kepada PID yang diteka. Permintaan yang diterima sebelum had masa mungkin selesai kemudian; semak --sessions sekali lagi.
+
+Pekerja yang tersekat semasa menulis kepada terminal terbuka tetapi tidak dibaca mungkin tidak dapat memproses permintaan kawalan sehingga aliran output lancar atau terminal ditutup. Pekerja yang benar-benar tersekat mungkin memerlukan campur tangan sistem pengendalian setelah proses sebenar dikenal pasti. Status tutup bukan sifar bermaksud penyelesaian belum disahkan.
+
+PEMULIHAN SELEPAS SSH TERPUTUS
+
+Kehilangan terminal atau pengawal bagi kerja yang telah diurus memisahkan pekerjanya. Keadaan hangup/ralat, stdin EOF/EIO, kegagalan stdout, EOF pengawal dan SIGHUP mengekalkan sambungan serta keadaan tersimpan. Dalam mod antara muka penuh, pembersihan selepas kehilangan terminal atau permintaan tutup dari luar mengalihkan output pekerja yang sudah tidak sah sebelum membersihkan curses; pengawal latar depan memulihkan tty sendiri.
+
+Proses latar depan biasa yang tidak pernah diurus masih ditamatkan secara lazim oleh SIGHUP. Mulakan dengan --background atau gunakan /background terlebih dahulu jika kerja perlu boleh disambung semula. Klien tidak mengubah dasar masa tamat melahu SSH pada klien atau pelayan. Paparan segerak terminal masih boleh tersekat jika terminal kekal terbuka tetapi tidak dibaca lagi.
+
+MENAIK TARAF PROSES PEKERJA YANG SEDANG BERJALAN
+
+Memasang atau menyusun semula kod tidak menggantikan kod proses yang masih berjalan. Simpan konfigurasi yang dikehendaki, keluar atau tutup kerja secara sengaja, semak versi dipasang dengan --version, kemudian mulakan kerja baharu. Lakukan perkara yang sama untuk kemas kini keselamatan. Log kekal; draf, sejarah arahan dan penanda pemulihan tidak.
+
+Pekerja lama mungkin tidak menyokong kawalan pisah/tutup baharu atau pertukaran antara muka. Simpan fail boleh laku yang serasi sehingga pekerja dihentikan jika diperlukan untuk melampir dan keluar menggunakan kawalan sedia ada. Operasi lama yang gagal tidak dianggap berjaya hanya kerana titik komunikasi hilang. Fail konfigurasi sedia ada masih boleh digunakan oleh keluaran semasa; fail boleh laku lama mungkin menolak kunci konfigurasi yang disimpan secara nyata oleh keluaran lebih baharu.
+
+Lihat doc/SESSION-CONTROLS.txt untuk proses yang sama dan doc/OPENBSD-VPS.txt untuk persediaan hos tanpa pengawasan. Memasang arkib kod sumber ini tidak menghentikan atau menggunakan apa-apa secara automatik pada hos jauh.

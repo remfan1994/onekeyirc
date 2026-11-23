@@ -1,0 +1,12 @@
+Full-interface review and file browsing
+Source: SECURITY.md, section "Full-interface review and file browsing"
+English section SHA-256: e2f59ccd783bd17feedcf3bc49a14a3085c7f21783755ee9b06c265dc0f1eb54
+Paragraphs: 3
+Status: Translation draft; fluent-speaker security review required
+English SECURITY.md remains authoritative. This is one source-linked section, not a security certification.
+
+ncurses aktarım incelemesi, ayrı bir Accept/Offer eyleminden önce eş adresini, bağlantı noktasını, bayt sayısını ve hedefi gösterir. Değişken satır dizini yerine sabit teklif ID'sini tutar ve inceleme ekranının asgari boyutunun altında onayı reddeder. Kaynak dosya tarayıcısında bir satır seçmek dosya göndermez. Tarayıcı symlink yol bileşenlerini izlemez, seçilen inode'u yeniden doğrular, cwd'yi hiçbir zaman değiştirmez ve dosyaları listelemek için içeriklerini okumaz. İş, adım başına incelenen 64 giriş, toplam 4096 ad ve 512 satır ile sınırlıdır; kesilen sonuç bildirilir. Dosya sistemi üstverileri yavaş depolamada yine de işlemi engelleyebilir.
+
+Yönlendirmeli alımın varsayılan hedefi, işlemin çalıştığı ana makinede XDG_DATA_HOME/vipirc/downloads veya HOME/.local/share/vipirc/downloads altındadır ve yalnızca açık onaydan sonra oluşturulur. Komutla verilen göreli yollar ve belirtilmeyen alım dizini, gizlilik denetimleri korunarak başlatma dizinini kullanır. Açıkça duyurulan bir IPv4 adresi yoksa gönderim yerel IRC soket adresini kullanır; genel adres keşfetmez veya yönlendirme yapılandırmaz.
+
+Fareyle takma ada veya kanala yapılan eylemler gösterilen değerlerin boyutu sınırlı kopyalarını saklar. Kullanıcı listesindeki değişiklikler önceki tıklamayı başka hedefe yönlendirmemelidir. Takma ada tıklamak yerel menüyü açar; ardından seçilen Whois/Query/Ignore eylemi gerçekleştirilir. Katılınmamış kanala tıklamak açıkça katılmayı sağlayabilir. Tamamlama ve öneri ekleme IRC göndermez. Gönderme/aktarım onayı her zaman olağan doğrulama yolundan geçer. Bu kaynak kodu değişmezleri, bu belgeleme çalışmasında tüm curses arayüzünün çalıştırıldığı iddiası değildir.

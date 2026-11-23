@@ -1,0 +1,25 @@
+#!/bin/ksh
+# Example vipirc service; fresh workers honor default_interface.
+# See doc/OPENBSD-VPS.txt for configuration and session recovery.
+# Enable it, then set its user and absolute config path before starting it.
+# The placeholder account is deliberately not root and is not created here.
+
+daemon="/usr/local/bin/vipirc"
+daemon_user="_vipirc"
+daemon_flags="--background --reconnect"
+
+. /etc/rc.d/rc.subr
+
+rc_reload=NO
+
+rc_pre() {
+    typeset service_uid
+    service_uid=$(/usr/bin/id -u "${daemon_user}" 2>/dev/null) || service_uid=0
+    if [[ ${service_uid} == 0 ]]; then
+        print -u2 "vipirc: select an existing non-root service user with rcctl set vipirc user USER"
+        return 1
+    fi
+    return 0
+}
+
+rc_cmd "$1"

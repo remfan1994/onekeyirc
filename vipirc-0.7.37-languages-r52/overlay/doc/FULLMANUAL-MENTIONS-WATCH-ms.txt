@@ -1,0 +1,13 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / MENTIONS AND WATCH STRINGS
+English source SHA-256: 7dd545c1b52064bcd746c17c664bc33816010b1a1bc6f7dfda8f6df48830ba1c
+
+SEBUTAN DAN RENTETAN DIPANTAU
+
+Nama samaran semasa anda dipantau secara automatik. Padanan mengikut peraturan huruf besar/kecil dan sempadan nama samaran yang diumumkan pelayan IRC. Menukar nama samaran mengemas kini padanan automatik ini.
+
+    /watch add project name
+    /watch remove project name
+    /watch list
+
+Nilai tersuai ialah subrentetan harfiah, bukannya ungkapan biasa atau corak shell. Peraturan huruf dan simbol IRC/ASCII terpakai; aksara bukan ASCII mesti sepadan tepat. Sehingga 32 nilai tersuai, setiap satunya 127 bait UTF-8, diterima. Gunakan /save semasa operasi biasa untuk menyimpan perubahan dalam konfigurasi terpilih; dalam mod ujian, perubahan kekal dalam memori. Sebutan disimpan dalam memori tertakluk pada had sejarah, bukan arkib pemberitahuan kekal atau log cakera. Cap masa menunjukkan tarikh dan waktu penerimaan tempatan dalam format YYYY-MM-DD HH:MM:SS.

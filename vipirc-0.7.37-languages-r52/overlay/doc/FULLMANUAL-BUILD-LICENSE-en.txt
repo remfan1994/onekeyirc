@@ -1,0 +1,31 @@
+VERBATIM ENGLISH SOURCE REFERENCE
+Source: MANUAL.txt / PLATFORMS, BUILD, AND LICENSE
+English source SHA-256: c28dd1d52c0de855974159eabffe9cce9c94a78d0c7d7ae46cd65e9226993b3a
+
+PLATFORMS, BUILD, AND LICENSE
+
+Targets include Linux, ChromeOS's Linux environment and the BSDs. Building
+needs C11, POSIX interfaces, GNU/BSD getopt_long, wide-character curses and
+compatible TLS development files. The client needs no language runtime.
+Python 3 serves tests/documentation generation; shipped exports allow an
+ordinary build and chat without it. See INSTALL for dependency details.
+
+    ./configure
+    make
+    make check-offline
+    make check
+    make install PREFIX="$HOME/.local"
+
+See INSTALL for dependency and build details, SECURITY.md for the security
+model and limits, and the release validation report for platforms actually
+tested. Native BSD execution is a separate validation step; portability
+intent is not evidence of having tested every Unix-like operating system.
+make check-offline runs the CLI/PTY suite without a network socket. The
+broader make check suite also uses local loopback fake servers.
+
+This is an application of ThatIAm.vip (www.thatiam.vip), designed by
+remfan1994. Source is available under the included IALA (Insha-Allah License
+Agreement), whose full text is in LICENSE.md. Linked libraries keep their
+own licenses; see NOTICE. The implementation was written for this
+specification without copying another IRC client's implementation or
+configuration language.

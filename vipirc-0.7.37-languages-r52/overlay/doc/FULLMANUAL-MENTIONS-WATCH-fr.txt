@@ -1,0 +1,13 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / MENTIONS AND WATCH STRINGS
+English source SHA-256: 7dd545c1b52064bcd746c17c664bc33816010b1a1bc6f7dfda8f6df48830ba1c
+
+MENTIONS ET CHAÎNES SURVEILLÉES
+
+Votre pseudonyme actuel est surveillé automatiquement. La correspondance respecte les règles de casse et les limites de pseudonymes annoncées par le serveur IRC. Le changement de pseudonyme actualise cette correspondance.
+
+    /watch add project name
+    /watch remove project name
+    /watch list
+
+Les valeurs personnalisées sont des sous-chaînes littérales, pas des expressions régulières ni des motifs de shell. Les règles de casse IRC/ASCII s'appliquent aux lettres et symboles ; les caractères non ASCII doivent correspondre exactement. Jusqu'à 32 chaînes personnalisées de 127 octets UTF-8 chacune sont acceptées. En fonctionnement normal, utilisez /save pour enregistrer les changements dans la configuration sélectionnée ; en mode test, ils restent en mémoire. Les mentions sont conservées en mémoire selon les limites d'historique : ni archive permanente de notifications ni journal sur disque. Les horodatages donnent la date et l'heure locales de réception au format YYYY-MM-DD HH:MM:SS.

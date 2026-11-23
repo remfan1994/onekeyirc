@@ -1,0 +1,32 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / SECURITY AND RESOURCE BOUNDS
+English source SHA-256: 0244a7b43c7e5e46a5b365e081fc7bc6654afe3069aea9e68c0e1d0f46c1277e
+
+GÜVENLİK VE KAYNAK SINIRLARI
+
+TLS, sertifika zincirini ve istenen ana makine adını ya da sayısal adresi doğrular. Sertifika denetimini atlama veya sessiz güvenlik düşürme yoktur. Şifresiz IRC ancak açık ayarla kullanılabilir; bağlantı yolundaki gözlemciler trafiği görebilir ve kayıtlı sırlar kullanılamaz. TLS istemci-sunucu bağlantısını korur, uçtan uca sohbet gizliliğini değil.
+
+İşletim açılışı, gerçek/etkin kullanıcı veya grup kimlikleri farklıysa reddeder ve yapılandırma okunmadan önce core dump'ları kapatır. Linux ek olarak sürecin dökümlenebilirliğini kapatır. İstemci işletim sistemi sandbox'ı olmadan normal bir süreçtir; aynı hesapla çalışan diğer süreçler güven sınırının içindedir.
+
+Tanınmış özel kimlik doğrulama komutları, normal mesaj metni olarak yazılsa, gönderme planına bölünse veya kuyruğa alınsa bile doğrulanmış TLS gerektirir. Algılama tüm yeni sır sözdizimlerini güvenilir biçimde tanıyamaz; kimlik bilgilerini sohbetten ve kabuk argümanlarından uzak tutun.
+
+Gelen IRC verisi güvenilmezdir. Tehlikeli denetim dizileri ve biçimlendirme, gösterilmeden önce temizlenir. Giriş ve ağ tamponları sınırlıdır. İstemci gelen metni çalıştırmaz, URL açmaz, kabuk komutu yürütmez, betik/eklenti yüklemez veya CTCP isteklerini otomatik yanıtlamaz. Eylem iletileri metin olarak gösterilir. DCC SEND teklifleri her dosya için ayrı açık inceleme ve kabul gerektirir; doğrudan bağlantıları TLS ile şifrelenmez.
+
+Bu sürümdeki sınırlar:
+
+    Süreç başına sunucu oturumu                 8
+    Sunucu başına görünüm (yerleşikler dahil) 32
+    Kanal başına tutulan kullanıcı           4096
+    Sunucu başına özel atıf metni              32
+    Sunucu başına yoksayma maskesi            32
+    Sunucu başına kuyruk sohbet iletisi        64
+    Sunucu başına komut geçmişi girdisi        64
+    Sunucu başına komut geçmişi metni      64 KiB
+    Sunucu başına tutulan geçmiş metni      8 MiB
+    Taslak başına Unicode skaler girdisi     8192
+    Taslak başına UTF-8 giriş baytı         16384
+    Tüm çalışma alanı bekleyen DCC teklifi     8
+    Tüm çalışma alanı etkin DCC aktarımı       4
+    Tüm çalışma alanı saklanan DCC kaydı      12
+
+Geçmiş sınırı tüm sürecin bellek sınırı değil, sunucu başına bir sınırdır. Sekiz oturumda tutulan geçmiş metni en çok 64 MiB olabilir. Sunucu durumu gerektiğinde ayrılır; az oturum sekiz tam geçmişi başta ayırmaz. Kütüphaneler, görünüm metaverisi, kullanıcı listeleri, giriş ve taşıma daha fazla bellek kullanır. İsteğe bağlı kalıcı kayıt açılmadıkça sohbet geçmişi sadece bellektedir. Ayrı atıf görünümü kalıcı arşiv değildir; kaynak sohbetin uygun kayıtları günlüğe alınabilir. Ayarlar, kimlik bilgileri ve isteğe bağlı düz metin günlükleri yerel dosyalardır; hesabınıza denk yetkili yazılım bunları okuyabilir. Hiçbir istemci her düşmanca sunucuya veya ele geçirilmiş terminale, işletim sistemine ya da kütüphaneye karşı tam güvenlik sağlayamaz.

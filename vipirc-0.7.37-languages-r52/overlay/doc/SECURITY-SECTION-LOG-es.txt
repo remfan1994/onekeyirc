@@ -1,0 +1,16 @@
+Local history, saved logs and privacy
+Source: SECURITY.md, section "Local history, saved logs and privacy"
+English section SHA-256: 8123a3ef64d1e4e83b7cc6891d66caa56780846eafd681342f8e2f9749251e94
+Paragraphs: 5
+Status: Translation draft; fluent-speaker security review required
+English SECURITY.md remains authoritative. This is only one section, not the full security document.
+
+El historial de recuperación de comandos está limitado a 64 entradas/64 KiB y permanece en memoria. La composición de mensajes no permite recuperar mensajes de chat ya enviados. Se excluyen las formas reconocidas de credenciales y comandos de control. Los datos opcionales de frecuencia en <config_path>.commands guardan hasta 96 nombres canónicos de comandos y sus recuentos, sin argumentos, destinatarios, mensajes ni contraseñas. La lectura y escritura automáticas requieren una configuración guardada; un archivo de recuentos inválido o inseguro no impide el inicio. El modo de prueba omite estas operaciones de E/S.
+
+Los registros permanentes de conversaciones están desactivados de forma predeterminada. Cada perfil guardado que los active añade datos a <config_path>.log. El directorio padre debe pertenecer al usuario y tener el modo exacto 0700; el archivo debe ser regular, pertenecer al usuario, tener un solo enlace y el modo exacto 0600. El recorrido relativo a descriptores y O_NOFOLLOW impiden seguir enlaces simbólicos; O_NONBLOCK evita que un FIFO colocado maliciosamente bloquee antes de comprobar el tipo de archivo. El registro no crea directorios padre.
+
+El límite de adición por registro activo es de 16 MiB. Un bloqueo consultivo no bloqueante coordina la comprobación del tamaño y la escritura entre clientes colaboradores. Una ruta insegura, un bloqueo ocupado, un error de escritura o alcanzar el límite desactivan el registro de ese perfil con un diagnóstico; el chat en directo continúa. No se trunca ni elimina nada automáticamente. Archive o mueva el registro y desactive y reactive expresamente el registro. Los archivos históricos externos son responsabilidad del usuario. La E/S de disco puede seguir bloqueándose en almacenamiento lento o remoto: el registrador no es asíncrono.
+
+Se excluyen de las transcripciones las copias de Help/aggregate mentions, los borradores sin enviar, los búferes SASL/PASS, los comandos privados reconocidos y las respuestas conocidas de servicios. Los destinos de control de bouncer se filtran además como se explica más adelante. Los nombres de servicios desconocidos y los secretos escritos como chat ordinario todavía pueden registrarse. Los registros persisten al salir. La grabación del terminal, los registros del servidor y las copias de los destinatarios son independientes de esta opción.
+
+La recuperación catch-up utiliza el último mensaje elegible enviado localmente por este worker activo. Primero prueba el registro privado mediante un ancla validada de archivo y registro y un extremo fijado; después recurre a la memoria retenida. La rotación o un cambio de identidad invalida el ancla en disco y no selecciona silenciosamente un registro ajeno. Los mensajes propios reproducidos no reemplazan el ancla. Un proceso nuevo no importa registros antiguos ni reconstruye el ancla de recuperación de un worker terminado.

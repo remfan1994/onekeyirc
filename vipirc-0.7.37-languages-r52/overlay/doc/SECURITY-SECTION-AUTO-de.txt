@@ -1,0 +1,12 @@
+Automatic commands and cancellation
+Source: SECURITY.md, section "Automatic commands and cancellation"
+English section SHA-256: d5949c21fd5a0dc4ef73af2c42931766637e3b4ba398ff7184e64a2ae9a0e305
+Paragraphs: 3
+Status: Translation draft; fluent-speaker security review required
+English SECURITY.md remains authoritative. This is only one section, not the full security document.
+
+Jedes Profil enthält höchstens 16 wörtliche Befehle mit jeweils maximal 511 UTF-8-Bytes. Zulässig sind nur Nachrichten, Beitritt zu einem einzelnen Kanal, Nick-Änderung, away/back und WHOIS. Listen und Fehlermeldungen verbergen Argumente, da der Text Geheimnisse enthalten könnte. Die Verbindung besitzt eine feste Momentaufnahme der Startbefehle. Änderungen werden für die nächste ausdrücklich hergestellte Verbindung vorgemerkt; automatische Wiederholungsversuche behalten die Einstellungen der unterbrochenen Verbindung. Identitätsänderungen löschen geerbten privaten Befehlstext.
+
+Die Ausführung beginnt nach Registrierung und erforderlichem SASL. Die anfängliche Verzögerung beträgt 0..300 Sekunden, folgende Intervalle 2..60 Sekunden nach abgeschlossenem Schreiben. Es wartet jeweils nur ein automatischer Frame, sodass ein Stillstand keine nachträgliche Befehlsflut erzeugt. Automatische Nachrichten müssen in einen Frame passen; sie werden weder aufgeteilt noch lokal wiedergegeben. Ein Fehler stoppt folgende Befehle mit einer indizierten Diagnose, die vertrauliche Angaben ausblendet.
+
+/cancel entfernt noch nicht gesendeten Warteschlangentext und künftige automatische Arbeit. Ein teilweise geschriebener Frame oder ein laufender TLS-Wiederholungsversuch muss seine Bytes behalten und kann noch fertig werden, selbst wenn noch keine akzeptierten Bytes gemeldet wurden. Gesendete Bytes lassen sich nicht zurückholen. Die Trennung leert Transport und Warteschlangen. Wiederholungen für automatisches away sind zeitgesteuert und geben neueren angenommenen manuellen, Skript- oder Hintergrundabsichten den Vorrang.

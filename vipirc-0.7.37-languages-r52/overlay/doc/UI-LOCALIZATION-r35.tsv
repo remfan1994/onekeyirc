@@ -1,0 +1,30 @@
+source	kind	fields	english
+src/settings.c	fixed-display		Bouncer connections require verified TLS. Select Direct IRC before disabling TLS.
+src/settings.c	fixed-display		This password contains bytes the field editor cannot represent. Edit the private config directly.
+src/settings.c	fixed-display		This value is not valid UTF-8 and cannot be edited here.
+src/settings.c	fixed-display		Server and nickname are required.
+src/settings.c	fixed-display		Server added and connection started. Save keeps its startup settings.
+src/settings.c	fixed-display		Server added without connecting. Save keeps its startup settings.
+src/settings.c	fixed-display		OFFLINE TEST MODE: Save is disabled; use Apply for an in-memory preview.
+src/settings.c	fixed-display		Application preferences saved and applied to every server.
+src/settings.c	fixed-display		Server configuration saved. Reconnect to use connection changes.
+src/settings.c	fixed-display		Application preferences applied to every server. Save keeps them for next startup.
+src/settings.c	fixed-display		Preferences applied in memory. Connect or reconnect to use connection changes.
+src/settings.c	fixed-display		Paste contained rejected controls or exceeded input limits; review the field.
+src/settings.c	fixed-display		Field paste captured as data. Enter stages it; nothing has been saved.
+src/settings.c	fixed-display		Server changed: inherited auth, startup commands and auto-join values cleared. Enter settings for the new server.
+src/settings.c	fixed-display		Value staged. Previous credentials and startup commands cleared; enter the password source for this connection identity.
+src/settings.c	fixed-display		Settings fields must be a single line.
+src/app.c	fixed-display		Private authentication commands require verified TLS; nothing queued.
+src/app.c	fixed-display		Connection changed after this message was prepared; nothing queued. Review and submit it again.
+src/app.c	fixed-display		Send plan text changed or contains controls; nothing queued.
+src/app.c	fixed-display		Cannot send this plan in the current connection state.
+src/app.c	fixed-display		Bouncer control plan is no longer valid; nothing queued.
+src/app.c	fixed-display		Outgoing queue is full; wait before sending more.
+src/app.c	fixed-display		Authentication text was not sent; pending chat cancelled. Use verified TLS.
+src/app.c	fixed-display		Message limit changed; pending chat cancelled. Re-enter the remaining text.
+src/app.c	fixed-display		Already connecting or connected; use /disconnect first.
+src/app.c	fixed-display		The message limit changed; nothing queued. Submit again to review the new split.
+src/app.c	named-fields	error	Cannot connect: {error}
+src/app.c	named-fields	server,port	Connecting to {server}:{port}
+src/app.c	named-fields	seconds	Automatic reconnect in {seconds} seconds; /disconnect cancels it.

@@ -1,0 +1,17 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / PLATFORMS, BUILD, AND LICENSE
+English source SHA-256: c28dd1d52c0de855974159eabffe9cce9c94a78d0c7d7ae46cd65e9226993b3a
+
+PLATFORM, BINAAN DAN LESEN
+
+Sasaran termasuk Linux, persekitaran Linux pada ChromeOS serta sistem BSD. Pembinaan memerlukan C11, antara muka POSIX, GNU/BSD getopt_long, curses aksara lebar dan fail pembangunan TLS yang serasi. Klien tidak memerlukan persekitaran masa jalan bahasa pengaturcaraan. Python 3 digunakan untuk ujian dan penjanaan dokumentasi; eksport yang dibekalkan membolehkan pembinaan dan sembang biasa tanpa Python. Rujuk INSTALL untuk kebergantungan.
+
+    ./configure
+    make
+    make check-offline
+    make check
+    make install PREFIX="$HOME/.local"
+
+Rujuk INSTALL untuk kebergantungan dan pembinaan, SECURITY.md untuk model keselamatan dan had, serta laporan pengesahan keluaran bagi platform yang benar-benar diuji. Pelaksanaan asli pada BSD memerlukan pengesahan berasingan: hasrat keboleh-alihan bukan bukti ujian semua sistem seakan Unix. make check-offline menjalankan ujian CLI/PTY tanpa soket rangkaian; make check turut menggunakan pelayan simulasi dalam loopback tempatan.
+
+Ini aplikasi ThatIAm.vip (www.thatiam.vip) yang direka oleh remfan1994. Kod sumber tersedia di bawah IALA (Insha-Allah License Agreement) yang dibekalkan, dengan teks penuh dalam LICENSE.md. Pustaka yang dipautkan kekal di bawah lesen masing-masing; lihat NOTICE. Pelaksanaan ini ditulis untuk spesifikasi tersebut tanpa menyalin kod atau bahasa konfigurasi klien IRC lain.

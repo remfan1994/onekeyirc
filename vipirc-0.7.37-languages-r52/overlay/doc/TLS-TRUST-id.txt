@@ -1,0 +1,11 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / TLS AND CUSTOM TRUST
+English source SHA-256: b1882bb7f49f2bb4bad68591a7b150c2f131435de0d93aefb2c35386db894309
+
+TLS DAN KEPERCAYAAN KHUSUS
+
+TLS terverifikasi memeriksa nama host atau alamat numerik yang diminta beserta rantai sertifikat. Tidak ada cara melewati verifikasi atau fallback diam-diam ke teks biasa; nomor port saja tidak pernah mematikan TLS. Gunakan titik akhir penyedia yang persis. --ca-file FILE atau [connection] ca_file=FILE memilih otoritas sertifikat PEM sebagai pengganti penyimpanan kepercayaan bawaan pustaka TLS; ini adalah penetapan kepercayaan khusus, bukan pengikatan sertifikat akhir.
+
+Berkas bundel khusus harus berupa berkas biasa tidak kosong berukuran <=16 MiB. Symlink biasa ke berkas CA reguler diizinkan, berbeda dengan jalur konfigurasi/kredensial. Pemuat membuka berkas sekali dengan opsi nonblocking, membaca lewat deskriptor tetap di dalam batas ukuran, dan menolak perubahan ukuran yang terdeteksi. FIFO, perangkat, dan masukan bukan berkas biasa ditolak. Pengurai PEM berbatas memori mempertahankan metadata kepercayaan sertifikat/CRL yang didukung dan tidak dapat meminta kata sandi.
+
+Pemeriksaan tersebut tidak membatasi latensi I/O pada berkas biasa atau sistem berkas jaringan. Gunakan penyimpanan tepercaya yang sesuai. --check-config tidak menguji pemuatan CA atau handshake, dan simulasi offline tidak menjalankan TLS. Selidiki kesalahan sertifikat sebelum mengubah kepercayaan; kredensial teks biasa ditolak. TLS hanya melindungi koneksi ini, bukan obrolan ujung-ke-ujung atau sambungan bouncer ke jaringan hulu. DCC tetap tidak terenkripsi.

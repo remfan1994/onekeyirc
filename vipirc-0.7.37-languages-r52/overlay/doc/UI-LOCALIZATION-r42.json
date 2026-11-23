@@ -1,0 +1,139 @@
+[
+  {
+    "source": "src/ui.c",
+    "kind": "fixed",
+    "english": "Auto-join settings",
+    "fields": []
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed",
+    "english": "Authentication settings",
+    "fields": []
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed",
+    "english": "Update the displayed local resource snapshot. This does not request network information.",
+    "fields": []
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed",
+    "english": "Return to the screen that opened this snapshot, keeping its selection and draft.",
+    "fields": []
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed",
+    "english": "Use Up/Down to select an item and Enter to activate it. Escape returns to the previous screen. Press ? on a selected control to read its help. Question marks remain text inside editors.",
+    "fields": []
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed",
+    "english": "Servers lists every current server session. Up/Down chooses a server; Left/Right chooses an action; Enter activates that action. Open selects its channel 0, which shows server notices, /list results and connection replies. The server list and /list are different: /list requests channel names from the selected network.",
+    "fields": []
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed",
+    "english": "The network channel directory is built from IRC LIST replies. Up/Down selects a channel; Left/Right selects Channel, Users or Topic sorting; S toggles ascending/descending; Enter joins; R refreshes; / opens the command prompt; Escape returns. /list options provide minimum/maximum users, name/topic filtering and a display limit.",
+    "fields": []
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed",
+    "english": "Activity brings together retained mentions and unread source conversations across all servers. Up/Down selects an entry; Enter opens its source. Clear mentions removes copied mention records while preserving source histories and unread counters. Mentions can overlap unread messages, so their counts are separate.",
+    "fields": []
+  },
+  {
+    "source": "src/app.c",
+    "kind": "named-fields",
+    "english": "OFFLINE TEST MODE stopped: {error}",
+    "fields": [
+      "error"
+    ]
+  },
+  {
+    "source": "src/app.c",
+    "kind": "named-fields",
+    "english": "Ignore limit is {limit} masks; remove one before adding another.",
+    "fields": [
+      "limit"
+    ]
+  },
+  {
+    "source": "src/app.c",
+    "kind": "named-fields",
+    "english": "Usage: /{command} nickname|query-number",
+    "fields": [
+      "command"
+    ]
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "named-fields",
+    "english": "Closing server {number}.",
+    "fields": [
+      "number"
+    ]
+  },
+  {
+    "source": "src/settings.c",
+    "kind": "fixed",
+    "english": "Config:",
+    "fields": []
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "named-fields",
+    "english": "Choose action for {key}",
+    "fields": [
+      "key"
+    ]
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "named-fields",
+    "english": "Custom bindings: {count} / {limit} (none installed by default)",
+    "fields": [
+      "count",
+      "limit"
+    ]
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "named-fields",
+    "english": "Help: {item}",
+    "fields": [
+      "item"
+    ]
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "named-fields",
+    "english": "About the {screen}: use the selectable link above.",
+    "fields": [
+      "screen"
+    ]
+  },
+  {
+    "source": "src/settings.c",
+    "kind": "fixed",
+    "english": "Settings | Interface",
+    "fields": []
+  },
+  {
+    "source": "src/settings.c",
+    "kind": "fixed",
+    "english": "Settings | Configuration",
+    "fields": []
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed",
+    "english": "Channel 0 (server)",
+    "fields": []
+  }
+]

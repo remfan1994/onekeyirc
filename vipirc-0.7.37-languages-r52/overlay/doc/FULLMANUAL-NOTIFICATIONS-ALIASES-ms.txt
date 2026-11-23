@@ -1,0 +1,11 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / PROGRAM AND QUEUE NOTIFICATIONS, QUERY NUMBERS, AND ALIASES
+English source SHA-256: b62cd0965c386b1810fde3932890e4307baeed004c34a67b0724de33f2178937
+
+/set queue_notices off menyembunyikan pemberitahuan rutin untuk mesej beratur atau dihantar berperingkat dalam semua antara muka dan pelayan; /set queue_notices on memulihkannya. Dalam antara muka minimalis, penghantaran yang disemak secara nyata mengabaikan pengakuan giliran yang berlebihan walaupun notis diaktifkan. Secara berasingan, /set program_messages off menyembunyikan maklum balas setempat keutamaan rendah seperti draf dibatalkan, input dikosongkan, draf dikekalkan dan notis kejayaan/pembatalan serupa. Ralat, amaran had bait dan pengesahan penghantaran kekal kelihatan. Kedua-duanya aktif secara lalai. /save output atau /saveconf menyimpan tetapan [output] global; pilihan yang sama tersedia dalam /panel Application preferences dan Interface grafik.
+
+/ql memberikan nombor berasingan kepada perbualan peribadi bermula daripada 1. /query 2 atau /pm 2 memilih yang kedua; nama samaran juga boleh digunakan. Menutup perbualan menomborkan semula entri selepasnya. Membukanya tidak menghantar mesej. Saluran 0 kekal memaparkan mesej pelayan dan MOTD.
+
+Alias tepat yang lazim termasuk /j, /leave, /message, /privmsg, /nickname, /names, /nicks, /conn, /disc, /unaway, /detach, /saveconfig, /configure dan /preferences. Semuanya menggunakan pengesahan, pelengkapan dan peraturan privasi arahan yang sama. Ejaan tidak dikenal pasti menjadi ralat, bukan tindakan yang diteka.
+
+Perubahan keahlian, MOTD, WHOIS, jemputan dan ralat biasa dipaparkan sebagai mesej boleh dibaca dengan butiran pelayan berguna. Respons dalaman identiti/keupayaan tidak menggandakan catatan protokol dalam sembang. Respons tidak dikenal pasti mengekalkan teks pelayan tanpa menganggap kod angka sebagai penerangannya.

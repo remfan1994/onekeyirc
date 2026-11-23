@@ -1,0 +1,47 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / CONVERSATION COMMANDS
+English source SHA-256: afbb4f4772f74759ce06e6394d72bc10a6895c4731b886ced43996217fc5945d
+Source lines: 1102-1176
+
+ARAHAN PERBUALAN
+
+/join CHANNEL [KEY] meminta menyertai satu saluran dengan KEY pilihan. /part [CHANNEL] [MESSAGE] meninggalkan saluran dengan alasan PART; /close [NAME|NUMBER] menutup paparan saluran atau perbualan peribadi, NUMBER ialah nombor saluran. /pm NICK|NUMBER membuka/menukar paparan peribadi tanpa menghantar mesej. /msg TARGET TEXT menghantar teks kepada nama samaran/saluran; /me TEXT menghantar tindakan IRC pada perbualan semasa. /nick NICK meminta nama baharu; /away [MESSAGE] menetapkan status away, /back membuangnya; /whois NICK meminta maklumat nama samaran. /topic tanpa teks meminta topik semasa, /topic TEXT meminta topik baharu. /connect dan /disconnect mengurus sambungan; /dcc atau /transfers membuka skrin pemindahan bersama. /cancel menghentikan sembang belum dihantar, /background terus berjalan dan kembali ke shell, /quit [MESSAGE] menamatkan semua sesi pelayan. /settings, /save, /saveconf dan /set autoconnect on/off mengurus pilihan, penyimpanan dan permulaan.
+
+/away MESSAGE menghantar satu mesej AWAY standard. Hadnya ialah had wayar semasa tolak 8 bait, lazimnya 504 bait daripada 512 bait. Teks terlalu panjang/kawalan ditolak dan tidak pernah dipecah. /away tanpa mesej dan /back mengosongkan away. Pendaftaran diperlukan. Penunjuk hanya berubah setelah pengakuan pelayan dan direset apabila terputus/tersambung semula. Tindakan Away dalam senarai pelayan menghantar perkataan Away sebagai mesej atau membuang status yang sudah diakui sambil mengekalkan paparan/draf. Pelayan terputus perlu disambung dahulu. Sunting pengirim diabaikan melalui medan Ignore di Settings atau /ignore serta /unignore tempatan.
+
+/join menerima satu saluran dan paling banyak satu token KEY. Kunci mestilah ASCII boleh cetak tanpa ruang, titik bertindih atau koma; seluruh JOIN mesti muat dalam had wayar. Kunci tidak dicatat atau disimpan; hanya nama saluran dimasukkan ke autojoin. Masukkan semula kunci apabila menyambung semula/memulakan semula jika perlu. Simulator offline mengakui perubahan away dan menerima kunci join sementara, tetapi tidak menguji kunci saluran sebenar atau dasar kemasukannya.
+
+Pelayan menentukan hak, ketersediaan nama samaran, kemasukan saluran dan hak menukar topik. Arahan diterima setempat bukan bukti pelayan menerimanya atau mesej dihantar kepada peserta lain. Mesej sembang beratur sebentar dan dihantar sekurang-kurangnya 1.2 saat antara baris. /cancel membuang mesej tertunda pada pelayan terpilih merentas saluran/perbualan, bukan draf atau teks sudah dihantar; mesej yang sedang dihantar mungkin selesai. Dalam profil langsung, /join dan /part mengemas kini autojoin; /save mengekalkannya untuk pelancaran masa depan melainkan Settings tertunda mengatasinya. Bouncer memulihkan keahliannya sendiri. /part juga membuang teks dalam barisan saluran itu sambil mengekalkan paparan/sejarah; mesej sedang dihantar mungkin selesai sebelum PART. Teks selepas nama saluran ialah alasan PART; jika saluran tiada, teks itu alasan saluran terpilih. Tanpa alasan nyata digunakan [presence] part_message. Menutup saluran yang disertai menggunakan alasan PART lalai sama.
+
+/quit MESSAGE menggunakan mesej itu sebagai alasan IRC QUIT secara usaha terbaik pada sesi pelayan aktif. Tanpa teks digunakan [presence] quit_message; jika lalai kosong, QUIT tanpa alasan dihantar. Penamatan terhad masa dan tidak menunggu rangkaian mati selama-lamanya.
+
+Status away automatik berasingan daripada /away manual. Jika background_away aktif, tindakan Background berjaya atau kehilangan terminal terkawal hanya membariskan AWAY selepas terminal telah berpisah. Resume membuang hanya status automatik itu. autoaway_minutes berbuat begitu selepas tiada input pengguna setempat; 0 mematikan pemasa. Profil bouncer menekan perubahan automatik melainkan [bouncer] automatic_away=true diaktifkan. /away manual kekal hingga /back atau /away tanpa teks. Trafik IRC masuk bukan aktiviti pengguna setempat.
+
+EXACT IRC COMMAND SYNTAX (not translated):
+
+    /join CHANNEL [KEY]
+    /part [CHANNEL] [MESSAGE]
+    /close [NAME|NUMBER]
+    /pm NICK|NUMBER
+    /msg TARGET TEXT
+    /me TEXT
+    /nick NICK
+    /away [MESSAGE]
+    /back
+    /whois NICK
+    /topic
+    /topic TEXT
+    /connect [HOST [PORT]]
+    /disconnect [NUMBER]
+    /dcc
+    /transfers
+    /cancel
+    /background
+    /quit [MESSAGE]
+    /settings
+    /save [input|output|all]
+    /saveconf
+    /set autoconnect on
+    /set autoconnect off
+    /ignore
+    /unignore

@@ -1,0 +1,68 @@
+vipirc / onekeyirc: first-use help (ms)
+============================================
+
+DRAFT TRANSLATIONS - complete excerpts of three interactive help topics.
+Command names and option tokens are entered literally.
+For authoritative security details, read the English SECURITY.md and MANUAL.txt.
+
+/help startup
+-------------
+Jalankan program, tutup skrin alu-aluan, kemudian taip /connect irc.example.org dan /join #channel.
+
+Tidak perlu cipta profil pelayan, alias atau nombor dahulu. /server HOST ialah alias bagi sambungan terus.
+
+Jika nama samaran tidak diberi, nama log masuk sistem yang sah digunakan, atau user sebagai pilihan ganti. Tiada gesaan nama samaran.
+
+Gunakan /saveconf untuk menyimpan konfigurasi dan pilihan lalai. Pada pelancaran seterusnya, /connect menggunakannya.
+
+Menyimpan tidak menghidupkan sambung automatik; itu pilihan berasingan. /quickstart dan /panel ialah panduan pilihan.
+
+Pilihan shell juga boleh digunakan: --server HOST, --channel '#CHANNEL' dan --nick NICK. Petik #CHANNEL dalam shell.
+
+Ketika mula biasa, --nick, --port, --channel, --tls, --plain dan --ca-file mengatasi pilihan lalai tersimpan.
+
+--server yang dinyatakan memilih sambungan pertama. --init-config dan --check-config menggunakan fail konfigurasi utama.
+
+Menukar --server kepada hos lain membuang kelayakan hos lama, CA khas, identiti bouncer, saluran dan arahan mula.
+
+Jika pilihan lalai tersimpan tiada, nyatakan --server atau baikinya sebelum mengatasi pilihan sambungan.
+
+Autoconnect, autojoin dan autoauth adalah khusus bagi setiap profil pelayan tersimpan. Lihat /help autoconnect.
+
+--no-connect menghalang sambungan permulaan; --test-mode mensimulasi aktiviti tanpa rangkaian atau menulis konfigurasi.
+
+--sessions menyenaraikan tugas terpasang dan terpisah. --resume [NUMBER] menyambung semula; lihat /help background.
+
+--close-session NUMBER menutup seluruh tugas dipilih dan semua sambungan IRC selepas penyelesaian disahkan. NUMBER ialah ID tugas, bukan PID.
+
+Selepas terminal terputus, guna --sessions, kemudian --detach-session NUMBER dan --resume NUMBER. Pekerja masih guna kod lama sehingga dimulakan semula; lihat /help sessions.
+
+-h/--help dan -v/--version berfungsi tanpa terminal.
+
+/help messages
+--------------
+Gunakan /join #channel untuk menyertai dan memilih saluran, atau /query NICK untuk membuka perbualan peribadi.
+
+Pilih saluran tersimpan dengan /channel. /msg TARGET TEXT menghantar ke destinasi khusus; /me TEXT menghantar tindakan.
+
+/query membuka perbualan tanpa menghantar; /pm ialah alias. /ql mengasingkan perbualan peribadi daripada saluran.
+
+Penghantaran terus ialah lalai; /set send_mode review menambah semakan. /set composer_mode line|fullscreen mengubah paparan.
+
+Apabila had satu mesej dicapai, sahkan untuk terus menyunting; pemecahan mesej tetap memerlukan izin berasingan.
+
+Penyertaan dan pengesahan mesti selesai sebelum mesej boleh dibariskan. /cancel membatalkan barisan, bukan mesej terkirim.
+
+/help limits
+------------
+Had IRC dikira dalam bait, bukan bilangan aksara dipaparkan. Aksara UTF-8 boleh menggunakan lebih daripada satu bait.
+
+Klien mengira ruang mesej termasuk sasaran, arahan dan lebihan geganti; ia tidak memotong aksara UTF-8.
+
+Pada had satu mesej, teks tambahan disekat sehingga Enter mengesahkan sambung menyunting; Enter itu tidak menghantar.
+
+Mesej berbilang bahagian tetap perlu izin berasingan sebelum dibariskan, walaupun mod terus. Sembang dihantar satu baris setiap 1.2 saat.
+
+Satu rancangan hantar terhad kepada 64 mesej dan 16384 bait teks. Ringkaskan teks atau hantar berasingan dengan sengaja.
+
+Maksimum 8 slot pelayan dan 32 paparan bagi setiap pelayan, termasuk paparan simpanan.

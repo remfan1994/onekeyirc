@@ -1,0 +1,20 @@
+Use signals - application change
+
+The primary application preference Use signals defaults to no.
+Panel 0: /panel -> application preferences -> Use signals: yes/no.
+Full vipirc: Settings -> Interface -> Use signals: on/off.
+
+No: terminal ISIG is disabled while attached. Ctrl-C and Ctrl-Z cancel an
+unsent command or compose instead of terminating or suspending the client.
+Yes: terminal ISIG is enabled, using the terminal's original VINTR/VQUIT/
+VSUSP mapping. The client handles interrupts and suspension as before.
+
+Apply: update the active terminal; Save: also persist the preference to the
+primary config as [input] use_signals=true/false. Older files with
+force_terminal_signals=true/false are accepted for compatibility.
+
+External process signals are not blocked. /quit, normal menus, background
+and session-management commands retain their normal behavior.
+The original terminal settings are restored on exit or suspend.
+
+This is an application code change, not a translation-only change.

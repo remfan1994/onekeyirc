@@ -1,0 +1,27 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / BOUNCER CONNECTIONS
+English source SHA-256: 5b02f5c7003e1c3af127c7d3a30794ecad42f14dc1a1397d6d4aa16179b89b63
+Source lines: 1692-1747
+
+SAMBUNGAN BOUNCER
+
+Dalam Settings atau /panel, pilih ZNC/soju, kemudian nama hos pembekal dan port TLS, nama pengguna bouncer, rangkaian upstream sedia ada dan pilihan nama klien yang tetap. Simpan satu profil bagi setiap rangkaian. Bagi profil berkongsi hos, pilih nombor pelayan sebelum /connect tanpa argumen.
+
+Bahagian [bouncer] menyokong type=none|znc|soju, username, network, client dan automatic_away. username dan network wajib; client pilihan. Setiap komponen menerima paling banyak 63 aksara ASCII daripada huruf, digit, titik, garis bawah atau tanda sempang. Masukkan komponen identiti secara berasingan dan letakkan kata laluan hanya dalam sumber kata laluan yang betul.
+
+ZNC memerlukan auth=none, auth_user kosong, tiada sumber SASL dan tepat satu sumber kata laluan pelayan. Identiti dibina sebagai username/network atau username@client/network dengan kata laluan ditambah untuk PASS. Identiti, pemisah dan kata laluan mesti muat dalam muatan 503 bait, maka panjang kata laluan yang boleh digunakan berkurang. soju memerlukan auth=sasl, auth_user kosong, satu sumber kata laluan pengesahan dan tiada sumber PASS. Identiti SASL berasal daripada username/network atau username/network@client. Kedua-duanya mewajibkan TLS yang disahkan. Konfigurasikan rangkaian upstream dan pengesahan NickServ secara berasingan pada bouncer.
+
+Bouncer memulihkan keahlian saluran; autojoin setempat tidak diulang dan perubahan /autojoin ditolak. /join dan /part mengubah keahlian. Perubahan /autoauth juga ditolak: gunakan Settings atau /panel untuk mengubah identiti dan sumber secara seragam. Arahan permulaan yang nyata masih dijalankan; semak arahan warisan daripada profil sambungan terus sebelum digunakan semula. Away automatik ketika melahu atau di latar belakang dimatikan melainkan automatic_away=true; /away dan /back manual masih tersedia.
+
+    /znc
+    /znc ListNetworks
+    /soju
+    /soju network status
+
+Pintasan memerlukan jenis bouncer yang sepadan. Argumen berupa teks perkhidmatan harfiah yang muat dalam satu mesej IRC dan mematuhi kadar penghantaran biasa. /msg *status atau /msg *module dihantar kepada ZNC; /msg BouncerServ kepada soju. Arahan yang tersedia bergantung pada bouncer jauh; mulakan dengan bantuan miliknya.
+
+Teks kawalan dikecualikan daripada gema setempat, ingatan arahan dan log berterusan. Salinan ulang main perkhidmatan keluar yang dikenali turut disekat walaupun menggunakan nama panggilan lama. Balasan muncul dalam paparan pelayan tanpa log berterusan. Teks yang ditaip dalam penyunting kekal kelihatan, dan log pada pihak jauh adalah berasingan.
+
+Sejarah yang ditolak masuk dan dikenali mengekalkan cap masa UTC asal serta menghalakan mesej peribadi keluar kepada penerimanya. Ulang main tidak mencetuskan CTCP/DCC, sebutan baharu atau perubahan keadaan langsung. Simpanan dihadkan; jenis kelompok yang tidak dikenali hanya dipaparkan secara konservatif tanpa mengubah keadaan. Tiada pelayar arkib mengikut permintaan, penemuan rangkaian automatik atau penciptaan profil automatik bagi setiap rangkaian.
+
+TLS hanya melindungi sambungan klien-ke-bouncer. TLS upstream, pengesahan, akses dan pengekalan memerlukan konfigurasi tersendiri. Rujuk doc/BOUNCERS.txt, examples/bouncer-znc.ini dan examples/bouncer-soju.ini. Keputusan ujian terkawal tidak membuktikan keserasian semua penyedia atau versi sebenar.

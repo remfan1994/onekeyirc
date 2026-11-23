@@ -1,0 +1,19 @@
+NAVIGATION LOCALIZATION PASS - vipirc 0.7.42
+2026-11-19
+
+Baseline: vipirc 0.7.41, onekeyirc 0.1.40.
+Locales: Indonesian, Malay, Turkish, Spanish, Portuguese, French, German,
+Russian, Italian and Arabic.
+
+39 previously English-only command-help explanations translated into
+every locale. English catalog key count: 365. Detailed help coverage is
+82/477 distinct source lines, or 17.2 percent; 395 remain English.
+Added ten offline NAVIGATION-XX.txt guides, a deterministic generator,
+command/placeholder-preservation tests and an offline 10-language PTY test.
+
+All IRC commands and placeholder names remain English. This update does not
+change command parsing, connection state, authentication rules, config keys
+or protocol messages. Existing English source comments and manuals remain.
+
+Translation quality is not certified. Arabic bidirectional display has not
+been verified. Check release notes for platform and build limitations.

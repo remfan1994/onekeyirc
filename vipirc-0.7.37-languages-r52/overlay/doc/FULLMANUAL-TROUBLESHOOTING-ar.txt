@@ -1,0 +1,25 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / TROUBLESHOOTING
+English source SHA-256: b3416fb29408401823b85e292e40c40467a2ea2b528476630825bfbaeced49f5
+
+اتبع خطوات الفحص المرتبة في doc/TROUBLESHOOTING.txt. لا تشارك السجلات الخاصة أو الأسرار.
+
+الاتصال: اقرأ خطأ الخادم وتحقق من المضيف والمنفذ وTLS. يعيد /connect المحاولة يدويا، ويعيد --reconnect المحاولة بعد الأعطال العابرة. راجع TLS AND CUSTOM TRUST. لا تتجاوز إخفاق التحقق بإرسال بيانات الاعتماد عبر IRC مكشوف.
+
+المصادقة: يعرض /autoauth status المسارات الحالية والمعلقة، ولا يعرض الأسرار. تحقق من قواعد الحساب ومصدر الاعتماد في AUTOMATIC CONNECTION, JOIN, AND AUTHENTICATION.
+
+GPG: راجع CREATING ENCRYPTED PASSWORD FILES لفحص وجهة الملف مسبقا، وAUTHENTICATION لحدود فك التشفير والأذونات وفتح القفل خارج التطبيق.
+
+القنوات: أكمل التسجيل والمصادقة. يعرض /autojoin الانضمامات المعلقة للملفات المباشرة؛ ويستعيد bouncer القنوات. راجع CONNECTION AND STARTUP COMMANDS.
+
+تعذر استئناف الجلسة لانشغالها: افحص --sessions ثم استخدم --detach-session NUMBER و--resume NUMBER. ينهي --close-session العملية الدائمة. راجع SESSION RECOVERY AND UPGRADES.
+
+المفاتيح والعرض: تحرر أسهم Compose النص، بينما يسترجع Command الأوامر الآمنة المقبولة. افحص النص المحفوظ للسطور الملتفة المخفية. راجع MINIMALIST WRAPPING AND INPUT HISTORY.
+
+عرض النص: استخدم لغة محلية UTF-8 وإعداد TERM وخطا متوافقين؛ ويحافظ تغيير الحجم على المسودة والمؤشر. تقلل الطرفيات الصغيرة مساحة اللوحات. راجع FILES AND ENVIRONMENT.
+
+الحفظ: يرفض وضع الاختبار الكتابة. تحقق من المسارات الخاصة والصلاحيات في CONFIGURATION؛ فالحفظ Save والتطبيق Apply والاتصال التلقائي عند البدء إجراءات منفصلة.
+
+السجلات واللحاق: افحص الخطأ المحدد، وتستمر المحادثة. توجد الحدود والتدوير وعلامات الإرسال الجديدة وطرق الرجوع الاحتياطية في HISTORY, LOGGING AND PRIVACY.
+
+العمليات الفرعية: يجب أن تبقى عمليات SIGCHLD الفرعية قابلة للانتظار بواسطة wait. يؤدي تجاهل الإشارة أو جمع العمليات تلقائيا إلى منع بدء عامل الخلفية أو المساعد لأول مرة؛ فأصلح مشغل البرنامج.

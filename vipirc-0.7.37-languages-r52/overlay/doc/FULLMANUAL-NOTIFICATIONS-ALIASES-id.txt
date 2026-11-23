@@ -1,0 +1,11 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / PROGRAM AND QUEUE NOTIFICATIONS, QUERY NUMBERS, AND ALIASES
+English source SHA-256: b62cd0965c386b1810fde3932890e4307baeed004c34a67b0724de33f2178937
+
+/set queue_notices off menyembunyikan pemberitahuan rutin tentang pesan yang diantrekan atau dikirim bertahap di semua antarmuka dan server; /set queue_notices on mengembalikannya. Di antarmuka minimalis, pengiriman yang ditinjau secara eksplisit tidak menampilkan tanda antrean rutin yang berlebihan meskipun pemberitahuan antrean aktif. Secara terpisah, /set program_messages off menyembunyikan umpan balik lokal berprioritas rendah seperti pembatalan draf, pengosongan input, penyimpanan draf, serta pesan keberhasilan/pembatalan serupa. Kesalahan, peringatan batas byte, dan konfirmasi pengiriman tetap terlihat. Kedua pengaturan aktif secara bawaan. /save output atau /saveconf menyimpan [output] global; pilihan sama tersedia di /panel Application preferences dan pengaturan grafis Interface.
+
+/ql memberi nomor tersendiri pada percakapan privat mulai dari 1. /query 2 atau /pm 2 memilih yang kedua; nama panggilan dapat dipakai sebagai argumen. Menutup satu percakapan mengubah nomor setelahnya. Membuka percakapan tidak mengirim pesan. Kanal 0 tetap menampilkan pesan server dan MOTD.
+
+Alias tepat yang umum meliputi /j, /leave, /message, /privmsg, /nickname, /names, /nicks, /conn, /disc, /unaway, /detach, /saveconfig, /configure, dan /preferences. Semua mengikuti pemeriksaan, pelengkapan, dan aturan privasi perintah asal. Ejaan tidak dikenal menghasilkan kesalahan, bukan perkiraan tindakan.
+
+Perubahan anggota, MOTD, WHOIS, undangan, dan kesalahan umum ditampilkan dalam pesan yang mudah dibaca beserta detail server yang berguna. Respons internal tentang identitas/kemampuan tidak menggandakan pencatatan protokol di chat. Respons tak dikenal mempertahankan teks server tanpa menganggap angka kode sebagai penjelasannya.

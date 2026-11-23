@@ -1,0 +1,17 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / OFFLINE TEST MODE
+English source SHA-256: e89ff4106e3e5a0bba3bbcac6d2d3f1eb41f410ac6a2f153aaed310c84b51cab
+
+EXACT COMMAND/CONTROL EXAMPLES (not translated):
+vipirc --test-mode
+vipirc --test-mode --config /absolute/config.ini --no-connect
+
+A simulação utiliza a interface, editor, filtros e tratamento aplicável de protocolo/filas reais, sem sockets de rede, DNS, leitura de senhas ou ficheiros CA, GPG nem gravações. Os nomes de servidor configurados são apenas etiquetas. Cada perfil tem simulador independente; New server acrescenta outro. Servidor e nome em falta não provocam perguntas; os canais de demonstração padrão são #test-one e #test-two quando nenhum está configurado.
+
+A simulação inicia depois da mensagem de boas-vindas independentemente do autoconnect guardado; --no-connect impede-a. /disconnect e /connect param/iniciam o simulador selecionado. Para usar uma rede verdadeira, saia e reinicie sem --test-mode. O simulador local em C dispensa daemon externo e Python.
+
+De dois em dois segundos surgem eventos de chat, menções, palavras observadas, conversa privada e alterações de participantes. Palavras watch personalizadas alternam uma por ciclo de 16 segundos. /msg recebe resposta simulada identificada; JOIN/PART/NICK/WHOIS/TOPIC/AWAY também têm respostas simuladas. Não reproduz todas as regras do servidor, entrada em canais com chave, SASL ou entrega efetiva.
+
+Experimente quebra de linhas, edição entre linhas, redimensionamento, colagem, avisos/confirmações, menções e listas. A oferta DCC de exemplo só existe em memória: rever/rejeitar/cancelar funciona, mas Send/Accept é recusado antes do acesso a ficheiros ou sockets. Fechar um servidor secundário altera apenas o estado da execução. A escrita de configuração e ficheiros de contagem está desativada; edite externamente e reinicie para alterações permanentes.
+
+--check-config verifica separadamente a sintaxe e os valores guardados. Nenhum destes modos comprova DNS, TLS, credenciais ou interoperabilidade real com bouncer.

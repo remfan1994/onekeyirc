@@ -1,0 +1,36 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / COMMAND-LINE OPTIONS
+English source SHA-256: 2dd0066181d81214b50bdc848d76a75ed557f6bc4b62982d6c1d0d251ef3c932
+Source lines: 281-373
+
+OPSI BARIS PERINTAH
+
+-i, --idle: Gunakan antarmuka minimalis pada peluncuran ini; --help dan --manual menjelaskan mode tersebut.
+-N, --ncurses: Gunakan antarmuka penuh pada peluncuran ini. Pilihan antarmuka terakhir yang disebut berlaku; tidak ada perubahan pada pilihan tersimpan. -n tetap berarti nama panggilan.
+-s, --server HOST: Pilih server utama berdasarkan nama host atau alamat IPv4/IPv6 numerik, bukan URL.
+-p, --port PORT: Nomor port 1..65535. Baku 6697 untuk TLS, atau 6667 bila IRC tanpa TLS dipilih secara eksplisit.
+-c, --channel LIST: Daftar kanal yang akan dimasuki setelah registrasi untuk profil langsung. Daftar dipisah koma atau diberikan berulang. Kutip '#channel' di shell; bouncer memulihkan keanggotaan sendiri.
+-n, --nick NICK: Timpa nama panggilan pada profil yang efektif saat memulai.
+-C, --config FILE: Pilih konfigurasi utama lain bersama katalog .servers dan direktori profil .d. Berkas harus sudah ada kecuali dibuat dengan --init-config; jalur konfigurasi diperlakukan secara literal.
+--tls: Wajibkan TLS terverifikasi; ini pilihan baku. Menyebut port saja tidak menonaktifkan TLS.
+--plain: Pilih sambungan tanpa enkripsi secara eksplisit; autentikasi dengan kredensial tersimpan ditolak.
+--ca-file FILE: Gunakan berkas otoritas PEM khusus, bukan penyimpanan kepercayaan sistem. Harus berkas reguler tidak kosong, maksimum 16 MiB; symlink biasa diizinkan. Tidak ada dialog kata sandi.
+--no-connect: Jangan memulai sambungan atau simulator saat peluncuran; gunakan perintah Connect kemudian.
+--background: Jalankan worker terlepas tanpa tty, TERM, atau tekanan tombol sambutan. Gunakan antarmuka baku tersimpan, kecuali -i atau -N menimpanya. Simpan profil sambung otomatis atau berikan --server; --no-connect tetap menang. Keberhasilan berarti worker lokal siap, bukan login IRC berhasil.
+--reconnect: Coba ulang kegagalan jaringan sementara hanya untuk proses saat ini, tanpa memulai sambungan atau menyimpan preferensi. Jeda: 5,10,20,40,80,160,300 detik; registrasi stabil selama 60 detik mengulang jadwal. /disconnect membatalkan dan /connect memulai kembali. Kesalahan sertifikat, autentikasi, konfigurasi, atau protokol tidak dicoba ulang. Pesan tertunda dibuang. Pada sambungan baru, perintah autentikasi dan startup dijalankan lagi; profil langsung mengulangi autojoin, sedangkan bouncer memulihkan kanal. Pengaturan koneksi yang masih tertunda perlu /connect eksplisit saat terputus.
+--test-mode: Simulasi interaktif luring, tanpa jaringan/DNS dan tanpa membaca atau menyimpan kredensial.
+--resume [JOB]: Sambungkan kembali ke satu pekerjaan terlepas yang terverifikasi, atau sebutkan nomornya; --resume=JOB juga diterima. Jalur soket absolut yang eksplisit mendukung worker lama yang kompatibel. Tanpa nomor, antarmuka worker dipertahankan; -i/-N memintanya berganti. stdin, stdout, dan stderr harus menuju tty interaktif yang sama. Banyak pekerjaan atau pekerjaan tanpa verifikasi mencegah pemilihan otomatis; pekerjaan yang terpasang sedang sibuk.
+--sessions: Daftarkan pekerjaan terpasang dan terlepas milik akun ini tanpa tty atau memuat konfigurasi.
+--detach-session NUMBER: Lepaskan pengendali terverifikasi sambil mempertahankan worker dan status; sambungkan kembali dengan --resume NUMBER. Bentuk --detach-session=NUMBER juga berlaku.
+--close-session NUMBER: Hentikan seluruh worker, seluruh sesi IRC, transfer, draf, serta riwayat di memori. Konfigurasi dan log tetap ada. Pembersihan terverifikasi wajib sebelum berhasil; jika terjadi batas waktu, periksa lagi --sessions karena penutupan dapat selesai kemudian. Bentuk --close-session=NUMBER juga berlaku.
+--init-config: Buat konfigurasi privat tanpa menimpa berkas yang sudah ada atau sedang dibuat proses lain. Kesalahan sinkronisasi/pembersihan yang dilaporkan mungkin terjadi setelah berkas selesai dibuat.
+--check-config: Validasi konfigurasi, penimpaan, katalog dan profil tersimpan, lalu keluar. Tidak membuka rahasia, menjalankan GPG, menguji CA/TLS, atau membuktikan server dapat dicapai maupun login berhasil.
+--manual: Cetak manual lengkap antarmuka terpilih tanpa terminal.
+-h, --help: Cetak bantuan CLI tanpa terminal.
+-v, -V, --version: Cetak versi, atribusi dan lisensi tanpa terminal.
+
+Pilihan panjang menerima bentuk --name=value; pengelompokan pilihan pendek biasa didukung. -- mengakhiri penafsiran opsi dan tidak ada argumen posisi. Nilai CLI mengalahkan konfigurasi, lalu nilai baku. Saat memulai normal, perubahan selain host berlaku pada profil baku yang diingat; --server eksplisit memilih profil utama. --init-config dan --check-config selalu bekerja pada profil utama. Jika profil baku yang diingat tidak tersedia, perbaiki atau tentukan --server sebelum memberikan penimpaan selain host.
+
+Jika --server berbeda tanpa memedulikan huruf besar-kecil, sumber kredensial, autentikasi, CA khusus, identitas bouncer, pilihan away otomatis, kanal, dan perintah startup yang diwariskan dihapus. Atur host baru secara eksplisit. Penimpaan host sama atau hanya --nick mempertahankan profil. --config lain memilih ruang kerja terpisah.
+
+--resume, --sessions, --detach-session, dan --close-session adalah operasi pengelolaan terpisah: jangan gabungkan satu sama lain atau dengan opsi konfigurasi, sambungan, dan startup. Alias boleh mempertahankan bendera antarmuka yang didukung. --background tidak boleh digabung dengan operasi tersebut, --init-config, atau --check-config. --test-mode tidak boleh digabung dengan --init-config/--check-config (status penggunaan 2).

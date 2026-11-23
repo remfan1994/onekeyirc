@@ -1,0 +1,22 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / SERVERS AND UNREAD ACTIVITY
+English source SHA-256: e89196872f4f16927c865eeaf264a62e69ede5bb5ef6c213ab82511b5c61bd34
+Source lines: 969-1018
+
+SERVER DAN AKTIVITAS BELUM DIBACA
+
+Antarmuka ncurses lengkap menampilkan slot server 0..7, dengan server utama bernomor 0. Semuanya berbagi satu loop peristiwa, tetapi masing-masing memiliki kredensial, identitas, kanal atau percakapan pribadi, penyebutan, daftar pengguna, riwayat, dan draf sendiri. F2 atau /servers membuka aksi:
+
+    Open    New    Connect    Disconnect    Close    Away    Back
+
+Navigasi daftar umum dijelaskan pada GLOBAL HEADER AND CHAT CONTROLS. Open menampilkan MOTD server (kanal 0) tanpa mengubah draf atau posisi kursor. Connect/Disconnect bertindak pada baris terpilih. Away mengubah status pergi yang telah dikonfirmasi server terdaftar menggunakan pesan bawaan Away. New (atau n) membuka formulir; Back/Escape kembali ke obrolan.
+
+Server utama 0 tidak dapat ditutup. Disconnect mempertahankan tampilan, draf, dan transfer DCC yang diterima. Close pada server tambahan selalu meminta konfirmasi dengan jawaban bawaan No; tindakan ini membuang memorinya, membatalkan tawaran dan transfer, menghapus rujukan katalog, tetapi mempertahankan berkas profil. Menutup server tambahan yang sedang dipilih akan kembali ke server utama. Dalam mode uji, Close hanya memengaruhi status saat program berjalan.
+
+Formulir New berisi Server, Port, Transport, Nickname, Autojoin, dan Autoconnect, serta aksi Edit, Add, Connect, Advanced, Cancel. Advanced memperlihatkan identitas, sumber autentikasi, dan pilihan CA sebelum koneksi pertama. Enter menyiapkan nilai kolom; Escape membatalkan formulir. Profil baru menggunakan TLS6697, identitas login/default, dan autoconnect nonaktif, tanpa mewarisi rahasia, CA, kanal, atau daftar watch/ignore. Hanya preferensi aplikasi yang dibagikan. Add membuat server dalam keadaan terputus sekalipun kotak autoconnect dicentang; Connect membuat dan langsung menghubungkannya. Keduanya memilih server baru dan perlu Save secara eksplisit agar tersimpan permanen.
+
+Baris menampilkan new N !M untuk aktivitas dan penyebutan belum dibaca; angka di layar dibatasi pada 999+ tanpa mengubah penghitung internal. Membuka percakapan hanya mengosongkan penghitung sumber tersebut; menampilkan daftar di atasnya tidak menandai teks baru sebagai terbaca. Total tidak menghitung salinan Mentions maupun Help. Gema pesan keluar tidak menambah hitungan belum dibaca. Membaca Mentions menandai feed-nya sendiri secara terpisah, tanpa menghapus hitungan di percakapan asal.
+
+F5 atau /unread mengelompokkan penyebutan tersimpan terlebih dahulu lalu percakapan belum dibaca, menurut server. Penyebutan menampilkan teks lengkap yang dibungkus dan cap waktu, sedangkan entri sumber menunjukkan Server/Channel/Query. Aksinya adalah Open, Clear mentions, Back. Open memilih sumber; percakapan pribadi yang sudah ditutup dapat dibuka kembali berdasarkan nama panggilan tercatat tanpa mengirim pesan atau memulihkan riwayat yang dibuang. Kanal yang ditutup tidak otomatis dimasuki lagi dan server tak tersedia akan diberi tahu. Navigasi ditentukan oleh identitas sumber yang stabil, bukan posisi atau teks baris.
+
+Clear mentions atau /mentions clear menghapus salinan penyebutan dari semua server tanpa mengubah riwayat percakapan, penghitung belum dibaca, draf, atau antrean. Penyebutan baru dapat langsung tiba. Tombol halaman menggulir penyebutan panjang yang dipilih sebelum pindah ke entri lain. /mentions tanpa argumen hanya memilih feed server saat ini.

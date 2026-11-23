@@ -1,0 +1,48 @@
+VERBATIM ENGLISH SOURCE REFERENCE
+Source: MANUAL.txt / HISTORY, LOGGING AND PRIVACY
+English source SHA-256: b0c065ed46b6cbb73666075f1eee2d050a5a82160fac0ddadd98ad80d2910ee3
+
+HISTORY, LOGGING AND PRIVACY
+
+There are separate kinds of history:
+
+    Retained conversation/mention records: bounded memory for display.
+    Command recall: accepted command lines in memory, with secret filtering.
+    Command frequency counts: canonical names/counts in CONFIG_PATH.commands.
+    Optional transcript: plaintext records in each saved profile's .log file.
+    Bouncer replay: messages supplied by the bouncer under its own policy.
+
+Detach/resume preserves live memory. /quit, --close-session, process failure
+or reboot ends it. A new process loads saved configuration and optional
+command counts; it does not import old transcript files as live conversation
+history or recreate a previous catch-up anchor. /clear clears the current
+view's retained memory without deleting an existing disk transcript or
+retracting an IRC message.
+
+Enable a transcript with /set persistent_logging on and save it with /save
+output, or use Settings > Interface > Persistent logging. This is off by
+default and applies across servers, with a separate file for each saved
+profile. All path and file privacy checks described under CONFIGURATION
+still apply.
+
+Each log stops at 16 MiB; nothing is automatically rotated or deleted. An
+unsafe path, busy lock or write failure disables logging for the affected
+profile with an error while chat continues. Archive the old file, then turn
+logging off/on to resume writing. Rotation can invalidate the old catch-up
+anchor; send a new eligible message before relying on a later absence's
+durable catch-up.
+
+Known credential/service messages and sensitive copies under current or
+old nicknames are excluded, including qualified service destinations.
+Ordinary chat, unknown service syntax or manually pasted secrets
+can still reach a log, and the remote service may retain its own copy.
+Turning logging off prevents new records without erasing old ones. Private
+permissions are not encryption and do not protect from another program
+running under the same Unix account. Regular files on slow or
+network-mounted storage can still delay disk I/O.
+
+A saved transcript is CONFIG_PATH.log in an owned directory of exact mode
+0700. Every path component must pass no-symlink/no-parent-traversal checks.
+The opened file must be owned, regular, single-link and exactly 0600.
+Nonblocking file/lock handling rejects a FIFO or busy log; the 16 MiB cap
+applies per saved profile.

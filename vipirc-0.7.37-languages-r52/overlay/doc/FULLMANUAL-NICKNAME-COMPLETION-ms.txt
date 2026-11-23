@@ -1,0 +1,11 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / NICKNAME COMPLETION
+English source SHA-256: 89b368bbd759571d49afe8fccb96d986865af2f76dcd6d257f18cd768bda8e98
+
+PELENGKAPAN NAMA SAMARAN
+
+Tab melengkapkan nama samaran di kedudukan kursor sembang. Tekanan Tab berikutnya mengitar nama yang sepadan dalam turutan abjad mengikut peraturan huruf besar/kecil; Shift-Tab mengundur. Padanan mengikut peraturan ASCII, strict RFC1459 atau RFC1459 yang diumumkan pelayan. Tiada carian rangkaian atau penghantaran mesej diperlukan. Penyuntingan biasa menamatkan kitaran pelengkapan.
+
+Pada awal draf, pelengkapan menambah ': '; selepas perkataan yang bukan pertama, ia menambah ruang. Pelengkapan di tengah draf mengekalkan tanda baca dan perkataan selepasnya. Saluran dan URL tidak dianggap awalan nama samaran. Jika calon melebihi had bait atau aksara, seluruh draf dibiarkan tanpa perubahan. Jika melepasi had mesej IRC yang lebih kecil, amaran biasa dipaparkan; pelengkapan tidak pernah menghantar mesej.
+
+Dalam saluran, senarai ahli semasa digunakan. Dalam perbualan peribadi, calon ialah rakan perbualan dan nama samaran sendiri. Paparan pelayan dan sebutan menggunakan pengguna yang diketahui daripada saluran disertai dan perbualan peribadi pelayan itu. Pengguna pelayan lain tidak pernah menjadi calon. Perubahan ahli digunakan untuk pelengkapan seterusnya tanpa menyimpan senarai pengguna tambahan.

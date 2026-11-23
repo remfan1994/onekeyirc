@@ -1,0 +1,122 @@
+Guide pratique vipirc / onekeyirc - Raccourcis, commandes automatiques et transferts DCC
+======================================================
+
+TRADUCTION PROVISOIRE. Tapez les commandes et options exactement comme indiqué.
+Pour la sécurité, consultez MANUAL.txt et SECURITY.md en anglais.
+
+/help autocommands
+------------------
+
+Les commandes concernent le serveur sélectionné. Elles s'exécutent une fois après l'inscription et le SASL requis.
+
+Le délai par défaut est de 15 secondes, avec au moins 2 secondes entre deux commandes terminées.
+
+Réglez avec delay 0..300 et interval 2..60. Une connexion bloquée ne déclenche pas de rafale de rattrapage.
+
+Commandes autorisées : /msg, /join, /nick, /away, /back et /whois, ainsi que leurs alias exacts documentés.
+
+Au plus 16 commandes de 511 octets UTF-8 chacune. Chaque commande tient dans un message IRC ; aucune coupure automatique.
+
+Ni shell, ni IRC brut, ni expansion de la conversation actuelle. Les jonctions automatiques ne changent pas de vue.
+
+Les modifications valent à la prochaine connexion. /cancel arrête les commandes de démarrage non envoyées.
+
+Les listes masquent les messages et clés de salon ; les commandes automatiques restent hors historique et échos locaux.
+
+Enregistrez avec /save. Le fichier doit rester privé (0600 ou 0400) ; une liste active non vide exige un TLS vérifié.
+
+Le mode test n'exécute jamais ces commandes. Le texte est stocké tel quel dans la configuration, sans chiffrement GPG.
+
+/help bind
+----------
+
+Aucun raccourci personnalisé par défaut. Consultez /bindings keys et /bindings actions pour les noms acceptés.
+
+Une nouvelle attribution remplace l'action de cette touche sur tous les serveurs ; les autres restent intactes.
+
+Les raccourcis agissent dans le chat et les commandes, pas dans le collage, les mots de passe, les réglages, les lecteurs ni les confirmations.
+
+Effet immédiat, mais /save input est requis pour conserver le changement. Sans raccourci actif, la navigation normale fonctionne.
+
+Seules les fonctions locales nommées sont permises : aucune commande arbitraire, macro, action d'envoi ou expansion shell.
+
+Une touche réservée au terminal peut ne jamais parvenir au programme ; l'attribution ne modifie pas les signaux du terminal.
+
+/help bindings
+--------------
+
+Sans argument, affiche les raccourcis personnalisés de toute l'application. Une liste vide signifie aucun raccourci.
+
+Utilisez /bind pour attribuer ou remplacer, /unbind KEY pour retirer et /unbind all pour tout effacer.
+
+Touches disponibles : F1..F12, Ctrl-A..Ctrl-Z, Alt-a..Alt-z, Alt-0..Alt-9 et touches de navigation nommées.
+
+Ctrl-H vaut Backspace, Ctrl-I vaut Tab, Ctrl-J et Ctrl-M valent Enter et Ctrl-[ vaut Escape : un même raccourci.
+
+Alt utilise les minuscules sans Shift. Les touches de fonction/Alt dépendent du terminal et du multiplexeur.
+
+Jusqu'à 64 raccourcis KEY=action dans [hotkeys] du fichier principal. /save input les enregistre.
+
+Voir /help hotkeys pour la portée, la protection des brouillons et les signaux du terminal.
+
+/help unbind
+------------
+
+Retirer une touche restaure son comportement normal là où elle était personnalisée. all efface seulement la liste des raccourcis.
+
+Effet immédiat sur tous les serveurs. Utilisez /save input pour conserver ce changement au redémarrage.
+
+/help hotkeys
+-------------
+
+Les raccourcis personnalisés sont facultatifs et vides par défaut. Navigation et édition d'origine restent disponibles.
+
+Utilisez /bindings pour la liste, /bindings keys pour les touches et /bindings actions pour les fonctions locales.
+
+Assignez par /bind KEY ACTION; répétez pour remplacer. Retirez avec /unbind KEY ou /unbind all.
+
+Effet immédiat sur tous les serveurs ; /save input les enregistre dans la configuration principale. Les autres profils ne remplacent pas cette liste.
+
+Format : [hotkeys] puis une ligne KEY=action par touche, 64 au maximum. Doublons et alias du terminal sont des erreurs.
+
+Les actions agissent dans le chat principal et l'invite de commande, pas dans les mots de passe, réglages, collages, lecteurs ou confirmations.
+
+En mode minimal, les lecteurs gardent le brouillon et le curseur. Changer de vue ou d'éditeur exige de finir ou vider le brouillon.
+
+Ni action d'envoi, ni commande arbitraire, shell ou macro. Arrière-plan et quitter gardent leurs effets habituels.
+
+Touches : F1..F12, Ctrl-A..Z, Alt-a..z/0..9 et navigation ; les caractères imprimables restent du texte.
+
+Ctrl-H/Backspace, Ctrl-I/Tab, Ctrl-J/Ctrl-M/Enter et Ctrl-[/Escape partagent des octets ; pas de raccourcis distincts.
+
+Les signaux et raccourcis du terminal/multiplexeur priment. Ctrl-C ou Ctrl-Z n'agit que si l'octet arrive ; aucune touche n'est réattribuée.
+
+Le collage balisé reconnu n'exécute pas de raccourcis. Sans balises, il ressemble à la frappe ; voir /help keys.
+
+/help dcc
+---------
+
+Sans argument, liste les transferts. /dcc NICK PATH propose un fichier sur le serveur sélectionné.
+
+PATH est le texte littéral restant, espaces compris ; il est relatif au répertoire initial du processus.
+
+Le client ne change jamais ce répertoire, même pendant la navigation ou en arrière-plan.
+
+L'envoi court annonce l'IPv4 locale du lien IRC. Derrière NAT, utilisez -address avec votre IPv4 joignable et -port avec le port redirigé.
+
+Aucune recherche d'adresse externe. Un lien IRC uniquement IPv6 nécessite une IPv4 explicitement indiquée.
+
+DCC est une connexion directe non chiffrée. Le pair reçoit votre IP annoncée ; accepter une offre lui révèle aussi votre IP.
+
+Les offres entrantes restent fermées jusqu'à /dcc accept NUMBER. DIRECTORY vise le répertoire initial et doit être privé et vous appartenir.
+
+Les destinations existantes ne sont pas écrasées ; liens symboliques et fichiers spéciaux sont refusés. Le mode test n'ouvre ni fichier ni socket.
+
+Utilisez /dcc reject NUMBER pour refuser ou /dcc cancel NUMBER pour annuler un transfert en cours.
+
+Les numéros de transfert sont communs aux serveurs du processus. Fermer le serveur d'origine annule ses transferts ; couper IRC n'annule pas un transfert accepté.
+
+/help transfers
+---------------
+
+Mêmes commandes et protections que /dcc. Voir /help dcc pour envoyer, recevoir et annuler.

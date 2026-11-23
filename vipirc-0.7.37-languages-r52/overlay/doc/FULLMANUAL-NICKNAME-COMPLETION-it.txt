@@ -1,0 +1,11 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / NICKNAME COMPLETION
+English source SHA-256: 89b368bbd759571d49afe8fccb96d986865af2f76dcd6d257f18cd768bda8e98
+
+COMPLETAMENTO DEI NICKNAME
+
+Tab completa il nickname accanto al cursore della chat. Le successive pressioni di Tab scorrono i nomi corrispondenti in ordine alfabetico secondo le regole sulle maiuscole; Shift-Tab scorre all'indietro. Le corrispondenze seguono le regole di maiuscole/minuscole ASCII, strict RFC1459 o RFC1459 annunciate dal server. Non servono richieste di rete né invii di messaggi. La normale modifica conclude il ciclo di completamento.
+
+All'inizio della bozza viene aggiunto ': '; alla fine di una parola successiva viene aggiunto uno spazio. Se il completamento avviene dentro una bozza, punteggiatura e parole seguenti restano intatte. Canali e URL non sono interpretati come prefissi di nickname. Se un candidato supera il limite in byte o caratteri, tutta la bozza resta invariata. Se supera il limite inferiore del messaggio IRC, compare l'avviso normale; il completamento non invia mai.
+
+In un canale si usa l'elenco corrente degli utenti; in una conversazione privata si usano l'interlocutore e il proprio nickname. Le viste del server e delle menzioni usano gli interlocutori conosciuti dei canali a cui si è uniti e delle conversazioni di quel server. Gli utenti di altri server non sono mai candidati. Le variazioni dell'elenco utenti si applicano al completamento successivo, senza memorizzare un altro elenco.

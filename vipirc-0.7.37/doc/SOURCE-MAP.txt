@@ -1,0 +1,200 @@
+SOURCE MAP FOR CONTRIBUTORS
+===========================
+
+This guide applies to both source archives. Source filenames below are under
+src/ unless a path is given. Start with CONTRIBUTING.md for the workflow and
+tests/README.md for focused checks. Read each module's header before changing
+its callers: return conventions differ, and ownership is part of the interface.
+
+Workspace and object lifetime
+-----------------------------
+
+main.c owns the Client, Background and DccManager for the running process.
+Its frontend replacement loop preserves these owners across an interface
+switch. Frontends borrow them and release their own presentation state.
+Replacement preserves connections and App history, but loses frontend-local
+drafts, command recall and open forms. Ordinary detach/resume in the same
+frontend preserves that local state. Final teardown releases transfers and
+IRC state before background_finish() acknowledges an accepted remote close.
+
+client.c owns eight fixed server slots and lazily allocates an App through
+client_get_app(). The returned pointer is borrowed until that slot closes
+or client_free() runs. app.c owns one connection's protocol state, buffers,
+rosters, output queues, LIST cache and credential operation. app_free()
+releases members; its caller releases the App allocation.
+
+Keep identities distinct: ClientSlot.token identifies a slot incarnation;
+App.connection_id identifies a connection incarnation; Buffer.id identifies
+a conversation. Displayed row numbers and background job numbers are not
+substitutes. Deferred actions must not follow a reused slot or connection.
+
+Net owns its resolver child, transport descriptor and TLS objects. Credential
+jobs own their helper processes and pipes. Background owns its local worker
+transport and lease. Do not add an unrelated waitpid(-1) loop: these modules
+must reap the children they own. Config copies may contain secrets and need
+config_wipe() when their purpose ends. Header comments describe the borrowed
+callback arguments; do not retain them or reenter their owner from callbacks.
+
+Header contracts worth checking first
+------------------------------------
+
+- config.h: config_load() returns 1=loaded, 0=missing, -1=error and overlays
+  caller-provided defaults. config_validate() returns 1/-1, whereas DCC
+  actions in dcc.h return 1/0. A negative error is true in a C condition;
+  test the documented result instead of assuming if (result) means success.
+
+- config.h: config_save() can report a directory-sync failure after replacing
+  the file. config_create() can likewise report a completed publication with
+  a later failure. An error does not universally promise rollback. Preserve
+  the diagnostic and inspect the caller's partial-success handling.
+
+- app.h and idle_commands.h: app_command() and idle_command() return action
+  codes. Their values are not interchangeable: 3 requests channels in the
+  former, but is IDLE_COMMAND_QUIT in the latter. A send-plan result still
+  requires the frontend's review/queueing path. See the translation in
+  idle_commands.c rather than forwarding an integer between interfaces.
+
+- app.h and editor.h: app_buffer() uses SIZE_MAX for unavailable/refused;
+  buffer zero is valid. ed_to_utf8() also uses SIZE_MAX for insufficient
+  capacity, while zero bytes can represent a successfully encoded empty
+  draft. Keep indexes, lengths and error sentinels separate.
+
+- net.h: net_step() returning zero means pending or ready; consult
+  net_state(). net_read() returns zero for EOF and -2 for retry. After a
+  net_write() retry, retain the exact bytes and length until progress or
+  failure. The fd and error text are borrowed and may change on progress.
+
+- credentials.h: a final credential_poll() result does not release its job.
+  Its owner still calls credential_cancel() and wipes copied plaintext.
+  Continue credential_reap() on later turns until cleanup finishes; helper
+  lifetime can outlast cancellation of the user-visible operation.
+
+Four practical call paths
+-------------------------
+
+1. Startup and a poll turn
+
+main() parses process options, loads configuration, initializes Client and
+starts the chosen frontend. idle_run_session() enters the minimalist loop;
+vipirc's full frontend enters ui_run_session(). Both arrange per-server,
+transfer and background progress. In app.c, app_fd(), app_events() and
+app_timeout() describe current readiness and deadlines; app_network()
+advances helpers, connection setup, bounded I/O and timers. Timeout-only
+turns still matter for reconnects and cleanup.
+
+net.c moves through resolution, connecting and TLS setup via net_step().
+Requery its descriptor after progress: the resolver pipe can become a socket.
+An application poll-loop change must preserve descriptor snapshots, bounded
+work per turn and the matching event masks. A blocked TLS write may need
+read readiness; continuously polling for write readiness can busy-loop.
+
+2. A composed message reaches the queue
+
+idle.c converts the editor's logical draft to UTF-8, then routes commands
+through idle_command() or prepares chat with app_plan(). ui.c has its own
+submission routing and uses the same application send interface. app_plan()
+produces a caller-owned SendPlan containing byte ranges and the connection
+identity. Review may retain that plan while other connections keep running.
+
+app_send_plan() rechecks the destination connection and payload budget,
+allocates a complete private chain, then publishes the chain to the queue.
+Success means queued, not delivered. write_output() gives control messages
+priority and paces chat. Once a line becomes inflight, its bytes must remain
+unchanged across TLS retries. Own-message echo follows completed transport
+writes. Keep history privacy filtering and draft-retention behavior when
+changing submission, cancellation or review.
+
+3. Incoming bytes become conversation state
+
+app_network() collects complete IRC frames, rejects invalid framing, and
+calls irc_parse(). Parsing modifies the input buffer; IrcMessage fields
+borrow that storage. incoming_message() scopes server-time and replay
+metadata to one synchronous dispatch. BATCH tracking precedes history
+filtering; replayed messages must not turn historical events into live
+membership or authentication changes.
+
+The authentication privacy filter runs before dispatch, including fallback
+and CTCP paths. Preserve that ordering when adding replies or bouncer
+features. protocol.c provides parsing, validation, sanitizing and splitting;
+syntax acceptance alone does not establish a trusted identity or safe
+terminal text. Display/logging boundaries choose the appropriate sanitized
+representation. sim.c supplies bounded synthetic replies for test mode
+through the same parser, without a real server or credential helper.
+
+4. Detach, resume and remote close
+
+main.c routes --sessions, --resume, --detach-session and --close-session to
+background.c. The local control protocol verifies worker identity and
+leases; a displayed job number may later belong to another worker. Resume
+uses a controller/worker handoff and validated terminal descriptors.
+background_pollfds() and background_process() share a matching descriptor
+snapshot. For an explicit foreground detach, background_prepare() precedes
+terminal restoration, then background_detach() runs. Terminal loss in an
+existing worker differs: curses detaches/redirects descriptors before
+release_terminal() to avoid flushing a dead tty; minimalist mode performs
+bounded restoration first. Attach rebuilds presentation. A frontend
+replacement is distinct from process teardown. Extend the verified protocol
+when changing controls; do not substitute a PID signal for the cooperative
+close acknowledgement.
+
+Where to make a change
+----------------------
+
+- Commands: idle_commands.c has the shared command/help catalog and
+  dispatch; commands.c supplies command metadata, suggestions and history.
+  app_command() implements per-server operations. ui.c owns full-screen
+  actions; dcc_commands.c bridges transfer commands. Update the relevant
+  catalog, handler, privacy classification and documented examples together.
+
+- Configuration: config.h defines the data; config.c supplies defaults,
+  parsing, validation and private persistence. client.c separates primary
+  interface preferences from server profiles. app_config_apply() stages
+  endpoint changes. idle_setup.c merges guided edits into current state;
+  full-only settings.c/guided.c provide additional presentation. Restricted
+  startup command parsing lives in autocommands.c, not a shell interpreter.
+
+- Input and display: editor.c owns logical text/caret operations; nicks.c
+  handles nickname completion. Screen wrapping, history navigation, paste
+  state and redraw ownership belong to idle.c or ui.c. Test byte lengths,
+  logical character positions and terminal cell coordinates separately.
+  User bindings are defined in config.c and dispatched by the frontends.
+
+- Readers: summary.c produces a read-only workspace overview through
+  summary_print(). It does not read saved logs. Catch-up, saved-log paging
+  and their snapshot/index state live in idle.c.
+
+- I/O: net.c owns IRC transport, credentials.c owns bounded helper jobs,
+  dcc.c owns transfers, and background.c owns local session transport.
+  Scheduling belongs to the frontend loops and each module's timeout API.
+
+Full vipirc modules and shared maintenance
+-----------------------------------------
+
+onekeyirc omits these full-interface implementations: ui.c, guided.c,
+settings.c, prompt.c, readpage.c, filepicker.c, transfers.c and manual.c.
+focus.h and license.h are also full-only. The standalone archive retains
+ui.h and manual.h for shared declarations; their presence does not imply
+curses implementations. Makefile.in's SRC and HEADERS lists define each
+build; ONEKEY_ONLY selects the shared code's standalone branches.
+
+Mirror shared source/header changes into both archives. From either root:
+
+    python3 scripts/check_shared.py /path/to/other-source-tree
+
+The checker compares the standalone build's complete shared file list
+byte-for-byte, reports missing members, and never copies or changes files.
+Generated manuals have a separate synchronization workflow described in
+CONTRIBUTING.md. Do not hand-edit generated text to conceal source drift.
+
+For source reuse, modification and redistribution, see `doc/USE-MODIFY-REDISTRIBUTE.txt`.
+
+Localization source map (2026-11-19)
+-----------------------------------
+The ten `i18n/XX.json` files provide user-facing translations. The English
+key inventory is `i18n/en.json`; edit the catalogs rather than generated
+`src/l10n.h`. `tools/generate_localizations.py` updates the static C tables.
+The shared `src/idle_commands.c` renders localized interactive help only
+through its optional display callback; parsers, command catalog identifiers,
+protocol arguments and configuration syntax are never translated.
+`tools/generate_locale_guides.py` derives ten `doc/START-XX.txt` introductions
+from the same entries. Use `make check-l10n` before changing catalogs.

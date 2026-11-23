@@ -1,0 +1,11 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / NICKNAME COMPLETION
+English source SHA-256: 89b368bbd759571d49afe8fccb96d986865af2f76dcd6d257f18cd768bda8e98
+
+AUTOCOMPLETADO DE APODOS
+
+Tab completa el apodo que esté junto al cursor del chat. Las pulsaciones siguientes de Tab recorren los nombres coincidentes en orden alfabético según las reglas de mayúsculas; Shift-Tab retrocede. Las coincidencias usan las reglas ASCII, strict RFC1459 o RFC1459 anunciadas por el servidor. No se consulta la red ni se envía un mensaje. La edición normal termina el ciclo de completado.
+
+Al principio del borrador se añade ': '; al final de una palabra posterior se añade un espacio. Si completa un nombre en medio del borrador, conserva la puntuación y las palabras siguientes. Los canales y las URL no se interpretan como prefijos de apodo. Si un candidato supera el límite de bytes o caracteres, el borrador completo queda intacto. Si supera el presupuesto menor del mensaje IRC, aparece el aviso habitual; completar nunca envía el mensaje.
+
+En un canal se usa la lista actual de miembros; en una consulta privada, el interlocutor y su propio apodo. Las vistas del servidor y menciones usan interlocutores conocidos de los canales unidos y consultas de ese servidor. Nunca se proponen usuarios de otro servidor. Los cambios de miembros afectan al siguiente completado, sin conservar una lista adicional.

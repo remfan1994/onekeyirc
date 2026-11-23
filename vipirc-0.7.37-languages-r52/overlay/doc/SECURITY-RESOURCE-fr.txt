@@ -1,0 +1,32 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / SECURITY AND RESOURCE BOUNDS
+English source SHA-256: 0244a7b43c7e5e46a5b365e081fc7bc6654afe3069aea9e68c0e1d0f46c1277e
+
+SÉCURITÉ ET LIMITES DE RESSOURCES
+
+TLS vérifie la chaîne de certificats et le nom d'hôte ou l'adresse numérique demandés. Il n'existe ni contournement de vérification ni dégradation silencieuse. IRC sans TLS n'est possible que par réglage explicite ; il expose le trafic aux observateurs du trajet et ne peut pas employer de secrets enregistrés. TLS protège la connexion client-serveur, pas la confidentialité du chat de bout en bout.
+
+Au démarrage opérationnel, les identifiants réels et effectifs d'utilisateur ou de groupe divergents sont refusés, et les core dumps désactivés avant lecture de la configuration. Linux désactive également la possibilité de vider la mémoire du processus. Le client est un processus ordinaire sans sandbox système ; un autre processus du même compte se trouve dans sa frontière de confiance.
+
+Les commandes d'authentification privée reconnues exigent un TLS vérifié même si elles sont saisies comme texte normal, réparties sur plusieurs envois ou mises en file. La détection ne reconnaît pas fiablement toute nouvelle syntaxe de secret ; ne placez pas de secrets dans le chat ni dans les arguments du shell.
+
+Les données IRC entrantes ne sont pas fiables. Les séquences de contrôle et formatages dangereux sont neutralisés avant l'affichage. Les tampons d'entrée et réseau sont bornés. Le client n'exécute pas le texte reçu, n'ouvre pas d'URL, ne lance pas de commandes shell, ne charge pas de scripts/plugins et ne répond pas automatiquement à CTCP. Les actions sont affichées comme du texte. Les offres DCC SEND exigent un examen et une acceptation explicites par fichier ; leurs connexions directes ne sont pas chiffrées par TLS.
+
+Limites de cette version :
+
+    Sessions serveur par processus               8
+    Vues par serveur, y compris intégrées       32
+    Utilisateurs conservés par canal          4096
+    Mentions personnalisées par serveur         32
+    Masques d'ignorance par serveur             32
+    Messages en file par serveur                64
+    Commandes mémorisées par serveur            64
+    Texte d'historique de commandes         64 KiB
+    Texte d'historique conservé               8 MiB
+    Scalaires Unicode par brouillon           8192
+    Octets UTF-8 par brouillon                16384
+    Offres DCC en attente, espace global         8
+    Transferts DCC actifs, espace global         4
+    Enregistrements DCC conservés               12
+
+La limite d'historique s'applique par serveur et non à toute la mémoire du processus. Avec huit sessions, le texte d'historique conservé peut atteindre 64 MiB. L'état des serveurs est alloué au besoin ; peu de sessions ne réservent pas huit historiques complets. Bibliothèques, métadonnées des vues, listes d'utilisateurs, entrées et transports consomment davantage de mémoire. L'historique des conversations reste en mémoire seule, sauf si la journalisation persistante facultative est activée. La vue séparée des mentions n'est pas une archive permanente ; les conversations sources admissibles peuvent être journalisées. Réglages, secrets et journaux facultatifs en clair sont des fichiers locaux lisibles par d'autres logiciels disposant des privilèges du même compte. Aucun client ne peut garantir la sécurité face à tout serveur hostile ou terminal, système ou bibliothèque compromis.

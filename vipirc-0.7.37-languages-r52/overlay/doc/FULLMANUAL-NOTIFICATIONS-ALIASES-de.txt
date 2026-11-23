@@ -1,0 +1,11 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / PROGRAM AND QUEUE NOTIFICATIONS, QUERY NUMBERS, AND ALIASES
+English source SHA-256: b62cd0965c386b1810fde3932890e4307baeed004c34a67b0724de33f2178937
+
+/set queue_notices off blendet gewöhnliche Bestätigungen für wartende oder verzögert gesendete Nachrichten in allen Oberflächen und Servern aus; /set queue_notices on stellt sie wieder her. In der minimalistischen Oberfläche entfällt die überflüssige Warteschlangenbestätigung bei explizit geprüften Sendungen auch dann, wenn Hinweise aktiviert sind. Unabhängig davon verbirgt /set program_messages off niedrig priorisierte lokale Rückmeldungen wie Entwurf abgebrochen, Eingabe gelöscht, Entwurf erhalten und ähnliche Erfolgs-/Abbruchmeldungen. Fehler, Bytegrenzen-Warnungen und Sendebestätigungen bleiben sichtbar. Beide Einstellungen sind standardmäßig true. /save output oder /saveconf speichert globale [output]-Einstellungen, die auch unter /panel Application preferences und in grafischen Interface-Einstellungen erscheinen.
+
+/ql nummeriert Privatdialoge gesondert ab 1. /query 2 oder /pm 2 wählt den zweiten; stattdessen kann ein Nickname als Argument dienen. Das Schließen nummeriert spätere Dialoge neu. Das Öffnen sendet keine Nachricht. Kanal 0 zeigt weiterhin Servermeldungen und MOTD.
+
+Häufige exakte Aliase sind /j, /leave, /message, /privmsg, /nickname, /names, /nicks, /conn, /disc, /unaway, /detach, /saveconfig, /configure und /preferences. Es gelten dieselbe Prüfung, Vervollständigung und Datenschutzregeln wie für die ursprünglichen Befehle. Unbekannte Schreibweisen ergeben Fehler statt erratener Aktionen.
+
+Mitgliedschaftsänderungen, MOTD, WHOIS, Einladungen und übliche Fehler erscheinen als lesbare Meldungen mit nützlichen Serverdetails. Interne Identitäts-/Fähigkeitsantworten duplizieren keine Protokollbuchführung im Chat. Unbekannte Antworten behalten den Servertext bei, ohne Zahlencodes als Erklärung auszugeben.

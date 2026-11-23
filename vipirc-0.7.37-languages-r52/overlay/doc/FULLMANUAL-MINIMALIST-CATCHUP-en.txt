@@ -1,0 +1,43 @@
+VERBATIM ENGLISH SOURCE REFERENCE
+Source: MANUAL.txt / MINIMALIST CATCH-UP AFTER RESUME
+English source SHA-256: a802f38661e54d486d4b92dd129ff267d6717b1e6a7568f0cfac1d7f72000e65
+Source lines: 242-280
+
+MINIMALIST CATCH-UP AFTER RESUME
+
+In vipirc -i, /catchup opens the selected channel or query at the first IRC
+line of your most recent locally sent composition. Anchors are separate for
+each server and channel/query; server/status and mentions views have none.
+Select each conversation and run the command separately after resuming.
+
+The reader first tries an eligible private log. Logging must already have
+been enabled when the anchor was sent, remain healthy, and still contain
+that exact anchor record in the same file. Enable it deliberately before the
+absence:
+
+    /set persistent_logging on
+    /save output
+
+The disk reader snapshots the current end instead of importing the whole
+absence into permanent chat memory. Up/Down moves by visual row, Page
+Up/Page Down by page, Home returns to the sent-message anchor, End reaches
+the newest snapshot page, and Escape returns live. New network traffic
+continues without moving the snapshot.
+
+If that disk anchor is unavailable and the sent message is still retained in
+memory, the command opens ordinary retained scrollback at it. In this
+fallback Home reaches the oldest retained page, End or Escape returns live,
+and earlier retained messages can also be browsed. This is the normal memory
+reader, with the normal eviction limits, not a recovered disk archive.
+
+A rotated/replaced log or changed anchor record cannot serve as the original
+disk anchor. The record check detects accidental changes; it does not
+authenticate data against another process under the same account. Sensitive
+authentication traffic is not used as a durable anchor. If neither disk nor
+memory retains an eligible anchor, the command explains the missing history
+instead of claiming a complete catch-up.
+
+The anchor belongs to the running worker. Detach/resume preserves it; a
+fresh process does not reconstruct anchors or automatically reload old
+transcript files. Disk-backed /catchup belongs to the minimalist frontend.
+Full ncurses keeps its bounded in-memory Page Up/Page Down history.

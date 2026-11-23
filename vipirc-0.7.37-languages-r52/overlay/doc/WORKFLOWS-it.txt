@@ -1,0 +1,122 @@
+Guida pratica a vipirc / onekeyirc - Scorciatoie, comandi automatici e trasferimenti DCC
+======================================================
+
+TRADUZIONE PRELIMINARE. Digita comandi e opzioni esattamente come mostrati.
+Per i dettagli di sicurezza, consulta MANUAL.txt e SECURITY.md in inglese.
+
+/help autocommands
+------------------
+
+I comandi appartengono al server selezionato. Si eseguono una volta dopo registrazione e SASL obbligatorio.
+
+L'attesa predefinita è 15 secondi, con almeno 2 secondi tra comandi completati.
+
+Usa delay 0..300 e interval 2..60 per i tempi. Una connessione bloccata non avvia una raffica di recupero.
+
+Comandi consentiti: /msg, /join, /nick, /away, /back e /whois, inclusi gli alias esatti documentati.
+
+Fino a 16 comandi di 511 byte UTF-8 ciascuno. Ogni comando deve stare in un messaggio IRC; non viene mai spezzato di nascosto.
+
+Niente shell, IRC grezzo o espansione della conversazione corrente. Gli accessi automatici non cambiano schermata.
+
+Le modifiche valgono alla prossima connessione. /cancel ferma i comandi iniziali non ancora inviati.
+
+Le liste oscurano testo dei messaggi e chiavi dei canali; i comandi automatici non entrano in cronologia né negli echi locali.
+
+Salva con /save. Il file deve essere privato (0600 o 0400); una lista attiva e non vuota richiede TLS verificato.
+
+La modalità test non esegue comandi automatici. Il loro testo resta letterale nella configurazione, senza cifratura GPG.
+
+/help bind
+----------
+
+Nessun tasto personalizzato è impostato di serie. Vedi /bindings keys e /bindings actions per i nomi ammessi.
+
+La nuova assegnazione sostituisce l'azione di quel tasto su ogni server; le altre restano.
+
+Le scorciatoie agiscono in chat e comandi, non in incolla, password, configurazione, lettori o conferme.
+
+Le modifiche sono immediate, ma serve /save input per conservarle. Senza scorciatoia attiva vale la navigazione normale.
+
+Ammesse solo funzioni locali con nome: niente comandi arbitrari, macro, invio o espansione shell.
+
+I tasti riservati al terminale potrebbero non arrivare all'app; associarli non cambia i segnali del terminale.
+
+/help bindings
+--------------
+
+Senza argomenti mostra le associazioni personalizzate valide per tutta l'app. Lista vuota significa nessuna.
+
+Usa /bind per assegnare o sostituire, /unbind KEY per rimuovere e /unbind all per cancellare tutto.
+
+Sono supportati F1..F12, Ctrl-A..Ctrl-Z, Alt-a..Alt-z, Alt-0..Alt-9 e tasti di navigazione con nome.
+
+Ctrl-H è Backspace, Ctrl-I è Tab, Ctrl-J e Ctrl-M sono Enter e Ctrl-[ è Escape: stesso tasto logico.
+
+Le lettere Alt usano minuscole senza Shift. La ricezione dei tasti funzione/Alt dipende da terminale e multiplexer.
+
+Fino a 64 associazioni KEY=action in [hotkeys] della configurazione principale. /save input salva le modifiche.
+
+Vedi /help hotkeys per ambito, protezione bozze e segnali del terminale.
+
+/help unbind
+------------
+
+Rimuovere un tasto ripristina il suo normale comportamento. all cancella solo la lista personalizzata.
+
+Il cambiamento vale subito su tutti i server. Usa /save input per mantenerlo dopo il riavvio.
+
+/help hotkeys
+-------------
+
+Le associazioni tasti personali sono facoltative e inizialmente vuote. Navigazione ed editor standard restano disponibili.
+
+Usa /bindings per la lista, /bindings keys per i tasti e /bindings actions per le funzioni locali.
+
+Assegna con /bind KEY ACTION; riassegna per sostituire. Rimuovi con /unbind KEY o /unbind all.
+
+Le modifiche valgono subito su tutti i server; /save input le salva nella configurazione principale. Gli altri profili non le sovrascrivono.
+
+Formato: [hotkeys] e una riga KEY=action per tasto, massimo 64. Duplicati, compresi alias del terminale, sono errori.
+
+Le azioni funzionano solo nella chat principale e nel prompt, non in password, configurazione, incolla, lettori o conferme.
+
+Nell'interfaccia minima i lettori conservano bozza e cursore. Un tasto che cambia vista/editor richiede di finire o svuotare la bozza.
+
+Nessuna azione di invio, comandi arbitrari, shell o macro di testo. Background e uscita mantengono i normali effetti.
+
+Disponibili F1..F12, Ctrl-A..Z, Alt-a..z/0..9 e tasti di navigazione; i caratteri stampabili restano testo.
+
+Ctrl-H/Backspace, Ctrl-I/Tab, Ctrl-J/Ctrl-M/Enter e Ctrl-[/Escape condividono gli stessi byte; non sono separabili.
+
+Segnali e scorciatoie di terminale/multiplexer hanno precedenza. Ctrl-C o Ctrl-Z agiscono solo se arrivano; nessun tasto è riassegnato.
+
+L'incolla delimitato riconosciuto non attiva scorciatoie. Senza delimitatori sembra digitazione; vedi /help keys.
+
+/help dcc
+---------
+
+Senza argomenti elenca i trasferimenti. /dcc NICK PATH offre un file sul server selezionato.
+
+PATH è tutto il testo letterale restante, spazi inclusi; è relativo alla directory iniziale del processo.
+
+Il client non cambia mai tale directory, neppure mentre sfoglia file o lavora in background.
+
+La forma breve pubblica l'IPv4 locale della connessione IRC. Dietro NAT usa -address con l'IPv4 raggiungibile e -port con la porta inoltrata.
+
+Nessuna ricerca esterna dell'indirizzo. Una connessione IRC solo IPv6 richiede un IPv4 esplicito.
+
+DCC è una connessione diretta non cifrata. Il peer riceve l'IP annunciato; accettare un'offerta rivela l'IP al peer.
+
+Le offerte in entrata restano chiuse fino a /dcc accept NUMBER. DIRECTORY è la directory iniziale, di tua proprietà e privata.
+
+Non sovrascrive destinazioni esistenti; rifiuta link simbolici e file speciali. Il test offline non apre file o socket.
+
+Usa /dcc reject NUMBER per rifiutare un'offerta o /dcc cancel NUMBER per annullare un trasferimento attivo.
+
+I numeri di trasferimento sono comuni ai server del processo. Chiudere il server d'origine annulla i suoi trasferimenti; disconnettere IRC non annulla quelli accettati.
+
+/help transfers
+---------------
+
+Stessi comandi e protezioni di /dcc. Vedi /help dcc per invio, ricezione e annullamento.

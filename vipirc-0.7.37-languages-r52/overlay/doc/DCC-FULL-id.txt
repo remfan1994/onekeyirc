@@ -1,0 +1,35 @@
+vipirc 0.7.36 - optional r18 translation draft (id)
+Source: MANUAL.txt / FILE TRANSFERS
+English source SHA-256: c3342db1ecfe58933be47c90ee8d60304d29f68f09303a30c005f3061126d611
+Fluent review pending; use English MANUAL.txt for authoritative safety details.
+
+TRANSFER BERKAS
+
+F6, /dcc, atau /transfers membuka daftar transfer untuk seluruh ruang kerja dan menunjukkan server asal setiap transfer. Gunakan navigasi daftar seperti biasa. Tindakannya adalah:
+
+    Accept    Reject    Send...    Cancel transfer    Back
+
+Untuk meninjau transfer diperlukan terminal sekurang-kurangnya 12 baris dan 20 kolom. Escape dari penjelajah berkas atau kolom kembali ke formulir; dari formulir atau daftar kembali ke percakapan, tanpa menghapus draf atau transfer yang sudah diterima. Hanya DCC SEND IPv4 klasik yang aktif yang didukung: tidak ada CHAT, kelanjutan transfer, transfer pasif/terbalik, penerimaan otomatis, pencarian alamat, atau penerusan port. Ukuran berkas maksimum 4,294,967,295 byte. Berkas yang diterima tidak dibuka atau dijalankan secara otomatis.
+
+DCC merupakan koneksi langsung tanpa enkripsi, terpisah dari TLS IRC, dan tidak mempunyai autentikasi rekan secara kriptografis. Tawaran mengungkap IPv4 yang diiklankan; penerimaan mengungkap alamat IP penerima kepada rekan. Periksa pengirim, alamat tujuan, berkas yang dimaksud, dan ukuran byte sebelum menerima setiap tawaran.
+
+Tawaran masuk tidak membuka berkas atau soket sebelum Anda menerimanya secara eksplisit. Accept pada daftar membuka formulir tinjauan berisi Directory/Save as dan Edit/Accept/Cancel. Enter di sebuah kolom hanya menyiapkan nilainya; hanya Accept pada formulir yang memulai transfer. Tempelan hanya menambahkan data ke editor aktif dan tidak dapat menerima tawaran. Reject tidak membuat berkas apa pun.
+
+Dalam antarmuka penuh, direktori penerimaan yang ditawarkan adalah $XDG_DATA_HOME/vipirc/downloads jika jalurnya absolut; jika tidak, $HOME/.local/share/vipirc/downloads apabila HOME absolut. Jika keduanya tidak tersedia, masukkan jalur secara eksplisit. Direktori induk yang belum ada dibuat dengan izin 0700 hanya saat Accept. Direktori induk terakhir harus dimiliki pengguna dan bersifat privat; berkas baru berizin 0600. Berkas yang sudah ada, tautan simbolis, dan '..' ditolak. Nama dasar berkas harus terlihat, tidak tersembunyi, tanpa pemisah jalur, karakter kendali atau format arah teks, maupun tanda kutip. Nama berkas di protokol yang dikutip boleh mengandung spasi. Potongan berkas dari transfer gagal atau dibatalkan hanya dihapus jika masih merupakan berkas asli yang dibuat, tidak pernah berkas pengganti.
+
+Send... membuka kolom Nickname, Source file, Advertised IPv4, dan Listen port, serta Edit/Browse, Offer, Cancel. Percakapan pribadi menyediakan nama rekan bawaan; formulir menunjukkan server IRC terkait. Hanya Offer yang membuka soket pendengar dan mengantre tawaran secara bertahap melalui server yang sudah terdaftar itu. Sumber harus berkas biasa yang sudah ada, tanpa tautan simbolis atau '..'. Port 0 memilih port yang tersedia; port yang disebutkan harus 1..65535. NAT dapat mengharuskan IPv4 iklan yang dapat dijangkau dan penerusan port; tidak ada layanan UPnP atau pencarian alamat publik yang dipanggil.
+
+Browse dimulai dari direktori saat program diluncurkan: panah memilih, Enter masuk direktori atau memilih berkas, parent/Backspace naik satu tingkat, Type path menerima nama berkas absolut, dan Escape membatalkan tanpa mengubah sumber. Pilihan mengisi formulir tanpa menawarkan berkas atau mengubah cwd proses. Setiap putaran memeriksa paling banyak 64 entri; daftar menyimpan 512 entri dan berhenti setelah 4096 diperiksa. Gunakan Type path untuk entri yang tidak muncul. Tautan simbolis dan nama tidak aman diabaikan; metadata diperiksa kembali saat memilih atau menawarkan.
+
+    /dcc alice file.txt
+    /dcc send -address 203.0.113.10 -port 5000 alice file with spaces.txt
+    /dcc list
+    /dcc accept 1 /home/me/private-downloads
+    /dcc reject 2
+    /dcc cancel 3
+
+Ganti IP contoh dengan alamat yang benar-benar dapat dijangkau. PATH dalam perintah adalah seluruh teks sisanya, termasuk spasi, tanpa tanda kutip shell. Jalur relatif mengacu pada cwd saat program diluncurkan, bahkan sesudah program berada di latar atau penjelajah dibuka. IP iklan bawaan adalah IPv4 lokal soket IRC; koneksi IRC yang hanya memakai IPv6 memerlukan penggantian IPv4 secara eksplisit, dan NAT mungkin memerlukannya pula. Perintah accept tanpa DIRECTORY memakai cwd awal dengan pemeriksaan direktori privat yang sama. /dcc tanpa argumen menampilkan daftar dalam antarmuka minimalis. Kedua antarmuka menggunakan pengelola, batas, dan mekanisme pembatalan yang sama.
+
+Saat memakai SSH, semua jalur, alamat, dan koneksi merujuk ke host tempat vipirc berjalan, bukan komputer lokal terminal. Transfer yang diterima terus berjalan ketika percakapan atau tampilan berganti dan ketika IRC terputus. Menutup server asal membatalkan transfernya; keluar dari program menghentikan semuanya. Kegagalan, pembatalan, atau kedaluwarsa menghapus tawaran yang masih dalam antrean, tetapi tidak dapat menarik tawaran yang sudah terkirim atau sedang dikirim.
+
+Batas ruang kerja: 8 tawaran tertunda, 4 transfer yang aktif/mendengarkan/menghubungkan, dan 12 catatan tersimpan. Hanya saat penuh, catatan selesai atau gagal yang paling lama didaur ulang dahulu; ID tidak digunakan kembali selama satu kali program berjalan. Tawaran kedaluwarsa setelah 5 menit; transfer berhenti setelah 2 menit tanpa kemajuan. Aliran data memakai buffer terbatas dan tanda terima kumulatif 32-bit. Mode uji memperbolehkan meninjau, menolak, dan membatalkan contoh dalam memori; Send/Accept ditolak sebelum pekerjaan berkas atau soket dimulai.

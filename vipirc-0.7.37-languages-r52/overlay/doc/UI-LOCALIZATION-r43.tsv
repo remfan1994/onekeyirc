@@ -1,0 +1,20 @@
+client	source	kind	english	fields
+vipirc	src/app.c	named-fields	Decrypting {credential} with GPG.	credential
+vipirc	src/app.c	fixed	server password	
+vipirc	src/app.c	fixed	SASL password	
+vipirc	src/app.c	fixed	Away status confirmed by the server.	
+vipirc	src/app.c	fixed	Away status cleared by the server.	
+vipirc	src/app.c	named-fields	Channel list complete: {received} received, {matched} matched, {cached} cached{note}.	received,matched,cached,note
+vipirc	src/app.c	fixed	 (cache limit reached)	
+vipirc	src/app.c	named-fields	Ignore list shown in the server view.{persistence}	persistence
+vipirc	src/app.c	named-fields	Ignore list cleared.{persistence}	persistence
+vipirc	src/app.c	fixed	 Test session only; /save is disabled.	
+vipirc	src/app.c	fixed	 /save preserves the list.	
+vipirc	src/ui.c	fixed	ACTION              DESCRIPTION	
+vipirc	src/ui.c	fixed	KEY                 ACTION	
+vipirc	src/ui.c	fixed	[OFFLINE] 	
+vipirc	src/settings.c	named-fields	Settings | Server {number}	number
+vipirc	src/ui.c	fixed	Settings contains application preferences and individual server profiles. Up/Down selects a field; Left/Right selects an action; Enter edits or activates it. Apply changes runtime preferences; Save also writes the configuration. Connection changes take effect on a subsequent connection.	
+vipirc	src/ui.c	fixed	Choice popups keep every option reachable on small terminals. Escape closes the popup or returns through the settings screens. Help preserves unsaved settings and the current selection. In a text or password editor, ? remains ordinary input.	
+vipirc	src/ui.c	fixed	The transfer screen lists incoming offers and retained transfer progress. Up/Down selects a transfer or field; Left/Right selects the action; Enter activates it. Accept and Send open forms for review. The file browser can fill a source path before an offer is sent. Escape returns without accepting an offer.	
+vipirc	src/ui.c	fixed	DCC transfers use a direct, unencrypted connection and expose the selected network address to the peer. A received offer alone does not open files or a connection.	

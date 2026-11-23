@@ -1,0 +1,20 @@
+[
+  "Press / on the log to open Command; the opening slash is already inserted. Enter with input focus runs the edited command; Escape cancels it.",
+  "Syntax: /COMMAND ARGUMENTS. Names are case-insensitive; use the shown option words. UPPERCASE words are placeholders, [items] optional, and | means choose an alternative.",
+  "Enter one command at a time. Spaces separate arguments; there is no shell quoting, expansion or chaining. Shell launch options belong outside this editor.",
+  "TEXT and credential PATH use the literal remainder, including spaces. To paste a complete /command, remove the prefilled slash first; pasted newlines become spaces, not separate commands.",
+  "Home/End/Delete/Backspace edit. Tab/Shift-Tab completes command names; Up from input recalls accepted history.",
+  "Down selects suggestions; Enter inserts the selected command for editing. A separate Enter after display executes it.",
+  "Choose Common, Recent history, Most used with this configuration, Alphabetical or Contextual in application Settings.",
+  "Common is a curated useful order. Contextual remembers the actual screen that opened command entry. Other prefix matches remain available.",
+  "? on a selected suggestion opens item and screen help. In the input it remains ordinary text.",
+  "Delete removes a selected recent entry or resets a personal frequency count; it never removes a catalog command.",
+  "Only accepted safe commands enter bounded in-memory history. Password/service commands and keyed joins are excluded.",
+  "A command with unexpected arguments fails without its requested action. Help shows syntax, effects and examples.",
+  "Message commands create a send plan. Send mode and mandatory multi-message confirmation apply before queueing.",
+  "Most commands act on the selected server. /server NUMBER selects another; /server alone selects its MOTD view.",
+  "Use /connect HOST, /join #channel, /query NICK and /saveconf for the normal connection and chat workflow.",
+  "Save accepted settings to keep them after restart. Saved profiles update a private .commands file automatically for usage counts only; it contains no arguments or chat.",
+  "/summary reads all current client state locally; /list [MASK] requests network channels, while /ls and /cl list local views.",
+  "/help ls lists all help topics."
+]

@@ -1,0 +1,13 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / QUERY LIST
+English source SHA-256: 50d842376967fbb5836870d2c2a91cdda08d55297314accffeb37b598776d8c1
+
+ELENCO DELLE CONVERSAZIONI PRIVATE
+
+F4 o /ql (/queries) elenca solo le conversazioni private di questo server, numerate da 1 separatamente dai canali. Si usano i normali controlli degli elenchi e queste azioni:
+
+    Open    New    Close    Back
+
+New apre Command con /pm già predisposto; in un elenco vuoto, Open su New query... fa lo stesso. c chiude e o/n apre New. Chiudere una bozza non vuota richiede conferma, con No come scelta predefinita. /pm NICK|NUMBER o /query NICK|NUMBER apre/seleziona senza inviare, anche se disconnessi. /msg NICK TEXT invia esplicitamente; /close NICK chiude tramite nome.
+
+Escape da una conversazione privata apre Queries con quella conversazione selezionata, comunque sia stata aperta; Escape/Back dall'elenco ripristina conversazione e bozza. Il nome della conversazione resta nella riga della conversazione, senza sostituire una categoria dell'intestazione.

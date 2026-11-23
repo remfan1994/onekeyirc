@@ -1,0 +1,12 @@
+Automatic commands and cancellation
+Source: SECURITY.md, section "Automatic commands and cancellation"
+English section SHA-256: d5949c21fd5a0dc4ef73af2c42931766637e3b4ba398ff7184e64a2ae9a0e305
+Paragraphs: 3
+Status: Translation draft; fluent-speaker security review required
+English SECURITY.md remains authoritative. This is only one section, not the full security document.
+
+Ogni profilo dispone di un massimo di 16 comandi letterali, lunghi ciascuno fino a 511 byte UTF-8. Sono consentite solo operazioni di messaggio, ingresso in un singolo canale, cambio di nick, away/back e WHOIS. Elenchi ed errori nascondono gli argomenti perché il testo può contenere segreti. La connessione conserva un'istantanea fissa dei comandi di avvio. Le modifiche sono preparate per la prossima connessione esplicita; il tentativo automatico mantiene le impostazioni della connessione interrotta. Cambiare identità elimina il testo dei comandi privati ereditati.
+
+L'esecuzione inizia dopo la registrazione e l'eventuale SASL obbligatorio. Il ritardo iniziale è 0..300 secondi; gli intervalli successivi sono 2..60 secondi dopo il completamento della scrittura. È in attesa una sola trama automatica, così un blocco non produce una raffica di recupero. I messaggi automatici devono stare in un'unica trama e non vengono suddivisi né mostrati in eco locale. Un errore interrompe i comandi successivi con una diagnostica indicizzata che oscura i dati sensibili.
+
+/cancel elimina il testo in coda non ancora inviato e le attività automatiche future. Una trama scritta parzialmente o un tentativo TLS ancora in corso deve conservare i propri byte e può completarsi, anche se il tentativo non ha ancora segnalato byte accettati. I byte già inviati non possono essere richiamati. La disconnessione svuota trasporto e code. I nuovi tentativi di away automatico seguono scadenze e cedono a intenzioni manuali, di script o in background più recenti e già accettate.

@@ -1,0 +1,18 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / CUSTOM KEY BINDINGS
+English source SHA-256: 947b11b40b8bb1c3fa32d14bc71aac77bc4ccb1186406a303e6b96d197a6b92d
+Source lines: 782-815
+
+IKATAN KEKUNCI TERSUAI
+
+Tiada kekunci tersuai ditetapkan secara lalai. App > Key bindings atau /bindings membuka jadual dalam vipirc penuh. Add/Edit memilih nama kekunci dan tindakan setempat; Remove membuang baris. Apply menggunakan perubahan dalam ingatan; Save turut menulis konfigurasi utama. Escape/Cancel membatalkan suntingan yang belum digunakan. Draf sembang dikekalkan. Jadual mempunyai kawalan tersendiri yang tidak dipengaruhi ikatan tersuai.
+
+Dalam kedua-dua antaramuka, /bindings keys dan /bindings actions menyenaraikan nama yang tersedia. Contoh pilihan pengguna: /bind F7 summary dan /bind Alt-c command, dimasukkan sebagai arahan berasingan. /unbind F7 membuang satu ikatan, manakala /unbind all mengosongkan jadual tersuai. /save input menyimpan perubahan bagi semua profil pelayan. Dalam mod -i, /bindings memaparkan jadual; /bind dan /unbind menyuntingnya menerusi arahan.
+
+Kekunci yang disokong: F1..F12, Ctrl-A..Z, Alt-a..z/0..9, Up, Down, Left, Right, Home, End, PageUp, PageDown, Insert, Delete, Backspace, Tab, Shift-Tab, Enter, Escape. Alias: Ctrl-H/Backspace, Ctrl-I/Tab, Ctrl-J/Ctrl-M/Enter dan Ctrl-[/Escape. Huruf Alt menggunakan bait huruf kecil terminal. Pintasan yang dipintas oleh terminal atau pemultipleks dan pemetaan isyarat diberi keutamaan; tiada kekunci isyarat ditugaskan semula.
+
+Tindakan yang disokong: compose, command, bindings, help, manual, summary, servers, channels, queries, unread, mentions, transfers, settings, quickstart, next, prev, clearinput, cancel, background, quit. Tiada makro untuk menghantar mesej atau menjalankan arahan sewenang-wenangnya. Dalam mod penuh, arahan yang dipulihkan memerlukan Enter baharu sekali untuk mengakuinya, kemudian Enter kedua selepas jeda untuk menjalankannya. Jika sasaran asal telah ditutup, Run disekat.
+
+Tindakan tersuai hanya berfungsi dalam sembang utama dan masukan arahan, bukan semasa tampalan teks, dalam medan kata laluan, persediaan awal, pembaca atau dialog pengesahan. Tampalan tanpa pembingkaian tetap dianggap taipan. Pembaca pintasan minimalis mengekalkan draf dan kursor; pertukaran sasaran atau penyunting menolak draf yang tidak kosong. clearinput sengaja menghapuskan draf semasa.
+
+Bahagian [hotkeys] konfigurasi utama menyimpan baris KEY=action tanpa baris lalai. Entri tidak dikenali, berganda atau melebihi had menyebabkan keseluruhan muatan ditolak secara atomik. Sehingga 64 entri disokong. Rujuk doc/HOTKEYS.txt untuk penyimpanan, had terminal dan contoh.

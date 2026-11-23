@@ -1,0 +1,60 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / CONNECTION AND STARTUP COMMANDS
+English source SHA-256: 0e846b2d67181dea4d23ed844fc17149aeadd803e429bde3fbbed09330011d9e
+Source lines: 620-699
+
+VERBINDUNGS- UND STARTBEFEHLE
+
+/connect mit Optionen verbindet direkt zu HOST, ohne Argument verwendet es das ausgewählte gespeicherte/angewendete Profil. /server HOST [PORT] nutzt denselben direkten Weg. /server NUMBER wählt ein Profil ohne Verbindung; /server allein öffnet Server/MOTD-Ansicht. /server add HOST [PORT] [NICK] fügt ein getrenntes ungespeichertes Profil hinzu. /server connect NUMBER, /server disconnect NUMBER und /disconnect [NUMBER] steuern nummerierte Verbindungen. /server close NUMBER schließt ein sekundäres Profil, dessen Datei auf der Platte bleibt.
+
+Neue Ziele nutzen verifiziertes TLS auf 6697 und einen gültigen Login-Nickname oder Benutzernamen; weder Zugangsdaten noch Kanäle werden geerbt. Übereinstimmende Ziele behalten Transport, Port, Nick und Authentifizierung und wählen eine bestehende aktive Verbindung statt einer doppelten. Haben Bouncer-Profile denselben Host, zuerst die richtige NUMBER wählen, dann /connect ohne Argument. Verbindungsbefehle speichern nie implizit. Vollmodus-Slots: 0..7 (primär 0); Minimalmodus: 1..8 (primär 1). Verbinden/Trennen ändert die Auswahl nicht. Nummern aus /servers der jeweiligen Oberfläche benutzen, nicht aus der anderen /panel-Auswahl.
+
+/connect-Optionen stehen vor HOST. -ssl ist Alias für -tls; +PORT verlangt TLS, eine gewöhnliche Portzahl schaltet TLS nie aus. --tls, --plain und --nick sind ebenfalls gültig; neue Klartextverbindungen verwenden 6667. Passwörter sind keine Positionsargumente. Close eines sekundären Servers entfernt Katalogbezug, Entwürfe/Verlauf und Transfers, lässt die Profil-Datei jedoch bestehen.
+
+/autoconnect verändert den nächsten Start, nicht die laufende Verbindung. /autojoin merkt Kanäle des direkten Profils für das nächste ausdrückliche /connect vor, ohne jetzt beizutreten/auszutreten; die Abfrage zeigt Registrierung sowie bestehende/ausstehende Mitgliedschaften. Automatische Wiederholungen behalten laufende Einstellungen; /connect im getrennten Zustand übernimmt angewendete Änderungen. /join wirkt direkt nach Registrierung. Bouncer stellen Mitgliedschaften selbst wieder her und verweigern Autojoin-Änderungen; /autoauth-Änderungen sind dort ebenso untersagt, stattdessen Settings oder /panel.
+
+/autoauth merkt SASL ausschließlich über verifiziertes TLS vor. Status zeigt lokal komplette aktuelle/vorgemerkte Zugangsdatenpfade, ohne die Dateien zu lesen; normale Settings-Ausgaben verbergen sie. Abfragen im Vollmodus besitzen Refresh/Back und bewahren Entwürfe. PATH ist der wörtliche Rest einschließlich Leerzeichen. Direkte Geheimnisse gehören in private Konfiguration oder Settings, nicht in Befehle.
+
+/save ohne Argument schreibt das ausgewählte wirksame Profil einschließlich vorgemerkter Einstellungen. /save input und /save output schreiben beide das primäre Profil mit Anwendungsvoreinstellungen; sie sind Aliase, keine getrennten Eingabe-/Ausgabe-Sicherungen. Ausstehende primäre Verbindungsänderungen werden mitgespeichert. /save all schreibt intakte Profile; /saveconf merkt zusätzlich das ausgewählte Standardprofil für späteres /connect. Speichern aktiviert autoconnect nicht. Jede Datei ist privat und atomar geschrieben, aber der Arbeitsbereich ist keine Gesamtransaktion: frühere Erfolge bleiben bei späterem Fehler. Unlesbare Profile werden nicht überschrieben. Test mode speichert nie.
+
+/set autoconnect on|off ist ein Kompatibilitätsalias des Vollmodus. /set ändert Anwendungseinstellungen in beiden Modi; Senden, Eingabeeditor und Ausgabedarstellung betreffen auch den Minimalmodus. /panel öffnet geführte Einstellungen in beiden; /quickstart fragt vier Verbindungsgrunddaten ab. /settings öffnet Formulare im Vollmodus, einen Bericht im Minimalmodus.
+
+/list [MASK] [OPTIONS] fordert nach Registrierung das Kanalverzeichnis des Netzwerks an. Nur MASK gelangt zum Server; --min-users/--max-users, --name und --topic filtern lokal. --sort channel|users|topic, --asc/--desc und --limit N steuern die Anzeige; Standard ist Nutzerzahl absteigend, --limit 0 hebt die Anzeigegrenze innerhalb des Caches mit 8192 Einträgen auf. /list show kann Sortierung/Richtung/Grenze ohne neue Anfrage ändern; /list clear leert den Cache. /ls und /cl listen lediglich lokale Ansichten.
+
+Bei Trennung oder ausdrücklicher LIST-Ablehnung bleiben Teilresultate im Cache, die Anfrage wird jedoch freigegeben. /list nach Registrierung wiederholen oder mit /list clear leeren; unvollständige Daten sind kein vollständiges Kanalverzeichnis.
+
+Der Vollmodus-Browser verwendet Up/Down oder j/k für Zeilen, Left/Right oder h/l für Sortierspalten, s zum Umkehren, Page Up/Page Down und g/G zum Navigieren, Enter für Join, r für erneute Anfrage, / für Command, Escape zum Zurückkehren. Ein Klick auf eine Spalte sortiert. Im Minimalmodus gibt /list show den Cache aus; /summary zeigt einen getrennten lokalen Arbeitsbereichsüberblick.
+
+EXACT COMMAND SYNTAX (not translated):
+
+    /connect [-tls|-plain] [-nick NICK] HOST [PORT]
+    /connect
+    /server HOST [PORT]
+    /server NUMBER
+    /server
+    /server add HOST [PORT] [NICK]
+    /server connect NUMBER
+    /server disconnect NUMBER
+    /disconnect [NUMBER]
+    /server close NUMBER
+
+    /autoconnect [on|off]
+    /autojoin [list|add #CHANNEL|remove #CHANNEL|clear]
+    /autoauth [status|off|sasl USER file PATH|sasl USER gpg PATH]
+    /save [input|output|all]
+    /saveconf
+    /set autoconnect on|off
+    /panel
+    /quickstart
+    /settings
+
+    /list [MASK] [OPTIONS]
+    /list show
+    /list clear
+    /ls
+    /cl
+    /summary
+
+    -ssl   -tls   +PORT   --tls   --plain   --nick
+    --min-users   --max-users   --name   --topic
+    --sort channel|users|topic   --asc   --desc   --limit N

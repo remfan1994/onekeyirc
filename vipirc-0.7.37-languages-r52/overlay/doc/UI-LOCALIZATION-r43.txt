@@ -1,0 +1,19 @@
+OPTIONAL LANGUAGE PATCH r43 - vipirc-0.7.37
+
+English source r1 remains unchanged; r43 applies only to a clean r1 tree.
+New display-only catalog entries in all ten locales: 19.
+All new messages are connected to runtime source paths; no protocol or
+configuration key names were translated. Named fields are rendered through
+the bounded literal formatter, with English fallback and overflow rejection.
+
+Notable changes:
+- vipirc: GPG credential-type notice, away confirmation, channel-list counts,
+  ignored-user list persistence, Settings and DCC help, bindings headings,
+  and offline Settings titles.
+- onekeyirc: response-reader navigation instructions and watch-log selection.
+- A separate review list classifies prior heuristic candidates; it does not
+  claim that all remaining user-visible text is translated.
+
+The full vipirc ncurses UI must still be compiled and exercised on a system
+with wide-character curses development headers. Native-speaker review and
+real-terminal RTL evaluation also remain outstanding.

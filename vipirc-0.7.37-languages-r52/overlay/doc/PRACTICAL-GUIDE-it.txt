@@ -1,0 +1,213 @@
+Guida pratica a vipirc / onekeyirc
+==================================
+
+TRADUZIONE PRELIMINARE. Digita comandi e opzioni esattamente come mostrati.
+Per i dettagli di sicurezza, consulta MANUAL.txt e SECURITY.md in inglese.
+
+/help startup
+-------------
+
+Avvia il programma, chiudi la schermata iniziale, poi digita /connect irc.example.org e /join #channel.
+
+Non serve creare prima un profilo server, un alias o un numero. /server HOST è un alias per la connessione diretta.
+
+Senza nickname viene usato un nome di accesso valido del sistema, altrimenti user. Non viene richiesto un nickname.
+
+Usa /saveconf per salvare configurazione e predefinito scelto. Al prossimo avvio, /connect li riutilizza.
+
+Salvare non abilita la connessione automatica: va scelta a parte. /quickstart e /panel sono guide facoltative.
+
+Funzionano anche le opzioni shell: --server HOST, --channel '#CHANNEL' e --nick NICK. Racchiudi #CHANNEL tra apici.
+
+All'avvio normale, --nick, --port, --channel, --tls, --plain e --ca-file sostituiscono i valori predefiniti salvati.
+
+Un --server esplicito sceglie la prima connessione. --init-config e --check-config usano il file di configurazione principale.
+
+Cambiare --server verso un altro host elimina credenziali vecchie, CA personalizzata, identità bouncer, canali e comandi iniziali.
+
+Se il predefinito salvato non è disponibile, usa --server o correggilo prima di cambiare le opzioni di connessione.
+
+Autoconnect, autojoin e autoauth appartengono a ogni profilo server salvato. Vedi /help autoconnect per l'opzione.
+
+--no-connect impedisce connessioni iniziali; --test-mode simula attività senza rete o scrittura della configurazione.
+
+--sessions elenca i processi collegati e scollegati dal terminale. --resume [NUMBER] ricollega; vedi /help background.
+
+--close-session NUMBER chiude l'intero processo e tutte le sue connessioni IRC dopo conferma. NUMBER è un ID processo, non un PID.
+
+Dopo la perdita del terminale, usa --sessions, poi --detach-session NUMBER e --resume NUMBER. Il worker mantiene il vecchio codice fino al riavvio; vedi /help sessions.
+
+-h/--help e -v/--version funzionano senza terminale.
+
+/help messages
+--------------
+
+Usa /join #channel per entrare e selezionare un canale, o /query NICK per aprire una conversazione privata.
+
+Seleziona un canale conservato con /channel. /msg TARGET TEXT invia a un destinatario, /me TEXT invia un'azione.
+
+/query apre una conversazione senza inviare; /pm è un alias. /ql separa le conversazioni private dai canali.
+
+L'invio diretto è predefinito; /set send_mode review aggiunge una revisione. /set composer_mode line|fullscreen cambia la vista.
+
+Al limite di un messaggio, conferma per continuare a scrivere; suddividerlo richiede un altro consenso.
+
+L'ingresso e l'autenticazione devono terminare prima di mettere messaggi in coda. /cancel annulla la coda, non ciò che è già inviato.
+
+/help limits
+------------
+
+I limiti IRC sono in byte, non in caratteri visibili. Un carattere UTF-8 può occupare più byte.
+
+Il client calcola lo spazio includendo destinatario, comando e inoltro; non divide mai un carattere UTF-8.
+
+Al limite di un messaggio, altro testo è bloccato finché Enter conferma la modifica; quell'Enter non invia.
+
+Un messaggio diviso richiede consenso separato anche in modo diretto. La chat invia una riga ogni 1.2 secondi.
+
+Un invio contiene al massimo 64 messaggi e 16384 byte di testo. Accorcia il testo o invialo separatamente.
+
+Ci sono al massimo 8 spazi server e 32 viste per server, incluse quelle riservate.
+
+/help quickstart
+----------------
+
+Modifica server, trasporto TLS, porta e nick del profilo attuale nell'ordine indicato, poi rivedi le impostazioni.
+
+TLS verificato e predefinito. Una connessione in chiaro va selezionata esplicitamente.
+
+Enter mantiene il valore mostrato. Escape torna indietro una domanda; ripetilo per uscire senza applicare. Le risposte non entrano nella cronologia dei comandi.
+
+Alla verifica finale scegli 1 Salva e connetti, 2 Solo salva, 3 Connetti una volta (predefinito), 4 Solo applica.
+
+Aprire la procedura guidata e rispondere alle domande non applica impostazioni, salva file o connette.
+
+Connetti una volta applica senza salvare; Solo applica non salva né connette. Una connessione attiva non cambia mai destinazione o si riconnette implicitamente.
+
+Una connessione fallita non annulla le modifiche già applicate o salvate dall'azione finale.
+
+Usa /panel per profili bouncer e opzioni ulteriori. Quickstart non modifica un accesso bouncer esistente.
+
+/help save
+----------
+
+/save senza argomenti salva le impostazioni effettive del server selezionato, incluse modifiche di connessione in sospeso.
+
+/save input e /save output salvano entrambi il profilo principale completo, preferenze e connessione preparata. Non salvano solo la sezione indicata.
+
+/save all salva ciascun profilo valido separatamente. Se uno fallisce, i precedenti restano salvati e gli errori vengono segnalati.
+
+Ogni sostituzione di file e privata e atomica, ma non e una transazione unica fra file. La modalità test non scrive configurazioni.
+
+/help documentation
+-------------------
+
+Trova un argomento con /help ls; /help commands spiega l'inserimento e elenca i comandi disponibili. Usa un argomento o comando per volta.
+
+/help COMMAND mostra sintassi, effetti ed esempi. /help /ls spiega l'elenco locale; /help ls elenca gli argomenti.
+
+/help all oppure /manual apre questo riferimento. --help descrive le opzioni di avvio; l'output minimalista di --manual può essere reindirizzato a un file.
+
+README.md orienta fra i documenti; MANUAL.txt descrive l'interfaccia e INSTALL la compilazione. La pagina man installata spiega l'uso dalla shell.
+
+CONTRIBUTING.md tratta le modifiche; doc/SOURCE-MAP.txt individua il codice; tests/README.md elenca i test. DESIGN.md documenta proprietà e ordine.
+
+doc/TROUBLESHOOTING.txt aiuta per sintomo. SECURITY.md indica le minacce; doc/BOUNCERS.txt e doc/SESSION-CONTROLS.txt descrivono le operazioni. Gli audit valgono solo per versioni e ambienti dichiarati.
+
+/help security
+--------------
+
+Il testo remoto è filtrato prima del terminale. L'input è interpretato come comandi IRC locali, mai come comandi shell.
+
+Non esistono /raw, accesso shell o accettazione automatica dei file. L'incolla delimitato riconosciuto non esegue comandi.
+
+TLS verifica l'identità del server. SASL, PASS e i comandi privati di autenticazione richiedono TLS verificato. Aggiorna la libreria TLS di sistema; vedi SECURITY.md.
+
+Un bundle CA personale dev'essere un normale file PEM non vuoto, massimo 16 MiB; non chiede password.
+
+Le password configurate non appaiono nella guida o nelle impostazioni. I comandi di credenziali riconosciuti non tornano nella cronologia; segreti scritti come testo normale possono restare memorizzati.
+
+Nessun registro di conversazione su disco per impostazione predefinita. Le modifiche richiedono un salvataggio esplicito.
+
+Altri processi dello stesso account, il server IRC o bouncer e un terminale o sistema compromesso sono fuori da queste protezioni. TLS non cifra la chat da capo a capo.
+
+Log facoltativi e segreti inseriti nella configurazione sono in chiaro. I comandi sensibili noti vengono filtrati, ma i segreti nei messaggi normali non sempre sono riconoscibili.
+
+Vedi /help tls, /help authentication, /help logging e SECURITY.md per limiti e revisioni precedenti.
+
+/help sessions
+--------------
+
+Un lavoro e un processo client con server, trasferimenti, bozze e cronologia. Il numero del server nell'app non e un ID di lavoro della shell.
+
+Nella shell esegui --sessions. Controlla se il job è collegato/staccato e usa il suo ID, non il PID.
+
+Se il vecchio terminale SSH controlla il job, usa --detach-session NUMBER e poi --resume NUMBER. IRC resta attivo.
+
+--resume senza numero riprende solo un lavoro scollegato verificato. Con più lavori serve un numero; quello collegato e occupato finche non si scollega. I numeri possono essere riutilizzati.
+
+Usa --close-session NUMBER solo per chiudere tutto il lavoro. Chiude IRC e trasferimenti; perdi bozze e cronologia RAM, ma configurazioni e log restano.
+
+La chiusura riesce solo dopo pulizia verificata. Se scade, ricontrolla --sessions: può terminare dopo. Un errore non elimina un endpoint attivo né invia segnali a un PID ipotizzato.
+
+Solo un lavoro gestito sopravvive alla perdita del terminale. Un normale processo in primo piano non diventa ripristinabile perdendo SSH. Avvia con --background o usa /background prima.
+
+Un lavoro appartiene allo stesso account Unix e host; un solo terminale alla volta può collegarsi. Altri programmi dell'account rientrano nel perimetro di fiducia.
+
+Installare un eseguibile non cambia il codice del processo in esecuzione. Salva la configurazione, chiudi il vecchio, verifica --version e avviane uno nuovo.
+
+Un processo precedente può mancare di controlli recenti o cambio d'interfaccia. Conserva l'eseguibile compatibile finche non viene arrestato, se serve per ricollegarti.
+
+Il client non modifica la scadenza per inattivita SSH. Vedi /help background, /help deployment e doc/SESSION-CONTROLS.txt.
+
+/help troubleshooting
+---------------------
+
+Occupato dopo caduta SSH? Usa --sessions, controlla il job, poi --detach-session NUMBER e --resume NUMBER. Evita --close-session. See /help sessions.
+
+Up non richiama testo: Compose modifica messaggi; Command richiama comandi accettati. Apri Command con / dal registro. Chat inviate e comandi sensibili non sono nella cronologia richiamabile.
+
+Se un messaggio a capo pare troncato: la vista riserva righe all'editor e mostra le più recenti. Esci dall'editor o riseleziona il canale; le righe visibili non provano la consegna remota.
+
+Se cambiando canale compare il testo intero, e una differenza di visualizzazione. Se persiste, annota interfaccia, modalità, dimensioni, locale e passaggi depurati senza password o chat private.
+
+Nessun canale? Controlla vista server e autenticazione. Profilo diretto: /autojoin list; bouncer: /join o /part.
+
+Autenticazione fallita? Controlla account, fonte, permessi, TLS e agente GPG. /autoauth status non legge segreti.
+
+Recupero non disponibile: il riferimento può essere scaduto, il log avviato dopo o fermato, o il file cambiato. Vedi /help catchup e /help logging; i log non ricreano un processo terminato.
+
+Modifica ignorata? Serve /connect dopo la disconnessione. Salvare non abilita autoconnect; opzioni iniziali richiedono riavvio.
+
+Se fallisce l'avvio di processi ausiliari, correggi la gestione SIGCHLD o la raccolta automatica dei figli nel programma di avvio, per permetterne l'attesa.
+
+Usa --check-config e doc/TROUBLESHOOTING.txt. --test-mode prova solo l'interfaccia, non DNS, TLS, credenziali o bouncer reale.
+
+/help bouncers
+--------------
+
+Apri /panel, scegli un server e il tipo di connessione znc o soju.
+
+Inserire host e porta TLS del bouncer, utente bouncer, rete upstream esistente e nome client stabile facoltativo.
+
+Salva un profilo per rete a monte. Se vari profili usano lo stesso host, seleziona quello giusto prima di /connect senza argomenti.
+
+Il client compone l'identità. ZNC usa la sorgente della password server; soju quella di autenticazione. Inserisci solo la password del bouncer, non un login combinato né una password NickServ.
+
+Il bouncer ripristina i canali. /autojoin locale non viene ripetuto e non si può modificare; usa /join e /part.
+
+I comandi di avvio espliciti vengono eseguiti comunque. Controllarli prima di attivare il profilo per evitare join o comandi di servizio ripetuti.
+
+L'away automatico per inattività/background è spento salvo abilitazione nel profilo bouncer. /away e /back manuali funzionano.
+
+La cronologia ricevuta usa orari UTC originali, indirizza i privati al destinatario e non crea menzioni, esegue CTCP/DCC o modifica lo stato attivo.
+
+La cronologia è limitata. Non sono previsti ricerca archivi su richiesta, rilevamento automatico reti o profili per ogni rete.
+
+Usa /znc o /soju senza argomenti per la guida del servizio. I controlli non entrano in cronologia o eco; le risposte appaiono nella vista server senza log persistente.
+
+Le copie riconosciute dei controlli in uscita sono nascoste anche in replay con vecchio nick. Il testo digitato può apparire e il bouncer applica le proprie regole di log.
+
+Il client si collega solo al bouncer. Configura a parte TLS, autenticazione e conservazione a monte.
+
+Consultare doc/BOUNCERS.txt e gli esempi in examples/ per impostazione e limiti delle verifiche effettuate.

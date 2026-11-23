@@ -1,0 +1,10 @@
+PANDUAN KEAMANAN SINGKAT: LOKALISASI DAN RTL ARAB
+
+1. Periksa SHA-256 untuk sumber Inggris asli dan patch bahasa+RTL sebelum memasangnya. Patch berisi kode C yang dapat dijalankan, bukan hanya terjemahan.
+2. Terapkan patch hanya ke sumber r1 asli sebelum configure atau make. Jangan menumpuk patch. Jika ditolak, gunakan sumber baru.
+3. Pesan, nama pengguna, topik, dan nama berkas IRC tidak tepercaya. Penyaringan tampilan mengganti karakter kontrol terminal, arah Unicode, dan anotasi berbahaya; ini tidak mengautentikasi pengirim atau mencegah nama mirip Unicode.
+4. Mode visual Arab ditujukan untuk terminal UTF-8 tanpa dukungan pembentukan huruf dan arah Arab. Diperlukan pustaka FriBidi. Jika gagal, teks tetap dalam urutan logis.
+5. Tampilan RTL tidak mengubah perintah IRC, pesan terkirim, atau catatan tersimpan: semuanya tetap UTF-8 logis. Arah tampilan bukan bukti identitas.
+6. Jangan ketik kredensial di chat, bagikan log rahasia dalam laporan masalah, atau memercayai perintah dan URL hanya dari penampilan RTL. Periksa perintah serta alamat sebenarnya.
+7. --check-config tidak memeriksa server jauh, sesi TLS, atau kata sandi. Baca SECURITY.md untuk model ancaman lengkap; panduan ini bukan terjemahannya.
+8. Nonaktifkan RTL visual jika terminal sudah mendukung teks dua arah atau hasil tampilan berbeda dari teks sumber.

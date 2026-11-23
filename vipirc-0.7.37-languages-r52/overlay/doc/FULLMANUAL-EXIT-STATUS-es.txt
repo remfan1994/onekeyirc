@@ -1,0 +1,13 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / EXIT STATUS
+English source SHA-256: a4feff37ea5665514327eb0e9d3930712772f4ff6cf26bdcefb48492f71f9923
+
+CÓDIGOS DE SALIDA
+
+0     Terminación normal o salida interactiva.
+1     Fallo operativo, por ejemplo en el inicio, guardado o control de sesión.
+2     Opciones/configuración incorrectas o falta de terminal para el modo interactivo.
+130   SIGINT interrumpió la bienvenida después de limpiar la terminal.
+131   SIGQUIT interrumpió la bienvenida después de limpiar la terminal.
+
+Un estado satisfactorio de --background confirma la preparación del proceso local, no el inicio de sesión IRC remoto. Un fallo al cerrar una sesión significa que no se verificó su finalización; consulte de nuevo --sessions, porque una solicitud aceptada podría terminar después.

@@ -1,0 +1,11 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / NICKNAME COMPLETION
+English source SHA-256: 89b368bbd759571d49afe8fccb96d986865af2f76dcd6d257f18cd768bda8e98
+
+PELENGKAPAN NAMA PANGGILAN
+
+Tab melengkapi token nama panggilan di dekat kursor chat. Penekanan Tab berikutnya memutar nama yang cocok dalam urutan alfabet sesuai aturan besar-kecil huruf; Shift-Tab bergerak mundur. Pencocokan mengikuti aturan ASCII, strict RFC1459, atau RFC1459 yang diumumkan server. Tidak diperlukan pencarian jaringan maupun pengiriman pesan. Penyuntingan biasa mengakhiri siklus pelengkapan.
+
+Di awal draf, pelengkapan menambahkan ': '; di akhir kata setelah kata pertama, pelengkapan menambahkan spasi. Jika nama dilengkapi di tengah draf, tanda baca dan kata sesudahnya tetap utuh. Kanal dan URL tidak dianggap awalan nama panggilan. Jika kandidat melebihi batas byte atau karakter, seluruh draf dibiarkan utuh. Jika melewati batas pesan IRC yang lebih kecil, muncul peringatan seperti biasa; pelengkapan tidak pernah mengirim pesan.
+
+Dalam kanal, kandidat berasal dari daftar anggota saat ini. Dalam percakapan pribadi, kandidatnya adalah lawan bicara dan nama Anda sendiri. Tampilan server dan sebutan memakai lawan bicara yang dikenal dari kanal yang diikuti serta daftar percakapan pribadi server itu. Pengguna dari server lain tidak pernah menjadi kandidat. Perubahan anggota berlaku pada pelengkapan berikutnya, tanpa menyimpan daftar pengguna tambahan.

@@ -1,0 +1,11 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / PROGRAM AND QUEUE NOTIFICATIONS, QUERY NUMBERS, AND ALIASES
+English source SHA-256: b62cd0965c386b1810fde3932890e4307baeed004c34a67b0724de33f2178937
+
+/set queue_notices off tüm arayuz ve sunucularda siraya alınma veya aralikli gönderme onaylarini gizler; /set queue_notices on yeniden gösterir. Minimalist arayüzde açıkca incelenip onaylanan gönderimler, kuyruk bildirimleri açık olsa bile gereksiz standart onayi göstermez. Ayrı olarak /set program_messages off, taslak iptali, giriş temizlenmesi, taslağın korunmasi ve benzeri basari/iptal bildirimleri gibi dusuk öncelikli yerel yanıtlari gizler. Hatalar, bayt sınıri uyarilari ve gönderim onaylari görünmeye devam eder. İki seçenek de varsayılan olarak true'dur. /save output veya /saveconf genel [output] ayarlarini kaydeder; aynı ayarlar /panel Application preferences ve grafik Interface ayarlarindadir.
+
+/ql özel görüşmeleri 1'den baslayarak ayrı numaralar. /query 2 veya /pm 2 ikinci görüşmeyi seçer; aynı parametreye takma ad da yazılabilir. Bir görüşme kapandiginda sonrakiler yeniden numaralanir. Görüşmeyi açmak ileti göndermez. Kanal 0 yine sunucu iletilerini ve MOTD'yi acar.
+
+Yaygin birebir takma komutlar /j, /leave, /message, /privmsg, /nickname, /names, /nicks, /conn, /disc, /unaway, /detach, /saveconfig, /configure ve /preferences'dir. Aynı komut doğrulamasi, tamamlama ve gizlilik kurallarina tabidirlar. Bilinmeyen yazımlar tahmini işlem yerine hata verir.
+
+Üyelik değişiklikleri, MOTD, WHOIS, davetler ve yaygin hatalar, sunucu ayrıntilarini içeren okunabilir iletilerle gösterilir. Dahili kimlik/yetenek yanıtlari sohbet ekranına yinelenen protokol kayıtlari eklemez. Tanınmayan yanıtlar, sayısal kodu açıklama saymadan sunucunun metnini korur.

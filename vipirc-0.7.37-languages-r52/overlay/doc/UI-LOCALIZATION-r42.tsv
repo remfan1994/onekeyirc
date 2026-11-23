@@ -1,0 +1,21 @@
+source	kind	fields	english
+src/ui.c	fixed		Auto-join settings
+src/ui.c	fixed		Authentication settings
+src/ui.c	fixed		Update the displayed local resource snapshot. This does not request network information.
+src/ui.c	fixed		Return to the screen that opened this snapshot, keeping its selection and draft.
+src/ui.c	fixed		Use Up/Down to select an item and Enter to activate it. Escape returns to the previous screen. Press ? on a selected control to read its help. Question marks remain text inside editors.
+src/ui.c	fixed		Servers lists every current server session. Up/Down chooses a server; Left/Right chooses an action; Enter activates that action. Open selects its channel 0, which shows server notices, /list results and connection replies. The server list and /list are different: /list requests channel names from the selected network.
+src/ui.c	fixed		The network channel directory is built from IRC LIST replies. Up/Down selects a channel; Left/Right selects Channel, Users or Topic sorting; S toggles ascending/descending; Enter joins; R refreshes; / opens the command prompt; Escape returns. /list options provide minimum/maximum users, name/topic filtering and a display limit.
+src/ui.c	fixed		Activity brings together retained mentions and unread source conversations across all servers. Up/Down selects an entry; Enter opens its source. Clear mentions removes copied mention records while preserving source histories and unread counters. Mentions can overlap unread messages, so their counts are separate.
+src/app.c	named-fields	error	OFFLINE TEST MODE stopped: {error}
+src/app.c	named-fields	limit	Ignore limit is {limit} masks; remove one before adding another.
+src/app.c	named-fields	command	Usage: /{command} nickname|query-number
+src/ui.c	named-fields	number	Closing server {number}.
+src/settings.c	fixed		Config:
+src/ui.c	named-fields	key	Choose action for {key}
+src/ui.c	named-fields	count,limit	Custom bindings: {count} / {limit} (none installed by default)
+src/ui.c	named-fields	item	Help: {item}
+src/ui.c	named-fields	screen	About the {screen}: use the selectable link above.
+src/settings.c	fixed		Settings | Interface
+src/settings.c	fixed		Settings | Configuration
+src/ui.c	fixed		Channel 0 (server)

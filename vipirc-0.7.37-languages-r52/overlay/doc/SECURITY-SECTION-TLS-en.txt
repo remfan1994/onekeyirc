@@ -1,0 +1,18 @@
+TLS, credentials and endpoint identity
+Source: SECURITY.md, section "TLS, credentials and endpoint identity"
+English section SHA-256: 4ea410d65b0d7a489076cfd9898b5769f21e9e2f4fec63f7df8340f68bb5de45
+Paragraphs: 6
+Status: Verbatim English reference
+English SECURITY.md remains authoritative. This is only one section, not the full security document.
+
+TLS requires version 1.2 or later and verifies the certificate chain and selected hostname. Configured SASL, server PASS and enabled nonempty automatic-command lists require verified TLS. There is no silent plaintext fallback. Encryption of a password on disk does not enable transport encryption. IRC TLS protects the connection to the selected server or bouncer; it is not end-to-end message encryption.
+
+Maintain the linked TLS library as well as this source. The review host used OpenSSL 3.5.7; OpenSSL documents CVE-2026-35189, certificate-related memory growth during ordinary TLS processing, fixed in 3.5.9 in that branch. This source release does not patch that external library. Check the deployment vendor's version/backports and current security updates: https://openssl-library.org/news/secadv/20260929.txt
+
+An empty ca_file selects the system trust store. A custom CA bundle is a trusted local PEM file: the loader opens it once, checks the opened regular file, reads its bounded contents and parses that copy without prompting for a password. It rejects empty files, files larger than 16 MiB, nonregular sources and detected size changes. Certificate/AUX trust and CRL entries are preserved. CA paths may resolve through symlinks because these are explicitly selected public trust material, unlike private configuration/credential paths. Selecting a different CA changes which issuers the client trusts. The loader is synchronous; regular-file I/O can still stall on slow storage.
+
+Each credential selects exactly one source: a private plaintext file, a private GPG-encrypted file, or an explicit inline value. SASL and server PASS sources are separate. A different --server hostname clears inherited authentication, CA selection, bouncer identity, channels and startup commands. A same-host override, port change or nickname change does not provide that reset. Review the selected profile before connecting to a new service.
+
+Direct SASL PLAIN requires its configured account. soju derives the SASL identity from bouncer fields. Negotiation uses the final advertised SASL mechanism declaration, waits for acknowledgement/challenge, and only then reads the credential. A required authentication failure does not become an unauthenticated registration. ZNC uses its server PASS source instead.
+
+Recognized private authentication commands entered manually also require verified TLS. Validation applies to logical lines and all planned chunks and is repeated at send time. Recognized private forms are omitted from command recall and persistent transcript logging. Their live terminal representation can still contain the entered text. Recognition covers common service verbs, not arbitrary secrets in prose or every third-party service protocol.

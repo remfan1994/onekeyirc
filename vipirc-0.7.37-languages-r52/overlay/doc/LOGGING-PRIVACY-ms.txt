@@ -1,0 +1,23 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / HISTORY, LOGGING AND PRIVACY
+English source SHA-256: b0c065ed46b6cbb73666075f1eee2d050a5a82160fac0ddadd98ad80d2910ee3
+
+SEJARAH, PENGLOGAN DAN PRIVASI
+
+Terdapat beberapa jenis sejarah yang berbeza:
+
+    Rekod perbualan/sebutan: memori terhad untuk paparan.
+    Panggilan semula arahan: baris arahan diterima dalam memori, dengan penapisan rahsia.
+    Kekerapan arahan: nama dan bilangan kanonik dalam CONFIG_PATH.commands.
+    Transkrip pilihan: rekod teks biasa dalam fail .log bagi setiap profil disimpan.
+    Main semula bouncer: mesej yang dibekalkan bouncer mengikut dasarnya.
+
+Detach/resume mengekalkan memori sesi yang sedang berjalan. /quit, --close-session, kegagalan proses atau but semula menamatkannya. Proses baharu memuatkan konfigurasi dan, jika ada, bilangan arahan tersimpan; ia tidak mengimport fail transkrip lama sebagai sejarah perbualan aktif atau membina semula penanda catch-up terdahulu. /clear mengosongkan memori paparan semasa tanpa memadam transkrip cakera atau menarik balik mesej IRC.
+
+Aktifkan transkrip melalui /set persistent_logging on dan simpannya dengan /save output, atau pilih Settings > Interface > Persistent logging. Secara lalai ini dimatikan, terpakai merentas pelayan dan mempunyai fail berasingan bagi setiap profil disimpan. Semua pemeriksaan privasi laluan dan fail di bawah CONFIGURATION masih terpakai.
+
+Setiap log berhenti pada 16 MiB; tiada putaran atau pemadaman automatik. Laluan tidak selamat, kunci fail sibuk atau kegagalan menulis mematikan penglogan bagi profil berkenaan dengan ralat sementara sembang berterusan. Arkibkan fail lama, kemudian matikan dan hidupkan semula penglogan. Putaran boleh membatalkan penanda catch-up lama; hantar mesej baharu yang layak sebelum bergantung pada catch-up tahan lama ketika ketiadaan berikutnya.
+
+Mesej kelayakan/perkhidmatan yang diketahui dan salinan sensitif dengan nama samaran semasa atau lama dikecualikan, termasuk sasaran perkhidmatan berkelayakan. Sembang biasa, sintaks perkhidmatan tidak dikenali atau rahsia yang ditampal secara manual masih boleh masuk ke log; perkhidmatan jauh juga mungkin menyimpan salinan. Mematikan penglogan menghalang rekod baharu tanpa memadam rekod lama. Keizinan fail persendirian bukan penyulitan dan tidak melindungi daripada program lain di bawah akaun Unix yang sama. Fail biasa pada storan perlahan atau rangkaian masih boleh melengahkan I/O cakera.
+
+Transkrip disimpan sebagai CONFIG_PATH.log dalam direktori milik pengguna dengan mod tepat 0700. Setiap komponen laluan mesti lulus pemeriksaan tanpa symlink dan tanpa perentasan direktori induk. Fail dibuka mestilah milik pengguna, fail biasa, pautan tunggal dan mod tepat 0600. Pengendalian fail/kunci nonblocking menolak FIFO atau log sibuk; had 16 MiB terpakai bagi setiap profil disimpan.

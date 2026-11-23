@@ -1,0 +1,38 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / AUTOMATIC CONNECTION, JOIN, AND AUTHENTICATION
+English source SHA-256: f1eac619875693d1b8b4c03b26a6a90a7736048cf9d67e37619e675a887788b8
+
+CONEXIÓN, UNIÓN A CANALES Y AUTENTICACIÓN AUTOMÁTICAS
+
+Cada perfil guardado tiene sus propias credenciales, conexión automática y unión automática a canales de una red directa. Guarde los ajustes de inicio deseados en Settings o mediante comandos. --server explícito para el perfil principal inicia una conexión; los perfiles guardados con autoconnect se inician de forma independiente. --no-connect impide todas las conexiones iniciales. /connect o Servers > Connect inicia una expresamente. Los perfiles nuevos no heredan los secretos de otros.
+
+Para una cuenta de red directa, configure:
+
+    [connection]
+    tls=true
+    auth=sasl
+    auth_user=your_registered_account
+    password_gpg_file=/home/yourname/.config/vipirc/sasl.gpg
+
+Elija exactamente una fuente por cada credencial independiente:
+
+    Cuenta SASL                    PASS del servidor
+    password_gpg_file              server_password_gpg_file
+    password_file                  server_password_file
+    password                       server_password
+
+La fuente *_gpg_file está cifrada; *_file es texto claro privado; los valores en línea son texto claro literal en la configuración. No se adivina el formato por extensión ni se prueba otra fuente. Se conservan espacios iniciales/finales y #, ;, = de los valores en línea; no añada comillas ni comentarios. Un archivo con secretos en línea debe ser regular, propiedad del usuario y con modo 0600/0400; Save genera modo 0600. Los valores permanecen en la configuración de la sesión cuando son necesarios para volver a conectar o guardar.
+
+Las contraseñas en claro o descifradas deben ser una línea no vacía, opcionalmente terminada en LF/CRLF, sin bytes de control: SASL admite hasta 1024 bytes y PASS ordinario hasta 503. Ambos tipos de archivo deben ser regulares, propios y con modo 0600/0400, sin enlaces simbólicos ni componentes '..' en las rutas. No se aceptan contraseñas como opción CLI. Para identidades y fuentes de bouncer, consulte BOUNCER CONNECTIONS.
+
+Cada archivo cifrado contiene un mensaje OpenPGP con protección de integridad, de hasta 65536 bytes. El ejecutable opcional gpg encontrado en PATH debe admitir las opciones fijas (GnuPG 2.2.20 o posterior). Se ejecuta directamente después de verificar TLS, sin shell, con salida limitada y un plazo de cinco segundos. No se crea archivo temporal en claro ni se pide la contraseña de la clave dentro del cliente; las otras sesiones siguen activas. Una credencial fallida, bloqueada, no válida, demasiado grande o agotada por tiempo detiene la autenticación.
+
+El auxiliar emplea --no-options, --batch, --no-tty, --pinentry-mode error y --no-autostart, sin recuperación/importación de claves ni dirmngr. Prepare o desbloquee la clave fuera de vipirc:
+
+    gpg --output /dev/null --decrypt /absolute/password.gpg
+
+Después reintente /connect. El comando contiene una ruta, no una contraseña. El agente existente debe poder descifrar sin interacción; una sesión/equipo SSH puede tener otros archivos, PATH, directorio GnuPG y caché del agente.
+
+--check-config valida la selección de fuente y privacidad de la configuración sin abrir secretos ni GPG. --test-mode nunca lee ni descifra credenciales; analiza los valores en línea pero no los utiliza. Ninguno demuestra que la credencial funcione realmente.
+
+SASL PLAIN obligatorio solo se envía tras verificar TLS y comprobar que el servidor lo admite. Un fallo detiene la conexión antes de la unión automática directa, sin continuar sin autenticar. El cliente no registra cuentas. La sintaxis de servicios de apodos depende de cada red; la autenticación automática directa de cuenta utiliza SASL. PASS del servidor es distinto de la cuenta de apodo; la autenticación ascendente del bouncer se configura por separado.

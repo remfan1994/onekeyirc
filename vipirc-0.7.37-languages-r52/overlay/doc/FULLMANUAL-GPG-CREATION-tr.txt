@@ -1,0 +1,13 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / CREATING ENCRYPTED PASSWORD FILES
+English source SHA-256: 8789663b344ea37f6bbe6f02a975800063873dc8c0ca6af4bdc7e3771d83cd93
+
+ŞİFRELİ PAROLA DOSYALARI OLUŞTURMA
+
+GPG kimlik bilgisi oluşturmak için iki arayüzde de /panel kullanın. Sunucuyu seçin; kimlik doğrulama veya sunucu parolası kaynağı olarak gpg, ardından create seçin. Seçili yapılandırmanın yanındaki kimlik bilgileri dizininde mutlak hedef yol önerilir. Varsayılan ana yapılandırma için:
+
+    ~/.config/vipirc/credentials/account-password.gpg
+
+Sunucu PASS parolası server-password.gpg kullanır. Var olan adlar atlanır ve numaralı alternatifler önerilir. Panel gerçek mutlak yolu gösterir; yukarıdaki ~ yalnızca açıklamadır, yapılandırmada kullanılacak sözdizimi değildir. Enter önerilen yolu kabul eder ve özel dizinleri 0700 kipinde hazırlayabilir. Teklifi görüntülemek dosya oluşturmaz. Özel hedef için kullanıcıya ait mevcut bir özel üst dizin gerekir; mevcut dizinlere chmod uygulanmaz. Anahtar ve parola sorulmadan önce hedef ile yerel gpg bulunabilirliği kontrol edilir. Yerel GPG anahtarlığında zaten bulunan şifreleme anahtarının 40 veya 64 basamaklı tam onaltılık parmak izini girin; sonra gizlenen parolayı iki kez yazın. Mevcut şifreli dosyalar hâlâ seçilebilir. Panelde girilen yollar mutlak saklanır, dolayısıyla başlatma dizinini değiştirmek anlamlarını değiştirmez. Anahtar indirilmez ya da üretilmez; düz metin parola dosyası oluşturulmaz.
+
+Şifreleme ve açıkça istenen yeni 0600 kipli şifreli metnin yayımlanması yalnızca son Save, Apply veya Connect seçimiyle başlar. Apply only ve Connect once, yapılandırmayı kaydetmeden şifreli dosya oluşturabilir. Mevcut dosyalar ve sembolik bağlantılar reddedilir. Her yardımcı için beş saniye süre vardır; arayüz ağ olaylarını işlemeyi sürdürür. Şifreleme başarısızsa ayarlar uygulanmaz, ilgili yol ve neden sır veya yardımcı çıktısı olmadan bildirilir. Finish önerilen hedeflerle gerçekten oluşturulan dosyaları ayırır. Başarı, tam yollar için /autoauth status yönlendirmesi yapar; başarısız kaydetme veya kısmi yayımlama ilgili yerleri kaydırılabilir incelemede bırakır. Başarısız yapılandırma kaydı yeniden şifrelemeden tekrarlanabilir. İptal, yalnızca bu denemede oluşturulan ve değişmemiş yeni dosyaları kaldırır; kaydedilmiş yapılandırmanın başvurduğu dosyaları korur. Escape bir soru geri gider ve bekleyen oluşturmayı iptal eder; kurulumdan çıkmak gizli girişleri siler. Çevrimdışı mod, GPG, anahtarlık veya dosya erişiminden önce oluşturmayı reddeder. Sonraki şifre çözme için gerekirse özel anahtarı uygulama dışında açın.

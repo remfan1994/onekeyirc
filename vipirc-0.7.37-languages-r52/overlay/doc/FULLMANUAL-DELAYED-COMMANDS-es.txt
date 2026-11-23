@@ -1,0 +1,20 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / DELAYED STARTUP COMMANDS
+English source SHA-256: dfb1220936318c5cfbdf407d869067d3a84de7968c73aa4be34594630d3ee9e1
+
+EXACT COMMAND/CONTROL EXAMPLES (not translated):
+/autocommands [list|add COMMAND|remove NUMBER|clear|on|off]
+/autocommands delay SECONDS       0..300
+/autocommands interval SECONDS    2..60
+/autocommands add /msg ChanServ OP #room mynick
+/save
+
+Cada perfil puede ejecutar hasta 16 comandos literales una vez completados el registro y SASL obligatorio. La espera predeterminada es 15 segundos; entre comandos completados transcurren al menos 2 segundos. Una conexión detenida no acumula una ráfaga de comandos atrasados.
+
+Se gestionan con /autocommands [list|add COMMAND|remove NUMBER|clear|on|off], /autocommands delay SECONDS (0..300), /autocommands interval SECONDS (2..60), y se guardan con /save. Por ejemplo: /autocommands add /msg ChanServ OP #room mynick.
+
+Se admiten /msg, /join, /nick, /away, /back, /whois y sus alias exactos documentados. Cada comando ocupa como máximo 511 bytes UTF-8 y debe caber en una línea IRC. No hay división silenciosa, shell, IRC sin procesar, bucles ni sustitución de la conversación actual. /join admite un canal y una clave transitoria opcional. Las listas ocultan el texto de mensajes y claves; la ejecución no genera historial local de comandos, eco ni conversaciones privadas. Las respuestas llegan normalmente; los canales unidos automáticamente no cambian el chat seleccionado.
+
+Los cambios afectan a la siguiente conexión. /cancel detiene los comandos restantes y el chat en cola, pero no retira bytes enviados o en vuelo. Cerrar o abandonar un destino cancela las partes restantes de la secuencia dirigidas a el. Un fallo cancela los comandos posteriores e indica la posición sin mostrar secretos. Una reconexion inicia una secuencia nueva; también los perfiles bouncer ejecutan sus comandos de inicio explicitos. En modo sin conexión no se ejecuta ninguno.
+
+[autocommands] contiene enabled, delay_seconds, interval_seconds y líneas command= repetidas. Los bytes posteriores a = son literales, incluidos espacios, #, ; y =. Toda lista no vacia, aunque deshabilitada, exige un archivo de configuración regular, propio y con modo 0600/0400; las listas habilitadas no vacias exigen TLS verificado. Los perfiles nuevos comienzan sin comandos. Si cambia el destino, se limpia una lista heredada sin modificar. Guarde conscientemente: el cifrado GPG de credenciales no cifra estos comandos en el archivo de configuración.

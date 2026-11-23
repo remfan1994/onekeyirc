@@ -1,0 +1,15 @@
+VERBATIM ENGLISH SOURCE REFERENCE
+Source: MANUAL.txt / EXIT STATUS
+English source SHA-256: a4feff37ea5665514327eb0e9d3930712772f4ff6cf26bdcefb48492f71f9923
+
+EXIT STATUS
+
+0     Normal completion or interactive exit.
+    1     Operational failure, such as initialization, save or session control.
+    2     Invalid options/configuration or no terminal for interactive use.
+    130   SIGINT interrupted the welcome after terminal cleanup.
+    131   SIGQUIT interrupted the welcome after terminal cleanup.
+
+A successful --background status confirms local worker setup, not remote IRC
+login. A failed session-close status means completion was not verified;
+recheck --sessions because an accepted request may finish later.

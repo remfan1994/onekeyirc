@@ -1,0 +1,5 @@
+USE SIGNALS - vipirc-0.7.37
+
+Secara bawaan Use signals = no. Ctrl-C dan Ctrl-Z membatalkan pesan atau perintah yang belum dikirim, bukan menghentikan aplikasi. Pilih yes pada panel 0 (atau pengaturan Interface vipirc) untuk mengaktifkan sinyal terminal. Apply berlaku segera; Save juga menyimpan [input] use_signals=true|false. Pengaturan terminal asal dipulihkan saat keluar atau ditangguhkan.
+
+No (bawaan) menonaktifkan sinyal terminal selama aplikasi menguasai terminal; Ctrl-C/Ctrl-Z membatalkan draf. Yes mengaktifkan pemetaan sinyal yang sudah ada tanpa mengubah tombolnya. Sinyal proses eksternal tetap berlaku.

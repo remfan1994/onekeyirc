@@ -1,0 +1,27 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / BOUNCER CONNECTIONS
+English source SHA-256: 5b02f5c7003e1c3af127c7d3a30794ecad42f14dc1a1397d6d4aa16179b89b63
+Source lines: 1692-1747
+
+BOUNCER BAĞLANTILARI
+
+Settings veya /panel üzerinden ZNC/soju seçin; ardından sağlayıcının ana makine adını ve TLS bağlantı noktasını, bouncer kullanıcı adını, mevcut upstream ağını ve isteğe bağlı sabit istemci adını girin. Her ağ için bir profil kaydedin. Aynı ana makineyi paylaşan profillerde argümansız /connect komutundan önce sunucu numarasını seçin.
+
+[bouncer] bölümü type=none|znc|soju, username, network, client ve automatic_away alanlarını destekler. username ve network zorunlu, client isteğe bağlıdır. Her bileşen en çok 63 ASCII karakter olabilir: harf, rakam, nokta, alt çizgi veya kısa çizgi. Kimlik bileşenlerini ayrı girin, parolayı yalnızca parola kaynağına koyun.
+
+ZNC için auth=none, boş auth_user, SASL kaynağı olmaması ve tam olarak bir sunucu parolası kaynağı gerekir. username/network veya username@client/network oluşturur ve parolayı PASS için ekler. Kimlik, ayraç ve parola toplamı 503 baytlık yük sınırına sığmalıdır; kullanılabilir parola uzunluğu bu nedenle azalır. soju için auth=sasl, boş auth_user, bir doğrulama parolası kaynağı ve hiç PASS kaynağı bulunmaması gerekir. SASL kimliği username/network veya username/network@client biçimindedir. İkisi de doğrulanmış TLS gerektirir. Upstream ağını ve NickServ kimlik doğrulamasını bouncer üzerinde ayrıca yapılandırın.
+
+Bouncer kanal üyeliklerini geri yükler; yerel autojoin yeniden oynatılmaz ve /autojoin değişiklikleri reddedilir. /join ile /part üyeliği değiştirir. /autoauth değişiklikleri de reddedilir: kimliği ve kaynakları tutarlı değiştirmek için Settings veya /panel kullanın. Açıkça tanımlanan başlangıç komutları yine çalışır; doğrudan bağlantı profilinden kalmış komutları yeniden kullanmadan önce inceleyin. Boşta veya arka planda otomatik away, automatic_away=true değilse kapalıdır; elle /away ve /back kullanılabilir.
+
+    /znc
+    /znc ListNetworks
+    /soju
+    /soju network status
+
+Kısayollar yalnızca uygun bouncer türünde çalışır. Argümanlar tek IRC iletisine sığan, normal gönderim hızına tabi düz hizmet metnidir. /msg *status veya /msg *module ZNC'ye, /msg BouncerServ soju'ya yöneliktir. Kullanılabilen uzaktan komutları bouncer belirler; önce yardımını isteyin.
+
+Kontrol metni yerel yankıya, komut geçmişine ve kalıcı günlüklere girmez. Tanınan giden hizmet tekrar kopyaları eski takma adlarla bile bastırılır. Yanıtlar sunucu görünümünde görünür, ancak kalıcı olarak günlüklenmez. Düzenleyiciye yazılmış metin görünür kalır; uzaktaki günlükleme ayrı bir konudur.
+
+Tanınan itilen geçmiş özgün UTC zaman damgalarını korur ve giden özel iletileri alıcılarına yönlendirir. Tekrar oynatma CTCP/DCC'yi, yeni bahsetmeleri veya canlı durum değişikliklerini tetiklemez. Depolama sınırlıdır; bilinmeyen batch türleri güvenli tarafta kalınarak yalnızca gösterilir. İsteğe bağlı arşiv tarayıcısı, otomatik ağ keşfi veya ağ başına otomatik profil oluşturma yoktur.
+
+TLS yalnızca istemci ile bouncer arasını korur. Upstream TLS, doğrulama, erişim ve saklama politikası ayrıca kurulmalıdır. doc/BOUNCERS.txt ile examples/bouncer-znc.ini ve examples/bouncer-soju.ini dosyalarına bakın. Denetimli test sonuçları gerçek sağlayıcıların ve sürümlerin tümünü doğrulamaz.

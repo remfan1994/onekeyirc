@@ -1,0 +1,25 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / FILES AND ENVIRONMENT
+English source SHA-256: 3f0929a090403aa838e2094592ede3b01d8a8cac7f8b23ff6c35f31b3321edf6
+Source lines: 1901-1962
+
+DOSYALAR VE ORTAM
+
+Birincil yapılandırmanın varsayılan konumları:
+
+    $XDG_CONFIG_HOME/vipirc/config.ini
+    $HOME/.config/vipirc/config.ini
+
+XDG_CONFIG_HOME boş değilse önceliklidir ve mutlak yol olmalıdır. HOME yedek kaynaktır; HOME üzerinden mutlak ev dizini bulunamazsa kullanıcı hesabı veritabanına başvurulur. --config FILE başka bir birincil yapılandırmayı ve yanındaki kayıtlı sunucu çalışma alanını seçer. Yapılandırmada yazılan yollar değişken, tilde veya kabuk genişletmesi yapılmadan birebir kullanılır; yukarıdaki değişkenler yalnızca varsayılanların nasıl seçildiğini gösterir. Komut satırı argümanları programa geçmeden önce kabuğunuz normal tırnaklama ve genişletmeyi yine yapar.
+
+Birincil yol P için P.servers, /saveconf tarafından yönetilen kayıtlı profil kimliklerini ve isteğe bağlı [servers] default=PROFILE_ID seçimini saklar. P.d/ ikincil profil dosyalarını içerir. Her kaydedilmiş yapılandırmanın kanonik komut sayaçları için .commands dosyası ve isteğe bağlı .log dökümü olabilir. Oluşturulan yapılandırmalar ve ikincil profiller açıkça Save gerektirir; kabul edilen komutların sayaçları var olan kayıtlı çalışma alanında kendiliğinden güncellenir. Hatırlanan varsayılan profil okunamıyorsa veya yoksa bildirilir; bağlantı sessizce başka hedefe çevrilmez.
+
+Tam arayüz, XDG_DATA_HOME mutlaksa varsayılan DCC alma dizini olarak $XDG_DATA_HOME/vipirc/downloads önerir; değilse HOME mutlak olduğunda $HOME/.local/share/vipirc/downloads kullanır. Önerilen dizin ancak açıkça kabul edilince oluşturulur. DIRECTORY verilmeden kullanılan /dcc accept NUMBER, işlemin başlatıldığı dizini kullanır ve o dizinin kullanıcıya ait ve özel olmasını şart koşar. Yol seçmek veya göz atmak başlangıç dizinini değiştirmez.
+
+PATH, isteğe bağlı gpg çalıştırılabilir dosyasını bulur; kabuk başlatılmaz ve bu program güvenilir yerel ortamın bir parçasıdır. GNUPGHOME, anahtar ve aracı ortamı için GnuPG tarafından yorumlanır. İstemci, kimlik bilgisi yolları içinde GNUPGHOME genişletmesi yapmaz. Uzak SSH kullanımında vipirc'nin çalıştığı ana makinenin ortamı ve dosyaları kullanılır.
+
+TERM, ncurses için terminal özelliklerini tanımlar; metin kodlamasını seçmez. LANG, LC_CTYPE ve LC_ALL yerel ayarı (locale) belirler. Unicode düzenleme ve karakter genişlikleri için terminalle uyumlu, yüklü bir UTF-8 locale kullanın. locale, locale charmap ve locale -a komutları ana makineyi incelemeye yardımcı olur; locale adları sistemler arasında değişebilir.
+
+Arayüz çevirisi: vipirc başlatılırken VIPIRC_LANG değerini id (Endonezce), ms (Malayca), tr (Türkçe), es (İspanyolca), pt (Portekizce), fr (Fransızca), de (Almanca), ru (Rusça), it (İtalyanca) veya ar (Arapça) olarak ayarlayın. id_ID.UTF-8 gibi değerler de kabul edilir. ncurses ve -i arayüzleri aynı kataloğu kullanır. Varsayılan geri dönüş İngilizcedir. Ayrılmış worker, başlatıldığında seçilen görüntüleme dilini korur. IRC eğik çizgi komutları, yapılandırma anahtarları ve denetim değerleri İngilizce kalır. Bu sürüm bazı arayüz denetimlerini çevirir; her yardım sayfasını, güvenlik uyarısını veya hatayı değil. doc/LOCALIZATION.md dosyasına bakın.
+
+Etkin LC_CTYPE değerine uyulur. Geçersiz veya UTF-8 olmayan locale, karşılama ekranında belirtilen açık ASCII terminal modunu seçer. ASCII dışı giriş durum mesajıyla reddedilir; gelen ASCII dışı kod noktaları, kaydedilen ağ metni değiştirilmeden '?' olarak gösterilir. İstemci eski kodlamaları tahmin etmez veya dönüştürmez, locale değerini zorlamaz. Unicode için yüklü bir UTF-8 locale seçip yeniden başlatın. ASCII, UTF-8'in tek baytlık alt kümesi olmaya devam eder; SSH, IRC'nin kodlanmış bayt sınırlarını değiştirmez.

@@ -1,0 +1,121 @@
+Security documentation - vipirc - tr
+PARTIAL SECURITY DOCUMENTATION: ten of 13 sections translated.
+English SECURITY.md is the authoritative security contract.
+All translated paragraphs are drafts pending review by fluent security experts.
+Do not use this document as a replacement for SECURITY.md.
+
+## Trust boundary
+Source SHA-256: b206f366472f34a9c25e1096f15d6fe813e99115c1e789ab4fa3d857e18f7595
+
+IRC sunucuları, eşler, takma adlar, konular, protokol alanları, dosya adları ve yapıştırılan metin güvenilmeyen girdilerdir. İşletim sistemi, terminal, C/TLS kitaplıkları, sertifika güven deposu ve kullanıcının hesabı güvenilen bileşenler olmaya devam eder. vipirc'nin tam arayüzü ayrıca curses kitaplığına güvenir. GPG; yürütülebilir dosyasını, anahtar deposunu ve aracısını da güven kapsamına ekler. Sunucu profilleri tek bir süreci paylaşır; birbirinden yalıtılmış güvenlik bölmeleri değildir. Aynı hesap yetkilerine sahip başka bir süreç genellikle özel dosyaları ve belleği inceleyebilir.
+
+Programı sıradan bir kullanıcı hesabıyla çalıştırın. Yapılandırmayı okumadan önce normal çalışma başlatmaları, gerçek ve etkin kullanıcı veya grup kimliklerinin uyuşmamasını reddeder, çekirdek döküm dosyalarını devre dışı bırakır ve umask 0077 ayarlar. Linux'ta süreç dökümüne izin verilmesi de devre dışı bırakılır. Eksik standart dosya tanımlayıcıları uygulama kaynakları açılmadan önce /dev/null ile ayrılır; devralınan açık akışlar ve bayrakları değiştirilmez. Zorunlu başlangıç koruması başarısız olursa başlatma durur. Bu önlemler pledge/unveil, seccomp, ayrıcalık ayrımı veya ele geçirilmiş bir ana bilgisayara karşı koruma sağlamaz.
+
+configure, seçilen ana bilgisayarın desteklediği derleyici/bağlayıcı sağlamlaştırmalarını araştırır: yığın koruması, güçlendirilmiş libc denetimleri, biçim tanılama, PIE, RELRO, anında bağlama ve yürütülemez yığın. Dağıtım makinesinde yapılandırılan bayrakları inceleyin; her platform her bayrağı desteklemez.
+
+## TLS, credentials and endpoint identity
+Source SHA-256: 4ea410d65b0d7a489076cfd9898b5769f21e9e2f4fec63f7df8340f68bb5de45
+
+TLS, 1.2 veya üzeri sürüm gerektirir ve sertifika zinciriyle seçilen ana bilgisayar adını doğrular. Yapılandırılmış SASL, sunucu PASS ve etkinleştirilmiş boş olmayan otomatik komut listeleri doğrulanmış TLS gerektirir. Sessizce şifresiz metne dönülmez. Parolayı diskte şifrelemek ağ iletimini şifrelemez. IRC TLS, seçilen sunucuya veya bouncer'a giden bağlantıyı korur; iletileri uçtan uca şifrelemez.
+
+Bu kaynakla birlikte bağlantılı TLS kitaplığını da güncel tutun. İnceleme makinesinde OpenSSL 3.5.7 kullanıldı; OpenSSL, normal TLS işleme sırasında sertifikalarla ilişkili bellek artışına neden olan CVE-2026-35189 sorununu belgelendirir. Bu sorun ilgili dalın 3.5.9 sürümünde düzeltilmiştir. Bu kaynak sürümü dış kitaplığa yama yapmaz. Dağıtım sağlayıcınızın sürümünü, geriye taşınan yamalarını ve güncel güvenlik düzeltmelerini kontrol edin: https://openssl-library.org/news/secadv/20260929.txt
+
+Boş ca_file sistemin güven deposunu seçer. Özel CA paketi, güvenilen yerel bir PEM dosyasıdır: yükleyici dosyayı bir kez açar, açılan normal dosyayı denetler, sınırlandırılmış içeriğini okur ve bu kopyayı parola sormadan ayrıştırır. Boş dosyaları, 16 MiB üzerindeki dosyaları, normal olmayan kaynakları ve algılanan boyut değişikliklerini reddeder. Sertifika ve AUX güven girdileri ile CRL kayıtları korunur. Özel yapılandırma ve kimlik bilgisi yollarının aksine, CA yolları açıkça seçilen herkese açık güven malzemesi olduğundan sembolik bağlantılardan geçebilir. Farklı CA seçmek istemcinin güvendiği sertifika düzenleyicilerini değiştirir. Yükleme eşzamanlıdır; normal dosya G/Ç işlemleri yavaş depolamada hâlâ takılabilir.
+
+Her kimlik bilgisi tam olarak tek kaynak seçer: özel düz metin dosyası, GPG ile şifrelenmiş özel dosya veya açıkça belirtilmiş satır içi değer. SASL ve sunucu PASS kaynakları ayrıdır. --server ile farklı bir ana bilgisayar adı seçilmesi devralınan kimlik doğrulamayı, CA seçimini, bouncer kimliğini, kanalları ve başlangıç komutlarını temizler. Aynı ana bilgisayara yeniden ayarlamak, portu ya da takma adı değiştirmek bu sıfırlamayı yapmaz. Yeni bir hizmete bağlanmadan önce seçilen profili inceleyin.
+
+Doğrudan SASL PLAIN, yapılandırılmış hesabını gerektirir. soju, SASL kimliğini bouncer alanlarından türetir. Görüşme, duyurulan son SASL mekanizma bildirimini kullanır, onay veya sınama isteğini bekler ve kimlik bilgisini ancak ondan sonra okur. Zorunlu kimlik doğrulama başarısız olursa kimlik doğrulamasız kayıt yapılmaz. ZNC bunun yerine sunucu PASS kaynağını kullanır.
+
+Elle girilen ve tanınan özel kimlik doğrulama komutları da doğrulanmış TLS gerektirir. Doğrulama mantıksal satırlara ve planlanan tüm parçalara uygulanır; gönderme anında tekrarlanır. Tanınan özel biçimler komut geçmişinden ve kalıcı konuşma günlüklerinden çıkarılır. Canlı terminaldeki gösterimleri yine de girilen metni içerebilir. Tanıma, yaygın hizmet komutlarını kapsar; serbest metindeki rastgele sırları veya her üçüncü taraf hizmet protokolünü kapsamaz.
+
+## Configuration and private files
+Source SHA-256: 209b86484d0457ecd63d96ed26d6ae5e5adb117a47353c36560dad9f80ae8466
+
+Yapılandırma, değişmez INI metnidir: shell, değişken veya tilde genişletmesi yapılmaz. Bilinmeyen bölümler/anahtarlar ve geçersiz değerler doğrulamayı başarısız kılar. Dosya boyutları 64 KiB ile sınırlıdır. Yapılandırma ve gizli bilgi yollarında sembolik bağlantı bileşenleri ile '..' reddedilir. Var olan yapılandırmayı okumak için sahibinin kullanıcı olduğu ve başka kullanıcıların yazamadığı normal dosya gerekir. Satır içi kimlik bilgileri ve devre dışı olsa bile boş olmayan her otomatik komut listesi tam olarak 0600 veya 0400 modunu gerektirir. Yapılandırma veya kimlik bilgisi dosyasını okumak için üst dizinin özel olması gerekmez. Kaydetmek için son üst dizin kullanıcıya ait olmalı ve grup/diğer izinleri bulunmamalıdır; normal özel dizin düzeninde 0700 modu kullanın. Oluşturulan yapılandırmalar 0600 modunu ve özel atomik değiştirmeyi kullanır. Save desteklenen değerleri yeniden yazar ve yorumları değiştirir. --init-config, üzerine yazmadan atomik yayımlar: başlatma sırasında oluşmuş olsa bile var olan bir nesneyi asla değiştirmez. Yayım sonrası bildirilen temizleme/dizin eşitleme hatası, tamamlanmış özel yapılandırmayı yerinde bırakabilir. Sabit bağlantı desteklemeyen dosya sistemleri güvenli şekilde başarısız olur. Konuşma günlüğü için aşağıda açıklanan daha katı tam modlu dizin kontrolleri vardır.
+
+Düz metin ve GPG kimlik bilgisi kaynakları kullanıcıya ait, tam olarak 0600 veya 0400 modunda normal dosyalar olmalıdır. Çözülmüş veya düz metin parolalar boş olmayan tek satırdır: SASL en fazla 1024 bayta, sunucu PASS en fazla 503 bayta izin verir. ZNC kimliğiyle parolasının tamamı da sınırlandırılmış PASS çerçevesine sığmalıdır. Seçilen kaynak başarısız olursa başka bir kaynağa geçilmez.
+
+GPG şifre çözme işlemi doğrulanmış TLS sonrasında başlar. Sabit doğrudan argümanlar, sınırlı bloklamayan kanallar, ayrı süreç grubu ve 5 saniyelik zaman sınırı kullanır. Uygulama shell çağırmaz, argv içinde sır geçirmez, geçici düz metin dosyası oluşturmaz, anahtar getirmez, yardımcı hizmet süreçleri başlatmaz veya anahtar parola tümcesi sormaz. Korumalı anahtarı istemci dışında açın. Giren ve oluşturulan şifreli metin 64 KiB; yardımcı durum çıktısı 16 KiB ile sınırlıdır. Başarı, bütünlük korumalı eksiksiz şifre çözme ve yardımcı sürecin başarıyla bitmesini gerektirir. Tanılama, çözülen metni veya yardımcı çıktıyı yazdırmaz.
+
+Kurulum paneli mevcut yerel bir anahtarın tam 40/64 haneli onaltılık parmak iziyle yeni parolayı şifreleyebilir. Gizli parola ve onay tamponları sınırlıdır. Şifrelemeyi yalnızca açıkça yapılan son işlem başlatır; genel anahtar oluşturulmaz. Önerilen varsayılan hedef seçilen profilin yanındadır; sadece görüntülemek hiçbir şey oluşturmaz. Açık kabul, eksik kullanıcıya ait üst dizinleri 0700 modunda oluşturabilir. Özel üst dizinler zaten var olmalıdır; mevcut dizinlere chmod uygulanmaz. Yayım 0600 modunda ve üzerine yazmadan yapılır; dosya/dizin kimlikleri ve hedef çakışmaları yayımdan önce yeniden denetlenir.
+
+Apply only veya Connect once, yapılandırmayı kaydetmeden açıkça istenen şifreli metni oluşturabilir. Save başarısız olursa oluşturulmuş şifreli metin yeniden denemek için kalabilir. İptal, sadece o denemede yaratılan ve değişmeyen dosyaları kaldırır; kaydedilmiş başvuruları tutar, var olan yapılandırma güvenle denetlenemiyorsa dosyayı ihtiyatla korur. Yayım sonrası eşitleme hatası bildirildiğinde bu nedenle dosya kalabilir. Oluşturulan boş dizinler de kalabilir. Yeniden denemede şifreli metnin tamamı, özel mod ve inode tekrar kontrol edilir.
+
+Uygulamanın sahip olduğu geçici kimlik bilgisi tamponları silinir. Satır içi değerler Save veya yeniden bağlanma için gerekli oldukları sürece yapılandırma/oturum belleğinde kalır. Bu, kitaplık veya yardımcı bellekten, takas alanından, yedeklerden, anlık görüntülerden ya da yetkili bellek incelemesinden silindiklerini kanıtlamaz. Bir rapora gerçek kimlik bilgilerini koymayın.
+
+## Child processes and synchronous work
+Source SHA-256: 79a87ca8215648f2d1f870067a2afe1fb4221757b00560b4b4191aac7832ba7f
+
+DNS çözümlemesi, zaman sınırlı ve gözetilen doğrudan beklenebilir bir alt süreçte yapılır; temizleme yalnızca sahip olunan bu alt süreci etkiler. Çözümleyici yardımcı süreç grubuna konulmaz. GPG ayrı bir süreç grubuna sahiptir ve çıktı kanalları bitene kadar beklenebilir doğrudan alt süreç kimliğini korur; böylece iptal, aynı gruptaki devralınan kanal yazarlarını durdurabilir. GPG güvenilen bir programdır, yalıtılmış bir çalışma ortamı değildir: gruptan isteyerek ayrılan alt süreçler temizleme kapsamı dışındadır.
+
+Çözümleyici/yardımcı süreç başlatmaları ve ilk arka plan oturumu oluşturma, devralınan SIGCHLD=SIG_IGN veya SA_NOCLDWAIT ayarlarını reddeder. İlk ayırma hazırlık sonrası yeniden denetler; yönetilen bir oturumu yeniden ayırmak fork yapmaz. Modüllerin, alt süreçlerini toplayan ilgisiz bir sinyal işleyicisi altında çalıştırılması desteklenmez. O_NONBLOCK FIFO açılışında beklemeyi önlese bile normal dosya ve üst veri işlemleri eşzamanlı kalır.
+
+## Protocol, terminal input and bounded state
+Source SHA-256: 0f8513944ff6d952092236574aa5be490f8a39c7d99ec7ac175d34eb41e5dc06
+
+Kabuk kaçışı, ham IRC enjeksiyonu komutu, eklenti/betik motoru veya otomatik CTCP yanıtı yoktur. Komutlar, izin verilen eylemler listesine dayanan bir ayrıştırıcıdan geçer. Bilinmeyen takma komutlar bir ağ eylemi tahmin edilmeden reddedilir. Gelen protokol alanları, UTF-8, takma adlar, hedefler ve parametre sayıları açık sınırlara tabidir. Gösterim yolları terminal kontrol karakterlerini ve güvensiz biçimlendirmeyi kaldırır; LIST konuları dizin önbelleğine girmeden temizlenir.
+
+Çıkış uzunluk bütçesine komut sözdizimi, hedef, aktarıcı kimliği ve eylem çerçevesi de dahildir. Sunucunun bildirdiği geçerli fakat daha küçük LINELEN değerleri bu bütçeyi azaltır. Bölme işlemi UTF-8 karakterlerinin bütünlüğünü korur. Birden çok ileti göndermek ayrı ayrı onay gerektirir; bracketed paste kendi gönderimini onaylayamaz. Her sunucunun sohbet kuyruğunda 64 girdi ve en az 1.2 saniye aralık vardır; ayrı kontrol kuyruğu da 64 girdilidir. Bu sınırlar teslimi garanti etmez veya sunucunun flood kurallarını geçersiz kılmaz.
+
+Program sekiz sunucu bağlantısını, sunucu başına 32 görünümü, kanal başına 4096 kayıtlı kullanıcıyı ve 8192 LIST girdisini destekler. Kesilmiş üye listesi ya da dizin eksiktir. Bağlantı kopması veya açık LIST reddi, kısmi önbellek girdilerini korurken bekleyen isteği serbest bırakır; anılık görüntüyü tam saymaz. Daha sonra yeni istek veya açık temizleme yapılabilir. İstenmeyen özel iletiler yalnızca otomatik sekiz sorgu görünümü sınırının altında yeni sorgu görünümü açar; fazlası sunucu/mentions görünümlerine düşer. Toplam görünüm sınırı içinde açık sorgular yine mümkündür.
+
+Tutulan metin için sunucu başına 8 MiB bütçe ve görünüm başına 50..5000 satır ayarı vardır. Minimalist gösterim akışı ayrıca tutulan kayıtları 2048, metni 512 KiB ile sınırlar. Bunlar toplam RSS sınırları değildir: taslaklar, üye listeleri, kuyruklar, kitapıklıkler ve bellek ayırıcı ek yükü başka bellek kullanır. Sınırlı bir program bile kötü niyetli trafikte CPU harcayabilir. ignore maskeleri görünen kullanıcı sohbetini azaltır, alım veya ayrıştırma işini değil; erişim kontrol sınırı değildir.
+
+Terminalin kesme, çıkış ve askıya alma için ilk tuş atamaları korunur; ancak [input] use_signals=false (varsayılan), istemci tty üzerindeyken terminal kaynaklı sinyalleri kapatır. Ctrl-C/Ctrl-Z, gönderilmemiş Compose/Command metnini iptal eder. Use signals=yes var olan terminal sinyal tuşlarını etkinleştirir. Apply hemen uygulanır; Save tercihi de kaydeder. Ana sohbet veya komut isteminde açıkça atanmadıkça Ctrl-D uygulamadan çıkış kısayolu değildir. Normal veya işlenen çıkışlarda terminal kipleri geri yüklenir; SIGKILL temizliğe fırsat vermez.
+
+Tanınan bracketed paste düz metin olarak kalır. Açılış işareti tanınmadan önce istemci yapıştırmayı normal yazmadan ayırt edemez. Kapanış tanındıktan sonra normal tuşlar ve özel eylemler sonraki girdi grubunu ve sessiz aralığı bekler. Kabul eden düzenleyici veya form tamamen çizilmiş olmalıdır; başarısız veya çok küçük bir çerçeve inceleme onayı sayılmaz. Tekrarlanan tuşlar aralığı uzatır. Boyut değiştirme veya yeniden bağlama gösterim onayını siler. Tek Escape için 500 ms bekleme vardır; eksik dizilerde ağ çalışırken devam baytları arasında 1000 ms tanınır. Geciken açılış işareti Escape olarak davranıp minimalist günlükten arka plana geçişe yol açabilir. Yakalama başladıktan sonra bölünmüş kapanış işaretleri arasında bayt zaman aşımı yoktur. Çerçevesiz yapıştırmada buna eşdeğer koruma bulunmaz.
+
+## Local history, saved logs and privacy
+Source SHA-256: 8123a3ef64d1e4e83b7cc6891d66caa56780846eafd681342f8e2f9749251e94
+
+Komut geri çağırma geçmişi 64 kayıt/64 KiB ile sınırlıdır ve yalnızca bellekte tutulur. Sohbet metni yazma alanı, gönderilmiş sohbet mesajlarını geri çağırmak için kullanılmaz. Tanınan kimlik bilgisi ve denetim komutu biçimleri hariç tutulur. <config_path>.commands içindeki isteğe bağlı kullanım sıklığı verileri, en çok 96 standart komut adını ve sayılarını tutar; argümanları, hedefleri, mesajları veya parolaları saklamaz. Otomatik okuma ve yazma için kayıtlı yapılandırma gerekir; geçersiz veya güvensiz sayaç dosyası başlatmayı engellemez. Test modu bu G/Ç işlemlerini atlar.
+
+Kalıcı konuşma kayıtları varsayılan olarak kapalıdır. Etkinleştiren her kayıtlı profil, <config_path>.log dosyasına ekleme yapar. Üst dizinin kullanıcıya ait ve tam olarak 0700 kipinde olması, dosyanın ise kullanıcıya ait, tek bağlantılı, normal bir dosya ve tam olarak 0600 kipinde olması gerekir. Dosya tanıtıcısına göre yol çözümleme ve O_NOFOLLOW sembolik bağlantıları reddeder; O_NONBLOCK, yerleştirilmiş bir FIFO'nun tür kontrolünden önce işlemi engellemesini önler. Kayıt özelliği üst dizin oluşturmaz.
+
+Her etkin kayıt dosyasına ekleme sınırı 16 MiB'dir. Engellemeyen danışma kilidi, iş birliği yapan istemciler arasında boyut kontrolünü ve yazmayı sıralar. Güvensiz yol, meşgul kilit, yazma hatası veya sınıra ulaşılması, tanılama bildirimiyle o profilin kaydını kapatır; canlı sohbet devam eder. Hiçbir şey otomatik olarak kısaltılmaz veya silinmez. Günlüğü arşivleyin veya taşıyın; ardından kaydı açıkça kapatıp yeniden açın. Harici arşivler kullanıcının sorumluluğundadır. Yavaş ya da uzak depolamada disk G/Ç işlemleri yine bekleyebilir; kaydedici eşzamansız değildir.
+
+Help/aggregate mentions kopyaları, gönderilmemiş taslaklar, SASL/PASS arabellekleri, tanınan özel komutlar ve bilinen hizmet yanıtları konuşma dökümlerine yazılmaz. Bouncer denetim hedefleri ayrıca aşağıda açıklanan süzgeçten geçirilir. Bilinmeyen hizmet adları ve sıradan sohbet olarak yazılan gizli bilgiler yine kaydedilebilir. Günlükler programdan çıkıldığında kalır. Terminal kaydı, sunucu günlükleri ve alıcıların kopyaları bu ayardan bağımsızdır.
+
+Catch-up, bu çalışan worker'ın yerel olarak gönderdiği son uygun mesajı kullanır. Önce doğrulanmış dosya/kayıt dayanağı ve sabitlenmiş bitiş konumuyla özel günlüğü dener, sonra bellekte tutulan içeriğe döner. Günlüğün döndürülmesi veya kimliğin değişmesi disk dayanağını geçersiz kılar; ilgisiz bir kayıt sessizce seçilmez. Yeniden oynatılan kendi mesajları dayanağın yerini almaz. Yeni bir süreç eski günlükleri içe aktarmaz veya sonlandırılmış worker'ın catch-up dayanağını yeniden oluşturmaz.
+
+## Automatic commands and cancellation
+Source SHA-256: d5949c21fd5a0dc4ef73af2c42931766637e3b4ba398ff7184e64a2ae9a0e305
+
+Her profil, her biri en çok 511 UTF-8 bayt olan en fazla 16 değişmez komut içerebilir. Yalnızca mesaj, tek kanala katılma, nick değiştirme, away/back ve WHOIS işlemleri kabul edilir. Listeleme ve hatalar, gizli bilgi içerebildikleri için argümanları gizler. Bağlantı, başlangıç komutlarının sabit bir anlık görüntüsünü kullanır. Değişiklikler bir sonraki açık bağlantı için hazırlanır; otomatik yeniden deneme, kesilen bağlantının ayarlarını korur. Kimlik değişiklikleri devralınan özel komut metnini temizler.
+
+Yürütme, kayıt ve zorunlu SASL tamamlandıktan sonra başlar. İlk gecikme 0..300 saniyedir; sonraki aralıklar tamamlanan yazmadan sonra 2..60 saniyedir. Aynı anda yalnızca bir otomatik çerçeve bekler; dolayısıyla duraksama, sonradan toplu gönderime yol açmaz. Otomatik mesajlar tek çerçeveye sığmalı; bölünmemeli ve yerel olarak yankılanmamalıdır. Bir hata, duyarlı verileri gizleyen indeksli tanılama ile sonraki komutları durdurur.
+
+/cancel gönderilmemiş kuyruk metnini ve gelecekteki otomatik işleri kaldırır. Kısmen yazılmış bir çerçeve veya sürmekte olan TLS yeniden denemesi, henüz kabul edilen bayt bildirilmemiş olsa bile baytlarını korumalıdır ve tamamlanabilir. Gönderilmiş baytlar geri alınamaz. Bağlantı kopması aktarımı ve kuyrukları temizler. Otomatik away yeniden denemeleri zamanlanır ve sonradan kabul edilmiş manuel, betik veya arka plan isteğine öncelik verir.
+
+## Managed sessions and SSH loss
+Source SHA-256: f44a63f7faada1375f5769e9dfe2235da96547fa535b07d1c9869cba13ca063f
+
+Background, hesap özelinde yerel bir iş uç noktası ve ömür kirası oluşturur. Kayıt, program ve Unix kullanıcısı başına ayrıdır; 64 numaralı yuvası vardır. Bu bir Internet dinleyicisi veya yeniden başlatmadan sonra kalıcılık mekanizması değildir. Keşif/bağlama/kontrol özel yolları, dosya kimliklerini ve seçilen işçinin sürüm-ömür belirtecini doğrular; iş numaraları PID sayılmaz. Platform destekliyorsa aynı kullanıcıya ait eş kimlik bilgileri denetlenir.
+
+Aynı anda yalnızca bir terminal bağlanabilir. Resume aktarılan terminal tanımlayıcılarını ve sınırlı TERM/locale bilgilerini doğrular. Keşif sınırlıdır, güvensiz nesneleri atlar ve kayıttaki beklenmedik içeriği özyinelemeli silmez. Canlı ama yanıtsız işçi kira hakkını korur ve doğrulanmamış olarak bildirilir. Argümansız --resume, doğrulanmamış aday yoksa yalnızca tek bir uygun ve doğrulanmış ayrık işçiyi seçer. single_session var olan işçideki IRC bağlantılarıni değil, yeni arka plan işlerini kısıtlar.
+
+--detach-session NUMBER seçilen terminali/denetleyiciyi bırakır; işçiyi, bağlantıları, taslakları, aktarımları ve saklanan geçmişi korur. --close-session NUMBER tüm işçiyi bitirir ve kaydedilmemiş RAM durumunu atar. Detach terminalin gerçekten bırakıldığınin; close ise uç nokta ve kira kaldırılmasının onayını bekler. İsteğin kabulü tamamlandığı anlamına gelmez. Denetimlerin son süresi vardır, tahmin edilen sayısal PID öldürülmez. Kurtarma amacıyla uç noktaları unlink etmeyin.
+
+Yönetilen terminal veya denetleyicinin kaybı işçiyi ayrık duruma getirir. Hiç yönetilen h!ale gelmemiş sıradan ön plan sürecinin sürdürülebilir işi yoktur. Yeni çalıştırılabilir dosya kurmak, çalışan işçinin protokolünü yükseltmez; eski işçileri temiz kapatmak için mevcut denetimler gerekebilir.
+
+Minimalist çıkış kuyruğu sınırlıdır ve tıkanıkken açık Background istekleri yine işlenebilir. Temizlik/bildirim yazıları en iyi çaba esasındadır, duran terminalde kaybolabilir. Tam ncurses çizimi h!al!a eşzamanlı terminal çıkışı kullanır; kalıcı biçimde bloke açık terminal denetim yoklamasını geciktirebilir. Zaman aşımı zorla sonlandırma başarısı olarak değil, zaman aşımı olarak bildirilir. Hiçbir istemci SSH sunucusunun boşta kalma bağlantı kesme politikasını ayarlamaz.
+
+## ZNC, soju and playback
+Source SHA-256: f0e223c83f0df60aa10260168ae7433ff77fbbd2f4cef7d4914cd07da4f7ed99
+
+Açık bouncer profilleri, doğrulanmış TLS ve hesap/ağ kimliği gerektirir; istemci adı isteğe bağlıdır. ZNC sunucu parolası kaynağını; soju SASL PLAIN ve SASL parolası kaynağını kullanır. Kurulum işlemi uç nokta, kimlik ve kimlik bilgilerini birlikte uygular; bağlar değişirse eski taslakları temizler. Yukarı akış IRC kimlik doğrulaması bouncer hizmetinin kendi yapılandırmasına aittir.
+
+Bouncer tarafından geri getirilen JOIN mesajları üyeliği belirler; kayıtlı kanal listeleri yeniden oynatılmaz. Açık başlangıç komutları bilinçli istisnalardır. Bir cihazın boşta kalma durumunu diğerine dayatmaması için bouncer profillerinde otomatik away varsayılan olarak kapalıdır. /away ve /back açık elle yapılan eylemlerdir. Yerel işçi denetimleri uzak bouncer hizmetini yönetmez.
+
+/znc ve /soju denetim metni tek zamanlanmış mesaja sığar; recall, yerel echo ve kalıcı loglardan çıkarılır. Bouncer hizmetine yönelik gelen kopyalar eski takma ad veya bilinmeyen batch başvurusu olsa da gizlenir. Hizmet yanıtları sunucu görünümünde görünür ama saklanmaz. Tanınan özel kimlik doğrulama kopyaları, gönderen takma adı, playback çerçevesi veya nitelikli hizmet hedefi ne olursa olsun tutanaklardan çıkarılır. Görünür saklanan metin gizli bilgi deposu değildir. Yazarken görünebilir; bouncer yöneticisi alıp kaydedebilir. Seçilen bouncer'dan gizlilik sağlanmaz.
+
+Bilinen geçmiş batch'leri yalnızca gösterim içindir: güncel üyelik veya varlığı değiştiremez, yeni mentions uyarısı üretemez, CTCP'yi yanıtlayamaz veya DCC teklifini etkinleştiremez. İç içe/geçişmiş geçmiş sınırları 16 batch ve 64-byte referansla sınırlıdır; bozuk, tutarsız veya sınır aşan çerçeve bağlantıyı keser. Bilinmeyen batch referansları temkinle sadece gösterim sayılır. Geçerli özgün zaman damgaları UTC olarak gösterilir, yerel zamanlayıcıları veya gönderim hızını etkilemez.
+
+İst emci bouncer'dan itilerek gelen tamponları destekler; istek üzerine arşiv tarayıcısı veya hesap genelinde ağ keşfi sunmaz. echo-message, draft/chathistory veya znc.in/playback istemez. Tek başına zaman damgası mesajın geçmiş olduğunu kanıtlamaz; batch içermeyen eski playback normal canlı mesaj işlemini korur. Yeni süreçler arasında keyfı playback yinelenmesi ayıklanmaz. Kurulum ve sınırlar için doc/BOUNCERS.txt dosyasına bakın.
+
+## User-defined key bindings
+Source SHA-256: 250d7d0eb62f8b649e64f59b1e69d2220ec79005f08d6a7dfba30905d1133303
+
+Ana yapılandırmada en fazla 64 özel tuş ataması bulunur; varsayılan tablo boştur. Tuşlar sabit bir kimliğe dönüştürülür ve eylemler yerel izin listesinden seçilir. Keyfî komut, kabuk genişletmesi, ham IRC veya doğrudan gönderme eylemi yoktur. Bilinmeyen, yinelenen veya aşırı büyük atamalar yapılandırmanın yüklenmesini atomik olarak reddettirir. Değişiklikler yalnızca açıkça verilen Save ile mevcut özel dosya yazıcısı üzerinden kalıcılaştırılır.
+
+Özel eylemler yalnızca ana sohbet ve komut girişinde çalıştırılır. Yapıştırma veya kipli alanlar, okuyucular ve onay pencereleri özel eylem çalıştırmaz. Function/Alt çözümleme, yakalanmış yapıştırmayı eyleme dönüştüremez; yapıştırmayı bitiren giriş dizisi de kısayolu hemen çalıştıramaz. Çerçevesiz yapıştırma normal yazmadan ayırt edilemez; terminal tuşları programdan önce yakalayabilir. Atamalar terminalin sinyal karakterlerini değiştirmez veya sinyalleri etkinleştirmez. Tam kapsam ve taslak koruması için doc/HOTKEYS.txt dosyasına bakın.

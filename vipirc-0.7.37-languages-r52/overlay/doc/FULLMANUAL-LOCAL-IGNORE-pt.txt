@@ -1,0 +1,20 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / LOCAL IGNORE FILTERS
+English source SHA-256: 5404c975ca8193797b0ed81b5a9611149cbaa34bff67676680655f01885e9693
+
+EXACT COMMAND/CONTROL EXAMPLES (not translated):
+/ignore
+/ignore list
+/ignore MASK
+/ignore add MASK
+/unignore MASK
+/ignore remove MASK
+/ignore clear
+/ignore add NICK
+*!*@*.example
+
+Estes comandos locais funcionam desligados. /ignore ou /ignore list mostra máscaras; /ignore MASK ou /ignore add MASK acrescenta; /unignore MASK ou /ignore remove MASK remove; /ignore clear elimina todas. Para alcunhas literalmente chamadas list, add, remove ou clear, use /ignore add NICK.
+
+São aceites até 32 máscaras de 127 bytes ASCII cada. Uma máscara simples deve ser exatamente um nome válido. Os caracteres curinga exigem nick!user@host completo, com três componentes não vazios, por exemplo *!*@*.example. Em cada componente, * corresponde a zero ou mais bytes e ? a um. Os restantes bytes permitidos são literais; não existem classes de regex, escapes ou expansão de shell. Nick usa as regras de maiúsculas/minúsculas IRC; user e host ignoram a diferença de caixa ASCII. Espaços em branco, controlos e não ASCII são inválidos. A remoção compara padrões guardados segundo estas regras, sem expandir curingas para remover outras máscaras.
+
+Filtram-se apenas PRIVMSG/NOTICE recebidos de utilizadores, antes de criar menções ou conversas privadas. A origem precisa de prefixo explícito de utilizador. Máscaras só com alcunha podem corresponder quando faltam dados user/host; as completas exigem os três componentes. Avisos puros do servidor e todo o estado de protocolo/participação continuam visíveis. O histórico existente é conservado. É um filtro local, não um banimento no servidor. Settings edita a mesma lista e Apply aplica de imediato. /save ou Settings Save grava-a em modo normal; --test-mode mantém alterações apenas na memória. A configuração repete mask= em [ignore].

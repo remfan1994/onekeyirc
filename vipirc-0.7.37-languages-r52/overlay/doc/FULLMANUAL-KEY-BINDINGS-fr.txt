@@ -1,0 +1,18 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / CUSTOM KEY BINDINGS
+English source SHA-256: 947b11b40b8bb1c3fa32d14bc71aac77bc4ccb1186406a303e6b96d197a6b92d
+Source lines: 782-815
+
+RACCOURCIS CLAVIER PERSONNALISÉS
+
+Aucun raccourci personnel n'est défini par défaut. App > Key bindings ou /bindings ouvre le tableau dans vipirc complet. Add/Edit choisit le nom d'une touche et une action locale ; Remove supprime une ligne. Apply applique les changements en mémoire ; Save écrit également la configuration principale. Escape/Cancel annule les modifications non appliquées. Les brouillons de chat sont préservés. Le tableau possède ses propres commandes, indépendantes des raccourcis personnalisés.
+
+Dans les deux interfaces, /bindings keys et /bindings actions affichent les noms possibles. Exemples à choisir soi-même : /bind F7 summary et /bind Alt-c command ; saisissez-les séparément. /unbind F7 retire une association et /unbind all vide le tableau personnalisé. /save input enregistre les modifications pour tous les profils de serveur. En mode -i, /bindings affiche le tableau et /bind ainsi que /unbind le modifient par commande.
+
+Touches disponibles : F1..F12, Ctrl-A..Z, Alt-a..z/0..9, Up, Down, Left, Right, Home, End, PageUp, PageDown, Insert, Delete, Backspace, Tab, Shift-Tab, Enter, Escape. Les alias sont Ctrl-H/Backspace, Ctrl-I/Tab, Ctrl-J/Ctrl-M/Enter et Ctrl-[/Escape. Les lettres avec Alt emploient les octets minuscules du terminal. L'interception par le terminal ou multiplexeur et les associations de signaux ont priorité ; aucune touche de signal n'est réattribuée.
+
+Actions disponibles : compose, command, bindings, help, manual, summary, servers, channels, queries, unread, mentions, transfers, settings, quickstart, next, prev, clearinput, cancel, background, quit. Aucune macro d'envoi ou de commande arbitraire n'est autorisée. Dans le mode complet, une commande restaurée exige une première pression nouvelle sur Enter pour la reconnaître, puis une autre pression après une pause pour l'exécuter. Si sa destination initiale est fermée, Run reste bloqué.
+
+Les actions personnalisées ne fonctionnent que dans le chat principal et la saisie de commandes, jamais pendant un collage, dans les champs de mot de passe, l'installation initiale, les lecteurs ou les confirmations. Un collage sans délimiteurs reste traité comme une frappe. Les lecteurs de raccourcis minimalistes conservent brouillon et curseur ; un changement de destination ou d'éditeur refuse un brouillon non vide. clearinput efface délibérément le brouillon courant.
+
+La section [hotkeys] de la configuration principale contient des lignes KEY=action, sans lignes par défaut. Les entrées inconnues, dupliquées ou trop nombreuses font rejeter atomiquement tout le chargement. La limite est de 64 entrées. Consultez doc/HOTKEYS.txt pour l'enregistrement, les limites du terminal et des exemples.

@@ -1,0 +1,12 @@
+Full-interface review and file browsing
+Source: SECURITY.md, section "Full-interface review and file browsing"
+English section SHA-256: e2f59ccd783bd17feedcf3bc49a14a3085c7f21783755ee9b06c265dc0f1eb54
+Paragraphs: 3
+Status: Translation draft; fluent-speaker security review required
+English SECURITY.md remains authoritative. This is one source-linked section, not a security certification.
+
+Die ncurses-Übertragungsprüfung zeigt Gegenstellenadresse, Port, Bytezahl und Ziel vor einer gesonderten Accept/Offer-Aktion an. Sie hält eine stabile Angebots-ID statt eines veränderlichen Zeilenindex vor und verweigert die Zustimmung, wenn der Prüfungsbildschirm zu klein ist. Die Auswahl einer Zeile im Quelldateibrowser versendet keine Datei. Der Browser folgt keinen symlink-Pfadbestandteilen, prüft den ausgewählten inode erneut, ändert niemals cwd und liest Dateiinhalte nicht nur für die Auflistung. Pro Schritt werden höchstens 64 Einträge geprüft, insgesamt 4096 Namen und 512 Zeilen; Kürzungen werden gemeldet. Dateisystem-Metadaten können bei langsamem Speicher trotzdem blockieren.
+
+Das vorgeschlagene Standardziel der geführten Annahme liegt auf dem Prozesshost unter XDG_DATA_HOME/vipirc/downloads oder HOME/.local/share/vipirc/downloads und wird erst nach ausdrücklicher Zustimmung erstellt. Relative Kommando-Pfade und ein nicht angegebener Empfangsordner verwenden das Startverzeichnis, während die Datenschutzprüfungen bestehen bleiben. Ohne ausdrücklich angekündigte IPv4-Adresse wird beim Senden die lokale IRC-Socket-Adresse verwendet; es gibt keine öffentliche Adressermittlung oder automatische Weiterleitungskonfiguration.
+
+Mausaktionen auf Nicknames und Kanäle speichern größenbegrenzte Kopien der angezeigten Werte. Änderungen an der Benutzerliste dürfen einen früheren Klick nicht auf ein anderes Ziel umlenken. Ein Klick auf einen Nickname öffnet ein lokales Menü; eine spätere Auswahl von Whois/Query/Ignore führt die Aktion aus. Ein Klick auf einen noch nicht betretenen Kanal kann diesen ausdrücklich betreten. Vervollständigung und Vorschlagseinfügung senden keine IRC-Nachrichten. Die Zustimmung zum Senden oder Übertragen durchläuft weiterhin die reguläre Prüfung. Diese Quellcode-Invarianten sind keine Behauptung, dass die Dokumentationsarbeit die vollständige curses-Oberfläche ausgeführt habe.

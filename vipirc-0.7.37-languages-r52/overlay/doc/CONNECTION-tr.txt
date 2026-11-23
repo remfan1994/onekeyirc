@@ -1,0 +1,121 @@
+vipirc / onekeyirc - connection help (tr)
+============================================
+
+Translation draft. Commands, options and config keys must be entered literally.
+For full security details read the authoritative English SECURITY.md and MANUAL.txt.
+
+/help connect
+-------------
+/connect irc.example.org ile başlayın. Önceden profil, takma ad veya sunucu numarası gerekmez.
+
+Yeni sunucu 6697 portunda doğrulanmış TLS ve sistem oturum adını (uygun değilse user) kullanır.
+
+Eşleşen mevcut sunucu, ayarlı portunu, aktarım türünü, takma adını ve kimlik doğrulamasını korur.
+
+Özel takma ad için -nick NICK veya bağlanmadan önce /nick NICK kullanın. Parolalar konumsal argüman değildir.
+
+Şifrelenmemiş IRC için -plain kullanın (yeni sunucuda 6667). -tls ve -ssl doğrulanmış TLS seçer.
+
++PORT da TLS seçer. Normal sayısal port TLS'yi kapatmaz. --tls, --plain ve --nick de kabul edilir.
+
+Bağlantı seçilir ve sunucu/MOTD görünümü açılır. Etkin eşleşen bağlantı yeniden oluşturulmaz.
+
+Farklı uç nokta yeni doğrulama ayarları alır; diğer sunucunun bilgileri ve kanalları kopyalanmaz.
+
+Yalın /connect seçili sunucuyu ve uygulanmış ayarları kullanır. /saveconf sonraki başlangıç için varsayılanı saklar.
+
+Aynı ana makinedeki bouncer profilleri için /server NUMBER ile profili seçin, sonra /connect yazın.
+
+Uyumluluk için mevcut sunucu numaraları da kabul edilir. Test modu çevrimdışıdır; ayarlar ayrıca kaydedilmelidir.
+
+/help autoauth
+--------------
+Seçili sunucunun sonraki bağlantı için kimlik doğrulamasını değiştirir. Doğrulanmış TLS gerekir.
+
+Argümansız veya status ile bağlantı/doğrulama durumunu ve kimlik bilgisi dosya yollarını gösterir; parolaları göstermez.
+
+Etkin ve bekleyen ayarlar ayrıdır. Uzun yollar etiketli devam satırlarında eksiksiz gösterilir.
+
+PATH, boşluklar dahil kalan metnin aynısıdır; kabuk genişletmesi veya tırnak işleme yoktur.
+
+Bu komut dosya açmaz. GPG anahtarları program dışında açılmış olmalıdır.
+
+Düz metin parolalar komut argümanı olarak değil, yalnızca özel yapılandırma dosyasında açıkça ayarlanabilir.
+
+Bouncer profili için /panel kullanın; giriş kimliği ve kimlik bilgisi kaynağı birlikte yönetildiğinden /autoauth reddedilir.
+
+Kalıcı kılmak için /save kullanın. Önce bağlantıyı kesin, sonra değişiklikler için /connect; etkin bağlantı yönlendirilmez.
+
+/help autojoin
+--------------
+Argümansız veya list ile seçili sunucuyu, kayıt/doğrulama durumunu, etkin ve bekleyen listeleri gösterir.
+
+Sonraki /connect için otomatik katılım listesini değiştirir. add/remove anahtarsız tek bir kanal alır.
+
+Değişiklikler uygulanmadan önce doğrulanır; canlı kanala katılma veya ayrılma yapılmaz.
+
+Otomatik yeniden denemeler etkin listeyi korur. Bekleyen liste için önce bağlantıyı kesip /connect kullanın.
+
+Mevcut bağlantı için /join veya /part; başlangıç değişikliklerini saklamak için /save kullanın.
+
+Bouncer profilleri üyelikleri kendileri geri yükler; /autojoin reddedilir. /join ve /part kullanın.
+
+/help saveconf
+--------------
+Uygulama tercihlerini ve sağlam tüm sunucu yapılandırmalarını kaydeder, seçili sunucuyu varsayılan yapar.
+
+Bir sonraki açılışta /connect kayıtlı varsayılanı kullanır; sunucu numarası veya ek kurulum gerekmez.
+
+Takma ad, katılınan kanallar, kimlik doğrulama ve başlangıç seçenekleri dahildir; bekleyen açık değişiklikler önceliklidir.
+
+Bu, başlangıçta otomatik bağlanmayı açmaz. İstiyorsanız önce /autoconnect on kullanın.
+
+Her dosya özel ve atomik biçimde değiştirilir. Başka dosya başarısız olsa da başarılı kayıtlar kalır.
+
+Seçili sunucu ancak kendi kaydı başarılıysa varsayılan olur; hatalar bildirilir, okunamayan profillerin üstüne yazılmaz.
+
+Test modu yapılandırma yazmaz. /save profil ve tercihler için daha dar kapsamlı seçenekler sunar.
+
+/help tls
+---------
+Doğrulanmış TLS varsayılandır. Sunucu adi/adresi ve sertifika zinciri dogrulanir; guvensiz gecis veya plaintext yedegi yoktur.
+
+Port numarasi TLS'yi kapatmaz. --plain veya /connect -plain şifresiz IRC seçer; hesap/sunucu kimlik bilgilerini kullanamaz.
+
+Sağlayıcının tam TLS ana makine adını ve portunu kullanın. Yanlış uç, süresi dolmuş/güvensiz sertifika veya yerel güven ayarı olabilir; önce hatayı inceleyin.
+
+TLS varsayılan olarak sistem güven deposunu kullanır. --ca-file FILE ya da ca_file= özel PEM CA demeti seçer; uç sertifikayı sabitlemez.
+
+Özel CA paketi boş olmayan, en cok 16 MiB boyunda normal dosya olmalıdır. CA dosyasına sembolik bağ serbesttir; gizli/yapılandırma yollari daha katidir.
+
+CA dosyası bir kez acilir, sinirlanir ve okunurken boyutu izlenir. FIFO, aygit ve normal olmayan girdi reddedilir; şifreli PEM parola soramaz.
+
+Dosya boyutu sınırı normal dosya veya ağ dosya sistemi I/O gecikmesini sinirlamaz. Uygun depoda güvenilir bir CA paketi kullanın.
+
+--check-config TLS el sıkışmasını veya CA ve kimlik bilgisi kaynağının çalışacağını doğrulamaz. --test-mode sunucuya bağlanmaz.
+
+TLS yalniz bu bağlantıyı korur. Bouncer'in üst TLS baglantisi ve plaintext gecmisi ayri yönetilir.
+
+/help reconnect
+---------------
+--reconnect bu surec icin tekrar denemeyi acar; ayar kaydetmez veya bağlantı baslatmaz.
+
+Bu seçenek olmadan başarısız bağlantı için /connect gerekir. /autoconnect yalnızca başlangıcı yönetir.
+
+Geçici DNS, reddedilen/kopan bağlantı ve zaman aşımları 5, 10, 20, 40, 80, 160 ve sonra 300 saniyede yeniden denenir.
+
+En az 60 saniye kayıtlı kalan bağlantı gecikmeyi sıfırlar. Yoklama engelleyici uyku kullanmaz.
+
+Sertifika doğrulama, kimlik doğrulama, bozuk protokol ve yapılandırma hataları düzeltilene kadar bağlı kalmaz.
+
+Kayıt öncesi sunucu ERROR sonucu bekletilir; kayıt sonrasındaki yeniden bağlanmayı tetikleyebilir.
+
+Açık /disconnect bekleyen denemeyi iptal eder. Sonraki /connect yeni girişim başlatır.
+
+Yeniden deneme mevcut bağlantı ayarlarını kullanır; bekleyen değişiklikler için yine açık /connect gerekir.
+
+Kuyruktaki mesajlar bağlantı kopunca atilir, otomatik tekrar gönderilmez.
+
+Kimlik doğrulama ve etkin başlangıç komutları yeniden çalışır. Doğrudan profiller autojoin uygular; bouncer kanalları kendisi geri getirir.
+
+Çevrimdışı test modu ağa yeniden bağlanmaz.

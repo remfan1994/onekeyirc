@@ -1,0 +1,35 @@
+vipirc 0.7.36 - optional r18 translation draft (ms)
+Source: MANUAL.txt / FILE TRANSFERS
+English source SHA-256: c3342db1ecfe58933be47c90ee8d60304d29f68f09303a30c005f3061126d611
+Fluent review pending; use English MANUAL.txt for authoritative safety details.
+
+PEMINDAHAN FAIL
+
+F6, /dcc atau /transfers membuka senarai pemindahan bagi seluruh ruang kerja dan mengenal pasti pelayan asal setiap pemindahan. Kawalan senarai biasa digunakan. Tindakan yang tersedia ialah:
+
+    Accept    Reject    Send...    Cancel transfer    Back
+
+Semakan memerlukan sekurang-kurangnya 12 baris dan 20 lajur. Escape dari pelayar fail atau medan kembali ke borang; dari borang atau senarai kembali ke perbualan, sambil mengekalkan draf dan pemindahan yang telah diterima. Hanya DCC SEND IPv4 klasik yang aktif disokong: tiada CHAT, sambung semula pemindahan, pemindahan pasif/terbalik, penerimaan automatik, pengesanan alamat atau pemajuan port. Saiz fail maksimum ialah 4,294,967,295 bait. Fail yang diterima tidak dibuka atau dilaksanakan secara automatik.
+
+DCC ialah sambungan terus tanpa penyulitan, berasingan daripada TLS IRC, dan tidak mengesahkan identiti rakan secara kriptografi. Tawaran mendedahkan IPv4 yang diiklankan; penerimaan mendedahkan alamat IP penerima kepada rakan. Sahkan pengirim, titik hujung, fail yang dimaksudkan dan saiznya dalam bait sebelum menerima setiap tawaran.
+
+Tawaran masuk tidak membuka fail atau soket sehingga penerimaan yang nyata. Accept dalam senarai membuka borang semakan dengan Directory/Save as dan Edit/Accept/Cancel. Enter pada medan hanya menyediakan nilainya; hanya Accept pada borang memulakan pemindahan. Tampalan hanya memasukkan data dalam penyunting yang aktif dan tidak boleh menerima tawaran. Reject tidak menghasilkan apa-apa fail.
+
+Dalam antara muka penuh, direktori penerimaan yang dicadangkan ialah $XDG_DATA_HOME/vipirc/downloads jika laluan itu mutlak; jika tidak, $HOME/.local/share/vipirc/downloads apabila HOME mutlak. Jika tiada kedua-duanya, masukkan laluan dengan jelas. Direktori induk yang belum wujud dicipta dengan keizinan 0700 hanya selepas Accept. Direktori induk terakhir mesti milik pengguna dan peribadi; fail baharu berkeizinan 0600. Fail sedia ada, pautan simbolik dan '..' ditolak. Nama asas fail mesti kelihatan dan bukan tersembunyi, tanpa pemisah laluan, aksara kawalan atau pemformatan arah teks, atau tanda petik. Nama fail pada protokol yang dipetik boleh mengandungi ruang. Fail separa yang gagal atau dibatalkan hanya dipadam jika masih fail asal yang dicipta, bukan fail pengganti.
+
+Send... membuka Nickname, Source file, Advertised IPv4 dan Listen port, bersama Edit/Browse, Offer, Cancel. Perbualan peribadi memberikan nama rakan lalai; borang menunjukkan pelayan IRC. Hanya Offer memulakan pendengar dan mengatur tawaran secara berperingkat melalui pelayan berdaftar itu. Sumber mesti fail biasa yang sedia wujud, tanpa pautan simbolik atau '..'. Port 0 memilih port yang tersedia; port khusus mestilah 1..65535. NAT mungkin memerlukan IPv4 yang boleh dicapai dan pemajuan port; tiada perkhidmatan UPnP atau carian alamat awam dipanggil.
+
+Browse bermula di direktori semasa pelancaran: kekunci anak panah memilih, Enter membuka direktori atau memilih fail, parent/Backspace naik setingkat, Type path menerima nama fail mutlak dan Escape membatalkan tanpa mengubah sumber. Pemilihan mengisi borang tanpa menawarkan fail atau menukar cwd proses. Setiap pusingan memeriksa paling banyak 64 entri; senarai menyimpan 512 dan berhenti selepas memeriksa 4096. Gunakan Type path untuk entri yang tidak dipaparkan. Pautan simbolik dan nama tidak selamat diketepikan; metadata disemak semula ketika memilih atau membuat tawaran.
+
+    /dcc alice file.txt
+    /dcc send -address 203.0.113.10 -port 5000 alice file with spaces.txt
+    /dcc list
+    /dcc accept 1 /home/me/private-downloads
+    /dcc reject 2
+    /dcc cancel 3
+
+Gantikan IP contoh dengan alamat yang dapat dicapai. PATH dalam perintah ialah baki teks secara literal, termasuk ruang, tanpa tanda petik shell. Laluan relatif merujuk kepada cwd ketika pelancaran walaupun selepas proses berjalan di latar atau pelayaran fail. IP lalai yang diiklankan ialah IPv4 setempat soket IRC; sambungan IRC IPv6 sahaja memerlukan penggantian IPv4 yang nyata dan NAT mungkin juga memerlukannya. Perintah accept tanpa DIRECTORY menggunakan cwd asal dengan semakan direktori peribadi yang sama. /dcc tanpa argumen menyenaraikan pemindahan dalam mod minimalis. Kedua-dua antara muka berkongsi pengurus, had dan pembatalan.
+
+Melalui SSH, semua laluan, alamat dan sambungan adalah pada hos yang menjalankan vipirc, bukan komputer setempat yang memaparkan terminal. Pemindahan yang diterima diteruskan apabila perbualan atau paparan berubah dan apabila IRC terputus. Menutup pelayan asal membatalkan pemindahannya; keluar menghentikan semua pemindahan. Kegagalan, pembatalan atau tamat tempoh membuang tawaran yang masih beratur tetapi tidak dapat menarik semula tawaran yang sudah dihantar atau sedang dihantar.
+
+Had ruang kerja ialah 8 tawaran tertunda, 4 pemindahan aktif/mendengar/menyambung dan 12 rekod tersimpan. Hanya apabila penuh, rekod selesai atau gagal yang paling lama dikitar semula dahulu; ID tidak digunakan semula sepanjang satu sesi proses. Tawaran luput selepas 5 minit; pemindahan berhenti selepas 2 minit tanpa kemajuan. Penstriman menggunakan penimbal terhad dan pengakuan kumulatif 32-bit. Mod ujian membenarkan semak/tolak/batal sampel dalam memori; Send/Accept ditolak sebelum kerja fail atau soket.

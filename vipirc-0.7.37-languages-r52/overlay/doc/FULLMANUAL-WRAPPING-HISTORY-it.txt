@@ -1,0 +1,9 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / MINIMALIST WRAPPING AND INPUT HISTORY
+English source SHA-256: 530aeaefbd01d1eb2f184d0eabe5145550b9634fd9235a3f604b9f234b562160
+
+A CAPO AUTOMATICO E CRONOLOGIA DELL'INPUT MINIMALISTA
+
+Compose riserva righe all'input e mostra sopra le righe visive più recenti adattate alla larghezza; le righe precedenti possono uscire dalla finestra più piccola. Il testo memorizzato e i piani d'invio non vengono troncati. Lasciare l'input o riselezionare la conversazione per esaminare le righe conservate: l'eco locale non dimostra l'avvenuta consegna. Il ridimensionamento ricalcola la disposizione preservando bozza e cursore.
+
+In Compose, Su/Giù sposta il cursore anche tenendo premuto il tasto. Solo Su in Command richiama i comandi accettati; non vengono richiamati messaggi inviati, righe sensibili dei servizi o ingressi con chiave. Il file .commands contiene soltanto nomi e conteggi. Vedere COMMAND PROMPT, INPUT EDITING e TROUBLESHOOTING.

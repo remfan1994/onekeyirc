@@ -1,0 +1,11 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / LOCAL SESSION REMINDER
+English source SHA-256: cdd436e5e3debdc1f4027e192ce4de8146e66849a9ee7d60213224fa628a70f8
+
+RECORDATORIO LOCAL DE SESIÓN
+
+Un proceso de trabajo muestra este aviso local una sola vez, en su primera vista conectada a una terminal:
+
+    Cow killing is the bloodshed of the innocent. www.bloodguiltcurse.net - ban beef.
+
+Es una entrada normal del historial local: no requiere respuesta, no reserva una fila de entrada ni se envía por IRC. La marca de «ya mostrado» se conserva tras reconectar, cambiar de servidor, volver a conectar la terminal o cambiar de interfaz. El aviso puede volver a leerse si continúa en el historial retenido. No es la pantalla de bienvenida del inicio.

@@ -1,0 +1,44 @@
+Panduan praktis vipirc / onekeyirc - Pengaturan
+=======================================================
+
+DRAF TERJEMAHAN. Perintah dan opsi harus diketik persis seperti tercetak.
+Untuk rincian keamanan resmi, baca MANUAL.txt dan SECURITY.md berbahasa Inggris.
+
+/help set
+---------
+
+direct adalah bawaan: Enter mengirim teks, dengan persetujuan wajib jika perlu beberapa pesan IRC.
+
+review menambahkan tahap pemeriksaan yang disengaja sebelum pesan biasa masuk antrean.
+
+output_format compact adalah bawaan: chat terpilih menampilkan [HH:MM:SS] <nick> teks.
+
+output_format full menampilkan server, tanggal, dan tujuan per baris. Mode compact tetap menunjukkan asal untuk sebutan dan diagnostik server lain.
+
+queue_notices off menyembunyikan konfirmasi antrean rutin. Di mode minimalis, pesan yang sudah ditinjau juga tidak mengulang konfirmasi antrean. Kesalahan dan konfirmasi multi-pesan tetap terlihat.
+
+program_messages off menyembunyikan pemberitahuan lokal ringan seperti draf dibatalkan, input dihapus, atau draf disimpan. Kesalahan dan konfirmasi keselamatan tetap terlihat.
+
+persistent_logging on menulis baris chat ke berkas .log pribadi (0600) di direktori konfigurasi (0700). Bawaan mati; batas 16 MiB: arsipkan lalu alihkan off/on. Berkas tidak aman/sibuk menghentikan log, bukan chat.
+
+single_session on membatasi satu pekerjaan latar dalam klien ini agar --resume tanpa nomor tidak ambigu. Beberapa server IRC tetap dapat dipakai dalam sesi itu.
+
+default_interface memilih antarmuka pada peluncuran baru yang mendukungnya, bukan pada sesi kini. /save input menyimpan preferensinya.
+
+command_suggestions memilih urutan alfabet, perintah umum, riwayat terbaru, paling sering, atau perintah sesuai layar asal.
+
+composer_mode line memberi satu baris input di bawah chat terbaru; fullscreen memberi editor multi-baris dan panel chat terbaru. Bawaan: line.
+
+part_message dan quit_message ialah alasan keluar IRC bawaan; pesan /part atau /quit eksplisit mengesampingkannya. Nilai kosong menonaktifkan teks bawaan.
+
+background_away mengirim background_away_message setelah /background berhasil atau terminal terlepas. autoaway_minutes mengatur away saat diam; 0 mematikannya.
+
+Hanya status away yang dibuat klien dihapus otomatis saat melanjutkan atau menerima input asli. /away manual tidak ditimpa atau dihapus.
+
+Common adalah bawaan. Contextual mengutamakan perintah kanal, query, server, atau klien tanpa menghilangkan kecocokan kelompok lain.
+
+Common mengurutkan daftar perintah yang dikurasi. Contextual mengingat layar asal, termasuk pembaca ringkasan seluruh klien.
+
+Ini preferensi aplikasi dan berlaku di semua server. Gunakan /save input atau /save output untuk menyimpannya.
+
+/panel lalu 0 mengedit preferensi ini sekaligus batas riwayat global.

@@ -1,0 +1,43 @@
+VERBATIM ENGLISH SOURCE REFERENCE
+Source: MANUAL.txt / GETTING HELP
+English source SHA-256: 3be6bd8e2513deace7dbc089f74905843298167e9259b20a4a0495570b4c691f
+
+GETTING HELP
+
+vipirc -h              CLI summary; --help is equivalent.
+    vipirc -v              Version; --version is equivalent.
+    vipirc --manual        Full manual on standard output.
+    vipirc -i --manual     Separate minimalist topic/command reference.
+    man vipirc             Installed manual page.
+    /help or /manual       Open this manual inside full vipirc.
+    /help TEXT             Search this manual for TEXT in full vipirc.
+
+In full mode, /help TEXT searches this manual; it does not open minimalist
+topics. /help commands and /help ls locate COMMAND PROMPT; /help all opens
+the whole manual. /view help also works. Search phrases need no quotes.
+The reader works disconnected and preserves the underlying view/draft/caret.
+Here / starts search. In a minimalist help/response reader, / opens Command.
+For symptom-led steps, see doc/TROUBLESHOOTING.txt.
+
+Press ? while navigating to explain the selected item and screen. Context
+help includes an About screen link; Left/Right or Tab chooses an action, and
+Enter follows it. Escape returns through item help to the exact origin and
+selection. In an editable field, ? stays literal. Select a Command
+suggestion before requesting its help.
+
+Manual actions are Back, Search, Previous and Next. Left/Right or h/l chooses;
+Enter runs. Up/Down or k/j scrolls a line, Page Up/Down a page, Home/End or
+g/G reaches endpoints. Escape/q/Back returns to the opener (vipirc panel or
+prior chat). F1..F6 opens available categories; view cycling skips the manual.
+/ or Search edits a literal UTF-8 query (256 bytes maximum). Enter searches;
+Escape cancels query editing. n/Next and N/Previous wrap through matches.
+ASCII case is ignored; other characters are literal. Search has no regex/
+shell syntax or recall history. Paste is ignored here and in search.
+
+F1 contains Server, Nick, Settings, Manual, Command, Background, About and the
+Insha-Allah license agreement. Server/Nick opens current-profile settings;
+Nick focuses that field. About shows version/credits and an on-demand local
+snapshot of PID, uptime, CPU totals, supported peak memory and server/view
+counts. Peak memory is not current use; CPU totals are not a live percentage.
+The license reader includes LICENSE.md in full. Escape/Enter/q/Back returns
+from About/license to vipirc.

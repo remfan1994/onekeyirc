@@ -1,0 +1,19 @@
+CURRENT SIGNAL POLICY (vipirc-0.7.37):
+Use signals steht standardmäßig auf no. Ctrl-C und Ctrl-Z brechen eine ungesendete Nachricht oder einen Befehl ab, statt das Programm zu beenden oder anzuhalten. Wählen Sie yes in Panel 0 oder den Interface-Einstellungen von vipirc, um Terminalsignale zuzulassen. Apply wirkt sofort; Save speichert zusätzlich [input] use_signals=true|false. Beim Beenden oder Anhalten werden die ursprünglichen Terminaleinstellungen wiederhergestellt.
+
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / TERMINAL SIGNALS
+English source SHA-256: b88ff166737c03f4e8588e56bcb3bfd585a2d4ef6379caaf086b815dbbd935b6
+
+TERMINALSIGNALE
+
+Ein wörtliches Ctrl-D wird ignoriert, außer wenn es ausdrücklich der Haupt-Chat-/Befehlseingabe zugewiesen ist; es kann außerdem die F1-Beenden-Frage abbrechen. Ein eingefügtes Ctrl-D darf diese Frage nicht beantworten. Beenden Sie normal mit /quit in Command. Benutzerdefinierte Terminalsignal-Tasten haben Vorrang vor gewöhnlicher Tastenbehandlung.
+
+Die Signalbehandlung des Terminals wird standardmäßig übernommen. Der Client belegt Ctrl-C oder Ctrl-Z nicht selbst: Sie wirken nur, wenn das Terminal sie Signalen zuordnet und die Signalbehandlung aktiviert ist. Eigene Tasten für Unterbrechung, Beenden und Anhalten bleiben erhalten. Um die Signalbehandlung ausdrücklich einzuschalten, setzen Sie diese Hauptkonfigurationseinstellung und starten einen neuen Prozess:
+
+    [input]
+    use_signals=true
+
+Der Standard false übernimmt den bisherigen aktivierten oder deaktivierten Zustand. Die Einstellung verändert keine Terminal-Tastenbelegung. Beim Anhalten und Beenden stellt der Client die ursprünglichen Terminaleinstellungen wieder her.
+
+Ist die Signalbehandlung aktiv, beendet eine Unterbrechung den Client ohne Speichern von Entwürfen. Das Anhalten eines gewöhnlichen Vordergrundprozesses unterbricht seine Netzwerkaktivität und kann einen Timeout verursachen; fg setzt ihn fort. In einer verwalteten/wiederaufgenommenen Sitzung hält dagegen nur der Vordergrund-Controller an, während der Hintergrundprozess weiter vernetzt ist; siehe RUNNING IN THE BACKGROUND.

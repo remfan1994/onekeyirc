@@ -1,0 +1,12 @@
+DCC file transfers
+Source: SECURITY.md, section "DCC file transfers"
+English section SHA-256: f0f91b6753c085b41c9c9071eabf9585ddc404919fe56e0989bfafb733db2e3b
+Paragraphs: 3
+Status: Translation draft; fluent-speaker security review required
+English SECURITY.md remains authoritative. This is one source-linked section, not a security certification.
+
+Klasik etkin IPv4 DCC SEND, IRC TLS'den bağımsız olarak şifresiz ve kimlik doğrulamasızdır. Takma ad, bağlanan eşin kimliğini doğrulamaz. Gösterilen uç nokta özel ağ veya loopback adresi olabilir. Dosya göndermek bir adres duyurur; teklifi kabul etmek gösterilen eşe bağlanır ve işlemin çalıştığı ana makinenin adresini açığa çıkarır. Sadece teklif almak dosya veya soket oluşturmaz. Accept/send için açık bir eylem gerekir. SSH üzerinden çalışırken dosyalar ve soketler uzak işlem ana makinesine aittir.
+
+Kaynaklar normal dosya olmalı ve yollarının hiçbir bileşeni symlink olmamalıdır. Dosyalar anlık kopya alınmadan akış hâlinde okunur; sonradan değiştirilmesine karşı korunmaz. Sabit bir kaynak kullanın. Alım, kullanıcıya ait özel bir dizinde 0600 kipinde yeni dosya oluşturur; dizin dışına geçişi, symlink öğelerini ve mevcut hedefleri reddeder. Kısmi aktarım temizliği yalnızca aktarımın oluşturduğu aygıt ve inode ile eşleşen dosyayı siler. Dosyalar otomatik açılmaz veya çalıştırılmaz. Bayt sayısı onayları hash değildir.
+
+Sekiz bekleyen teklif, dört etkin aktarım ve on iki saklanan kayıt sınırı vardır; en büyük dosya boyutu 4294967295 bayttır. Teklifler beş dakika sonra sona erer; etkin aktarımlar iki dakika ilerleme olmadığında başarısız olur. Değişmeyen onayların tekrarlanması bu süreyi uzatmaz. DCC CHAT, resume, pasif/ters aktarım, boyutu bilinmeyen dosyalar ve IPv6 desteklenmez. Genel IP keşfi veya otomatik NAT/firewall yapılandırması yoktur. IRC bağlantısının kesilmesi, kabul edilmiş doğrudan aktarımları sürdürür; ilgili sunucuyu kapatmak veya programdan çıkmak bunları sonlandırır. /cancel aktarımın kendine özgü iptal işleminin yerini tutmaz.

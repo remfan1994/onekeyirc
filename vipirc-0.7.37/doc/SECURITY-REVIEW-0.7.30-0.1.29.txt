@@ -1,0 +1,363 @@
+SECURITY REVIEW: VIPIRC 0.7.30 AND ONEKEYIRC 0.1.29
+Date: 2026-11-16 (UTC)
+Baseline: vipirc 0.7.29 and onekeyirc 0.1.28
+
+RESULT
+
+This pass fixes five concrete security or availability boundaries and one
+related CLI compatibility defect in both clients. The existing bouncer support
+is substantial for a terminal client with one saved profile per network, so
+this release concentrates on correctness rather than adding a new subsystem.
+
+The most directly privacy-relevant finding is retention of replayed bouncer
+control text under an earlier nickname. Other fixes concern first-background
+child ownership, reserved standard descriptors, custom CA-file availability,
+and the final SASL capability value. A different-host CLI override now also
+clears stale bouncer identity along with the previous host's credentials.
+
+No new remote code execution, authentication bypass, or demonstrated remote
+reading of a user's private files was established. This is a scoped code
+review with reproductions and regressions, not a claim of immunity or an
+independent certification. Exact commands, hashes, original failures and
+execution limits are in doc/SECURITY-BOUNDARY-RESULTS.json.
+
+SCOPE AND METHOD
+
+The preceding source archives were SHA-256 checked, extracted into immutable
+baselines and compared with their source manifests. Independent review tracks
+examined the IRC/bouncer core, local credentials/configuration/session handling,
+and DCC/editor/terminal boundaries. The transport and CLI were reviewed in
+parallel. Concrete fixes then received an additional read-only review.
+
+Review areas included untrusted wire parsing and lengths; CAP/SASL state;
+BATCH nesting, interleaving and replay side effects; private control/history/log
+routing; TLS trust and retry behavior; helper and resolver ownership; private
+file and directory handling; session controls and descriptor passing; DCC
+lengths, acknowledgement counters and file cleanup; input boundaries and
+terminal availability. This pass does not imply every path or third-party
+library has been exhaustively analyzed.
+
+Testing used private temporary directories, fake credentials and canaries,
+owned processes, loopback TLS, PTYs, and native socketpairs. No public IRC
+network, real bouncer account, live user session or real credential was used.
+Production fixes are deliberately small. There is no new runtime dependency,
+unsafe verification bypass, protocol probing of public hosts, or speculative
+curses rewrite. All 38 common source files remain byte-identical between the
+two packages. Historical review reports retain their original release scope.
+
+FINDING 1: HISTORICAL NICKNAME BYPASSED BOUNCER-CONTROL PRIVACY
+
+Baseline behavior:
+
+Incoming copies of private bouncer controls were suppressed only when the
+sender nickname equaled the client's current nickname. A replay can retain
+an earlier nickname. A valid historical PRIVMSG to a ZNC service or soju's
+BouncerServ could therefore enter normal display history and optional disk
+logs after a nickname change.
+
+The canary reproduction registered, changed nickname, and replayed a fake
+control under the previous nickname, an earlier-session nickname, and an
+unknown batch reference. Both baselines failed six of 14 cases. Eight controls
+verified current-nick suppression, visible/unlogged service replies, and
+normal live/history peer messages.
+
+Fix:
+
+Incoming PRIVMSG/NOTICE copies addressed to the selected bouncer's service
+are classified as private controls independent of the sender's nickname.
+They are not executed and their text is not retained in display history or
+persistent logs. Service-source replies remain visible without persistence;
+ordinary peer messages keep their normal behavior.
+
+Risk and limits:
+
+Reachability requires a bouncer to deliver such a control transcript. The
+valid-message fixture establishes client behavior, not that a tested live ZNC
+or soju deployment stores and replays controls. It demonstrates unintended
+retention in the user's own display/log, not access to that private log by
+another IRC user. The update prevents future retention; it does not remove
+text already present in existing logs. Bouncer-side logging remains outside
+the client's control.
+
+Files/tests: src/app.c; tests/test_bouncer_oldnick_privacy.c.
+Evidence: bouncer/oldnick-baseline-results.json and final bouncer matrices.
+
+FINDING 2: STALE SASL MECHANISM STATE AFTER DUPLICATE CAP DECLARATIONS
+
+Baseline behavior:
+
+An early sasl=PLAIN offer could survive a later sasl=EXTERNAL or empty sasl=
+value, both within one line and across continued CAP LS lines. This disagreed
+with the final-value precedence rule and could start an unsupported exchange.
+Both baselines failed 10 of 24 deterministic cases. The tests observed no
+credential reads before acknowledgement/challenge.
+
+Fix:
+
+The scanner distinguishes no declaration, a declaration excluding PLAIN, and
+one accepting PLAIN. The last SASL declaration replaces the prior value;
+unrelated continuation lines preserve the prior declaration. Required SASL
+without final PLAIN support fails closed before reading its credential.
+
+This is authentication-state and availability hardening. The reproduction
+does not show credential disclosure or authentication bypass.
+
+Files/tests: src/app.c; tests/test_cap_sasl_final.c.
+Evidence: bouncer/cap-baseline-results.json and final bouncer matrices.
+
+FINDING 3: FIRST BACKGROUND STARTUP DID NOT GUARANTEE CHILD OWNERSHIP
+
+Baseline behavior:
+
+Initial background startup accepted SIGCHLD=SIG_IGN or SA_NOCLDWAIT. After an
+injected child startup failure, cancellation attempted SIGKILL using a PID
+whose child had already been automatically reaped. If that number were reused,
+it would no longer identify an owned child.
+
+Both baselines failed four unsafe ownership cases, including a policy change
+after preparation. The reproduction used real fork/pipe/exit/waitpid behavior
+and a forced setsid failure, without forcing PID reuse. Its final automatic-
+reaping cases suppress every nonzero signal, so they cannot signal an unrelated
+process. Earlier fixture versions and their observed outcomes are retained.
+
+Fix:
+
+Initial background preparation rejects automatic reaping before creating its
+endpoint state; first detach checks again before pipe/fork. The signal policy
+is inspected and preserved. A managed worker's re-detach does not create a new
+child and retains its previous behavior. Default and non-reaping handlers
+remain supported.
+
+The seven-case regression covers all rejected policies, default/non-reaping
+handlers, a changed policy and managed re-detach. A custom external handler
+that independently reaps the client's children remains unsupported, as in the
+existing resolver/credential-helper ownership contract.
+
+Files/tests: src/background.c and .h; tests/test_background_ownership.c.
+Evidence: local/background-ownership-baseline.json and
+local/background-ownership-final.json.
+
+FINDING 4: CLOSED STANDARD DESCRIPTORS COULD OVERWRITE SESSION DIRECTORIES
+
+Baseline behavior:
+
+When startup inherited closed stdin/stdout/stderr slots, retained background
+directory descriptors could be allocated into those numeric slots. Later
+terminal quieting deliberately replaces descriptors 0, 1 and 2. The baseline
+fixture confirmed replacement of the registry descriptor with any two standard
+slots closed, and replacement of both registry and job-directory descriptors
+when all three were closed. Owned-path cleanup could then fail.
+
+The lease and listener survived this exact reproduction. Their loss is not
+claimed. The reproduction used real directory/file/socketpair descriptors and
+explicit pathname bind/listen fixtures, not a real named-socket session.
+
+Fix:
+
+At process entry, only closed standard slots are filled with O_RDWR /dev/null.
+Existing streams, access modes, nonblocking status and descriptor flags are
+preserved. New standard streams have close-on-exec clear. Inspection and open
+failures stop before config reads; an unexpected allocated slot is closed and
+startup fails without overwriting an intervening owner.
+
+All 18 regression cases pass: all eight closed-slot masks, inherited flags,
+an informational invocation, and inspection/open/allocation-race failures at
+each standard slot. Existing privilege/core-dump guards retain their ordering
+before operational configuration reads.
+
+Files/tests: src/main.c; tests/test_standard_fds.c.
+Evidence: local/closed-fds-baseline.json, standard-fds-final.json and
+standard-fds-stable-repeats.json. The final fixture corrects two overly strict
+early test assertions; original results are preserved.
+
+FINDING 5: A CONFIGURED CA FIFO COULD HANG CONNECTION STARTUP
+
+Baseline behavior:
+
+net_open() synchronously handed an explicit CA path to the TLS library's file
+loader before the event loop could enforce its connection deadline. A FIFO
+without a writer blocked that call. The immutable onekeyirc transport probe
+had to be terminated after one second; its net.c was byte-identical to the
+vipirc baseline. /dev/zero returned an error in that baseline probe: a device
+hang is not claimed.
+
+Fix:
+
+An explicit CA file is opened once with O_NONBLOCK and close-on-exec. fstat on
+that same descriptor requires a nonempty regular file no larger than 16 MiB.
+A size-plus-one bounded read detects shortening or growth, and the pinned
+bytes are parsed through the TLS library's memory BIO and X509_INFO decoder.
+The path is never reopened after checking. A rejecting password callback
+prevents an interactive certificate/CRL password prompt. The temporary raw
+buffer is cleansed before release, and failed partial TLS contexts are closed.
+
+Symlinks to regular files remain supported. Certificate bundles, explicit AUX
+trust/rejection settings, CRLs, mixed bundles, and duplicate entries retain
+compatibility. System-default trust loading is unchanged; selecting a custom
+trust file remains an explicit trust decision. Certificate/hostname checks and
+the TLS minimum remain enforced, with no automatic plaintext fallback.
+
+The final 22-case file suite checks valid and malformed bundles, trust/CRL
+preservation, unused plain/encrypted keys, symlinks, interrupted reads, a path
+replaced by a FIFO after opening, shortening/growth, FIFO/device/directory/
+missing/empty inputs, encrypted certificate rejection, exactly 16 MiB, and
+one byte above the limit. It passes normally and with ASan/UBSan in both trees.
+Actual TLS handshake/retry/resolver regressions also pass.
+
+This is a local configuration/file availability defect, not a demonstrated
+ordinary IRC-message attack. The change does not impose a wall-clock deadline
+on regular-file/NFS latency, nor a measured decoded-object memory bound on all
+TLS libraries. A local attacker who can rewrite an intentionally trusted CA
+bundle remains able to change its trust contents.
+
+Files/tests: src/net.c; tests/test_net_ca.c and tests/test_net_ca.py.
+Evidence: root/ca-source-before.json, CA file records, final boundary gates,
+and root/transport-normal-results.json / transport-sanitize-results.json.
+
+COMPATIBILITY FIX: DIFFERENT-HOST CLI OVERRIDE RETAINED BOUNCER MODE
+
+The existing --server different-host reset correctly discarded old credentials
+and startup commands but left the bouncer type/account/network/client fields.
+The result was an invalid saved-bouncer/direct-server combination. Both
+baselines failed the two new-host cases for each bouncer type.
+
+The same reset condition now clears bouncer identity and automatic-away mode.
+Explicit new-host options are applied afterward. Same-host changes including
+hostname case, nick-only changes, and first setup with an empty hostname retain
+the profile. This is a different-host rule, not a reset on every port change.
+The ten-case extension to tests/test_session_cli.c passes in both products and
+build modes. No credential leak was shown in the baseline: this was fail-closed
+behavior that prevented the intended connection.
+
+BOUNCER SUPPORT ASSESSED
+
+Retained features include explicit ZNC and soju saved profiles, verified TLS,
+proper account/network/client login composition, isolated credential sources,
+separate offered/pending/active capabilities, timestamped automatic playback,
+bounded nested/interleaved history, restored memberships, own-PM routing,
+private paced control commands, and per-profile opt-in automatic away.
+
+History does not create live DCC offers, answer CTCP/PING requests or rewrite
+current memberships/presence. Unknown batch references remain display-only.
+The new independent state model checks 1,024 CAP sequences, 7,484 BATCH
+operations and 13 malformed framing cases. Active batches remain bounded.
+
+This is not full on-demand archive browsing or automatic multi-network
+account discovery. CAP NEW activation remains deferred until reconnect. Those
+limitations are documented, and adding unrelated features was not necessary
+to address this pass's security findings.
+
+ADDITIONAL VALIDATION
+
+- Bouncer/core review: eight binaries x two products x normal/ASan+UBSan,
+  32 clean final executions. This includes 24 CAP and 14 privacy cases,
+  the new independent state model, existing authentication/app tests,
+  40,000 hostile wire cases, 91,184 exact-allocation/truncation protocol cases,
+  and 25,000 deterministic randomized cases.
+- Local review: nine suites x two products x two modes, 36 passing runs,
+  plus final seven-case ownership and 18-case standard-descriptor fixtures.
+  Native socketpair/SCM_RIGHTS, session controls, stopped output, credential
+  lifecycle/signals/descendants and configuration regressions are covered.
+- Protected pages: 65,881 DCC and 65,881 editor cases per execution, placing
+  terminators and exact output capacities immediately before PROT_NONE.
+  All non-NUL one/two-byte sequences, truncated encodings, length limits,
+  transactional rejection and navigation extremes are included.
+- DCC counters: 20 completed small tails and six malformed-peer cases at
+  sizes UINT32_MAX-1 and UINT32_MAX, fragmented high-bit acknowledgements,
+  byte-exact data, descriptor/file cleanup and exhausted IDs. Counters were
+  seeded near the boundary; 196,624 actual payload bytes were moved. No
+  full 4 GiB transfer is claimed.
+- Integrated normal and ASan/UBSan bouncer/security-boundary gates pass for
+  both packages. The current source hashes remain stable during each gate.
+- Real local TLS tests pass for verification, byte integrity, resolver FD
+  isolation/ownership, retry classification and TLS control-record fairness.
+- Local verified-TLS/PTY bouncer fixtures exercise ZNC and soju login,
+  reconnect, 2,000-record replay, restored channels, private controls and
+  rejected authentication. These are protocol fixtures, not live daemons.
+- Terminal/CLI regressions cover wrap/resize and exact outgoing text,
+  command history, bracketed paste, review/catch-up/navigation, manuals,
+  inherited signal mappings and the once-per-worker local notice.
+
+Counts describe each test corpus. Repeating the same cases across products
+and build modes does not create more distinct cases. No new DCC/editor or
+credential/configuration production defect was confirmed, so those modules
+were not changed simply to make the review appear larger.
+
+The runtime review's four initial LeakSanitizer shutdown failures and the
+bouncer review's initial leak-check failures are retained. LSan could not
+complete its ptrace/thread scan in this environment. Final address/undefined-
+behavior checks ran with detect_leaks=0 and halt_on_error enabled. Leak
+coverage is unavailable, not passed.
+
+BUILD, PACKAGING AND LIMITS
+
+onekeyirc is built as its actual standalone executable with strict compiler
+warnings and the configure-selected hardening flags. vipirc's actual main,
+shared core and minimalist frontend are linked with aborting placeholders for
+unavailable curses entry points for these -i tests. Calling those placeholders
+would abort; this is not a complete ncurses executable or UI certification.
+
+Full vipirc configure fails here because wide-character curses development
+headers/library are unavailable. Native named AF_UNIX creation also returns
+EPERM; therefore complete real --background/--resume/--close-session lifecycle
+validation is still required on a supported host. Native socketpair and PTY
+checks do run. Native OpenBSD and LibreSSL builds were not executed. Actual
+ZNC/soju daemons and IRCNow accounts were not exercised.
+
+The full curses output path uses blocking stdio/doupdate. Static review suggests
+a stalled terminal can hold that loop; this was not reproduced with a full
+binary and remains an unvalidated availability limitation. No speculative
+output rewrite was made. Filesystem latency and classic DCC's unauthenticated,
+unencrypted transport remain existing boundaries.
+
+The source archives include all existing source/license material, new tests,
+current documentation, this report, machine-readable evidence and per-file
+SHA-256 manifests. Staging uses the previous source manifest plus an explicit
+new-file list, excluding binaries, generated Makefiles, credentials and helper
+artifacts. onekeyirc is built from the clean staged source, installed under a
+private DESTDIR, and uninstalled; installed doc bytes/modes and cleanup are
+checked. Every archive member is checked against the staged source and manifest.
+External archive hashes are in the companion .sha256 file.
+
+REPRODUCTION ON THE DEPLOYMENT HOST
+
+From either unpacked source tree with its required development dependencies:
+
+    ./configure
+    make
+    make check-bouncers check-security-boundaries
+    make check-bouncers-sanitize check-security-boundaries-sanitize
+
+Use the full existing native session/terminal and platform checks before
+calling an actual host deployment validated. For vipirc, build with real
+wide-character curses. Keep the TLS library and operating system maintained.
+The package's existing INSTALL and security documentation describe the other
+available gates. Do not disable leak detection on a host where it works; this
+report separates the environment limitation from passing ASan/UBSan results.
+
+Replacing an installed executable does not change a running background worker.
+Plan a deliberate worker restart when adopting these fixes. Existing
+configuration formats remain compatible; custom CA files now have the regular-
+file, nonempty and 16 MiB requirements described above. This review neither
+restarts live jobs nor deploys the archives to an IRC server.
+
+PRIMARY REFERENCES USED FOR SEMANTIC CHECKS
+
+[1] IRCv3 Client Capability Negotiation, final capability value and LS framing:
+    https://ircv3.net/specs/extensions/capability-negotiation
+[2] IRCv3 draft chathistory, historical identities and playback considerations;
+    the chathistory batch type is ratified:
+    https://ircv3.net/specs/extensions/chathistory
+[3] IRCv3 BATCH and message tags:
+    https://ircv3.net/specs/extensions/batch
+    https://ircv3.net/specs/extensions/message-tags
+[4] IRCv3 SASL and server time:
+    https://ircv3.net/specs/extensions/sasl-3.1
+    https://ircv3.net/specs/extensions/server-time
+[5] OpenBSD/LibreSSL PEM X509_INFO decoder and trust-file loader semantics:
+    https://man.openbsd.org/PEM_X509_INFO_read_bio.3
+    https://man.openbsd.org/SSL_CTX_load_verify_locations.3
+[6] OpenSSL trusted certificate/CRL store reference behavior:
+    https://docs.openssl.org/3.5/man3/X509_STORE_add_cert/
+
+Exact observations and their limits take precedence over broad security claims.

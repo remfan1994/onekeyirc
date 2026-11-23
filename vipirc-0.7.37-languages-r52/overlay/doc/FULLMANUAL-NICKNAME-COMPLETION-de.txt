@@ -1,0 +1,11 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / NICKNAME COMPLETION
+English source SHA-256: 89b368bbd759571d49afe8fccb96d986865af2f76dcd6d257f18cd768bda8e98
+
+AUTOMATISCHE NICKNAME-ERGÄNZUNG
+
+Tab ergänzt den Nickname an der Cursorposition im Chat. Weitere Tab-Tasten durchlaufen passende Namen in alphabetischer Reihenfolge unter Berücksichtigung der Groß-/Kleinschreibungsregeln; Shift-Tab geht rückwärts. Die Zuordnung folgt den vom Server angekündigten Regeln ASCII, strict RFC1459 oder RFC1459. Es erfolgt keine Netzwerkanfrage und kein Nachrichtenversand. Gewöhnliches Bearbeiten beendet den aktuellen Ergänzungszyklus.
+
+Am Anfang eines Entwurfs wird ': ' angehängt, am Ende eines späteren Wortes ein Leerzeichen. Beim Ergänzen innerhalb des Entwurfs bleiben Satzzeichen und folgende Wörter erhalten. Channels und URLs gelten nicht als Nickname-Präfixe. Würde ein Kandidat die Byte- oder Zeichengrenze überschreiten, bleibt der gesamte Entwurf unverändert. Wird die kleinere IRC-Nachrichtenlänge überschritten, erscheint die übliche Frühwarnung; das Ergänzen versendet niemals etwas.
+
+Im Channel werden die aktuellen Mitglieder vorgeschlagen, in einer privaten Unterhaltung der Gesprächspartner und der eigene Nickname. Server- und Erwähnungsansichten nutzen bekannte Partner aus den Channels und privaten Gesprächen dieses Servers. Benutzer anderer Server werden niemals vorgeschlagen. Änderungen der Mitgliederliste gelten bei der nächsten Ergänzung; es wird keine zusätzliche Liste gespeichert.

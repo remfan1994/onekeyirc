@@ -1,0 +1,13 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / EXIT STATUS
+English source SHA-256: a4feff37ea5665514327eb0e9d3930712772f4ff6cf26bdcefb48492f71f9923
+
+ÇIKIŞ DURUMLARI
+
+0     Normal bitiş veya etkileşimli çıkış.
+1     Başlatma, kaydetme veya oturum denetimi gibi işlem hatası.
+2     Geçersiz seçenekler/yapılandırma veya etkileşimli kullanım için terminal olmaması.
+130   SIGINT terminal temizlendikten sonra karşılamayı kesti.
+131   SIGQUIT terminal temizlendikten sonra karşılamayı kesti.
+
+Başarılı --background durumu yalnızca yerel işçi kurulumunu doğrular, uzak IRC oturum açmayı değil. Oturum kapatma başarısızsa tamamlandığı doğrulanmamıştır; kabul edilmiş bir istek sonradan bitebileceğinden --sessions ile yeniden bakın.

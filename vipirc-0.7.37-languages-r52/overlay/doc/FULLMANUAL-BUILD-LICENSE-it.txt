@@ -1,0 +1,17 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / PLATFORMS, BUILD, AND LICENSE
+English source SHA-256: c28dd1d52c0de855974159eabffe9cce9c94a78d0c7d7ae46cd65e9226993b3a
+
+PIATTAFORME, COMPILAZIONE E LICENZA
+
+Le piattaforme previste includono Linux, l'ambiente Linux di ChromeOS e i BSD. La compilazione richiede C11, interfacce POSIX, GNU/BSD getopt_long, curses a caratteri larghi e file di sviluppo TLS compatibili. Il client non richiede un runtime di linguaggio. Python 3 serve a test e generazione della documentazione; gli esportati inclusi consentono compilazione e uso normale senza Python. Per le dipendenze vedere INSTALL.
+
+    ./configure
+    make
+    make check-offline
+    make check
+    make install PREFIX="$HOME/.local"
+
+Vedere INSTALL per compilazione e dipendenze, SECURITY.md per modello e limiti di sicurezza e il rapporto di validazione della versione per le piattaforme effettivamente provate. L'esecuzione nativa su BSD richiede una verifica distinta: l'obiettivo di portabilità non prova che tutti i sistemi Unix siano stati testati. make check-offline esegue test CLI/PTY senza socket di rete; make check usa anche server simulati sul loopback locale.
+
+Questa applicazione di ThatIAm.vip (www.thatiam.vip) è stata progettata da remfan1994. Il sorgente è disponibile con la IALA (Insha-Allah License Agreement) inclusa, riportata integralmente in LICENSE.md. Le librerie collegate conservano le proprie licenze; vedere NOTICE. L'implementazione è stata scritta per questa specifica senza copiare codice o linguaggi di configurazione di altri client IRC.

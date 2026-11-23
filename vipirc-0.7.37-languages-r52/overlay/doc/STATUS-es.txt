@@ -1,0 +1,57 @@
+Guía práctica de vipirc / onekeyirc - Servidores, resumen, usuarios y palabras vigiladas
+======================================================
+
+TRADUCCIÓN PRELIMINAR. Escriba comandos y opciones exactamente como aparecen.
+Para los detalles de seguridad, consulte MANUAL.txt y SECURITY.md en inglés.
+
+/help summary
+-------------
+
+Muestra todos los servidores, channel 0, vistas de canales/consultas, actividad sin leer, menciones, colas salientes, comandos de inicio y transferencias.
+
+Es un resumen local que funciona desconectado. Pulsa r en su lector o ejecútalo de nuevo para actualizar.
+
+Abrirlo no cambia la conversación ni marca mensajes como leídos. Las menciones copiadas se excluyen del total de actividad.
+
+Las menciones pueden estar sin leer; no sumes ambos totales. Las vistas de canales unidos y abandonados se distinguen.
+
+El informe tiene lector desplazable y conserva borradores. Barra inclinada abre comandos; cancelar vuelve al resumen.
+
+Si falla actualizar, conserva el resumen previo. Abrirlo o actualizarlo no envía peticiones a la red.
+
+Nunca muestra credenciales ni contenido de mensajes en cola o comandos automáticos.
+
+/help server
+------------
+
+Con un nombre de host equivale a /connect directo. No exige crear un perfil antes.
+
+Sin argumentos muestra mensajes/MOTD del servidor actual. NUMBER selecciona un espacio sin conectarlo.
+
+add crea un perfil con credenciales nuevas, TLS verificado y autoconnect apagado; no selecciona, conecta ni guarda.
+
+PORT es 6697 por defecto. Otro puerto no desactiva TLS; debes elegir explícitamente una conexión sin cifrar.
+
+connect/disconnect no cambian la selección. close quita una sesión/entrada secundaria, no su archivo de perfil.
+
+Los servidores minimalistas se numeran 1..8, principal 1. El principal permanece: desconéctalo, no lo cierres.
+
+Los números no cambian durante la sesión. Panel 0 se reserva para preferencias de la aplicación.
+
+/help users
+-----------
+
+Es una lista textual de usuarios, no un interruptor de visibilidad. Incluye prefijos de modo conocidos.
+
+La lista abre un lector aparte incluso vacía. Enter, Escape o q vuelve al chat seleccionado.
+
+Up/Down y Page Up/Down desplazan la lista. En Help, Enter sigue desplazando.
+
+Las respuestas NAMES incompletas o limitadas por capacidad se etiquetan. No consulta WHOIS.
+
+/help watch
+-----------
+
+Las menciones por apodo están siempre activas. Add/remove trata el resto como texto literal, no expresión regular.
+
+Admite hasta 32 textos adicionales de 1..127 bytes UTF-8 por servidor. Usa /save para conservarlos.

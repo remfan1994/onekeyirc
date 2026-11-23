@@ -1,0 +1,23 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / HISTORY, LOGGING AND PRIVACY
+English source SHA-256: b0c065ed46b6cbb73666075f1eee2d050a5a82160fac0ddadd98ad80d2910ee3
+
+HISTÓRICO, REGISTROS E PRIVACIDADE
+
+Há diferentes tipos de histórico:
+
+    Conversas/menções retidas: memória limitada para exibição.
+    Recuperação de comandos: linhas aceitas em memória, com filtragem de segredos.
+    Frequência de comandos: nomes canônicos e contagens em CONFIG_PATH.commands.
+    Transcrição opcional: registros em texto simples no arquivo .log de cada perfil salvo.
+    Reprodução pelo bouncer: mensagens fornecidas conforme a política do próprio bouncer.
+
+Detach/resume preserva a memória da sessão ativa. /quit, --close-session, falha do processo ou reinicialização a encerram. Um novo processo carrega as configurações salvas e, quando houver, as contagens de comandos; não importa transcrições antigas como histórico de conversa em tempo real nem recria o marcador anterior de catch-up. /clear limpa a memória da visualização atual, sem apagar a transcrição em disco ou retirar uma mensagem IRC.
+
+Ative a transcrição com /set persistent_logging on e salve com /save output, ou escolha Settings > Interface > Persistent logging. Ela vem desativada, vale para todos os servidores e usa um arquivo separado para cada perfil salvo. As verificações de privacidade de caminhos e arquivos descritas em CONFIGURATION continuam aplicáveis.
+
+Cada log para em 16 MiB; não há rotação ou exclusão automática. Caminho inseguro, bloqueio ocupado ou erro de escrita desativa o registro para o perfil afetado com uma mensagem de erro, mas o chat continua. Arquive o arquivo antigo e desligue/ligue o registro para retomar. A rotação pode invalidar o antigo marcador de catch-up; envie uma nova mensagem elegível antes de confiar na recuperação durável de uma ausência posterior.
+
+Mensagens reconhecidas de credenciais/serviços e cópias sensíveis usando apelidos atuais ou antigos são excluídas, inclusive destinos de serviços qualificados. Conversas comuns, sintaxe desconhecida de serviços e segredos colados manualmente ainda podem entrar em um log; o serviço remoto também pode reter uma cópia. Desativar o registro impede novos dados sem apagar os anteriores. Permissões privadas de arquivo não são criptografia e não protegem contra outro programa executado na mesma conta Unix. Arquivos comuns em armazenamento lento ou de rede também podem atrasar a E/S de disco.
+
+Uma transcrição salva é CONFIG_PATH.log, dentro de um diretório pertencente ao usuário com modo exato 0700. Cada componente do caminho deve passar nas verificações contra symlinks e travessia de diretórios superiores. O arquivo aberto deve pertencer ao usuário, ser regular, ter um único vínculo e modo exato 0600. A manipulação não bloqueante de arquivo/bloqueio rejeita FIFO ou log ocupado; o limite de 16 MiB vale por perfil salvo.

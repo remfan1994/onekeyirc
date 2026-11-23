@@ -1,0 +1,66 @@
+Guida pratica a vipirc / onekeyirc - session recovery and logging
+=================================================================
+
+TRADUZIONE PRELIMINARE. Digita comandi e opzioni esattamente come mostrati.
+Per i dettagli di sicurezza, consulta MANUAL.txt e SECURITY.md in inglese.
+
+/help background
+----------------
+
+Ripristina il terminale e distacca la sessione attiva. La shell riceve il comando numerato per riprenderla.
+
+Nella shell, --sessions elenca i processi privati collegati e distaccati; --resume riprende l'unico processo distaccato disponibile.
+
+Se ci sono più processi, usare --resume NUMBER. NUMBER è l'ID del processo, non il PID; resta fisso fino all'uscita e poi può essere riutilizzato.
+
+--detach-session NUMBER libera il terminale collegato ma mantiene processo, connessioni IRC, bozze e cronologia per --resume NUMBER.
+
+--close-session NUMBER termina l'intero processo, tutte le connessioni IRC, i trasferimenti, le bozze non salvate e la cronologia in memoria. Conferma il successo solo dopo la verifica.
+
+Se la ripresa è occupata dopo la perdita di SSH, elencare i processi, distaccare quello interessato e riprenderlo. Vedere /help sessions.
+
+Un processo bloccato o vecchio senza il controllo richiesto può fallire. Installare un nuovo eseguibile non aggiorna quello in esecuzione; riavviarlo dopo l'aggiornamento.
+
+Riprendere mostra la cronologia in memoria anche senza nuovi messaggi. /set single_session on vieta un secondo processo in background, rendendo --resume univoco.
+
+Per iniziare senza terminale, usare --background nella shell; per le opzioni vedere --help.
+
+Se background_away è attivo e consentito, /background o la perdita del terminale imposta AWAY dopo il distacco. La ripresa toglie solo quello stato automatico; /away manuale rimane.
+
+Aggiungere --reconnect per ritentare connessioni dopo errori temporanei. Vedere /help deployment e /help reconnect.
+
+Non serve un multiplexer di terminale. Un resolver o un aiutante delle credenziali in attesa può richiedere un nuovo tentativo.
+
+Sospendere un normale processo in primo piano interrompe la sua rete. Un processo ripreso può sospendere il controllore del terminale mentre il worker continua a collegarsi.
+
+/help catchup
+-------------
+
+Parte dall'ultimo messaggio o azione inviato localmente nel canale o chat scelto. Le viste server e menzioni non hanno un riferimento di invio.
+
+Prima prova un log privato valido: doveva essere attivo all'invio del riferimento e restare integro. Le credenziali sensibili non fanno da riferimento su disco. Altrimenti usa la cronologia in memoria, se disponibile.
+
+Il lettore disco mostra una copia fissa: Up/Down una riga, Page Up/Page Down una pagina, Home al riferimento, End alla pagina recente, Escape al flusso vivo. I nuovi messaggi non la spostano.
+
+Il ripiego in memoria apre la cronologia dal riferimento: Home va alla pagina più vecchia, End o Escape torna al flusso vivo. È possibile leggere anche messaggi precedenti.
+
+Un riferimento sostituito o modificato non vale più sul disco. Un nuovo processo non recupera riferimenti dai vecchi log. Vedere /help logging e /help history.
+
+/help logging
+-------------
+
+Il log persistente è facoltativo è spento di base. /set persistent_logging on attiva; /save output salva.
+
+Ogni profilo server salvato aggiunge a CONFIG_PATH.log. La directory genitore finale deve essere propria, modo 0700; il file regolare, proprio, con un solo link, modo esatto 0600. Vietati symlink e percorsi risalenti.
+
+I log sono plaintext, non backup cifrati. Limite 16 MiB per file; un errore interrompe il log, non la chat.
+
+Archiviare un log pieno fuori dal percorso attivo, poi disattivare e riattivare i log. Rotazione o riscrittura può invalidare il riferimento di /catchup: inviare prima un nuovo messaggio idoneo.
+
+Sono esclusi credenziali note e bozze non inviate, anche autenticazioni ripetute con vecchi nick. Chat normale, formati di servizio sconosciuti e segreti digitati possono essere registrati. Server e bouncer conservano dati separati.
+
+/catchup usa un log integro solo se il riferimento esatto inviato localmente fu scritto in questo processo. Non chiede archivi al bouncer e non importa vecchi log dopo il riavvio.
+
+/clear svuota solo la RAM. I log restano dopo uscita, --close-session e salvataggio. Disattivare i log ferma le nuove voci, non cancella quelle vecchie.
+
+L'I/O normale del disco può rallentare il processo su archivi lenti. Vedere /help catchup, /help history e SECURITY.md.

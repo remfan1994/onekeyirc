@@ -1,0 +1,36 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / MINIMALIST INTERFACE
+English source SHA-256: 21dd2fdc5c7552003eba414c032dbbece1a7caa875d21274eb5594748bf44568
+Source lines: 123-203
+
+INTERFAZ MINIMALISTA
+
+    vipirc -i
+    vipirc --idle --test-mode
+    /connect irc.ircnow.org
+    /join #ircnow
+    /saveconf
+
+-i utiliza la misma configuración y el mismo catálogo de servidores que vipirc. El apodo predeterminado procede de un nombre de inicio de sesión o de usuario válido. /saveconf guarda las preferencias y los perfiles en buen estado, y recuerda la conexión seleccionada, incluso si es secundaria, para la próxima orden /connect sin argumentos. Guardar no activa la conexión automática. /quickstart y /panel son asistentes opcionales.
+
+La pantalla habitual es el registro. / abre Command, ? abre la ayuda contextual y cualquier otro carácter imprimible inicia Compose y se conserva. Enter o Insert abre Compose vacío. En el registro en directo, Up retrocede una fila conservada, Page Up una página y Home va a la página conservada más antigua; Down/Page Down/End permanecen en el extremo en directo. Left/Right/Delete/Backspace no tienen efecto allí. En el lector del historial, End o Escape vuelven al registro en directo.
+
+Las flechas de Compose editan el texto; no recuperan mensajes enviados. Tab/Shift-Tab completan apodos en Compose y nombres de órdenes en Command. En Command, Down selecciona sugerencias; Up/Down las recorren y Up desde la primera devuelve el foco a la entrada. Enter inserta la sugerencia elegida; se necesita otro Enter, después de mostrarla, para ejecutarla. Up desde la entrada de Command recupera órdenes aceptadas que coincidan y Down vuelve hacia el borrador original. Consulte /help keys y /help commands para ver todos los controles.
+
+El modo de redacción line mantiene una sola fila de entrada debajo del extremo del registro en directo; fullscreen utiliza un editor multilínea y un panel más pequeño del registro. Los redibujados provocados por el tráfico conservan el borrador y la posición del cursor. Escape sale del editor al registro; Escape desde el registro pasa el proceso a segundo plano. En Review, Escape o empezar a escribir recuperan el mismo editor, borrador y cursor; un nuevo Enter confirma. Ctrl-D no tiene efecto salvo que se le asigne una función explícita; las señales del terminal conservan su comportamiento heredado. El pegado reconocido permanece literal y no puede enviar mensajes.
+
+    /set send_mode direct|review
+    /set composer_mode line|fullscreen
+    /set output_format compact|full
+    /save input
+    /save output
+
+Los valores predeterminados son envío directo, redacción en una línea y salida compacta [HH:MM:SS] <nick> text. La salida full incluye fecha/servidor/destinatario; las menciones y los diagnósticos entre servidores conservan el contexto necesario en ambos formatos. Estas preferencias pertenecen al perfil principal y se aplican a todos los servidores. Siguen siendo obligatorias la aceptación independiente del límite de bytes y el consentimiento para enviar varios mensajes.
+
+/help ls enumera temas; /help /ls explica la orden local para listar. Use /help COMMAND para obtener sintaxis y ejemplos, con un solo tema o nombre de orden cada vez. /manual y vipirc -i --manual proporcionan la referencia minimalista completa, también disponible en doc/vipirc-idle-manual.txt. Las órdenes y los controles son distintos de los del modo ncurses completo. La ayuda y las respuestas extensas usan un lector separado y acotado. Las flechas/Page Up/Page Down/Home/End desplazan el texto; Escape regresa. Enter desplaza la ayuda, pero cierra una lista de /users que se haya obtenido correctamente. / abre Command desde el lector; al cancelar se vuelve al lector. La salida de una nueva orden sustituye la respuesta anterior. r en Summary actualiza la instantánea. La red sigue funcionando mientras se lee.
+
+/panel comienza en 0 Application preferences, con historial, modos de envío/redacción, formato de salida, avisos, registro, modo de una sola sesión, sugerencias de órdenes e interfaz predeterminada. Al terminar ofrece Save o Apply without saving; no conecta ni cambia el chat. Ambas interfaces numeran los paneles de perfiles del 1..8: el panel 1 edita el perfil principal, etiquetado como server 0 en el modo completo y 1 en el minimalista. Estos paneles editan las opciones de cada servidor, incluida la identidad del bouncer. Al finalizar ofrecen Save and connect, Save only (predeterminado), Connect once o Apply only. /quickstart solicita servidor/TLS/puerto/apodo y propone Connect once; no modifica unas credenciales de bouncer existentes.
+
+Enter conserva la respuesta mostrada; '-' borra los campos opcionales. Escape retrocede un paso o sale desde la primera pregunta. Tab selecciona un encabezado para obtener ayuda con ?; luego Tab/Enter reanuda la edición. Las contraseñas y respuestas ocultas nunca se incorporan al historial de órdenes. Solo la elección final aplica/guarda/conecta; no redirige una conexión activa y un fallo de conexión posterior no deshace los cambios explícitos. El modo completo de vipirc también admite estos asistentes; su orden /settings abre el formulario gráfico.
+
+En el modo minimalista, /servers utiliza 1..8; en el completo, 0..7. Channel 0 representa el servidor/MOTD en ambas interfaces. El ajuste principal del historial limita la conservación interna en todas las conversaciones, conforme a los límites estrictos indicados en /help history. El registro opcional en texto sin formato está desactivado de forma predeterminada. DCC utiliza las mismas órdenes explícitas /dcc sin formularios gráficos.

@@ -1,0 +1,38 @@
+IRC LOCALIZATION COVERAGE INVENTORY - OPTIONAL PATCH r17
+
+Application: vipirc 0.7.36
+Base: original English source r1, unchanged
+Patch: r17 with ten languages and optional Arabic RTL
+Languages: id, ms, tr, es, pt, fr, de, ru, it, ar
+
+CHECKED COMPLETIONS
+- All ten localized catalog files retain the 844-entry translation table.
+- Static minimalist topics/commands: previously verified complete source-table coverage.
+- The existing generated minimalist manuals remain translated in ten languages.
+- This r17 section: MANUAL.txt RUNNING IN THE BACKGROUND through UPGRADING A RUNNING WORKER.
+- The r17 section represents 929 original English words; translations are drafts, not fluent-reviewed approvals.
+
+NOT YET AT FULL ENGLISH PARITY
+- The original full MANUAL.txt is 14395 English whitespace-delimited words.
+- The original SECURITY.md is 3608 English whitespace-delimited words.
+- Neither file has a complete standalone translation into all ten languages.
+- Existing full-interface/security starter guides and excerpts do not count as a complete manual.
+- Other UI context messages, generated diagnostics, man page, INSTALL, README.md,
+  troubleshooting, hotkey, bouncer and session documents require independent checks.
+- Native-language reviewers must validate security and authentication claims and
+  mixed-script identity/RTL behavior before a parity claim can be made.
+
+METHODOLOGY
+- Document sizes are English whitespace-delimited words, not outstanding translation-word counts.
+- Overlapping documentation and source-derived help make a simple percent misleading.
+- The section supplied with this release has a verbatim English reference and
+  is linked to one stable region of the English MANUAL.txt.
+- No networking, editor, or RTL runtime behavior changed in r17, except the
+  literal language-pack marker displayed by --version.
+
+NEXT TRACKED SECTIONS
+1. Finish the other vipirc full ncurses manual chapters, particularly configuration,
+   authentication, DCC, troubleshooting and key bindings.
+2. Translate the full SECURITY.md chapter by chapter, retaining exact limits.
+3. Inventory and translate uncatalogued user-facing diagnostics and CLI --help.
+4. Compare each locale to source with fluent/native reviewers and native terminal tests.

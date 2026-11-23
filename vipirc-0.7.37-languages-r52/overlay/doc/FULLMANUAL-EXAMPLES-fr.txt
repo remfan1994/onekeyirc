@@ -1,0 +1,8 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / READING EXAMPLES
+English source SHA-256: 751bca637a31922e4d65e1e3fca1c3fd8a51728488978ad1f89f250aeda8bfd1
+
+LIRE LES EXEMPLES
+
+Les exemples commençant par vipirc sont à exécuter dans un shell ; les /commandes sont à saisir dans Command. Saisissez une commande à la fois. Dans les schémas de syntaxe, les mots en MAJUSCULES sont des paramètres à remplacer, [items] sont facultatifs et | sépare les variantes.
+À l'ouverture de Command, / est déjà présent. Avant de coller une /commande complète, effacez cette barre initiale, vérifiez le résultat, puis appuyez sur Enter. Un bloc collé n'est pas un script : les retours à la ligne deviennent des espaces. Un collage dans chat/watch reste du texte de conversation.

@@ -1,0 +1,21 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / MINIMALIST CATCH-UP AFTER RESUME
+English source SHA-256: a802f38661e54d486d4b92dd129ff267d6717b1e6a7568f0cfac1d7f72000e65
+Source lines: 242-280
+
+RECUPERO DEI MESSAGGI DOPO LA RIPRESA IN MODALITÀ MINIMALISTA
+
+In vipirc -i, /catchup apre il canale o la conversazione privata selezionata alla prima riga IRC dell'ultimo messaggio composto e inviato localmente. Ogni server e ogni canale o conversazione ha un riferimento separato; le viste di stato del server e delle menzioni non ne hanno. Dopo aver ripreso la sessione, seleziona ogni conversazione ed esegui /catchup separatamente.
+
+Il lettore prova innanzitutto a utilizzare un registro privato idoneo. La registrazione persistente deve essere stata attiva quando è stato inviato il messaggio di riferimento, essere ancora funzionante e contenere esattamente quel record nello stesso file. Attivala consapevolmente prima dell'assenza:
+
+    /set persistent_logging on
+    /save output
+
+Il lettore su disco acquisisce un'istantanea della fine corrente del file, senza importare tutta l'assenza nella memoria permanente della chat. Up/Down scorre per riga visiva, PageUp/PageDown per pagina; Home torna al messaggio di riferimento inviato, End raggiunge l'ultima pagina dell'istantanea, Escape torna alla chat in tempo reale. I nuovi dati di rete continuano ad arrivare senza spostare l'istantanea.
+
+Se il riferimento su disco non è disponibile ma il messaggio inviato è ancora conservato in memoria, viene aperta la normale cronologia mantenuta a partire da quel punto. In questa modalità alternativa Home raggiunge la pagina più vecchia conservata, End o Escape tornano alla chat in tempo reale ed è possibile consultare anche messaggi precedenti ancora presenti. Si tratta del normale lettore in memoria, con i consueti limiti di eliminazione, non di un archivio recuperato dal disco.
+
+Un file di registro ruotato o sostituito, oppure un record di riferimento cambiato, non può fungere da riferimento originale su disco. Il controllo rileva cambiamenti accidentali, ma non autentica i dati rispetto a un altro processo dello stesso account. Il traffico sensibile di autenticazione non viene usato come riferimento duraturo. Se non rimane un riferimento idoneo né su disco né in memoria, /catchup segnala la cronologia mancante anziché dichiarare un recupero completo.
+
+Il riferimento appartiene al processo worker in esecuzione. Distacco e ripresa lo conservano; un processo nuovo non ricostruisce i riferimenti né ricarica automaticamente i vecchi file di trascrizione. /catchup con lettura da disco appartiene alla modalità minimalista. La modalità ncurses completa mantiene una cronologia limitata in memoria con PageUp/PageDown.

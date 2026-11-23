@@ -1,0 +1,9 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / MINIMALIST WRAPPING AND INPUT HISTORY
+English source SHA-256: 530aeaefbd01d1eb2f184d0eabe5145550b9634fd9235a3f604b9f234b562160
+
+QUEBRA DE LINHAS E HISTÓRICO DE ENTRADA NO MODO MINIMALISTA
+
+Compose reserva linhas para entrada e deixa acima as linhas visuais mais recentes já quebradas; as linhas anteriores podem sair dessa área menor. O texto guardado e os planos de envio não são encurtados. Saia da entrada ou volte a selecionar a conversa para consultar as mensagens retidas; o eco local não comprova entrega. Redimensionar recalcula a disposição sem perder o rascunho ou a posição do cursor.
+
+Em Compose, Cima/Baixo desloca o cursor, mesmo quando mantido premido. Apenas Cima em Command recupera comandos aceites; mensagens enviadas, linhas confidenciais de serviços e entradas em canais com chave não são recuperadas. O ficheiro .commands guarda apenas nomes e contagens. Consulte COMMAND PROMPT, INPUT EDITING e TROUBLESHOOTING.

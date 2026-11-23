@@ -1,0 +1,20 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / DELAYED STARTUP COMMANDS
+English source SHA-256: dfb1220936318c5cfbdf407d869067d3a84de7968c73aa4be34594630d3ee9e1
+
+EXACT COMMAND/CONTROL EXAMPLES (not translated):
+/autocommands [list|add COMMAND|remove NUMBER|clear|on|off]
+/autocommands delay SECONDS       0..300
+/autocommands interval SECONDS    2..60
+/autocommands add /msg ChanServ OP #room mynick
+/save
+
+Ogni profilo può eseguire fino a 16 comandi letterali dopo il completamento della registrazione e del SASL richiesto. Il ritardo predefinito è 15 secondi, poi almeno 2 secondi tra comandi completati. Una connessione bloccata non provoca raffiche di recupero.
+
+Gestire con /autocommands [list|add COMMAND|remove NUMBER|clear|on|off], /autocommands delay SECONDS (0..300), /autocommands interval SECONDS (2..60), e salvare con /save. Esempio: /autocommands add /msg ChanServ OP #room mynick.
+
+Sono supportati /msg, /join, /nick, /away, /back, /whois e i relativi alias esatti documentati. Ogni comando è al massimo 511 byte UTF-8 e deve entrare in una riga IRC; niente divisione silenziosa, shell, IRC grezzo, cicli o sostituzione della conversazione corrente. /join accetta un canale e una chiave provvisoria facoltativa. Gli elenchi oscurano testo di messaggi/chiavi; l'esecuzione non aggiunge cronologia comandi, eco locale o conversazioni private. Le risposte arrivano normalmente; gli ingressi automatici non cambiano la chat selezionata.
+
+Le modifiche si applicano alla connessione successiva. /cancel ferma i comandi restanti e il testo in coda senza ritirare byte inviati o in transito. Chiudere/lasciare una destinazione annulla la sequenza rimanente a essa riferita. Un errore annulla i comandi successivi e segnala la posizione senza testo segreto. Una riconnessione avvia una nuova sequenza; i profili bouncer eseguono anche comandi di avvio espliciti. In modalità offline non viene eseguito nulla.
+
+[autocommands] contiene enabled, delay_seconds, interval_seconds e righe command= ripetute. I byte dopo = sono letterali, inclusi spazi, #, ; e =. Un elenco non vuoto, anche disabilitato, richiede un file di configurazione regolare di proprietà dell'utente con permessi 0600/0400; gli elenchi abilitati non vuoti richiedono TLS verificato. I nuovi profili iniziano vuoti; cambiare destinazione cancella un elenco ereditato rimasto invariato. Salvare consapevolmente: l'archiviazione GPG delle credenziali non cifra questi comandi di configurazione.

@@ -1,0 +1,36 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / COMMAND-LINE OPTIONS
+English source SHA-256: 2dd0066181d81214b50bdc848d76a75ed557f6bc4b62982d6c1d0d251ef3c932
+Source lines: 281-373
+
+BEFEHLSZEILENOPTIONEN
+
+-i, --idle: Für diesen Start die minimalistische Oberfläche wählen; --help und --manual erläutern sie.
+-N, --ncurses: Für diesen Start die vollständige Oberfläche wählen. Die letzte ausdrücklich angegebene Oberflächenoption gilt; die gespeicherte Voreinstellung bleibt unverändert. -n bedeutet weiterhin Nickname.
+-s, --server HOST: Den primären Server als Hostnamen oder numerische IPv4-/IPv6-Adresse angeben, nicht als URL.
+-p, --port PORT: Port 1..65535. Standard ist 6697 mit TLS oder bei ausdrücklich unverschlüsseltem IRC 6667.
+-c, --channel LIST: Kanäle, denen ein direktes Profil nach Registrierung beitritt. Kommagetrennte und wiederholte Angaben sind möglich. '#channel' in der Shell zitieren; Bouncer stellen ihre Mitgliedschaften selbst wieder her.
+-n, --nick NICK: Nickname des beim Start wirksamen Profils überschreiben.
+-C, --config FILE: Hauptkonfiguration einschließlich .servers-Katalog und .d-Profilverzeichnis auswählen. Die Datei muss vorhanden sein, außer --init-config legt sie an; Konfigurationspfade gelten wörtlich.
+--tls: Verifiziertes TLS verlangen (Standard). Eine bloße Portangabe schaltet TLS nicht aus.
+--plain: Klartextverbindung ausdrücklich wählen; Authentifizierung mit gespeicherten Zugangsdaten wird verweigert.
+--ca-file FILE: Eigene PEM-Vertrauensstellen anstelle des Systems verwenden. Nichtleere reguläre Datei bis 16 MiB, gewöhnliche symbolische Links erlaubt; keine Passwortabfragen.
+--no-connect: Alle Startverbindungen und Simulatoren unterdrücken; später ausdrücklich verbinden.
+--background: Abgetrennten Worker ohne tty, TERM oder Begrüßungstaste starten. Die gespeicherte Standardoberfläche gilt, sofern -i/-N sie nicht überschreibt. Autoconnect-Profile speichern oder --server angeben; --no-connect hat Vorrang. Erfolg bestätigt nur die lokale Einrichtung, keinen IRC-Login.
+--reconnect: Vorübergehende Netzwerkfehler nur in diesem Prozess erneut versuchen, ohne eine Verbindung zu beginnen oder eine Einstellung zu speichern. Wartezeiten: 5,10,20,40,80,160,300 Sekunden; 60 Sekunden stabil registriert setzen die Folge zurück. /disconnect beendet sie, /connect startet neu. Zertifikats-, Authentifizierungs-, Konfigurations- oder Protokollfehler bleiben getrennt. Wartende Chats werden verworfen. Bei neuen Verbindungen laufen Authentifizierung und Startbefehle erneut; direkte Profile wiederholen Autojoin, Bouncer stellen Mitgliedschaften wieder her. Vorgemerkte Verbindungseinstellungen benötigen nach Trennung ein ausdrückliches /connect.
+--test-mode: Interaktive Offline-Simulation ohne Netzwerk/DNS oder Lesen/Speichern von Zugangsdaten.
+--resume [JOB]: Einzigen überprüften abgetrennten Job anhängen oder seine Nummer wählen; --resume=JOB ist ebenfalls möglich. Explizite absolute Socketpfade unterstützen kompatible ältere Worker. Ohne Auswahl bleibt dessen Oberfläche erhalten, -i/-N verlangt eine andere. stdin, stdout und stderr müssen dasselbe interaktive tty nutzen. Mehrere oder ungeprüfte Jobs verhindern die automatische Wahl; angehängte Jobs sind beschäftigt.
+--sessions: Angehangene und abgetrennte Jobs dieses Kontos ohne tty oder Konfigurationsladen anzeigen.
+--detach-session NUMBER: Überprüfte Steuerverbindung lösen, während Worker und Zustand erhalten bleiben; danach --resume NUMBER. Auch --detach-session=NUMBER möglich.
+--close-session NUMBER: Gesamten Worker samt IRC-Verbindungen, Transfers, Entwürfen und Speicherverlauf beenden. Konfigurations- und Logdateien bleiben. Erfolg setzt bestätigte Bereinigung voraus; eine Zeitüberschreitung kann der späteren Fertigstellung vorausgehen, daher --sessions erneut prüfen. Auch --close-session=NUMBER.
+--init-config: Private Konfiguration anlegen, ohne vorhandene oder gleichzeitig erzeugte Dateien zu ersetzen. Ein gemeldeter Synchronisations-/Bereinigungsfehler kann eine bereits fertige Datei zurücklassen.
+--check-config: Konfiguration, Überschreibungen, Katalog und gespeicherte Profile prüfen und beenden. Öffnet keine Geheimnisse, führt GPG nicht aus, prüft CA/TLS nicht und belegt weder Erreichbarkeit noch Anmeldung.
+--manual: Vollständiges Handbuch der gewählten Oberfläche ohne Terminal ausgeben.
+-h, --help: CLI-Hilfe ohne Terminal ausgeben.
+-v, -V, --version: Version, Zuschreibung und Lizenz ohne Terminal ausgeben.
+
+Lange Optionen erlauben --name=value, kurze Optionen die übliche Bündelung. -- beendet die Optionen; Positionsargumente werden nicht verwendet. CLI-Werte gehen Konfiguration und Standardwerten vor. Beim normalen Start betreffen nicht hostbezogene Überschreibungen das gemerkte Standardprofil; ausdrückliches --server wählt das primäre Profil. --init-config/--check-config gelten für das primäre. Ist das gemerkte Profil nicht verfügbar, muss es repariert oder --server angegeben werden, bevor andere Felder überschrieben werden.
+
+Ein --server mit anderem Hostnamen (ohne Groß-/Kleinschreibung) entfernt geerbte Zugangsdatenquellen, Authentifizierung, eigene CA, Bouncer-Identität/automatische Abwesenheitswahl, Kanäle und Startbefehle. Neuen Host ausdrücklich konfigurieren. Änderungen desselben Hosts sowie nur --nick behalten Profileinstellungen. Anderes --config wählt einen getrennten Arbeitsbereich.
+
+--resume, --sessions, --detach-session und --close-session sind getrennte Verwaltungsoperationen; weder miteinander noch mit Konfigurations-, Verbindungs- oder Startoptionen kombinieren. Unterstützte Oberflächenoptionen dürfen in Aliasen bestehen bleiben. --background lässt sich nicht mit diesen Operationen, --init-config oder --check-config kombinieren. --test-mode lässt sich nicht mit --init-config/--check-config kombinieren (Aufruffehlerstatus 2).

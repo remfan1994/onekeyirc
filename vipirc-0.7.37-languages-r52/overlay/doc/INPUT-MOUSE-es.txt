@@ -1,0 +1,33 @@
+vipirc 0.7.36 - optional r18 translation draft (es)
+Source: MANUAL.txt / INPUT EDITING through MOUSE CONTROLS
+English source SHA-256: efd7a5a2ee94dcc2a9923884399743cf9696f83790f9e79d1861b211d0a9453c
+Fluent review pending; original English manual is authoritative.
+
+EDICIÓN DE ENTRADA
+
+    Enter                 Enviar o revisar la composición.
+    Left/Right            Grupo de caracteres anterior/siguiente.
+    Up/Down               Moverse entre filas ajustadas, no recuperar el chat.
+    Home/End              Inicio/fin de toda la composición.
+    Backspace/Delete      Borrar grupo de caracteres anterior/actual.
+    Tab/Shift-Tab         Completar apodo siguiente/anterior.
+    Escape                Abrir Queries desde una conversación privada; si no, vipirc.
+    /clearinput           Borrar todo el borrador, también el texto fuera de pantalla.
+
+F1..F6 abre los paneles disponibles. Las letras escritas en el chat, incluso hjkl, son texto literal. Enter pulsado envía; los saltos de línea explícitos llegan mediante bracketed paste y las tabulaciones pegadas se convierten en espacios. Escribir / con el cursor en la posición cero abre un campo Command independiente y conserva el borrador; las barras posteriores o pegadas son texto.
+
+El borrador es un único búfer lógico: el ajuste de línea no inserta caracteres, Backspace cruza las filas visuales y un cambio de tamaño conserva texto y cursor. El campo fijo reserva floor(B/W)+1 filas para el presupuesto de carga B y las columnas utilizables W, limitado por el espacio del terminal. Escribir o borrar no cambia su tamaño; los borradores largos se desplazan dentro. Los cambios de vista, presupuesto del protocolo o tamaño del terminal recalculan la altura. Command tiene su propio campo; /msg o /me nunca reemplaza el borrador del chat.
+
+Un Escape sin secuencia espera aproximadamente 500 ms; una secuencia parcial permite 1000 ms entre bytes de continuación mientras la red sigue funcionando. Las teclas decodificadas por completo actúan inmediatamente. Si el marcador inicial de pegado se retrasa más allá del primer margen de Escape, puede interpretarse como Escape; en el registro minimalista puede pasar el cliente a segundo plano. Una vez iniciada la captura, los marcadores de cierre se reconocen incluso entre lecturas fragmentadas con retrasos arbitrarios. Las teclas que siguen no pueden cancelar el borrador ni cambiar de modo antes del límite visible de revisión o de entrada en reposo.
+
+La entrada requiere UTF-8 válido o el modo de locale ASCII elegido expresamente; consulte FILES AND ENVIRONMENT. Un carácter base y las marcas de ancho cero siguientes se mueven o eliminan juntos; no se implementa la segmentación completa de grafemas Unicode. Los glifos no admitidos muestran un sustituto visible. El límite del borrador es 8192 valores escalares Unicode o 16384 bytes UTF-8, lo que llegue antes. Se rechazan codificaciones y controles inválidos. Los saltos de línea pegados siguen visibles y afectan al plan de envío; el presupuesto menor de IRC determina los avisos y la división.
+
+CONTROLES DEL RATÓN
+
+El ratón está activado por defecto cuando curses, TERM y el terminal lo admiten. /mouse alterna su estado, /mouse on|off lo fija y Settings > Interface modifica y guarda la preferencia mouse de [interface] en la configuración principal. Se puede utilizar todo con el teclado; el terminal o multiplexor SSH debe transmitir los eventos del ratón.
+
+Hacer clic en una categoría del encabezado la abre; en el chat coloca el cursor; Clear borra el borrador entero y Send envía con las verificaciones habituales. Clear/Send se ocultan cuando no están disponibles. Los apodos en el chat o lista de usuarios ofrecen Whois/Query; pulsar #channel lo selecciona o permite unirse. La identidad del elemento mostrado al hacer clic, y no otro que lo reemplace después en esas coordenadas, determina la acción. No se abren URL ni contenido del portapapeles.
+
+Los clics en filas abren servidores, canales o conversaciones privadas; los de acción actúan sobre el elemento seleccionado. La rueda cambia la selección sin cambiar la acción. Sobre el historial o lista de usuarios desplaza tres filas visuales o tres usuarios. Settings y transfers conservan sus propios controles de campos y acciones. El chat necesita al menos 9 filas y 20 columnas; los encabezados estrechos mantienen visible el foco.
+
+El ratón no confirma los diálogos de longitud anticipada ni de envío dividido; use sus opciones de teclado. Command Run/Cancel requiere una nueva acción tras pegar. Las secuencias de clic o los saltos de línea pegados no pueden activarlo, y los clics de un diseño anterior no se reutilizan en la pantalla recién abierta.

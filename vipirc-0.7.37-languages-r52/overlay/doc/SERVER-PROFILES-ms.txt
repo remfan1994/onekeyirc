@@ -1,0 +1,11 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / SAVED SERVER PROFILES
+English source SHA-256: ff3b21055c0b13e827ba1c38f80fbe8db59163af5b82bb486626649d1f7a61f2
+
+PROFIL PELAYAN TERSIMPAN
+
+Bagi laluan utama P, katalog bersebelahan P.servers menyenaraikan sehingga tujuh profil sekunder dalam direktori persendirian P.d. Bagi laluan lalai, fail tersebut ialah config.ini.servers dan config.ini.d di sisi config.ini. Sintaks katalog ialah [servers] diikuti entri profile=ID berulang. Nama dijana sebagai server-<24 aksara heksadesimal huruf kecil>.ini. ID manual boleh mempunyai 1 hingga 63 huruf ASCII, angka, garis bawah, sempang atau noktah; aksara pertama mestilah huruf atau angka dan noktah berturutan dilarang. Komponen direktori dan laluan sewenang-wenangnya tidak diterima sebagai ID profil.
+
+Servers > New tidak mencipta fail. /save pertama yang nyata atau Settings Save mencipta profil mod 0600 berasingan dalam direktori mod 0700 dan mendaftarkannya dalam katalog. Simpanan seterusnya mengemas kini profil pelayan itu. Menyimpan profil sekunder tidak pernah menggantikan konfigurasi utama. Kemas kini katalog permulaan menggunakan kunci. Entri katalog/profil tidak sah menghasilkan ralat yang kelihatan; profil sihat terus boleh digunakan.
+
+Close membuang rujukan katalog profil sekunder tetapi mengekalkan fail profilnya. Profil utama tidak boleh ditutup. --check-config menyemak profil utama, katalog dan profil yang dirujuk tanpa menyambung. Semasa permulaan biasa, pilihan sambungan selain hos terpakai kepada pelayan lalai yang diingati; --server secara nyata memilih profil utama. --init-config dan --check-config juga menggunakan pilihan gantiannya pada profil utama. --no-connect menghalang sambungan awal semua profil. Dalam mod ujian, Save dimatikan dan Close hanya mengubah keadaan semasa.

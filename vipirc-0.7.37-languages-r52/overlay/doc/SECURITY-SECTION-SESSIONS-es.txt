@@ -1,0 +1,16 @@
+Managed sessions and SSH loss
+Source: SECURITY.md, section "Managed sessions and SSH loss"
+English section SHA-256: f44a63f7faada1375f5769e9dfe2235da96547fa535b07d1c9869cba13ca063f
+Paragraphs: 5
+Status: Translation draft; fluent-speaker security review required
+English SECURITY.md remains authoritative. This is only one section, not the full security document.
+
+Background crea un extremo local de trabajo privado de la cuenta y una concesión de duración. Cada programa y usuario Unix tiene su propio registro, con 64 posiciones numeradas. No es un listener de Internet ni un sistema de persistencia después del reinicio. El descubrimiento, la conexión y el control validan rutas privadas, identidades de archivo y el token de encarnación del proceso trabajador elegido; los números de trabajo nunca se tratan como PID. Donde el sistema lo permite, se verifican las credenciales del proceso par con el mismo usuario.
+
+Solo se puede conectar un terminal a la vez. Resume valida los descriptores de terminal transferidos y los metadatos TERM y locale con límites. El descubrimiento tiene límites, omite objetos inseguros y no elimina recursivamente contenidos inesperados del registro. Un trabajador vivo pero sin respuesta conserva su concesión y se informa como no verificado. --resume sin argumento solo selecciona un único trabajador separado disponible y verificado cuando no hay candidatos sin verificar. single_session restringe la creación de trabajos en segundo plano, no el número de conexiones IRC dentro de un trabajador existente.
+
+--detach-session NUMBER libera el terminal o controlador seleccionado, pero conserva el trabajador, las conexiones, los borradores, las transferencias y el historial retenido. --close-session NUMBER termina todo el trabajador y descarta el estado de RAM sin guardar. La separación espera confirmación de que el terminal se liberó; el cierre espera que se retiren el extremo y la concesión. La aceptación por sí sola no significa finalización. Los controles tienen plazos y nunca matan un PID numérico supuesto. No elimine los extremos de comunicación como método de recuperación.
+
+Si se pierde el terminal o controlador de un trabajador ya administrado, el trabajador se separa. Un proceso ordinario en primer plano que nunca pasó a ser administrado no tiene un trabajo recuperable. Instalar otro ejecutable no actualiza el protocolo de un trabajador en funcionamiento; quizá haya que detener trabajadores antiguos mediante sus controles existentes.
+
+La cola de salida minimalista tiene límites y puede atender solicitudes explícitas de Background mientras está bloqueada. Las escrituras de limpieza y avisos son de mejor esfuerzo y pueden faltar si el terminal se ha detenido. El dibujo completo de ncurses sigue usando salida síncrona al terminal; un terminal abierto permanentemente bloqueado puede retrasar la consulta de controles. Se informa el tiempo de espera agotado como tal, no como éxito de terminación forzada. Ninguno de los clientes configura la política de desconexión por inactividad del servidor SSH.

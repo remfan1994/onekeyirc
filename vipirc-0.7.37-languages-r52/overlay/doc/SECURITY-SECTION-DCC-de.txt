@@ -1,0 +1,12 @@
+DCC file transfers
+Source: SECURITY.md, section "DCC file transfers"
+English section SHA-256: f0f91b6753c085b41c9c9071eabf9585ddc404919fe56e0989bfafb733db2e3b
+Paragraphs: 3
+Status: Translation draft; fluent-speaker security review required
+English SECURITY.md remains authoritative. This is one source-linked section, not a security certification.
+
+Klassisches aktives IPv4 DCC SEND erfolgt unverschlüsselt und ohne Authentifizierung, unabhängig von IRC TLS. Ein Nickname bestätigt nicht die Identität der verbindenden Gegenstelle. Die angezeigte Adresse kann privat oder eine Loopback-Adresse sein. Beim Senden wird eine Adresse bekannt gegeben; beim Annehmen wird die angezeigte Gegenstelle kontaktiert und die Adresse des Prozesshosts offengelegt. Ein Angebot allein erzeugt weder eine Datei noch einen Socket. Accept/send erfordert eine ausdrückliche Aktion. Bei SSH liegen Dateien und Sockets auf dem entfernten Host, auf dem der Prozess läuft.
+
+Quellen müssen reguläre Dateien sein; kein Pfadbestandteil darf ein symlink sein. Sie werden als Datenstrom übertragen, nicht als unveränderlicher Schnappschuss und nicht vor späteren Änderungen geschützt; verwenden Sie eine stabile Quelle. Der Empfang erzeugt eine neue Datei mit Modus 0600 in einem benutzereigenen privaten Verzeichnis und verweigert Pfadüberschreitungen, Symlinks und bereits vorhandene Ziele. Beim Aufräumen einer Teilübertragung wird nur die Datei mit derselben Gerätekennung und demselben inode entfernt, die die Übertragung angelegt hat. Dateien werden niemals automatisch geöffnet oder ausgeführt. Bestätigungen einer Bytezahl sind keine Hashwerte.
+
+Es gelten Grenzen von acht ausstehenden Angeboten, vier aktiven Übertragungen und zwölf aufbewahrten Datensätzen; die maximale Dateigröße beträgt 4294967295 Bytes. Angebote verfallen nach fünf Minuten; aktive Übertragungen scheitern nach zwei Minuten ohne Fortschritt. Wiederholte unveränderte Bestätigungen verlängern diese Frist nicht. DCC CHAT, resume, passive/umgekehrte Übertragung, Dateien unbekannter Größe und IPv6 werden nicht unterstützt. Eine Ermittlung der öffentlichen Adresse oder automatische NAT/firewall-Konfiguration gibt es nicht. Ein IRC-Verbindungsabbruch lässt bereits angenommene Direktübertragungen weiterlaufen; das Schließen ihres Servers oder das Beenden der Anwendung stoppt sie. /cancel ersetzt nicht das übertragungsspezifische Abbrechen.

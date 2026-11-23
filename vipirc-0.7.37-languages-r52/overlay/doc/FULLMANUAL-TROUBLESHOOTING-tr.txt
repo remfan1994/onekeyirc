@@ -1,0 +1,25 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / TROUBLESHOOTING
+English source SHA-256: b3416fb29408401823b85e292e40c40467a2ea2b528476630825bfbaeced49f5
+
+Sıralı kontroller doc/TROUBLESHOOTING.txt içindedir. Özel günlükleri veya sırları paylasmayin.
+
+Bağlantı: sunucu hatasını okuyun, host/port/TLS'yi denetleyin. /connect elle yeniden dener; --reconnect geçici hataları yineler. TLS AND CUSTOM TRUST'a bakın. Doğrulama hatasını düz IRC üzerinden kimlik bilgisi göndererek asmayin.
+
+Kimlik doğrulama: /autoauth status güncel/bekleyen yolları gösterir, şifreleri asla göstermez. AUTOMATIC CONNECTION, JOIN, AND AUTHENTICATION altinda hesap ve kaynak kurallarini inceleyin.
+
+GPG: hedefe yazma öncesi denetim için CREATING ENCRYPTED PASSWORD FILES'e; şifre çözme sınırlari, izinler ve dış kilit açma için AUTHENTICATION'a bakın.
+
+Kanallar: kayıt ve kimlik doğrulamayi tamamlayin. /autojoin doğrudan profillerin bekleyen katılımlarini gösterir; bouncer kanallari geri yukler. CONNECTION AND STARTUP COMMANDS'a bakın.
+
+Meşgul devam ettirme: --sessions'i inceleyin, sonra --detach-session NUMBER ve --resume NUMBER kullanın. --close-session çalışani bitirir. SESSION RECOVERY AND UPGRADES'a bakın.
+
+Tuşlar/ekran: Compose ok tuşlari düzenler; Command kabul edilen guvenli komutlari geri çağırir. Görünmeyen sarilmis satırlar için tutulan metni inceleyin. MINIMALIST WRAPPING AND INPUT HISTORY'ye bakın.
+
+Metin genişligi: UTF-8 yereli, TERM ve yazıtipi uyumlu olmali; boyutlandirma taslak/imleci korur. Küçük terminaller bölmeleri kisitlar. FILES AND ENVIRONMENT'a bakın.
+
+Kaydetme: test modu yazmayi reddeder. CONFIGURATION altindaki gizli yollar ve izinleri denetleyin; Save, Apply ve başlangıçta autoconnect ayrı eylemlerdir.
+
+Gunluk/yetisme: tam hatayi inceleyin; sohbet devam eder. Sınırlar, rotasyon, yeni gönderim dayanaklari ve yedek cozum HISTORY, LOGGING AND PRIVACY'dedir.
+
+Alt sürecler: SIGCHLD ile olusan çocuklar beklenebilir durumda kalmalidir. Bu sinyali yok saymak veya otomatik toplamak ilk arkaplan/helper başlatmasini engeller; başlaticiyi düzeltin.

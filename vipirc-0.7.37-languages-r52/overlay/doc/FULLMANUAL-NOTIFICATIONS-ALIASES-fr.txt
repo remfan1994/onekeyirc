@@ -1,0 +1,11 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / PROGRAM AND QUEUE NOTIFICATIONS, QUERY NUMBERS, AND ALIASES
+English source SHA-256: b62cd0965c386b1810fde3932890e4307baeed004c34a67b0724de33f2178937
+
+/set queue_notices off masque les accusés de mise en file ou d'envoi cadencé habituels sur toutes les interfaces et tous les serveurs ; /set queue_notices on les rétablit. En mode minimaliste, un envoi explicitement relu omet l'accusé de mise en file redondant, même si les avis sont activés. Séparément, /set program_messages off masque les messages locaux peu prioritaires, tels que brouillon annulé, saisie effacée, brouillon conservé et confirmations similaires de réussite/annulation. Erreurs, avertissements de limite d'octets et confirmations d'envoi restent visibles. Les deux réglages valent true par défaut. /save output ou /saveconf enregistre les préférences globales [output], également présentes dans /panel Application preferences et les réglages graphiques Interface.
+
+/ql numérote les conversations privées séparément à partir de 1. /query 2 ou /pm 2 sélectionne la deuxième ; un pseudonyme peut aussi servir d'argument. Fermer une conversation renumérote les suivantes. En ouvrir une n'envoie aucun message. Le canal 0 ouvre toujours les messages et le MOTD du serveur.
+
+Les alias exacts courants sont /j, /leave, /message, /privmsg, /nickname, /names, /nicks, /conn, /disc, /unaway, /detach, /saveconfig, /configure et /preferences. Ils suivent les mêmes règles de validation, complétion et confidentialité. Une graphie inconnue provoque une erreur, sans deviner une action.
+
+Changements de membres, MOTD, WHOIS, invitations et erreurs usuelles sont formulés en messages lisibles contenant les détails utiles du serveur. Les réponses internes d'identité/capacités n'ajoutent pas de suivi de protocole en double dans le chat. Les réponses inconnues conservent le texte du serveur sans présenter un code numérique comme explication.

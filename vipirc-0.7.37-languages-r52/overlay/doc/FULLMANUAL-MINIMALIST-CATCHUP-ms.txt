@@ -1,0 +1,21 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / MINIMALIST CATCH-UP AFTER RESUME
+English source SHA-256: a802f38661e54d486d4b92dd129ff267d6717b1e6a7568f0cfac1d7f72000e65
+Source lines: 242-280
+
+MENGEJAR SEJARAH SELEPAS MENYAMBUNG SESI DALAM MOD MINIMALIS
+
+Dalam vipirc -i, /catchup membuka saluran atau perbualan peribadi terpilih pada baris IRC pertama bagi karangan mesej terakhir yang anda hantar secara setempat. Penanda adalah berasingan bagi setiap pelayan dan saluran atau perbualan; paparan status pelayan dan sebutan tiada penanda. Selepas menyambung sesi, pilih setiap perbualan dan jalankan /catchup secara berasingan.
+
+Pembaca akan cuba menggunakan log peribadi yang layak terlebih dahulu. Pengelogan berterusan mestilah sudah diaktifkan semasa mesej penanda dihantar, masih berfungsi dengan baik, dan masih mengandungi rekod penanda yang tepat dalam fail yang sama. Aktifkannya dengan sengaja sebelum meninggalkan sesi:
+
+    /set persistent_logging on
+    /save output
+
+Pembaca cakera mengambil gambaran hujung semasa fail tanpa memuatkan semua perbualan semasa ketiadaan anda ke dalam ingatan sembang kekal. Up/Down bergerak mengikut baris paparan, PageUp/PageDown mengikut halaman, Home kembali ke penanda mesej yang dihantar, End menuju halaman terbaru gambaran itu, dan Escape kembali ke perbualan langsung. Trafik rangkaian baharu terus diterima tanpa mengalih gambaran tersebut.
+
+Jika penanda cakera tidak tersedia tetapi mesej yang dihantar masih disimpan dalam ingatan, arahan ini membuka sejarah tatal biasa pada penanda tersebut. Dalam mod sandaran ini, Home menuju halaman tersimpan paling lama, End atau Escape kembali langsung, dan mesej tersimpan yang lebih awal juga boleh dibaca. Ini pembaca ingatan biasa dengan had penyingkiran lazim, bukannya arkib cakera yang dipulihkan.
+
+Fail log yang digilir atau diganti, ataupun rekod penanda yang berubah, tidak boleh digunakan sebagai penanda cakera asal. Semakan rekod mengesan perubahan tidak sengaja tetapi tidak mengesahkan kesahihan data terhadap proses lain di bawah akaun yang sama. Trafik pengesahan sensitif tidak digunakan sebagai penanda tahan lama. Jika tiada penanda yang layak di cakera atau ingatan, /catchup menerangkan sejarah yang hilang dan tidak mendakwa pemulihan lengkap.
+
+Penanda milik proses pekerja yang masih berjalan. Menanggalkan dan menyambung sesi mengekalkannya; proses baharu tidak membina semula penanda atau memuat semula fail transkrip lama secara automatik. /catchup bersandarkan cakera hanya tersedia dalam antaramuka minimalis. Antaramuka ncurses penuh menggunakan sejarah terhad dalam ingatan melalui PageUp/PageDown.

@@ -1,0 +1,105 @@
+VIPIRC / ONEKEYIRC PRESENCE AND DEPARTURE VALIDATION
+Date: 2026-11-12 (America/Los_Angeles)
+Releases: vipirc 0.7.24 / onekeyirc 0.1.23
+Based on: vipirc 0.7.23 / onekeyirc 0.1.22
+
+SCOPE
+
+This release adds configurable IRC PART and QUIT reasons, automatic AWAY after
+successful background detach or managed terminal loss, local-idle auto-away,
+and automatic return only from away states created by the client. Manual
+/away state is kept separate and is not overwritten or automatically cleared.
+
+DEFAULTS
+
+  part_message=
+  quit_message=Client quit
+  background_away=true
+  background_away_message=Detached from terminal
+  autoaway_minutes=15
+  autoaway_message=Idle
+
+The values are application-wide and stored in [presence]. The minimalist
+frontend exposes them through /set. Full vipirc exposes the same values in
+Settings.
+
+DETACH AND SECURITY BOUNDARY
+
+Automatic background AWAY is queued only after background_detach has
+succeeded. It is not a prerequisite for terminal release. A blocked, failed or
+disconnected IRC transport therefore cannot keep /background or managed
+terminal-loss recovery attached to a dead terminal. The existing bounded
+terminal-output and detach boundary is retained.
+
+Manual /away wins over automatic presence. Resume and local input clear only
+client-generated background/idle away state. Incoming IRC traffic is not local
+user activity. A disconnected/reconnected session that remains backgrounded
+inherits the background-away policy when registration completes.
+
+QUIT is best effort. The client prepares one QUIT reason per live registered
+server and performs only the existing nonblocking output opportunity before
+shutdown; network backpressure cannot turn quit into an indefinite terminal
+wait. PART/QUIT/AWAY text is validated as bounded UTF-8 data and is never a
+shell or raw-command expansion surface.
+
+EXECUTED VALIDATION
+
+On the restricted Linux validation host:
+
+- Clean hardened onekeyirc production build: PASS.
+- Application regression covering explicit/default PART, channel Close default
+  PART, explicit/default QUIT, background AWAY, resume clear, manual-away
+  preservation and idle auto-away: PASS.
+- Configuration private-file, round-trip, strict-parser and security tests,
+  including [presence]: PASS.
+- Command catalog/history/privacy tests including new /set grammar: PASS.
+- Real PTY loopback IRC test: explicit custom PART and QUIT reached the peer.
+- Real PTY /background test: terminal detached first, then
+  AWAY :Detached from terminal reached the peer; --resume sent bare AWAY to
+  clear the client-generated state; detached PING and retained history passed.
+- Managed terminal-loss PTY cases for SIGHUP, PTY master loss and terminal
+  backlog: automatic AWAY after detach, continued PING and resume clear: PASS.
+- Existing security regressions for authentication/privacy, LIST display
+  sanitization, DCC file identity, process startup guards, terminal-output
+  backpressure, detach boundary, protocol/parser hardening, config/log path
+  hardening and command-history privacy: PASS.
+- TLS transport identity/integrity suite: PASS.
+- TLS/DNS retry classification suite: 31/31 PASS, including transient TLS
+  reset retry and certificate/protocol/bad-descriptor hold cases.
+- Focused ASan/UBSan security regressions: application/presence, LIST, auth,
+  DCC identity, protocol, process guards, background output, detach boundary,
+  config, commands and session CLI: PASS with leak detection disabled because
+  this host does not support the project's LeakSanitizer gate reliably.
+- Shared production source/header files between vipirc and onekeyirc: 38/38
+  byte-identical. Shared test files: 46/46 byte-identical.
+
+FULL VIPIRC LIMITATION
+
+The host has the ncursesw runtime library but not the wide-character curses
+development headers, so a supported full ncurses vipirc executable cannot be
+built here. The modified full-UI settings.c and ui.c pass strict C11 syntax
+compilation against local synthetic curses declarations, but that is not a
+runtime or ABI validation. Full vipirc still requires a native build/test on a
+host with real wide-character curses development files.
+
+OPENBSD
+
+No native OpenBSD 7.8 build or rcctl/SSH lifecycle test was run for these
+release numbers. The implementation uses existing portable application,
+background and network interfaces and introduces no new OS-specific syscall,
+but target-host validation remains required before describing the release as
+OpenBSD-validated.
+
+RECOMMENDED TARGET-HOST GATES
+
+  ./configure
+  make
+  make check-security
+  make check-security-detach
+  make check-net-retry
+  make check
+  make check-security-idle
+
+For full vipirc, also exercise Settings presence fields, /part and channel
+Close reasons, /quit MESSAGE across multiple live servers, Background,
+terminal loss, resume, and idle auto-away with genuine ncurses support.

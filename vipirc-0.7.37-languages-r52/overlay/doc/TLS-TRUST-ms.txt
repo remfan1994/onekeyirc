@@ -1,0 +1,11 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / TLS AND CUSTOM TRUST
+English source SHA-256: b1882bb7f49f2bb4bad68591a7b150c2f131435de0d93aefb2c35386db894309
+
+TLS DAN KEPERCAYAAN TERSUAI
+
+TLS yang disahkan menyemak nama hos atau alamat angka diminta serta rantaian sijil. Tiada pintasan pengesahan atau kembali senyap kepada teks biasa; nombor port sahaja tidak pernah mematikan TLS. Gunakan titik akhir pembekal yang tepat. --ca-file FILE atau [connection] ca_file=FILE memilih pihak berkuasa sijil PEM menggantikan stor kepercayaan lalai pustaka TLS; ini kepercayaan tersuai, bukannya pinning sijil hujung.
+
+Berkas himpunan tersuai mestilah fail biasa tidak kosong berukuran <=16 MiB. Symlink biasa kepada fail CA yang sah dibenarkan, tidak seperti laluan konfigurasi/kelayakan. Pemuat membuka sekali dengan bendera nonblocking, membaca menerusi deskriptor tetap dalam had saiz, dan menolak perubahan saiz yang dikesan. FIFO, peranti dan input bukan fail biasa ditolak. Penghurai PEM dengan memori terhad mengekalkan metadata kepercayaan sijil/CRL yang disokong dan tidak meminta kata laluan.
+
+Pemeriksaan ini tidak mengehadkan kependaman I/O fail biasa atau sistem fail rangkaian. Gunakan storan yang sesuai dan dipercayai. --check-config tidak menguji pemuatan CA atau handshake, manakala simulasi luar talian tidak menjalankan TLS. Siasat ralat sijil sebelum menukar kepercayaan; kelayakan teks biasa ditolak. TLS hanya melindungi sambungan ini, bukan sembang hujung ke hujung atau sambungan bouncer ke rangkaian huluan. DCC tidak disulitkan secara berasingan.

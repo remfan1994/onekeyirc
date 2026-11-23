@@ -1,0 +1,57 @@
+Guide pratique vipirc / onekeyirc - Serveurs, résumé, utilisateurs et mots surveillés
+======================================================
+
+TRADUCTION PROVISOIRE. Tapez les commandes et options exactement comme indiqué.
+Pour la sécurité, consultez MANUAL.txt et SECURITY.md en anglais.
+
+/help summary
+-------------
+
+Affiche tous les serveurs, channel 0, vues des canaux/discussions, activité non lue, mentions, files sortantes, commandes de démarrage et transferts.
+
+C’est un résumé local disponible hors connexion. Pressez r dans son lecteur ou relancez-le pour actualiser.
+
+L’ouvrir ne change pas la discussion ni les états de lecture. Les mentions copiées ne comptent pas dans l’activité totale.
+
+Une mention peut aussi être non lue : n’additionnez pas les totaux. Les canaux rejoints et quittés sont distingués.
+
+Le rapport possède un lecteur défilant et garde les brouillons. La barre oblique ouvre les commandes ; annuler revient au résumé.
+
+Si l’actualisation échoue, l’ancien résumé reste. L’ouvrir ou l’actualiser ne demande rien au réseau.
+
+Ni les identifiants ni le contenu des messages en file ou commandes automatiques ne sont affichés.
+
+/help server
+------------
+
+Avec un nom d’hôte, équivaut à /connect direct. Inutile de créer un profil au préalable.
+
+Sans argument, ouvre les messages/MOTD du serveur actuel. NUMBER choisit un emplacement sans connecter.
+
+add crée un profil avec nouveaux identifiants, TLS vérifié et autoconnect désactivé ; ne choisit, connecte ou sauvegarde rien.
+
+PORT vaut 6697 par défaut. Un autre port ne désactive pas TLS ; une connexion non chiffrée doit être choisie explicitement.
+
+connect/disconnect ne changent pas la sélection. close retire une session/entrée secondaire, pas son fichier de profil.
+
+Numéros de serveur minimalistes : 1..8, principal 1. Le principal reste ; déconnectez-le plutôt que le fermer.
+
+Les numéros restent fixes durant la session. Panel 0 est réservé aux préférences de l’application.
+
+/help users
+-----------
+
+C’est une liste textuelle d’utilisateurs, pas un réglage de visibilité. Les préfixes de mode connus y figurent.
+
+La liste s’ouvre dans un lecteur distinct même vide. Enter, Escape ou q ramène au chat choisi.
+
+Up/Down et Page Up/Down font défiler la liste. Dans Help, Enter poursuit le défilement.
+
+Une réponse NAMES incomplète ou limitée est signalée. Aucune demande WHOIS n’est envoyée.
+
+/help watch
+-----------
+
+Les mentions du pseudonyme restent actives. Add/remove traite la suite en texte littéral, pas en expression régulière.
+
+Jusqu’à 32 chaînes en plus, de 1..127 octets UTF-8 par serveur. Utilisez /save pour les garder.

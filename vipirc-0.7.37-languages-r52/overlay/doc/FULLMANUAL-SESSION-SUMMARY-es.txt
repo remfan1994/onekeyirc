@@ -1,0 +1,9 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / SESSION SUMMARY
+English source SHA-256: b2af79e132d98cb37475f734dff71c96a322570b71164c116cf5b7d8aa548be2
+
+/summary abre en un lector desplazable independiente una instantánea local de todo el cliente en ejecución. Funciona desconectado y agrupa por servidor. Incluye estado de conexión y apodo, canal 0, vistas de canales unidos y abandonados, conversaciones privadas, recuentos de no leídos y menciones, colas de salida, comandos de inicio pendientes y transferencias de archivos con su estado actual. Los totales excluyen la copia de menciones para no contar dos veces los mensajes originales. Una mención puede ser también no leida; por eso esos totales no se suman.
+
+Abrir o actualizar la instantánea no cambia de conversación, no marca mensajes como leídos, no envía solicitudes a la red ni sustituye el borrador. Muestra cuántos elementos hay en las colas, pero no el texto en espera, los comandos automáticos ni credenciales. Describe el estado actual; no interpreta el contenido del chat.
+
+En la interfaz completa use Up/Down o k/j, Page Up/Page Down y Home/End o g/G. Pulse r o R, active Refresh con el teclado o haga clic en Refresh para obtener otra instantánea. Escape o Back devuelve al origen. En vipirc -i, r actualiza el lector de respuesta. Si falla la actualizacion se conserva la instantánea anterior. La red continua funcionando mientras se lee. / abre Command; al cancelarlo se vuelve a la misma instantánea. ? muestra la ayuda del resumen y del lector.

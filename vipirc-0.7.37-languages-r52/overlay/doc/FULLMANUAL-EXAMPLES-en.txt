@@ -1,0 +1,12 @@
+VERBATIM ENGLISH SOURCE REFERENCE
+Source: MANUAL.txt / READING EXAMPLES
+English source SHA-256: 751bca637a31922e4d65e1e3fca1c3fd8a51728488978ad1f89f250aeda8bfd1
+
+READING EXAMPLES
+
+Examples starting vipirc belong in a shell; /commands belong in Command.
+Enter one command at a time. In syntax summaries, UPPERCASE words are
+placeholders, [items] are optional and | separates alternatives.
+Opening Command supplies /. Before pasting a complete /command, remove that
+prefilled slash; review the result, then press Enter. A pasted command block
+is not a script: newlines become spaces. Paste on chat/watch stays chat text.

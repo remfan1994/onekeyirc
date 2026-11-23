@@ -1,0 +1,13 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / MENTIONS AND WATCH STRINGS
+English source SHA-256: 7dd545c1b52064bcd746c17c664bc33816010b1a1bc6f7dfda8f6df48830ba1c
+
+SEBUTAN DAN TEKS YANG DIPANTAU
+
+Nama panggilan Anda saat ini dipantau otomatis. Pencocokan mengikuti pemetaan besar-kecil huruf dan batas nama panggilan yang diumumkan server IRC. Mengganti nama panggilan memperbarui pencocokan otomatis ini.
+
+    /watch add project name
+    /watch remove project name
+    /watch list
+
+Nilai pantauan khusus adalah potongan teks harfiah, bukan ekspresi reguler atau pola shell. Aturan huruf dan simbol IRC/ASCII berlaku; karakter non-ASCII harus cocok persis. Maksimal 32 nilai khusus, masing-masing sampai 127 byte UTF-8, diterima. Gunakan /save dalam pemakaian biasa untuk menyimpan perubahan pada konfigurasi terpilih; dalam mode uji perubahan tetap di memori. Sebutan disimpan dalam memori menurut batas riwayat, bukan sebagai arsip pemberitahuan permanen atau log di disk. Cap waktu merupakan waktu penerimaan lokal dengan format YYYY-MM-DD HH:MM:SS.

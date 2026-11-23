@@ -1,0 +1,11 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / VIEWS AND USERS
+English source SHA-256: c02a51adb2e96f61d113aee6ccd47ba792577ee3c03d8708020250ea07f94354
+
+Setiap server memiliki tampilan server/MOTD bernomor 0, kanal, percakapan privat dengan nomor tersendiri, sebutan, dan daftar anggota. Header menunjukkan server; tampilan server berisi pendaftaran, MOTD, dan kesalahan. Sebutan menyimpan asal, pengirim, serta teks pesan lengkap dalam batas protokol. Baris panjang terbungkus pada layar tanpa memendekkan teks tersimpan.
+
+/sl atau /servers membuka server; /cl atau /channels membuka kanal; /ql atau /queries membuka percakapan privat. /server memilih MOTD; /channel NUMBER atau #NAME memilih kanal; /pm NICK|NUMBER memilih percakapan privat. /next dan /prev bergilir melalui tampilan. /summary mencuplik ruang kerja, /unread menggabungkan sumber dan sebutan, /list meminta direktori jaringan. Sintaks baku dijelaskan di COMMAND REFERENCE INDEX.
+
+/users mengalihkan tampilan daftar anggota kanal; on/off/up/down mengendalikan visibilitas dan guliran. Settings > Interface menggunakan preferensi utama yang sama. Terminal sempit dapat menyembunyikan panel samping sampai ruang mencukupi. Keanggotaan dan awalan hak istimewa mengikuti JOIN/PART/QUIT/NICK/KICK/NAMES dari server, bukan tebakan lokal. Tampilan privat dan server tidak mempunyai daftar anggota kanal.
+
+Pesan privat yang datang tanpa permintaan membuat tampilan privat hanya selama jumlahnya kurang dari delapan; pesan berikutnya tetap terlihat dengan konteks di server/sebutan. /pm atau /msg dapat membuat lebih banyak hingga batas 32 tampilan. /clear menghapus memori tampilan yang tersimpan tanpa menghapus transkrip disk; /clearinput menghapus drafnya secara terpisah.

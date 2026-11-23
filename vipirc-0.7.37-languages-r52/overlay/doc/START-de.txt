@@ -1,0 +1,46 @@
+vipirc / onekeyirc - Befehlshilfe
+========================================
+
+Wählen Sie die Anzeigesprache vor dem Programmstart.
+
+Beispiel: VIPIRC_LANG=id onekeyirc
+
+Beispiel: VIPIRC_LANG=tr vipirc -i
+
+Verfügbare Codes: id ms tr es pt fr de ru it ar.
+
+Nutzen Sie ein UTF-8-Terminal, passende Schrift und installierte UTF-8-Locale.
+
+IRC-Befehle, Hilfethemen und Konfigurationsschlüssel bleiben englisch.
+
+Arabisch benötigt Schriftformung und bidirektionale Darstellung im Terminal.
+
+Hilfethemen anzeigen: /help ls.
+
+Befehlsliste: /help commands. Details: /help COMMAND.
+
+Erste Verbindung: /connect irc.example.org, danach /join #channel.
+
+Privatgespräch: /query NICK oder /msg NICK TEXT.
+
+Geführte Einrichtung: /quickstart oder /panel.
+
+Einstellungen speichern: /saveconf. Speichern aktiviert autoconnect nicht.
+
+Ansichten wechseln: /servers, /channels, /ql.
+
+Startoptionen: /help autoconnect, /help autojoin, /help autoauth.
+
+SSH-Sitzungen wiederherstellen: /help sessions.
+
+Bouncer-Anleitung: /help bouncers.
+
+Einstellungen und Tasten: /help configuration, /help hotkeys.
+
+Probleme und TLS-Sicherheit: /help troubleshooting, /help security, /help tls.
+
+Verlauf und Protokolle: /help history, /help logging.
+
+Vollständige Referenz: /help all oder /manual.
+
+Starten Sie das Programm neu, um die Sprache eines laufenden Workers zu ändern.

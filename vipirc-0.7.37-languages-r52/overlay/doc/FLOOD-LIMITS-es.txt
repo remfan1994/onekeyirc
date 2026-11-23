@@ -1,0 +1,24 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / MESSAGE LENGTH AND FLOOD PREVENTION
+English source SHA-256: 74197e1e6983ce301972c3ad55db5a844ff0ae8bde4ebc998ebfe85c8ddcae1c
+
+LONGITUD DE LOS MENSAJES Y PREVENCIÓN DE INUNDACIONES
+
+El límite habitual de una línea IRC es de 512 bytes, incluidos CR/LF, no de 512 caracteres visibles. Un escalar UTF-8 ocupa 1..4 bytes y un glifo puede combinar varios escalares. La orden, el destino y la identidad del remitente retransmitida también ocupan espacio. Para :nick!user@host PRIVMSG target :text, el espacio disponible para el contenido es:
+
+    B = L - (len(nick) + len(user) + len(host)
+             + len(target) + len("PRIVMSG") + 9)
+
+Las longitudes se miden en bytes. L vale 512 o un LINELEN menor que el cliente reconozca. Los mensajes de acción también descuentan su envoltura. Hasta conocer la identidad se aplican margenes prudentes. Si cambian la identidad o el destino, B puede cambiar; vipirc no da por hecho que el servidor acepte líneas más largas.
+
+En ncurses completo, el editor avisa cuando una línea lógica alcanza B o el borrador requiere varios mensajes. Enter/Escape solo permite seguir editando; no envía nada. Otras teclas no cierran el aviso y existe protección contra repeticiones. El aviso vuelve a activarse cuando el texto queda por debajo del umbral.
+
+En el editor minimalista se bloquean las nuevas inserciones al llegar al límite hasta que Enter autorice expresamente continuar; ese Enter no envía nada. Backspace/Delete reducen el texto y Escape cancela. /msg, /me y // se miden por el contenido real que enviarian, pero no los comandos locales ajenos al mensaje. El pegado se conserva integro dentro de los límites de almacenamiento y se comprueba tras capturarlo.
+
+Antes de enviar un borrador que necesita varios mensajes, ncurses completo pide otra confirmacion:
+
+    This text needs N IRC messages. Send all to TARGET? [y/N]
+
+Solo y confirma el envio; Enter/n lo rechaza y conserva el texto. El modo minimalista muestra Review: un Enter nuevo confirma, Escape vuelve a editar. Ambos exigen permiso explícito para dividir, incluso en modo direct. La division respeta los escalares UTF-8 completos y evita partes vacías; los saltos de línea explícitos separan mensajes y se omiten las líneas vacías. Los comandos siguen siendo de una sola línea; redacte el chat multilínea en el editor de conversacion.
+
+Los mensajes de chat salen con una separacion mínima de 1.2 segundos mediante una cola de 64 mensajes. /cancel elimina lo que aún no se ha enviado, pero no retira mensajes en curso o ya entregados. El control del protocolo, como PONG, es independiente. La red puede imponer límites más estrictos o rechazar texto; la aceptación o el eco local no prueban la entrega remota.

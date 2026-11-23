@@ -1,0 +1,16 @@
+Local history, saved logs and privacy
+Source: SECURITY.md, section "Local history, saved logs and privacy"
+English section SHA-256: 8123a3ef64d1e4e83b7cc6891d66caa56780846eafd681342f8e2f9749251e94
+Paragraphs: 5
+Status: Translation draft; fluent-speaker security review required
+English SECURITY.md remains authoritative. This is only one section, not the full security document.
+
+Der Befehlsabrufverlauf ist auf 64 Einträge/64 KiB begrenzt und bleibt im Arbeitsspeicher. Der Chat-Editor ist keine Abruffunktion für bereits gesendete Nachrichten. Erkannte Zugangsdaten- und Steuerbefehlsformen werden ausgeschlossen. Optionale Häufigkeitsdaten in <config_path>.commands speichern höchstens 96 kanonische Befehlsnamen mit Zählwerten, jedoch keine Argumente, Ziele, Nachrichten oder Passwörter. Automatisches Lesen und Schreiben setzt eine gespeicherte Konfiguration voraus; ungültige oder unsichere Zähldateien verhindern den Start nicht. Der Testmodus lässt diese Ein-/Ausgabe aus.
+
+Dauerhafte Chatprotokolle sind standardmäßig deaktiviert. Jedes gespeicherte Profil mit aktivierter Protokollierung hängt Daten an <config_path>.log an. Das übergeordnete Verzeichnis muss dem Benutzer gehören und exakt Modus 0700 haben; die Datei muss eine reguläre, dem Benutzer gehörende Datei mit genau einem Link und Modus 0600 sein. Deskriptorbezogene Pfadprüfung und O_NOFOLLOW weisen symbolische Links zurück; O_NONBLOCK verhindert, dass eine untergeschobene FIFO vor der Typprüfung blockiert. Die Protokollierung erstellt keine übergeordneten Verzeichnisse.
+
+Die Anhängegrenze pro aktivem Protokoll beträgt 16 MiB. Eine nicht blockierende beratende Sperre serialisiert Größenprüfung und Schreibvorgang zwischen kooperierenden Clients. Unsicherer Pfad, belegte Sperre, Schreibfehler oder erreichtes Limit deaktivieren das Protokoll dieses Profils mit Diagnose; der Live-Chat läuft weiter. Nichts wird automatisch gekürzt oder gelöscht. Archivieren oder verschieben Sie das Protokoll und schalten Sie die Protokollierung danach ausdrücklich aus und wieder ein. Externe Archive liegen in der Verantwortung des Benutzers. Festplatten-Ein-/Ausgabe kann auf langsamem oder entferntem Speicher weiterhin blockieren; die Protokollierung ist nicht asynchron.
+
+Help/aggregate-mentions-Kopien, ungesendete Entwürfe, SASL/PASS-Puffer, erkannte private Befehle und bekannte Dienstantworten werden nicht in Transkripte aufgenommen. Bouncer-Steuerziele werden wie unten beschrieben zusätzlich gefiltert. Unbekannte Dienstnamen und als normaler Chat eingegebene Geheimnisse können weiterhin protokolliert werden. Protokolle bleiben nach dem Beenden erhalten. Terminalaufzeichnung, Serverprotokollierung und Kopien der Empfänger sind von dieser Einstellung unabhängig.
+
+Catch-up nutzt die letzte geeignete, lokal von diesem noch laufenden Worker gesendete Nachricht. Zunächst wird das private Protokoll anhand eines geprüften Datei-/Datensatzankers und eines fixierten Endpunkts versucht; anschließend wird auf gespeicherten Arbeitsspeicher zurückgegriffen. Rotation oder Identitätsänderung macht den Anker auf dem Datenträger ungültig; es wird nicht stillschweigend ein fremder Datensatz gewählt. Wiedergegebene eigene Nachrichten ersetzen den Anker nicht. Ein neuer Prozess importiert weder alte Protokolle noch rekonstruiert er den Catch-up-Anker eines beendeten Workers.

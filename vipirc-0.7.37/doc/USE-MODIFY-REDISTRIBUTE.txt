@@ -1,0 +1,95 @@
+USING, MODIFYING AND REDISTRIBUTING THE SOURCE
+==============================================
+
+This guide is for people receiving a source archive rather than an installed
+program. It accompanies both onekeyirc and vipirc. It describes the layout
+and practical build/release steps; it does not replace the license.
+
+Start here
+----------
+
+1. Read README.md for everyday use, INSTALL for system dependencies, and
+   doc/TROUBLESHOOTING.txt if the program will not start or attach.
+2. Read LICENSE.md in full and NOTICE before using or redistributing any
+   part of the source. The included IALA is the supplied license, with its
+   own grant and conditions. This project does not label it as a standard
+   OSI-approved license or promise that third parties will interpret it in
+   the same way. Seek appropriate advice for a distribution requiring a
+   particular license certification or legal compatibility.
+3. Build from a clean extracted directory using ./configure then make.
+   Try --help and --test-mode without a real server account. A simulated
+   session does not verify real TLS, IRC servers, or background operation.
+4. For modifications, follow CONTRIBUTING.md, doc/SOURCE-MAP.txt and
+   tests/README.md. Read the public header before the implementation.
+
+How the code is divided
+-----------------------
+
+- main.c sets up process lifetime; client.c owns server slots.
+- app.c owns one IRC session's buffers, queues and protocol state.
+- protocol.c parses bounded IRC text; net.c owns the byte transport.
+- config.c owns validation and private persistence; credentials.c owns GPG
+  helper jobs; background.c owns local session-control channels.
+- dcc.c owns file-transfer sockets and descriptors.
+- idle.c and idle_commands.c implement the curses-free interface.
+- Full vipirc has ui.c, settings.c, guided.c, prompt.c, transfers.c,
+  filepicker.c and readpage.c. They are not present in the standalone tree.
+- src/l10n.h is generated. For translations, edit i18n/*.json and follow
+  doc/LOCALIZATION.md, then regenerate with tools/generate_localizations.py.
+- Full vipirc's src/manual.c is generated from MANUAL.txt. Minimalist
+  manuals and installed man pages come from their documented generators.
+
+Important code comments are next to the actual boundaries: a parsed field
+borrows its line; a SendPlan is a review object, not a transmitted message;
+configuration publication can precede a later durability failure; a
+background job number is not an identity; a file browser returns a path,
+not a verified open file; and a GPG job can need cleanup after its last
+visible result. Do not remove those invariants to shorten the code.
+
+Making a change
+---------------
+
+Build and test without installing over a running service. Change the smallest
+owning module and explain why an operation or cleanup must occur in that
+order. Check return-value conventions in headers: they differ between modules.
+Keep all source code, protocol tokens, configuration keys and command names
+in English; translated presentation labels are separate data.
+
+For shared code, apply the same source/header edits to both trees. Check
+parity with:
+
+    python3 scripts/check_shared.py /path/to/the/other/source-tree
+
+Then run the tests relevant to the altered module and make check-docs in the
+configured source directory. Some suites require compiler/TLS development
+files, Python, PTYs or local sockets. Record failures and unavailable tests
+accurately; a test fixture does not establish native OpenBSD or curses use.
+
+Distributing a copy or a derivative
+-----------------------------------
+
+- Retain the actual LICENSE.md and NOTICE so recipients can inspect the
+  supplied rights, terms, attributions and dependency information. Do not
+  replace the license with an assumed conventional permissive license.
+- State which application/version and source tree you began from. Mark
+  your own code and behavior changes, and avoid presenting a modified tree
+  as an identical original release. Versioning policy for a derivative is
+  the distributor's responsibility.
+- Include the corresponding sources, build instructions, examples, manuals,
+  tests and localization catalogs appropriate to what you publish. Include
+  the generator inputs when shipping generated help or translation headers.
+- Check the licenses and notices of external components you choose to
+  bundle or link. The application source archive does not bundle OpenSSL,
+  LibreSSL, GnuPG or a curses implementation. Their notices are separate.
+- Do not include a user's config files, private passwords, ciphertext keys,
+  logs, background socket paths, terminal transcripts or build leftovers.
+- Regenerate SOURCE-MANIFEST.json, SHA256SUMS, and outer archive checksums
+  from the exact final distribution. These are integrity records, not
+  authorizations or proof of independent security review.
+- Build from a clean extraction of what will actually be distributed. A
+  previous build's objects or successful tests do not validate new files.
+
+A comment/documentation-only update still changes archive checksums. It need
+not claim new protocol behavior or imply that deployed workers were upgraded.
+A running background worker continues executing its original installed
+binary until it has been deliberately stopped and restarted.

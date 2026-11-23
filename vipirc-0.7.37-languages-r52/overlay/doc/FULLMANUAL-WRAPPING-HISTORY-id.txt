@@ -1,0 +1,9 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / MINIMALIST WRAPPING AND INPUT HISTORY
+English source SHA-256: 530aeaefbd01d1eb2f184d0eabe5145550b9634fd9235a3f604b9f234b562160
+
+PEMENGGALAN BARIS DAN RIWAYAT MASUKAN MINIMALIS
+
+Compose menyisihkan baris untuk masukan dan menampilkan baris visual terbaru yang terbungkus di atasnya; baris lama dapat keluar dari area tampilan yang lebih kecil itu. Teks yang disimpan dan rencana pengiriman tidak dipotong. Tinggalkan masukan atau pilih kembali percakapan untuk membaca baris yang masih tersimpan; gema lokal bukan bukti pesan telah diterima. Perubahan ukuran terminal menghitung ulang tata letak tanpa menghilangkan draf atau kursor.
+
+Tombol Atas/Bawah dalam Compose menggerakkan kursor, termasuk jika ditahan. Hanya Atas dalam Command yang memanggil kembali perintah yang diterima; chat yang sudah dikirim, baris layanan sensitif, dan perintah bergabung dengan kunci tidak dipanggil kembali. Berkas .commands hanya berisi nama dan jumlah. Lihat COMMAND PROMPT, INPUT EDITING, dan TROUBLESHOOTING.

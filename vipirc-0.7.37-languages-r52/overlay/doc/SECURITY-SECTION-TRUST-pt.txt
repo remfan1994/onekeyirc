@@ -1,0 +1,12 @@
+Trust boundary
+Source: SECURITY.md, section "Trust boundary"
+English section SHA-256: b206f366472f34a9c25e1096f15d6fe813e99115c1e789ab4fa3d857e18f7595
+Paragraphs: 3
+Status: Translation draft; fluent-speaker security review required
+English SECURITY.md remains authoritative. This is only one section, not the full security document.
+
+Servidores IRC, pares, apelidos, tópicos, campos do protocolo, nomes de ficheiros e texto colado são entradas não fiáveis. O sistema operativo, o terminal, as bibliotecas C/TLS, o repositório de certificados de confiança e a conta do utilizador continuam a ser componentes de confiança. A interface completa do vipirc também confia na biblioteca curses. O GPG acrescenta o seu executável, porta-chaves e agente. Os perfis de servidor partilham um único processo e não constituem compartimentos de segurança isolados. Em geral, outro processo com os mesmos privilégios da conta consegue inspecionar ficheiros privados e memória.
+
+Execute o programa com uma conta normal. Antes de ler a configuração, as execuções operacionais rejeitam diferenças entre IDs reais e efetivos de utilizador ou grupo, desativam ficheiros de despejo de memória e definem umask 0077. No Linux, também desativam a possibilidade de obter despejos do processo. Os descritores padrão em falta são reservados com /dev/null antes de abrir recursos da aplicação; os fluxos abertos herdados e respetivos sinalizadores permanecem inalterados. Uma falha de proteção obrigatória no arranque interrompe a execução. Estas medidas não fornecem pledge/unveil, seccomp, separação de privilégios ou proteção contra o comprometimento do anfitrião.
+
+configure verifica as medidas de reforço do compilador e do ligador suportadas pelo sistema escolhido, incluindo proteção da pilha, verificações reforçadas de libc, diagnósticos de formatação, PIE, RELRO, ligação imediata e pilha não executável. Inspecione as opções configuradas no anfitrião de implantação; nem todas as plataformas suportam todas as opções.

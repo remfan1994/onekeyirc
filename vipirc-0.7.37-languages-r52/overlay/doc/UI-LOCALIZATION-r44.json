@@ -1,0 +1,154 @@
+[
+  {
+    "english": "Open application preferences and saved server settings. Application preferences include command suggestion order. Select an option to edit it, then Apply or Save as appropriate.",
+    "source": "src/ui.c",
+    "kind": "fixed",
+    "fields": []
+  },
+  {
+    "english": "Edit the application-wide custom key bindings. No custom bindings are installed by default. Add a key and choose an action, then Apply or Save. Escape discards changes made since opening or applying the table.",
+    "source": "src/ui.c",
+    "kind": "fixed",
+    "fields": []
+  },
+  {
+    "english": "Open the separate command input. Suggestions help discover commands; selecting one inserts it for review before execution. Your conversation draft is preserved.",
+    "source": "src/ui.c",
+    "kind": "fixed",
+    "fields": []
+  },
+  {
+    "english": "Keep connections running while releasing the current terminal. Resume the session with vipirc --resume. Pending setup or credential operations can require waiting before detaching.",
+    "source": "src/ui.c",
+    "kind": "fixed",
+    "fields": []
+  },
+  {
+    "english": "The command screen has its own input, preserving the conversation draft. Down focuses suggestions; Up/Down selects; Enter copies the selection for editing. Up from the first suggestion returns to input. Right at the end completes a command name.",
+    "source": "src/ui.c",
+    "kind": "fixed",
+    "fields": []
+  },
+  {
+    "english": "Settings offers Common, Recent history, Most used with this config, Alphabetical, and Contextual. Contextual uses the screen that opened the command prompt. Other matching commands remain available.",
+    "source": "src/ui.c",
+    "kind": "fixed",
+    "fields": []
+  },
+  {
+    "english": "Delete removes a selected Recent history entry or resets a selected personal usage count in Most used. Command arguments and credentials are never saved in personal usage counts. ? explains a highlighted suggestion; in the input field it types a question mark.",
+    "source": "src/ui.c",
+    "kind": "fixed",
+    "fields": []
+  },
+  {
+    "english": "The vipirc main screen provides the current server and nickname, Settings, Key bindings, Manual, Command, Background, About and the license. Up/Down selects an item; Enter opens it. / opens the command prompt with client context. B returns to the conversation. Escape opens the quit question.",
+    "source": "src/ui.c",
+    "kind": "fixed",
+    "fields": []
+  },
+  {
+    "english": "The top categories lead to servers, channels, queries, activity and transfers when those categories are available. Each screen retains its own selection.",
+    "source": "src/ui.c",
+    "kind": "fixed",
+    "fields": []
+  },
+  {
+    "english": "These lists show views already open in the selected server session. Up/Down selects a view; Left/Right selects Open, New, Part or Close as appropriate; Enter performs the selected action. Channel 0 is the server. /cl and /channels show local channel views; /list [MASK] [OPTIONS] opens the sortable network channel directory. /ql shows private conversations.",
+    "source": "src/ui.c",
+    "kind": "fixed",
+    "fields": []
+  },
+  {
+    "english": "Channel 0 contains server replies and notices. /join and /list work here without selecting a chat conversation.",
+    "source": "src/ui.c",
+    "kind": "fixed",
+    "fields": []
+  },
+  {
+    "english": "This is a private conversation. Open selects it without sending. Close discards its retained view and draft after any required confirmation.",
+    "source": "src/ui.c",
+    "kind": "fixed",
+    "fields": []
+  },
+  {
+    "english": "You are joined to this channel. Part leaves it but keeps its history and unfinished draft. Close removes the view.",
+    "source": "src/ui.c",
+    "kind": "fixed",
+    "fields": []
+  },
+  {
+    "english": "You are not joined to this channel. The retained view keeps its scrollback and unfinished draft. Use /join to join again, or Close to remove it.",
+    "source": "src/ui.c",
+    "kind": "fixed",
+    "fields": []
+  },
+  {
+    "english": "{description}\n\nUnread messages: {unread}; mentions: {mentions}. Selecting Open visits this view. Help preserves the view's unread counts, history and draft.",
+    "source": "src/ui.c",
+    "kind": "named-fields",
+    "fields": [
+      "description",
+      "unread",
+      "mentions"
+    ]
+  },
+  {
+    "english": "Connection: {state}. Open visits channel 0 for this server. Connect starts its connection; Disconnect ends it while retaining its views. Close removes a secondary session and its drafts after confirmation. Away changes this server's away state.\n\nSelecting this entry or reading help does not switch servers or connect.",
+    "source": "src/ui.c",
+    "kind": "named-fields",
+    "fields": [
+      "state"
+    ]
+  },
+  {
+    "english": "{channel} has {users} listed users. Topic: {topic}\n\nEnter joins the selected channel. Left/Right changes the sort column; S reverses its direction. R repeats the current LIST request with the same filters.",
+    "source": "src/ui.c",
+    "kind": "named-fields",
+    "fields": [
+      "channel",
+      "users",
+      "topic"
+    ]
+  },
+  {
+    "english": "(no topic)",
+    "source": "src/ui.c",
+    "kind": "fixed",
+    "fields": []
+  },
+  {
+    "english": "[source closed] ",
+    "source": "src/ui.c",
+    "kind": "fixed",
+    "fields": []
+  },
+  {
+    "english": "vipirc main screen",
+    "source": "src/ui.c",
+    "kind": "fixed",
+    "fields": []
+  },
+  {
+    "english": "Usage: /ignore [list|clear|[add|remove] MASK], /unignore MASK; use a nickname or nick!user@host mask (127 bytes).",
+    "source": "src/app.c",
+    "kind": "fixed",
+    "fields": []
+  },
+  {
+    "english": "Ignore mask removed.{persistence}",
+    "source": "src/app.c",
+    "kind": "named-fields",
+    "fields": [
+      "persistence"
+    ]
+  },
+  {
+    "english": "Ignore mask added.{persistence}",
+    "source": "src/app.c",
+    "kind": "named-fields",
+    "fields": [
+      "persistence"
+    ]
+  }
+]

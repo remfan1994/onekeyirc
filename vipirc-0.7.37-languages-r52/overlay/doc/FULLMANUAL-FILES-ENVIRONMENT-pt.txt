@@ -1,0 +1,25 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / FILES AND ENVIRONMENT
+English source SHA-256: 3f0929a090403aa838e2094592ede3b01d8a8cac7f8b23ff6c35f31b3321edf6
+Source lines: 1901-1962
+
+ARQUIVOS E AMBIENTE
+
+Caminhos padrão da configuração principal:
+
+    $XDG_CONFIG_HOME/vipirc/config.ini
+    $HOME/.config/vipirc/config.ini
+
+XDG_CONFIG_HOME tem prioridade quando não está vazio e precisa ser um caminho absoluto. HOME serve de alternativa; o banco de dados de contas e consultado quando não se consegue uma pasta pessoal absoluta em HOME. --config FILE seleciona outra configuração principal e o espaço de perfis de servidor ao lado dela. Caminhos escritos na configuração são interpretados literalmente, sem expansão de variáveis, til ou shell. As variáveis acima apenas descrevem a escolha dos padroes. O shell ainda faz as citações e expansoes normais antes de passar os argumentos de linha de comando.
+
+Para o caminho principal P, P.servers guarda IDs de perfis e a escolha opcional [servers] default=PROFILE_ID, gerenciada por /saveconf. P.d/ contem os arquivos de perfis secundários. Cada configuração salva pode ter um arquivo .commands com contagens de comandos canônicos e um registro .log opcional. Configurações geradas e perfis secundários exigem Save explícito; contagens de comandos aceitos são atualizadas automaticamente no espaço de trabalho salvo existente. Um perfil padrão lembrado que não exista ou não possa ser lido gera um aviso, em vez de redirecionar a conexão silenciosamente.
+
+A interface completa oferece $XDG_DATA_HOME/vipirc/downloads como diretório padrão para receber DCC quando XDG_DATA_HOME e absoluto; caso contrario, oferece $HOME/.local/share/vipirc/downloads se HOME e absoluto. O diretório oferecido só e criado após aceitação explicita. O comando /dcc accept NUMBER sem DIRECTORY usa o diretório em que o processo foi iniciado e exige que ele pertença ao usuário e seja privado. Escolher ou explorar um caminho não altera esse diretório inicial.
+
+PATH localiza o executável opcional gpg. Nenhum shell e executado; esse programa faz parte do ambiente local que deve ser confiável. GNUPGHOME e interpretado pelo GnuPG para o ambiente de chaves e agente. O cliente não expande GNUPGHOME em caminhos de credenciais. Em uma conexão SSH remota, são usados o ambiente e os arquivos do host que executa o vipirc.
+
+TERM descreve as capacidades do terminal para ncurses, não sua codificação de texto. LANG, LC_CTYPE e LC_ALL selecionam a configuração regional (locale). Use uma locale UTF-8 instalada e compativel com o terminal para editar Unicode e calcular a largura dos caracteres. locale, locale charmap e locale -a ajudam a inspecionar o host; os nomes de locale variam entre sistemas.
+
+Traducao da interface: ao iniciar vipirc, defina VIPIRC_LANG como id (indonésio), ms (malaio), tr (turco), es (espanhol), pt (português), fr (francês), de (alemao), ru (russo), it (italiano) ou ar (árabe). Valores como id_ID.UTF-8 também são aceitos. ncurses e -i usam o mesmo catálogo. Ingles e o idioma de reserva. Um worker desconectado do terminal conserva o idioma selecionado quando foi iniciado. Comandos IRC com barra, chaves de configuração e valores de controle continuam em inglês. Esta versao traduz alguns controles da interface, não todas as paginas de ajuda, alertas de segurança ou erros. Veja doc/LOCALIZATION.md.
+
+O LC_CTYPE ativo e respeitado. Uma locale inválida ou não UTF-8 seleciona o modo terminal ASCII explícito, exibido na tela de boas-vindas. Entrada não ASCII e recusada com mensagem de status; pontos de codigo não ASCII recebidos são exibidos como '?' sem alterar o texto de rede armazenado. O cliente não adivinha nem converte codificações antigas e não força uma locale. Selecione uma locale UTF-8 instalada e reinicie para usar Unicode. ASCII continua sendo o subconjunto de um byte do UTF-8; SSH não altera os limites de bytes codificados do IRC.

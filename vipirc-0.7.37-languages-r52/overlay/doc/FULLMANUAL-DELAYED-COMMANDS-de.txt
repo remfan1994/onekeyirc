@@ -1,0 +1,20 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / DELAYED STARTUP COMMANDS
+English source SHA-256: dfb1220936318c5cfbdf407d869067d3a84de7968c73aa4be34594630d3ee9e1
+
+EXACT COMMAND/CONTROL EXAMPLES (not translated):
+/autocommands [list|add COMMAND|remove NUMBER|clear|on|off]
+/autocommands delay SECONDS       0..300
+/autocommands interval SECONDS    2..60
+/autocommands add /msg ChanServ OP #room mynick
+/save
+
+Jedes Profil kann bis zu 16 wörtliche Befehle ausführen, sobald Registrierung und erforderliches SASL erfolgreich waren. Die Standardverzögerung beträgt 15 Sekunden, danach mindestens 2 Sekunden zwischen abgeschlossenen Befehlen. Eine stockende Verbindung führt nicht zu einer Nachhol-Salve.
+
+Verwalten mit /autocommands [list|add COMMAND|remove NUMBER|clear|on|off], /autocommands delay SECONDS (0..300), /autocommands interval SECONDS (2..60) und /save. Beispiel: /autocommands add /msg ChanServ OP #room mynick.
+
+Zulässig sind /msg, /join, /nick, /away, /back, /whois und ihre dokumentierten exakten Aliase. Jeder Befehl ist höchstens 511 UTF-8-Byte lang und muss in eine IRC-Zeile passen. Keine stille Aufteilung, Shell, rohes IRC, Schleifen oder Ersetzung der aktuellen Unterhaltung. /join nimmt einen Kanal und optional einen vorübergehenden Schlüssel. Listen verbergen Nachrichten-/Schlüsseltexte; Ausführung erzeugt keinen Befehlsverlauf, kein lokales Echo und keinen Privatdialog. Antworten kommen normal an; automatisches Betreten wechselt den ausgewählten Chat nicht.
+
+Änderungen wirken bei der nächsten Verbindung. /cancel stoppt übrige Startbefehle und wartenden Chat, holt aber gesendete oder unterwegs befindliche Bytes nicht zurück. Schließen/Verlassen eines Ziels unterbricht noch ausstehende Befehle an dieses Ziel. Fehler brechen spätere Befehle ab und nennen die Position ohne Geheimtext. Wiederverbinden startet eine neue Folge; Bouncer-Profile führen ebenfalls explizite Startbefehle aus. Offline werden keine ausgeführt.
+
+[autocommands] enthält enabled, delay_seconds, interval_seconds und wiederholte command=-Zeilen. Bytes nach = sind wörtlich, auch Leerzeichen, #, ; und =. Jede nicht leere Liste, selbst deaktiviert, verlangt eine dem Benutzer gehörende reguläre 0600/0400-Konfigurationsdatei; aktive nicht leere Listen benötigen verifiziertes TLS. Neue Profile starten leer; Zielwechsel löscht eine unveränderte geerbte Liste. Bewusst speichern: GPG für Zugangsdaten verschlüsselt diese Konfigurationsbefehle nicht.

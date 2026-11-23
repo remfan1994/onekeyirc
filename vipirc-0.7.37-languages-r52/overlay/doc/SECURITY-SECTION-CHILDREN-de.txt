@@ -1,0 +1,10 @@
+Child processes and synchronous work
+Source: SECURITY.md, section "Child processes and synchronous work"
+English section SHA-256: 79a87ca8215648f2d1f870067a2afe1fb4221757b00560b4b4191aac7832ba7f
+Paragraphs: 2
+Status: Translation draft; fluent-speaker security review required
+English SECURITY.md remains authoritative. This is only one section, not the full security document.
+
+Die DNS-Auflösung findet in einem beaufsichtigten, wartbaren direkten Kindprozess mit Frist statt; die Bereinigung betrifft nur diesen direkt verwalteten Kindprozess. Der Resolver wird keiner Hilfsprozessgruppe zugeordnet. GPG hat eine eigene Prozessgruppe und behält die Identität seines wartbaren direkten Kindes, bis die Ausgabepipes abgeschlossen sind; so kann ein Abbruch geerbte Pipe-Schreiber derselben Gruppe stoppen. GPG ist ein vertrauenswürdiges Programm, keine Sandbox: Nachkommen, die diese Gruppe absichtlich verlassen, fallen nicht unter seine Bereinigungszusage.
+
+Resolver- oder Hilfsprogrammstarts sowie die erste Erzeugung einer Hintergrundsitzung weisen geerbtes SIGCHLD=SIG_IGN oder SA_NOCLDWAIT zurück. Die erste Abkopplung prüft dies nach der Vorbereitung erneut; erneutes Abkoppeln einer verwalteten Sitzung startet keinen weiteren Prozess. Das Einbetten der Module unter einen fremden Handler, der ihre Kinder abwartet, wird nicht unterstützt. Operationen auf regulären Dateien und Metadaten bleiben synchron, auch wenn O_NONBLOCK Wartezeiten beim Öffnen von FIFO verhindert.

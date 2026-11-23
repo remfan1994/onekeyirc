@@ -1,0 +1,11 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / TLS AND CUSTOM TRUST
+English source SHA-256: b1882bb7f49f2bb4bad68591a7b150c2f131435de0d93aefb2c35386db894309
+
+TLS VE ÖZEL GÜVEN KÖKLERİ
+
+Doğrulanmış TLS, istenen ana makine adını veya sayısal adresi ve sertifika zincirini denetler. Doğrulamayı atlama veya sessizce düz metne düşme yoktur; yalnızca port numarası TLS'yi kapatmaz. Sağlayıcının tam uç noktasını kullanın. --ca-file FILE veya [connection] ca_file=FILE, TLS kütüphanesinin varsayılan deposu yerine PEM yetkililerini seçer; bu özel güven tanımıdır, son sertifika sabitleme değildir.
+
+Özel CA paketi boş olmayan, <=16 MiB boyutunda normal bir dosya olmalıdır. Yapılandırma/kimlik bilgisi yollarından farklı olarak normal CA dosyalarına sembolik bağlar kabul edilir. Yükleyici dosyayı engellemeyen bayraklarla bir kez açar, boyut sınırında sabit dosya tanıtıcısından okur ve saptanan büyüme/küçülmeyi reddeder. FIFO, aygıt ve normal olmayan kaynaklar kabul edilmez. Bellek sınırlı PEM ayrıştırıcısı desteklenen sertifika güven metaverisini/CRL'leri korur ve parola isteyemez.
+
+Bu denetimler normal dosya veya ağ dosya sistemi G/Ç gecikmesini sınırlamaz. Uygun ve güvenilir depolama kullanın. --check-config CA yüklemesini/el sıkışmasını denemez, çevrimdışı benzetim TLS çalıştırmaz. Güveni değiştirmeden önce sertifika hatalarını inceleyin; düz metin kimlik bilgileri reddedilir. TLS bu bağlantıyı korur, uçtan uca sohbeti ya da bouncer'ın yukarı ağ bağlantısını değil. DCC ayrıca şifresizdir.

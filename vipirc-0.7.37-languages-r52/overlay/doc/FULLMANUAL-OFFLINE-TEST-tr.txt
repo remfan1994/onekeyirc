@@ -1,0 +1,17 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / OFFLINE TEST MODE
+English source SHA-256: e89ff4106e3e5a0bba3bbcac6d2d3f1eb41f410ac6a2f153aaed310c84b51cab
+
+EXACT COMMAND/CONTROL EXAMPLES (not translated):
+vipirc --test-mode
+vipirc --test-mode --config /absolute/config.ini --no-connect
+
+Benzetim gerçek arayuz, editor, filtreler ve ilgili protokol/kuyruk davranisini ag soketleri, DNS, parola/CA dosyasi okuma, GPG veya kaydetme olmadan kullanır. Yapılandırılmış sunucu adlari yalnizca etikettir. Her profilin ayrı benzeticisi vardır; New server yenisini ekler. Eksik sunucu/takma ad sorulmaz; kanal belirtilmemisse demo kanallari #test-one ve #test-two olur.
+
+Kayıtli autoconnect ayarina bakilmaksizin benzetim karşılamadan sonra baslar; --no-connect başlatmaz. /disconnect ve /connect seçili benzeticiyi durdurur/baslatir. Gerçek ag için programdan cikin ve --test-mode olmadan yeniden başlatin. Yerel C benzeticisi harici hizmet veya Python gerektirmez.
+
+İki saniyede bir sohbet, mentions, izlenen dizeler, özel görüşme ve üye listesi değişiklikleri olusur. Özel watch dizeleri 16 saniyelik döngude birer birer döner. /msg etiketli sahte yanıt uretir; JOIN/PART/NICK/WHOIS/TOPIC/AWAY de benzetilir. Bu, her sunucu kuralini, şifreli kanala kabulu, SASL'yi veya gerçek iletimi taklit etmez.
+
+Satır kaydırma, satırlar arasi düzenleme, boyutlandirma, yapıştırma, uyari/onay, mentions ve listeleri deneyin. Örnek DCC teklifi yalnizca bellektedir: incele/reddet/iptal işlemleri çalışir, Send/Accept dosya veya sokete erisilmeden reddedilir. İkincil sunucuyu kapatmak sadece çalışma durumunu değiştirir. Yapılandırma ve sayac dosyasi yazımi kapalı; kalıcı değişiklikler için dosyayı dışarıdan düzenleyip yeniden başlatin.
+
+--check-config kayıtlı dosyalarin sozdizimi/degerlerini ayrı kontrol eder. İki mod da gerçek DNS, TLS, kimlik bilgileri veya bouncer uyumlulugunu kanitlamaz.

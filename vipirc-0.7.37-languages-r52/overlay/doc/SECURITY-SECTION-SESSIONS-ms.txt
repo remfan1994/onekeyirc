@@ -1,0 +1,16 @@
+Managed sessions and SSH loss
+Source: SECURITY.md, section "Managed sessions and SSH loss"
+English section SHA-256: f44a63f7faada1375f5769e9dfe2235da96547fa535b07d1c9869cba13ca063f
+Paragraphs: 5
+Status: Translation draft; fluent-speaker security review required
+English SECURITY.md remains authoritative. This is only one section, not the full security document.
+
+Background mencipta titik hujung kerja setempat yang peribadi kepada akaun dan pajakan hayat kerja. Daftar diasingkan mengikut program dan pengguna Unix, dengan 64 slot bernombor. Ia bukan pendengar Internet atau mekanisme kekal selepas but semula. Penemuan, lampiran dan kawalan mengesahkan laluan peribadi, identiti fail dan token inkarnasi pekerja yang dipilih; nombor kerja tidak dianggap PID. Bukti kelayakan rakan sebaya pengguna sama disemak pada platform yang menyokongnya.
+
+Hanya satu terminal boleh dilampirkan pada satu masa. Resume mengesahkan deskriptor terminal yang dipindahkan serta metadata TERM/locale yang mempunyai had. Penemuan dihadkan, melangkaui objek tidak selamat dan tidak memadam kandungan daftar yang tidak dijangka secara rekursif. Pekerja yang masih hidup tetapi tidak responsif mengekalkan pajakannya dan dilaporkan sebagai belum disahkan. --resume tanpa argumen hanya memilih satu-satunya pekerja terpisah yang tersedia serta disahkan, tanpa calon yang belum disahkan. single_session mengehadkan penciptaan kerja latar, bukannya bilangan sambungan IRC dalam pekerja sedia ada.
+
+--detach-session NUMBER membebaskan terminal atau pengawal terpilih sambil mengekalkan pekerja, sambungan, draf, pemindahan dan sejarah tersimpan. --close-session NUMBER menamatkan keseluruhan pekerja serta membuang keadaan RAM yang belum disimpan. Detach menunggu pengesahan terminal dilepaskan; close menunggu titik hujung dan pajakan ditutup. Penerimaan sahaja bukan bermakna tindakan selesai. Kawalan mempunyai had masa dan tidak pernah membunuh PID angka yang diteka. Jangan memadam titik hujung sebagai kaedah pemulihan.
+
+Kehilangan terminal atau pengawal yang telah diurus memisahkan pekerja. Proses biasa di latar depan yang tidak pernah menjadi terurus tiada kerja yang boleh disambung semula. Pemasangan fail boleh laksana baharu tidak menaik taraf protokol pekerja yang sedang berjalan; pekerja lama mungkin memerlukan kawalan asal mereka untuk berhenti dengan bersih.
+
+Giliran output minimalis mempunyai had dan permintaan Background secara jelas boleh dilayan walaupun output tersekat. Penulisan pembersihan atau notis adalah secara usaha terbaik dan mungkin tidak muncul pada terminal yang berhenti. Paparan ncurses penuh masih menggunakan output terminal segerak; terminal yang terus tersekat walaupun terbuka boleh melambatkan pemeriksaan kawalan. Tamat masa dilaporkan dengan jujur, bukan sebagai kejayaan menamatkan secara paksa. Kedua-dua klien tidak menetapkan dasar putus sambungan SSH akibat lengah pada pelayan.

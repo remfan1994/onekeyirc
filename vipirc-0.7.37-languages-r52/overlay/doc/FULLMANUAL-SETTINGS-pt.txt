@@ -1,0 +1,24 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / SETTINGS
+English source SHA-256: 9c87d089b996a2f8af0ff0340f97da2bd4c3650e5fbc7816868f35b0df91ee05
+Source lines: 724-781
+
+CONFIGURAÇÕES
+
+F1 > Settings ou /settings abre as opções de interface, todos os perfis de servidor e New server sem mudar a conversa atual. As linhas mostram o estado de conexão automática e de salvamento. Os campos de servidor incluem transporte, identidade, entrada automática em canais, conexão automática, fontes de senha da conta e do servidor (PASS), CA personalizada, tipo/usuário/rede/cliente/ausência automática do bouncer, histórico, menções e filtros de ignorar. A área Interface inclui User list, Mouse, Hints, Shortcut labels, avisos, registro em log, modo de sessão única, sugestões de comandos e interface padrão.
+
+    Edit    Apply    Save    Back    Cancel
+
+Up/Down ou k/j seleciona campos; Left/Right ou h/l seleciona a ação; Enter a executa. Home/End ou g/G vai até as extremidades. Edit alterna um booleano, abre uma escolha ou edita texto/números. Enter no editor apenas prepara aquele valor; Tab/Shift-Tab o valida e prepara antes de avançar. Uma entrada inválida continua editável. Letras digitadas no editor são texto. Esvaziar um campo watch/ignore existente o remove; Add cria outro, dentro dos limites.
+
+Apply valida e atualiza as preferências em uso, watch/ignore e conexão automática; permanece em Settings com Edit selecionado. Os campos de conexão, inclusive a identidade do bouncer, ficam pendentes até um Connect explícito após a desconexão. Apply nunca salva, reconecta ou redireciona uma sessão ativa. /nick, /join e /part afetam a conexão em execução. Save grava o perfil efetivo de forma privada e atômica e depois o aplica; /save também preserva as escolhas pendentes. O primeiro Save de um servidor secundário cria um perfil isolado e a entrada correspondente no catálogo.
+
+Interface Apply atualiza todas as posições de servidor presentes e futuras. Interface Save grava a configuração principal antes de aplicar as alterações. Se Interface Save falhar ou for bloqueado, todas as sessões permanecem inalteradas. Chaves de interface de perfis secundários não podem substituir as principais na inicialização. No modo completo, o histórico permanece separado por servidor. A interface padrão afeta apenas uma nova inicialização.
+
+Hints oculta orientacoes opcionais, mas preserva títulos, controles, erros e confirmacoes de segurança. Shortcut labels oculta os prefixos comuns F1..F6. Ambas as opções ficam ativadas por padrão e são salvas em [interface]. Sao independentes das cores normais do terminal e do negrito usado para indicar foco.
+
+Alterar Server para um valor diferente, ignorando maiúsculas/minúsculas, limpa do formulário preparado a autenticação herdada, auth user, todas as fontes de senha de conta/PASS e o autojoin. Alterar o tipo de bouncer limpa credenciais/comandos herdados; informe em seguida os valores desejados. A sessão ativa não muda. Os arquivos não são lidos nem descriptografados durante a edição; senhas inseridas diretamente são mascaradas, mas seus espaços são preservados. Transport escolhe TLS verificado ou texto simples explicitamente, independentemente do armazenamento criptografado de senhas.
+
+Back retorna a pagina inicial de Settings. Cancel/Escape fecha todo o formulário, mesmo dentro de um campo ou janela suspensa, descarta alterações ainda não aplicadas e volta ao vipirc. Preferencias já aplicadas, opções pendentes e rascunhos de conversa são preservados. O modo de teste permite Apply somente na memória, mas recusa Save. Criar ou conectar um servidor pelo Settings preserva a conversa selecionada.
+
+A colagem delimitada (bracketed paste) funciona apenas em um campo ativo, insere texto sem confirmar e converte tabulacoes em espaços; CR/LF/Escape e controles não suportados são recusados. A colagem em listas ou janelas de escolha e ignorada. Confira o texto e pressione Enter para prepara-lo. O fluxo guiado /panel e um questionario separado, descrito em MINIMALIST INTERFACE.

@@ -1,0 +1,156 @@
+[
+  {
+    "client": "vipirc",
+    "source": "src/app.c",
+    "english": "Nickname {nick} is already in use.{detail} Use /nick another-nick.",
+    "kind": "named-fields",
+    "fields": [
+      "nick",
+      "detail"
+    ]
+  },
+  {
+    "client": "vipirc",
+    "source": "src/app.c",
+    "english": "Nickname is already in use.{detail} Use /nick another-nick.",
+    "kind": "named-fields",
+    "fields": [
+      "detail"
+    ]
+  },
+  {
+    "client": "vipirc",
+    "source": "src/app.c",
+    "english": "Nickname {nick} was rejected.{detail} Use /nick another-nick.",
+    "kind": "named-fields",
+    "fields": [
+      "nick",
+      "detail"
+    ]
+  },
+  {
+    "client": "vipirc",
+    "source": "src/app.c",
+    "english": "Nickname was rejected.{detail} Use /nick another-nick.",
+    "kind": "named-fields",
+    "fields": [
+      "detail"
+    ]
+  },
+  {
+    "client": "vipirc",
+    "source": "src/app.c",
+    "english": "Closed {target}{part}; {count} queued message cancelled.{inflight}",
+    "kind": "named-fields",
+    "fields": [
+      "target",
+      "part",
+      "count",
+      "inflight"
+    ]
+  },
+  {
+    "client": "vipirc",
+    "source": "src/app.c",
+    "english": "Closed {target}{part}; {count} queued messages cancelled.{inflight}",
+    "kind": "named-fields",
+    "fields": [
+      "target",
+      "part",
+      "count",
+      "inflight"
+    ]
+  },
+  {
+    "client": "vipirc",
+    "source": "src/app.c",
+    "english": " (PART requested)",
+    "kind": "fixed",
+    "fields": []
+  },
+  {
+    "client": "vipirc",
+    "source": "src/app.c",
+    "english": " One in-flight message will finish.",
+    "kind": "fixed",
+    "fields": []
+  },
+  {
+    "client": "vipirc",
+    "source": "src/ui.c",
+    "english": "This local inquiry identifies the selected server, connection and authentication state, and current versus pending settings. Auto-join reports show actual channel membership. Explicit authentication reports show complete configured file locations, never password contents, and do not open credential files.",
+    "kind": "fixed",
+    "fields": []
+  },
+  {
+    "client": "vipirc",
+    "source": "src/ui.c",
+    "english": "The summary groups current servers, channel 0, joined and left channel views, queries, unread counts, mentions, pending work, and file transfers by server. Mentions are not added to unread totals.",
+    "kind": "fixed",
+    "fields": []
+  },
+  {
+    "client": "vipirc",
+    "source": "src/ui.c",
+    "english": "R refreshes; Up/Down, Page Up/Page Down, Home/End scroll. Left/Right selects Refresh or Back. / opens a command prompt; cancelling it restores this snapshot. Escape returns to the originating screen.",
+    "kind": "fixed",
+    "fields": []
+  },
+  {
+    "client": "vipirc",
+    "source": "src/ui.c",
+    "english": "Enter on this suggestion copies it into the command field. It must appear there for review before another Enter can execute it. Escape returns to the same suggestion.",
+    "kind": "fixed",
+    "fields": []
+  },
+  {
+    "client": "vipirc",
+    "source": "src/ui.c",
+    "english": "{item} is an option on the {screen}.",
+    "kind": "named-fields",
+    "fields": [
+      "item",
+      "screen"
+    ]
+  },
+  {
+    "client": "vipirc",
+    "source": "src/ui.c",
+    "english": "{item} is a suggestion on the {screen}.",
+    "kind": "named-fields",
+    "fields": [
+      "item",
+      "screen"
+    ]
+  },
+  {
+    "client": "vipirc",
+    "source": "src/ui.c",
+    "english": "{item} is selected on the {screen}.",
+    "kind": "named-fields",
+    "fields": [
+      "item",
+      "screen"
+    ]
+  },
+  {
+    "client": "vipirc",
+    "source": "src/ui.c",
+    "english": "Server {number}: {host}",
+    "kind": "named-fields",
+    "fields": [
+      "number",
+      "host"
+    ]
+  },
+  {
+    "client": "vipirc",
+    "source": "src/ui.c",
+    "english": "{action} for {nick}",
+    "kind": "named-fields",
+    "fields": [
+      "action",
+      "nick"
+    ]
+  }
+]

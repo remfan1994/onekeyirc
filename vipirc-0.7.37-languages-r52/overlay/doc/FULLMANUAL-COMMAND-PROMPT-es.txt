@@ -1,0 +1,22 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / COMMAND PROMPT
+English source SHA-256: 26d0386cf8c86773f04d44700c574befc084cde6939832553f44b1d52e3b3b6f
+Source lines: 479-539
+
+INDICADOR DE COMANDOS
+
+Abre Command desde F1 > Command, con /, o escribiendo / en la posición cero del cursor de chat. Se conservan por separado el borrador y el cursor de chat. Una barra en otra posición o dentro de un pegado protegido en chat es texto literal. Enter/Run envía; Escape/Cancel vuelve a la pantalla de origen, incluida Summary. Una entrada vacía no hace nada. Los comandos aceptados regresan al chat salvo que abran otra pantalla; los inválidos o rechazados siguen editables.
+
+Settings > Interface > Command suggestions ofrece cinco órdenes: Commonly used (selección predeterminada adaptada al estado de conexión/vista), Recent history (comandos completos aceptados, recientes primero), Most used (recuentos de comandos canónicos para el perfil guardado), Alphabetical (nombres implementados) y Contextual (prioridad a la pantalla que abrió Command, conservando otras coincidencias).
+
+Escribe un prefijo de nombre, sin distinguir mayúsculas, para filtrar sugerencias; no se predicen argumentos. Down selecciona sugerencias y Up/Down recorre la lista; Up desde la primera devuelve al campo de entrada. Enter en una sugerencia solo la inserta, no la ejecuta: una fila del catálogo conserva los argumentos ya escritos, mientras que una de historial inserta la línea entera. Revísala o edítala y pulsa Enter aparte cuando aparezca. Los bytes Enter adicionales del mismo lote de entrada no pueden ejecutarla. ? en una fila seleccionada abre la ayuda y recupera la selección; ? en entrada es literal.
+
+Delete elimina la entrada Recent seleccionada o reinicia un recuento Most used; nunca elimina el comando admitido. Page Up/Page Down o la rueda desplazan sugerencias. No se pueden seleccionar filas invisibles en terminales diminutos. Right al final de un prefijo completa o recorre alternativas; hacer clic en una sugerencia la inserta. Tab no navega por el encabezado ni ejecuta. La finalización de apodos se mantiene en chat.
+
+Up desde entrada recupera los comandos aceptados cuyo prefijo coincide con el original; Down avanza hacia los nuevos y recupera el borrador inicial. Los argumentos deben coincidir byte-for-byte. Los comandos fallidos no se almacenan. Por servidor se guardan como máximo 64 entradas/64 KiB; se deduplican entradas consecutivas idénticas y se expulsan las más antiguas. La recuperación solo dura mientras estén abiertos ese frontend y servidor; cambiar de interfaz o terminar el trabajador la borra.
+
+Los contadores persistentes son distintos: CONFIG_PATH.commands guarda hasta 96 nombres de comandos canónicos y contadores acotados, nunca argumentos, destinatarios ni chat. Un perfil guardado permite actualizaciones privadas y atómicas al aceptar comandos o reiniciar contadores; en un perfil sin guardar permanecen en memoria hasta Save. Un archivo de recuentos inexistente o defectuoso no impide iniciar. Test mode ni los lee ni los escribe, y la configuración principal no los contiene.
+
+Se excluyen totalmente del historial los joins con clave y los mensajes reconocidos de servicios/autenticación. También se excluyen mensajes inocuos a servicios sensibles conocidos. Este filtro no reconoce cualquier secreto arbitrario: no pongas contraseñas en el chat normal. Consulta BOUNCER CONNECTIONS para controles del bouncer.
+
+El pegado en Command son datos: CR/LF/Tab se convierten en espacios, se notifican controles/tamaños no admitidos y aún debe pulsarse un nuevo Enter/Run. No hay comillas de shell, sustituciones, encadenamiento ni ejecución de shell. Los argumentos TEXT/PATH consumen literalmente el resto; solo entrecomilla #channel en una shell real, no aquí. /msg, /me y // mantienen los límites de mensajes, ritmo de envío y consentimiento obligatorio para dividir, cuyo valor por defecto es No. // es chat literal y no entra en el historial de comandos. Las acciones Join/New rellenan previamente /join o /pm.

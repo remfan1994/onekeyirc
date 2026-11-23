@@ -1,0 +1,9 @@
+Optional security translation r31.
+vipirc 0.7.37: complete draft coverage of all 13 source sections, 3502 English source words.
+New sections: DCC file transfers; Offline checks and evidence; Full-interface review and file browsing.
+Ten language drafts plus an exact English reference are included.
+Prior r27/r29/r30 partial documents remain as historical snapshots for compatibility.
+Use doc/SECURITY-FULL-XX.txt for the new complete draft.
+Source hashes, paragraph structure, command tokens and limits are checked.
+No fluent native-speaker security review has occurred.
+English SECURITY.md remains authoritative, with no warranty of translation accuracy.

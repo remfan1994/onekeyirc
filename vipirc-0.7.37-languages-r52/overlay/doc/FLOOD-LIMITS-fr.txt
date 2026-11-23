@@ -1,0 +1,24 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / MESSAGE LENGTH AND FLOOD PREVENTION
+English source SHA-256: 74197e1e6983ce301972c3ad55db5a844ff0ae8bde4ebc998ebfe85c8ddcae1c
+
+LONGUEUR DES MESSAGES ET PRÉVENTION DES INONDATIONS
+
+La limite habituelle d'une ligne IRC est de 512 octets, CR/LF compris, et non de 512 caractères affichés. Une valeur scalaire UTF-8 occupe 1..4 octets et un glyphe peut réunir plusieurs valeurs scalaires. La commande, la cible et l'identité de l'émetteur relayée consomment aussi de la place. Pour :nick!user@host PRIVMSG target :text, la place utile est :
+
+    B = L - (len(nick) + len(user) + len(host)
+             + len(target) + len("PRIVMSG") + 9)
+
+Les longueurs sont en octets. L vaut 512 ou une valeur LINELEN inférieure reconnue. Les messages d'action retranchent aussi leur enveloppe. Une marge prudente s'applique tant que l'identité n'est pas connue. Un changement d'identité ou de cible peut modifier B ; vipirc ne suppose pas que des lignes plus longues seront acceptées.
+
+Dans l'éditeur ncurses complet, un avertissement apparaît quand une ligne logique atteint B ou quand le brouillon exige plusieurs messages. Enter/Escape ne fait qu'autoriser la poursuite de la saisie, sans rien envoyer. Les autres touches ne ferment pas l'avertissement et les répétitions sont protégées. L'avertissement se réarme après un retour sous le seuil.
+
+L'éditeur minimaliste bloque au contraire toute nouvelle insertion à la limite jusqu'à ce que Enter autorise expressément la suite ; ce Enter n'envoie rien. Backspace/Delete raccourcissent le texte et Escape annule. /msg, /me et // sont mesurés d'après la charge utile réelle, contrairement aux commandes locales sans rapport. Le collage reste intact dans les limites de stockage et est vérifié après réception.
+
+Le mode ncurses complet demande une confirmation distincte avant d'envoyer un brouillon réparti sur plusieurs messages :
+
+    This text needs N IRC messages. Send all to TARGET? [y/N]
+
+Seul y déclenche l'envoi ; Enter/n refuse et conserve le texte. Le mode minimaliste affiche Review : un nouvel Enter confirme, Escape revient à l'édition. Les deux exigent un accord explicite de découpage, même en mode direct. Les fragments gardent des valeurs scalaires UTF-8 entières et un contenu non vide ; les retours à la ligne explicites séparent les messages et les lignes vides sont ignorées. Les commandes restent sur une ligne ; rédigez les discussions multilignes dans l'éditeur de conversation.
+
+Le chat espace les messages d'au moins 1.2 secondes via une file de 64 messages. /cancel retire les tâches non encore envoyées, mais ne peut pas rappeler un message en cours ou déjà livré. Le contrôle de protocole comme PONG est indépendant. Un réseau peut imposer des limites plus strictes ou refuser un texte ; l'acceptation ou l'écho local ne prouve pas sa livraison distante.

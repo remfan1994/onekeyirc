@@ -1,0 +1,47 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / CONVERSATION COMMANDS
+English source SHA-256: afbb4f4772f74759ce06e6394d72bc10a6895c4731b886ced43996217fc5945d
+Source lines: 1102-1176
+
+COMANDOS DE CONVERSAÇÃO
+
+/join CHANNEL [KEY] pede entrada num canal, opcionalmente com chave. /part [CHANNEL] [MESSAGE] sai de um canal com motivo PART; /close [NAME|NUMBER] fecha uma vista de canal ou conversa privada, com NUMBER como número do canal. /pm NICK|NUMBER abre/troca para vista privada sem enviar texto. /msg TARGET TEXT envia texto a uma alcunha ou canal; /me TEXT envia ação IRC à conversa atual. /nick NICK pede outra alcunha; /away [MESSAGE] define ausência e /back limpa-a; /whois NICK pede informação da alcunha. /topic sozinho consulta o tópico atual, /topic TEXT propõe outro. /connect e /disconnect gerem ligações; /dcc ou /transfers abre o ecrã partilhado de transferências. /cancel interrompe mensagens ainda por enviar, /background mantém o programa a correr regressando à shell, /quit [MESSAGE] encerra todos os servidores. /settings, /save, /saveconf e /set autoconnect on/off tratam preferências, gravação e arranque.
+
+/away MESSAGE envia uma única mensagem AWAY padrão. O limite é o limite atual de bytes da linha menos 8: geralmente 504 bytes quando o limite é 512. Texto longo ou controlos são rejeitados, nunca divididos. /away sem texto e /back limpam a ausência. É necessário estar registado. O indicador só muda após confirmação do servidor e é reiniciado ao desligar/religar. A ação Away na lista de servidores envia Away como mensagem ou limpa ausência confirmada, mantendo vista e rascunho. O servidor desligado deve ligar primeiro. Altere remetentes ignorados nos campos Ignore de Settings ou com os comandos locais /ignore e /unignore.
+
+/join aceita um canal e no máximo um token KEY. A chave tem de ser ASCII imprimível, sem espaços, dois-pontos ou vírgulas; todo o JOIN deve caber no limite da linha. A chave não é registada nem guardada; só o canal entra em autojoin. Reintroduza a chave ao religar/reiniciar se for necessária. O simulador offline confirma mudanças de away e aceita chaves temporárias, mas não testa a chave verdadeira do canal ou a política de entrada.
+
+O servidor determina permissões, disponibilidade de alcunhas, admissão aos canais e autorização para mudar tópicos. Aceitação local de comando não prova aceitação pelo servidor nem entrega a participantes. Mensagens de chat esperam brevemente; as linhas são enviadas com pelo menos 1.2 segundos de intervalo. /cancel remove mensagens ainda pendentes no servidor selecionado, em todos os canais e conversas, sem apagar rascunho ou mensagens já enviadas. Uma mensagem em trânsito pode concluir. Em perfis diretos /join e /part atualizam autojoin; /save guarda essa escolha para arranques futuros salvo escolhas pendentes de Settings que a substituam. Bouncers restauram adesões por si. /part também descarta mensagens em fila para esse canal mas mantém vista e histórico; uma transmissão em curso pode concluir antes de PART. Texto depois do canal é motivo PART; se o canal faltar, o texto é motivo para o canal selecionado. Sem motivo explícito utiliza-se [presence] part_message, incluindo ao fechar um canal em que se está presente.
+
+/quit MESSAGE usa esse texto, quando possível, como motivo IRC QUIT nas sessões ativas. Sem texto usa [presence] quit_message; se o valor for vazio, envia QUIT simples. O encerramento é limitado no tempo e nunca espera indefinidamente por uma rede morta.
+
+A ausência automática é separada de /away manual. Com background_away ativo, uma ação Background bem-sucedida ou perda gerida do terminal só agenda o AWAY configurado depois de o terminal se separar. Resume limpa apenas esse estado automático. autoaway_minutes faz o mesmo após inatividade de entrada local; 0 desativa o temporizador. Perfis bouncer suprimem alterações automáticas salvo ativar [bouncer] automatic_away=true. A ausência /away manual persiste até /back ou /away sem mensagem. Tráfego IRC recebido não conta como atividade local do utilizador.
+
+EXACT IRC COMMAND SYNTAX (not translated):
+
+    /join CHANNEL [KEY]
+    /part [CHANNEL] [MESSAGE]
+    /close [NAME|NUMBER]
+    /pm NICK|NUMBER
+    /msg TARGET TEXT
+    /me TEXT
+    /nick NICK
+    /away [MESSAGE]
+    /back
+    /whois NICK
+    /topic
+    /topic TEXT
+    /connect [HOST [PORT]]
+    /disconnect [NUMBER]
+    /dcc
+    /transfers
+    /cancel
+    /background
+    /quit [MESSAGE]
+    /settings
+    /save [input|output|all]
+    /saveconf
+    /set autoconnect on
+    /set autoconnect off
+    /ignore
+    /unignore

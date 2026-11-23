@@ -1,0 +1,12 @@
+Offline checks and evidence
+Source: SECURITY.md, section "Offline checks and evidence"
+English section SHA-256: 9c67268cfad3c6bc3c5553f23c932c342c3f11231b325d758eeade66d790b4bd
+Paragraphs: 3
+Status: Translation draft; fluent-speaker security review required
+English SECURITY.md remains authoritative. This is one source-linked section, not a security certification.
+
+--help, --version e --manual non caricano configurazione né credenziali. --check-config verifica sintassi della configurazione e del catalogo, valori e protezioni dei file; non verifica accesso o decrittazione delle password, DNS, TLS o un vero accesso. --test-mode carica i profili validi in un simulatore interno al processo senza rete IRC/DCC, letture di credenziali/CA, GPG o salvataggi di configurazione. I valori inline possono essere analizzati, ma non vengono mai inviati. Un comando esplicito Background può comunque creare IPC di sessione locale. Il successo della simulazione non dimostra la compatibilità con un server reale.
+
+La revisione di recupero svolta all'epoca riguarda vipirc 0.7.34 / onekeyirc 0.1.33 in doc/STABILITY-REVIEW-0.7.34-0.1.33.txt e doc/STABILITY-PASS-RESULTS.json. Documenta errori riprodotti, correzioni, prove di esaurimento risorse e di carico limitato e vincoli delle piattaforme. La precedente revisione di sicurezza resta in doc/SECURITY-REVIEW-0.7.33-0.1.32.txt e doc/SECURITY-PASS-RESULTS.json. I rapporti precedenti con nome o data conservano le versioni del sorgente, i carichi di prova e i limiti di piattaforma originali; non attestano nuove esecuzioni dei test.
+
+Gli scenari di protocollo locali non dimostrano il funzionamento con un demone ZNC/soju reale o un account IRCNow. L'esecuzione completa di ncurses, il ciclo di vita nativo degli AF_UNIX con nome, OpenBSD/LibreSSL e il comportamento sull'host di distribuzione richiedono verifiche sui rispettivi sistemi. Un breve stress test non dimostra mesi di affidabilità senza sorveglianza. Segnalare versione, piattaforma, passi riproducibili e diagnostica depurata; omettere password, chiavi private e trascrizioni di chat private.

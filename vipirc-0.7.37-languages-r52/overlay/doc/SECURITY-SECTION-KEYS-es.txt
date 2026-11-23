@@ -1,0 +1,10 @@
+User-defined key bindings
+Source: SECURITY.md, section "User-defined key bindings"
+English section SHA-256: 250d7d0eb62f8b649e64f59b1e69d2220ec79005f08d6a7dfba30905d1133303
+Paragraphs: 2
+Status: Translation draft; fluent-speaker security review required
+English SECURITY.md remains authoritative. This is only one section, not the full security document.
+
+La configuración principal admite como máximo 64 asignaciones de teclas; la tabla predeterminada está vacía. Las teclas se normalizan a una identidad fija y las acciones se eligen de una lista local permitida. No hay comandos arbitrarios, expansión de shell, IRC en bruto ni acción de envío directo. Una asignación desconocida, duplicada o excesiva provoca el rechazo atómico de la carga de configuración. Solo Save explícito persiste los cambios mediante el escritor existente de archivos privados.
+
+La ejecución de acciones personalizadas se limita al chat principal y a la entrada de comandos. Los pegados y los campos, lectores y confirmaciones modales no ejecutan acciones personalizadas. La interpretación de teclas Function/Alt no puede convertir un pegado capturado en una acción, y la ráfaga de entrada que termina el pegado no ejecuta de inmediato un atajo. El pegado sin delimitadores no puede distinguirse de la escritura normal. El terminal puede interceptar teclas antes que el programa. Las asignaciones nunca reasignan los caracteres de señal del terminal ni activan las señales. Véase doc/HOTKEYS.txt para el alcance exacto y la protección de borradores.

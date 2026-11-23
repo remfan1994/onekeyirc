@@ -1,0 +1,56 @@
+VERBATIM ENGLISH SOURCE REFERENCE
+Source: MANUAL.txt / GLOBAL HEADER AND CHAT CONTROLS
+English source SHA-256: cb80307ba98bc7df400c1362ee1848d1abb75e531c711c9ad421eda17beaed43
+Source lines: 407-458
+
+GLOBAL HEADER AND CHAT CONTROLS
+
+F1 vipirc                Application, settings, help, About and license.
+    F2 Servers (N)           Configured/retained server sessions.
+    F3 Channels (N)          Selected server's retained channels.
+    F4 Queries (N)           Selected server's private conversations.
+    F5 Mentions/unread (M/U) Retained mentions / unread source conversations.
+    F6 File transfers (N)    Retained transfers across all servers.
+
+Only categories with content appear; vipirc is always present. Parted
+channels with history and completed transfer records still count. Fixed
+function-key numbers do not shift when categories hide. A hidden category is
+not created by its shortcut; explicit list commands can still open empty
+lists. TERM supplies key decoding; terminal-reserved keys must be forwarded
+to the client. Pasted sequences never activate shortcuts.
+
+The conversation has its own row below the header; a query nickname does not
+replace Queries. Narrow headers keep the selected category visible. Settings
+> Interface > Shortcut labels hides ordinary F1..F6 labels; unbound keys still
+work. Hints separately controls optional guidance. Both preferences are
+primary-owned and require Save for persistence.
+
+Arrow keys operate the body/editor, never the top bar. Escape from a query
+opens Queries with that query selected; from other chat it opens vipirc;
+from ordinary panels it restores chat/draft/caret; Settings and license
+return to vipirc. F1 opens vipirc directly. Safety dialogs and paste capture
+handle input first.
+
+On vipirc, b/Back returns to chat; Escape asks Really quit? [Y/N]. Only a
+fresh y/Y confirms. Other ordinary keys cancel; paste, clicks and resize
+cannot confirm. Terminal interrupt/suspend behavior follows TERMINAL
+SIGNALS.
+
+Lists share controls: Up/Down or k/j selects a row, Left/Right or h/l an
+action, Enter executes. Home/End or g/G selects endpoints. Open is initially
+selected; changing the row preserves the chosen action. Rows stop at
+endpoints. Both row/action stay highlighted. Click an item to open it or its
+action row to act on the selection. Delete invokes Close for
+server/channel/query rows with the usual protection/confirmation; in editors
+it deletes text.
+
+Chat arrows edit, hjkl is literal, Tab/Shift-Tab completes nicknames, Page
+Up/Page Down browses history, / at caret zero opens Command. Enter submits;
+/clearinput clears the whole draft. Mouse mode additionally shows Clear/Send
+beneath the fixed field. Both paths use the same message checks. Bracketed
+chat paste is literal; tabs become spaces and paste never sends.
+After paste ends, keys/clicks wait for a complete visible screen, a
+later input batch and a quiet interval. Holding keys extends the wait.
+Tiny/failed frames do not count; resize, release keys, then act.
+Lists/readers/safety dialogs ignore paste. Active Command/Settings/transfer
+editors accept data under their own rules.

@@ -1,0 +1,60 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / CONNECTION AND STARTUP COMMANDS
+English source SHA-256: 0e846b2d67181dea4d23ed844fc17149aeadd803e429bde3fbbed09330011d9e
+Source lines: 620-699
+
+BAĞLANTI VE BAŞLANGIÇ KOMUTLARI
+
+/connect seçeneklerle HOST sunucusuna doğrudan bağlanır; argümansız /connect seçili kaydedilmiş/uygulanmış profili kullanır. /server HOST [PORT] aynı doğrudan bağlantı yoludur. /server NUMBER bağlanmadan profil seçer; /server tek başına sunucu/MOTD görünümünü açar. /server add HOST [PORT] [NICK] bağlı olmayan, kaydedilmemiş profil ekler. /server connect NUMBER, /server disconnect NUMBER ve /disconnect [NUMBER] numaralı bağlantıları yönetir. /server close NUMBER ikincil profili kapatır ama profil dosyasını diskte tutar.
+
+Yeni hedefler 6697 üzerinde doğrulanmış TLS ile geçerli giriş takma adı/kullanıcısı kullanır; kimlik bilgisi veya kanal devralmaz. Eşleşen hedefler mevcut aktarım, port, nick ve kimlik doğrulamayı koruyup ayrı bir bağlantı açmak yerine aktif olanı seçer. Aynı ana bilgisayarı paylaşan bouncer profillerinde doğru NUMBER seçilip yalın /connect kullanılmalıdır. Bağlantı komutları kendiliğinden kaydetmez. Tam arayüz sunucu yuvaları 0..7 (birincil 0), yalın arayüzde 1..8 (birincil 1). Sunucu bağlama/kesme seçimi değiştirmez. /panel seçicisinin farklı numaraları yerine frontend'in /servers numaralarını kullanın.
+
+/connect seçenekleri HOST önünde yer alır. -ssl, -tls eşanlamlısıdır; +PORT TLS ister; normal port numarası TLS'yi asla kapatmaz. --tls, --plain, --nick biçimleri de geçerlidir. Yeni şifresiz bağlantı 6667 kullanır. Parolalar konumsal argüman değildir. İkincil Close, katalog başvurusu, taslak/geçmiş ve aktarımları kaldırır ama fiziksel profil dosyasını korur.
+
+/autoconnect geçerli bağlantıyı değil sonraki başlangıcı değiştirir. /autojoin doğrudan profilde sonraki açık /connect için kanalları hazırlar; şimdi join/part yapmaz. Sorgulama, kayıt ile mevcut/bekleyen üyeliği gösterir. Otomatik yeniden denemeler çalışma ayarlarını korur; bağlantı kesikken /connect uygulanmış değişiklikleri alır. /join kayıt sonrası hemen işler. Bouncer üyeliklerini kendisi geri getirir ve autojoin düzenlemelerini reddeder; /autoauth değişiklikleri de orada reddedilir, Settings veya /panel kullanın.
+
+/autoauth yalnız doğrulanmış TLS üzerinden SASL hazırlar. Status geçerli/bekleyen kimlik bilgisi yollarını okumadan yerel olarak tam gösterir; normal Settings çıktıları gizler. Tam mod sorguları Refresh/Back sunar ve taslakları saklar. PATH boşluklar dahil kalan metnin harfî tamamıdır. Satır içine yazılmış sırları komutlara değil, özel yapılandırmaya/Settings'e koyun.
+
+Yalın /save, bekleyen seçenekler dahil seçili geçerli profili yazar. /save input ile /save output ikisi de uygulama tercihlerini içeren birincil profili yazar; yalnız giriş/çıkış kaydı değil, eşanlamlıdır. Bekleyen birincil bağlantı değişiklikleri de dahildir. /save all sağlıklı profilleri yazar; /saveconf sonraki /connect için seçili varsayılanı da hatırlar. Kaydetme autoconnect'i açmaz. Her dosya özel ve atomik yazılır; fakat çalışma alanı tek işlem değildir: sonraki hata önceki başarıları geri almaz. Okunamayan profillerin üzerine yazılmaz. Test mode kaydetmez.
+
+/set autoconnect on|off, tam arayüz uyumluluk komutudur. /set uygulama tercihlerini iki arayüzde de değiştirir; gönderme, düzenleyici ve çıktı görünümü tercihleri yalın modu etkiler. /panel iki arayüzde kılavuzlu ayarları açar; /quickstart dört temel bağlantı bilgisini sorar. /settings tam modda formları, yalın modda raporu açar.
+
+/list [MASK] [OPTIONS] kayıt sonrası ağ kanal dizini ister. Yalnız MASK sunucuya gider; --min-users/--max-users, --name ve --topic yerel filtrelerdir. --sort channel|users|topic, --asc/--desc ve --limit N görünümü yönetir; varsayılan kullanıcı sayısı azalan, --limit 0 ise 8192 kayıtlık önbellekte görüntü sınırı yok demektir. /list show yeni istek yapmadan sıralama/yön/limiti değiştirebilir; /list clear önbelleği siler. /ls ve /cl sadece yerel görünümleri listeler.
+
+Bağlantı kopar veya sunucu LIST isteğini açıkça reddederse kısmi sonuçlar önbellekte kalır ama istek serbest bırakılır. Kayıt sonrası /list yeniden deneyin veya /list clear ile temizleyin; eksik sonuçlar tam ağ dizini değildir.
+
+Tam tarayıcıda Up/Down ya da j/k satırlar, Left/Right ya da h/l sıralama sütunu, s tersine çevirme, Page Up/Page Down ve g/G gezinme, Enter katılma, r isteği yenileme, / Command, Escape geri dönüş içindir. Sütun başlığına tıklama sıralar. Yalın modda /list show önbelleği yazdırır; /summary ayrıca yerel çalışma alanı özetini verir.
+
+EXACT COMMAND SYNTAX (not translated):
+
+    /connect [-tls|-plain] [-nick NICK] HOST [PORT]
+    /connect
+    /server HOST [PORT]
+    /server NUMBER
+    /server
+    /server add HOST [PORT] [NICK]
+    /server connect NUMBER
+    /server disconnect NUMBER
+    /disconnect [NUMBER]
+    /server close NUMBER
+
+    /autoconnect [on|off]
+    /autojoin [list|add #CHANNEL|remove #CHANNEL|clear]
+    /autoauth [status|off|sasl USER file PATH|sasl USER gpg PATH]
+    /save [input|output|all]
+    /saveconf
+    /set autoconnect on|off
+    /panel
+    /quickstart
+    /settings
+
+    /list [MASK] [OPTIONS]
+    /list show
+    /list clear
+    /ls
+    /cl
+    /summary
+
+    -ssl   -tls   +PORT   --tls   --plain   --nick
+    --min-users   --max-users   --name   --topic
+    --sort channel|users|topic   --asc   --desc   --limit N

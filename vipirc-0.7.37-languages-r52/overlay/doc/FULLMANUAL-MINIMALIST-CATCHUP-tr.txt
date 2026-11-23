@@ -1,0 +1,21 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / MINIMALIST CATCH-UP AFTER RESUME
+English source SHA-256: a802f38661e54d486d4b92dd129ff267d6717b1e6a7568f0cfac1d7f72000e65
+Source lines: 242-280
+
+YALIN ARAYÜZDE OTURUMU SÜRDÜRDÜKTEN SONRA GEÇMİŞİ YAKALAMA
+
+vipirc -i modunda /catchup, seçilen kanal veya özel konuşmayı yerel olarak yazıp gönderdiğiniz en son iletinin ilk IRC satırından itibaren açar. Her sunucu ve kanal/özel konuşma için ayrı bir işaret tutulur; sunucu durum ve bahsetmeler görünümlerinin işareti yoktur. Oturumu sürdürdükten sonra her konuşmayı ayrı ayrı seçip /catchup komutunu çalıştırın.
+
+Okuyucu önce uygun bir özel günlük dosyasını kullanmayı dener. Kalıcı günlükleme, işaret oluşturan ileti gönderildiğinde zaten açık olmalı, düzgün çalışmaya devam etmeli ve aynı dosyada tam olarak o kayıt hâlâ bulunmalıdır. Ayrılmadan önce bunu bilinçli olarak etkinleştirin:
+
+    /set persistent_logging on
+    /save output
+
+Disk okuyucusu, yokluğunuz boyunca gelen her şeyi kalıcı sohbet belleğine aktarmak yerine dosyanın o andaki sonunu anlık görüntü olarak sabitler. Up/Down görüntü satırı, PageUp/PageDown sayfa bazında ilerler; Home gönderilen ileti işaretine döner, End görüntünün en yeni sayfasına gider, Escape canlı sohbete döner. Yeni ağ trafiği gelmeye devam eder, ancak anlık görüntüyü kaydırmaz.
+
+Diskteki işaret kullanılamıyorsa ancak gönderilen ileti hâlâ bellekte tutuluyorsa, komut normal korunmuş geçmişi bu noktadan açar. Bu yedek yöntemde Home bellekte kalan en eski sayfaya gider; End veya Escape canlı sohbete döner. Daha eski, bellekte kalmış iletiler de incelenebilir. Bu, normal bellekten silinme sınırlarına tabi olağan okuyucudur; diskten kurtarılmış bir arşiv değildir.
+
+Döndürülmüş veya değiştirilmiş bir günlük dosyası ya da içeriği değişmiş işaret kaydı, özgün disk işareti olarak kullanılamaz. Kayıt denetimi kazara yapılan değişiklikleri yakalar; aynı kullanıcı hesabındaki başka bir işleme karşı verinin gerçekliğini kanıtlamaz. Hassas kimlik doğrulama trafiği kalıcı işaret yapılmaz. Diskte veya bellekte uygun işaret kalmamışsa /catchup geçmişin eksik olduğunu bildirir, eksiksiz yakalama iddiasında bulunmaz.
+
+İşaret çalışan arka plan sürecine aittir. Oturumu ayırıp sürdürmek işareti korur; yeni süreç işaretleri yeniden oluşturmaz veya eski döküm dosyalarını kendiliğinden yüklemez. Disk destekli /catchup yalnızca yalın arayüzde bulunur. Tam ncurses arayüzü PageUp/PageDown ile sınırlı bellek geçmişini kullanır.

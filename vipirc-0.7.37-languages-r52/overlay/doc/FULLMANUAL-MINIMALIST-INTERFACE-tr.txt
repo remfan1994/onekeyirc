@@ -1,0 +1,36 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / MINIMALIST INTERFACE
+English source SHA-256: 21dd2fdc5c7552003eba414c032dbbece1a7caa875d21274eb5594748bf44568
+Source lines: 123-203
+
+YALIN ARAYÜZ
+
+    vipirc -i
+    vipirc --idle --test-mode
+    /connect irc.ircnow.org
+    /join #ircnow
+    /saveconf
+
+-i, vipirc ile aynı yapılandırmayı ve sunucu kataloğunu kullanır. Takma ad, varsayılan olarak geçerli bir oturum açma veya kullanıcı adından alınır. /saveconf tercihleri ve sağlıklı profilleri kaydeder; ikincil bir profil de dahil olmak üzere seçili bağlantıyı, daha sonra bağımsız olarak yazılan /connect için hatırlar. Kaydetmek otomatik bağlantıyı açmaz. /quickstart ve /panel isteğe bağlı rehberlerdir.
+
+Normal ekran günlüktür. /, Command alanını; ?, bağlamsal yardımı açar. Diğer yazdırılabilir karakterler Compose alanını başlatır ve korunur. Enter veya Insert boş Compose açar. Canlı günlükte Up, saklanan satırlarda bir satır geriye; Page Up bir sayfa, Home ise saklanan en eski sayfaya gider. Down/Page Down/End canlı sona döner. Left/Right/Delete/Backspace burada etkisizdir. Geçmiş okuyucusunda End veya Escape canlı sona döner.
+
+Compose içindeki ok tuşları metni düzenler, gönderilmiş sohbeti geri çağırmaz. Tab/Shift-Tab, Compose içinde takma adları; Command içinde komut adlarını tamamlar. Command alanında Down önerileri seçer; Up/Down öneriler arasında gezinir, ilk öneride Up tekrar girişe döner. Enter seçili öneriyi ekler; gösterildikten sonra ayrı bir Enter komutu çalıştırır. Command girişinde Up, kabul edilmiş eşleşen komutları geri çağırır; Down başlangıç taslağına doğru döner. Bütün denetimler için /help keys ve /help commands komutlarına bakın.
+
+Tek satırlı düzenleyici modu canlı günlüğün sonunda tek giriş satırı tutar; fullscreen ise daha küçük canlı günlük bölmesiyle çok satırlı düzenleyici kullanır. Trafik nedeniyle yeniden çizim taslağı ve imleç konumunu korur. Escape düzenleyiciden günlüğe çıkar; günlükte Escape işlemi arka plana alır. Review aşamasında Escape veya yazmaya başlamak aynı düzenleyiciyi, taslağı ve imleci geri getirir; yeni bir Enter onaylar. Ctrl-D açıkça atanmadıkça etkisizdir; terminal sinyalleri devralınan ayarlarına uyar. Tanınan yapıştırma düz metin olarak kalır, gönderme işlemi başlatamaz.
+
+    /set send_mode direct|review
+    /set composer_mode line|fullscreen
+    /set output_format compact|full
+    /save input
+    /save output
+
+Varsayılanlar doğrudan gönderme, tek satırlı düzenleme ve kısa [HH:MM:SS] <nick> text gösterimidir. full gösterimi tarih/sunucu/hedef bilgilerini de içerir; anılmalar ve sunucular arası tanı iletileri her iki biçimde de gerekli bağlamı korur. Ana profile ait bu tercihler tüm sunuculara uygulanır. Bayt bütçesinin ayrı onaylanması ve birden çok ileti göndermek için rıza alınması yine gereklidir.
+
+/help ls konuları listeler; /help /ls yerel liste komutunu açıklar. Sözdizimi ve örnekler için /help COMMAND kullanın; her seferinde tek bir konu veya komut adı girin. /manual ve vipirc -i --manual, doc/vipirc-idle-manual.txt içinde de bulunan eksiksiz yalın arayüz başvurusunu verir. Komutlar ve denetimler tam ncurses arayüzünden farklıdır. Yardım ve uzun komut çıktıları ayrı, sınırlandırılmış bir okuyucuda gösterilir. Ok tuşları/Page Up/Page Down/Home/End kaydırır, Escape geri döner. Enter yardımda kaydırır, fakat başarılı /users kullanıcı listesini kapatır. Okuyucuda /, Command açar; iptal edilirse okuyucuya dönülür. Yeni komut çıktısı eski yanıtın yerini alır. Summary ekranında r anlık özeti yeniler. Okuma sırasında ağ işlemleri sürer.
+
+/panel önce 0 Application preferences bölümünü açar: geçmiş, gönderme/düzenleme modları, çıktı, bildirimler, günlükleme, tek oturum modu, komut önerileri ve varsayılan arayüz. Son adımda Save veya Apply without saving sunulur; bu adım bağlantı kurmaz ve sohbeti değiştirmez. Her iki arayüz profil panellerini 1..8 olarak numaralandırır: panel 1 ana profili düzenler, tam modda server 0, yalın modda 1 olarak etiketlenir. Paneller, bouncer kimliği de dahil sunucu başına ayarları düzenler. Son adım Save and connect, Save only (varsayılan), Connect once veya Apply only seçeneklerini sunar. /quickstart sunucu/TLS/port/takma ad sorar ve varsayılan olarak Connect once kullanır; var olan bouncer oturum açma bilgilerini değiştirmez.
+
+Enter gösterilen yanıtı korur; '-' isteğe bağlı alanları temizler. Escape bir adım geri gider veya ilk soruda çıkar. Tab, ? yardımı için başlık seçer; ardından Tab/Enter düzenlemeyi sürdürür. Gizli parolalar ve yanıtlar hiçbir zaman komut geçmişine girmez. Yalnızca son seçim uygular/kaydeder/bağlanır; etkin bağlantı başka hedefe çevrilmez ve daha sonraki bağlantı hatası açıkça yapılan değişiklikleri geri almaz. Tam vipirc de bu rehberleri destekler; oradaki /settings grafik formunu açar.
+
+Yalın /servers 1..8, tam /servers ise 0..7 kullanır. Her iki arayüzde Channel 0 sunucu/MOTD görünümüdür. Ana geçmiş ayarı tüm konuşmalarda yerel saklama sınırını belirler; katı sınırlar /help history içinde açıklanır. İsteğe bağlı düz metin günlüğü varsayılan olarak kapalıdır. DCC, grafik form kullanmadan ortak ve açık /dcc komutlarını kullanır.

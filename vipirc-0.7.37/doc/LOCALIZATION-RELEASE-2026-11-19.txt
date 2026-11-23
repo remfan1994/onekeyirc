@@ -1,0 +1,79 @@
+VIPIRC / ONEKEYIRC LOCALIZATION CONTINUATION
+Release date: 2026-11-19 (America/Los_Angeles)
+vipirc 0.7.40 and onekeyirc 0.1.39
+
+BASELINE
+- Continued from vipirc 0.7.39 and onekeyirc 0.1.38, which carried the
+  separate source-comment/contributor pass forward.
+- The original README, security guides, contributor notes, source comments,
+  command grammar and application behavior are retained.
+
+LOCALIZATION
+- Ten language catalogs: Indonesian (id), Malay (ms), Turkish (tr), Spanish
+  (es), Portuguese (pt), French (fr), German (de), Russian (ru), Italian (it),
+  Arabic (ar), with English fallback.
+- Increased each catalog from 267 to 290 translated display strings.
+- New translations cover 23 detailed help lines: authentication, bouncers,
+  session recovery, verified TLS and plaintext boundaries, logging, reconnect
+  and troubleshooting. The existing help line renderer uses translations
+  only when the exact whole display string is present; other help lines
+  remain English. No parser, network, protocol or config tokens changed.
+- Ten reproducible offline doc/TOPICS-XX.txt companion guides carry precisely
+  these 23 translated help lines from the same JSON catalogs.
+- New generator tools/generate_locale_topic_guides.py and regression
+  tests/test_detailed_help_translation.py verify source, catalog and guide
+  parity, byte bounds and command syntax preservation. Offline PTY
+  tests/test_l10n_topics_terminal.py verifies /help bouncers with all 10 locales.
+- Existing doc/START-XX.txt introductory guides and doc/LOCALIZATION.md remain.
+- All source comments remain English for maintainers; previous source-comment
+  pass and doc/USE-MODIFY-REDISTRIBUTE.txt remain intact.
+
+VALIDATION COMPLETED ON LINUX CONTAINER
+- The unmodified baseline archive checksums verified before editing.
+- onekeyirc built using -O2 -std=c11 -Wall -Wextra -Wpedantic -Werror.
+- onekeyirc native idle-command and idle-setup regression executables passed.
+- onekeyirc generated documentation updated and --check passed.
+- All ten locale catalog-generator and detailed-help syntax checks passed.
+- Live offline PTY: /help bouncers in ten locales, PASS.
+- Live offline PTY: translated settings controls in ten locales at
+  45-100 terminal columns, PASS.
+- Staged onekeyirc make install/uninstall included the topic guides and
+  left no application files in the staging path.
+- vipirc shared minimalist help/setup C sources compiled with strict
+  warnings as syntax checks, including -DONEKEY_ONLY.
+- vipirc embedded manual was regenerated and checked from MANUAL.txt.
+- Source manifest, checksum, and clean archive extraction/build checks
+  are documented by the separate release-verification report.
+
+NOT VERIFIED
+- Native OpenBSD terminal, rcctl and compiler/runtime deployment.
+- Complete vipirc ncurses build and UI: wide-character curses development
+  headers are missing on this Linux host. No claims of ncurses runtime pass.
+- Full combined security and end-to-end IRC/bouncer regression suites.
+- Native-speaker translation quality and Arabic bidirectional/shaping layout.
+- Full manuals, long-form detailed help beyond the 23 selected lines, and
+  many diagnostics remain in English. Security details remain authoritative
+  in English SECURITY.md and MANUAL.txt.
+
+RUNNING
+  VIPIRC_LANG=id onekeyirc
+  VIPIRC_LANG=tr vipirc -i
+  /help bouncers
+  /help authentication
+  /help sessions
+  /help tls
+  /help logging
+  /help troubleshooting
+
+INSTALL
+  ./configure --prefix=/usr/local
+  make
+  make install
+  make uninstall
+
+BUILD WITHOUT LOCALIZATIONS
+  CPPFLAGS=-DIRC_DISABLE_LOCALIZATION ./configure --prefix=/usr/local
+  make
+
+Use a UTF-8 terminal/locale for international text. Existing background
+workers retain the code and language from their original launch.

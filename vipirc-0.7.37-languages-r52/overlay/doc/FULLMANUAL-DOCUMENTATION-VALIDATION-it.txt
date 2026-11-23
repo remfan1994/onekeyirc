@@ -1,0 +1,11 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / DOCUMENTATION AND VALIDATION
+English source SHA-256: 473247fbc03339063a7a803330c7b183708cbfe0ce8c56840245322454f570cc
+
+DOCUMENTAZIONE E VALIDAZIONE
+
+MANUAL.txt nella directory principale è il riferimento canonico per vipirc completo; doc/manual.txt ne è una copia e src/manual.c lo incorpora. vipirc --manual e vipirc(1) lo espongono. vipirc -i --manual e doc/vipirc-idle-manual.txt forniscono il riferimento minimalista. Entrambe le interfacce hanno anche /help e /manual.
+
+README.md orienta fra installazione e documenti; INSTALL spiega la compilazione; SECURITY.md stabilisce i confini. CONTRIBUTING.md descrive modifica/revisione, doc/SOURCE-MAP.txt identifica il codice, tests/README.md mappa i test e DESIGN.md descrive le invarianti. doc/TROUBLESHOOTING.txt collega sintomi e controlli; doc/BOUNCERS.txt, doc/SESSION-CONTROLS.txt e doc/OPENBSD-VPS.txt riguardano le operazioni. Prima dell'uso sostituire host, account e percorsi assoluti d'esempio.
+
+I manutentori modificano testi e aiuti autorevoli, quindi eseguono make docs e make check-docs. L'obiettivo docs incorpora il manuale prima di ricostruirlo/esportarlo. Audit e file JSON valgono solo per versioni e ambienti dichiarati, non per piattaforme/servizi non testati. La documentazione non introduce difese in esecuzione; le prove non dimostrano l'assenza di difetti.

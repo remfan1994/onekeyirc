@@ -1,0 +1,79 @@
+VERBATIM ENGLISH SOURCE REFERENCE
+Source: MANUAL.txt / CONVERSATION COMMANDS
+English source SHA-256: afbb4f4772f74759ce06e6394d72bc10a6895c4731b886ced43996217fc5945d
+Source lines: 1102-1176
+
+CONVERSATION COMMANDS
+
+/join CHANNEL [KEY]     request to join one channel, optionally with a key
+    /part [CHANNEL] [MESSAGE] leave a channel with an optional PART reason
+    /close [NAME|NUMBER]   close a channel/query; number is a channel number
+    /pm NICK|NUMBER               open/switch a private view without sending
+    text
+    /msg TARGET TEXT       send text to one nickname or channel
+    /me TEXT               send an IRC action to the current conversation
+    /nick NICK             request a different nickname
+    /away [MESSAGE]        set away with text; without text, clear away
+    /back                  clear away status; takes no argument
+    /whois NICK            request information about a nickname
+    /topic                 request the current channel topic
+    /topic TEXT            request a new current-channel topic
+    /connect [HOST [PORT]] connect directly, or reuse the selected server
+    /disconnect [NUMBER] disconnect this or a numbered server; retain
+    views/drafts
+    /dcc or /transfers     open the shared File transfers screen
+    /cancel               stop unsent chat messages on this server
+    /background           keep running and return to the shell
+    /quit [MESSAGE]       exit all server sessions with an optional QUIT reason
+    /settings             edit app-wide preferences and any server profile
+    /save [input|output|all] save selected, primary, or all profiles
+    /saveconf             save profiles and remember the selected connection
+    /set autoconnect on    enable connection at future startup after saving
+    /set autoconnect off   disable it
+
+/away MESSAGE sends one standard AWAY message. Text is limited to the
+current wire limit minus 8 bytes (504 bytes at the usual 512-byte limit);
+oversized text or controls are rejected, never split. /away with no text and
+/back clear away. These require registration. The indicator changes only on
+server acknowledgments and resets on disconnect/reconnect. The server list's
+Away action sends Away as the message or clears an acknowledged away state,
+preserving the view and draft. A disconnected server must connect first.
+Edit ignored senders in the Settings Ignore fields, or use the local /ignore
+and /unignore commands.
+
+/join accepts one channel and at most one key token. Keys must be printable
+ASCII without spaces, colon, or comma, and the complete JOIN must fit the
+wire limit. The key is not logged or saved; only the channel name enters
+auto-join. Re-enter the key when needed after reconnecting or restarting.
+The offline simulator acknowledges away changes and accepts transient join
+keys, but does not test a real channel's key or admission policy.
+
+The server decides permissions, nickname availability, channel admission,
+and whether topic changes are allowed. Local command acceptance does not
+guarantee server acceptance or delivery to another participant. Messages you
+submit wait briefly while vipirc sends chat lines at least 1.2 seconds
+apart. /cancel removes those still waiting on the selected server, across
+its channels and queries. It does not erase your draft or recall text
+already sent. A message already being transmitted may finish. For a direct
+profile, /join and /part update the autojoin selection; /save preserves it
+for future launches unless pending Settings startup choices override it.
+Bouncer profiles leave membership restoration to the bouncer. /part also
+discards queued text for that channel while retaining the view and its
+history. A message already in flight may finish before PART. Text after the
+channel is the PART reason; when the channel is omitted, text is the reason
+for the selected channel. With no explicit reason, [presence] part_message
+is used. Closing a joined channel uses the same default PART reason.
+
+/quit MESSAGE uses that text as the best-effort IRC QUIT reason on live
+server sessions. Without text, [presence] quit_message is used; an empty
+default sends a bare QUIT. Shutdown remains bounded and never waits
+indefinitely for a dead network.
+
+Automatic away status is separate from manual /away. With background_away
+on, a successful Background action or managed terminal loss queues the
+configured AWAY only after the terminal has detached. Resuming clears only
+that automatic status. autoaway_minutes applies the same rule after local
+input inactivity; zero disables the idle timer. A bouncer profile suppresses
+these automatic changes unless [bouncer] automatic_away=true is enabled. Any
+manual /away remains set until /back or an explicit /away with no message.
+Incoming IRC traffic never counts as local user activity.

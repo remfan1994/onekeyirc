@@ -1,0 +1,23 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / HISTORY, LOGGING AND PRIVACY
+English source SHA-256: b0c065ed46b6cbb73666075f1eee2d050a5a82160fac0ddadd98ad80d2910ee3
+
+HISTORIAL, REGISTROS Y PRIVACIDAD
+
+Hay distintos tipos de historial:
+
+    Conversaciones y menciones conservadas: memoria limitada para visualizacion.
+    Recuperacion de comandos: líneas aceptadas en memoria, con filtrado de secretos.
+    Frecuencias de comandos: nombres canónicos y recuentos en CONFIG_PATH.commands.
+    Transcripcion opcional: registros de texto sin cifrar en el .log de cada perfil guardado.
+    Reproduccion del bouncer: mensajes suministrados según la politica del bouncer.
+
+Detach/resume conserva el historial en memoria mientras vive el proceso. /quit, --close-session, un fallo del proceso o un reinicio lo terminan. Un proceso nuevo carga la configuración y, si existe, el recuento de comandos; no importa transcripciones antiguas como historial vivo ni reconstruye el marcador anterior de catch-up. /clear borra la memoria de la vista actual sin eliminar la transcripción del disco ni retirar un mensaje IRC.
+
+Para activar la transcripción use /set persistent_logging on y guarde con /save output, o seleccione Settings > Interface > Persistent logging. Está desactivada por defecto, se aplica a todos los servidores y crea un archivo independiente por perfil guardado. Siguen vigentes las comprobaciones de rutas y archivos de CONFIGURATION.
+
+Cada registro se detiene en 16 MiB; no se rota ni elimina automáticamente. Una ruta insegura, un bloqueo ocupado o un fallo de escritura desactivan el registro de ese perfil con un error mientras el chat sigue funcionando. Archive el archivo anterior y desactive/reactive el registro para continuar. La rotación puede invalidar el marcador antiguo de catch-up; envie un nuevo mensaje apto antes de confiar en la recuperación duradera de una ausencia posterior.
+
+Se excluyen los mensajes de credenciales y servicios reconocidos y sus copias sensibles con apodos actuales o antiguos, incluidos destinos de servicio calificados. El chat normal, los servicios no reconocidos y los secretos pegados manualmente todavia pueden llegar al registro; el servicio remoto también puede guardar una copia. Desactivar el registro impide nuevas anotaciones sin borrar las anteriores. Los permisos privados no cifran los datos ni protegen frente a otro programa de la misma cuenta Unix. El acceso a archivos normales en almacenamiento lento o de red también puede bloquear las operaciones de disco.
+
+Una transcripción guardada es CONFIG_PATH.log, dentro de un directorio del usuario con modo exacto 0700. Todos los componentes de la ruta deben superar las comprobaciones de ausencia de enlaces simbólicos y de recorridos al directorio padre. El archivo abierto debe pertenecer al usuario, ser normal, tener un solo enlace y modo exacto 0600. El manejo no bloqueante de archivo/bloqueo rechaza FIFO o registros ocupados; el límite de 16 MiB se aplica a cada perfil guardado.

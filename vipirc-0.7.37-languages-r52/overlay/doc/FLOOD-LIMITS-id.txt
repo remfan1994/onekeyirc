@@ -1,0 +1,24 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / MESSAGE LENGTH AND FLOOD PREVENTION
+English source SHA-256: 74197e1e6983ce301972c3ad55db5a844ff0ae8bde4ebc998ebfe85c8ddcae1c
+
+PANJANG PESAN DAN PENCEGAHAN FLOOD
+
+Batas baris IRC biasa adalah 512 byte termasuk CR/LF, bukan 512 karakter yang tampil. Satu skalar UTF-8 memakai 1..4 byte, dan satu glif dapat terdiri atas beberapa skalar. Perintah, tujuan, dan identitas pengirim relai juga memakan ruang. Untuk :nick!user@host PRIVMSG target :text, ruang muatan dihitung sebagai berikut:
+
+    B = L - (len(nick) + len(user) + len(host)
+             + len(target) + len("PRIVMSG") + 9)
+
+Semua panjang dihitung dalam byte. L bernilai 512 atau nilai LINELEN lebih kecil yang dikenali. Pesan tindakan juga mengurangi ruang untuk pembungkusnya. Sebelum identitas diketahui, batas konservatif digunakan. Perubahan identitas atau tujuan dapat mengubah B; vipirc tidak menganggap baris yang lebih panjang pasti diterima.
+
+Editor ncurses penuh memberi peringatan ketika satu baris logis mencapai B atau draf memerlukan beberapa pesan. Enter/Escape hanya mengakui peringatan agar pengeditan berlanjut; tidak ada pesan yang dikirim. Tombol lain tidak dapat menutup peringatan dan pengulangan tombol dicegah. Peringatan diaktifkan kembali setelah panjang turun di bawah batas.
+
+Editor minimalis justru menghentikan penyisipan tambahan pada batas sampai Enter secara tegas mengizinkan pengeditan berlanjut; Enter tersebut tidak mengirim. Backspace/Delete dapat mengurangi teks dan Escape membatalkan. /msg, /me, dan // diukur menurut muatan sebenarnya, sedangkan perintah lokal lain tidak. Teks tempel tetap utuh sepanjang batas penyimpanan dipatuhi dan diperiksa setelah diterima.
+
+Mode ncurses penuh meminta persetujuan terpisah sebelum mengirim draf yang harus dipecah menjadi beberapa pesan:
+
+    This text needs N IRC messages. Send all to TARGET? [y/N]
+
+Hanya jawaban y yang mengirim; Enter/n menolak dan mempertahankan teks. Dalam mode minimalis, Review ditampilkan: Enter baru mengonfirmasi, Escape kembali ke editor. Keduanya mengharuskan persetujuan eksplisit untuk pemecahan, bahkan pada mode direct. Pemecahan menjaga skalar UTF-8 tetap lengkap dan isi tidak kosong; baris baru yang eksplisit memisahkan pesan dan baris kosong dilewati. Perintah tetap satu baris; tulis percakapan multibaris dalam editor percakapan.
+
+Pesan obrolan diberi jeda setidaknya 1.2 detik melalui antrean 64 pesan. /cancel menghapus pekerjaan yang belum dikirim tetapi tidak dapat menarik pesan yang sedang dikirim atau telah terkirim. Kontrol protokol seperti PONG ditangani terpisah. Jaringan dapat menerapkan batas lebih ketat atau menolak teks; penerimaan atau gema lokal bukan bukti pengiriman ke tujuan.

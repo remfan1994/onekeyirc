@@ -1,0 +1,25 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / GLOBAL HEADER AND CHAT CONTROLS
+English source SHA-256: cb80307ba98bc7df400c1362ee1848d1abb75e531c711c9ad421eda17beaed43
+Source lines: 407-458
+
+INTESTAZIONE GLOBALE E CONTROLLI DELLA CHAT
+
+    F1 vipirc                Applicazione, impostazioni, guida, About e licenza.
+    F2 Servers (N)           Sessioni server configurate o conservate.
+    F3 Channels (N)          Canali conservati del server selezionato.
+    F4 Queries (N)           Conversazioni private del server selezionato.
+    F5 Mentions/unread (M/U) Menzioni conservate / conversazioni sorgente non lette.
+    F6 File transfers (N)    Trasferimenti conservati su tutti i server.
+
+Sono visibili solo le categorie con contenuti; vipirc è sempre presente. Continuano a contare i canali abbandonati con cronologia e le registrazioni dei trasferimenti completati. I numeri fissi dei tasti funzione non cambiano quando una categoria è nascosta. La scorciatoia di una categoria nascosta non la crea; i comandi espliciti per gli elenchi possono comunque aprire liste vuote. TERM determina l'interpretazione dei tasti; i tasti riservati dal terminale devono essere inoltrati al client. Le sequenze incollate non attivano mai scorciatoie.
+
+La conversazione ha una riga propria sotto l'intestazione; il nickname di una conversazione privata non sostituisce Queries. Anche le intestazioni strette mantengono visibile la categoria selezionata. Settings > Interface > Shortcut labels nasconde le etichette ordinarie F1..F6; i tasti senza associazione continuano a funzionare. Hints controlla separatamente i suggerimenti facoltativi. Entrambe le preferenze appartengono al profilo principale e richiedono Save per essere persistenti.
+
+Le frecce agiscono sul corpo o sull'editor, mai sulla barra in alto. Escape da una conversazione privata apre Queries con quella conversazione selezionata; da altre chat apre vipirc; dai pannelli normali ripristina chat/bozza/cursore; Settings e la licenza tornano a vipirc. F1 apre direttamente vipirc. Le finestre di sicurezza e la cattura dell'incollaggio elaborano prima l'input.
+
+Nel pannello vipirc, b/Back torna alla chat; Escape chiede Really quit? [Y/N]. Solo una nuova pressione di y/Y conferma. Altri tasti ordinari annullano; incollaggi, clic e ridimensionamenti non possono confermare. Il comportamento dei segnali di interruzione e sospensione del terminale segue TERMINAL SIGNALS.
+
+Gli elenchi condividono i controlli: Up/Down o k/j selezionano una riga, Left/Right o h/l un'azione, Enter la esegue. Home/End o g/G selezionano gli estremi. Open è l'azione iniziale; cambiando riga si conserva l'azione scelta. La selezione delle righe si ferma agli estremi. Sia la riga sia l'azione restano evidenziate. Fare clic su un elemento per aprirlo o sulla sua riga d'azione per agire sulla selezione. Delete richiama Close sulle righe di server/canale/conversazione privata con le usuali protezioni e conferme; negli editor elimina il testo.
+
+Nella chat, le frecce modificano il testo, hjkl resta testo letterale, Tab/Shift-Tab completa i nickname, Page Up/Page Down scorre la cronologia e / con il cursore nella posizione zero apre Command. Enter invia; /clearinput cancella l'intera bozza. La modalità mouse mostra anche Clear/Send sotto il campo fisso. Entrambi i metodi d'invio usano gli stessi controlli dei messaggi. L'incollaggio delimitato (bracketed paste) nella chat è letterale: le tabulazioni diventano spazi e incollare non invia mai. Dopo l'incollaggio, tasti e clic attendono una schermata completa visibile, un gruppo di input successivo e un intervallo di quiete. Tenere premuti i tasti prolunga l'attesa. Schermate troppo piccole o non riuscite non contano; ridimensionare, rilasciare i tasti, poi agire. Elenchi, lettori e finestre di sicurezza ignorano l'incollaggio. Gli editor attivi di Command/Settings/trasferimenti accettano dati secondo regole proprie.

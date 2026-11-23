@@ -1,0 +1,57 @@
+VERBATIM ENGLISH SOURCE REFERENCE
+Source: MANUAL.txt / SECURITY AND RESOURCE BOUNDS
+English source SHA-256: 0244a7b43c7e5e46a5b365e081fc7bc6654afe3069aea9e68c0e1d0f46c1277e
+
+SECURITY AND RESOURCE BOUNDS
+
+TLS verifies the certificate chain and the requested hostname or numeric
+address. There is no certificate-verification bypass or silent downgrade.
+Plain IRC is available only through an explicit setting; it exposes IRC
+traffic to observers on the connection path and cannot use saved secrets.
+TLS protects the client-to-server connection, not end-to-end chat privacy.
+
+Operational startup rejects mismatched real/effective user or group IDs and
+disables core dumps before reading configuration. Linux also disables
+process dumpability. The client is an ordinary process without an OS
+sandbox; another process under the same account is within its trust
+boundary.
+
+Recognized private authentication commands require verified TLS even when
+entered as ordinary message text, split across a send plan or queued.
+Detection cannot reliably recognize arbitrary new secret syntax; keep
+credentials out of chat and shell arguments.
+
+Incoming IRC data is untrusted. Unsafe control sequences and formatting are
+sanitized before display. Input and network buffers are bounded. The client
+does not execute received text, launch URLs, run shell commands, load
+scripts or plugins, or reply automatically to CTCP requests. Action messages
+are displayed as text. DCC SEND offers require explicit per-file review and
+acceptance; their direct connections are not encrypted by TLS.
+
+Limits in this release:
+
+    Server sessions per process           8
+    Views per server, including builtins  32
+    Users stored per channel           4096
+    Custom mention strings per server     32
+    Ignore masks per server               32
+    Queued chat messages per server       64
+    Command history entries per server    64
+    Command history text per server  64 KiB
+    Retained history text per server   8 MiB
+    Input Unicode scalars per draft     8192
+    Input UTF-8 bytes per draft        16384
+    Pending DCC offers, whole workspace    8
+    Active DCC transfers, workspace        4
+    Retained DCC records, workspace       12
+
+The history cap applies per server, not as a total-process memory cap. At
+eight sessions the maximum retained history text is 64 MiB. Server state is
+allocated as needed; fewer sessions do not reserve eight full histories.
+Libraries, view metadata, user lists, input, and transport use more memory.
+Conversation history is memory-only unless optional persistent logging is
+enabled. The separate mention view is not a permanent archive; its eligible
+source conversation may be logged. Settings, credentials and optional
+plaintext logs are local files; other software with your account's
+privileges can read them. No client can guarantee safety against every
+hostile server or a compromised terminal, operating system, or library.

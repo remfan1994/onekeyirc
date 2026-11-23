@@ -1,0 +1,17 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / OFFLINE TEST MODE
+English source SHA-256: e89ff4106e3e5a0bba3bbcac6d2d3f1eb41f410ac6a2f153aaed310c84b51cab
+
+EXACT COMMAND/CONTROL EXAMPLES (not translated):
+vipirc --test-mode
+vipirc --test-mode --config /absolute/config.ini --no-connect
+
+Simulasi menggunakan antara muka, penyunting, penapis serta pengendalian protokol dan baris gilir yang berkenaan, tetapi tanpa soket rangkaian, DNS, pembacaan kata laluan/fail CA, GPG atau penyimpanan. Nama hos yang ditetapkan hanya label. Setiap profil ada simulator berasingan; New server menambah satu lagi. Nilai pelayan/nama samaran yang tiada tidak ditanya; saluran demo lalai ialah #test-one dan #test-two apabila tiada saluran ditetapkan.
+
+Simulasi bermula selepas kata alu-aluan tanpa mengira autoconnect tersimpan; --no-connect menghalangnya. /disconnect dan /connect menghentikan atau memulakan simulator yang dipilih. Keluar dan mulakan semula tanpa --test-mode untuk rangkaian sebenar. Simulator C setempat tidak memerlukan daemon luar atau Python.
+
+Peristiwa berlaku setiap dua saat: sembang, sebutan, rentetan pantauan, perbualan peribadi dan perubahan senarai ahli. Rentetan watch tersuai bergilir satu setiap kitaran 16 saat. /msg menerima jawapan simulasi berlabel; JOIN/PART/NICK/WHOIS/TOPIC/AWAY turut mempunyai jawapan simulasi. Ini tidak meniru semua peraturan pelayan, kemasukan saluran berkunci, SASL atau penghantaran sebenar.
+
+Cuba pembalutan baris, suntingan merentas baris, ubah saiz, tampal, amaran/pengesahan, sebutan dan senarai. Tawaran DCC contoh hanya wujud dalam memori: semak/tolak/batal berfungsi, tetapi Send/Accept ditolak sebelum sebarang akses fail atau soket. Menutup pelayan sekunder hanya mengubah keadaan semasa. Penulisan konfigurasi dan fail kiraan dinyahdayakan; sunting konfigurasi di luar aplikasi dan mulakan semula untuk perubahan kekal.
+
+--check-config ialah pemeriksaan berasingan bagi sintaks dan nilai konfigurasi tersimpan. Kedua-dua mod tidak membuktikan DNS, TLS, kelayakan atau keserasian bouncer sebenar.

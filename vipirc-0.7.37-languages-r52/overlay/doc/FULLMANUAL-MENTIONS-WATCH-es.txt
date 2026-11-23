@@ -1,0 +1,13 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / MENTIONS AND WATCH STRINGS
+English source SHA-256: 7dd545c1b52064bcd746c17c664bc33816010b1a1bc6f7dfda8f6df48830ba1c
+
+MENCIONES Y CADENAS VIGILADAS
+
+Su apodo actual se vigila automáticamente. La coincidencia respeta la equivalencia de mayúsculas y los límites del apodo anunciados por el servidor IRC. Cambiar el apodo actualiza la coincidencia automática.
+
+    /watch add project name
+    /watch remove project name
+    /watch list
+
+Los valores personalizados son subcadenas literales, no expresiones regulares ni patrones de shell. Se aplican las reglas de mayúsculas y símbolos de IRC/ASCII; los caracteres no ASCII deben coincidir exactamente. Se aceptan hasta 32 valores personalizados de 127 bytes UTF-8 cada uno. Use /save en funcionamiento normal para conservar los cambios en la configuración seleccionada; en modo de prueba permanecen en memoria. Las menciones se conservan en memoria dentro de los límites del historial, pero no forman un archivo permanente de notificaciones ni un registro en disco. Las marcas de tiempo son fecha y hora de recepción locales con formato YYYY-MM-DD HH:MM:SS.

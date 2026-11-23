@@ -1,0 +1,21 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / MINIMALIST CATCH-UP AFTER RESUME
+English source SHA-256: a802f38661e54d486d4b92dd129ff267d6717b1e6a7568f0cfac1d7f72000e65
+Source lines: 242-280
+
+RECUPERAR LA LECTURA EN EL MODO MINIMALISTA DESPUÉS DE REANUDAR
+
+En vipirc -i, /catchup abre el canal o la conversación privada seleccionados en la primera línea IRC del último mensaje que redactaste y enviaste localmente. Cada servidor y cada canal o conversación conserva su propia referencia; las vistas de estado del servidor y de menciones no tienen ninguna. Al reanudar una sesión, selecciona cada conversación y ejecuta /catchup por separado.
+
+Primero se intenta consultar un registro privado válido. El registro persistente debía estar activado cuando se envió el mensaje de referencia, seguir funcionando y conservar exactamente ese registro en el mismo archivo. Activarlo antes de ausentarse es una decisión expresa:
+
+    /set persistent_logging on
+    /save output
+
+El lector del disco toma una instantánea del extremo actual del archivo, sin cargar toda la actividad de la ausencia en la memoria permanente del chat. Up/Down desplaza una fila visual; PageUp/PageDown, una página; Home vuelve al mensaje de referencia; End va a la página más reciente de la instantánea; Escape vuelve a la conversación en vivo. Los mensajes de red nuevos siguen llegando sin desplazar la instantánea.
+
+Si la referencia ya no está disponible en disco, pero el mensaje enviado sigue en memoria, se abre el historial normal conservado en ese punto. En este modo alternativo, Home va a la página más antigua conservada y End o Escape regresan a la conversación en vivo. También se pueden recorrer mensajes anteriores conservados. No se trata de recuperar un archivo en disco: rigen los límites normales de eliminación del historial en memoria.
+
+Un registro rotado o sustituido, o una referencia modificada, no permite recuperar la referencia original del disco. La comprobación detecta alteraciones accidentales; no autentica los datos frente a otros procesos de la misma cuenta. El tráfico sensible de autenticación nunca sirve como referencia duradera. Si ni el disco ni la memoria conservan una referencia válida, /catchup informa de la falta de historial: no afirma haber recuperado todo.
+
+La referencia pertenece al proceso de trabajo en ejecución. Separar y reanudar la sesión la conserva; iniciar un proceso nuevo no reconstruye referencias ni recarga automáticamente las transcripciones antiguas. /catchup con respaldo en disco pertenece al modo minimalista. El modo ncurses completo mantiene un historial acotado en memoria con PageUp/PageDown.

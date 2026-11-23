@@ -1,0 +1,82 @@
+VERBATIM ENGLISH REFERENCE: vipirc 0.7.36 MANUAL.txt
+Source: FILE TRANSFERS
+English source SHA-256: c3342db1ecfe58933be47c90ee8d60304d29f68f09303a30c005f3061126d611
+
+FILE TRANSFERS
+
+F6, /dcc or /transfers opens the workspace-wide list, identifying each
+originating server. Common list controls apply; actions are:
+
+    Accept    Reject    Send...    Cancel transfer    Back
+
+Review needs at least 12 rows by 20 columns. Escape from a browser/field
+returns to its form, then from the form/list returns to chat, preserving
+drafts and accepted transfers. This is active classic IPv4 DCC SEND only: no
+CHAT, resume, passive/reverse transfers, auto-accept, address discovery or
+port forwarding. Maximum file size is 4,294,967,295 bytes. Received files
+are never opened/executed for you.
+
+DCC is an unencrypted direct connection independent of IRC TLS, without
+cryptographic peer authentication. Offers expose the advertised IPv4;
+acceptance exposes the recipient's IP. Verify sender, endpoint, intended
+file and byte size before accepting each offer.
+
+An incoming offer opens no file/socket until explicit acceptance. List
+Accept opens a review with Directory/Save as and Edit/Accept/Cancel. Enter
+in a field stages it; only the form's Accept starts transfer. Paste inserts
+data only in an active editor; it cannot accept. Reject creates nothing.
+
+The full-mode offered receive directory is $XDG_DATA_HOME/vipirc/downloads
+when absolute, otherwise $HOME/.local/share/vipirc/downloads when HOME is
+absolute; without one enter an explicit path. Missing ancestors are created
+0700 only on Accept. The final parent must be owned/private; the new file is
+0600. Existing files, symlinks and '..' are refused. A basename must be
+visible/nonhidden, with no separators, control/bidirectional-formatting
+characters or quotes. Quoted wire filenames may include spaces.
+Failed/cancelled partials are removed only while still the originally
+created file, never a replacement.
+
+Send... opens Nickname, Source file, Advertised IPv4 and Listen port, with
+Edit/Browse, Offer, Cancel. A query supplies its peer default; the form
+identifies the IRC server. Only Offer starts a listener and queues a paced
+offer through that registered server. The source must be an existing regular
+file without symlinks or '..'. Port 0 selects an available port; explicit
+ports are 1..65535. NAT can require reachable advertised IPv4 and
+forwarding; no UPnP/public-address service is called.
+
+Browse begins at launch directory: arrows select, Enter opens a
+directory/chooses a file, parent/Backspace goes up, Type path accepts an
+absolute filename, Escape cancels without changing the source. Selection
+fills the form without offering it or changing process cwd. Each loop
+examines at most 64 entries; listing retains 512 and stops after 4096
+examined. Use Type path for omitted entries. Symlinks/unsafe names are
+omitted and metadata is rechecked at selection/offer.
+
+    /dcc alice file.txt
+    /dcc send -address 203.0.113.10 -port 5000 alice file with spaces.txt
+    /dcc list
+    /dcc accept 1 /home/me/private-downloads
+    /dcc reject 2
+    /dcc cancel 3
+
+Replace the example IP with a reachable one. Command PATH is the literal
+remainder including spaces, without shell quotes. Relative paths refer to
+launch cwd, even after backgrounding/browsing. The default advertised IP is
+the IRC socket's local IPv4; IPv6-only connections need an explicit IPv4
+override, NAT may require one. Command-form accept without DIRECTORY uses
+launch cwd and the same private-directory checks. Bare /dcc prints a list in
+minimalist mode. Both frontends share manager/limits/cancellation.
+
+With SSH, all paths, addresses and connections belong to the host running
+vipirc, not the terminal's local computer. Accepted transfers continue
+through chat/view switches and IRC Disconnect. Closing the originating
+server cancels its transfers; quit stops all. Failure/cancel/expiry removes
+a queued offer, but cannot recall one already sent/in flight.
+
+Limits are 8 pending offers, 4 active/listening/connecting transfers and 12
+retained records across the workspace. Records recycle oldest
+completed/failed first only when full; IDs are not reused during a run.
+Offers expire after 5 minutes, transfers stop after 2 minutes without
+progress. Streaming uses bounded buffers and cumulative 32-bit
+acknowledgments. Test mode permits review/reject/cancel of a memory sample;
+Send/Accept refuses before file/socket work.

@@ -1,0 +1,173 @@
+Security documentation - vipirc - de
+ÜBERSETZUNGSENTWURF. Eine fachkundige muttersprachliche Sicherheitsprüfung steht noch aus. Das englische SECURITY.md bleibt maßgeblich.
+Source: SECURITY.md; 13 of 13 sections covered as complete drafts.
+The English original remains authoritative. Security translation quality is not certified.
+
+## Vertrauensgrenze
+English source section: Trust boundary
+Source SHA-256: b206f366472f34a9c25e1096f15d6fe813e99115c1e789ab4fa3d857e18f7595
+Source paragraphs: 3
+
+IRC-Server, Kommunikationspartner, Nicknames, Themen, Protokollfelder, Dateinamen und eingefügter Text gelten als nicht vertrauenswürdige Eingaben. Betriebssystem, Terminal, C/TLS-Bibliotheken, Zertifikatsspeicher und Benutzerkonto bleiben vertrauenswürdige Komponenten. Die vollständige vipirc-Oberfläche vertraut außerdem auf curses. GPG bringt sein Programm, seinen Schlüsselbund und seinen Agenten mit. Serverprofile nutzen denselben Prozess und sind keine voneinander isolierten Sicherheitsbereiche. Ein anderer Prozess mit denselben Kontoberechtigungen kann in der Regel private Dateien und Speicher einsehen.
+
+Führen Sie das Programm unter einem normalen Benutzerkonto aus. Vor dem Einlesen der Konfiguration weisen betriebliche Aufrufe unterschiedliche reale und effektive Benutzer- oder Gruppenkennungen zurück, deaktivieren Core-Dump-Dateien und setzen umask 0077. Unter Linux wird zusätzlich die Dumpbarkeit des Prozesses deaktiviert. Fehlende Standarddeskriptoren werden vor dem Öffnen von Anwendungsressourcen mit /dev/null belegt; geerbte offene Streams und deren Flags bleiben unverändert. Schlägt ein vorgeschriebener Startschutz fehl, wird der Aufruf beendet. Diese Maßnahmen bieten weder pledge/unveil noch seccomp, Privilegientrennung oder Schutz vor einem kompromittierten Host.
+
+configure ermittelt, welche Schutzoptionen für Compiler und Linker auf dem Zielsystem unterstützt werden: Stackschutz, gehärtete libc-Prüfungen, Formatdiagnostik, PIE, RELRO, sofortige Bindung und ein nicht ausführbarer Stack. Prüfen Sie die konfigurierten Flags auf dem Einsatzsystem; nicht jede Plattform unterstützt alle Optionen.
+
+## TLS, Zugangsdaten und Gegenstellenidentität
+English source section: TLS, credentials and endpoint identity
+Source SHA-256: 4ea410d65b0d7a489076cfd9898b5769f21e9e2f4fec63f7df8340f68bb5de45
+Source paragraphs: 6
+
+TLS erfordert Version 1.2 oder höher und prüft die Zertifikatskette sowie den ausgewählten Hostnamen. Konfiguriertes SASL, Server-PASS und aktivierte, nicht leere Listen automatischer Befehle erfordern verifiziertes TLS. Es gibt keinen stillen Rückfall auf Klartext. Ein auf dem Datenträger verschlüsseltes Passwort verschlüsselt nicht die Übertragung. IRC-TLS schützt die Verbindung zum gewählten Server oder Bouncer, nicht die Nachrichten Ende-zu-Ende.
+
+Halten Sie neben dem Quellcode auch die eingebundene TLS-Bibliothek aktuell. Der Testhost verwendete OpenSSL 3.5.7; OpenSSL dokumentiert CVE-2026-35189, einen zertifikatsbedingten Speicheranstieg während normaler TLS-Verarbeitung, der in Version 3.5.9 dieses Zweigs behoben wurde. Diese Quellcodeversion korrigiert die externe Bibliothek nicht. Prüfen Sie Version, zurückportierte Korrekturen und aktuelle Sicherheitsupdates Ihres Anbieters: https://openssl-library.org/news/secadv/20260929.txt
+
+Ein leerer ca_file verwendet den systemweiten Vertrauensspeicher. Ein benutzerdefiniertes CA-Bündel ist eine vertrauenswürdige lokale PEM-Datei: Der Loader öffnet sie einmal, prüft die bereits geöffnete reguläre Datei, liest den begrenzten Inhalt und analysiert diese Kopie ohne Passwortabfrage. Er weist leere Dateien, Dateien über 16 MiB, nicht reguläre Quellen sowie erkannte Größenänderungen zurück. Zertifikats- und AUX-Vertrauenseinträge sowie CRL-Einträge bleiben erhalten. CA-Pfade dürfen symbolische Links durchlaufen, da dies bewusst ausgewähltes öffentliches Vertrauensmaterial ist, anders als private Konfigurations- und Zugangsdatenpfade. Eine andere CA ändert die vertrauenswürdigen Außteller. Der Loader arbeitet synchron; regulare Datei-E/A kann auf langsamem Speicher weiterhin blockieren.
+
+Jedes Zugangsdatenfeld wählt genau eine Quelle: eine private Klartextdatei, eine private mit GPG verschlüsselte Datei oder einen ausdrücklich eingetragenen Inline-Wert. SASL- und Server-PASS-Quellen sind getrennt. Ein anderer Hostname mit --server verwirft geerbte Authentifizierung, CA-Auswahl, Bouncer-Identität, Kanäle und Startbefehle. Eine Überschreibung mit demselben Host sowie Port- oder Nicknameänderungen bewirken dies nicht. Prüfen Sie das gewählte Profil, bevor Sie sich mit einem neuen Dienst verbinden.
+
+Direktes SASL PLAIN verlangt das konfigurierte Konto. soju leitet die SASL-Identität aus den Bouncer-Feldern ab. Die Aushandlung nutzt die zuletzt angekündigte SASL-Mechanismenliste, wartet auf Bestätigung oder Challenge und liest erst dann das Geheimnis. Scheitert eine erforderliche Authentifizierung, erfolgt keine unangemeldete Registrierung. ZNC verwendet stattdessen die Server-PASS-Quelle.
+
+Auch manuell eingegebene, erkannte private Authentifizierungsbefehle erfordern verifiziertes TLS. Die Prüfung gilt für logische Zeilen und alle geplanten Teilstücke und wird beim Senden wiederholt. Erkannte private Formen werden weder im Befehlsrückruf noch in dauerhaften Gesprächsprotokollen gespeichert. Die laufende Terminalanzeige kann den eingegebenen Text dennoch enthalten. Die Erkennung deckt üblichhe Dienstbefehle ab, nicht beliebige Geheimnisse im Nachrichtentext oder jedes Protokoll fremder Dienste.
+
+## Konfiguration und private Dateien
+English source section: Configuration and private files
+Source SHA-256: 209b86484d0457ecd63d96ed26d6ae5e5adb117a47353c36560dad9f80ae8466
+Source paragraphs: 6
+
+Die Konfiguration ist wortwörtliches INI: keine Shell-, Variablen- oder Tilde-Expansion. Unbekannte Abschnitte oder Schlüssel und ungültige Werte führen zum Prüffehler. Dateien sind auf 64 KiB begrenzt. Bei Konfigurations- und Geheimnispfaden werden symbolische Linkkomponenten und '..' abgewiesen. Zum Lesen einer bestehenden Konfiguration ist eine reguläre Datei erforderlich, die dem Benutzer gehört und für andere Benutzer nicht schreibbar ist. Inline-Zugangsdaten und jede nicht leere automatische Befehlsliste, auch deaktiviert, erfordern exakt Modus 0600 oder 0400. Zum Lesen ist kein privates Elternverzeichnis erforderlich. Zum Speichern muss das letzte Elternverzeichnis dem Benutzer gehören und darf weder Gruppen- noch Fremdrechte haben; verwenden Sie Modus 0700 für die normale private Verzeichnisstruktur. Erzeugte Konfigurationen verwenden Modus 0600 und privaten atomaren Austausch. Save schreibt unterstützte Werte neu und ersetzt Kommentare. --init-config veröffentlicht atomar ohne Überschreiben: Ein vorhandenes Objekt, auch während der Initialisierung erstellt, wird niemals ersetzt. Ein nach der Veröffentlichung gemeldeter Bereinigungs- oder Verzeichnissynchronisationsfehler kann die vollständige private Konfiguration bestehen lassen. Dateisysteme ohne Hardlinks scheitern auf sichere Weise. Für die Aufzeichnung von Transkripten gelten strengere Prüfungen exakter Verzeichnismodi, die unten beschrieben sind.
+
+Klartext- und GPG-Zugangsdatenquellen müssen reguläre Dateien im Besitz des Benutzers mit exakt Modus 0600 oder 0400 sein. Entschlüsselte oder unverschlüsselte Passwörter bestehen aus einer einzigen nicht leeren Zeile: SASL erlaubt bis zu 1024 Bytes, Server-PASS bis zu 503 Bytes. Die vollständige ZNC-Identität samt Passwort muss ebenfalls in den begrenzten PASS-Rahmen passen. Scheitert die gewählte Quelle, wird nicht auf eine andere zurückgegriffen.
+
+Die GPG-Entschlüsselung beginnt erst nach verifiziertem TLS. Sie verwendet feste direkte Argumente, begrenzte nicht blockierende Pipes, eine eigene Prozessgruppe und eine Frist von 5 Sekunden. Die Anwendung startet keine Shell, übergibt keine Geheimnisse in argv, erzeugt keine temporäre Klartextdatei, beschafft keine Schlüssel, startet keine Hilfsdaemonen und fragt keine Schlüsselpassphrase ab. Entsperren Sie einen geschützten Schlüssel außerhalb des Clients. Eingehender und erzeugter Chiffretext sind auf 64 KiB begrenzt; der Status des Hilfsprogramms auf 16 KiB. Erfolg erfordert vollständige, integritätsgeschützte Entschlüsselung und erfolgreiches Ende des Hilfsprozesses. Diagnosemeldungen geben weder entschlüsselten Text noch Hilfsprogrammausgaben aus.
+
+Das Einrichtungsfenster kann ein neues Passwort mit dem vollständigen 40/64-stelligen hexadezimalen Fingerabdruck eines vorhandenen lokalen Schlüssels verschlüsseln. Verdeckte Passwort- und Bestätigungspuffer sind begrenzt. Erst die abschliessende ausdrückliche Aktion startet die Verschlüsselung; es wird kein öffentlicher Schlüssel erstellt. Das angebotene Standardziel liegt neben dem gewählten Profil: Blosses Anzeigen erzeugt nichts. Ausdrückliche Annahme darf fehlende Elternverzeichnisse im Benutzerbesitz mit Modus 0700 erstellen. Eigene Elternverzeichnisse müssen bereits bestehen; bestehende Verzeichnisse werden nicht per chmod verändert. Die Veröffentlichung erfolgt mit Modus 0600 ohne Überschreiben, nachdem Datei- und Verzeichnisidentität sowie Zielkonflikte erneut geprüft wurden.
+
+Apply only oder Connect once können die ausdrücklich angeforderte verschlüsselte Datei erstellen, ohne die Konfiguration zu speichern. Bei gescheitertem Save kann eine fertige Chiffretextdatei für einen neuen Versuch bestehen bleiben. Abbruch entfernt nur unveränderte Dateien, die bei genau diesem Versuch entstanden sind; gespeicherte Referenzen bleiben erhalten, und eine Datei wird vorsichtshalber behalten, wenn die bestehende Konfiguration nicht sicher geprüft werden kann. Auch nach einem gemeldeten Synchronisationsfehler kann deshalb eine veröffentlichte Datei verbleiben. Erstellte leere Verzeichnisse können bestehen bleiben. Ein neuer Versuch prüft vollständigen Chiffretext, privaten Modus und Inode (inode) erneut.
+
+Temporäre Zugangsdatenpuffer werden gelöscht, soweit sie der Anwendung gehören. Inline-Werte verbleiben im Konfigurations- oder Sitzungsspeicher, solange sie für Save oder erneute Verbindung benötigt werden. Dies beweist keine Löschung aus Bibliotheks- oder Hilfsprozessspeicher, Swap, Sicherungen, Snapshots oder bei privilegierter Speicherinspektion. Geben Sie in Fehlerberichten keine echten Zugangsdaten an.
+
+## Kindprozesse und synchrone Arbeit
+English source section: Child processes and synchronous work
+Source SHA-256: 79a87ca8215648f2d1f870067a2afe1fb4221757b00560b4b4191aac7832ba7f
+Source paragraphs: 2
+
+Die DNS-Auflösung findet in einem beaufsichtigten, wartbaren direkten Kindprozess mit Frist statt; die Bereinigung betrifft nur diesen direkt verwalteten Kindprozess. Der Resolver wird keiner Hilfsprozessgruppe zugeordnet. GPG hat eine eigene Prozessgruppe und behält die Identität seines wartbaren direkten Kindes, bis die Ausgabepipes abgeschlossen sind; so kann ein Abbruch geerbte Pipe-Schreiber derselben Gruppe stoppen. GPG ist ein vertrauenswürdiges Programm, keine Sandbox: Nachkommen, die diese Gruppe absichtlich verlassen, fallen nicht unter seine Bereinigungszusage.
+
+Resolver- oder Hilfsprogrammstarts sowie die erste Erzeugung einer Hintergrundsitzung weisen geerbtes SIGCHLD=SIG_IGN oder SA_NOCLDWAIT zurück. Die erste Abkopplung prüft dies nach der Vorbereitung erneut; erneutes Abkoppeln einer verwalteten Sitzung startet keinen weiteren Prozess. Das Einbetten der Module unter einen fremden Handler, der ihre Kinder abwartet, wird nicht unterstützt. Operationen auf regulären Dateien und Metadaten bleiben synchron, auch wenn O_NONBLOCK Wartezeiten beim Öffnen von FIFO verhindert.
+
+## Protokoll, Terminaleingabe und begrenzter Zustand
+English source section: Protocol, terminal input and bounded state
+Source SHA-256: 0f8513944ff6d952092236574aa5be490f8a39c7d99ec7ac175d34eb41e5dc06
+Source paragraphs: 6
+
+Es gibt weder einen Shell-Escape noch einen Befehl für rohe IRC-Injektion, eine Plugin-/Skript-Engine oder automatische CTCP-Antworten. Befehle werden durch einen Parser mit Positivliste zugelassener Aktionen verarbeitet. Unbekannte Aliase führen zu Fehlern, statt eine Netzwerkaktion zu erraten. Eingehende Protokollfelder, UTF-8, Nicknames, Ziele und Parameterzahlen haben ausdrückliche Grenzen. Bei der Anzeige werden Terminal-Steuerzeichen und unsichere Formatierung entfernt; LIST-Themen werden vor der Übernahme in den Verzeichnis-Cache bereinigt.
+
+Das Ausgabelimit umfasst Befehlssyntax, Ziel, Relay-Identität und Aktionsrahmen. Kleinere gültige LINELEN-Werte des Servers verringern dieses Limit. Aufteilungen erhalten vollständige UTF-8-Zeichen. Mehrere Nachrichten erfordern gesonderte Zustimmung; bracketed paste kann das eigene Senden nicht bestätigen. Die Chat-Warteschlange je Server enthält 64 Einträge mit mindestens 1.2 Sekunden Abstand, hinzu kommt eine separate Steuer-Warteschlange mit 64 Einträgen. Diese Schranken garantieren keine Zustellung und setzen Flood-Regeln des Servers nicht außer Kraft.
+
+Das Programm unterstützt acht Serververbindungen, 32 Ansichten pro Server, 4096 gespeicherte Benutzer je Kanal und 8192 LIST-Einträge. Eine abgeschnittene Mitgliederliste oder ein Verzeichnis ist unvollständig. Trennung oder ausdrückliche LIST-Ablehnung gibt eine ausstehende Anfrage frei, behält jedoch Teil-Einträge im Cache; der Schnappschuss wird nicht als vollständig ausgegeben. Eine neue Anfrage oder explizites Löschen bleibt möglich. Unaufgeforderte Privatnachrichten erzeugen nur unterhalb der automatischen Grenze von acht Dialogen neue Abfrageansichten; weitere Unterhaltungen erscheinen in Server-/mentions-Ansichten. Explizite Dialoge sind innerhalb der gesamten Ansichtsgrenze möglich.
+
+Für gespeicherten Text gelten 8 MiB pro Server und eine Einstellung von 50..5000 Zeilen je Ansicht. Der minimalistische Anzeigestrom begrenzt separat gespeicherte Datensätze auf 2048 und Text auf 512 KiB. Das sind keine Grenzen für gesamten RSS: Entwürfe, Mitgliederlisten, Warteschlangen, Bibliotheken und Verwaltungsaufwand des Allokators verbrauchen zusätzlichen Speicher. Auch ein begrenztes Programm kann durch feindlichen Verkehr viel CPU verbrauchen. ignore-Masken verringern angezeigte Benutzernachrichten, nicht die Arbeit des Empfangens/Parsens; sie sind keine Zugriffsgrenze.
+
+Die ursprünglichen Terminaltasten für Interrupt/Beenden/Anhalten bleiben zugeordnet, aber [input] use_signals=false (Standard) deaktiviert terminalerzeugte Signale, solange der Client das tty besitzt. Ctrl-C/Ctrl-Z brechen ungesendeten Compose/Command-Text ab. Use signals=yes aktiviert die vorhandenen Signalbelegungen des Terminals. Apply wirkt sofort; Save speichert zusätzlich die Einstellung. Ein wörtliches Ctrl-D ist nur bei ausdrücklicher Bindung in Chat oder Befehlszeile ein Programm-Endekürzel. Normales oder behandeltes Beenden stellt Terminalmodi wieder her; SIGKILL kann keine Bereinigung ausführen.
+
+Erkanntes bracketed paste bleibt wörtlicher Text. Vor Erkennung der Öffnungsmarkierung kann der Client Einfügen nicht von normaler Eingabe unterscheiden. Nach erkanntem Ende warten normale Tasten und benutzerdefinierte Aktionen auf einen späteren Eingabeblock und eine Ruhezeit. Das bestätigende Editorfeld oder Formular muss vollständig sichtbar sein; ein fehlerhaftes oder zu kleines Bild zählt nicht als Prüfung. Wiederholte Tasten verlängern die Wartezeit. Größenänderung oder erneutes Anhängen löscht diese Anzeigebestätigung. Einzelnes Escape hat 500 ms Aufschub; unvollständige Folgen erlauben 1000 ms zwischen Fortsetzungsbytes, während das Netzwerk weiterläuft. Eine verspätete Öffnungsmarkierung kann als Escape wirken (Hintergrundwechsel aus dem minimalistischen Log). Nach Beginn der Erfassung haben getrennte Schlussmarkierungen kein Timeout zwischen Bytes. Unmarkiertes Einfügen besitzt keine entsprechende Sicherheitsbarriere.
+
+## Lokale Historie, gespeicherte Protokolle und Datenschutz
+English source section: Local history, saved logs and privacy
+Source SHA-256: 8123a3ef64d1e4e83b7cc6891d66caa56780846eafd681342f8e2f9749251e94
+Source paragraphs: 5
+
+Der Befehlsabrufverlauf ist auf 64 Einträge/64 KiB begrenzt und bleibt im Arbeitsspeicher. Der Chat-Editor ist keine Abruffunktion für bereits gesendete Nachrichten. Erkannte Zugangsdaten- und Steuerbefehlsformen werden ausgeschlossen. Optionale Häufigkeitsdaten in <config_path>.commands speichern höchstens 96 kanonische Befehlsnamen mit Zählwerten, jedoch keine Argumente, Ziele, Nachrichten oder Passwörter. Automatisches Lesen und Schreiben setzt eine gespeicherte Konfiguration voraus; ungültige oder unsichere Zähldateien verhindern den Start nicht. Der Testmodus lässt diese Ein-/Ausgabe aus.
+
+Dauerhafte Chatprotokolle sind standardmäßig deaktiviert. Jedes gespeicherte Profil mit aktivierter Protokollierung hängt Daten an <config_path>.log an. Das übergeordnete Verzeichnis muss dem Benutzer gehören und exakt Modus 0700 haben; die Datei muss eine reguläre, dem Benutzer gehörende Datei mit genau einem Link und Modus 0600 sein. Deskriptorbezogene Pfadprüfung und O_NOFOLLOW weisen symbolische Links zurück; O_NONBLOCK verhindert, dass eine untergeschobene FIFO vor der Typprüfung blockiert. Die Protokollierung erstellt keine übergeordneten Verzeichnisse.
+
+Die Anhängegrenze pro aktivem Protokoll beträgt 16 MiB. Eine nicht blockierende beratende Sperre serialisiert Größenprüfung und Schreibvorgang zwischen kooperierenden Clients. Unsicherer Pfad, belegte Sperre, Schreibfehler oder erreichtes Limit deaktivieren das Protokoll dieses Profils mit Diagnose; der Live-Chat läuft weiter. Nichts wird automatisch gekürzt oder gelöscht. Archivieren oder verschieben Sie das Protokoll und schalten Sie die Protokollierung danach ausdrücklich aus und wieder ein. Externe Archive liegen in der Verantwortung des Benutzers. Festplatten-Ein-/Ausgabe kann auf langsamem oder entferntem Speicher weiterhin blockieren; die Protokollierung ist nicht asynchron.
+
+Help/aggregate-mentions-Kopien, ungesendete Entwürfe, SASL/PASS-Puffer, erkannte private Befehle und bekannte Dienstantworten werden nicht in Transkripte aufgenommen. Bouncer-Steuerziele werden wie unten beschrieben zusätzlich gefiltert. Unbekannte Dienstnamen und als normaler Chat eingegebene Geheimnisse können weiterhin protokolliert werden. Protokolle bleiben nach dem Beenden erhalten. Terminalaufzeichnung, Serverprotokollierung und Kopien der Empfänger sind von dieser Einstellung unabhängig.
+
+Catch-up nutzt die letzte geeignete, lokal von diesem noch laufenden Worker gesendete Nachricht. Zunächst wird das private Protokoll anhand eines geprüften Datei-/Datensatzankers und eines fixierten Endpunkts versucht; anschließend wird auf gespeicherten Arbeitsspeicher zurückgegriffen. Rotation oder Identitätsänderung macht den Anker auf dem Datenträger ungültig; es wird nicht stillschweigend ein fremder Datensatz gewählt. Wiedergegebene eigene Nachrichten ersetzen den Anker nicht. Ein neuer Prozess importiert weder alte Protokolle noch rekonstruiert er den Catch-up-Anker eines beendeten Workers.
+
+## Automatische Befehle und Abbruch
+English source section: Automatic commands and cancellation
+Source SHA-256: d5949c21fd5a0dc4ef73af2c42931766637e3b4ba398ff7184e64a2ae9a0e305
+Source paragraphs: 3
+
+Jedes Profil enthält höchstens 16 wörtliche Befehle mit jeweils maximal 511 UTF-8-Bytes. Zulässig sind nur Nachrichten, Beitritt zu einem einzelnen Kanal, Nick-Änderung, away/back und WHOIS. Listen und Fehlermeldungen verbergen Argumente, da der Text Geheimnisse enthalten könnte. Die Verbindung besitzt eine feste Momentaufnahme der Startbefehle. Änderungen werden für die nächste ausdrücklich hergestellte Verbindung vorgemerkt; automatische Wiederholungsversuche behalten die Einstellungen der unterbrochenen Verbindung. Identitätsänderungen löschen geerbten privaten Befehlstext.
+
+Die Ausführung beginnt nach Registrierung und erforderlichem SASL. Die anfängliche Verzögerung beträgt 0..300 Sekunden, folgende Intervalle 2..60 Sekunden nach abgeschlossenem Schreiben. Es wartet jeweils nur ein automatischer Frame, sodass ein Stillstand keine nachträgliche Befehlsflut erzeugt. Automatische Nachrichten müssen in einen Frame passen; sie werden weder aufgeteilt noch lokal wiedergegeben. Ein Fehler stoppt folgende Befehle mit einer indizierten Diagnose, die vertrauliche Angaben ausblendet.
+
+/cancel entfernt noch nicht gesendeten Warteschlangentext und künftige automatische Arbeit. Ein teilweise geschriebener Frame oder ein laufender TLS-Wiederholungsversuch muss seine Bytes behalten und kann noch fertig werden, selbst wenn noch keine akzeptierten Bytes gemeldet wurden. Gesendete Bytes lassen sich nicht zurückholen. Die Trennung leert Transport und Warteschlangen. Wiederholungen für automatisches away sind zeitgesteuert und geben neueren angenommenen manuellen, Skript- oder Hintergrundabsichten den Vorrang.
+
+## Verwaltete Sitzungen und SSH-Verbindungsverlust
+English source section: Managed sessions and SSH loss
+Source SHA-256: f44a63f7faada1375f5769e9dfe2235da96547fa535b07d1c9869cba13ca063f
+Source paragraphs: 5
+
+Background erstellt einen kontoprivaten lokalen Job-Endpunkt und eine Lease für dessen Lebensdauer. Die Registrierung ist pro Programm und Unix-Benutzer getrennt und bietet 64 nummerierte Plätze. Sie ist weder Internet-Listener noch Neustart-Persistenz. Suche/Anhängen/Steuern prüfen private Pfade, Dateiidentitäten und das Instanz-Token des ausgewählten Workers; Jobnummern werden niemals als PID verwendet. Wo die Plattform dies bietet, werden Zugangsdaten gleichberechtigter Benutzer-Peers geprüft.
+
+Gleichzeitig kann nur ein Terminal angehängt sein. Resume überprüft übertragene Terminaldeskriptoren und begrenzte TERM-/locale-Metadaten. Die Suche ist begrenzt, überspringt unsichere Objekte und löscht unerwarteten Registry-Inhalt nicht rekursiv. Ein lebender, nicht antwortender Worker behält seine Lease und wird als ungeprüft gemeldet. --resume ohne Argument wählt nur genau einen nachweislich verfügbaren, abgekoppelten Worker aus, wenn kein ungeprüfter Kandidat vorliegt. single_session beschränkt neue Hintergrundjobs, nicht die Anzahl der IRC-Verbindungen in einem laufenden Worker.
+
+--detach-session NUMBER gibt das gewählte Terminal beziehungsweise die Steuerverbindung frei und behält Worker, Verbindungen, Entwürfe, Übertragungen und Verlauf. --close-session NUMBER beendet den ganzen Worker und verwirft nicht gespeicherten RAM-Zustand. Detach wartet auf die bestätigte Freigabe des Terminals; close auf den Abbau von Endpunkt/Lease. Eine angenommene Anfrage ist noch kein Abschluss. Steuerbefehle haben Fristen und töten nie eine vermutete numerische PID. Endpunkte dürfen nicht als Wiederherstellungsversuch gelöscht werden.
+
+Der Verlust eines bereits verwalteten Terminals/Controllers koppelt den Worker ab. Ein normaler Vordergrundprozess, der nie verwaltet wurde, besitzt keinen wiederaufnehmbaren Job. Die Installation einer neuen Programmdatei aktualisiert nicht das Protokoll eines laufenden Workers; ältere Worker müssen möglicherweise mit ihren bisherigen Steuerbefehlen sauber beendet werden.
+
+Die minimalistische Ausgabewarteschlange ist begrenzt; ausdrückliche Background-Anfragen können auch bei blockierter Ausgabe bearbeitet werden. Aufräum- und Hinweis-Ausgaben erfolgen nach Möglichkeit und können auf einem angehaltenen Terminal fehlen. Die vollständige ncurses-Anzeige schreibt weiterhin synchron auf das Terminal; ein dauerhaft blockiertes, noch offenes Terminal kann die Steuerabfrage verzögern. Ein Timeout wird als solcher gemeldet, nicht als erfolgreicher Zwangsabbruch. Keiner der Clients konfiguriert die Leerlauf-Trennrichtlinie des SSH-Servers.
+
+## ZNC, soju und Wiedergabe
+English source section: ZNC, soju and playback
+Source SHA-256: f0e223c83f0df60aa10260168ae7433ff77fbbd2f4cef7d4914cd07da4f7ed99
+Source paragraphs: 5
+
+Explizite Bouncer-Profile erfordern geprüftes TLS sowie Konto-/Netzwerkidentität, optional mit Clientnamen. ZNC verwendet die Server-Passwortquelle; soju verlangt SASL PLAIN und eine SASL-Passwortquelle. Der Einrichtungsprozess übernimmt Endpunkt, Identität und Zugangsdaten gemeinsam und verwirft veraltete Entwürfe, wenn sich diese Bindungen ändern. Die vorgelagerte IRC-Authentifizierung wird im Bouncer selbst eingerichtet.
+
+Vom Bouncer wiederhergestellte JOINs bestimmen die Kanalmitgliedschaft; gespeicherte Kanallisten werden nicht erneut abgespielt. Ausdrückliche Startbefehle sind bewusst gesetzte Ausnahmen. Automatisches away ist bei Bouncer-Profilen standardmäßig deaktiviert, damit ein Gerät seinen Leerlaufstatus nicht einem anderen aufzwingt. /away und /back bleiben ausdrückliche manuelle Aktionen. Die lokalen Worker-Steuerelemente verwalten nicht den entfernten Bouncer-Dienst.
+
+Steuertext für /znc und /soju passt in genau eine getaktete Nachricht und wird von Recall, lokalen Echos und dauerhaften Logs ausgeschlossen. Eingehende Kopien an den Bouncer-Dienst werden auch bei altem Nickname oder unbekannter Batch-Referenz unterdrückt. Dienstantworten bleiben in der Serveransicht sichtbar, werden aber nicht gespeichert. Erkannte private Authentifizierungskopien fehlen in Transkripten, unabhängig von Sendernick, Playback-Rahmung oder qualifiziertem Dienstziel. Aufbewahrter sichtbarer Text ist kein Geheimnisspeicher. Beim Verfassen kann Text sichtbar werden; der Bouncer-Administrator kann ihn empfangen und protokollieren. Dies ist keine Geheimhaltung vor dem ausgewählten Bouncer.
+
+Bekannte Verlaufs-Batches werden nur angezeigt: Sie dürfen keine aktuelle Mitgliedschaft oder Präsenz ändern, neue mentions-Hinweise auslösen, CTCP beantworten oder DCC-Angebote aktivieren. Verschachtelte/überlappende Verlaufsklammern sind auf 16 Batches und 64-byte-Referenzen begrenzt; fehlerhafte, widersprüchliche oder zu große Rahmen führen zur Trennung. Unbekannte Batch-Referenzen werden vorsichtig ebenfalls nur angezeigt. Gültige Original-Zeitstempel erscheinen in UTC, steuern aber niemals lokale Timer oder Sendetaktung.
+
+Der Client unterstützt vom Bouncer zugestellte Puffer, keinen Archivbrowser auf Abruf und keine kontoweite Netzwerkerkennung. Er fordert weder echo-message noch draft/chathistory oder znc.in/playback an. Ein Zeitstempel allein beweist keinen Verlauf; altes Playback ohne Batches wird normal als Live-Verkehr behandelt. Beliebiges Playback wird nicht über neu gestartete Prozesse hinweg dedupliziert. Einrichtung und Grenzen: doc/BOUNCERS.txt.
+
+## DCC-Dateiübertragungen
+English source section: DCC file transfers
+Source SHA-256: f0f91b6753c085b41c9c9071eabf9585ddc404919fe56e0989bfafb733db2e3b
+Source paragraphs: 3
+
+Klassisches aktives IPv4 DCC SEND erfolgt unverschlüsselt und ohne Authentifizierung, unabhängig von IRC TLS. Ein Nickname bestätigt nicht die Identität der verbindenden Gegenstelle. Die angezeigte Adresse kann privat oder eine Loopback-Adresse sein. Beim Senden wird eine Adresse bekannt gegeben; beim Annehmen wird die angezeigte Gegenstelle kontaktiert und die Adresse des Prozesshosts offengelegt. Ein Angebot allein erzeugt weder eine Datei noch einen Socket. Accept/send erfordert eine ausdrückliche Aktion. Bei SSH liegen Dateien und Sockets auf dem entfernten Host, auf dem der Prozess läuft.
+
+Quellen müssen reguläre Dateien sein; kein Pfadbestandteil darf ein symlink sein. Sie werden als Datenstrom übertragen, nicht als unveränderlicher Schnappschuss und nicht vor späteren Änderungen geschützt; verwenden Sie eine stabile Quelle. Der Empfang erzeugt eine neue Datei mit Modus 0600 in einem benutzereigenen privaten Verzeichnis und verweigert Pfadüberschreitungen, Symlinks und bereits vorhandene Ziele. Beim Aufräumen einer Teilübertragung wird nur die Datei mit derselben Gerätekennung und demselben inode entfernt, die die Übertragung angelegt hat. Dateien werden niemals automatisch geöffnet oder ausgeführt. Bestätigungen einer Bytezahl sind keine Hashwerte.
+
+Es gelten Grenzen von acht ausstehenden Angeboten, vier aktiven Übertragungen und zwölf aufbewahrten Datensätzen; die maximale Dateigröße beträgt 4294967295 Bytes. Angebote verfallen nach fünf Minuten; aktive Übertragungen scheitern nach zwei Minuten ohne Fortschritt. Wiederholte unveränderte Bestätigungen verlängern diese Frist nicht. DCC CHAT, resume, passive/umgekehrte Übertragung, Dateien unbekannter Größe und IPv6 werden nicht unterstützt. Eine Ermittlung der öffentlichen Adresse oder automatische NAT/firewall-Konfiguration gibt es nicht. Ein IRC-Verbindungsabbruch lässt bereits angenommene Direktübertragungen weiterlaufen; das Schließen ihres Servers oder das Beenden der Anwendung stoppt sie. /cancel ersetzt nicht das übertragungsspezifische Abbrechen.
+
+## Offline-Prüfungen und Testnachweise
+English source section: Offline checks and evidence
+Source SHA-256: 9c67268cfad3c6bc3c5553f23c932c342c3f11231b325d758eeade66d790b4bd
+Source paragraphs: 3
+
+--help, --version und --manual laden weder Konfiguration noch Zugangsdaten. --check-config prüft Syntax, Werte und Dateischutz von Konfiguration und Katalog; es prüft weder Passwortzugriff oder -entschlüsselung noch DNS, TLS oder eine tatsächliche Anmeldung. --test-mode lädt gültige Profile in einen Simulator innerhalb des Prozesses, ohne IRC/DCC-Netzwerk, Lesen von Zugangsdaten/CA, GPG oder Speichern der Konfiguration. Inline-Werte können eingelesen werden, werden aber niemals gesendet. Ein ausdrückliches Background kann dennoch lokale Sitzungs-IPC erzeugen. Ein erfolgreicher Simulationslauf belegt keine Kompatibilität mit realen Servern.
+
+Die damalige Wiederherstellungsprüfung betrifft vipirc 0.7.34 / onekeyirc 0.1.33 in doc/STABILITY-REVIEW-0.7.34-0.1.33.txt und doc/STABILITY-PASS-RESULTS.json. Sie dokumentiert reproduzierte Fehler, Korrekturen, Prüfungen bei Ressourcenmangel und begrenzter Last sowie Plattformgrenzen. Die vorherige Sicherheitsprüfung steht in doc/SECURITY-REVIEW-0.7.33-0.1.32.txt und doc/SECURITY-PASS-RESULTS.json. Ältere benannte oder datierte Berichte behalten ihre ursprünglichen Quellversionen, Testlasten und Plattformgrenzen; sie behaupten keine erneute Durchführung.
+
+Lokale Protokolltestfälle belegen keinen Betrieb mit einem echten ZNC/soju-Daemon oder IRCNow-Konto. Die vollständige ncurses-Laufzeit, der native Lebenszyklus benannter AF_UNIX-Sockets, OpenBSD/LibreSSL und das Verhalten auf dem Zielhost müssen auf den jeweiligen Plattformen geprüft werden. Ein kurzer Belastungstest belegt keine monatelange unbeaufsichtigte Zuverlässigkeit. Melden Sie Version, Plattform, reproduzierbare Schritte und bereinigte Diagnosedaten; lassen Sie Passwörter, private Schlüssel und private Chatprotokolle weg.
+
+## Überprüfung der vollständigen Oberfläche und Dateisuche
+English source section: Full-interface review and file browsing
+Source SHA-256: e2f59ccd783bd17feedcf3bc49a14a3085c7f21783755ee9b06c265dc0f1eb54
+Source paragraphs: 3
+
+Die ncurses-Übertragungsprüfung zeigt Gegenstellenadresse, Port, Bytezahl und Ziel vor einer gesonderten Accept/Offer-Aktion an. Sie hält eine stabile Angebots-ID statt eines veränderlichen Zeilenindex vor und verweigert die Zustimmung, wenn der Prüfungsbildschirm zu klein ist. Die Auswahl einer Zeile im Quelldateibrowser versendet keine Datei. Der Browser folgt keinen symlink-Pfadbestandteilen, prüft den ausgewählten inode erneut, ändert niemals cwd und liest Dateiinhalte nicht nur für die Auflistung. Pro Schritt werden höchstens 64 Einträge geprüft, insgesamt 4096 Namen und 512 Zeilen; Kürzungen werden gemeldet. Dateisystem-Metadaten können bei langsamem Speicher trotzdem blockieren.
+
+Das vorgeschlagene Standardziel der geführten Annahme liegt auf dem Prozesshost unter XDG_DATA_HOME/vipirc/downloads oder HOME/.local/share/vipirc/downloads und wird erst nach ausdrücklicher Zustimmung erstellt. Relative Kommando-Pfade und ein nicht angegebener Empfangsordner verwenden das Startverzeichnis, während die Datenschutzprüfungen bestehen bleiben. Ohne ausdrücklich angekündigte IPv4-Adresse wird beim Senden die lokale IRC-Socket-Adresse verwendet; es gibt keine öffentliche Adressermittlung oder automatische Weiterleitungskonfiguration.
+
+Mausaktionen auf Nicknames und Kanäle speichern größenbegrenzte Kopien der angezeigten Werte. Änderungen an der Benutzerliste dürfen einen früheren Klick nicht auf ein anderes Ziel umlenken. Ein Klick auf einen Nickname öffnet ein lokales Menü; eine spätere Auswahl von Whois/Query/Ignore führt die Aktion aus. Ein Klick auf einen noch nicht betretenen Kanal kann diesen ausdrücklich betreten. Vervollständigung und Vorschlagseinfügung senden keine IRC-Nachrichten. Die Zustimmung zum Senden oder Übertragen durchläuft weiterhin die reguläre Prüfung. Diese Quellcode-Invarianten sind keine Behauptung, dass die Dokumentationsarbeit die vollständige curses-Oberfläche ausgeführt habe.
+
+## Benutzerdefinierte Tastenbelegungen
+English source section: User-defined key bindings
+Source SHA-256: 250d7d0eb62f8b649e64f59b1e69d2220ec79005f08d6a7dfba30905d1133303
+Source paragraphs: 2
+
+Die primäre Konfiguration enthält höchstens 64 Tastenbelegungen; die Vorgabetabelle ist leer. Tasten werden auf eine feste Identität normalisiert und Aktionen aus einer lokalen Zulassungsliste gewählt. Beliebige Befehle, Shell-Erweiterungen, rohe IRC-Befehle und direkte Sendeaktionen sind nicht möglich. Unbekannte, doppelte oder übergroße Belegungen führen zur atomaren Ablehnung des Konfigurationsladens. Nur ausdrückliches Save speichert Änderungen über den vorhandenen privaten Dateischreiber dauerhaft.
+
+Benutzerdefinierte Aktionen werden ausschließlich im Hauptchat und in der Befehlseingabe ausgelöst. Einfügevorgänge und modale Felder, Leseansichten oder Bestätigungen führen keine solchen Aktionen aus. Die Function/Alt-Auswertung kann erfasstes Einfügen nicht als Aktion umdeuten; der Eingabeschub am Ende eines Einfügevorgangs löst auch nicht sofort ein Kürzel aus. Einfügen ohne Markierung ist von Tippen nicht zu unterscheiden. Das Terminal kann Tasten vor dem Programm abfangen. Belegungen weisen weder Terminal-Signalzeichen neu zu noch aktivieren sie Signale. Den genauen Geltungsbereich und Entwurfsschutz beschreibt doc/HOTKEYS.txt.

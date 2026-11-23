@@ -1,0 +1,9 @@
+CURRENT SOURCE REVIEW AND VALIDATION
+onekeyirc 0.1.27 / vipirc 0.7.28
+2026-11-16 UTC
+
+See SECURITY-DEEP-REVIEW-2026-11-16.txt and DEEP-TEST-RESULTS.json for the current scope.
+37 integrated gate groups passed; 1 unavailable; no final runtime/build failure.
+One static-analysis warning remains documented as a demonstrated false positive.
+Full ncurses, native OpenBSD, named AF_UNIX lifecycle, real GnuPG and leak-scanning
+coverage remain explicitly limited. Historical reports apply to their named versions.

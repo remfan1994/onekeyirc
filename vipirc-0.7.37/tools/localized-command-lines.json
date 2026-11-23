@@ -1,0 +1,49 @@
+{
+  "/autoconnect": [
+    "Without an argument, show the selected server's setting. Changes affect the next program startup.",
+    "Use /connect for an immediate connection; use /save to persist the startup choice.",
+    "Each saved server has its own toggle, auto-join channels and authentication settings."
+  ],
+  "/away and /back": [
+    "Requires registration. The server confirms the resulting away state. MESSAGE is literal text.",
+    "Equivalent to /away with no message. Requires a registered connection."
+  ],
+  "/cancel": [
+    "Removes chat messages waiting for pacing and stops pending automatic commands on the selected server.",
+    "A frame already being written is allowed to finish.",
+    "Cancellation does not retract messages that the server has already received."
+  ],
+  "/query, /ql, /pm": [
+    "Selects a private conversation without sending a message. Type normally to compose to that nickname.",
+    "Use /ql to list numbered queries and /close NICK to close one. /pm accepts the same names and numbers.",
+    "A number must refer to an existing query on the selected server; 0 never selects or creates a query."
+  ],
+  "/background": [
+    "Use /background to leave connections running instead."
+  ],
+  "/whois": [
+    "Requires registration. Selects the server view so its response is visible. No local command is executed."
+  ],
+  "/nick": [
+    "Nicknames use the supported IRC ASCII syntax and are limited to 63 bytes."
+  ],
+  "/server": [
+    "A loaded profile stays available even when it is not connected.",
+    "An existing matching server keeps its configured port, transport, nickname and authentication."
+  ],
+  "/autoauth": [
+    "Use /save to persist. Disconnect first, then /connect to use applied changes; an active connection is never retargeted."
+  ],
+  "/autojoin": [
+    "Changes are validated before application and do not join or part a live channel."
+  ],
+  "/bindings": [
+    "No custom bindings are installed by default. Use /bindings keys and /bindings actions for the supported names."
+  ],
+  "/connect": [
+    "PORT defaults to 6697. A different port does not disable TLS; plaintext must be explicitly configured."
+  ],
+  "/help": [
+    "Unknown command. Use /help commands or /help COMMAND; shell and raw IRC commands are unavailable."
+  ]
+}

@@ -1,0 +1,31 @@
+VERBATIM ENGLISH SOURCE REFERENCE
+Source: MANUAL.txt / PROGRAM AND QUEUE NOTIFICATIONS, QUERY NUMBERS, AND ALIASES
+English source SHA-256: b62cd0965c386b1810fde3932890e4307baeed004c34a67b0724de33f2178937
+
+PROGRAM AND QUEUE NOTIFICATIONS, QUERY NUMBERS, AND ALIASES
+
+/set queue_notices off hides routine queued/paced acknowledgments in all
+interfaces and servers. /set queue_notices on restores them. In the
+minimalist frontend, an explicitly reviewed send omits its redundant routine
+queue acknowledgment even when queue notices are enabled. /set
+program_messages off separately hides low-priority local feedback such as
+draft-cancelled, input-cleared, preserved-draft, and similar success/cancel
+notices. Errors, byte-limit warnings, and send confirmations remain visible.
+Both defaults are true. /save output or /saveconf persists the global
+[output] settings. The same preferences appear in /panel Application
+preferences and graphical Interface settings.
+
+/ql numbers private queries separately, starting at 1. /query 2 or /pm 2
+selects its second entry; a nickname works in the same argument. Closing a
+query renumbers later entries. Opening a query sends no message. Channel 0
+still opens the server's messages and MOTD.
+
+Common exact aliases include /j, /leave, /message, /privmsg, /nickname,
+/names, /nicks, /conn, /disc, /unaway, /detach, /saveconfig, /configure and
+/preferences. They share command validation, completion and privacy rules.
+Unknown spellings remain errors rather than guessing an action to execute.
+
+Membership changes, MOTD, WHOIS, invites and common errors use readable
+messages with useful server detail. Internal identity/capability replies do
+not add duplicate protocol bookkeeping to the chat display. Unknown replies
+retain the server's text without treating a numeric code as the explanation.

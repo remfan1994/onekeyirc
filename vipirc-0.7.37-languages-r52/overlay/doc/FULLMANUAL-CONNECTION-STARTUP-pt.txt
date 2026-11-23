@@ -1,0 +1,60 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / CONNECTION AND STARTUP COMMANDS
+English source SHA-256: 0e846b2d67181dea4d23ed844fc17149aeadd803e429bde3fbbed09330011d9e
+Source lines: 620-699
+
+COMANDOS DE LIGAÇÃO E ARRANQUE
+
+/connect com opções liga diretamente a HOST; /connect sem argumentos reutiliza o perfil selecionado guardado/aplicado. /server HOST [PORT] segue a mesma ligação direta. /server NUMBER seleciona um perfil sem ligar, /server sozinho abre a vista servidor/MOTD; /server add HOST [PORT] [NICK] cria um perfil desligado não guardado. /server connect NUMBER, /server disconnect NUMBER e /disconnect [NUMBER] controlam ligações numeradas. /server close NUMBER fecha um perfil secundário, deixando o ficheiro no disco.
+
+Destinos novos utilizam TLS verificado na porta 6697 e alcunha/utilizador de entrada válidos; não herdam credenciais nem canais. Destinos coincidentes mantêm transporte, porta, alcunha e autenticação e escolhem uma ligação ativa em vez de duplicá-la. Para perfis bouncer no mesmo host, selecione o NUMBER correto e execute /connect sem opções. Comandos de ligação não guardam automaticamente. Os espaços de servidor no modo completo são 0..7 (principal 0) e no minimalista 1..8 (principal 1). Ligar/desligar não altera a seleção. Use os números de /servers da interface, não os diferentes números do seletor /panel.
+
+Opções de /connect precedem HOST. -ssl é alias de -tls; +PORT exige TLS, um número comum nunca o desliga. --tls, --plain e --nick são aceites; texto não cifrado novo usa 6667. Palavras-passe não são argumentos posicionais. Close secundário retira referências do catálogo, rascunhos/histórico e transferências, mantendo o ficheiro físico.
+
+/autoconnect altera o próximo arranque e não a ligação atual. /autojoin prepara canais de perfil direto para o próximo /connect explícito, sem entrar/sair agora. A consulta mostra registo e adesões atuais/pendentes. Novas tentativas automáticas conservam definições em execução; /connect após desligar usa mudanças já aplicadas. /join age imediatamente após registo. Bouncers restauram adesões e recusam mudanças em autojoin; também recusam /autoauth, que deve ser alterado em Settings ou /panel.
+
+/autoauth prepara SASL apenas com TLS verificado. Status mostra localmente os caminhos completos de credenciais atuais/pendentes sem ler os ficheiros; Settings normal oculta-os. No modo completo, as consultas têm Refresh/Back e preservam rascunhos. PATH é o resto literal do texto, com espaços. Segredos em linha devem ficar na configuração privada ou Settings, nunca nos comandos.
+
+/save sem opções escreve o perfil efetivo selecionado com alterações pendentes. /save input e /save output escrevem ambos o perfil principal que contém preferências da aplicação: são aliases, não gravações parciais. Incluem também alterações pendentes da ligação principal. /save all grava perfis saudáveis; /saveconf memoriza ainda o perfil padrão selecionado para o próximo /connect. Gravar não ativa autoconnect. Cada ficheiro é privado e escrito atomicamente, mas o espaço de trabalho não é uma transação única: êxitos anteriores sobrevivem a falhas posteriores. Perfis ilegíveis não são substituídos. Test mode nunca grava.
+
+/set autoconnect on|off é um alias de compatibilidade do modo completo. /set altera preferências em ambos os modos; opções de envio, compositor e saída afetam o minimalista. /panel abre ajustes guiados nos dois, /quickstart pergunta quatro elementos essenciais da ligação. /settings abre formulários no modo completo e um relatório no minimalista.
+
+/list [MASK] [OPTIONS] pede o diretório de canais da rede depois do registo. Só MASK é enviado ao servidor; --min-users/--max-users, --name e --topic filtram localmente. --sort channel|users|topic, --asc/--desc e --limit N controlam a visualização; por padrão, utilizadores por ordem decrescente, --limit 0 remove o limite de exibição dentro da cache de 8192 entradas. /list show muda ordem/limite sem repetir pedido; /list clear limpa a cache. /ls e /cl listam vistas locais.
+
+Após desconexão ou rejeição explícita de LIST pelo servidor, os resultados parciais ficam em cache mas o pedido é libertado. Repita /list após o registo ou limpe com /list clear; resultados incompletos não são o diretório da rede inteira.
+
+O navegador completo usa Up/Down ou j/k para linhas, Left/Right ou h/l para coluna de ordenação, s para inverter, Page Up/Page Down e g/G para navegar, Enter para entrar, r para repetir pedido, / para Command e Escape para voltar. Clicar numa coluna ordena. No minimalista, /list show imprime a cache; /summary fornece um resumo local separado.
+
+EXACT COMMAND SYNTAX (not translated):
+
+    /connect [-tls|-plain] [-nick NICK] HOST [PORT]
+    /connect
+    /server HOST [PORT]
+    /server NUMBER
+    /server
+    /server add HOST [PORT] [NICK]
+    /server connect NUMBER
+    /server disconnect NUMBER
+    /disconnect [NUMBER]
+    /server close NUMBER
+
+    /autoconnect [on|off]
+    /autojoin [list|add #CHANNEL|remove #CHANNEL|clear]
+    /autoauth [status|off|sasl USER file PATH|sasl USER gpg PATH]
+    /save [input|output|all]
+    /saveconf
+    /set autoconnect on|off
+    /panel
+    /quickstart
+    /settings
+
+    /list [MASK] [OPTIONS]
+    /list show
+    /list clear
+    /ls
+    /cl
+    /summary
+
+    -ssl   -tls   +PORT   --tls   --plain   --nick
+    --min-users   --max-users   --name   --topic
+    --sort channel|users|topic   --asc   --desc   --limit N

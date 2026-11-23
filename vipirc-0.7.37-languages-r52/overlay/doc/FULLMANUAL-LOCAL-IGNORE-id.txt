@@ -1,0 +1,20 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / LOCAL IGNORE FILTERS
+English source SHA-256: 5404c975ca8193797b0ed81b5a9611149cbaa34bff67676680655f01885e9693
+
+EXACT COMMAND/CONTROL EXAMPLES (not translated):
+/ignore
+/ignore list
+/ignore MASK
+/ignore add MASK
+/unignore MASK
+/ignore remove MASK
+/ignore clear
+/ignore add NICK
+*!*@*.example
+
+Perintah lokal ini berfungsi meskipun tidak tersambung. /ignore atau /ignore list menampilkan pola; /ignore MASK atau /ignore add MASK menambah pola; /unignore MASK atau /ignore remove MASK menghapusnya; /ignore clear menghapus semua. Gunakan /ignore add NICK untuk nama panggilan yang benar-benar bernama list, add, remove, atau clear.
+
+Maksimum 32 pola, masing-masing 127 byte ASCII, diterima. Pola sederhana harus berupa nama panggilan valid yang persis sama. Karakter pengganti memerlukan format lengkap nick!user@host dengan tiga komponen yang tidak kosong, misalnya *!*@*.example. Pada tiap komponen * cocok dengan nol atau lebih byte dan ? cocok dengan satu byte. Byte lain yang diizinkan diperlakukan harfiah; tidak ada kelas regex, escape, atau ekspansi shell. Nick mengikuti aturan kapitalisasi IRC; user dan host mengabaikan perbedaan besar-kecil ASCII. Spasi, kontrol, dan non-ASCII ditolak. Penghapusan membandingkan pola tersimpan menurut aturan itu, bukan memperluas wildcard untuk menghapus pola lain.
+
+Hanya PRIVMSG/NOTICE masuk dari pengguna yang disaring sebelum pencatatan sebutan atau pembuatan percakapan privat. Asal pesan harus mempunyai prefiks pengguna eksplisit. Pola nickname dapat cocok saat data user/host tidak lengkap; pola penuh memerlukan ketiganya. Pemberitahuan langsung server serta seluruh status protokol/keanggotaan tetap terlihat. Riwayat lama tidak dihapus. Ini filter lokal, bukan pemblokiran oleh server. Settings menyunting daftar yang sama dan Apply berlaku langsung. /save atau Settings Save menyimpannya pada mode biasa; pada --test-mode perubahan hanya di memori. Konfigurasi memakai mask= berulang di [ignore].

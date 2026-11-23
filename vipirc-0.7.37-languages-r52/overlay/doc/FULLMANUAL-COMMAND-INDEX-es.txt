@@ -1,0 +1,79 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / COMMAND REFERENCE INDEX
+English source SHA-256: 8a4225fd0a80d59389fe979b521f46f3674fdc05c124a1f9fccd115d0b7da9e7
+
+A continuación se muestra la sintaxis canónica de los comandos del modo completo. Los efectos y ejemplos se explican en las secciones correspondientes, donde también se documentan los alias. /help COMMAND busca en este manual. El catálogo minimalista está disponible por separado mediante vipirc -i --manual. Los comandos siguientes son literales y no se traducen.
+
+    /autoauth [status|off|sasl USER file PATH|sasl USER gpg PATH]
+    /autocommands [list|add COMMAND|remove NUMBER|clear|on|off|delay
+      SECONDS|interval SECONDS]
+    /autoconnect [on|off]
+    /autojoin [list|add #CHANNEL|remove #CHANNEL|clear]
+    /away [MESSAGE]
+    /back
+    /background
+    /bind KEY ACTION
+    /bindings [actions|keys]
+    /cancel
+    /channel NUMBER|#CHANNEL
+    /channels
+    /cl
+    /clear
+    /clearinput
+    /close [NAME|NUMBER]
+    /connect [-tls|-plain] [-nick NICK] HOST [PORT] | /connect
+    /dcc [NICK PATH|list|send|accept|reject|cancel ...]
+    /disconnect [SERVER_NUMBER]
+    /help [TEXT]
+    /ignore [list|clear|[add|remove] MASK]
+    /join #CHANNEL [KEY]
+    /keymap [original|vim]
+    /list [MASK] [--min-users N] [--max-users N] [--name TEXT] [--topic
+      TEXT] [--sort channel|users|topic] [--asc|--desc] [--limit N] | /list
+      show [--sort channel|users|topic] [--asc|--desc] [--limit N] | /list
+      clear
+    /ls [servers|channels|queries|unread]
+    /manual
+    /me TEXT
+    /mentions [clear]
+    /mouse [on|off]
+    /msg TARGET TEXT
+    /next
+    /nick NICK
+    /panel
+    /part [#CHANNEL] [MESSAGE]
+    /pm NICK|NUMBER
+    /prev
+    /ql
+    /queries
+    /query NICK|NUMBER
+    /quickstart
+    /quit [MESSAGE]
+    /save [input|output|all]
+    /saveconf
+    /server [-tls|-plain] [-nick NICK] HOST [PORT] | /server [NUMBER|add
+      HOST [PORT] [NICK]|connect NUMBER|disconnect NUMBER|close NUMBER]
+    /servers
+    /set send_mode direct|review | composer_mode line|fullscreen |
+      output_format compact|full | queue_notices on|off | program_messages
+      on|off | persistent_logging on|off | single_session on|off |
+      default_interface idle|ncurses | command_suggestions
+      common|history|frequent|alphabetical|contextual | part_message [TEXT]
+      | quit_message [TEXT] | background_away on|off |
+      background_away_message TEXT | autoaway_minutes 0..1440 |
+      autoaway_message TEXT
+    /settings
+    /sl
+    /soju [COMMAND]
+    /summary
+    /topic [TEXT]
+    /transfers
+    /unbind KEY|all
+    /unignore MASK
+    /unread
+    /users [on|off|toggle|up|down]
+    /view NAME|NUMBER
+    /views
+    /watch [list|add TEXT|remove TEXT]
+    /whois NICK
+    /znc [COMMAND]

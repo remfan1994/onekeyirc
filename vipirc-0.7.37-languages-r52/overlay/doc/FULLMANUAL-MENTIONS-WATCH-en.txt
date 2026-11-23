@@ -1,0 +1,22 @@
+VERBATIM ENGLISH SOURCE REFERENCE
+Source: MANUAL.txt / MENTIONS AND WATCH STRINGS
+English source SHA-256: 7dd545c1b52064bcd746c17c664bc33816010b1a1bc6f7dfda8f6df48830ba1c
+
+MENTIONS AND WATCH STRINGS
+
+Your current nickname is watched automatically. Nickname matching follows
+the IRC server's advertised case mapping and nickname boundaries. A nickname
+change updates this automatic match.
+
+    /watch add project name
+    /watch remove project name
+    /watch list
+
+Custom watch values are literal substrings, not regular expressions or shell
+patterns. IRC/ASCII letter and symbol case rules are used; non-ASCII
+characters match exactly. Up to 32 custom values of 127 UTF-8 bytes each are
+accepted. Use /save during normal operation to preserve changes in the
+selected configuration. In test mode, changes remain in memory. Mentions are
+retained in memory, subject to the history limits. They are not a permanent
+notification archive or an on-disk log. Timestamps are local receipt dates
+and times, in YYYY-MM-DD HH:MM:SS form.

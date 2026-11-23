@@ -1,0 +1,11 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / SAVED SERVER PROFILES
+English source SHA-256: ff3b21055c0b13e827ba1c38f80fbe8db59163af5b82bb486626649d1f7a61f2
+
+GESPEICHERTE SERVERPROFILE
+
+Für den primären Pfad P verzeichnet der benachbarte Katalog P.servers bis zu sieben zusätzliche Profile im privaten Verzeichnis P.d. Am Standardort heißen die Dateien config.ini.servers und config.ini.d neben config.ini. Die Katalogsyntax ist [servers] mit wiederholten profile=ID-Einträgen. Generierte Namen folgen server-<24 hexadezimale Kleinbuchstaben>.ini. Manuelle IDs dürfen 1 bis 63 ASCII-Buchstaben, Ziffern, Unterstriche, Bindestriche oder Punkte enthalten; das erste Zeichen muss Buchstabe oder Ziffer sein, aufeinanderfolgende Punkte sind verboten. Verzeichnisbestandteile und beliebige Pfade sind als Profil-IDs nicht zulässig.
+
+Servers > New erstellt noch keine Datei. Das erste ausdrückliche /save oder Settings Save legt ein getrenntes Profil mit Modus 0600 im Verzeichnis mit Modus 0700 an und trägt es in den Katalog ein. Spätere Speicherungen aktualisieren dieses Serverprofil. Das Speichern eines Nebenprofils überschreibt nie die primäre Konfiguration. Katalogänderungen beim Start sind gesperrt. Ungültige Katalog-/Profileinträge erzeugen sichtbare Fehler; intakte Profile bleiben nutzbar.
+
+Close entfernt den Katalogverweis eines Nebenprofils, behält aber seine Profildatei. Das Hauptprofil kann nicht geschlossen werden. --check-config prüft Hauptprofil, Katalog und referenzierte Profile ohne Verbindung. Beim normalen Start gelten Verbindungsüberschreibungen außer dem Host für den gemerkten Standardserver; ein ausdrückliches --server wählt das Hauptprofil. --init-config und --check-config wenden ihre Überschreibungen ebenfalls auf das Hauptprofil an. --no-connect unterbindet den Verbindungsstart aller Profile. Im Testmodus ist Save deaktiviert, und Close verändert nur den Laufzeitzustand.

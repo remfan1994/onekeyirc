@@ -1,0 +1,308 @@
+[
+  {
+    "command": "autoauth",
+    "source": "src/commands.c",
+    "english": "Inspect credential locations or prepare authentication",
+    "display_source": "src/idle.c"
+  },
+  {
+    "command": "autoconnect",
+    "source": "src/commands.c",
+    "english": "Show or change automatic startup connection",
+    "display_source": "src/idle.c"
+  },
+  {
+    "command": "autojoin",
+    "source": "src/commands.c",
+    "english": "Inspect running joins or prepare the next explicit connection",
+    "display_source": "src/idle.c"
+  },
+  {
+    "command": "away",
+    "source": "src/commands.c",
+    "english": "Set or clear away status",
+    "display_source": "src/idle.c"
+  },
+  {
+    "command": "background",
+    "source": "src/commands.c",
+    "english": "Keep running and release this terminal; resume with vipirc --resume",
+    "display_source": "src/idle.c"
+  },
+  {
+    "command": "bind",
+    "source": "src/commands.c",
+    "english": "Assign a user-selected key to a local function",
+    "display_source": "src/idle.c"
+  },
+  {
+    "command": "bindings",
+    "source": "src/commands.c",
+    "english": "Edit custom key bindings or list available names",
+    "display_source": "src/idle.c"
+  },
+  {
+    "command": "cancel",
+    "source": "src/commands.c",
+    "english": "Stop unsent chat and startup commands on this server",
+    "display_source": "src/idle.c"
+  },
+  {
+    "command": "channel",
+    "source": "src/commands.c",
+    "english": "Switch channel; 0 is the server",
+    "display_source": "src/idle.c"
+  },
+  {
+    "command": "channels",
+    "source": "src/commands.c",
+    "english": "Open this server's channel list",
+    "display_source": "src/idle.c"
+  },
+  {
+    "command": "cl",
+    "source": "src/commands.c",
+    "english": "Open this server's channel list (alias of /channels)",
+    "display_source": "src/idle.c"
+  },
+  {
+    "command": "clear",
+    "source": "src/commands.c",
+    "english": "Clear the current view's stored lines",
+    "display_source": "src/idle.c"
+  },
+  {
+    "command": "clearinput",
+    "source": "src/commands.c",
+    "english": "Clear this conversation's draft",
+    "display_source": "src/idle.c"
+  },
+  {
+    "command": "connect",
+    "source": "src/commands.c",
+    "english": "Connect directly, or reuse the selected saved server",
+    "display_source": "src/idle.c"
+  },
+  {
+    "command": "dcc",
+    "source": "src/commands.c",
+    "english": "Open file transfers, or manage a transfer directly",
+    "display_source": "src/idle.c"
+  },
+  {
+    "command": "disconnect",
+    "source": "src/commands.c",
+    "english": "Disconnect the selected or numbered server",
+    "display_source": "src/idle.c"
+  },
+  {
+    "command": "help",
+    "source": "src/commands.c",
+    "english": "Open the manual; TEXT searches its contents",
+    "display_source": "src/idle.c"
+  },
+  {
+    "command": "join",
+    "source": "src/commands.c",
+    "english": "Join one channel",
+    "display_source": "src/idle.c"
+  },
+  {
+    "command": "keymap",
+    "source": "src/commands.c",
+    "english": "Explain ordinary navigation and legacy keymap names",
+    "display_source": "src/idle.c"
+  },
+  {
+    "command": "list",
+    "source": "src/commands.c",
+    "english": "Open and filter this network channel directory",
+    "display_source": "src/idle.c"
+  },
+  {
+    "command": "ls",
+    "source": "src/commands.c",
+    "english": "Open a local list; channels by default",
+    "display_source": "src/idle.c"
+  },
+  {
+    "command": "manual",
+    "source": "src/commands.c",
+    "english": "Open the application manual",
+    "display_source": "src/idle.c"
+  },
+  {
+    "command": "me",
+    "source": "src/commands.c",
+    "english": "Send an action to this conversation",
+    "display_source": "src/idle.c"
+  },
+  {
+    "command": "mentions",
+    "source": "src/commands.c",
+    "english": "View this server's mentions, or clear retained mentions across servers",
+    "display_source": "src/idle.c"
+  },
+  {
+    "command": "mouse",
+    "source": "src/commands.c",
+    "english": "Toggle or set mouse controls",
+    "display_source": "src/idle.c"
+  },
+  {
+    "command": "next",
+    "source": "src/commands.c",
+    "english": "Switch to the next view",
+    "display_source": "src/idle.c"
+  },
+  {
+    "command": "nick",
+    "source": "src/commands.c",
+    "english": "Set or request a nickname",
+    "display_source": "src/idle.c"
+  },
+  {
+    "command": "panel",
+    "source": "src/commands.c",
+    "english": "Open the application configuration panel",
+    "display_source": "src/idle.c"
+  },
+  {
+    "command": "prev",
+    "source": "src/commands.c",
+    "english": "Switch to the previous view",
+    "display_source": "src/idle.c"
+  },
+  {
+    "command": "ql",
+    "source": "src/commands.c",
+    "english": "Open this server's query list",
+    "display_source": "src/idle.c"
+  },
+  {
+    "command": "queries",
+    "source": "src/commands.c",
+    "english": "Open this server's query list (alias of /ql)",
+    "display_source": "src/idle.c"
+  },
+  {
+    "command": "query",
+    "source": "src/commands.c",
+    "english": "Open or select a private conversation without sending",
+    "display_source": "src/idle.c"
+  },
+  {
+    "command": "quickstart",
+    "source": "src/commands.c",
+    "english": "Open the selected server's connection settings",
+    "display_source": "src/idle.c"
+  },
+  {
+    "command": "quit",
+    "source": "src/commands.c",
+    "english": "Exit all sessions with an optional quit reason",
+    "display_source": "src/idle.c"
+  },
+  {
+    "command": "save",
+    "source": "src/commands.c",
+    "english": "Save this server, primary preferences, or all profiles",
+    "display_source": "src/idle.c"
+  },
+  {
+    "command": "server",
+    "source": "src/commands.c",
+    "english": "Connect or select a server; no argument opens its MOTD",
+    "display_source": "src/idle.c"
+  },
+  {
+    "command": "servers",
+    "source": "src/commands.c",
+    "english": "Open the server connection list",
+    "display_source": "src/idle.c"
+  },
+  {
+    "command": "set",
+    "source": "src/commands.c",
+    "english": "Set application preferences",
+    "display_source": "src/idle.c"
+  },
+  {
+    "command": "settings",
+    "source": "src/commands.c",
+    "english": "Open the configuration panel",
+    "display_source": "src/idle.c"
+  },
+  {
+    "command": "sl",
+    "source": "src/commands.c",
+    "english": "Open the server connection list (alias of /servers)",
+    "display_source": "src/idle.c"
+  },
+  {
+    "command": "soju",
+    "source": "src/commands.c",
+    "english": "Send a private control command to this soju bouncer; help by default",
+    "display_source": "src/idle.c"
+  },
+  {
+    "command": "summary",
+    "source": "src/commands.c",
+    "english": "Review all servers, conversations, activity, queues and transfers",
+    "display_source": "src/idle.c"
+  },
+  {
+    "command": "topic",
+    "source": "src/commands.c",
+    "english": "Show or change the current channel topic",
+    "display_source": "src/idle.c"
+  },
+  {
+    "command": "transfers",
+    "source": "src/commands.c",
+    "english": "Open file transfers",
+    "display_source": "src/idle.c"
+  },
+  {
+    "command": "unread",
+    "source": "src/commands.c",
+    "english": "Open grouped unread conversations and mentions across servers",
+    "display_source": "src/idle.c"
+  },
+  {
+    "command": "users",
+    "source": "src/commands.c",
+    "english": "Show, hide or scroll the user list",
+    "display_source": "src/idle.c"
+  },
+  {
+    "command": "view",
+    "source": "src/commands.c",
+    "english": "Switch to a named view or numbered channel",
+    "display_source": "src/idle.c"
+  },
+  {
+    "command": "views",
+    "source": "src/commands.c",
+    "english": "Open this server's channel list",
+    "display_source": "src/idle.c"
+  },
+  {
+    "command": "watch",
+    "source": "src/commands.c",
+    "english": "Manage additional mention strings",
+    "display_source": "src/idle.c"
+  },
+  {
+    "command": "whois",
+    "source": "src/commands.c",
+    "english": "Request information about a nickname",
+    "display_source": "src/idle.c"
+  },
+  {
+    "command": "znc",
+    "source": "src/commands.c",
+    "english": "Send a private control command to this ZNC bouncer; Help by default",
+    "display_source": "src/idle.c"
+  }
+]

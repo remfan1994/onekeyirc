@@ -1,0 +1,62 @@
+VERBATIM ENGLISH SOURCE REFERENCE
+Source: MANUAL.txt / SETTINGS
+English source SHA-256: 9c87d089b996a2f8af0ff0340f97da2bd4c3650e5fbc7816868f35b0df91ee05
+Source lines: 724-781
+
+SETTINGS
+
+F1 > Settings or /settings opens Interface, all server profiles and New
+server, without switching chat. Rows show autoconnect and saved status.
+Server fields include transport/identity/autojoin/autoconnect, account and
+server-PASS sources, custom CA, bouncer
+type/username/network/client/automatic away, history, mentions and ignores.
+Interface contains global User list, Mouse, Hints, Shortcut labels, notices,
+logging, single-session mode, command suggestions and default interface.
+
+    Edit    Apply    Save    Back    Cancel
+
+Up/Down or k/j selects fields; Left/Right or h/l selects an action; Enter
+acts. Home/End or g/G reaches endpoints. Edit toggles a boolean, opens a
+choice, or edits text/number. Editor Enter stages only that value;
+Tab/Shift-Tab validates and stages it before moving. Invalid input remains
+editable. Letters in editors are text. Empty existing watch/ignore fields
+remove them; Add creates another within limits.
+
+Apply validates and updates live preferences, watch/ignore/autoconnect, then
+stays in Settings with Edit selected. Connection fields (including bouncer
+identity) become pending for the next explicit disconnected Connect. Apply
+never saves, reconnects or retargets a live session. /nick, /join and /part
+affect the running connection. Save privately/atomically writes the
+effective profile, then applies; /save also preserves pending choices. A
+first secondary Save creates its isolated profile and catalog entry.
+
+Interface Apply updates all current/future server slots; Interface Save
+writes the primary config before applying. A failed/blocked Interface Save
+leaves all sessions unchanged. Secondary interface keys cannot override the
+primary at startup. History remains per-server in full mode. Default
+interface chooses a fresh launch only.
+
+Hints hides optional guidance, preserving titles, controls, errors and
+safety confirmations. Shortcut labels hides ordinary F1..F6 prefixes. Both
+default on and save under [interface]. These preferences are independent of
+the terminal's normal colors and bold focus.
+
+Changing Server to a case-insensitively different value clears inherited
+authentication, auth user, all account/PASS sources and autojoin in the
+staged form. Changing bouncer type clears inherited credentials/commands;
+enter intended values afterward. The active session is untouched. File
+fields are not read/decrypted while editing; inline plaintext fields are
+masked and preserve password spaces. Transport selects verified TLS versus
+explicit plaintext, independently of encrypted password storage.
+
+Back returns to Settings home. Cancel/Escape closes the entire form, even
+from a field/popup, discards unapplied changes and returns to vipirc.
+Already applied preferences/pending choices and chat drafts remain. Test
+mode permits in-memory Apply but refuses Save. Creating/connecting through
+Settings preserves the active chat selection.
+
+Bracketed paste works only in an active field, inserts without committing
+and converts tabs to spaces; CR/LF/Escape/unsupported controls are rejected.
+Paste on lists/choice popups is ignored. Review then press Enter to stage.
+Guided /panel is a separate question-by-question flow described under
+MINIMALIST INTERFACE.

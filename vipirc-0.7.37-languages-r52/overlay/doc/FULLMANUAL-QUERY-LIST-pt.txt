@@ -1,0 +1,13 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / QUERY LIST
+English source SHA-256: 50d842376967fbb5836870d2c2a91cdda08d55297314accffeb37b598776d8c1
+
+LISTA DE CONVERSAS PRIVADAS
+
+F4 ou /ql (/queries) mostra apenas as conversas privadas deste servidor, numeradas a partir de 1 independentemente dos canais. Utilizam-se os controlos habituais da lista e as ações:
+
+    Open    New    Close    Back
+
+New abre Command com /pm preparado; numa lista vazia, Open em New query... faz o mesmo. c fecha e o/n abre New. Fechar um rascunho não vazio pede confirmação, sendo No a opção predefinida. /pm NICK|NUMBER ou /query NICK|NUMBER abre ou seleciona sem enviar mensagem, mesmo desligado. /msg NICK TEXT envia explicitamente; /close NICK fecha pelo nome.
+
+Escape numa conversa privada abre Queries com essa conversa selecionada, independentemente de como foi aberta; Escape/Back da lista volta à conversa e ao rascunho. O nome da conversa fica na linha da conversa, em vez de substituir uma categoria do cabeçalho.

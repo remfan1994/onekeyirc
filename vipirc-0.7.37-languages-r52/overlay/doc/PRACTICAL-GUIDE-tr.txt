@@ -1,0 +1,213 @@
+vipirc / onekeyirc pratik kilavuzu
+==================================
+
+TASLAK CEVIRI. Komutlari ve secenekleri gosterildigi gibi aynen yazin.
+Kesin guvenlik sinirlari icin Ingilizce MANUAL.txt ve SECURITY.md dosyalarini okuyun.
+
+/help startup
+-------------
+
+Programı başlatın, karşılama ekranını kapatın; ardından /connect irc.example.org ve /join #channel yazın.
+
+Önceden sunucu profili, takma ad veya numara oluşturmanız gerekmez. /server HOST doğrudan bağlantı için eş addır.
+
+Takma ad verilmezse geçerli sistem kullanıcı adı, uygun değilse user kullanılır. Takma ad sorulmaz.
+
+Yapılandırmayı ve seçili varsayılanı /saveconf ile kaydedin. Sonraki açılışta /connect bunları kullanır.
+
+Kaydetmek otomatik bağlanmayı açmaz; ayrıca seçilmelidir. /quickstart ve /panel isteğe bağlı rehberlerdir.
+
+Komut satırı seçenekleri de çalışır: --server HOST, --channel '#CHANNEL' ve --nick NICK. Kabukta #CHANNEL değerini tırnaklayın.
+
+Normal açılışta --nick, --port, --channel, --tls, --plain ve --ca-file kayıtlı varsayılanı geçersiz kılar.
+
+Açıkça belirtilen --server ilk bağlantıyı seçer. --init-config ve --check-config ana yapılandırma dosyasını kullanır.
+
+--server başka bir ana bilgisayara çevrilirse eski kimlik bilgileri, CA seçimi, bouncer kimliği, kanallar ve başlangıç komutları silinir.
+
+Kayıtlı varsayılan kullanılamıyorsa bağlantı seçeneklerini geçersiz kılmadan önce --server belirtin veya varsayılanı düzeltin.
+
+Autoconnect, autojoin ve autoauth her kayıtlı sunucu profiline özeldir. Açıp kapatmak için /help autoconnect yazın.
+
+--no-connect başlangıç bağlantılarını engeller; --test-mode ağ ve yapılandırma yazımı olmadan etkinliği simüle eder.
+
+--sessions bağlı ve ayrılmış işleri listeler. --resume [NUMBER] yeniden bağlar; seçim için /help background yazın.
+
+--close-session NUMBER seçili işi ve tüm IRC bağlantılarını doğrulanmış kapanıştan sonra sonlandırır. NUMBER iş kimliğidir, PID değildir.
+
+Terminal kaybolursa --sessions, sonra --detach-session NUMBER ve --resume NUMBER kullanın. Çalışan süreç yeniden başlatılana dek eski kodu kullanır; bkz. /help sessions.
+
+-h/--help ve -v/--version terminal olmadan çalışır.
+
+/help messages
+--------------
+
+Kanala girip seçmek için /join #channel, özel konuşma açmak için /query NICK kullanın.
+
+Kayıtlı bir kanalı /channel ile seçin. /msg TARGET TEXT hedefe mesaj, /me TEXT eylem gönderir.
+
+/query mesaj göndermeden konuşma açar; /pm eş addır. /ql özel konuşmaları kanallardan ayrı tutar.
+
+Varsayılan doğrudan göndermedir; /set send_mode review onay aşaması ekler. /set composer_mode line|fullscreen görünümü değiştirir.
+
+Tek mesaj sınırına gelince düzenlemeyi sürdürmek için onay gerekir; bölerek gönderme ayrıca onay ister.
+
+Mesaj sıraya alınmadan önce kanala katılma ve kimlik doğrulama bitmelidir. /cancel yalnızca sıradakileri iptal eder.
+
+/help limits
+------------
+
+IRC sınırları ekrandaki harf sayısına değil bayta dayanır. UTF-8 karakterleri birden çok bayt kullanabilir.
+
+İstemci hedef, komut ve aktarma yükünü hesaba katar; hiçbir UTF-8 karakterini ortasından bölmez.
+
+Tek mesaj sınırında yeni metin, Enter ile düzenlemeye devam onayına kadar engellenir; bu Enter mesaj göndermez.
+
+Çok parçalı mesaj doğrudan modda bile ayrı onay gerektirir. Sohbet her 1.2 saniyede bir satır gönderilir.
+
+Bir gönderim planında en çok 64 mesaj ve 16384 bayt metin bulunur. Fazlasını kısaltın veya ayrı gönderin.
+
+Ayrılmış görünümler dahil en çok 8 sunucu yuvası ve sunucu başına 32 görünüm vardır.
+
+/help quickstart
+----------------
+
+Gecerli profilin sunucusunu, TLS aktarimini, portunu ve takma adini sirayla duzenleyip ayarlari gozden gecirin.
+
+Dogrulanmis TLS varsayilandir. Duz metin baglantisini acikca secmelisiniz.
+
+Enter gorunen degeri korur. Escape bir soru geri doner; değişiklik uygulamadan cikmak icin yineleyin. Yanitlar komut gecmisine girmez.
+
+Son incelemede 1 Kaydet ve baglan, 2 Yalniz kaydet, 3 Bir kez baglan (varsayilan), 4 Yalniz uygula secin.
+
+Kurulumu acmak ve onceki sorulari yanitlamak ayarlari uygulamaz, dosya kaydetmez veya baglanmaz.
+
+Bir kez baglan kaydetmeden uygular; Yalniz uygula ne kaydeder ne baglanir. Etkin bağlantı gizlice hedef değiştirmez veya yeniden baglanmaz.
+
+Baglanti başarısız olursa son islemde uygulanmış ya da kaydedilmiş değişiklikler geri alinmaz.
+
+Bouncer profilleri ve diger secenekler icin /panel kullanin. Quickstart mevcut bouncer girisini değiştirmez.
+
+/help save
+----------
+
+Yalin /save secili sunucunun hazirlanmis bağlantı degisiklikleri dahil gecerli ayarlarini yazar.
+
+/save input ve /save output ikisi de uygulama tercihleri ve hazir birincil bağlantı dahil ana profili kaydeder. Yalniz adlandirilan bolumu kaydetmezler.
+
+/save all her sağlam profili ayri kaydeder. Biri başarısız olsa oncekiler korunur ve hatalar bildirilir.
+
+Her dosya degisimi özel ve atomiktir, ancak tum dosyalar tek islem degildir. Test kipi yapılandırma yazmaz.
+
+/help documentation
+-------------------
+
+/help ls ile konu arayin; /help commands komut girisini aciklar ve komutlari listeler. Her seferinde tek konu veya komut adi girin.
+
+/help COMMAND soz dizimini, etkileri ve örnekleri gösterir. /help /ls yerel listeyi, /help ls konulari aciklar.
+
+/help all veya /manual bu kilavuzu acar. --help başlangıç seceneklerini gösterir; yalın kipte --manual ciktisi dosyaya yonlendirilebilir.
+
+README.md belgeleri gösterir; MANUAL.txt ana arayuzu, INSTALL derlemeyi anlatir. Kurulu man sayfasi kabuktan kullanimi aciklar.
+
+CONTRIBUTING.md degisiklikleri, doc/SOURCE-MAP.txt kod yerlerini, tests/README.md testleri anlatir. DESIGN.md sorumluluk ve sirayi kaydeder.
+
+doc/TROUBLESHOOTING.txt belirtiye göre denetim sunar. SECURITY.md tehditleri; doc/BOUNCERS.txt ve doc/SESSION-CONTROLS.txt islemleri aciklar. Denetimler yalniz belirtilen surum ve ortamlari kapsar.
+
+/help security
+--------------
+
+Uzak metin terminale yazılmadan temizlenir. Girişler kabuk komutu değil, yerel IRC komutu olarak yorumlanır.
+
+/raw, kabuk çıkışı veya otomatik dosya kabulü yoktur. Tanınan bracketed paste bir komutu asla göndermez.
+
+TLS sunucu kimligini dogrular. SASL, PASS ve taninan özel kimlik dogrulama komutlari dogrulanmis TLS gerektirir. Sistem TLS kitapligini da güncel tutun; SECURITY.md dosyasina bakin.
+
+Özel CA paketi boş olmayan normal PEM dosyası olmalı, en fazla 16 MiB olmalı ve parola istemez.
+
+Ayarlanan parolalar yardimda ve ayarlarda gizlenir. Taninan kimlik bilgisi komutlari gecmisten cagirilmaz; normal metin olarak yazilan sirlar kalabilir.
+
+Diskte konuşma dökümü varsayılan olarak kapalıdır. Yapılandırma değişiklikleri açıkça kaydedilmelidir.
+
+Ayni hesaptaki başka surecler, IRC sunucusu veya bouncer ve ele gecirilmis terminal ya da sistem bu korumalarin disindadir. TLS uctan uca sohbet sifrelemesi degildir.
+
+Istege bağlı gunlukler ve yapilandirmadaki sirlar düz metindir. Bilinen hassas komutlar filtrelenir; sohbet icindeki rastgele sirlar guvenilir bicimde taninamaz.
+
+Kesin sınırlar ve önceki incelemeler için /help tls, /help authentication, /help logging ve SECURITY.md dosyasına bakın.
+
+/help sessions
+--------------
+
+Bir is, tum sunuculari, aktarimlari, taslaklari ve gecmisiyle bir istemci surecidir. Uygulamadaki sunucu numarasi kabuktaki is kimligi degildir.
+
+Kabukta --sessions çalıştırın. Bagli/ayrik durumunu kontrol edin; iş kimligini kullanın, surec kimligini değil.
+
+Eski SSH terminali işi tutuyorsa --detach-session NUMBER, ardindan --resume NUMBER kullanın. IRC etkin kalir.
+
+Numarasiz --resume yalniz tek dogrulanmis ayrik isi secer. Birden cok is icin numara gerekir; bağlı is ayrilana kadar mesguldur. Numaralar cikistan sonra tekrar kullanilabilir.
+
+--close-session NUMBER yalniz tum işi bitirir. Tum IRC baglantilari ve aktarimlar kapanir, taslak ve RAM gecmisi silinir; kayitli ayarlar ve gunlukler kalir.
+
+Kapatma yalniz dogrulanmis temizlikten sonra basarili sayilir. Zaman asiminda --sessions ile yeniden bakın: daha sonra bitebilir. Hata etkin ucu silmez veya tahmini PID'ye sinyal gondermez.
+
+Yalniz yönetilen is terminal kaybina dayanir. Normal onde çalışan süreç SSH kopunca devam ettirilebilir olmaz. --background ile baslatin veya önce /background kullanin.
+
+Is ayni Unix hesabina ve ana makineye aittir; tek terminal bağlı olabilir. O hesaptaki diger programlar ayni guven siniri icindedir.
+
+Yeni program kurmak çalışan sürecin kodunu değiştirmez. Ayarlari kaydedin, eski süreci kapatin, --version ile denetleyin, yeni süreci baslatin.
+
+Eski is yeni denetimleri veya arayuz degisimini desteklemeyebilir. Baglanmak gerekiyorsa durana kadar uyumlu programi saklayin.
+
+Istemci SSH boşta kalma zaman asimi politikasini değiştirmez. /help background, /help deployment ve doc/SESSION-CONTROLS.txt dosyasina bakin.
+
+/help troubleshooting
+---------------------
+
+SSH sonrasinda meşgul mu? --sessions, ardindan --detach-session NUMBER ve --resume NUMBER kullanın. --close-session yikicidir. See /help sessions.
+
+Up metin cagirmiyor: Compose ileti duzenler; Command kabul edilen komutlari cagirir. Gunlukten / ile Command acin. Gonderilen sohbet ve hassas komutlar gecmiste yoktur.
+
+Satira sigdirilan mesaj kesik gorunuyorsa, giriş ekrani editore satir ayirip son satirlari gösterir. Editoru kapatin veya kanali yeniden secin; gorunum teslim kaniti degildir.
+
+Kanal degisince tam metin gorunuyorsa fark gorunume aittir. Sorun surerse arayuz, kip, terminal boyutu, locale ve sirlar temizlenmis adımları kaydedin; parola veya özel kayit paylasmayin.
+
+Kanal yok mu? Sunucu görünümünü ve dogrulamayi denetleyin. Dogrudan profilde /autojoin list; bouncer'da /join veya /part.
+
+Doğrulama başarısız mi? Hesap, kaynak, dosya izinleri, TLS ve GPG aracisini denetleyin. /autoauth status sirri okumaz.
+
+Gecmis yakalama yoksa isaret gecmis disina cikmis, günlük gec baslamis/durmus veya dosya degismis olabilir. /help catchup ve /help logging; eski gunlukler olen isi geri getirmez.
+
+Ayar etkisiz mi? Baglanti degisikligi icin kopukken /connect gerekir. Kayit autoconnect degildir; acilis tercihi yeni surec ister.
+
+Yardimci süreç baslatilamiyorsa baslaticinin SIGCHLD veya otomatik cocuk toplama ayarini düzeltin ki istemci cocuklarini bekleyebilsin.
+
+--check-config ve doc/TROUBLESHOOTING.txt kullanın. --test-mode DNS, TLS, kimlik bilgileri veya gercek bouncer'i sınamaz.
+
+/help bouncers
+--------------
+
+/panel acin, sunucu seçin, sonra znc veya soju bağlantı turunu seçin.
+
+Saglayicinin bouncer sunucu adı ve TLS portunu, bouncer kullanıcı adini, mevcut üst agi ve istege bağlı sabit istemci adini girin.
+
+Her üst ağ icin ayri profil kaydedin. Ayni ana makineyi kullanan profillerde /connect oncesi dogru profili seçin.
+
+Istemci giriş kimligini oluşturur. ZNC sunucu parola kaynagini, soju kimlik dogrulama parola kaynagini kullanir. Birlesik kimlik ya da NickServ parolası değil, sadece bouncer parolası girin.
+
+Bouncer kanallari geri getirir. Yerel /autojoin çalıştırılmaz ve değiştirilemez; /join ve /part kullanın.
+
+Acik baslangic komutlari yine çalışır. Istenmeyen tekrar /join veya servis komutlarini önlemek için profili açmadan once denetleyin.
+
+Bouncer profilinde otomatik bosta/arka planda away, özellikle açılmadıkça kapalıdır. Elle /away ve /back çalışır.
+
+Gonderilen gecmis ozgun UTC zamanlarini korur, özel iletileri aliciya yoneltir ve yeni mention, CTCP/DCC ya da canli durum degisikligi oluşturmaz.
+
+Geçmiş sinirlidir. Istek uzerine arşiv arama, otomatik ağ kesfi ya da ağ basina otomatik profil olusturma yoktur.
+
+Hizmet yardimi icin /znc veya /soju komutunu argumansiz kullanin. Kontrol metni gecmise ve yerel yansimaya girmez; yanitlar sunucu gorunumunde kalici günlük olmadan gorunur.
+
+Taninmis giden kontrol kopyalari eski takma adla oynatilirken de gizlenir. Yazilan metin yine gorunebilir; bouncer kendi günlük politikasina sahiptir.
+
+Istemci yalniz bouncer'a baglanir. Ust bağlantının TLS, kimlik doğrulama ve saklama ayarlarini ayrica yapin.
+
+Kurulum ve doğrulanmış kapsam sınırları için doc/BOUNCERS.txt ile examples/ icindeki bouncer örneklerine bakın.

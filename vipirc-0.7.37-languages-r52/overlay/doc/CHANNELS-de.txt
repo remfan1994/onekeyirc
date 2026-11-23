@@ -1,0 +1,65 @@
+Praxisleitfaden vipirc / onekeyirc - Kanäle
+=======================================================
+
+ENTWURFSÜBERSETZUNG. Befehle und Optionen genauso wie gezeigt eingeben.
+Für Sicherheitsdetails die englischen Dateien MANUAL.txt und SECURITY.md lesen.
+
+/help list
+----------
+
+Fordert Kanäle vom gewählten IRC-Server an; Registrierung ist nötig. Nur MASK wird als Filter an den Server gesendet.
+
+Filter für minimale/maximale Nutzerzahl, Name und Thema greifen lokal, selbst ohne erweiterte LIST-Filter des Netzwerks.
+
+--sort akzeptiert channel, users oder topic; Standard ist users absteigend. --limit 0 setzt im begrenzten Cache kein Anzeigelimit.
+
+/list show zeigt den Cache; --sort, --asc/--desc und --limit sortieren oder begrenzen lokal ohne neue IRC-Anfrage. /list clear leert den Cache.
+
+Trennung oder LIST-Ablehnung erhält Teil-Caches, beendet aber die Anfrage; nach Registrierung /list erneut versuchen oder /list clear nutzen.
+
+Die Vollbildansicht öffnet einen sortierbaren Kanalbrowser; der Minimalmodus nutzt dieselben Optionen und /list show.
+
+Für lokale Kanallisten /ls oder /cl verwenden; /list durchsucht das Netzwerk.
+
+/help ls
+--------
+
+Ohne Argument Kanäle des gewählten Servers auflisten. Lokaler Clientbefehl, kein Shellbefehl und keine netzweite IRC LIST-Anfrage.
+
+Mit /server N, /channel N und /pm NICK die entsprechenden Einträge auswählen.
+
+/help manual
+------------
+
+Themen- und Befehlshilfe ist auch offline verfügbar. /help TOPIC ist der kürzere Weg.
+
+/help servers
+-------------
+
+Zeigt Minimalmodus-Serverslots 1..8 (primär 1), gewählten Server, Verbindungsstatus und autoconnect pro Server.
+
+Ein geladenes Profil bleibt auch ohne Verbindung verfügbar.
+
+/help unignore
+--------------
+
+Entspricht /ignore remove MASK. Gewähltes Profil speichern, damit die Änderung bleibt.
+
+/help aliases
+-------------
+
+Aliasnamen müssen exakt übereinstimmen; keine mehrdeutige oder ungefähre Ausführung.
+
+/conn = /connect; /disc = /disconnect; /detach = /background; /exit = /quit
+
+/j = /join; /leave = /part; /message und /privmsg = /msg
+
+/nickname = /nick; /names und /nicks = /users; /unaway = /back
+
+/channellist = /cl; /querylist = /ql; /serverlist = /servers
+
+/configure und /preferences = /panel; /saveconfig = /saveconf
+
+/autocommand = /autocommands
+
+Die Vervollständigung schlägt kanonische Namen vor; Argumente bleiben unverändert, geheime Verlaufseinträge bleiben gefiltert.

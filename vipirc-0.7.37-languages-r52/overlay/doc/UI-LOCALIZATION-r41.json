@@ -1,0 +1,182 @@
+[
+  {
+    "source": "src/settings.c",
+    "kind": "fixed",
+    "english": "Configuration saved. Reconnect to use connection changes.",
+    "fields": []
+  },
+  {
+    "source": "src/app.c",
+    "kind": "fixed",
+    "english": "Credential request is not permitted in this connection state.",
+    "fields": []
+  },
+  {
+    "source": "src/app.c",
+    "kind": "fixed",
+    "english": "Showing the cached channel directory.",
+    "fields": []
+  },
+  {
+    "source": "src/app.c",
+    "kind": "fixed",
+    "english": "No completed channel directory is cached; use /list first.",
+    "fields": []
+  },
+  {
+    "source": "src/app.c",
+    "kind": "fixed",
+    "english": "Usage: /join #channel [key] (one channel and one optional key)",
+    "fields": []
+  },
+  {
+    "source": "src/app.c",
+    "kind": "fixed",
+    "english": "Usage: /channel N|#name (0 is server)",
+    "fields": []
+  },
+  {
+    "source": "src/app.c",
+    "kind": "fixed",
+    "english": "Usage: /close [channel-number|view-name]",
+    "fields": []
+  },
+  {
+    "source": "src/app.c",
+    "kind": "fixed",
+    "english": "Usage: /users [on|off|toggle]",
+    "fields": []
+  },
+  {
+    "source": "src/app.c",
+    "kind": "fixed",
+    "english": "Usage: /views (channel list)",
+    "fields": []
+  },
+  {
+    "source": "src/app.c",
+    "kind": "fixed",
+    "english": "Usage: /set autoconnect on|off",
+    "fields": []
+  },
+  {
+    "source": "src/app.c",
+    "kind": "fixed",
+    "english": "Usage: /watch add|remove text, or /watch list",
+    "fields": []
+  },
+  {
+    "source": "src/app.c",
+    "kind": "fixed",
+    "english": "Usage: /back (or /away with no message)",
+    "fields": []
+  },
+  {
+    "source": "src/app.c",
+    "kind": "fixed",
+    "english": "Usage: /part [#channel] [message] (select a channel when omitting #channel)",
+    "fields": []
+  },
+  {
+    "source": "src/app.c",
+    "kind": "fixed",
+    "english": "Usage: /msg nick-or-channel text",
+    "fields": []
+  },
+  {
+    "source": "src/app.c",
+    "kind": "fixed",
+    "english": "Usage: /whois nick",
+    "fields": []
+  },
+  {
+    "source": "src/app.c",
+    "kind": "fixed",
+    "english": "Setting away status; waiting for server confirmation.",
+    "fields": []
+  },
+  {
+    "source": "src/app.c",
+    "kind": "fixed",
+    "english": "Clearing away status; waiting for server confirmation.",
+    "fields": []
+  },
+  {
+    "source": "src/app.c",
+    "kind": "named-fields",
+    "english": "Query with {nick}; type a message to send.",
+    "fields": [
+      "nick"
+    ]
+  },
+  {
+    "source": "src/app.c",
+    "kind": "named-fields",
+    "english": "Configuration saved to {path}",
+    "fields": [
+      "path"
+    ]
+  },
+  {
+    "source": "src/app.c",
+    "kind": "named-fields",
+    "english": "Nickname set to {nick}; /connect to use it.",
+    "fields": [
+      "nick"
+    ]
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed",
+    "english": "Server 0 is the primary entry; use /disconnect 0 to stop it.",
+    "fields": []
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed",
+    "english": "Replace this snapshot with current local session state. Refresh does not request data from the network or mark conversations read. If allocation fails, the existing snapshot and scroll position are kept.",
+    "fields": []
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed",
+    "english": "Return to the vipirc main screen. Up/Down or Page Up/Page Down scroll this document.",
+    "fields": []
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed",
+    "english": "Arrows: scroll/link | Enter: open | Esc: back",
+    "fields": []
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed",
+    "english": "R: refresh | /: command | Arrows: scroll/action | Esc: back",
+    "fields": []
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed",
+    "english": "Open visits this item's source conversation. The server label distinguishes identical names on different networks. A closed query can be reopened locally; a missing channel is not silently joined. Reading help leaves the source unread.",
+    "fields": []
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed",
+    "english": "Query opens a private conversation without sending. Whois asks the server for public nickname information. Ignore changes local filtering. Back returns to the conversation. Up/Down chooses an action; Enter activates it.",
+    "fields": []
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed",
+    "english": "Usage: /keymap [original|vim]. Use /bindings to customize keys in chat and the command prompt.",
+    "fields": []
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed",
+    "english": "Built-in F1..F6 open categories and Tab completes nicknames. /bindings customizes keys in chat and the command prompt.",
+    "fields": []
+  }
+]

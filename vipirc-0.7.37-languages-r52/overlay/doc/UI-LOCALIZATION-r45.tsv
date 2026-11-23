@@ -1,0 +1,18 @@
+client	source	kind	english	fields
+vipirc	src/app.c	named-fields	"Nickname {nick} is already in use.{detail} Use /nick another-nick."	nick,detail
+vipirc	src/app.c	named-fields	"Nickname is already in use.{detail} Use /nick another-nick."	detail
+vipirc	src/app.c	named-fields	"Nickname {nick} was rejected.{detail} Use /nick another-nick."	nick,detail
+vipirc	src/app.c	named-fields	"Nickname was rejected.{detail} Use /nick another-nick."	detail
+vipirc	src/app.c	named-fields	"Closed {target}{part}; {count} queued message cancelled.{inflight}"	target,part,count,inflight
+vipirc	src/app.c	named-fields	"Closed {target}{part}; {count} queued messages cancelled.{inflight}"	target,part,count,inflight
+vipirc	src/app.c	fixed	" (PART requested)"	
+vipirc	src/app.c	fixed	" One in-flight message will finish."	
+vipirc	src/ui.c	fixed	"This local inquiry identifies the selected server, connection and authentication state, and current versus pending settings. Auto-join reports show actual channel membership. Explicit authentication reports show complete configured file locations, never password contents, and do not open credential files."	
+vipirc	src/ui.c	fixed	"The summary groups current servers, channel 0, joined and left channel views, queries, unread counts, mentions, pending work, and file transfers by server. Mentions are not added to unread totals."	
+vipirc	src/ui.c	fixed	"R refreshes; Up/Down, Page Up/Page Down, Home/End scroll. Left/Right selects Refresh or Back. / opens a command prompt; cancelling it restores this snapshot. Escape returns to the originating screen."	
+vipirc	src/ui.c	fixed	"Enter on this suggestion copies it into the command field. It must appear there for review before another Enter can execute it. Escape returns to the same suggestion."	
+vipirc	src/ui.c	named-fields	"{item} is an option on the {screen}."	item,screen
+vipirc	src/ui.c	named-fields	"{item} is a suggestion on the {screen}."	item,screen
+vipirc	src/ui.c	named-fields	"{item} is selected on the {screen}."	item,screen
+vipirc	src/ui.c	named-fields	"Server {number}: {host}"	number,host
+vipirc	src/ui.c	named-fields	"{action} for {nick}"	action,nick

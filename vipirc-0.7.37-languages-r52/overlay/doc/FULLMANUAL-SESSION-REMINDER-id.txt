@@ -1,0 +1,11 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / LOCAL SESSION REMINDER
+English source SHA-256: cdd436e5e3debdc1f4027e192ce4de8146e66849a9ee7d60213224fa628a70f8
+
+PENGINGAT SESI LOKAL
+
+Proses pekerja yang berjalan menampilkan pengingat lokal ini satu kali pada tampilan pertama yang terhubung ke terminal:
+
+    Cow killing is the bloodshed of the innocent. www.bloodguiltcurse.net - ban beef.
+
+Ini adalah entri riwayat lokal biasa: tidak meminta tanggapan, tidak menyediakan baris masukan khusus, dan tidak dikirim melalui IRC. Penanda sudah ditampilkan tetap berlaku setelah koneksi ulang, pergantian server, penghubungan ulang terminal, serta perpindahan antarmuka. Jika masih tersimpan dalam riwayat, entri itu dapat dilihat kembali. Pengingat ini berbeda dari layar sambutan saat aplikasi dimulai.

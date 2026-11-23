@@ -1,0 +1,25 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / FILES AND ENVIRONMENT
+English source SHA-256: 3f0929a090403aa838e2094592ede3b01d8a8cac7f8b23ff6c35f31b3321edf6
+Source lines: 1901-1962
+
+FILE E AMBIENTE
+
+Posizioni predefinite della configurazione primaria:
+
+    $XDG_CONFIG_HOME/vipirc/config.ini
+    $HOME/.config/vipirc/config.ini
+
+XDG_CONFIG_HOME ha precedenza se non è vuoto e deve essere un percorso assoluto. HOME è l'alternativa; si consulta il database degli account se da HOME non si ottiene una directory personale assoluta. --config FILE seleziona un'altra configurazione primaria e lo spazio dei profili server adiacente. I percorsi scritti nella configurazione sono letterali, senza espansione di variabili, tilde o shell. Le variabili mostrate sopra spiegano soltanto la scelta dei percorsi predefiniti. La shell esegue comunque le normali operazioni di quoting ed espansione prima di passare gli argomenti della riga di comando.
+
+Per il percorso primario P, P.servers conserva gli ID dei profili salvati e la selezione facoltativa [servers] default=PROFILE_ID gestita da /saveconf. P.d/ contiene i file dei profili secondari. Ogni configurazione salvata può avere un file .commands con i conteggi dei comandi canonici e, facoltativamente, una trascrizione .log. Le configurazioni generate e i profili secondari richiedono Save esplicito; i conteggi dei comandi accettati si aggiornano automaticamente nello spazio di lavoro salvato già esistente. Se il profilo predefinito ricordato manca o è illeggibile, viene segnalato senza deviare silenziosamente la connessione.
+
+L'interfaccia completa propone $XDG_DATA_HOME/vipirc/downloads come directory predefinita per la ricezione DCC se XDG_DATA_HOME è assoluto; altrimenti propone $HOME/.local/share/vipirc/downloads se HOME è assoluto. La directory proposta viene creata soltanto dopo l'accettazione esplicita. Il comando /dcc accept NUMBER senza DIRECTORY usa la directory dalla quale è stato avviato il processo, che deve essere privata e appartenere all'utente. Scegliere o sfogliare un percorso non modifica mai quella directory iniziale.
+
+PATH individua l'eseguibile opzionale gpg. Non viene eseguita alcuna shell; quel programma fa parte dell'ambiente locale considerato attendibile. GNUPGHOME viene interpretato da GnuPG per le chiavi e l'agente. Il client non espande GNUPGHOME nei percorsi delle credenziali. Nelle sessioni SSH remote si usano l'ambiente e i file dell'host su cui gira vipirc.
+
+TERM descrive le capacità del terminale per ncurses, non la codifica dei caratteri. LANG, LC_CTYPE e LC_ALL scelgono la locale. Per modificare Unicode e calcolare la larghezza dei caratteri, usare una locale UTF-8 installata e coerente con il terminale. locale, locale charmap e locale -a aiutano a controllare l'host; i nomi delle locale variano tra sistemi.
+
+Traduzione dell'interfaccia: all'avvio di vipirc impostare VIPIRC_LANG su id (indonesiano), ms (malese), tr (turco), es (spagnolo), pt (portoghese), fr (francese), de (tedesco), ru (russo), it (italiano) oppure ar (arabo). Sono accettati anche valori come id_ID.UTF-8. Le interfacce ncurses e -i usano lo stesso catalogo. L'inglese è la lingua di riserva. Un processo distaccato conserva la lingua scelta all'avvio. I comandi IRC preceduti da barra, le chiavi di configurazione e i valori di controllo restano in inglese. Questa versione traduce alcuni controlli dell'interfaccia, non tutte le pagine della guida, gli avvisi di sicurezza e gli errori. Consultare doc/LOCALIZATION.md.
+
+La LC_CTYPE attiva viene rispettata. Una locale non valida o non UTF-8 seleziona esplicitamente la modalità terminale ASCII, indicata nella schermata di benvenuto. L'input non ASCII viene rifiutato con un messaggio di stato; i punti di codice non ASCII ricevuti sono visualizzati come '?' senza modificare il testo di rete memorizzato. Il client non indovina né transcodifica le vecchie codifiche e non forza la locale. Selezionare una locale UTF-8 installata e riavviare per usare Unicode. ASCII rimane il sottoinsieme a un byte di UTF-8; SSH non cambia i limiti di byte codificati di IRC.

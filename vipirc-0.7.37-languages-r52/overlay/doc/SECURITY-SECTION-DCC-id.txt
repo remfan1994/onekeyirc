@@ -1,0 +1,12 @@
+DCC file transfers
+Source: SECURITY.md, section "DCC file transfers"
+English section SHA-256: f0f91b6753c085b41c9c9071eabf9585ddc404919fe56e0989bfafb733db2e3b
+Paragraphs: 3
+Status: Translation draft; fluent-speaker security review required
+English SECURITY.md remains authoritative. This is one source-linked section, not a security certification.
+
+DCC SEND klasik melalui IPv4 aktif menggunakan teks biasa tanpa autentikasi, terlepas dari TLS IRC. Nama panggilan tidak membuktikan identitas pihak yang menyambung. Alamat yang ditampilkan dapat berupa alamat privat atau loopback. Mengirim berkas mengumumkan alamat; menerima tawaran menghubungi pihak yang ditampilkan dan mengungkap alamat host tempat proses berjalan. Tawaran saja tidak membuat berkas atau soket. Accept/send memerlukan tindakan eksplisit. Melalui SSH, berkas dan soket berada di host jarak jauh yang menjalankan proses.
+
+Sumber harus berupa berkas biasa, tanpa komponen jalur berupa symlink. Berkas dibaca sebagai aliran, bukan diambil sebagai snapshot atau dilindungi dari perubahan setelahnya; gunakan sumber yang stabil. Penerimaan membuat berkas baru bermode 0600 di direktori privat yang dimiliki pengguna, dan menolak traversal, symlink, serta tujuan yang sudah ada. Pembersihan berkas parsial hanya menghapus berkas dengan perangkat dan inode yang sama dengan yang dibuat transfer. Berkas tidak pernah dibuka atau dijalankan otomatis. Pengakuan jumlah byte bukanlah hash.
+
+Terdapat batas delapan tawaran tertunda, empat transfer aktif, dan dua belas catatan tersimpan, dengan ukuran berkas maksimum 4294967295 byte. Tawaran kedaluwarsa setelah lima menit; transfer aktif gagal setelah dua menit tanpa kemajuan. Pengakuan berulang yang tidak berubah tidak memperpanjang tenggat tersebut. DCC CHAT, resume, transfer pasif/terbalik, berkas berukuran tidak diketahui, dan IPv6 tidak didukung. Tidak ada penemuan alamat publik ataupun pengaturan NAT/firewall otomatis. Putusnya IRC membiarkan transfer langsung yang sudah diterima tetap berjalan; menutup server terkait atau keluar menghentikannya. /cancel bukan pengganti pembatalan khusus transfer.

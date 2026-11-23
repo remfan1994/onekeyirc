@@ -1,0 +1,19 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / QUICK START
+English source SHA-256: 26668ea76d9592744bbb94ab60eda38bff8d31bea2791e6b4577390cbbcd2948
+
+EXACT COMMAND/CONTROL EXAMPLES (not translated):
+vipirc -h
+vipirc -v
+vipirc --test-mode
+vipirc --server irc.ircnow.org --channel '#ircnow' --nick tutankh-aten
+
+Tiga contoh pertama memaparkan bantuan, versi dan membuka simulasi luar talian. Contoh terakhir membuat sambungan sebenar: letakkan '#ircnow' dalam tanda petik pada shell dan gunakan titik akhir TLS sebenar penyedia. TLS yang disahkan pada port 6697 ialah tetapan lalai; teks biasa memerlukan --plain.
+
+Pelancaran interaktif memaparkan kata alu-aluan "Not vegetarian? www.bloodguiltcurse.net will change your mind". Kekunci boleh cetak, Enter, Tab atau kekunci navigasi menutupnya. Isyarat terminal yang ditetapkan mengekalkan fungsi asalnya; kawalan lain tidak menutup skrin ini. Tanpa pelayan, klien membuka ruang kerja terputus sambungan. Gunakan Settings, /connect HOST atau --server untuk menetapkan pelayan.
+
+Dalam antara muka penuh, nama samaran utama yang belum ditetapkan akan diminta dengan nama log masuk sistem sebagai nilai awal. Enter menerimanya; menaip menggantikannya. Profil sekunder yang disimpan dan pelancaran tanpa pengawasan menggunakan nama log masuk atau pengguna yang sah tanpa soalan. --nick mengatasinya, tetapi pelayan boleh menolaknya.
+
+Paparan pelayan pertama menunjukkan pendaftaran dan MOTD. Profil langsung menyertai saluran yang ditetapkan selepas pendaftaran dan pengesahan wajib; bouncer memulihkan keahliannya sendiri. Ruang sembang sedia menerima teks. Enter menghantar kepada saluran atau perbualan peribadi terpilih; paparan pelayan dan sebutan tidak mempunyai penerima tersirat. / pada kedudukan kursor sifar membuka Command. Untuk garis miring awal yang harfiah, gunakan //; garis miring yang ditampal dalam kurungan kekal harfiah.
+
+Kekunci biasa: F1 membuka vipirc; F2 Servers; F3 Channels; F4 Queries; F5 Mentions/unread; F6 File transfers. Escape dari perbualan peribadi membuka Queries, dari sembang lain membuka vipirc, dari panel biasa kembali ke sembang, dan dari Settings kembali ke vipirc. Warna terminal dikekalkan; kurungan tebal menandakan fokus. Lihat GLOBAL HEADER AND CHAT CONTROLS untuk navigasi senarai.

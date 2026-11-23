@@ -1,0 +1,205 @@
+DOCUMENTATION AND SOURCE READABILITY REVIEW
+vipirc 0.7.35 / onekeyirc 0.1.34
+2026-11-17 (America/Los_Angeles)
+
+SCOPE
+
+This pass makes both source archives easier to read, modify and validate. The
+baselines are vipirc 0.7.34 and onekeyirc 0.1.33. Their source manifests and
+checksums were verified before editing. Historical security, recovery and
+platform reports remain unchanged records of their named versions.
+
+The release checks below are complete, with the stated environment limits.
+
+This is a documentation and contributor-workflow release. It does not add a
+runtime security defense or claim a new broad security audit. Application C
+logic and ordering are preserved. The explicitly allowed C changes are version
+strings, help wording, and the full manual generated from canonical prose.
+The Makefile and new contributor helpers have separately tested changes.
+
+HOW A CONTRIBUTOR GETS STARTED
+
+The root README now leads to three focused guides:
+
+  CONTRIBUTING.md
+    Build without installing, choose a small change, preserve ownership and
+    units, mirror common source, update the authoritative documentation, select
+    validation, and describe a patch or bug report. The existing LICENSE.md and
+    NOTICE remain the source of license and redistribution terms.
+
+  doc/SOURCE-MAP.txt
+    Follow four practical call paths through startup, input, transport and
+    session management. Locate the owner of an IRC connection, frontend draft,
+    credential job, descriptor, transfer and background worker. The map names
+    actual files/functions and identifies the full-only frontend modules.
+
+  tests/README.md
+    Start with the smallest relevant fixture. Understand the wider aggregate
+    targets, Python/TLS/PTY/socket/GPG prerequisites, sanitizer groups, skipped
+    integrations and the difference between a fixture and native execution.
+
+The source comments now explain responsibilities, borrowed data lifetimes,
+return conventions, deadlines, queue ordering, publication state and cleanup.
+Dense sequences in selected state and cleanup paths are expanded onto separate
+lines. This is targeted readability work, not a whole-tree formatter rewrite
+or a change to the program's module boundaries.
+
+READABILITY AND OWNERSHIP WORK
+
+- Core and wire code: module reading routes; IRC parser bounds and borrowed
+  fields; transport progress and TLS ordering; queue/history ownership.
+- Startup and local state: Client/App lifetimes, stable tokens versus displayed
+  numbers, configuration save boundaries, credential-result cleanup and the
+  fact that publication can precede a failed directory synchronization.
+- Frontends: event-loop phases, terminal ownership, input/editor state, modal
+  ownership and the difference between preserving and replacing a frontend.
+- Supporting code: editor byte/scalar/cell distinctions, nickname completion,
+  read-only workspace summaries, DCC IDs/file identity, file-picker commits and
+  reader allocation/cleanup.
+
+Headers and implementations are kept together. The guides explicitly warn
+contributors not to assume a single boolean/error convention throughout the
+project, and not to confuse bytes, terminal cells, server slots or job tokens.
+
+DOCUMENTATION CORRECTIONS
+
+1. Generated manual ownership
+
+   Minimalist topic/command help is maintained in src/idle_commands.c. Full
+   vipirc's MANUAL.txt is canonical for its embedded manual. Launch usage is in
+   src/main.c. scripts/sync_docs.py generates installed man pages from its CLI
+   metadata plus the appropriate manual/help. The earlier instructions calling
+   those man pages hand-maintained sources were corrected.
+
+   make docs and make check-docs are explained in their actual order. Full
+   vipirc embeds the manual before rebuilding and exporting. Generated files
+   ship in the archives, so ordinary user builds do not require Python.
+
+2. Contributor tests and build targets
+
+   check-unit includes Python and transport-boundary work through additional
+   prerequisites; it is not C-only or necessarily socket-free. INSTALL and
+   the test guide now state those dependencies explicitly.
+
+   The prior vipirc Makefile named build/.stamp in three recovery-test rules
+   and the sanitizer target, although its directory target is named build.
+   The missing-prerequisite failure was reproduced before editing. All four
+   rules now refer to build. The actual full-tree normal recovery target
+   rebuilt and passed its three tests using explicit available compiler/TLS
+   settings. The sanitizer target now builds; its execution limit is below.
+
+3. Summary and completion behavior
+
+   summary.c reads a workspace snapshot; it does not open saved logs or perform
+   catch-up. The minimalist catch-up and log readers live in idle.c.
+
+   Tab/Shift-Tab completes command names in minimalist Command mode and
+   nicknames in Compose. It does not promise nickname-argument completion
+   inside Command. Both README descriptions now state the mode explicitly.
+
+4. Detach, resume and interface replacement
+
+   Reattaching the same frontend retains its drafts and command recall.
+   Explicitly changing vipirc's frontend with -i or -N keeps the worker, IRC
+   connections, retained conversation history and accepted transfers. It
+   discards the old frontend's drafts, pending send reviews, command recall and
+   unapplied forms. This can happen while an editor/form was active before
+   detachment. Users should finish or copy wanted drafts before switching.
+
+   The README, manual, shell help, minimalist session help, architecture guide
+   and session-controls guide now agree on that existing behavior. The source
+   map also distinguishes first-background preparation from terminal-loss
+   ordering: curses redirects descriptors before cleanup can flush a dead tty;
+   the minimalist frontend performs its bounded terminal restoration first.
+
+5. Installing the contributor guides
+
+   Existing installation keeps source-relative documentation plus older flat
+   copies. The new tests/README.md would collide with root README.md if copied
+   flat. Both recipes exempt that exact nested path from flat copy/removal and
+   clean up the tests directory. Other legacy copies retain their behavior.
+
+   Each product's real install/uninstall recipes passed eight private fixture
+   cases. The new documentation case checks distinct README bytes, paths and
+   modes, ordinary nested-document flat compatibility, guide-only removal that
+   preserves root README, and complete uninstall cleanup. The seven earlier
+   binary publication/failure cases were preserved.
+
+SHARED-SOURCE CHECKER
+
+From either source tree, with the other archive extracted:
+
+  python3 scripts/check_shared.py /path/to/other-source-tree
+  python3 tests/test_shared.py
+
+The checker reads the standalone SRC and HEADERS lists and compares all 38
+named shared C/header files byte-for-byte. It does not execute Makefile content,
+copy code or modify either tree. Missing files are failures even if absent on
+both sides. Unsupported list syntax fails explicitly instead of producing an
+incomplete success. It compares source bytes, not product-specific docs/tests
+or runtime behavior.
+
+Independent review caught an early helper false pass: an additional SRC += or
+HEADERS += declaration could be ignored. The shipped helper rejects those and
+other unsupported assignment forms. Its focused suite makes 16 checker
+invocations across both directions, changed/missing files, invalid inputs,
+assignment forms and read-only behavior. Both real trees also pass the check.
+
+VALIDATION AND EVIDENCE
+
+- All 232 C/header file copies, including tests, were checked against the
+  baselines. Seventy-three copies changed. Apart from the seven copies carrying
+  the explicit version/help/generated-manual exceptions, ordered C tokens and
+  preprocessing directives are identical. No unexpected difference was found.
+  Changed files have no new non-ASCII text or trailing whitespace, and do not
+  depend on __LINE__ or __COUNTER__ behavior altered by moving lines.
+- All 38 shared source/header pairs match. Both copies of the new helper and
+  its regression test match, as do the shared installation tests.
+- onekeyirc builds with C11, the configured hardening flags, and -Werror.
+- Real vipirc CLI/minimalist sources and the embedded manual build in a private
+  validation executable whose unavailable curses entry points abort. That
+  fixture validates actual CLI/manual output; it is not a full curses build.
+- Both documentation generators verify current exports. The manual-capacity
+  regression preserves all 2,045 full-manual lines at minimum history, within
+  APP_HELP_LINES=2048. No capacity increase was used to hide a truncation.
+- Current guide links, generated roff structure, ASCII/newlines/whitespace,
+  all shipped INI examples, stale-export detection/repair and oversized-manual
+  rejection are checked with private fixtures.
+- A clean staged onekeyirc source distribution is configured and built, checked
+  for version/documentation agreement, then installed/uninstalled under a
+  private destination containing spaces. Every installed documentation copy
+  and mode is compared with its source, including both distinct READMEs.
+
+doc/DOCUMENTATION-PASS-RESULTS.json contains the exact commands, outcomes,
+source hashes, environment details and independent review receipts. Generated
+manuals and current guide headers name the new versions. Dated reports were
+not edited into claims about this release.
+
+ENVIRONMENT LIMITS
+
+The runner is Linux x86_64 with GCC 14.2.0, Python 3.12.14 and OpenSSL 3.5.7.
+The native full vipirc configure step fails because wide-character curses
+development headers/library are unavailable. No native curses build or UI
+execution is claimed.
+
+The actual check-stability-sanitize target compiled all three instrumented
+binaries, then stopped on its first execution with LeakSanitizer's fatal
+ptrace restriction. Leak detection and halt-on-error remained enabled. That
+sanitizer gate did not pass; it was not replaced by an uninstrumented run.
+The ordinary check-stability and manual-capacity tests passed independently.
+
+This pass did not rerun live IRC/bouncer interoperability, OpenBSD/LibreSSL,
+full native session handoff or the earlier broad security/load campaigns.
+Their historical reports retain their original scope and limitations.
+
+Source token comparison establishes the scope of this edit, not absence of
+bugs or vulnerabilities. The release makes the implementation and evidence
+easier to inspect while retaining the program's existing operating limits.
+
+DELIVERY
+
+Both archives contain the complete source, current and historical guides,
+maintained scripts/tests and generated documentation. No compiled executables,
+temporary validation shims, private configurations or credentials are shipped.
+Each archive includes SOURCE-MANIFEST.json and SHA256SUMS; the separate release
+checksum file identifies the delivered archives.

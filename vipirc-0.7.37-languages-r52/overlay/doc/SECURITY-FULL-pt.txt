@@ -1,0 +1,173 @@
+Security documentation - vipirc - pt
+RASCUNHO DE TRADUÇÃO. Falta revisão por falantes fluentes com conhecimentos de segurança. O SECURITY.md inglês continua a ser a referência autorizada.
+Source: SECURITY.md; 13 of 13 sections covered as complete drafts.
+The English original remains authoritative. Security translation quality is not certified.
+
+## Limite de confiança
+English source section: Trust boundary
+Source SHA-256: b206f366472f34a9c25e1096f15d6fe813e99115c1e789ab4fa3d857e18f7595
+Source paragraphs: 3
+
+Servidores IRC, pares, apelidos, tópicos, campos do protocolo, nomes de ficheiros e texto colado são entradas não fiáveis. O sistema operativo, o terminal, as bibliotecas C/TLS, o repositório de certificados de confiança e a conta do utilizador continuam a ser componentes de confiança. A interface completa do vipirc também confia na biblioteca curses. O GPG acrescenta o seu executável, porta-chaves e agente. Os perfis de servidor partilham um único processo e não constituem compartimentos de segurança isolados. Em geral, outro processo com os mesmos privilégios da conta consegue inspecionar ficheiros privados e memória.
+
+Execute o programa com uma conta normal. Antes de ler a configuração, as execuções operacionais rejeitam diferenças entre IDs reais e efetivos de utilizador ou grupo, desativam ficheiros de despejo de memória e definem umask 0077. No Linux, também desativam a possibilidade de obter despejos do processo. Os descritores padrão em falta são reservados com /dev/null antes de abrir recursos da aplicação; os fluxos abertos herdados e respetivos sinalizadores permanecem inalterados. Uma falha de proteção obrigatória no arranque interrompe a execução. Estas medidas não fornecem pledge/unveil, seccomp, separação de privilégios ou proteção contra o comprometimento do anfitrião.
+
+configure verifica as medidas de reforço do compilador e do ligador suportadas pelo sistema escolhido, incluindo proteção da pilha, verificações reforçadas de libc, diagnósticos de formatação, PIE, RELRO, ligação imediata e pilha não executável. Inspecione as opções configuradas no anfitrião de implantação; nem todas as plataformas suportam todas as opções.
+
+## TLS, credenciais e identidade do destino
+English source section: TLS, credentials and endpoint identity
+Source SHA-256: 4ea410d65b0d7a489076cfd9898b5769f21e9e2f4fec63f7df8340f68bb5de45
+Source paragraphs: 6
+
+TLS exige a versão 1.2 ou posterior e verifica a cadeia de certificados e o nome de anfitrião selecionado. SASL configurado, PASS do servidor e listas automáticas de comandos não vazias e ativadas exigem TLS verificado. Não há regresso silencioso a texto simples. Cifrar uma palavra-passe em disco não cifra o transporte. O TLS de IRC protege a ligação ao servidor ou bouncer escolhido, não as mensagens de ponta a ponta.
+
+Mantenha a biblioteca TLS associada atualizada, além deste código-fonte. O anfitrião de análise utilizou OpenSSL 3.5.7; o OpenSSL documenta CVE-2026-35189, um aumento de memória relacionado com certificados durante o processamento normal de TLS, corrigido na versão 3.5.9 desse ramo. Esta versão do código-fonte não corrige a biblioteca externa. Confirme a versão do fornecedor, as correções retroportadas e as atualizações de segurança atuais: https://openssl-library.org/news/secadv/20260929.txt
+
+Um ca_file vazio seleciona o repositório de confiança do sistema. Um conjunto CA personalizado é um ficheiro PEM local de confiança: o carregador abre-o uma vez, verifica o ficheiro regular aberto, lê conteúdo com limites e analisa essa cópia sem pedir uma palavra-passe. Rejeita ficheiros vazios, superiores a 16 MiB, fontes não regulares e alterações de tamanho detetadas. Preserva certificados e entradas de confiança AUX e CRL. Os caminhos CA podem atravessar ligações simbólicas porque são material público de confiança selecionado expressamente, ao contrário dos caminhos privados de configuração e credenciais. Selecionar outra CA altera os emissores considerados de confiança. O carregamento é síncrono; E/S de ficheiros regulares pode ainda bloquear em armazenamento lento.
+
+Cada credencial usa exatamente uma origem: ficheiro privado em texto simples, ficheiro privado cifrado com GPG ou valor explícito inserido diretamente. As origens SASL e PASS do servidor são separadas. Alterar o nome de anfitrião com --server elimina a autenticação herdada, a seleção de CA, a identidade do bouncer, os canais e os comandos de arranque. Substituir pelo mesmo anfitrião, mudar a porta ou o apelido não provoca essa limpeza. Reveja o perfil escolhido antes de ligar a outro serviço.
+
+SASL PLAIN direto exige a conta configurada. O soju deriva a identidade SASL dos campos do bouncer. A negociação usa a última declaração anunciada de mecanismos SASL, aguarda a confirmação ou desafio e só então lê a credencial. A falha de autenticação obrigatória não se transforma num registo sem autenticação. O ZNC utiliza, em alternativa, a origem PASS do servidor.
+
+Os comandos privados de autenticação reconhecidos e introduzidos manualmente também exigem TLS verificado. A validação aplica-se às linhas lógicas e a todos os fragmentos previstos e é repetida ao enviar. As formas privadas reconhecidas são excluídas do histórico de comandos e do registo persistente de conversas. A representação no terminal ativo pode ainda conter o texto introduzido. O reconhecimento abrange verbos comuns de serviços, não segredos arbitrários em mensagens nem todos os protocolos de serviços de terceiros.
+
+## Configuração e ficheiros privados
+English source section: Configuration and private files
+Source SHA-256: 209b86484d0457ecd63d96ed26d6ae5e5adb117a47353c36560dad9f80ae8466
+Source paragraphs: 6
+
+A configuração é INI literal: sem expansão de shell, variáveis ou til. Secções e chaves desconhecidas e valores inválidos falham na validação. O tamanho dos ficheiros está limitado a 64 KiB. A navegação por caminhos de configuração ou segredos rejeita componentes de ligações simbólicas e '..'. Para ler uma configuração existente, exige-se um ficheiro regular pertencente ao utilizador, sem permissão de escrita por outros utilizadores. Credenciais inseridas diretamente e qualquer lista não vazia de comandos automáticos, mesmo desativada, exigem exatamente o modo 0600 ou 0400. A leitura não exige uma pasta superior privada. A gravação exige que a pasta superior final pertença ao utilizador e não conceda permissões ao grupo nem a outros; utilize o modo 0700 na estrutura privada habitual. As configurações geradas usam modo 0600 e substituição atómica privada. Save reescreve os valores suportados e substitui comentários. --init-config publica atomicamente sem sobrescrever: nunca substitui um objeto existente, mesmo que este surja durante a inicialização. Um erro comunicado de limpeza ou sincronização da pasta após a publicação pode deixar a configuração privada completa no local. Sistemas de ficheiros sem ligações físicas falham de forma segura. O registo de transcrições tem verificações de modo exato mais rigorosas para diretórios, descritas adiante.
+
+As origens de credenciais em texto simples e GPG têm de ser ficheiros regulares do utilizador com modo exato 0600 ou 0400. Palavras-passe descifradas ou em texto simples ocupam uma única linha não vazia: SASL permite até 1024 bytes; PASS do servidor, até 503 bytes. A identidade ZNC completa juntamente com a palavra-passe tem de caber nessa trama PASS limitada. Uma falha da origem selecionada não desencadeia recurso a outra origem.
+
+A descifragem GPG começa depois de TLS verificado. Usa argumentos diretos fixos, canais não bloqueantes com limites, um grupo de processos separado e um prazo de 5 segundos. A aplicação não invoca shell, não passa segredos em argv, não cria ficheiros temporários em texto simples, não obtém chaves, não inicia processos auxiliares permanentes nem solicita a frase-passe de uma chave. Desbloqueie uma chave protegida fora do cliente. A entrada cifrada e o texto cifrado criado estão limitados a 64 KiB; o estado do auxiliar está limitado a 16 KiB. O sucesso exige descifragem completa, protegida por integridade, e saída bem-sucedida do auxiliar. Os diagnósticos não imprimem o texto descifrado nem a saída do auxiliar.
+
+O painel de configuração pode cifrar uma nova palavra-passe usando a impressão digital completa de 40/64 caracteres hexadecimais de uma chave local existente. Os buffers ocultos da palavra-passe e da confirmação têm limites. Só a ação final explícita inicia a cifragem; não cria qualquer chave pública. O destino predefinido sugerido fica junto ao perfil selecionado: a simples visualização não cria nada. A aceitação explícita pode criar pastas superiores em falta pertencentes ao utilizador com modo 0700. Pastas superiores personalizadas têm de existir; não se altera o modo de pastas existentes com chmod. A publicação usa modo 0600 e não sobrescreve, verificando novamente a identidade de ficheiro/pasta e conflitos de destino antes de publicar.
+
+Apply only ou Connect once podem criar o texto cifrado solicitado explicitamente sem guardar a configuração. Uma falha ao fazer Save pode deixar o texto cifrado concluído para nova tentativa. O cancelamento remove apenas ficheiros inalterados criados nessa tentativa; mantém referências guardadas e, por precaução, mantém o ficheiro quando não consegue verificar em segurança a configuração existente. Assim, um erro de sincronização após a publicação pode deixar um ficheiro comunicado. Podem permanecer pastas vazias criadas. Nova tentativa volta a verificar o texto cifrado completo, o modo privado e o inode.
+
+Os buffers temporários de credenciais são limpos quando pertencem à aplicação. Valores inseridos diretamente permanecem na memória da configuração ou sessão enquanto forem necessários para Save ou nova ligação. Isto não prova a eliminação de cópias na memória de bibliotecas ou auxiliares, em swap, cópias de segurança, instantâneos ou inspeção privilegiada de memória. Não inclua credenciais reais em relatórios.
+
+## Processos filhos e trabalho síncrono
+English source section: Child processes and synchronous work
+Source SHA-256: 79a87ca8215648f2d1f870067a2afe1fb4221757b00560b4b4191aac7832ba7f
+Source paragraphs: 2
+
+A resolução DNS ocorre num processo filho direto supervisionado e aguardável, com prazo; a limpeza atua apenas nesse filho de que a aplicação é proprietária. O resolvedor não entra num grupo de processos auxiliares. O GPG usa um grupo separado e conserva a identidade do filho direto aguardável até terminarem os canais de saída, permitindo que o cancelamento pare escritores de canais herdados no mesmo grupo. O GPG é um programa de confiança, não um ambiente isolado: descendentes que abandonem deliberadamente esse grupo ficam fora do contrato de limpeza.
+
+O arranque do resolvedor ou auxiliar e a primeira criação de sessão em segundo plano rejeitam SIGCHLD=SIG_IGN ou SA_NOCLDWAIT herdados. A primeira separação verifica de novo após a preparação; separar novamente uma sessão gerida não faz fork. Não se suporta incorporar os módulos sob um manipulador alheio que recolha os respetivos filhos. As operações de ficheiros regulares e metadados continuam síncronas, mesmo quando O_NONBLOCK evita a espera ao abrir FIFO.
+
+## Protocolo, entrada do terminal e estado limitado
+English source section: Protocol, terminal input and bounded state
+Source SHA-256: 0f8513944ff6d952092236574aa5be490f8a39c7d99ec7ac175d34eb41e5dc06
+Source paragraphs: 6
+
+Não hã escape para shell, comando de injeção de IRC bruto, motor de plugins/scripts nem resposta CTCP automãtica. Os comandos são interpretados por uma lista de ações permitidas. Um alias desconhecido falha, em vez de adivinhar uma ação de rede. Campos do protocolo recebido, UTF-8, nicks, destinos e número de parãmetros tém limites explícitos. A exibição remove controles de terminal e formatação insegura; tõpicos de LIST são sanitizados antes de entrar no cache do diretõrio.
+
+O orçamento de saída inclui sintaxe do comando, destino, identidade do relay e invõlucro da ação. Valores LINELEN menores, mas vãlidos, anunciados pelo servidor reduzem esse orçamento. As divisões preservam os caracteres UTF-8 inteiros. Enviar vãrias mensagens exige consentimento separado; o bracketed paste não pode autorizar seu prõprio envio. Cada servidor dispõe de fila de chat com 64 entradas e intervalo mínimo de 1.2 segundo, além de fila de controle separada com 64 entradas. Isso não garante entrega nem substitui as regras de flood do servidor.
+
+O programa admite oito conexões de servidor, 32 visualizações por servidor, 4096 usuãrios armazenados por canal e 8192 entradas de LIST. Lista de membros ou diretõrio truncado é incompleto. Desconexão ou rejeição explícita de LIST libera um pedido pendente preservando os itens parciais em cache; não afirma que a captura estã completa. Outro pedido ou limpeza explícita continua possível. Mensagens privadas não solicitadas sõ criam visualizações de conversa enquanto abaixo do limite automãtico de oito conversas; as demais vão para visualizações do servidor/mentions. Conversas abertas explicitamente continuam possíveis dentro do limite total de visualizações.
+
+Texto retido tem orçamento de 8 MiB por servidor, além de uma configuração de 50..5000 linhas por visualização. O fluxo da interface minimalista limita separadamente os registros retidos a 2048 e o texto a 512 KiB. Esses não são limites de RSS total: rascunhos, listas de membros, filas, bibliotecas e sobrecarga do alocador consomem memõria adicional. Mesmo com limites, o programa pode gastar CPU com trãfego hostil. Mãscaras de ignore reduzem o chat exibido, não o trabalho de receber/analisar; não são um controle de acesso.
+
+As atribuições originais de teclas do terminal para interrupção, saída e suspensão são preservadas, mas [input] use_signals=false (padrão) desativa sinais gerados pelo terminal enquanto o cliente controla o tty. Ctrl-C/Ctrl-Z cancelam texto Compose/Command ainda não enviado. Use signals=yes habilita as atribuições existentes do terminal. Apply funciona de imediato; Save também grava a preferéncia. Ctrl-D literal não é atalho para sair, salvo se vinculado explicitamente no chat principal ou prompt de comandos. Saídas normais e sinais tratados restauram os modos do terminal; SIGKILL impede a limpeza.
+
+O bracketed paste reconhecido permanece literal. Antes do reconhecimento do marcador inicial, o cliente não consegue distinguir colagem de digitação normal. Depois que a colagem termina, teclas comuns e ações personalizadas aguardam outro lote de entrada e um período de quietude. O editor/formulãrio de aceitação deve estar completamente exibido; quadro falho ou pequeno demais não conta como revisão. Teclas repetidas estendem o período. Redimensionar ou reconectar o terminal remove o crédito visual. Escape isolado tem tolerãncia de 500 ms; sequéncias incompletas permitem 1000 ms entre bytes de continuação enquanto a rede prossegue. Marcador de abertura atrasado pode agir como Escape (colocando o log minimalista em segundo plano). Depois do início da captura, marcadores finais divididos não tém prazo entre bytes. Colagem sem enquadramento não tem barreira equivalente.
+
+## Histórico local, registos guardados e privacidade
+English source section: Local history, saved logs and privacy
+Source SHA-256: 8123a3ef64d1e4e83b7cc6891d66caa56780846eafd681342f8e2f9749251e94
+Source paragraphs: 5
+
+O histórico de recuperação de comandos limita-se a 64 entradas/64 KiB e permanece na memória. A composição de mensagens não é um meio de recuperar mensagens já enviadas. Formas reconhecidas de credenciais e comandos de controlo são excluídas. Os dados opcionais de frequência em <config_path>.commands guardam até 96 nomes canónicos de comandos e as respetivas contagens, sem argumentos, destinatários, mensagens ou palavras-passe. As leituras/escritas automáticas exigem uma configuração guardada; ficheiros de contagem inválidos ou inseguros não impedem o arranque. O modo de teste omite estas operações de E/S.
+
+Os registos persistentes estão desativados por predefinição. Cada perfil guardado que os ative acrescenta dados a <config_path>.log, exigindo um diretório-pai pertencente ao utilizador com modo exato 0700 e um ficheiro regular pertencente ao utilizador, com uma única ligação e modo exato 0600. A travessia relativa a descritores e O_NOFOLLOW rejeitam ligações simbólicas; O_NONBLOCK impede que um FIFO malicioso bloqueie antes da verificação do tipo de ficheiro. O registo não cria diretórios-pai.
+
+O limite de acrescento é de 16 MiB por registo ativo. Um bloqueio consultivo não bloqueante serializa a verificação do tamanho e a escrita entre clientes cooperantes. Caminhos inseguros, bloqueio ocupado, falha de escrita ou limite atingido desativam o registo desse perfil com diagnóstico; a conversa em direto prossegue. Nada é truncado ou apagado automaticamente. Arquive ou mova o registo e depois desative e reative expressamente o registo. Os arquivos externos são da responsabilidade do utilizador. A E/S de disco pode ainda bloquear em armazenamento lento ou remoto; o registador não é assíncrono.
+
+Excluem-se das transcrições as cópias de Help/aggregate mentions, os rascunhos não enviados, os buffers SASL/PASS, os comandos privados reconhecidos e as respostas conhecidas de serviços. Os destinos de controlo do bouncer recebem filtragem adicional descrita abaixo. Nomes de serviços desconhecidos e segredos escritos como conversa normal ainda podem ser registados. Os registos sobrevivem à saída. A gravação do terminal, os registos do servidor e as cópias dos destinatários são independentes desta opção.
+
+O catch-up utiliza a última mensagem elegível enviada localmente por este worker ativo. Primeiro tenta o registo privado usando uma âncora validada de ficheiro/registo e um fim fixado; depois recorre à memória retida. A rotação ou mudança de identidade invalida a âncora em disco; não escolhe silenciosamente outro registo não relacionado. As mensagens próprias reproduzidas não substituem a âncora. Um novo processo não importa registos antigos nem reconstrói a âncora de catch-up de um worker terminado.
+
+## Comandos automáticos e cancelamento
+English source section: Automatic commands and cancellation
+Source SHA-256: d5949c21fd5a0dc4ef73af2c42931766637e3b4ba398ff7184e64a2ae9a0e305
+Source paragraphs: 3
+
+Cada perfil contém no máximo 16 comandos literais, cada um com até 511 bytes UTF-8. Aceitam-se apenas operações de mensagem, entrada num único canal, alteração de nick, away/back e WHOIS. Listagens e erros ocultam os argumentos, pois o texto pode conter segredos. A ligação guarda uma cópia fixa dos comandos de arranque. As alterações ficam preparadas para a próxima ligação explícita; uma nova tentativa automática conserva as definições da ligação interrompida. Mudanças de identidade apagam textos privados de comandos herdados.
+
+A execução começa após o registo e o SASL obrigatório. O atraso inicial é de 0..300 segundos; os intervalos seguintes são de 2..60 segundos depois de uma escrita concluída. Apenas uma trama automática pode estar pendente, pelo que um bloqueio não provoca uma rajada posterior. As mensagens automáticas devem caber numa só trama e não são divididas nem apresentadas em eco local. Um erro interrompe os comandos seguintes, com diagnóstico indexado que oculta dados sensíveis.
+
+/cancel remove texto ainda não enviado das filas e trabalho automático futuro. Uma trama parcialmente escrita ou uma nova tentativa TLS em curso tem de preservar os seus bytes e pode terminar, mesmo que a tentativa ainda não tenha comunicado bytes aceites. Os bytes enviados não podem ser recuperados. A desconexão limpa o transporte e as filas. As tentativas de away automático têm temporização e cedem perante intenções posteriores aceites, manuais, de script ou de segundo plano.
+
+## Sessões geridas e perda de SSH
+English source section: Managed sessions and SSH loss
+Source SHA-256: f44a63f7faada1375f5769e9dfe2235da96547fa535b07d1c9869cba13ca063f
+Source paragraphs: 5
+
+Background cria um endpoint de trabalho local privado para a conta e uma concessão de duração. O registro é separado por programa e usuãrio Unix, com 64 posições numeradas. Não é um ouvinte da Internet nem mecanismo de persisténcia apõs reiniciar. Descoberta/anexação/controle verificam caminhos privados, identidades de arquivos e token de encarnação do worker selecionado; números de trabalho nunca são tratados como PID. Credenciais do par do mesmo usuãrio são verificadas onde a plataforma permite.
+
+Sõ um terminal pode estar anexado por vez. Resume valida descritores de terminal transferidos e metadados TERM/locale limitados. A descoberta tem limites, ignora objetos inseguros e não apaga recursivamente conteúdo inesperado do registro. Um worker ativo mas sem resposta mantém sua concessão e é relatado como não verificado. --resume sem argumento seleciona apenas um único worker desconectado disponível e verificado, sem candidato não verificado. single_session restringe a criação de trabalhos em segundo plano, não a quantidade de conexões IRC dentro de um worker existente.
+
+--detach-session NUMBER libera o terminal/controlador escolhido preservando worker, conexões, rascunhos, transferéncias e histõrico retido. --close-session NUMBER encerra todo o worker e descarta o estado de RAM não salvo. Detach espera confirmação da liberação do terminal; close aguarda remoção do endpoint/concessão. Aceitação não significa conclusão. Os controles tém prazos e nunca matam um PID numérico presumido. Não remova endpoints como procedimento de recuperação.
+
+Se o terminal/controlador de um worker jã gerenciado desaparecer, o worker é desconectado dele. Um processo normal em primeiro plano que nunca foi gerenciado não tem trabalho recuperãvel. Instalar outro executãvel não atualiza o protocolo de um worker em execução; workers antigos podem exigir seus controles existentes para parar corretamente.
+
+A fila minimalista de saída tem limites e solicitações explícitas de Background podem ser atendidas enquanto estã bloqueada. Escritas de limpeza/avisos são de melhor esforço e podem faltar num terminal parado. O desenho ncurses completo ainda usa saída síncrona para o terminal; um terminal aberto e permanentemente bloqueado pode atrasar a verificação dos controles. Um prazo excedido é informado como tal, não como sucesso de encerramento forçado. Nenhum cliente configura a política de desconexão por inatividade do servidor SSH.
+
+## ZNC, soju e reprodução de histórico
+English source section: ZNC, soju and playback
+Source SHA-256: f0e223c83f0df60aa10260168ae7433ff77fbbd2f4cef7d4914cd07da4f7ed99
+Source paragraphs: 5
+
+Perfis explícitos de bouncer exigem TLS verificado e identidade de conta/rede, com nome de cliente opcional. ZNC usa a origem da senha do servidor; soju exige SASL PLAIN e uma origem de senha SASL. A transação de configuração aplica endpoint, identidade e credenciais juntos, limpando rascunhos antigos quando esses vínculos mudam. A autenticação IRC a montante pertence ã configuração do prõprio bouncer.
+
+JOINs restaurados pelo bouncer determinam a participação nos canais; listas de canais salvas não são reproduzidas. Comandos de inicialização explícitos continuam sendo exceções deliberadas. O away automãtico fica desativado por padrão em perfis bouncer, para um dispositivo não impor sua inatividade a outro. /away e /back continuam ações manuais explícitas. Controles do worker local não administram o bouncer remoto.
+
+O texto de controle /znc e /soju cabe numa única mensagem cadenciada e é excluído de recall, ecos locais e logs persistentes. Cõpias recebidas destinadas ao serviço bouncer são suprimidas mesmo com nick antigo ou referéncia de lote desconhecida. Respostas do serviço continuam visíveis na visualização do servidor, mas não são salvas. Cõpias reconhecidas de autenticação privada são excluídas das transcrições independentemente do nick do remetente, enquadramento da reprodução ou destino qualificado do serviço. Texto visível retido não é repositõrio de segredos. Pode aparecer durante a redação, e o administrador do bouncer pode recebé-lo e registrã-lo. Não hã sigilo diante do bouncer escolhido.
+
+Lotes de histõrico conhecidos servem apenas para exibição: não podem mudar participação ou presença atual, gerar novos alertas mentions, responder CTCP nem ativar ofertas DCC. Limites de histõrico aninhados/intercalados são de 16 lotes e referéncias de 64-byte; enquadramento malformado, inconsistente ou excessivo desconecta. Referéncias desconhecidas são tratadas conservadoramente sõ para exibição. Horãrios originais vãlidos aparecem em UTC mas jamais controlam temporizadores locais ou cadéncia.
+
+O cliente aceita buffers enviados pelo bouncer, não um navegador de arquivo histõrico sob demanda nem descoberta das redes de toda a conta. Não solicita echo-message, draft/chathistory nem znc.in/playback. Um carimbo de data/hora sozinho não comprova histõrico; reprodução antiga sem lotes mantém processamento normal de mensagens ao vivo. Reprodução arbitrãria não é desduplicada entre processos novos. Consulte doc/BOUNCERS.txt para configuração e limites.
+
+## Transferências de ficheiros DCC
+English source section: DCC file transfers
+Source SHA-256: f0f91b6753c085b41c9c9071eabf9585ddc404919fe56e0989bfafb733db2e3b
+Source paragraphs: 3
+
+O DCC SEND clássico ativo por IPv4 usa texto simples, sem autenticação, independentemente do TLS do IRC. Uma alcunha não autentica o par que se liga. O endereço de destino apresentado pode ser privado ou de loopback. O envio anuncia um endereço; aceitar liga-se ao par indicado e revela o endereço do anfitrião onde o processo corre. Uma oferta, por si só, não cria ficheiros nem sockets. Accept/send exige uma ação explícita. Através de SSH, os ficheiros e sockets pertencem ao anfitrião remoto onde o processo está a correr.
+
+As origens têm de ser ficheiros normais, sem componentes symlink no caminho. São transmitidos em fluxo, sem cópia instantânea nem proteção contra alterações posteriores; use uma origem estável. A receção cria um ficheiro novo com modo 0600 numa pasta privada pertencente ao utilizador, recusando percursos indevidos, ligações simbólicas e destinos existentes. A limpeza de um ficheiro parcial remove apenas o ficheiro com o mesmo dispositivo e inode criado pela transferência. Os ficheiros nunca são abertos ou executados automaticamente. As confirmações de contagem de bytes não são hashes.
+
+Há limites de oito ofertas pendentes, quatro transferências ativas e doze registos retidos, e um tamanho máximo de ficheiro de 4294967295 bytes. As ofertas expiram após cinco minutos; uma transferência ativa falha após dois minutos sem progresso. Confirmações repetidas sem alteração não prolongam esse prazo. DCC CHAT, resume, transferências passivas/inversas, ficheiros de dimensão desconhecida e IPv6 não são suportados. Não existe descoberta de endereço público nem configuração automática de NAT/firewall. A desconexão do IRC deixa as transferências diretas já aceites em curso; fechar o servidor correspondente ou sair termina-as. /cancel não substitui o cancelamento específico da transferência.
+
+## Verificações offline e evidência de testes
+English source section: Offline checks and evidence
+Source SHA-256: 9c67268cfad3c6bc3c5553f23c932c342c3f11231b325d758eeade66d790b4bd
+Source paragraphs: 3
+
+--help, --version e --manual não carregam configuração nem credenciais. --check-config valida a sintaxe da configuração/catálogo, valores e proteções dos ficheiros; não testa acesso/desencriptação de palavras-passe, DNS, TLS ou uma autenticação real. --test-mode carrega perfis válidos num simulador no próprio processo, sem rede IRC/DCC, leitura de credenciais/CA, GPG ou gravações de configuração. Valores inline podem ser analisados, mas nunca são enviados. Uma ação explícita Background ainda pode criar IPC de sessão local. Sucesso na simulação não demonstra compatibilidade com servidores reais.
+
+A revisão de recuperação da altura abrange vipirc 0.7.34 / onekeyirc 0.1.33 em doc/STABILITY-REVIEW-0.7.34-0.1.33.txt e doc/STABILITY-PASS-RESULTS.json. Regista falhas reproduzidas, correções, verificações de falhas de recursos e de carga limitada e restrições de plataforma. A revisão de segurança anterior está em doc/SECURITY-REVIEW-0.7.33-0.1.32.txt e doc/SECURITY-PASS-RESULTS.json. Relatórios anteriores identificados ou datados mantêm as versões de origem, cargas de teste e limites de plataforma originais; não afirmam que os testes tenham sido repetidos.
+
+Os testes locais de protocolo não comprovam o funcionamento num daemon ZNC/soju real nem numa conta IRCNow. A execução completa de ncurses, o ciclo de vida nativo de AF_UNIX com nome, OpenBSD/LibreSSL e o comportamento do anfitrião de implementação exigem testes nos seus ambientes de destino. Um teste de esforço curto não demonstra meses de fiabilidade sem supervisão. Comunique a versão, plataforma, passos reproduzíveis e diagnósticos sem dados sensíveis; omita palavras-passe, chaves privadas e transcrições de conversas privadas.
+
+## Revisão da interface completa e navegação de ficheiros
+English source section: Full-interface review and file browsing
+Source SHA-256: e2f59ccd783bd17feedcf3bc49a14a3085c7f21783755ee9b06c265dc0f1eb54
+Source paragraphs: 3
+
+A revisão de transferências do ncurses apresenta o endereço do par, porta, contagem de bytes e destino antes da ação separada Accept/Offer. Mantém um ID de oferta estável, em vez de um índice de linha variável, e recusa consentimento abaixo do tamanho mínimo do ecrã de revisão. Selecionar uma linha no navegador de origens não envia um ficheiro. O navegador não segue componentes symlink dos caminhos, volta a verificar o inode escolhido, nunca altera cwd e nunca lê conteúdo de ficheiros apenas para os listar. O trabalho limita-se a 64 entradas examinadas por passo, 4096 nomes examinados e 512 linhas; a truncagem é comunicada. Os metadados do sistema de ficheiros ainda podem bloquear em armazenamento lento.
+
+A pasta de receção guiada predefinida situa-se em XDG_DATA_HOME/vipirc/downloads ou HOME/.local/share/vipirc/downloads no anfitrião do processo, sendo criada apenas após aceitação explícita. Caminhos relativos fornecidos em comandos e a omissão da pasta de receção usam o diretório de arranque, mantendo as verificações de privacidade. Sem um IPv4 anunciado explicitamente, o envio usa o endereço do socket IRC local; não descobre endereços públicos nem configura encaminhamento.
+
+As ações do rato sobre alcunhas e canais guardam cópias de tamanho limitado dos valores apresentados. Mudanças na lista de utilizadores não podem redirecionar um clique anterior para outro alvo. Clicar numa alcunha abre um menu local; uma escolha posterior de Whois/Query/Ignore efetua essa ação. Clicar num canal ainda não aderido pode entrar nele de forma explícita. A conclusão automática e a inserção de sugestões não transmitem IRC. O consentimento de envio/transferência continua a passar pela validação normal. Estas invariantes de código não afirmam que esta etapa de documentação tenha executado toda a interface curses.
+
+## Associações de teclas definidas pelo utilizador
+English source section: User-defined key bindings
+Source SHA-256: 250d7d0eb62f8b649e64f59b1e69d2220ec79005f08d6a7dfba30905d1133303
+Source paragraphs: 2
+
+A configuração principal contém no máximo 64 associações de teclas; a tabela predefinida está vazia. As teclas são normalizadas para uma identidade fixa e as ações pertencem a uma lista local permitida. Não existe comando arbitrário, expansão de shell, IRC em bruto ou ação de envio direto. Associações desconhecidas, duplicadas ou demasiado grandes rejeitam atomicamente o carregamento da configuração. Só Save explícito persiste alterações através do mecanismo existente de escrita de ficheiros privados.
+
+A execução de ações personalizadas limita-se ao chat principal e à entrada de comandos. Colagens e campos, leitores ou confirmações modais não executam essas ações. A descodificação de teclas Function/Alt não transforma uma colagem capturada em ação, e a sequência de entrada que termina a colagem não executa imediatamente um atalho. Colagens sem delimitação não se distinguem de digitação. O terminal pode intercetar teclas antes da aplicação. As associações nunca reatribuem caracteres de sinal do terminal nem ativam sinais. Consulte doc/HOTKEYS.txt para o âmbito exato e a proteção de rascunhos.

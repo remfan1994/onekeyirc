@@ -1,0 +1,11 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / NICKNAME COMPLETION
+English source SHA-256: 89b368bbd759571d49afe8fccb96d986865af2f76dcd6d257f18cd768bda8e98
+
+COMPLÉTION DES PSEUDONYMES
+
+Tab complète le pseudonyme près du curseur de saisie. Les pressions suivantes sur Tab parcourent les correspondances dans l'ordre alphabétique propre à la casse ; Shift-Tab parcourt en sens inverse. La correspondance suit les règles ASCII, strict RFC1459 ou RFC1459 annoncées par le serveur. Aucune recherche réseau ni émission de message n'est nécessaire. La saisie normale termine le cycle de complétion.
+
+Au début d'un brouillon, la complétion ajoute ': ' ; à la fin d'un mot ultérieur, elle ajoute un espace. Lorsqu'elle intervient au milieu du brouillon, la ponctuation et les mots suivants restent intacts. Les salons et URL ne sont pas interprétés comme préfixes de pseudonymes. Si un candidat dépasse la limite d'octets ou de caractères, tout le brouillon reste intact. Si la taille réduite du message IRC est dépassée, l'avertissement habituel apparaît ; une complétion n'envoie jamais de message.
+
+Dans un salon, les propositions viennent de la liste actuelle des membres ; dans un dialogue privé, du correspondant et de votre propre pseudonyme. Les vues serveur et mentions utilisent les correspondants connus des salons rejoints et dialogues de ce serveur. Les utilisateurs d'un autre serveur ne sont jamais proposés. Les changements dans les membres s'appliquent à la prochaine complétion, sans liste supplémentaire.

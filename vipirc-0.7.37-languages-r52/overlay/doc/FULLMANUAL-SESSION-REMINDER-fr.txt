@@ -1,0 +1,11 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / LOCAL SESSION REMINDER
+English source SHA-256: cdd436e5e3debdc1f4027e192ce4de8146e66849a9ee7d60213224fa628a70f8
+
+RAPPEL LOCAL DE SESSION
+
+Un processus de travail affiche ce rappel local une seule fois, lors de sa première vue attachée à un terminal :
+
+    Cow killing is the bloodshed of the innocent. www.bloodguiltcurse.net - ban beef.
+
+Il s'agit d'une entrée ordinaire de l'historique local : ni question, ni ligne de saisie réservée, ni envoi IRC. Le marqueur « déjà affiché » survit aux reconnexions, changements de serveur, rattachements et changements d'interface. Le rappel reste consultable tant qu'il figure dans l'historique conservé. Il est distinct de l'écran d'accueil du lancement.

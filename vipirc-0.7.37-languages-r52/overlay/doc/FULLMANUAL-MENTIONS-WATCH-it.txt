@@ -1,0 +1,13 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / MENTIONS AND WATCH STRINGS
+English source SHA-256: 7dd545c1b52064bcd746c17c664bc33816010b1a1bc6f7dfda8f6df48830ba1c
+
+MENZIONI E STRINGHE MONITORATE
+
+Il proprio nickname corrente viene monitorato automaticamente. La corrispondenza segue le regole sui maiuscoli e sui confini dei nickname annunciate dal server IRC. Cambiare nickname aggiorna tale corrispondenza automatica.
+
+    /watch add project name
+    /watch remove project name
+    /watch list
+
+I valori personalizzati sono sottostringhe letterali, non espressioni regolari né modelli di shell. Si applicano le regole IRC/ASCII per maiuscole, lettere e simboli; i caratteri non ASCII devono corrispondere esattamente. Sono ammessi fino a 32 valori personalizzati di 127 byte UTF-8 ciascuno. Durante l'uso normale, /save conserva le modifiche nella configurazione selezionata; in modalità di prova restano in memoria. Le menzioni sono conservate in memoria secondo i limiti della cronologia: non formano un archivio permanente di notifiche né un registro su disco. Le date/ore indicano la ricezione locale nel formato YYYY-MM-DD HH:MM:SS.

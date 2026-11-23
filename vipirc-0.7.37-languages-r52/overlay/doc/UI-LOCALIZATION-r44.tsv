@@ -1,0 +1,30 @@
+client	source	kind	english	fields
+vipirc	src/ui.c	fixed	Open application preferences and saved server settings. Application preferences include command suggestion order. Select an option to edit it, then Apply or Save as appropriate.	
+vipirc	src/ui.c	fixed	Edit the application-wide custom key bindings. No custom bindings are installed by default. Add a key and choose an action, then Apply or Save. Escape discards changes made since opening or applying the table.	
+vipirc	src/ui.c	fixed	Open the separate command input. Suggestions help discover commands; selecting one inserts it for review before execution. Your conversation draft is preserved.	
+vipirc	src/ui.c	fixed	Keep connections running while releasing the current terminal. Resume the session with vipirc --resume. Pending setup or credential operations can require waiting before detaching.	
+vipirc	src/ui.c	fixed	The command screen has its own input, preserving the conversation draft. Down focuses suggestions; Up/Down selects; Enter copies the selection for editing. Up from the first suggestion returns to input. Right at the end completes a command name.	
+vipirc	src/ui.c	fixed	Settings offers Common, Recent history, Most used with this config, Alphabetical, and Contextual. Contextual uses the screen that opened the command prompt. Other matching commands remain available.	
+vipirc	src/ui.c	fixed	Delete removes a selected Recent history entry or resets a selected personal usage count in Most used. Command arguments and credentials are never saved in personal usage counts. ? explains a highlighted suggestion; in the input field it types a question mark.	
+vipirc	src/ui.c	fixed	The vipirc main screen provides the current server and nickname, Settings, Key bindings, Manual, Command, Background, About and the license. Up/Down selects an item; Enter opens it. / opens the command prompt with client context. B returns to the conversation. Escape opens the quit question.	
+vipirc	src/ui.c	fixed	The top categories lead to servers, channels, queries, activity and transfers when those categories are available. Each screen retains its own selection.	
+vipirc	src/ui.c	fixed	These lists show views already open in the selected server session. Up/Down selects a view; Left/Right selects Open, New, Part or Close as appropriate; Enter performs the selected action. Channel 0 is the server. /cl and /channels show local channel views; /list [MASK] [OPTIONS] opens the sortable network channel directory. /ql shows private conversations.	
+vipirc	src/ui.c	fixed	Channel 0 contains server replies and notices. /join and /list work here without selecting a chat conversation.	
+vipirc	src/ui.c	fixed	This is a private conversation. Open selects it without sending. Close discards its retained view and draft after any required confirmation.	
+vipirc	src/ui.c	fixed	You are joined to this channel. Part leaves it but keeps its history and unfinished draft. Close removes the view.	
+vipirc	src/ui.c	fixed	You are not joined to this channel. The retained view keeps its scrollback and unfinished draft. Use /join to join again, or Close to remove it.	
+vipirc	src/ui.c	named-fields	"{description}
+
+Unread messages: {unread}; mentions: {mentions}. Selecting Open visits this view. Help preserves the view's unread counts, history and draft."	description,unread,mentions
+vipirc	src/ui.c	named-fields	"Connection: {state}. Open visits channel 0 for this server. Connect starts its connection; Disconnect ends it while retaining its views. Close removes a secondary session and its drafts after confirmation. Away changes this server's away state.
+
+Selecting this entry or reading help does not switch servers or connect."	state
+vipirc	src/ui.c	named-fields	"{channel} has {users} listed users. Topic: {topic}
+
+Enter joins the selected channel. Left/Right changes the sort column; S reverses its direction. R repeats the current LIST request with the same filters."	channel,users,topic
+vipirc	src/ui.c	fixed	(no topic)	
+vipirc	src/ui.c	fixed	[source closed] 	
+vipirc	src/ui.c	fixed	vipirc main screen	
+vipirc	src/app.c	fixed	Usage: /ignore [list|clear|[add|remove] MASK], /unignore MASK; use a nickname or nick!user@host mask (127 bytes).	
+vipirc	src/app.c	named-fields	Ignore mask removed.{persistence}	persistence
+vipirc	src/app.c	named-fields	Ignore mask added.{persistence}	persistence

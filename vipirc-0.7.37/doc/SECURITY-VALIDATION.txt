@@ -1,0 +1,79 @@
+SECURITY RELEASE VALIDATION
+Date: 2026-11-08
+vipirc 0.7.15 / onekeyirc 0.1.14
+
+EXECUTED CURRENT CHECKS
+
+- onekeyirc ./configure and hardened optimized build: PASS.
+- Clean staged source build: identical binary SHA256 to the final tested build.
+- Private DESTDIR installation: executable/version, manuals and security
+  review/validation/evidence files present; no host installation changed.
+- make check-security: PASS in onekeyirc. Includes actual config/command
+  helpers, protocol, auth, logging, LIST, source identity, process guards,
+  bounded background output, idle boundary, TLS and retry classification.
+- make check-security-detach: PASS. Its PTY fixture deliberately rejects
+  preparation; it does not create a real AF_UNIX session or daemon.
+- make check-security-sanitize: PASS in onekeyirc/shared tests with
+  ASAN_OPTIONS=detect_leaks=0:halt_on_error=1 and
+  UBSAN_OPTIONS=halt_on_error=1. Leak detection was disabled due to the host.
+- Shared app/client/config/commands/editor/nicks/summary/minimalist config,
+  command and setup tests: PASS. Editor: 471052 checks.
+- Credential filesystem/helper fixtures: PASS with one explicitly skipped
+  ownership-switch case in a scratch copy; shipped test is unchanged.
+- DCC unit, source-identity, file-picker and stress: PASS normal and ASan/UBSan.
+- Exact extracted full-UI warning function: PASS for zero, negative, narrow
+  and oversized widths under ASan/UBSan. Full UI suite remains unexecuted.
+- Shared production sources: 38 files byte-identical between packages.
+- Built-in manual text and shipped manual synchronization: PASS.
+- Actual ELF inspection: PIE, RELRO, immediate binding, non-executable stack,
+  stack-protector and fortified libc imports present in final onekeyirc.
+
+FINAL PRODUCTION IDLE WORKLOAD
+
+Duration: 90.003 seconds.
+Incoming records: 134752.
+PING replies: 180.
+Worst/median measured PING latency: 5.798/0.129 ms.
+PTY entirely unread for: 30.0 seconds.
+Actual terminal bytes inspected: 6394755.
+Unexpected client commands: 0.
+Unsolicited DCC connections: 0.
+Unsafe terminal controls from remote data: 0.
+Persistent log files with logging disabled: 0.
+Identity-checked steady baseline/max descriptors: 4/4.
+Peak steady RSS: 4732 KiB.
+RSS growth after warm-up: 92 KiB.
+Sampled client CPU time: 1.12 seconds.
+
+The test sent hostile terminal/control sequences, malformed UTF-8, bidi, IRC
+styles, literal slash commands, private-sender churn, roster changes and DCC
+offers. It used the final optimized binary with real process protections.
+Resource samples validated process identity; unverified namespace samples
+from exploratory runs are not used. This is a bounded test, not a days-long
+soak test or proof of resistance to every possible flood.
+
+DETACH BOUNDARY
+
+Preparation callback reached after 507.837 ms without draining
+the PTY. Canonical history preserved; deliberate preparation failure shown
+after output recovered; IRC remained responsive. Editor Escape and bracketed
+pasted /background did not detach or send. Actual terminal output tests also
+verify bounded notices/cleanup, worker readiness, shared descriptor flag
+restoration and stale stdio discard with a dummy prepared listener.
+
+ENVIRONMENT AND LIMITATIONS
+
+Restricted Linux x86_64; GCC 13.3.0; OpenSSL 3.0.13; Python 3.12.14.
+No native OpenBSD compiler/runtime or rc.d/reboot/SSH lifecycle test.
+No full vipirc link/run: curses development headers are unavailable.
+AF_UNIX creation returns EPERM; no complete session IPC runtime pass.
+LeakSanitizer fails under this host's tracing arrangement; not a leak pass.
+chown to a fixture UID is rejected; one ownership-change case is host-blocked.
+Full make check was not claimed as passing; the native-host gates remain.
+Selected analyzer runs passed, except one manually triaged net.c dup2 failure
+path descriptor diagnostic. There was no clean whole-project analyzer claim.
+
+See SECURITY-REVIEW.txt for baseline reproductions, fixes, remaining risks,
+references and target-host acceptance commands. SECURITY-TEST-RESULTS.json
+contains the measured results and source/binary hashes. Historical
+OPENBSD-VALIDATION.txt applies only to its named earlier releases.

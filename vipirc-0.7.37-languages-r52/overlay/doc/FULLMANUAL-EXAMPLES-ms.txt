@@ -1,0 +1,8 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / READING EXAMPLES
+English source SHA-256: 751bca637a31922e4d65e1e3fca1c3fd8a51728488978ad1f89f250aeda8bfd1
+
+CARA MEMBACA CONTOH
+
+Contoh yang bermula dengan vipirc dijalankan dalam shell; /arahan dimasukkan dalam Command. Masukkan satu arahan pada satu masa. Dalam ringkasan sintaks, perkataan HURUF BESAR ialah tempat letak yang perlu diganti, [items] adalah pilihan dan | memisahkan alternatif.
+Apabila Command dibuka, / sudah disediakan. Sebelum menampal /arahan lengkap, buang garis miring awal itu, semak hasilnya, kemudian tekan Enter. Blok arahan yang ditampal bukan skrip: baris baharu menjadi ruang. Teks yang ditampal ke chat/watch kekal sebagai teks perbualan.

@@ -1,0 +1,213 @@
+Praxisleitfaden vipirc / onekeyirc
+==================================
+
+ENTWURFSÜBERSETZUNG. Befehle und Optionen genauso wie gezeigt eingeben.
+Für Sicherheitsdetails die englischen Dateien MANUAL.txt und SECURITY.md lesen.
+
+/help startup
+-------------
+
+Programm starten, Begrüßung schließen, dann /connect irc.example.org und /join #channel eingeben.
+
+Ein Serverprofil, Alias oder eine Nummer muss nicht vorher angelegt werden. /server HOST steht für eine Direktverbindung.
+
+Ohne Nickname wird ein gültiger System-Anmeldename genutzt, ersatzweise user. Es erscheint keine Nickname-Abfrage.
+
+Mit /saveconf Konfiguration und gewählten Standard speichern. Beim nächsten Start nutzt /connect beides.
+
+Speichern aktiviert kein automatisches Verbinden; das ist eine eigene Wahl. /quickstart und /panel sind optionale Hilfen.
+
+Auch Shell-Optionen gehen: --server HOST, --channel '#CHANNEL' und --nick NICK. #CHANNEL in der Shell zitieren.
+
+Beim normalen Start überschreiben --nick, --port, --channel, --tls, --plain und --ca-file den gespeicherten Standard.
+
+Ein angegebenes --server wählt stattdessen die erste Verbindung. --init-config und --check-config nutzen die Hauptkonfiguration.
+
+Bei einem anderen Host mit --server werden alte Zugangsdaten, eigene CA, Bouncer-Identität, Kanäle und Startbefehle gelöscht.
+
+Fehlt der gespeicherte Standard, --server angeben oder den Standard korrigieren, bevor Verbindungsoptionen überschrieben werden.
+
+Autoconnect, autojoin und autoauth gehören zum jeweiligen gespeicherten Serverprofil. Siehe /help autoconnect.
+
+--no-connect verhindert Startverbindungen; --test-mode simuliert ohne Netzwerk oder Schreibzugriff auf die Konfiguration.
+
+--sessions listet angehängte und getrennte Jobs. --resume [NUMBER] verbindet erneut; siehe /help background.
+
+--close-session NUMBER beendet den ganzen Job mit allen IRC-Verbindungen nach bestätigtem Abschluss. NUMBER ist eine Job-ID, keine PID.
+
+Nach Terminalverlust --sessions, dann --detach-session NUMBER und --resume NUMBER nutzen. Ein Worker behaelt seinen Code bis zum Neustart; siehe /help sessions.
+
+-h/--help und -v/--version funktionieren ohne Terminal.
+
+/help messages
+--------------
+
+Mit /join #channel einen Kanal betreten und wählen, mit /query NICK einen privaten Dialog oeffnen.
+
+Einen vorhandenen Kanal mit /channel wählen. /msg TARGET TEXT sendet an ein Ziel, /me TEXT eine Aktion.
+
+/query öffnet ein Gespraech ohne Nachricht; /pm ist ein Alias. /ql fuehrt private Dialoge getrennt von Kanälen.
+
+Direktes Senden ist Standard; /set send_mode review fügt eine Prüfung hinzu. /set composer_mode line|fullscreen ändert die Ansicht.
+
+Am Ein-Nachrichten-Limit erst weiteres Bearbeiten bestätigen; eine Aufteilung erfordert eine weitere Zustimmung.
+
+Kanalbeitritt und Anmeldung müssen vor dem Einreihen abgeschlossen sein. /cancel verwirft nur noch nicht gesendete Nachrichten.
+
+/help limits
+------------
+
+IRC-Grenzen gelten für Bytes, nicht für angezeigte Zeichen. UTF-8-Zeichen können mehrere Bytes belegen.
+
+Der Client berechnet den Platz einschließlich Ziel, Befehl und Relay-Overhead; er trennt kein UTF-8-Zeichen.
+
+Am Limit einer Nachricht wird weiterer Text bis zur Bestätigung mit Enter gesperrt; dieses Enter sendet nichts.
+
+Auch im Direktmodus braucht eine mehrteilige Nachricht eine gesonderte Zustimmung. Chat sendet alle 1.2 Sekunden eine Zeile.
+
+Ein Sendeplan umfasst höchstens 64 Nachrichten und 16384 Bytes Text. Text kürzen oder bewusst getrennt senden.
+
+Es gibt höchstens 8 Serverplaetze und 32 Ansichten je Server, einschließlich reservierter Ansichten.
+
+/help quickstart
+----------------
+
+Server, TLS-Transport, Port und Nick des aktuellen Profils in dieser Reihenfolge bearbeiten, dann Einstellungen prüfen.
+
+Geprueftes TLS ist Standard. Eine Klartextverbindung muss explizit gewaehlt werden.
+
+Enter behaelt den angezeigten Wert. Escape geht eine Frage zurueck; mehrfach druecken verlässt ohne Übernahme. Antworten landen nicht im Befehlsverlauf.
+
+Bei der Abschlusspruefung: 1 Speichern und verbinden, 2 Nur speichern, 3 Einmal verbinden (Standard), 4 Nur übernehmen.
+
+Das Oeffnen des Assistenten und fruehe Antworten übernehmen nichts, speichern keine Datei und verbinden nicht.
+
+Einmal verbinden uebernimmt ohne Speichern; Nur übernehmen speichert und verbindet nicht. Eine laufende Verbindung wechselt nie stillschweigend Ziel oder verbindet neu.
+
+Eine fehlgeschlagene Verbindung nimmt bereits uebernommene oder gespeicherte Änderungen nicht zurueck.
+
+Für Bouncer-Profile und weitere Einstellungen /panel verwenden. Quickstart aendert keine vorhandene Bouncer-Anmeldung.
+
+/help save
+----------
+
+/save ohne Zusatz schreibt die effektiven Einstellungen des ausgewählten Servers samt vorgemerkten Verbindungsdaten.
+
+/save input und /save output speichern beide das gesamte Hauptprofil, Einstellungen und vorbereitete Verbindung. Sie speichern nicht nur den genannten Teil.
+
+/save all speichert jedes gueltige Profil einzeln. Scheitert eines, bleiben vorher erfolgreiche Dateien erhalten und Fehler werden gemeldet.
+
+Jeder Dateiersatz ist privat und atomar, aber keine gemeinsame Transaktion über alle Dateien. Testmodus schreibt keine Konfigurationen.
+
+/help documentation
+-------------------
+
+Mit /help ls Aufgaben suchen; /help commands erklaert die Eingabe und listet Befehle. Jeweils nur ein Thema oder einen Befehlsnamen angeben.
+
+/help COMMAND zeigt Syntax, Wirkung und Beispiele. /help /ls erklaert die lokale Liste, /help ls zeigt Themen.
+
+/help all oder /manual öffnet diese Referenz. --help erklaert Startoptionen; die Ausgabe von --manual im Minimalmodus kann in eine Datei umgeleitet werden.
+
+README.md zeigt die Dokumentation; MANUAL.txt erklaert die Oberflaeche, INSTALL das Bauen. Die installierte man-Seite erklaert Shell-Aufrufe.
+
+CONTRIBUTING.md erklaert Änderungen, doc/SOURCE-MAP.txt den Quellcode und tests/README.md die Tests. DESIGN.md haelt Zuständigkeiten und Reihenfolge fest.
+
+doc/TROUBLESHOOTING.txt fuehrt durch Symptome. SECURITY.md beschreibt Risiken; doc/BOUNCERS.txt und doc/SESSION-CONTROLS.txt erklaeren Ablaufe. Audits gelten nur für angegebene Version und Umgebung.
+
+/help security
+--------------
+
+Entfernter Text wird vor der Terminalausgabe bereinigt. Eingaben sind lokale IRC-Befehle, keine Shell-Befehle.
+
+Kein /raw, Shell-Zugang oder automatische Dateiannahme. Erkanntes Bracketed Paste sendet niemals einen Befehl.
+
+TLS prüft die Serveridentitaet. SASL, PASS und erkannte private Anmeldebefehle erfordern geprüftes TLS. Auch die TLS-Systembibliothek aktuell halten; siehe SECURITY.md.
+
+Ein eigenes CA-Bündel muss eine nichtleere reguläre PEM-Datei bis 16 MiB sein und fragt nie nach einem Passwort.
+
+Konfigurierte Passwoerter werden in Hilfe/Einstellungen verborgen. Bekannte Passwortbefehle sind vom Rückruf ausgeschlossen; Geheimnisse als normaler Text können gespeichert bleiben.
+
+Standardmäßig kein Chatprotokoll auf Platte. Konfigurationsänderungen müssen ausdrücklich gespeichert werden.
+
+Andere Prozesse desselben Kontos, der IRC-Server oder Bouncer und ein kompromittiertes Terminal oder System sind nicht geschuetzt. TLS ist keine Ende-zu-Ende-Chatverschluesselung.
+
+Optionale Logs und direkte Geheimnisse in Konfigurationen liegen im Klartext. Bekannte sensible Befehle werden gefiltert, beliebige Geheimnisse im Chat jedoch nicht sicher erkannt.
+
+Für Grenzen und frühere Prüfungen siehe /help tls, /help authentication, /help logging und SECURITY.md.
+
+/help sessions
+--------------
+
+Ein Job ist ein Clientprozess mit Servern, Transfers, Entwuerfen und Verlauf. Eine Servernummer im Programm ist keine Shell-Job-ID.
+
+Im Terminal --sessions ausführen. Den Status angehangt/getrennt prüfen und die Job-ID benutzen, nicht die Prozess-ID.
+
+Wenn ein altes SSH-Terminal den Job halt, --detach-session NUMBER und dann --resume NUMBER nutzen. IRC bleibt aktiv.
+
+--resume ohne Nummer waehlt nur einen einzigen geprüften getrennten Job. Bei mehreren Jobs ist eine Nummer noetig; verbundene Jobs sind belegt. Nummern können erneut vergeben werden.
+
+--close-session NUMBER beendet den ganzen Job, IRC und Transfers. Entwürfe und RAM-Verlauf gehen verloren; gespeicherte Konfiguration und Logs bleiben erhalten.
+
+Schliessen gilt erst nach gepruefter Bereinigung als erfolgreich. Bei Zeitablauf --sessions erneut prüfen: es kann spaeter fertig werden. Fehler loeschen keinen Live-Endpunkt und signalisieren keine vermutete PID.
+
+Nur verwaltete Jobs überstehen Terminalverlust. Ein normaler Vordergrundprozess wird nach SSH-Abbruch nicht wiederaufnehmbar. Mit --background starten oder vorher /background ausfuehren.
+
+Ein Job gehoert zum gleichen Unix-Konto und Host und hat hoechstens ein Terminal. Andere Programme unter diesem Konto liegen innerhalb derselben Vertrauensgrenze.
+
+Die Installation einer neuen Datei ersetzt keinen laufenden Code. Konfiguration speichern, alten Job beenden, --version prüfen und frisch starten.
+
+Ältere Jobs kennen neue Kontrollen oder den Oberflaechenwechsel eventuell nicht. Das passende Programm bis zum Jobende behalten, falls für das Anheften noetig.
+
+Der Client aendert keine SSH-Leerlaufrichtlinie. Siehe /help background, /help deployment und doc/SESSION-CONTROLS.txt.
+
+/help troubleshooting
+---------------------
+
+Nach SSH-Verlust besetzt? --sessions aufrufen, Job prüfen, --detach-session NUMBER und --resume NUMBER. --close-session vermeiden. See /help sessions.
+
+Up holt keinen Text zurueck: Compose bearbeitet Nachrichten; Command ruft angenommene Befehle ab. Command im Log mit / öffnen. Chat und sensible Befehle stehen nicht im Rückrufverlauf.
+
+Wirkt eine umgebrochene Nachricht abgeschnitten, reserviert die Eingabe Zeilen und zeigt nur neuere Zeilen. Editor verlassen oder Kanal neu wählen; sichtbarer Text belegt keine Zustellung.
+
+Wenn Kanalwechsel den ganzen Text zeigt, ist es ein Ansichtsunterschied. Bei Fehlern Oberflaeche, Modus, Terminalgroesse, locale und bereinigte Schritte notieren; keine Passwoerter oder privaten Chats teilen.
+
+Keine Kanäle? Serveransicht und Anmeldung prüfen. Direkt: /autojoin list; Bouncer: /join oder /part.
+
+Anmeldung fehlgeschlagen? Konto, Quelle, Dateirechte, TLS und GPG-Agent prüfen. /autoauth status liest keine Geheimnisse.
+
+Kein Nachholen: Anker kann verfallen, Logging spaeter begonnen oder gestoppt, Datei geaendert sein. Siehe /help catchup und /help logging; Logs starten keinen beendeten Worker neu.
+
+Änderung wirkungslos? /connect erst nach Trennung. Speichern aktiviert autoconnect nicht; Startoptionen brauchen Neustart.
+
+Scheitert der Helferstart, SIGCHLD- oder automatische Kindprozess-Reaping-Regel des Launchers korrigieren, damit der Client seine Kinder abwarten kann.
+
+Nutzen Sie --check-config und doc/TROUBLESHOOTING.txt. --test-mode pruft nur die Oberflache, nicht DNS, TLS, Daten oder echten Bouncer.
+
+/help bouncers
+--------------
+
+Öffnen Sie /panel, wählen Sie einen Server und dann den Typ znc oder soju.
+
+Bouncer-Host und TLS-Port, Bouncer-Benutzer, vorhandenes Upstream-Netz und optional festen Clientnamen eingeben.
+
+Speichern Sie pro Upstream-Netz ein Profil. Bei gleichem Host vor /connect ohne Argument das richtige Profil wählen.
+
+Der Client baut die Loginidentitaet. ZNC nutzt das Serverpasswort, soju das Authentifizierungspasswort. Nur das Bouncer-Passwort eingeben, keine kombinierte Kennung oder NickServ-Kennung.
+
+Bouncer stellen Kanäle wieder her. Lokales /autojoin wird nicht ausgefuhrt oder bearbeitet; nutzen Sie /join und /part.
+
+Explizite Startbefehle laufen weiterhin. Vor Aktivierung des Profils prüfen, damit keine unerwünschten Joins oder Dienstbefehle wiederholt werden.
+
+Automatisches Away bei Leerlauf/Hintergrund ist je Bouncer-Profil aus, sofern nicht aktiviert. Manuelles /away und /back funktioniert.
+
+Uebermittelter Verlauf nutzt originale UTC-Zeitstempel, ordnet private Nachrichten dem Empfaenger zu und erzeugt keine Mentions, CTCP/DCC-Aktionen oder Live-Zustandsaenderungen.
+
+Verlauf bleibt begrenzt. Keine Archivanfrage, automatische Netzwerkerkennung oder automatische Profilerstellung je Netz.
+
+/znc oder /soju ohne Argument zeigt Servicehilfe. Kontrolltexte gehen nicht in Verlauf oder Echo; Antworten erscheinen im Serverfenster ohne dauerhaftes Logging.
+
+Bekannte ausgehende Kontrollkopien werden auch beim Replay alter Nicknamen unterdrueckt. Bearbeiteter Text kann sichtbar sein; der Bouncer hat eigene Logregeln.
+
+Der Client verbindet sich nur zum Bouncer. Upstream-TLS, Authentifizierung und Speicherung separat einrichten.
+
+Für Einrichtung und geprüfte Grenzen siehe doc/BOUNCERS.txt sowie Bouncer-Beispiele unter examples/.

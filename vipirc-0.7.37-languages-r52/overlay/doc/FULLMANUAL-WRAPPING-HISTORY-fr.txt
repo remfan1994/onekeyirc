@@ -1,0 +1,9 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / MINIMALIST WRAPPING AND INPUT HISTORY
+English source SHA-256: 530aeaefbd01d1eb2f184d0eabe5145550b9634fd9235a3f604b9f234b562160
+
+RETOUR À LA LIGNE ET HISTORIQUE DE SAISIE MINIMALISTES
+
+Compose réserve des lignes à la saisie et affiche au-dessus les dernières lignes visuelles avec retour à la ligne ; les précédentes peuvent sortir de cette petite fenêtre. Ni le texte stocké ni les plans d'envoi ne sont raccourcis. Quittez la saisie ou sélectionnez à nouveau la conversation pour examiner les lignes conservées ; l'écho local ne prouve pas la livraison. Un redimensionnement recalcule l'affichage tout en préservant brouillon et curseur.
+
+Dans Compose, Haut/Bas déplace le curseur, même si la touche reste enfoncée. Seul Haut dans Command rappelle des commandes acceptées ; le chat envoyé, les lignes sensibles des services et les jonctions avec clé ne sont pas rappelés. Le fichier .commands ne contient que des noms et des compteurs. Voir COMMAND PROMPT, INPUT EDITING et TROUBLESHOOTING.

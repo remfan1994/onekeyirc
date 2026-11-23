@@ -1,0 +1,36 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / COMMAND-LINE OPTIONS
+English source SHA-256: 2dd0066181d81214b50bdc848d76a75ed557f6bc4b62982d6c1d0d251ef3c932
+Source lines: 281-373
+
+KOMUT SATIRI SEÇENEKLERİ
+
+-i, --idle: Bu başlatma için yalın arayüzü seçer; --help ve --manual bu modu açıklar.
+-N, --ncurses: Bu başlatma için tam arayüzü seçer. Son açık arayüz bayrağı geçerlidir; kaydedilmiş varsayılan değişmez. -n yine takma ad anlamına gelir.
+-s, --server HOST: Birincil sunucuyu URL yerine ana bilgisayar adı veya sayısal IPv4/IPv6 adresiyle seçer.
+-p, --port PORT: 1..65535 aralığında bağlantı noktası. Varsayılan doğrulanmış TLS için 6697; açıkça şifresiz IRC seçilirse 6667.
+-c, --channel LIST: Doğrudan profilde kayıt sonrasında otomatik katılınacak kanallar. Virgülle ayrılmış veya yinelenmiş seçenekler kullanılabilir. Kabukta '#channel' değerini tırnaklayın; bouncer üyelikleri kendisi geri yükler.
+-n, --nick NICK: Başlangıçta geçerli profilin takma adını değiştirir.
+-C, --config FILE: Ana yapılandırmayı, .servers kataloğunu ve .d profil dizinini seçer. --init-config oluşturmadıkça dosya önceden var olmalıdır; yapılandırma yolları aynen yorumlanır.
+--tls: Varsayılan olan doğrulanmış TLS'yi zorunlu kılar. Yalnızca bağlantı noktası belirtmek TLS'yi kapatmaz.
+--plain: Şifrelenmemiş bağlantıyı açıkça seçer; saklanan kimlik bilgileriyle kimlik doğrulama reddedilir.
+--ca-file FILE: Sistem güven deposu yerine özel PEM yetkililerini kullanır. Boş olmayan normal dosya, en fazla 16 MiB; olağan sembolik bağlantıya izin verilir. Parola sorulmaz.
+--no-connect: Başlangıçtaki tüm bağlantıları ve simülatörleri engeller. Daha sonra açıkça bağlanın.
+--background: tty, TERM veya karşılama tuşu olmadan bağımsız worker başlatır. -i/-N geçersiz kılmadıkça kaydedilmiş varsayılan arayüz kullanılır. Otomatik bağlanan profilleri kaydedin veya --server verin; --no-connect önceliklidir. Başarı yalnızca yerel başlatmayı doğrular, IRC oturumunu değil.
+--reconnect: Bu işlemdeki geçici ağ hatalarını tekrar dener; bağlantı başlatmaz veya tercihi kaydetmez. Beklemeler 5,10,20,40,80,160,300 saniyedir; 60 saniyelik kesintisiz kayıt seriyi sıfırlar. /disconnect iptal eder, /connect yeniden başlatır. Sertifika, kimlik doğrulama, yapılandırma ve protokol hatalarında bağlantı kesik kalır. Bekleyen sohbet iletileri atılır. Yeni bağlantıda kimlik doğrulama ve başlangıç komutları yeniden çalışır; doğrudan profiller otomatik katılımı tekrarlar, bouncer üyelikleri geri yükler. Bekleyen bağlantı ayarları için bağlantı kesildikten sonra açık /connect gerekir.
+--test-mode: Ağ/DNS olmadan, kimlik bilgilerini okumadan ya da kaydetmeden etkileşimli çevrimdışı simülasyon.
+--resume [JOB]: Doğrulanmış tek bağımsız işi ekler veya numarasını belirtir; --resume=JOB de kabul edilir. Açık mutlak soket yolları uyumlu eski worker'lar içindir. Numarasız devam kendi arayüzünü korur; -i/-N başka arayüz ister. stdin, stdout ve stderr aynı etkileşimli tty'ye bağlı olmalıdır. Birden çok ya da doğrulanmamış iş otomatik seçimi engeller; zaten bağlı iş meşguldür.
+--sessions: Bu hesabın bağlı veya bağımsız işlerini tty ya da yapılandırma yüklemeden listeler.
+--detach-session NUMBER: Doğrulanmış denetleyiciyi bırakır; worker ve durumu korunur. Sonra --resume NUMBER kullanın. --detach-session=NUMBER de desteklenir.
+--close-session NUMBER: Worker'ı, tüm IRC oturumlarını ve aktarımları, taslakları ve bellekteki geçmişi sonlandırır. Yapılandırma ve günlükler kalır. Başarı için doğrulanmış temizleme gerekir; zaman aşımından sonra tamamlanabileceği için --sessions ile yeniden denetleyin. --close-session=NUMBER de desteklenir.
+--init-config: Var olan veya aynı anda oluşturulan dosyaları değiştirmeden özel yapılandırma oluşturur. Bildirilen eşitleme/temizleme hatası tamamlanmış dosyayı yerinde bırakabilir.
+--check-config: Yapılandırmayı, geçersiz kılmaları, kataloğu ve kaydedilmiş profilleri denetler, çıkar. Sırları açmaz, GPG çalıştırmaz, CA/TLS sınamaz, erişim veya giriş başarısını kanıtlamaz.
+--manual: Seçili arayüzün tam kılavuzunu terminal gerektirmeden yazdırır.
+-h, --help: CLI yardımını terminal gerektirmeden yazdırır.
+-v, -V, --version: Sürüm, atıf ve lisans bilgilerini terminal gerektirmeden yazdırır.
+
+Uzun seçenekler --name=value biçimini, kısa seçenekler olağan kümelenmeyi kabul eder. -- seçenekleri sonlandırır; konumsal argüman yoktur. CLI değerleri yapılandırmadan, yapılandırma da varsayılanlardan üstündür. Normal başlangıçta ana bilgisayar dışındaki geçersiz kılmalar hatırlanan varsayılan profil içindir; açık --server birincili seçer. --init-config/--check-config birincilde çalışır. Hatırlanan varsayılan erişilemiyorsa diğer alanları değiştirmeden önce onarın veya --server kullanın.
+
+Büyük/küçük harfe duyarsız karşılaştırmada farklı --server, devralınan kimlik bilgisi kaynaklarını, kimlik doğrulamayı, özel CA'yı, bouncer kimliğini/otomatik away seçimini, kanalları ve başlangıç komutlarını temizler. Yeni sunucuyu açıkça yapılandırın. Aynı sunucu değişiklikleri ve yalnız --nick profil ayarlarını korur. Farklı --config ayrı çalışma alanı seçer.
+
+--resume, --sessions, --detach-session ve --close-session birbirinden ayrı yönetim işlemleridir; birbirleriyle veya yapılandırma/bağlantı/başlatma seçenekleriyle birleştirmeyin. Desteklenen arayüz bayrakları bir alias içinde kalabilir. --background bu işlemlerle, --init-config veya --check-config ile birleştirilemez. --test-mode da --init-config/--check-config ile birleştirilemez (kullanım durum kodu 2).

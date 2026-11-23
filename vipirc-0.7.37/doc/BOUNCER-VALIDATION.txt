@@ -1,0 +1,300 @@
+VIPIRC / ONEKEYIRC: BOUNCER, SECURITY, EFFICIENCY AND STABILITY REVIEW
+Release: vipirc 0.7.29 and onekeyirc 0.1.28
+Date: 2026-11-16 (America/Los_Angeles)
+
+RESULT
+
+Both projects now have explicit ZNC and soju profiles, setup support, private
+control commands, and bounded pushed-history handling. The implementation
+reuses the existing TLS connection, credential loaders, outgoing queue and
+history storage. All 38 production source/header files shared by the two
+packages are byte-identical. The full vipirc settings implementation is an
+additional frontend to that shared configuration and connection core.
+
+This report distinguishes new behavior, defects demonstrated during review,
+executed checks, and remaining platform coverage. It is not a claim that the
+clients are immune to attack or that an installed public service was audited.
+No public IRC server, real account, or real credential was used. Existing
+security reports remain in the packages with their original release scope.
+
+BOUNCER SETUP AND USE
+
+Use /panel and select the server profile, then choose connection type znc or
+soju. Full vipirc Settings has the same fields. Enter the provider's hostname
+and verified-TLS port, your nickname, bouncer username, an existing upstream
+network name, an optional stable client name, and the bouncer password source.
+
+Use one profile per upstream network. No extra connection manager, automatic
+network discovery, or second history store is created. The client preserves
+the provider's port instead of guessing it from the bouncer type. Components
+accept up to 63 ASCII letters, digits, '.', '_' and '-'. The password source
+contains only the bouncer password, including when it is a private file or
+GPG-encrypted file.
+
+ZNC:
+  [connection] auth=none, exactly one server_password source.
+  Login on the wire: account[@client]/network:password.
+
+soju:
+  [connection] auth=sasl, exactly one password source, auth_user empty.
+  SASL identity: account/network[@client].
+
+The bouncer identity fields derive the login; users do not assemble a combined
+password string. ZNC and soju profiles require verified TLS. soju registration
+requires successful SASL; failed authentication has no plaintext or unauthenticated
+fallback. The existing direct mode remains the default. Existing manual ZNC
+PASS configurations still work as direct profiles; when migrating to explicit
+znc mode, replace the old combined PASS source with the password alone.
+
+The shorter four-question Quickstart remains for direct IRC. It refuses to
+overwrite an existing bouncer profile and points to /panel. Setup applies only
+at Finish, with the existing Save and connect, Save only, Connect once and
+Apply only actions. Cancel and failed Save remain transactional.
+
+The bouncer owns channel membership. Restored JOINs are accepted, saved
+autojoin lists are not replayed, and a channel PARTed from another device is
+not silently rejoined on downstream reconnect. Use /join and /part for live
+changes. /autojoin reports this policy and rejects ignored add/remove/clear
+changes. Explicit configured startup commands still run after registration;
+an explicit startup /join remains an intentional exception.
+
+[bouncer] automatic_away defaults to false per profile. This prevents one
+idle device from automatically setting the shared upstream connection away.
+Opting in applies the existing application idle/background-away preferences
+to that profile. Manual /away and /back still work. Other profiles' global
+presence preferences are not rewritten when selecting a bouncer.
+
+Use /znc [COMMAND] or /soju [COMMAND]; no argument requests the bouncer's help.
+Examples are /znc ListNetworks, /znc Connect and /soju network status.
+/msg *status and enabled ZNC *module services use the same control path in
+ZNC mode; /msg BouncerServ does so in soju mode. Select /server to read replies.
+The alias requires the matching registered, authenticated TLS connection.
+Commands are one bounded, paced frame, never split into executable fragments.
+/cancel can remove an unsent command from the existing outgoing queue.
+
+See doc/BOUNCERS.txt and the installed examples/bouncer-znc.ini and
+examples/bouncer-soju.ini for complete configuration, migration and limits.
+
+SECURITY REVIEW AND CORRECTIONS
+
+1. Keep credentials with the identity for which they were entered.
+
+   A concrete concurrent-edit test demonstrated that an old direct-IRC setup
+   draft could transfer a newly entered SASL password into a concurrently
+   selected soju account. Both guided and full-settings public-API fixtures
+   reproduced the wrong-account merge before correction.
+
+   Endpoint, TLS/CA policy, bouncer identity, authentication identity and
+   credential sources now merge as one group whenever that group is edited.
+   Unrelated live nickname/application changes still survive. Changing the
+   connection identity discards old startup-command text, which may contain
+   NickServ or other account credentials. A stale identity cannot acquire
+   startup commands added for a different live identity. Ordinary password
+   edits preserve unrelated concurrent startup commands when identity did
+   not change; the existing GPG regression verifies that distinction.
+
+2. Apply control-command privacy at the send boundary.
+
+   Reviewing the new control feature found that direct composer send-plan
+   calls could bypass the initial command-dispatch privacy handling. Both
+   entry points now enforce one frame, no local echo, no last-sent anchor,
+   and exclusion from recall/persistent history. Command shortcuts and
+   explicit service /msg calls follow the same bounded path.
+
+3. Do not persist reflected control commands.
+
+   A second independent probe supplied synthetic own-nickname live and
+   historical messages addressed to a bouncer service. In the intermediate
+   implementation those messages were retained and written to the optional
+   disk log. The same probe after correction reports zero retained and zero
+   persisted live/history canaries for both bouncer types. Suppression now
+   happens before ordinary rendering. Service-source replies remain visible
+   in the server view and are excluded from persistent logging.
+
+   These two privacy issues were caught while adding the new feature. The
+   evidence does not assert that ordinary ZNC or soju daemons emit the
+   synthetic frames, or that prior direct-mode logs had this new guarantee.
+
+   Typed command text can still be visible while composing in the terminal.
+   The remote bouncer receives control commands and may log them. Local
+   history exclusion is not a promise of secrecy from its administrator.
+
+4. Bound protocol state and separate replay from live events.
+
+   Offered, pending and active capabilities have separate state. Multiline
+   LS and split ACKs are handled without accepting registration before
+   required authentication. server-time, batch, multi-prefix and
+   znc.in/self-message are requested when offered, plus SASL when configured.
+   echo-message, draft/chathistory and znc.in/playback capabilities are not
+   requested, because their echo/history-fetch semantics need other behavior.
+
+   Sixteen fixed batch slots accept up to 64-byte case-sensitive references.
+   Nested/interleaved chathistory and znc.in/playback batches inherit replay
+   status. Malformed/inconsistent or excessive framing disconnects with a
+   diagnostic. Unknown batch references are conservatively display-only.
+   Unknown batch types process their individual events normally.
+
+   Known playback cannot alter current membership, nick, authentication or
+   presence, generate fresh mention/unread activity, answer CTCP/PING, or
+   activate DCC offers. Replayed private messages from the current nickname
+   go to the recipient's conversation, within existing query limits, and do
+   not move the last locally sent catch-up anchor. Remote timestamps are
+   calendar-validated, shown in UTC, and never used for scheduling or pacing.
+
+   Timestamp-only legacy replay lacks a reliable history boundary and keeps
+   ordinary live handling. There is no on-demand history browser, arbitrary
+   cross-process replay deduplication, or network auto-discovery in this release.
+
+EFFICIENCY AND STABILITY
+
+Quiet history traversal: stream_output previously scanned every retained
+record even when all had already been displayed. The first unshown sequence
+now identifies the starting ring index. This adds no allocation, cache or
+parallel history. Existing notice priority, gap reporting, filters, output
+pressure, 64-record emission budget and wrap fallback are preserved.
+
+The fixture compares actual output bytes, cursor advancement and notice state
+against the original linear traversal for quiet/empty rings, eviction, cleared
+holes, physical wrap, selected views, mentions, formatting and backpressure.
+In isolated optimized runs, 100,000 quiet calls with 2,048 retained records
+took 188.832 ms versus 0.344 ms for vipirc and 230.485 ms versus 0.475 ms for
+onekeyirc, linear versus indexed. These measure one function's traversal work,
+not whole-client throughput, CPU use during normal chat, or power savings.
+
+Composer setting: the immutable baselines demonstrated that three profile
+construction/loading paths omitted composer_fullscreen. Three assignments
+now preserve that application preference in new, added and reloaded profiles.
+Tests verify live/lazy profiles, save/reload, failed-save preservation and
+switching the preference off. Bouncer credentials and automatic-away opt-in
+remain isolated per profile instead of inheriting from the primary account.
+
+Compact display: the new explicit UTC timestamp initially bypassed the old
+compact formatter. One shared formatter now recognizes local and UTC records,
+preserves [history], and removes redundant origin/date/target text. Full format
+and malformed-input fallback remain intact. Tests exercise streaming, retained
+viewport drawing, and a real private log through catch-up scanning/rendering.
+
+Reconnection clears per-connection capability, batch, authentication and
+outgoing queue state. Automatic retry retains running settings; explicit
+disconnect/connect adopts validated staged settings. Old queued messages
+are not resent as a side effect of reconnecting.
+
+EXECUTED VALIDATION
+
+Environment: Linux, GCC 14.2.0, OpenSSL 3.5.7, Python 3.12.14. Normal builds
+treat compiler warnings as errors. AddressSanitizer and UndefinedBehaviorSanitizer
+use halt-on-error; LeakSanitizer detection is disabled. Sanitizer symbol checks
+confirm instrumented builds rather than merely setting runtime variables.
+
+- 16 core groups passed: new bouncer core, existing application, presence
+  cancellation and presence recovery; both packages, normal and sanitized.
+- 10 setup/state runs passed: new and existing guided setup in both packages
+  normal/sanitized, plus full-settings public state/key APIs normal/sanitized.
+- All four linked bouncer config/core/command/setup targets passed normally
+  and under sanitizers in both package source trees.
+- 12 final real-client TLS/PTY scenarios passed: successful ZNC, successful
+  soju and rejected soju authentication, for both frontends normal/sanitized.
+  Each successful scenario checked exact login bytes, capability selection,
+  restored memberships, private-message directions, history-side-effect
+  suppression, one control frame, log secrecy, and a second authenticated
+  connection. Each processed a 2,000-message replay and answered all five
+  interspersed/completion PINGs. The last replay record was visibly rendered.
+- All 16 wrapped-input scenarios passed: both composer layouts and both
+  frontends, normal/sanitized, including exact-margin two-line transmission,
+  complete wire text, Unicode cell widths and narrow/wide terminal resize.
+- 32 selected existing terminal groups passed: editor/completion/history,
+  fragmented Unicode paste, split review, help readers, output/private logs,
+  memory/disk catch-up and main chat navigation, across both build modes and
+  frontends. Complete manuals and CLI compatibility also passed.
+- Six real-shell signal-policy scenarios passed across both frontends:
+  inherited-disabled, inherited-remapped, explicit override. Real suspend/
+  resume and exact terminal restoration were observed; no Ctrl-C/Z bindings
+  were assigned by the clients. Four attached-session notice scenarios
+  checked narrow/wide output, reconnect and zero unsolicited IRC/AWAY text.
+- Six existing real-PTY direct setup, asynchronous encryption and path-safety
+  suites passed without setup fixture changes. Live PING handling continued
+  during success/failure/timeout paths and split paste markers.
+- Profile, roster, indexed catch-up and stream equivalence regressions passed
+  normally and under sanitizers. Both shipped examples validate in both clients.
+- The complete onekeyirc make check-security-sanitize gate passed, including
+  hostile protocol/application states, TLS control-record budgets and retry
+  classification, credential helper/resolver ownership, DCC fault paths,
+  history privacy, presence recovery, local descriptor transfer and bouncers.
+- A fresh source-only onekeyirc staging tree configured and built cleanly.
+  A private DESTDIR install/uninstall passed: executable mode, version,
+  exact installed bouncer documents/examples and complete removal were checked.
+  vipirc source packaging is verified separately; full curses installation
+  cannot be claimed in this environment.
+
+Exact commands, outputs, before/after source hashes, observed failures and
+their resolution are retained in doc/BOUNCER-TEST-RESULTS.json. SOURCE-MANIFEST.json
+and SHA256SUMS identify the final packaged bytes. Historical reports keep
+their original evidence and are not relabeled as execution of this release.
+
+OBSERVED TEST FAILURES AND RESOLUTION
+
+The complete one-key unit target stops at the native background-session test
+because this environment refuses pathname AF_UNIX socket creation with EPERM.
+The remaining 23 already-built unit tests were run individually and all passed.
+This does not turn the complete make check-unit command into a passing gate.
+Native socketpair/SCM_RIGHTS descriptor tests do run and pass; they do not
+establish pathname socket, SSH detach/resume or installed service behavior.
+
+Intermediate new-feature failures were retained rather than discarded:
+wrong-account setup merging and service echo privacy; direct composer control
+privacy; compact UTC formatting; an overly broad startup-list merge caught
+by the legacy GPG test; two core tests compiled with the wrong historical
+fixture mode; and a new vipirc stream test link recipe missing ONEKEY_ONLY.
+The link recipe was corrected to match the existing catch-up fixture.
+
+The first TLS/PTY service-reply wait inspected a channel, while the response
+correctly belonged in /server. The fixture now asserts the exact wire command
+and selects that view. Existing help tests assumed keys remained on the first
+18-row topic page and /whois remained the final command; new topics/commands
+required those expectations to change. Later key help, pagination, history
+and draft-preservation assertions remain. Checked-in manuals were regenerated
+from the final executable after their comparison test exposed old text.
+
+REMAINING COVERAGE AND COMPATIBILITY LIMITS
+
+The bouncer peers in these tests are private protocol fixtures, not installed
+ZNC/soju daemons. There was no public IRCNow account test. Provider-specific
+module settings, actual soju/ZNC versions, network naming and retained buffer
+policy still need an integration check with the user's own account.
+
+Wide ncurses development headers and pkg-config metadata are unavailable.
+vipirc -i
+was built with the actual vipirc main/core/idle source and private aborting
+stubs for unused full-curses entrypoints. Full settings.c was compiled and
+driven through public state/key APIs with a declaration shim that aborts on
+rendering. Neither is a native full-ncurses build or rendered-layout test.
+No shim or validation executable is included as a replacement production UI.
+
+Native OpenBSD/LibreSSL, the full named-socket session lifecycle, installed
+rc.d service operation and an actual SSH idle-drop path were not executed.
+Run the existing platform/session gates in that target environment. The
+previous close/detach controls are retained, with their prior scoped reports.
+
+Required SASL negotiation has a 15-second CAP deadline. An unanswered optional
+capability request can conservatively abort a required-SASL negotiation even
+after SASL success; there is no fallback. The existing non-reconnect path
+displays numeric 464/465 and waits for server close/ERROR or the 60-second
+registration deadline. With --reconnect it holds immediately on rejection;
+required SASL rejection always disconnects. These bounded legacy behaviors
+were reviewed and are not newly claimed fixes.
+
+UPGRADING
+
+Build the source with ./configure and make, then use the existing installation
+instructions. Start a fresh worker to use new code: replacing a binary does
+not replace an already-running client. Save before deliberately closing an
+old worker with --close-session NUMBER. --detach-session and --resume retain
+that existing process and therefore do not upgrade it. Service users should
+follow the existing service stop/start instructions for their installation.
+
+The local once-per-worker notice and inherited terminal signal policy are
+unchanged. Bouncer configuration does not post the notice to IRC or rewrite
+an away message. New bouncer automatic-away behavior is an explicit separate
+per-profile choice, off by default.
+
+Primary protocol/provider references are listed in doc/BOUNCERS.txt.

@@ -1,0 +1,35 @@
+source	kind	fields	english
+src/settings.c	fixed		Add ignore mask
+src/settings.c	fixed		Add watch term
+src/settings.c	fixed		Select ZNC or soju in Connection type before entering bouncer settings.
+src/settings.c	fixed		The bouncer restores channel membership. Use /join or /part after connecting; saved auto-join is ignored for this profile.
+src/settings.c	fixed		Apply now: exact nick or nick!user@host with * and ?. Empty removes; 32 masks maximum.
+src/settings.c	fixed		Apply now: literal mention text. Set this field empty to remove it.
+src/settings.c	fixed		Apply now: add a literal mention term, at most 127 UTF-8 bytes (32 terms maximum).
+src/settings.c	named-fields	number	Ignore mask {number}
+src/settings.c	named-fields	number	Watch term {number}
+src/app.c	fixed		No such channel or query view.
+src/app.c	fixed		OFFLINE TEST MODE: /save is disabled; configuration was not written.
+src/app.c	fixed		PART message must be valid UTF-8 without control characters.
+src/app.c	fixed		Choose a channel/query for /me.
+src/app.c	named-fields	channel	You are not in this channel; use /join {channel}.
+src/app.c	named-fields	command	Unknown command /{command}; /help lists supported commands.
+src/app.c	named-fields	nick	Registering as {nick}
+src/ui.c	fixed		[OFFLINE] Servers
+src/ui.c	fixed		Channel 0: Server
+src/ui.c	fixed		Session summary
+src/ui.c	fixed		Cannot allocate this server's interface.
+src/ui.c	fixed		Cannot initialize signal handlers.
+src/ui.c	fixed		Background startup interrupted.
+src/ui.c	fixed		Command prompt reference. / searches; n/N finds related text.
+src/ui.c	indexed-help		Open the selected server's connection settings. Its hostname, port, transport and startup choices belong to that server profile.
+src/ui.c	indexed-help		Open nickname settings for the selected server. /nick changes the nickname on a live connection.
+src/ui.c	indexed-help		Show the program version, connection totals and resource snapshot. Refresh updates that snapshot.
+src/ui.c	indexed-help		Read the included Insha-Allah license agreement. Escape returns to the vipirc main screen.
+src/ui.c	indexed-help		Open the complete built-in manual. It works while disconnected. Search its contents with /, then use n/N for the next or previous match.
+src/ui.c	fixed		The selected action belongs to the manual reader. Find opens its search field; Previous and Next move between matches; Return restores the originating screen. Up/Down and Page Up/Page Down scroll the document.
+src/ui.c	fixed		This configuration panel collects answers in a separate draft. Tab selects the answer field or Next, Back and Cancel controls. Enter validates the answer or activates a selected control. The final review applies only the choices you approve. Closing help preserves the answer and draft.
+src/ui.c	named-fields	number	Connect server {number} before setting away status.
+src/ui.c	named-fields	number	Away change requested on server {number}; waiting for its acknowledgment.
+src/ui.c	named-fields	number,status	Server {number}: {status}
+src/prompt.c	fixed		Commands (0 matches)

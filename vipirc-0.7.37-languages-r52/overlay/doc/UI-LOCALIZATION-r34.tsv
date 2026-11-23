@@ -1,0 +1,26 @@
+app	key	source	kind	fields
+vipirc	Welcome to vipirc	src/ui.c	fixed-display	
+vipirc	(Press a printable key, Enter, Tab, or an arrow to begin.)	src/ui.c	fixed-display	
+vipirc	Cannot update terminal signals; saved preference takes effect on next terminal attachment.	src/ui.c	fixed-display	
+vipirc	Returned to vipirc.	src/ui.c	fixed-display	
+vipirc	Could not open this server's settings. Choose it in Settings.	src/ui.c	fixed-display	
+vipirc	Key binding table closed. Unapplied edits discarded.	src/ui.c	fixed-display	
+vipirc	The table is full. Edit or remove a binding first.	src/ui.c	fixed-display	
+vipirc	Binding staged. Apply changes this session; Save also writes the primary config.	src/ui.c	fixed-display	
+vipirc	Cannot stage that binding; choose a supported key and action.	src/ui.c	fixed-display	
+vipirc	Paste ignored in the key binding table; type key names explicitly.	src/ui.c	fixed-display	
+vipirc	That key already has a binding. Edit its existing row or choose another key.	src/ui.c	fixed-display	
+vipirc	Select an action with arrows, then Enter stages the binding.	src/ui.c	fixed-display	
+vipirc	Removal staged. Apply or Save to use the changed table.	src/ui.c	fixed-display	
+vipirc	Search cleared.	src/ui.c	fixed-display	
+vipirc	No matches. Press / to change the search.	src/ui.c	fixed-display	
+vipirc	 Wrapped.	src/ui.c	fixed-display	
+vipirc	Out of memory; could not open manual search.	src/ui.c	fixed-display	
+vipirc	Search is limited to 256 UTF-8 bytes.	src/ui.c	fixed-display	
+vipirc	Unsupported control character in search.	src/ui.c	fixed-display	
+vipirc	Server limit reached (8). Close a secondary server first.	src/ui.c	fixed-display	
+vipirc	Returned to {view}.	src/ui.c	named-field	view
+vipirc	Could not apply/save bindings: {error}	src/ui.c	named-field	error
+vipirc	Match {current} of {total}.{wrap}	src/ui.c	named-field	current,total,wrap
+vipirc	Connecting server {number}.	src/ui.c	named-field	number
+vipirc	Server {number} disconnected. Accepted direct transfers continue.	src/ui.c	named-field	number

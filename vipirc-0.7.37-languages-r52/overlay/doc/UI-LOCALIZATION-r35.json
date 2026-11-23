@@ -1,0 +1,183 @@
+[
+  {
+    "source": "src/settings.c",
+    "english": "Bouncer connections require verified TLS. Select Direct IRC before disabling TLS.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/settings.c",
+    "english": "This password contains bytes the field editor cannot represent. Edit the private config directly.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/settings.c",
+    "english": "This value is not valid UTF-8 and cannot be edited here.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/settings.c",
+    "english": "Server and nickname are required.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/settings.c",
+    "english": "Server added and connection started. Save keeps its startup settings.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/settings.c",
+    "english": "Server added without connecting. Save keeps its startup settings.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/settings.c",
+    "english": "OFFLINE TEST MODE: Save is disabled; use Apply for an in-memory preview.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/settings.c",
+    "english": "Application preferences saved and applied to every server.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/settings.c",
+    "english": "Server configuration saved. Reconnect to use connection changes.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/settings.c",
+    "english": "Application preferences applied to every server. Save keeps them for next startup.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/settings.c",
+    "english": "Preferences applied in memory. Connect or reconnect to use connection changes.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/settings.c",
+    "english": "Paste contained rejected controls or exceeded input limits; review the field.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/settings.c",
+    "english": "Field paste captured as data. Enter stages it; nothing has been saved.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/settings.c",
+    "english": "Server changed: inherited auth, startup commands and auto-join values cleared. Enter settings for the new server.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/settings.c",
+    "english": "Value staged. Previous credentials and startup commands cleared; enter the password source for this connection identity.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/settings.c",
+    "english": "Settings fields must be a single line.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/app.c",
+    "english": "Private authentication commands require verified TLS; nothing queued.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/app.c",
+    "english": "Connection changed after this message was prepared; nothing queued. Review and submit it again.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/app.c",
+    "english": "Send plan text changed or contains controls; nothing queued.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/app.c",
+    "english": "Cannot send this plan in the current connection state.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/app.c",
+    "english": "Bouncer control plan is no longer valid; nothing queued.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/app.c",
+    "english": "Outgoing queue is full; wait before sending more.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/app.c",
+    "english": "Authentication text was not sent; pending chat cancelled. Use verified TLS.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/app.c",
+    "english": "Message limit changed; pending chat cancelled. Re-enter the remaining text.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/app.c",
+    "english": "Already connecting or connected; use /disconnect first.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/app.c",
+    "english": "The message limit changed; nothing queued. Submit again to review the new split.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/app.c",
+    "english": "Cannot connect: {error}",
+    "kind": "named-fields",
+    "fields": [
+      "error"
+    ]
+  },
+  {
+    "source": "src/app.c",
+    "english": "Connecting to {server}:{port}",
+    "kind": "named-fields",
+    "fields": [
+      "server",
+      "port"
+    ]
+  },
+  {
+    "source": "src/app.c",
+    "english": "Automatic reconnect in {seconds} seconds; /disconnect cancels it.",
+    "kind": "named-fields",
+    "fields": [
+      "seconds"
+    ]
+  }
+]

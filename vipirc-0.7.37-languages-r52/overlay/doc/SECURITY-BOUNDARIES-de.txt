@@ -1,0 +1,37 @@
+SICHERHEITSMODELL: UEBERSETZTE AUSZUEGE
+Ausgewaehlte Aussagen zu Vertrauensgrenzen, TLS, Zugangsdaten, Protokollen und Darstellung aus SECURITY.md. Keine vollständige Übersetzung.
+
+Vertrauensgrenze und Start
+--------------------------
+IRC-Server, Teilnehmer, Nicknames, Themen, Dateinamen und eingefuegte Texte sind nicht vertrauenswuerdige Eingaben. Betriebssystem, Terminal, Kryptobibliotheken, Zertifikatsspeicher und Benutzerkonto gehoeren zur Vertrauensbasis. Mehrere Serverprofile im selben Prozess sind nicht voneinander isoliert.
+
+Den Client unter einem normalen Benutzerkonto ausführen. Er ist keine Sicherheits-Sandbox und schuetzt nicht vor einem kompromittierten Rechner oder einem Prozess mit denselben Kontorechten. Härtung verringert Risiken, beseitigt sie aber nicht.
+
+TLS und Authentifizierung
+-------------------------
+TLS ab Version 1.2 prueft die Zertifikatskette und den ausgewaehlten Hostnamen. Es erfolgt kein stiller Rueckfall auf Klartext. Konfiguriertes SASL, server PASS und aktivierte, nichtleere Autocommand-Listen erfordern verifiziertes TLS. TLS schuetzt die Verbindung zum Server oder Bouncer, nicht IRC-Nachrichten Ende zu Ende.
+
+Ein leeres ca_file nutzt den System-Zertifikatsspeicher. Ein eigenes ca_file ersetzt diesen durch ein vertrauenswuerdiges PEM-Buendel und ändert die akzeptierten Aussteller. Erforderlich ist eine nichtleere regulaere Datei bis 16 MiB. --check-config führt keinen echten TLS-Handshake aus.
+
+Für jedes Geheimnis genau eine Quelle wählen: private Klartextdatei, private GPG-verschlüsselte Datei oder ausdruecklicher Inline-Wert. Die SASL-Quelle ist von server PASS unabhaengig. Eine auf Datentraegern verschlüsselte Passwortdatei sichert keine unverschluesselte Netzwerkverbindung.
+
+Konfiguration und Passwoerter
+-----------------------------
+Klartext- und GPG-Zugangsdaten muessen eigene regulaere Dateien mit exakt Modus 0600 oder 0400 sein. Die Konfiguration ist woertliches INI ohne Shell-Erweiterung; ungueltige Schlüssel und Werte werden abgelehnt. Inline-Zugangsdaten oder Autocommand-Eintraege verlangen exakt 0600 oder 0400.
+
+GPG wird nach TLS-Prüfung direkt und ohne Shell mit begrenztem I/O und Zeitlimit gestartet. Der Client fragt keine Schlüssel-Passphrase ab. Geschuetzte Schlüssel außerhalb des Programms entsperren; in Fehlerberichten keine entschluesselten Geheimnisse oder privaten Logs teilen.
+
+Nachrichten, Protokolle und Anzeige
+-----------------------------------
+Der Client führt empfangenen IRC-Text nicht aus, öffnet keine URLs und startet keine Shell-Befehle aufgrund von Nachrichten. Gefährliche Steuerzeichen werden vor der Anzeige gefiltert. Mehrere Nachrichten brauchen getrennte Zustimmung; eingerahmtes Einfuegen ist keine neue Bestätigung.
+
+Dauerhafte Chatprotokolle sind standardmaessig abgeschaltet. Bei Aktivierung gelten strenge Prüfungen für private Dateien und Verzeichnisse; Logs überdauern das Programmende und werden nicht automatisch gelöscht. Im Chat geschriebene unbekannte Geheimnisse können darin landen.
+
+Der visuelle Arabischmodus ändert die Darstellung, nicht die logische UTF-8-Reihenfolge gesendeter IRC-Befehle und Nachrichten. Ähnliche Unicode-Zeichen und Nicknames mit gemischten Schriften können Identitaeten vortaeuschen. Konto und Ziel vor Vertrauen prüfen.
+
+DCC-Dateiuebertragungen verlangen ausdrueckliche Annahme und sind durch die IRC-TLS-Verbindung nicht geschuetzt. Dateinamen und Inhalte sind nicht vertrauenswuerdig. Eine verschlüsselte IRC-Verbindung bedeutet keine verschlüsselte DCC-Übertragung.
+
+Für alle Details und Grenzen das originale SECURITY.md lesen. Diese Übersetzungen sind Entwuerfe und muessen besonders für Sicherheitsentscheidungen von Sprachkundigen geprüft werden.
+
+SOURCE:  / SECURITY.md
+STATUS: Draft translation; English source takes precedence.

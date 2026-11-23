@@ -1,0 +1,28 @@
+VERBATIM ENGLISH SOURCE REFERENCE
+Source: MANUAL.txt / DEFAULT INTERFACE
+English source SHA-256: 9767b356dcf1c634d38900a5165f736d96e65c58251579e065cdfa4d44b92e3c
+
+DEFAULT INTERFACE
+
+To remember minimalist mode, run in either interface:
+
+    /set default_interface idle
+    /save input
+
+Settings > Interface > Default interface or /panel > 0 also sets it.
+Alternatively put default_interface=idle in the primary config's existing
+[session] section, keeping other keys there. The unset default is ncurses.
+This preference chooses fresh launches, including --background; it neither
+switches the current frontend nor reconnects IRC.
+
+Explicit -i/--idle or -N/--ncurses selects this invocation; the last flag
+wins and an unrelated Save does not persist it. Lowercase -n/--nick remains
+nickname. Restore the saved full default with /set default_interface ncurses
+and /save input. Secondary profiles do not own this preference.
+
+Bare --resume retains that existing worker's frontend. -i --resume NUMBER
+requests minimalist; -N --resume NUMBER requests ncurses, without
+reconnecting or replacing the worker. Legacy workers lacking switching
+retain their frontend. onekeyirc always uses its minimalist frontend and
+rejects -N/--ncurses. Switching discards frontend-local drafts and recall;
+see RUNNING IN THE BACKGROUND before changing interfaces.

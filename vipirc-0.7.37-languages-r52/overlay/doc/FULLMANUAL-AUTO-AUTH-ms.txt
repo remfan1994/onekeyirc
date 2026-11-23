@@ -1,0 +1,38 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / AUTOMATIC CONNECTION, JOIN, AND AUTHENTICATION
+English source SHA-256: f1eac619875693d1b8b4c03b26a6a90a7736048cf9d67e37619e675a887788b8
+
+SAMBUNGAN, PENYERTAAN SALURAN DAN PENGESAHAN AUTOMATIK
+
+Setiap profil yang disimpan mempunyai pilihan autoconnect, penyertaan saluran secara langsung dan kelayakan yang berasingan. Simpan pilihan permulaan yang dikehendaki melalui Settings atau arahan. --server yang dinyatakan untuk profil utama memulakan sambungan; profil autoconnect tersimpan bermula secara berasingan. --no-connect menghalang semua sambungan permulaan. /connect atau Servers > Connect memulakan sambungan secara jelas. Profil baharu tidak mewarisi rahsia profil lain.
+
+Untuk akaun rangkaian langsung, tetapkan:
+
+    [connection]
+    tls=true
+    auth=sasl
+    auth_user=your_registered_account
+    password_gpg_file=/home/yourname/.config/vipirc/sasl.gpg
+
+Pilih tepat satu sumber untuk setiap kelayakan yang berasingan:
+
+    Akaun SASL                    PASS pelayan
+    password_gpg_file              server_password_gpg_file
+    password_file                  server_password_file
+    password                       server_password
+
+Sumber *_gpg_file disulitkan, *_file ialah teks biasa peribadi, dan nilai sebaris ialah teks biasa secara literal dalam konfigurasi. Jenis sumber tidak diteka melalui sambungan nama fail dan tiada sumber gantian. Ruang di awal/akhir serta aksara #, ; dan = dalam nilai sebaris dikekalkan; jangan tambah tanda petikan atau komen. Konfigurasi dengan rahsia sebaris mesti fail biasa milik pengguna bermod 0600/0400; Save menjana mod 0600. Nilai kekal dalam konfigurasi sesi apabila diperlukan untuk sambungan semula atau simpanan.
+
+Kata laluan teks biasa/yang dinyahsulitkan mesti satu baris tidak kosong, boleh berakhir dengan LF/CRLF, tanpa bait kawalan: SASL paling banyak 1024 bait, PASS biasa 503 bait. Kedua-dua jenis fail mesti fail biasa milik pengguna bermod 0600/0400, tanpa pautan simbolik atau komponen '..' dalam laluan. Kata laluan tidak diterima sebagai pilihan CLI. Untuk identiti dan sekatan sumber bouncer, rujuk BOUNCER CONNECTIONS.
+
+Fail disulitkan mengandungi satu mesej OpenPGP yang dilindungi integriti, maksimum 65536 bait. Program gpg pilihan yang ditemui melalui PATH mesti menyokong pilihan tetap (GnuPG 2.2.20 atau lebih baharu). Ia dijalankan terus selepas TLS disahkan, tanpa shell, dengan output terhad dan tempoh lima saat. Tiada fail sementara kata laluan biasa atau permintaan frasa laluan dalam aplikasi; sesi lain terus berjalan. Kelayakan gagal, terkunci, tidak sah, terlalu besar atau luput masa menghentikan pengesahan.
+
+Pembantu menggunakan --no-options, --batch, --no-tty, --pinentry-mode error dan --no-autostart; pengambilan/import kunci serta dirmngr dilumpuhkan. Sediakan atau buka kunci di luar vipirc:
+
+    gpg --output /dev/null --decrypt /absolute/password.gpg
+
+Kemudian cuba /connect sekali lagi. Arahan ini mengandungi laluan, bukan kata laluan. Ejen sedia ada mesti dapat menyahsulit tanpa interaksi; hos atau sesi SSH mungkin mempunyai fail, PATH, direktori GnuPG dan cache ejen yang berbeza.
+
+--check-config menyemak pilihan sumber dan privasi konfigurasi tanpa membuka rahsia atau GPG. --test-mode tidak pernah membaca atau menyahsulit kelayakan; nilai sebaris dibaca untuk sintaks tetapi tidak digunakan. Kedua-duanya tidak membuktikan kelayakan sebenar berfungsi.
+
+SASL PLAIN yang diwajibkan hanya dihantar selepas pengesahan TLS dan sokongan pelayan. Kegagalan menghentikan sambungan sebelum penyertaan saluran automatik secara langsung, bukannya meneruskan tanpa pengesahan. Klien tidak mendaftar akaun rangkaian. Sintaks perkhidmatan nama samaran berbeza mengikut rangkaian; pengesahan akaun langsung secara automatik menggunakan SASL. PASS pelayan berbeza daripada akaun nama samaran; pengesahan huluan bouncer disediakan secara berasingan.

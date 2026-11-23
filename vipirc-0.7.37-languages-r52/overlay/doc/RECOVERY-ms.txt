@@ -1,0 +1,66 @@
+Panduan praktikal vipirc / onekeyirc - session recovery and logging
+=================================================================
+
+DRAF TERJEMAHAN. Taip arahan dan pilihan tepat seperti yang ditunjukkan.
+Untuk syarat keselamatan penuh, rujuk MANUAL.txt dan SECURITY.md dalam bahasa Inggeris.
+
+/help background
+----------------
+
+Memulihkan terminal kemudian menanggalkan sesi aktif. Shell menerima arahan bernombor untuk menyambungnya.
+
+Di shell, --sessions menyenaraikan tugas persendirian yang terpasang dan tertanggal; --resume menyambung satu-satunya tugas tertanggal.
+
+Jika beberapa tugas wujud, guna --resume NUMBER. NUMBER ialah ID tugas, bukan PID; kekal hingga tamat dan boleh digunakan semula selepas itu.
+
+--detach-session NUMBER melepaskan terminal terpasang tetapi mengekalkan proses, sambungan IRC, draf dan sejarah untuk --resume NUMBER.
+
+--close-session NUMBER menamatkan seluruh tugas, sambungan IRC, pemindahan, draf belum disimpan dan sejarah RAM. Kejayaan hanya dilapor selepas penutupan disahkan.
+
+Jika sambungan sibuk selepas terminal SSH terputus, senaraikan tugas, tanggalkan tugas itu dan sambungnya. Lihat /help sessions.
+
+Pekerja yang tidak responsif atau versi lama tanpa kawalan diminta mungkin gagal. Memasang binari baharu tidak mengemas kini proses aktif; mulakan semula selepas naik taraf.
+
+Sambungan memaparkan sejarah RAM walaupun tiada mesej baharu. /set single_session on menolak tugas latar kedua supaya --resume tidak mengelirukan.
+
+Untuk mula tanpa terminal, guna --background dalam shell; lihat --help untuk pilihannya.
+
+Jika background_away aktif dan profil mengizinkan, /background atau kehilangan terminal menghantar AWAY selepas ditanggalkan. Sambungan hanya memadam status automatik itu; /away manual kekal.
+
+Tambah --reconnect untuk cuba semula kegagalan sambungan sementara. Lihat /help deployment dan /help reconnect.
+
+Tiada pemultipleks terminal diperlukan. Penyelesai nama atau pembantu bukti kelayakan yang masih menunggu mungkin perlu dicuba lagi.
+
+Menggantung proses biasa di latar hadapan menghentikan rangkaiannya. Tugas yang disambung boleh menggantung pengawal terminal sementara pekerjanya terus berhubung.
+
+/help catchup
+-------------
+
+Bermula dari sembang atau tindakan terakhir yang dihantar setempat di saluran atau perbualan dipilih. Paparan pelayan dan sebutan tiada penanda hantaran.
+
+Log peribadi yang sah dicuba dahulu. Ia mesti aktif ketika penanda dihantar dan masih sihat; teks pengesahan sensitif bukan penanda cakera. Jika tidak, guna sejarah RAM jika penanda masih ada.
+
+Pembaca cakera ialah petikan tetap: Up/Down sebaris; Page Up/Page Down sehalaman; Home ke penanda; End ke halaman terbaru; Escape kembali langsung. Trafik baharu tidak mengalihkannya.
+
+Gantian RAM membuka sejarah tersimpan pada penanda: Home ke halaman tertua; End atau Escape kembali langsung. Mesej lama masih boleh dilihat.
+
+Rekod penanda yang diubah atau diganti tidak sah pada cakera. Proses baharu tidak memulihkan penanda daripada log lama. Lihat /help logging dan /help history.
+
+/help logging
+-------------
+
+Log berterusan pilihan dan dimatikan secara lalai. /set persistent_logging on menghidupkan; /save output menyimpan pilihan.
+
+Setiap profil pelayan tersimpan menambah CONFIG_PATH.log. Direktori induk terakhir mesti milik pengguna, mod 0700; fail mesti biasa, milik pengguna, satu pautan dan tepat 0600. Symlink dan rentasan induk ditolak.
+
+Log ialah plaintext, bukan sandaran tersulit. Had 16 MiB setiap fail; ralat menutup log tetapi sembang diteruskan.
+
+Arkibkan log penuh di luar laluan aktif, kemudian matikan/hidupkan log. Putaran atau penulisan semula boleh membatalkan penanda /catchup; hantar mesej layak baharu sebelum bergantung padanya.
+
+Kelayakan yang dikenal dan draf belum dihantar dikecualikan, termasuk pengesahan berulang memakai nama lama. Sembang biasa, format khidmat tak dikenal dan rahsia ditaip boleh direkod. Simpanan pelayan/bouncer berasingan.
+
+/catchup hanya guna log sihat apabila penanda setempat tepat dirakam sepanjang proses ini. Ia tidak meminta arkib bouncer atau mengimport log lama selepas mula semula.
+
+/clear hanya mengosongkan RAM. Log kekal selepas keluar, --close-session atau simpan. Mematikan log menghentikan rekod baharu, bukan memadam rekod lama.
+
+I/O cakera boleh melambatkan proses pada storan perlahan. Lihat /help catchup, /help history dan SECURITY.md.

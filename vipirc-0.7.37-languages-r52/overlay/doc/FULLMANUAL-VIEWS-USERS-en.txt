@@ -1,0 +1,29 @@
+VERBATIM ENGLISH SOURCE REFERENCE
+Source: MANUAL.txt / VIEWS AND USERS
+English source SHA-256: c02a51adb2e96f61d113aee6ccd47ba792577ee3c03d8708020250ea07f94354
+
+VIEWS AND USERS
+
+Each server has its server/MOTD view 0, channels, separately numbered
+queries, mentions and rosters. Headers identify the server; the server view
+contains registration/MOTD/errors. Mentions retain source, sender and
+complete message text within protocol bounds. Long display lines wrap
+without shortening stored text.
+
+/sl or /servers opens servers; /cl or /channels opens channels; /ql or
+/queries opens queries. /server selects MOTD, /channel NUMBER or #NAME a
+channel, /pm NICK|NUMBER a query. /next and /prev cycle views. /summary
+snapshots workspace state; /unread combines sources/mentions; /list requests
+the network directory. Canonical syntax is in COMMAND REFERENCE INDEX.
+
+/users toggles the channel roster; on/off/up/down controls
+visibility/scroll. Settings > Interface uses the same primary preference.
+Small terminals may hide the sidebar until space returns. Membership and
+privilege prefixes follow server JOIN/PART/QUIT/NICK/KICK/NAMES, not local
+guesses. Query/server views have no channel roster.
+
+Unsolicited private messages create query views only while fewer than eight
+exist; later messages remain visible with context in server/mentions.
+Explicit /pm or /msg can create more within the 32-view bound. /clear clears
+retained view memory without deleting disk transcripts; /clearinput clears
+its independent draft.

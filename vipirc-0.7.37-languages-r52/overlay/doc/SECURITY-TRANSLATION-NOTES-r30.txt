@@ -1,0 +1,9 @@
+Security translation drafts r30: vipirc 0.7.37.
+Complete source-linked section drafts: 10 of 13.
+New sections: Protocol, terminal input and bounded state; Managed sessions and SSH loss; ZNC, soju and playback.
+Ten locales: id, ms, tr, es, pt, fr, de, ru, it, ar.
+Each section includes English source SHA-256 and exact English paragraph count.
+Literal commands, numeric limits, configuration options, and identifiers were checked.
+This checks source coverage and technical tokens, not translation quality.
+No fluent native-speaker security review has been conducted.
+English SECURITY.md is authoritative. Do not represent the partial draft as the full document.

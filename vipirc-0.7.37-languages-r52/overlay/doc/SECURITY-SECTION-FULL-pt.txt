@@ -1,0 +1,12 @@
+Full-interface review and file browsing
+Source: SECURITY.md, section "Full-interface review and file browsing"
+English section SHA-256: e2f59ccd783bd17feedcf3bc49a14a3085c7f21783755ee9b06c265dc0f1eb54
+Paragraphs: 3
+Status: Translation draft; fluent-speaker security review required
+English SECURITY.md remains authoritative. This is one source-linked section, not a security certification.
+
+A revisão de transferências do ncurses apresenta o endereço do par, porta, contagem de bytes e destino antes da ação separada Accept/Offer. Mantém um ID de oferta estável, em vez de um índice de linha variável, e recusa consentimento abaixo do tamanho mínimo do ecrã de revisão. Selecionar uma linha no navegador de origens não envia um ficheiro. O navegador não segue componentes symlink dos caminhos, volta a verificar o inode escolhido, nunca altera cwd e nunca lê conteúdo de ficheiros apenas para os listar. O trabalho limita-se a 64 entradas examinadas por passo, 4096 nomes examinados e 512 linhas; a truncagem é comunicada. Os metadados do sistema de ficheiros ainda podem bloquear em armazenamento lento.
+
+A pasta de receção guiada predefinida situa-se em XDG_DATA_HOME/vipirc/downloads ou HOME/.local/share/vipirc/downloads no anfitrião do processo, sendo criada apenas após aceitação explícita. Caminhos relativos fornecidos em comandos e a omissão da pasta de receção usam o diretório de arranque, mantendo as verificações de privacidade. Sem um IPv4 anunciado explicitamente, o envio usa o endereço do socket IRC local; não descobre endereços públicos nem configura encaminhamento.
+
+As ações do rato sobre alcunhas e canais guardam cópias de tamanho limitado dos valores apresentados. Mudanças na lista de utilizadores não podem redirecionar um clique anterior para outro alvo. Clicar numa alcunha abre um menu local; uma escolha posterior de Whois/Query/Ignore efetua essa ação. Clicar num canal ainda não aderido pode entrar nele de forma explícita. A conclusão automática e a inserção de sugestões não transmitem IRC. O consentimento de envio/transferência continua a passar pela validação normal. Estas invariantes de código não afirmam que esta etapa de documentação tenha executado toda a interface curses.

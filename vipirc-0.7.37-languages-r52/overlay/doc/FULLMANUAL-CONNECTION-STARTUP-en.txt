@@ -1,0 +1,84 @@
+VERBATIM ENGLISH SOURCE REFERENCE
+Source: MANUAL.txt / CONNECTION AND STARTUP COMMANDS
+English source SHA-256: 0e846b2d67181dea4d23ed844fc17149aeadd803e429bde3fbbed09330011d9e
+Source lines: 620-699
+
+CONNECTION AND STARTUP COMMANDS
+
+/connect [-tls|-plain] [-nick NICK] HOST [PORT]
+    /connect                       Reuse selected saved/applied profile.
+    /server HOST [PORT]             Same direct connection route.
+    /server NUMBER                 Select a profile without connecting.
+    /server                        Open selected server/MOTD view.
+    /server add HOST [PORT] [NICK]  Add a disconnected unsaved profile.
+    /server connect NUMBER
+    /server disconnect NUMBER
+    /disconnect [NUMBER]
+    /server close NUMBER           Close secondary; keep profile file.
+
+New destinations use verified TLS6697 and a valid login nickname or user; no
+credentials/channels are inherited. Matches preserve configured
+transport/port/nick/auth and select an already active connection instead of
+duplicating it. For bouncer profiles sharing a host, select the intended
+number then bare /connect. No connection command saves implicitly. Full-mode
+server slots are 0..7 (primary 0); minimalist slots are 1..8 (primary 1).
+Server connect/disconnect does not change selection. Use each frontend's
+/servers output, not the separate /panel chooser numbers.
+
+Options precede HOST. -ssl aliases -tls; +PORT requests TLS; an ordinary
+number never disables TLS. --tls/--plain/--nick forms also work. New
+plaintext defaults to 6667. Passwords are not positional arguments. A
+secondary Close removes its catalog reference, drafts/history and transfers
+but keeps the physical profile.
+
+    /autoconnect [on|off]
+    /autojoin [list|add #CHANNEL|remove #CHANNEL|clear]
+    /autoauth [status|off|sasl USER file PATH|sasl USER gpg PATH]
+    /save [input|output|all]
+    /saveconf
+
+Autoconnect changes next startup, not the current connection. Autojoin
+stages direct-profile joins for the next explicit /connect, without
+joining/parting now. Its inquiry shows registration and running/pending
+membership. Automatic retries retain running settings; disconnected /connect
+adopts applied changes. /join acts immediately after registration. Bouncers
+restore memberships and refuse autojoin edits; /autoauth changes are
+likewise refused there in favor of Settings or /panel.
+
+Autoauth stages verified-TLS SASL. Status shows complete current/pending
+credential paths locally without reading them; ordinary settings output
+redacts them. Full-mode inquiries have Refresh/Back and preserve drafts.
+PATH is the literal remainder, including spaces. Inline secrets belong in
+private config/Settings, not commands.
+
+Bare /save writes the selected effective profile, including staged choices.
+/save input and /save output both write the primary profile containing the
+application preferences; they are aliases, not input-only/output-only saves.
+Pending primary connection changes are included. /save all writes healthy
+profiles; /saveconf also remembers the selected default for later /connect.
+Saving does not enable autoconnect. Each file is private and atomic, but the
+workspace is not one transaction: earlier successes survive later failures.
+Unreadable profiles are not overwritten. Test mode never saves.
+
+/set autoconnect on|off is a full-interface compatibility alias. /set
+application preferences works in both interfaces; send/composer/output
+presentation choices affect minimalist mode. /panel opens guided settings in
+both; /quickstart asks four connection essentials. Full /settings opens
+forms, minimalist /settings a report.
+
+/list [MASK] [OPTIONS] requests the network channel directory after
+registration. Only MASK reaches the server; --min-users/--max-users, --name
+and --topic filter locally. --sort channel|users|topic, --asc/--desc and
+--limit N control display; default users descending, limit 0 means no
+display restriction within the 8192-entry cache. /list show can change
+sort/order/limit without another request; /list clear clears the cache. /ls
+and /cl instead list local views.
+Disconnect or an explicit server LIST rejection leaves partial cached results
+available but releases the request. Retry /list after registration, or clear
+with /list clear; incomplete results are not a full network directory.
+
+The full browser uses Up/Down or j/k for rows, Left/Right or h/l for sort
+column, s to reverse, Page Up/Page Down and g/G for navigation, Enter to
+join, r to repeat the current request, / for Command, Escape to return. A
+column click sorts. In minimalist mode /list show prints its cached
+directory. /summary gives a separate local workspace snapshot.

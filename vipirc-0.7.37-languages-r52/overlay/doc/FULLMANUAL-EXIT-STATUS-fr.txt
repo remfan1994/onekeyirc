@@ -1,0 +1,13 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / EXIT STATUS
+English source SHA-256: a4feff37ea5665514327eb0e9d3930712772f4ff6cf26bdcefb48492f71f9923
+
+CODES DE SORTIE
+
+0     Fin normale ou sortie interactive.
+1     Échec de fonctionnement : initialisation, sauvegarde ou contrôle de session, par exemple.
+2     Options/configuration invalides ou absence de terminal pour l'usage interactif.
+130   SIGINT a interrompu l'accueil après nettoyage du terminal.
+131   SIGQUIT a interrompu l'accueil après nettoyage du terminal.
+
+Un succès de --background confirme seulement la préparation du processus local, pas la connexion IRC distante. Un échec de fermeture de session indique que la fin n'a pas été vérifiée ; consultez à nouveau --sessions, car une demande acceptée peut s'achever plus tard.

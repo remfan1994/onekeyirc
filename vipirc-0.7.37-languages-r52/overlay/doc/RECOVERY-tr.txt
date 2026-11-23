@@ -1,0 +1,66 @@
+vipirc / onekeyirc pratik kilavuzu - session recovery and logging
+=================================================================
+
+TASLAK CEVIRI. Komutlari ve secenekleri gosterildigi gibi aynen yazin.
+Kesin guvenlik sinirlari icin Ingilizce MANUAL.txt ve SECURITY.md dosyalarini okuyun.
+
+/help background
+----------------
+
+Terminali eski hâline getirip çalışan oturumu ayırır. Kabuk, yeniden bağlanmak için numaralı komutu gösterir.
+
+Kabukta --sessions bağlı ve ayrılmış özel işleri listeler; --resume kullanılabilir tek ayrılmış işi sürdürür.
+
+Birden çok iş varsa --resume NUMBER kullanın. NUMBER süreç kimliği (PID) değil iş kimliğidir; iş bitene dek sabit kalır, sonra yeniden kullanılabilir.
+
+--detach-session NUMBER bağlı terminali ayırır ancak çalışan işi, IRC bağlantılarını, taslakları ve geçmişi --resume NUMBER için korur.
+
+--close-session NUMBER işi, tüm IRC bağlantılarını, aktarımları, kaydedilmemiş taslakları ve RAM geçmişini bitirir. Başarı yalnız doğrulanmış tamamlanmadan sonra bildirilir.
+
+SSH terminali kopunca sürdürme meşgulse işleri listeleyin, ilgili işi ayırın ve sürdürün. Kurtarma için /help sessions.
+
+Yanıt vermeyen veya istenen denetimi bilmeyen eski çalışan başarısız olabilir. Yeni ikili yüklemek çalışanı güncellemez; yükseltmeden sonra bilinçli yeniden başlatın.
+
+Sürdürme, yeni mesaj olmasa da RAM geçmişini gösterir. /set single_session on ikinci arka plan işini engeller; --resume belirsiz kalmaz.
+
+Terminalsiz başlatmak için kabukta --background kullanın; seçenekler için --help.
+
+background_away etkin ve profil izinliyse /background veya terminal kaybı ayrılınca AWAY yollar. Dönüş yalnız bu otomatik durumu kaldırır; elle verilen /away korunur.
+
+Geçici bağlantı sorunlarında yeniden denemek için --reconnect ekleyin. Bkz. /help deployment ve /help reconnect.
+
+Terminal çoklayıcısı gerekmez. Bekleyen DNS çözümü veya kimlik bilgisi yardımcısı yeniden deneme gerektirebilir.
+
+Normal ön plan sürecini askıya almak ağını durdurur. Sürdürülen işin terminal denetleyicisi askıya alınsa da yönetilen çalışan ağda kalabilir.
+
+/help catchup
+-------------
+
+Seçilen kanal veya özel sohbette yerel olarak gönderilen son mesaj/eylemden başlar. Sunucu ve anılma görünümlerinin gönderim çıpası yoktur.
+
+Önce uygun özel günlük denenir: çıpa gönderilirken açık ve hâlâ sağlam olmalıdır; hassas kimlik doğrulama metni disk çıpası değildir. Olmazsa RAM'deki çıpa kullanılır.
+
+Disk okuyucu sabit görüntüdür: Up/Down satır, Page Up/Page Down sayfa ilerler; Home çıpaya döner, End son sayfaya, Escape canlıya geçer. Yeni trafik görüntüyü kaydırmaz.
+
+RAM yedeği saklanan geçmişi çıpadan açar: Home en eski sayfaya, End veya Escape canlıya döner. Daha eski saklı mesajlara bakılabilir.
+
+Değişmiş veya yenilenmiş çıpa kaydı diskte geçerli değildir. Yeni süreç eski günlükten çıpa getirmez. Bkz. /help logging ve /help history.
+
+/help logging
+-------------
+
+Kalici günlük istege bagli ve varsayilan olarak kapalidir. /set persistent_logging on acar; /save output kaydeder.
+
+Kaydedilmiş her sunucu profili CONFIG_PATH.log dosyasına ekler. Son üst dizin size ait ve 0700 olmalı; dosya normal, size ait, tek bağlantılı, tam 0600 olmalı. Simgesel bağ ve üst dizin aşımı reddedilir.
+
+Gunlukler plaintext'tir, şifreli yedek degildir. Dosya basi sinir 16 MiB; yazma hatasi gunlugu durdurur, sohbet surer.
+
+Dolu günlüğü etkin yol dışına arşivleyip günlüğü kapatıp açın. Döndürme/yazma /catchup çıpasını bozabilir; daha sonraki disk yakalamaya güvenmeden yeni uygun mesaj gönderin.
+
+Bilinen kimlik bilgileri ve gönderilmemiş taslaklar, eski takma adlarla tekrarlanan kimlik doğrulama dâhil, dışlanır. Normal sohbet, tanınmayan hizmetler ve elle yazılan sırlar kaydedilebilir. Sunucu/bouncer saklama ayrı.
+
+/catchup sağlam günlüğü yalnız tam yerel çıpası bu çalışan süreçte kaydedildiyse kullanır. Bouncer arşivi istemez, yeniden başlatılınca eski günlükleri içe almaz.
+
+/clear yalnız RAM'i temizler. Loglar çıkış, --close-session ve kayıttan sonra kalır. Günlüğü kapatmak yeni kayıtları durdurur; eskileri silmez.
+
+Yavaş depolamadaki normal disk G/Ç süreci geciktirebilir. Bkz. /help catchup, /help history ve SECURITY.md.

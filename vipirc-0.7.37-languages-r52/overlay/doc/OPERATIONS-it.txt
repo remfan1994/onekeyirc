@@ -1,0 +1,62 @@
+vipirc / onekeyirc - selected operations help (it)
+====================================================
+
+DRAFT - selected help excerpts only; not a complete security manual.
+Commands, numeric limits and file names must be entered literally.
+Authoritative reference: English MANUAL.txt and SECURITY.md.
+
+/help deployment
+----------------
+Usa --background per avviare una sessione senza terminale o tasto di benvenuto.
+
+Configura e salva /autoconnect on per ogni server da avviare.
+
+--background non attiva autoconnect da solo; --no-connect blocca comunque le connessioni all'avvio.
+
+L'avviso appare una volta prima del distacco. Il successo conferma un job locale, non un accesso IRC riuscito.
+
+Da un altro terminale dello stesso account usa --sessions e --resume [NUMBER].
+
+Il riavvio del VPS termina job, bozze e cronologia RAM. Un'attività di sistema può avviare un nuovo client.
+
+Istruzioni OpenBSD ed esempio rc.d facoltativo: doc/OPENBSD-VPS.txt.
+
+Avvia come utente normale con percorsi assoluti per configurazione e credenziali. Una chiave GPG bloccata non può chiedere input all'avvio.
+
+--check-config verifica le impostazioni, non l'accesso alle credenziali, DNS, TLS o l'accesso IRC.
+
+Usa --reconnect per interruzioni di rete temporanee; la supervisione dei crash spetta separatamente al sistema operativo.
+
+/help security
+--------------
+Il testo remoto è filtrato prima del terminale. L'input è interpretato come comandi IRC locali, mai come comandi shell.
+
+Non esistono /raw, accesso shell o accettazione automatica dei file. L'incolla delimitato riconosciuto non esegue comandi.
+
+Un bundle CA personale dev'essere un normale file PEM non vuoto, massimo 16 MiB; non chiede password.
+
+Nessun registro di conversazione su disco per impostazione predefinita. Le modifiche richiedono un salvataggio esplicito.
+
+Vedi /help tls, /help authentication, /help logging e SECURITY.md per limiti e revisioni precedenti.
+
+/help history
+-------------
+Cronologia visualizzata e comandi sono limitati nella RAM. I log persistenti sono facoltativi e disattivati inizialmente.
+
+Cambiare vista ripropone i record recenti; /mentions mostra righe sorgente corrispondenti.
+
+/clear elimina la cronologia RAM della vista, non il vecchio log su disco. Il bouncer gestisce la propria riproduzione.
+
+Up/Down in Compose sposta il cursore, non recupera chat inviate. Command richiama solo comandi accettati.
+
+/help hotkeys
+-------------
+Le associazioni tasti personali sono facoltative e inizialmente vuote. Navigazione ed editor standard restano disponibili.
+
+Usa /bindings per la lista, /bindings keys per i tasti e /bindings actions per le funzioni locali.
+
+Assegna con /bind KEY ACTION; riassegna per sostituire. Rimuovi con /unbind KEY o /unbind all.
+
+/help logging
+-------------
+/clear svuota solo la RAM. I log restano dopo uscita, --close-session e salvataggio. Disattivare i log ferma le nuove voci, non cancella quelle vecchie.

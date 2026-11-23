@@ -1,0 +1,58 @@
+GESTIÓN DE SESIONES Y EJECUCIÓN EN SEGUNDO PLANO - vipirc 0.7.36
+Traducción íntegra de las secciones de MANUAL.txt desde RUNNING IN THE BACKGROUND hasta UPGRADING A RUNNING WORKER.
+Estado: borrador; en caso de discrepancia, prevalece MANUAL.txt en inglés.
+
+EJECUCIÓN EN SEGUNDO PLANO
+
+/background o F1 > Background mantiene activas las conexiones IRC, las transferencias aceptadas, los borradores y el historial en memoria mientras restaura la terminal. Muestra el comando numerado para reanudar la sesión, por ejemplo vipirc --resume 1. La primera desconexión de la interfaz crea un proceso de trabajo y un punto de comunicación privado; las posteriores conservan el número, el estado y ese punto. En el uso normal en primer plano no existe ese punto ni un proceso auxiliar adicional.
+
+Al reanudar, se vuelven a detectar las capacidades, el tamaño y la configuración regional de la terminal en el mismo equipo y con la misma cuenta Unix. stdin/stdout/stderr deben compartir una misma tty interactiva. Un único controlador en primer plano maneja las señales y los cambios de tamaño; solo una terminal puede conectarse a la vez. SESSION RECOVERY AND UPGRADES explica la elección de trabajos y las conexiones ocupadas.
+
+Para iniciar sin supervision, guarde antes los perfiles que deban conectarse automáticamente y ejecute vipirc --background --reconnect --config /absolute/config.ini. --background no activa la conexión automatica, y --no-connect la impide. El éxito de ese comando solo confirma la preparacion local. No hacen falta tty ni TERM hasta conectar una terminal. El punto privado se prepara antes de iniciar los auxiliares de resolucion DNS o credenciales. --resume sin opciones de interfaz conserva la interfaz del proceso; -i/-N la cambia expresamente, sin reconectar ni sustituir el proceso de trabajo. Cambiar de interfaz conserva las conversaciones y las transferencias aceptadas, pero descarta borradores, revisiones de envio pendientes, historial de comandos y formularios sin aplicar. Termine o copie los borradores antes del cambio. Desconectar y reanudar con la misma interfaz conserva ese estado local. Los procesos antiguos pueden admitir solo su interfaz original.
+
+Las señales configuradas en la terminal siguen teniendo su funcion. Suspender el controlador reanudado no detiene la red del proceso de trabajo; fg devuelve el control. Suspender un proceso ordinario en primer plano si detiene la actividad de red. Consulte TERMINAL SIGNALS para las asignaciones heredadas y SESSION RECOVERY para la pérdida de la terminal.
+
+La primera desconexión puede requerir otro intento mientras terminan los procesos auxiliares de DNS o credenciales. Tener SIGCHLD ignorada o la recogida automatica de procesos hijos impide crear el primer proceso de trabajo y los auxiliares: el lanzador debe permitir esperar a sus hijos. Una nueva desconexión de un trabajo ya gestionado no crea otro proceso.
+
+El directorio y el socket son privados del propietario. La deteccion comprueba como maximo 64 posiciones en un plazo total de 1500 ms, y solo elimina entradas obsoletas verificadas que no conserven un bloqueo de vida. No envia señales a PID supuestos. Los trabajos que no responden permanecen sin verificar. Las comprobaciones de identidad e instancia impiden que un número reutilizado redirija la conexión durante la transferencia. Otro proceso de la misma cuenta se considera de confianza. single_session=true impide crear un segundo proceso de trabajo en el espacio de nombres de vipirc, sin limitar los servidores dentro del primero.
+
+El estado del proceso de trabajo no se guarda en disco: reiniciar el equipo, salir o terminar el proceso elimina borradores, referencias de recuperación e historial en memoria. Los registros opcionales solo guardan la transcripcion. En modo de prueba se puede usar el punto local para ejecutar en segundo plano sin activar la red IRC/DCC. No se necesita un multiplexor de terminal.
+
+RECUPERACION DE SESIONES Y ACTUALIZACIONES
+
+Un trabajo de shell corresponde a un proceso de trabajo del cliente, con todas sus conexiones IRC, transferencias, borradores e historial conservado. Su identificador de trabajo no es el PID del sistema operativo ni el número de servidor mostrado dentro del cliente.
+
+Para recuperar un trabajo cuya antigua terminal SSH sigue conectada:
+
+    vipirc --sessions
+    vipirc --detach-session 1
+    vipirc --resume 1
+
+Elija NUMBER de la lista actual. --detach-session libera el controlador verificado, espera a que quede desconectado y conserva el proceso de trabajo y su estado IRC. --resume sin número solo selecciona un único trabajo desconectado y verificado; si hay varios o alguno no esta verificado, se necesita seleccionar uno expresamente. Nunca toma el control de una terminal todavia conectada. Los números de trabajo permanecen estables hasta la salida y después pueden reutilizarse.
+
+CERRAR UNA SESION DESDE LA SHELL
+
+Utilice esto solamente si desea terminar el trabajo completo:
+
+    vipirc --sessions
+    vipirc --close-session 1
+
+El cierre termina todas las conexiones IRC y transferencias del proceso, y descarta los borradores no guardados y el historial en memoria. Se conservan la configuración guardada y los archivos existentes de registro en texto sin cifrar. Tambien se aceptan --close-session=1 y --detach-session=1. Estos comandos de administracion no necesitan terminal interactiva ni cargan la configuración. No los combine con --resume, --sessions, entre si, --config ni opciones de conexión. Los indicadores de interfaz compatibles pueden permanecer en un alias sin cambiar el trabajo seleccionado.
+
+El cliente utiliza el punto privado del propietario, comprueba el propietario del otro extremo y verifica la identidad del proceso seleccionado. El éxito confirma que concluyeron la limpieza de la aplicacion y la liberacion del bloqueo original del trabajo; no significa solamente que se acepto la solicitud ni que se haya observado independientemente la salida del proceso del sistema operativo. Las solicitudes tienen un plazo limitado. Un fallo o un tiempo de espera agotado no elimina el punto de un trabajo vivo ni envia señales a un PID supuesto. Si la solicitud se acepto antes de vencer el plazo, aún puede completarse después: vuelva a consultar --sessions.
+
+Un proceso bloqueado al escribir en una terminal abierta que nadie lee puede tardar en atender las solicitudes de control hasta que se despeje la salida o se cierre la terminal. Si el proceso esta totalmente bloqueado, quizás deba intervenir desde el sistema operativo tras identificar el proceso real. Un estado de cierre distinto de cero significa que no se confirmo la finalizacion.
+
+RECUPERACION TRAS DESCONECTARSE SSH
+
+Si se pierde la terminal o el controlador de un trabajo que ya esta gestionado, el proceso de trabajo queda desconectado. La desconexión por hangup o error, stdin EOF/EIO, fallos de stdout, EOF del controlador y SIGHUP conservan conexiones y estado. En modo completo, la limpieza tras perder la terminal o solicitar el cierre redirige la salida obsoleta antes de limpiar curses; el controlador en primer plano restaura su propia tty.
+
+Un proceso ordinario en primer plano que nunca se gestiono mantiene la terminación normal por SIGHUP. Use --background al iniciar o /background antes si necesita recuperarlo. El cliente no cambia los tiempos de espera por inactividad de SSH. El dibujo sincrono de la terminal puede seguir bloqueado si esta abierta, pero nadie lee su salida.
+
+ACTUALIZAR UN PROCESO DE TRABAJO EN EJECUCIÓN
+
+Instalar o recompilar no sustituye el código de un proceso en ejecución. Guarde la configuración necesaria, salga deliberadamente o cierre el trabajo, compruebe el --version instalado y luego inicie un trabajo nuevo. Haga lo mismo para las actualizaciones de seguridad. Los registros sobreviven; no los borradores, el historial de comandos ni las referencias de recuperación.
+
+Un proceso antiguo puede carecer de los nuevos controles de desconexión/cierre o del cambio de interfaz. Conserve su ejecutable compatible mientras lo necesite para conectarse y salir mediante los controles existentes. Una operación antigua fallida nunca se considera exitosa solo porque haya desaparecido un punto de comunicación. Los archivos de configuración existentes siguen siendo utilizables por la versión actual; un ejecutable anterior puede rechazar las claves que haya guardado una versión nueva.
+
+Consulte doc/SESSION-CONTROLS.txt para el mismo procedimiento y doc/OPENBSD-VPS.txt para la configuración de un servidor sin supervision. La instalacion de este archivo de fuentes no detiene ni despliega nada automáticamente en un host remoto.

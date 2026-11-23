@@ -1,0 +1,18 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / CUSTOM KEY BINDINGS
+English source SHA-256: 947b11b40b8bb1c3fa32d14bc71aac77bc4ccb1186406a303e6b96d197a6b92d
+Source lines: 782-815
+
+ASSOCIAÇÕES PERSONALIZADAS DE TECLAS
+
+Por predefinição não existem teclas personalizadas atribuídas. App > Key bindings ou /bindings abre a tabela no vipirc completo. Add/Edit escolhe uma tecla e uma ação local; Remove apaga uma linha. Apply altera a tabela em memória e Save grava também a configuração primária. Escape/Cancel descarta edições ainda não aplicadas. Os rascunhos de conversa são preservados. A tabela tem controlos próprios, não afetados pelas associações personalizadas.
+
+Em qualquer interface, /bindings keys e /bindings actions apresentam os nomes disponíveis. Exemplos escolhidos pelo utilizador: /bind F7 summary e /bind Alt-c command; introduza-os como comandos separados. /unbind F7 remove uma associação e /unbind all limpa a tabela personalizada. /save input guarda as alterações para todos os perfis de servidor. No modo -i, /bindings mostra a tabela e /bind e /unbind editam-na através de comandos.
+
+Teclas: F1..F12, Ctrl-A..Z, Alt-a..z/0..9, Up, Down, Left, Right, Home, End, PageUp, PageDown, Insert, Delete, Backspace, Tab, Shift-Tab, Enter, Escape. São equivalentes Ctrl-H/Backspace, Ctrl-I/Tab, Ctrl-J/Ctrl-M/Enter e Ctrl-[/Escape. Alt com letras utiliza bytes minúsculos do terminal. A interceção pelo terminal ou multiplexador e o mapeamento de sinais prevalecem; nenhuma tecla de sinal é reatribuída.
+
+Ações: compose, command, bindings, help, manual, summary, servers, channels, queries, unread, mentions, transfers, settings, quickstart, next, prev, clearinput, cancel, background, quit. Não há macros para enviar mensagens ou executar comandos arbitrários. No modo completo, comandos restaurados exigem um Enter novo para confirmação e, depois de uma pausa, outro Enter para execução. Se o destino original tiver sido fechado, Run é impedido.
+
+As ações personalizadas só funcionam na conversa principal e na introdução de comandos, nunca durante colagem, em campos de palavra-passe, configuração inicial, leitores ou confirmações. Uma colagem sem delimitadores continua a ser interpretada como escrita normal. Os leitores de atalhos minimalistas mantêm o rascunho e a posição do cursor; mudanças de destino/editor recusam um rascunho não vazio. clearinput elimina deliberadamente o rascunho atual.
+
+A secção primária [hotkeys] guarda linhas KEY=action, sem valores predefinidos. Entradas desconhecidas, repetidas ou excessivas fazem rejeitar a carga inteira, de forma atómica. São suportadas até 64 entradas. Consulte doc/HOTKEYS.txt para gravação, limites do terminal e exemplos.

@@ -1,0 +1,130 @@
+VERBATIM ENGLISH REFERENCE: vipirc 0.7.36 MANUAL.txt
+Source region: RUNNING IN THE BACKGROUND through UPGRADING A RUNNING WORKER.
+English source SHA-256: 437285c900ab53a8e3af83c93361506ef994ba6db79a747aee0675247a92c09c
+
+RUNNING IN THE BACKGROUND
+
+/background or F1 > Background keeps IRC, accepted transfers, drafts and
+memory history alive while restoring the terminal. It prints the numbered
+resume command, for example vipirc --resume 1. First detach creates one
+worker/private endpoint; subsequent detaches retain its number, state and
+endpoint. Ordinary foreground use has neither endpoint nor extra helper.
+
+Resume rereads terminal capabilities, size and locale on the same host/Unix
+account. stdin/stdout/stderr must share one interactive tty. One foreground
+controller handles signals/resize; only one terminal can attach at once.
+SESSION RECOVERY AND UPGRADES explains job selection and busy attachments.
+
+Start unattended with vipirc --background --reconnect --config
+/absolute/config.ini after saving wanted autoconnect profiles. --background
+does not enable autoconnect, and --no-connect suppresses it. Its success
+confirms only local setup. No tty/TERM is needed until attachment. The
+endpoint is prepared before resolver/credential helpers. Bare resume keeps
+the worker's frontend; explicit -i/-N switches it without reconnecting or
+replacing the worker. Changing interfaces retains conversation history and
+accepted transfers but discards drafts, pending send reviews, command recall
+and unapplied forms. Finish or copy wanted drafts before switching.
+Same-interface detach/resume preserves this local state. Legacy workers may
+retain only their existing frontend.
+
+Configured terminal signals keep their roles. Suspend stops the resumed
+controller while its worker keeps networking; fg restores interaction.
+Suspending an unmanaged foreground process pauses networking. See TERMINAL
+SIGNALS for inherited mappings and SESSION RECOVERY for terminal loss.
+
+First detach may ask for a retry while resolver/credential helpers finish.
+Ignored SIGCHLD/automatic child reaping prevents first background startup
+and helper creation; the launcher must leave children waitable. Managed
+re-detach starts no new worker.
+
+Directory/socket are owner-private. Discovery probes at most 64 slots within
+one 1500 ms deadline, removes only verified stale entries without a held
+lifetime lease, and uses no guessed PID signals. Unresponsive jobs remain
+unverified. Identity/incarnation checks prevent a reused number redirecting
+attachment during handoff. Another process under the same account remains
+trusted. single_session=true refuses a second worker in the vipirc namespace
+without restricting servers inside it.
+
+Worker state is not serialized: reboot, quit or termination ends
+drafts/anchors/memory. Optional logs save transcript only. Test mode can
+background using its local endpoint without enabling IRC/DCC networking. No
+terminal multiplexer is required.
+
+SESSION RECOVERY AND UPGRADES
+
+A shell job is one client worker and all of its IRC connections, transfers,
+drafts and retained history. Its job ID differs from both an
+operating-system PID and a server number shown inside the client.
+
+Recover a job whose old SSH terminal is still attached:
+
+    vipirc --sessions
+    vipirc --detach-session 1
+    vipirc --resume 1
+
+Choose NUMBER from the current list. --detach-session releases the verified
+controller, waits for detached state, and keeps the worker/IRC state alive.
+Bare --resume selects only a sole verified detached job; multiple or
+unverified candidates need explicit selection. It never takes over an
+attached terminal. Job numbers remain stable until exit, then may be reused.
+
+CLOSE A SESSION FROM THE SHELL
+
+Use this only when the entire job should end:
+
+    vipirc --sessions
+    vipirc --close-session 1
+
+Close ends all of that worker's IRC connections and transfers and discards
+its unsaved drafts and in-memory history. Saved configuration and existing
+plaintext log files remain. --close-session=1 and --detach-session=1 are
+also accepted. These management commands do not require an interactive
+terminal or load configuration. Do not combine them with --resume,
+--sessions, each other, --config or connection options. Supported interface
+flags can remain in an alias without changing the selected job.
+
+The client uses the owned private endpoint, peer-ownership checks and the
+chosen worker's identity token. Success means application cleanup and
+release of the original job lease were confirmed, not merely that a request
+was accepted or an independent observation of OS process exit. Requests have
+a bounded deadline. A failed or timed-out operation does not unlink a live
+endpoint or signal a guessed PID. If a request was accepted before timeout,
+it may complete later; recheck --sessions.
+
+A worker blocked on an open, permanently unread terminal may not reach its
+control poll until output clears or the terminal closes. An entirely wedged
+worker may require operating-system intervention after identifying the
+actual process. A nonzero close status means completion was not confirmed.
+
+SSH DISCONNECT RECOVERY
+
+Loss of the terminal or controller in an already managed job detaches its
+worker. Hangup/error readiness, stdin EOF/EIO, stdout failure, controller
+EOF and SIGHUP preserve its connections and retained state. Full-mode
+lost-terminal and externally requested close cleanup redirects obsolete
+worker output before curses cleanup; the foreground controller restores its
+own tty.
+
+An ordinary foreground process that has never become managed retains normal
+SIGHUP termination behavior. Start with --background or use /background
+first when a resumable job is required. The client does not change SSH
+client/server idle-timeout policy. Ordinary synchronous terminal drawing can
+still block on a terminal that remains open but is no longer being read.
+
+UPGRADING A RUNNING WORKER
+
+Installing/rebuilding does not replace code in a running worker. Save wanted
+configuration, deliberately quit/close it, check the installed --version,
+then start a fresh job. Do this for security updates too. Logs survive;
+drafts, recall and catch-up anchors do not.
+
+A legacy worker can lack newer detach/close controls or frontend switching.
+Keep its compatible executable until it is stopped if needed to attach and
+quit through its existing controls. A failed legacy operation is never
+reported as success merely because an endpoint disappeared. Existing config
+files remain usable by the current release; an older executable may reject
+keys explicitly saved by a newer one.
+
+See doc/SESSION-CONTROLS.txt for the same workflow, and doc/OPENBSD-VPS.txt
+for unattended host setup. Installing this source archive does not stop or
+deploy anything on a remote host automatically.

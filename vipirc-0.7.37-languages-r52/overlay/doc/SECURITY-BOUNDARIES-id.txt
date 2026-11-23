@@ -1,0 +1,37 @@
+MODEL KEAMANAN: PETIKAN TERJEMAHAN PILIHAN
+Penjelasan pilihan tentang batas kepercayaan, TLS, kredensial, log, dan tampilan dari SECURITY.md. Ini bukan terjemahan lengkap SECURITY.md.
+
+Batas kepercayaan dan permulaan
+-------------------------------
+Server IRC, pengguna, nama panggilan, topik, nama berkas, dan pesan tempelan adalah masukan yang tidak tepercaya. Sistem operasi, terminal, pustaka kriptografi, penyimpanan sertifikat, dan akun pengguna merupakan komponen yang dipercaya. Beberapa profil server dalam satu proses tidak saling terisolasi.
+
+Jalankan klien sebagai pengguna biasa. Program ini bukan sandbox keamanan dan tidak dapat melindungi dari host yang diretas atau proses lain dengan hak akun yang sama. Penguatan keamanan mengurangi risiko, bukan menghilangkannya.
+
+TLS dan autentikasi
+-------------------
+TLS versi 1.2 atau lebih baru memverifikasi rantai sertifikat server dan nama host yang dipilih. Tidak ada pengalihan diam-diam ke teks biasa. SASL terkonfigurasi, server PASS, dan daftar perintah otomatis aktif yang tidak kosong memerlukan TLS terverifikasi. TLS melindungi sambungan ke server atau bouncer, bukan pesan IRC dari ujung ke ujung.
+
+ca_file kosong menggunakan penyimpanan sertifikat sistem. ca_file khusus memilih kumpulan PEM tepercaya sebagai pengganti dan mengubah penerbit yang dipercaya. Berkas harus berupa berkas biasa, tidak kosong, berukuran paling besar 16 MiB. --check-config tidak melakukan jabat tangan TLS sebenarnya.
+
+Pilih tepat satu sumber untuk setiap rahasia: berkas teks biasa privat, berkas privat terenkripsi GPG, atau nilai langsung yang dinyatakan jelas. Sumber SASL terpisah dari sumber server PASS. Berkas kata sandi terenkripsi tidak membuat koneksi jaringan tanpa enkripsi menjadi aman.
+
+Konfigurasi dan kata sandi
+--------------------------
+Berkas kredensial teks biasa dan GPG harus dimiliki pengguna, berupa berkas biasa, dan bermode tepat 0600 atau 0400. Konfigurasi memakai INI harfiah tanpa ekspansi shell; kunci dan nilai yang tidak sah ditolak. Konfigurasi yang berisi kredensial langsung atau entri perintah otomatis memerlukan mode tepat 0600 atau 0400.
+
+GPG dijalankan langsung tanpa shell setelah TLS diverifikasi, dengan batas I/O dan tenggat. Aplikasi tidak meminta frasa sandi kunci di dalam klien. Buka kunci terlindungi di luar aplikasi; jangan sertakan rahasia terbuka, tangkapan layar, atau log privat saat melaporkan kesalahan.
+
+Pesan, log, dan tampilan
+------------------------
+Klien tidak menjalankan teks IRC masuk, membuka URL, atau mengeksekusi perintah shell dari pesan yang diterima. Karakter kontrol masuk disaring sebelum ditampilkan. Mengirim beberapa pesan IRC membutuhkan persetujuan terpisah; tempelan berpenanda tidak dianggap konfirmasi baru.
+
+Log transkrip permanen dinonaktifkan secara bawaan. Jika diaktifkan, berkas dan direktori log privat diperiksa ketat; log tetap ada setelah keluar dan tidak dihapus otomatis. Rahasia tak dikenal yang diketik sebagai chat biasa dapat terekam. Perekaman terminal dan log server adalah hal terpisah.
+
+Mode visual Arab mengubah tampilan, bukan urutan logis UTF-8 perintah atau pesan IRC keluar. Huruf Unicode yang mirip dan nama dengan aksara campuran masih dapat meniru orang tepercaya. Periksa identitas akun dan tujuan sebenarnya sebelum memercayai perintah atau tautan.
+
+Transfer berkas melalui DCC memerlukan persetujuan jelas dan tidak dilindungi oleh sambungan TLS IRC. Anggap nama berkas serta isinya tidak tepercaya. Jangan menyimpulkan pengiriman aman hanya karena koneksi IRC memakai TLS.
+
+Selalu baca SECURITY.md asli untuk rincian operasional dan batas yang berlaku. Terjemahan ini adalah draf yang membutuhkan tinjauan penutur mahir, khususnya sebelum digunakan untuk keputusan keamanan.
+
+SOURCE:  / SECURITY.md
+STATUS: Draft translation; English source takes precedence.

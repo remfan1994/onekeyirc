@@ -1,0 +1,23 @@
+VERBATIM ENGLISH SOURCE REFERENCE
+Source: MANUAL.txt / CHANNEL CHOOSER AND CLOSING CONVERSATIONS
+English source SHA-256: da114abc3568be30c5d0cc9c66a970f8f23b79ab9555afca690c56aa25e37060
+
+CHANNEL CHOOSER AND CLOSING CONVERSATIONS
+
+F3 or /channels (/cl, /views) shows server/MOTD entry 0 and retained channel
+views, including parted ones. Common list navigation applies; actions are:
+
+    Open    Join    Part    Close    Back
+
+Join opens Command with /join prepared, preserving drafts. Part leaves the
+channel and keeps history; Close removes the view. p parts, c closes, o
+opens Join. /channel NUMBER or #NAME selects a retained view; /view NUMBER
+uses channel numbering and /view NAME selects a named view. Numbers can
+change after closure; use the current list.
+
+Close first parts a joined channel, discards its history/draft and cancels
+queued target chat; an in-flight message may finish. A nonempty draft
+requires confirmation, default No. Server and mentions views cannot close;
+/disconnect stops server networking. /close [NAME|NUMBER] closes the
+specified channel/query or current conversation. Channel 0 cannot part.
+Back/Escape restores chat.

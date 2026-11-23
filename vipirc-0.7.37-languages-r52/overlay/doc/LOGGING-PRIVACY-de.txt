@@ -1,0 +1,23 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / HISTORY, LOGGING AND PRIVACY
+English source SHA-256: b0c065ed46b6cbb73666075f1eee2d050a5a82160fac0ddadd98ad80d2910ee3
+
+VERLAUF, PROTOKOLLIERUNG UND DATENSCHUTZ
+
+Es gibt unterschiedliche Arten von Verlauf:
+
+    Gespeicherte Gespräche/Erwähnungen: begrenzter Speicher für die Anzeige.
+    Befehlsrückruf: angenommene Befehlszeilen im Speicher, nach Geheimnisfilterung.
+    Befehlshäufigkeit: kanonische Namen und Zähler in CONFIG_PATH.commands.
+    Optionales Transkript: Klartext in der .log-Datei jedes gespeicherten Profils.
+    Bouncer-Wiedergabe: Nachrichten nach der eigenen Richtlinie des Bouncers.
+
+Detach/resume bewahrt den Speicher der laufenden Sitzung. /quit, --close-session, Prozessabsturz oder Neustart beenden ihn. Ein neuer Prozess lädt gespeicherte Einstellungen und gegebenenfalls Befehlszähler, übernimmt aber keine alten Transkriptdateien als lebendigen Chatverlauf und erstellt keinen früheren Catch-up-Anker erneut. /clear leert den gespeicherten Verlauf der aktuellen Ansicht, ohne Transkripte auf der Festplatte zu löschen oder IRC-Nachrichten zurückzunehmen.
+
+Ein Transkript mit /set persistent_logging on aktivieren und mit /save output speichern oder Settings > Interface > Persistent logging wählen. Standardmäßig ist dies ausgeschaltet, gilt serverübergreifend und nutzt je gespeichertem Profil eine eigene Datei. Die Pfad- und Dateischutzregeln unter CONFIGURATION gelten weiterhin.
+
+Jedes Protokoll endet bei 16 MiB; es wird weder automatisch rotiert noch gelöscht. Unsichere Pfade, belegte Dateisperren oder Schreibfehler deaktivieren die Protokollierung des betroffenen Profils mit Fehlermeldung, der Chat läuft weiter. Alte Datei archivieren, danach die Protokollierung aus- und wieder einschalten. Eine Rotation kann den bisherigen Catch-up-Anker ungültig machen; vor einer späteren Abwesenheit erst eine neue geeignete Nachricht senden, bevor man auf dauerhaften Catch-up vertraut.
+
+Erkannte Anmelde-/Dienstnachrichten und vertrauliche Kopien unter aktuellen oder früheren Spitznamen werden ausgeschlossen, auch qualifizierte Dienstziele. Normale Chats, unbekannte Dienstsyntax oder von Hand eingefügte Geheimnisse können trotzdem protokolliert werden; entfernte Dienste können eigene Kopien behalten. Das Abschalten verhindert neue Einträge, löscht bestehende jedoch nicht. Private Dateirechte sind keine Verschlüsselung und schützen nicht vor anderen Programmen desselben Unix-Kontos. Normale Dateien auf langsamen oder netzgebundenen Speichern können Datenträgerzugriffe verzögern.
+
+Ein gespeichertes Transkript heißt CONFIG_PATH.log und liegt in einem eigenen Verzeichnis mit exakt Modus 0700. Alle Pfadbestandteile müssen ohne Symlinks und ohne Elternverzeichnis-Durchquerung geprüft werden. Die geöffnete Datei muss dem Benutzer gehören, regulär sein, nur einen Hardlink besitzen und exakt Modus 0600 haben. Nichtblockierende Datei-/Sperrbehandlung weist FIFO-Dateien und belegte Logs ab; die Grenze von 16 MiB gilt pro gespeichertem Profil.

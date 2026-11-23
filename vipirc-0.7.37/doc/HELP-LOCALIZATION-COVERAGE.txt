@@ -1,0 +1,417 @@
+INTERACTIVE HELP LOCALIZATION COVERAGE
+======================================
+
+Exact whole-line translations in command/topic help only.
+Does not measure translation quality, screen layout, source comments, or manuals.
+Examples and IRC protocol commands stay literal and are excluded.
+
+Help lines: 477
+With catalog keys: 239
+Without catalog keys: 238
+
+Per-locale entries that differ from source English:
+(Count is not a native-speaker quality rating.)
+  id: 239/477
+  ms: 239/477
+  tr: 239/477
+  es: 239/477
+  pt: 239/477
+  fr: 239/477
+  de: 239/477
+  ru: 239/477
+  it: 239/477
+  ar: 239/477
+
+command /autoauth: 8/8 catalog lines
+
+command /autocommands: 0/10 catalog lines
+  EN ONLY: Commands belong to the selected server. They run once after registration and required SASL succeeds.
+  EN ONLY: The default delay is 15 seconds, with at least 2 seconds between completed commands.
+  EN ONLY: Use delay 0..300 and interval 2..60 to change those timings. A stalled connection never triggers a catch-up burst.
+  EN ONLY: Supported commands: /msg, /join, /nick, /away, /back and /whois, including their documented exact aliases.
+  EN ONLY: Up to 16 commands of 511 UTF-8 bytes each. One command must fit one IRC message; it is never silently split.
+  EN ONLY: There is no shell, raw IRC or current-conversation expansion. Automatic joins do not change the selected view.
+  EN ONLY: Changes apply to the next connection. /cancel stops still-unsent startup commands on this connection.
+  EN ONLY: Lists redact message text and join keys; automatic commands are excluded from history and local message echoes.
+  EN ONLY: Save with /save. The file must be private (0600 or 0400); an enabled nonempty list requires verified TLS.
+  EN ONLY: Test mode never runs automatic commands. Startup command text is stored literally in the config, not encrypted by GPG.
+
+command /autoconnect: 3/3 catalog lines
+
+command /autojoin: 6/6 catalog lines
+
+command /away: 1/1 catalog lines
+
+command /back: 1/1 catalog lines
+
+command /background: 0/13 catalog lines
+  EN ONLY: Detaches the running session after restoring the terminal. The shell receives this application's numbered resume command.
+  EN ONLY: From the shell, --sessions lists this program's attached and detached private jobs; --resume resumes its sole available detached job.
+  EN ONLY: Use --resume NUMBER when more than one job exists. NUMBER is the job ID, not a process ID; it stays stable until exit and may then be reused.
+  EN ONLY: --detach-session NUMBER releases an attached terminal/controller but keeps the worker, IRC connections, drafts and history alive for --resume NUMBER.
+  EN ONLY: --close-session NUMBER ends the whole job, all IRC connections and transfers, and its unsaved drafts and in-memory history. Success is reported only after verified completion.
+  EN ONLY: If resume is busy after a lost SSH terminal, list jobs, detach that job, then resume it. See /help sessions for the recovery sequence.
+  EN ONLY: An unresponsive worker or a legacy worker lacking a requested control can fail. Installing a binary does not update a running worker; restart it deliberately after an upgrade.
+  EN ONLY: Resume redraws retained in-memory scrollback even when no chat arrived while detached. /set single_session on refuses a second background job so bare --resume remains unambiguous.
+  EN ONLY: To start without a terminal, use --background from the shell; see --help for this program's options.
+  EN ONLY: When background_away is on and this profile permits automatic away, /background or managed terminal loss queues the configured AWAY after detach. Resume clears only that client-generated away state; a manual /away is preserved.
+  EN ONLY: Add --reconnect to retry transient connection failures. See /help deployment and /help reconnect.
+  EN ONLY: No terminal multiplexer is required. A pending resolver or credential helper can require a retry.
+  EN ONLY: Suspending an ordinary foreground process pauses its networking. A resumed job can suspend its foreground controller while its managed worker continues networking.
+
+command /bind: 1/6 catalog lines
+  EN ONLY: The new assignment replaces that key's previous custom action for every server. Other bindings are preserved.
+  EN ONLY: Bindings run in the main chat and command prompt, not in paste, password/setup fields, readers or confirmation screens.
+  EN ONLY: Changes take effect now but remain unsaved until /save input. Existing navigation works when a key has no active custom binding.
+  EN ONLY: Only named local functions are accepted. There is no arbitrary command, macro, send action or shell expansion.
+  EN ONLY: Terminal-reserved keys may never reach the program; binding a key does not change terminal signal assignments.
+
+command /bindings: 0/7 catalog lines
+  EN ONLY: Without arguments, list your current application-wide bindings. An empty list means none are assigned.
+  EN ONLY: Use /bind to assign or replace a key, /unbind KEY to remove it, and /unbind all to clear the list.
+  EN ONLY: F1..F12, Ctrl-A..Ctrl-Z, Alt-a..Alt-z, Alt-0..Alt-9 and named navigation keys are supported.
+  EN ONLY: Ctrl-H is Backspace, Ctrl-I is Tab, Ctrl-J and Ctrl-M are Enter, and Ctrl-[ is Escape; these are the same binding.
+  EN ONLY: Alt letters use unshifted lowercase terminal bytes. Function/Alt key delivery depends on the terminal and any multiplexer.
+  EN ONLY: Up to 64 bindings are saved as KEY=action in [hotkeys] in the primary config. /save input persists command edits.
+  EN ONLY: See /help hotkeys for scope, draft protection and terminal signal behavior.
+
+command /cancel: 3/3 catalog lines
+
+command /catchup: 0/5 catalog lines
+  EN ONLY: Starts at your most recent locally sent chat/action in the selected channel or query. Server/mentions views have no sent-chat anchor.
+  EN ONLY: An eligible private log is tried first. Logging must already have been enabled when the anchor was sent and remain healthy; sensitive authentication text is not a disk anchor. Otherwise retained in-memory history is used when its anchor is still available.
+  EN ONLY: The disk reader is a stable snapshot: Up/Down move one row, Page Up/Page Down a page, Home returns to the anchor, End shows the newest snapshot page, and Escape returns live. New traffic does not move that snapshot.
+  EN ONLY: The in-memory fallback opens ordinary retained scrollback at the anchor: Home reaches the oldest retained page, and End or Escape returns live. Older retained messages can still be browsed.
+  EN ONLY: A replaced or changed anchor record cannot be used as the original disk anchor. A fresh process does not restore anchors from old logs. See /help logging and /help history.
+
+command /channel: 2/2 catalog lines
+
+command /channels: 2/2 catalog lines
+
+command /cl: 2/2 catalog lines
+
+command /clear: 0/3 catalog lines
+  EN ONLY: Clears this view's bounded in-memory history. It does not part, disconnect, retract sent text or delete an existing persistent log.
+  EN ONLY: Terminal scrollback already produced by the program is controlled by the terminal.
+  EN ONLY: In the main chat view, Up opens one-row retained history, Page Up opens a page, and Home jumps to the oldest retained page; Down/Page Down move newer. New matching traffic does not move the history page being read. End or Escape returns to the live tail; navigation keys do not open the composer.
+
+command /close: 2/2 catalog lines
+
+command /connect: 11/11 catalog lines
+
+command /dcc: 0/10 catalog lines
+  EN ONLY: With no arguments, list transfers. /dcc NICK PATH offers a file on the selected server.
+  EN ONLY: PATH is the remaining literal text, including spaces; it is relative to this process's launch directory.
+  EN ONLY: The client never changes that directory, including while browsing files or running in the background.
+  EN ONLY: The short send form advertises the local IPv4 address of the IRC connection. Behind NAT, use -address with your reachable IPv4 and -port with a forwarded port.
+  EN ONLY: No external address-discovery request is made. IPv6-only IRC connections need an explicit IPv4 override.
+  EN ONLY: DCC is an unencrypted direct connection. The peer receives your advertised IP; accepting an offer reveals your IP to that peer.
+  EN ONLY: Incoming offers stay unopened until /dcc accept NUMBER. DIRECTORY defaults to the launch directory and must be owned by you and private.
+  EN ONLY: No existing destination is overwritten; symlinks and special files are refused. Offline test mode does no transfer file/socket work.
+  EN ONLY: Use /dcc reject NUMBER for an incoming offer, or /dcc cancel NUMBER for an active transfer.
+  EN ONLY: Transfer numbers are shared across this process's servers. Closing an originating server cancels its transfers; disconnecting IRC does not cancel an accepted transfer.
+
+command /disconnect: 2/2 catalog lines
+
+command /help: 3/3 catalog lines
+
+command /ignore: 0/3 catalog lines
+  EN ONLY: Accepts a nickname or nick!user@host mask with * and ? wildcards. Matching user messages/notices are hidden locally.
+  EN ONLY: Ignored text does not create queries or mentions. Protocol state, server notices and membership still work.
+  EN ONLY: Use /save to persist this server's masks.
+
+command /join: 0/3 catalog lines
+  EN ONLY: Requires registration. A key is one printable ASCII token and is never saved or retained in command history.
+  EN ONLY: On a direct connection, the channel name becomes part of the running auto-join list; separately staged /autojoin edits take precedence when saved.
+  EN ONLY: Use /autojoin to edit a direct profile's next explicit connection without joining now. A bouncer manages its own memberships.
+
+command /list: 0/7 catalog lines
+  EN ONLY: Requests channels from the selected IRC server; registration is required. MASK is the only filter sent to the server.
+  EN ONLY: Minimum/maximum users, name and topic filters are applied locally so they work even when a network lacks extended LIST filtering.
+  EN ONLY: --sort selects channel, users or topic; users descending is the default. --limit 0 means no display limit within the bounded cache.
+  EN ONLY: /list show prints the cached directory; its --sort, --asc/--desc and --limit options reorder or trim the cache locally without another IRC request. /list clear removes the cache.
+  EN ONLY: Disconnect or a server LIST rejection keeps any partial cache but releases the request; retry /list after registration, or use /list clear.
+  EN ONLY: The full-screen client opens the sortable channel browser; minimalist mode uses the same options and /list show.
+  EN ONLY: Use /ls or /cl for local channel views; /list searches the network.
+
+command /ls: 0/2 catalog lines
+  EN ONLY: Without an argument, list channels on the selected server. This is a local client list command, not a shell command or a network-wide IRC LIST request.
+  EN ONLY: Use /server N, /channel N and /pm NICK to select the corresponding entries.
+
+command /manual: 0/1 catalog lines
+  EN ONLY: The same topic and command help is available without connecting. /help TOPIC is the shorter route.
+
+command /me: 2/2 catalog lines
+
+command /mentions: 4/4 catalog lines
+
+command /msg: 2/2 catalog lines
+
+command /next: 1/1 catalog lines
+
+command /nick: 2/2 catalog lines
+
+command /panel: 2/22 catalog lines
+  EN ONLY: Choose 0 (the default) for application preferences, or profile panels 1..8; panel 1 edits the primary. These are panel choices, not shell job IDs.
+  EN ONLY: Application preferences contain history retention, send mode, output format, queue notices and command suggestions for all servers.
+  EN ONLY: They work without a configured server. Their final choices are 1 Save (default) and 2 Apply without saving; neither connects.
+  EN ONLY: A server panel contains only its connection, startup, authentication, mention and ignore settings.
+  EN ONLY: Choosing any panel does not switch your chat conversation.
+  EN ONLY: Enter keeps a shown value; '-' clears an optional field. Escape returns one question at a time; repeat it to leave without applying edits.
+  EN ONLY: Tab selects the question heading. Press ? there for help about the option and its screen; Tab or Enter resumes the answer.
+  EN ONLY: Every editable answer keeps ? as literal text, including the first character and wildcard masks.
+  EN ONLY: Watch terms and ignore masks are entered one at a time; an empty new entry finishes that list.
+  EN ONLY: Credential input is hidden and setup answers never enter command history. Existing credential files are not read while editing.
+  EN ONLY: For a GPG source, choose Create new or Use existing. Creation offers a private default path; Enter accepts it and prepares its directory (0700).
+  EN ONLY: A different destination must be in an existing directory you own with mode 0700. The path is checked before the key and password questions.
+  EN ONLY: Creation then asks for a full local public-key fingerprint and the password twice. Existing files and symlinks are never replaced.
+  EN ONLY: Credential paths are stored as absolute paths. /autoauth status shows their complete configured locations without reading their contents.
+  EN ONLY: Encryption starts only after Finish, keeps IRC responsive, and never uses a plaintext temporary file. Escape cancels pending work.
+  EN ONLY: A failed config save keeps completed ciphertext available for a deliberate retry; files referenced by a saved config are preserved.
+  EN ONLY: Test mode does not start GPG or create credential files. Unlock the matching private key externally before authenticating.
+  EN ONLY: A server panel's final choices are 1 Save and connect, 2 Save only (default), 3 Connect once, or 4 Apply only.
+  EN ONLY: Nothing is applied, saved or connected merely by opening the panel or answering its earlier questions.
+  EN ONLY: Use /quickstart for the shorter server, transport, port and nickname setup.
+
+command /part: 0/3 catalog lines
+  EN ONLY: Without a channel, parts the selected joined channel. Text after a channel is the PART reason; text without a channel is the reason for the selected channel.
+  EN ONLY: If no explicit reason is supplied, part_message is used when configured. The running auto-join entry is removed.
+  EN ONLY: Queued messages for that channel are cancelled; one in-flight frame may finish. Use /close to remove the view.
+
+command /pm: 2/2 catalog lines
+
+command /prev: 1/1 catalog lines
+
+command /ql: 2/2 catalog lines
+
+command /queries: 1/1 catalog lines
+
+command /query: 3/3 catalog lines
+
+command /quickstart: 8/8 catalog lines
+
+command /quit: 1/2 catalog lines
+  EN ONLY: Sends MESSAGE as the best-effort IRC QUIT reason on each live server, or quit_message when MESSAGE is omitted, then restores the terminal and exits.
+
+command /save: 4/4 catalog lines
+
+command /saveconf: 7/7 catalog lines
+
+command /server: 1/7 catalog lines
+  EN ONLY: With a hostname, this is the same direct connection command as /connect. No prior profile creation is needed.
+  EN ONLY: No argument selects the current server's message/MOTD view. NUMBER selects a server slot without connecting it.
+  EN ONLY: add creates a profile with fresh credentials, verified TLS and autoconnect off; it neither selects, connects nor saves it.
+  EN ONLY: connect/disconnect do not change selection. close removes a secondary session/catalog entry, not its profile file.
+  EN ONLY: Minimalist server numbers are 1..8, with primary 1. The primary remains available; disconnect it instead of closing it.
+  EN ONLY: Numbers remain stable for the lifetime of their sessions. Panel 0 is reserved for application preferences.
+
+command /servers: 1/2 catalog lines
+  EN ONLY: Shows minimalist server slots 1..8 (primary 1), selected server, connection state and per-server autoconnect choice.
+
+command /set: 0/18 catalog lines
+  EN ONLY: direct is the default: Enter submits the composition, with mandatory consent if it needs multiple IRC messages.
+  EN ONLY: review adds a deliberate review step before ordinary messages are queued.
+  EN ONLY: output_format compact is the default: selected chat shows [HH:MM:SS] <nick> text.
+  EN ONLY: output_format full includes the server, date and target on each chat line. Mentions and other-server diagnostics retain necessary origin context in compact mode.
+  EN ONLY: queue_notices off hides routine queued/paced acknowledgements. In the minimalist frontend, an explicitly reviewed send omits its redundant routine queue acknowledgement even when this setting is on. Errors and multi-message confirmation always remain visible.
+  EN ONLY: program_messages off hides low-priority local feedback such as draft-cancelled, input-cleared and preserved-draft notices. Errors and safety confirmations remain visible.
+  EN ONLY: persistent_logging on appends retained server/conversation lines to an owned 0600 .log file in the saved configuration's owned 0700 directory. It is off by default. Each log stops at 16 MiB; archive it and toggle logging off/on to resume. Unsafe files or a busy log stop logging with an error; live chat continues.
+  EN ONLY: single_session on permits only one background job in this client namespace, so a bare --resume is unambiguous. Multiple IRC servers remain available inside that session.
+  EN ONLY: default_interface controls the next fresh launch where interface selection is supported. It does not switch the current interface. /save input persists this application preference.
+  EN ONLY: command_suggestions chooses alphabetical order, common commands, recent command history, most-used commands, or commands relevant to the originating screen.
+  EN ONLY: composer_mode line keeps one input row below the live tail; fullscreen keeps a multi-line editor while reserving a live-tail pane. Line is the default.
+  EN ONLY: part_message and quit_message provide default IRC departure reasons; an explicit /part or /quit message overrides them. Empty part_message or quit_message disables that default text.
+  EN ONLY: background_away sends background_away_message after a successful /background or managed terminal loss. autoaway_minutes sets local-idle auto-away; 0 disables it.
+  EN ONLY: Only client-generated away state is cleared automatically on resume or genuine local input. A manual /away is never overwritten or cleared by these features.
+  EN ONLY: Common is the default. Contextual prioritizes channel, query, server or client commands while retaining matching commands from other groups.
+  EN ONLY: Common uses a curated useful order. Contextual remembers the actual screen that opened command entry, including a client-wide summary reader.
+  EN ONLY: These are application preferences and apply across servers. Use /save input or /save output to persist them.
+  EN ONLY: /panel, followed by 0, edits these preferences and the global history limit together.
+
+command /settings: 3/3 catalog lines
+
+command /sl: 2/2 catalog lines
+
+command /soju: 4/4 catalog lines
+
+command /summary: 0/7 catalog lines
+  EN ONLY: Shows every server, channel 0, channel/query views, unread activity, mentions, outgoing queues, startup commands and file transfers.
+  EN ONLY: This is a local snapshot and works while disconnected. Press r in its reader, or run it again, to refresh.
+  EN ONLY: Opening it does not change your conversation or mark anything read. The copied mentions feed is excluded from activity totals.
+  EN ONLY: Mentions may also be unread messages; these totals are not added together. Joined and left channel views are identified separately.
+  EN ONLY: The report uses its own scrollable reader and preserves drafts. Slash opens command entry; cancelling returns to the snapshot.
+  EN ONLY: A failed refresh retains the previous snapshot. No network request is made by opening or refreshing it.
+  EN ONLY: Credentials and the contents of queued messages or automatic commands are never printed.
+
+command /topic: 0/2 catalog lines
+  EN ONLY: Requires a joined channel and registration. Without text, requests the topic; otherwise submits literal TEXT.
+  EN ONLY: The server decides whether your current channel privileges permit a change.
+
+command /transfers: 0/1 catalog lines
+  EN ONLY: The same commands and protections as /dcc. Use /help dcc for send, receive and cancellation syntax.
+
+command /unbind: 0/2 catalog lines
+  EN ONLY: Removing a key restores its ordinary behavior wherever it had a custom action. all clears only the custom binding list.
+  EN ONLY: The change applies across servers immediately. Use /save input to retain it after restart.
+
+command /unignore: 0/1 catalog lines
+  EN ONLY: Equivalent to /ignore remove MASK. Save the selected profile to persist the change.
+
+command /unread: 2/2 catalog lines
+
+command /users: 0/4 catalog lines
+  EN ONLY: This is a textual roster, not a visibility toggle. User mode prefixes are included when known.
+  EN ONLY: The roster opens in a separate reader, even when empty. Enter, Escape or q returns to the selected chat log.
+  EN ONLY: Up/Down and Page Up/Down scroll the roster. In Help, Enter continues scrolling.
+  EN ONLY: An incomplete or capacity-limited NAMES reply is labelled. It does not send WHOIS requests.
+
+command /view: 2/2 catalog lines
+
+command /views: 1/1 catalog lines
+
+command /watch: 0/2 catalog lines
+  EN ONLY: Nickname mentions always remain enabled. Add/remove treats the remainder as literal text, not a regular expression.
+  EN ONLY: Up to 32 additional strings of 1 to 127 UTF-8 bytes are supported per server. Use /save to persist.
+
+command /whois: 1/1 catalog lines
+
+command /znc: 4/4 catalog lines
+
+topic /about: 0/6 catalog lines
+  EN ONLY: An application of ThatIAm.vip (www.thatiam.vip), designed by remfan1994.
+  EN ONLY: License: IALA (Insha-Allah License Agreement); see the included license text.
+  EN ONLY: Welcome warning: Not vegetarian? www.bloodguiltcurse.net will change your mind
+  EN ONLY: A running session also displays this local reminder once when a frontend is attached:
+  EN ONLY: Cow killing is the bloodshed of the innocent. www.bloodguiltcurse.net - ban beef.
+  EN ONLY: The reminder has no extra prompt and is not sent to IRC. Reconnection and reattachment do not reset its once-per-worker flag.
+
+topic /aliases: 0/8 catalog lines
+  EN ONLY: Exact alternative names are accepted without ambiguous or fuzzy execution.
+  EN ONLY: /conn = /connect; /disc = /disconnect; /detach = /background; /exit = /quit
+  EN ONLY: /j = /join; /leave = /part; /message and /privmsg = /msg
+  EN ONLY: /nickname = /nick; /names and /nicks = /users; /unaway = /back
+  EN ONLY: /channellist = /cl; /querylist = /ql; /serverlist = /servers
+  EN ONLY: /configure and /preferences = /panel; /saveconfig = /saveconf
+  EN ONLY: /autocommand = /autocommands
+  EN ONLY: Completion suggests canonical names; arguments are preserved literally and secret-history filtering is identical.
+
+topic /authentication: 12/12 catalog lines
+
+topic /bouncers: 13/13 catalog lines
+
+topic /configuration: 0/27 catalog lines
+  EN ONLY: [connection] holds server, port, tls, nick, username, realname, channel, autoconnect, auth and credential sources.
+  EN ONLY: [bouncer] type=none|znc|soju, username, network, client and automatic_away select a per-network bouncer profile; see /help bouncers.
+  EN ONLY: [input] send_mode=direct|review and [output] format=compact|full, queue_notices=true|false, program_messages=true|false, and persistent_logging=true|false are application preferences in the main config file.
+  EN ONLY: [input] command_suggestions=common|history|frequent|alphabetical|contextual selects command ordering; common is the default.
+  EN ONLY: [input] composer_mode=line|fullscreen selects the minimalist composer/command layout; line is the default and both layouts retain a live tail.
+  EN ONLY: [input] force_terminal_signals=false preserves inherited terminal signal handling; true enables it without changing key assignments. This primary-owned preference is read at launch.
+  EN ONLY: [hotkeys] contains optional KEY=action bindings, up to 64, with no defaults. It is owned by the primary config; see /help hotkeys.
+  EN ONLY: [session] single_session=true|false controls whether more than one background job may exist; false is the default.
+  EN ONLY: [session] default_interface=ncurses|idle is a primary-owned application preference. The supported startup choices are described below.
+  EN ONLY: Compact output is the default. The main history_lines value controls native retention across all servers.
+  EN ONLY: [mentions] word= and [ignore] mask= may repeat.
+  EN ONLY: [autocommands] contains enabled, delay_seconds, interval_seconds and repeated command= lines for one server.
+  EN ONLY: These command lines are literal plaintext in a private config; /autocommands manages them without exposing secret text in lists or history.
+  EN ONLY: Saved extra servers use the adjacent .servers catalog and .d directory.
+  EN ONLY: Connect with /connect HOST, then use /join #channel and /saveconf to remember your working configuration.
+  EN ONLY: /saveconf saves preferences and healthy server profiles, and remembers the selected server for a later bare /connect.
+  EN ONLY: /quickstart provides four connection questions. /panel uses 0 for application preferences and 1..8 for profiles; panel 1 edits the primary.
+  EN ONLY: Panel edits remain private until Finish. Accepting an offered GPG destination can prepare its 0700 directory; encryption, configuration writes and connection actions wait for the final choice.
+  EN ONLY: To retain changes across restarts, use /save for the selected server, /save input or /save output for the primary profile, or /saveconf for healthy profiles plus the selected default.
+  EN ONLY: Saved configurations use <config_path>.commands for automatic personal count reads and writes; the main config does not store counts.
+  EN ONLY: This private bounded file contains canonical names and counts only, never arguments or message history. Test mode does not read or write it.
+  EN ONLY: [connection] edits staged by /autojoin or /autoauth take effect on the next disconnected /connect, without altering a live connection.
+  EN ONLY: Config files are private; writes replace individual files atomically, not the whole workspace as one transaction. No import/export commands exist.
+  EN ONLY: Unknown sections or keys and invalid values are errors. Configuration uses literal values, not shell quoting, escapes, variables or ~ expansion.
+  EN ONLY: Ordinary values are trimmed at their ends. password= and server_password= preserve everything after = except the line ending; no inline comment or quotes should be added.
+  EN ONLY: Save rewrites supported settings and replaces hand-written formatting/comments. Keep notes outside the generated configuration.
+  EN ONLY: See /help authentication for secrets, /help tls for CA files, /help logging for disk transcripts and /help sessions for live-worker controls.
+
+topic /deployment: 10/13 catalog lines
+  EN ONLY: --sessions includes attached jobs. --detach-session NUMBER non-destructively releases an attached terminal so it can be resumed elsewhere. --close-session NUMBER ends the selected job and every IRC connection.
+  EN ONLY: Use the listed job ID, not a PID. Unresponsive workers and legacy workers lacking a requested control can fail. See /help sessions for recovery and upgrade steps.
+  EN ONLY: Launchers must leave children waitable: ignored SIGCHLD or automatic child reaping makes first background startup, resolver or credential-helper creation fail. A managed re-detach creates no new worker.
+
+topic /documentation: 6/6 catalog lines
+
+topic /history: 4/17 catalog lines
+  EN ONLY: The application history setting caps records across all servers/views together; edit it through /panel, then 0.
+  EN ONLY: Retention is limited to the smaller of that setting and 2048 records, with a separate 512 KiB hard byte cap.
+  EN ONLY: /catchup in a channel or query starts at your most recent locally sent composition. It tries an eligible private log, then retained memory; /help catchup explains the two readers.
+  EN ONLY: Durable catch-up is per server and conversation. Persistent logging must already be enabled when you send the anchor; it is a private plaintext transcript capped at 16 MiB per saved profile, not encrypted storage.
+  EN ONLY: Command recall retains at most 64 entries and 64 KiB, evicting the oldest. /clear clears conversation history, not command recall.
+  EN ONLY: Recent history suggestions use these complete lines. Delete removes a selected history row.
+  EN ONLY: Most-used suggestions instead use at most 96 canonical command names and bounded counts in <config_path>.commands.
+  EN ONLY: For saved configurations, accepted commands and frequency resets update that private file automatically. Arguments, targets and messages are not persisted in it.
+  EN ONLY: Unsaved profiles keep counts in memory until the first successful Save. Missing or unusable count files do not prevent startup.
+  EN ONLY: Help and multi-line command responses use a separate reader backed by a 512 KiB bounded buffer. They do not become chat history.
+  EN ONLY: Accepted commands can be recalled in the command editor. Authentication changes, keyed joins and sensitive service messages are omitted.
+  EN ONLY: Same-interface detach/resume retains drafts and recall. Switching interfaces, where supported, discards drafts, recall and setup forms; exit or reboot also ends retained in-memory chat and catch-up anchors.
+  EN ONLY: Saved frequency counts contain names only. Old plaintext logs survive exit but are not automatically imported into a new session or into the editor.
+
+topic /hotkeys: 3/12 catalog lines
+  EN ONLY: Changes apply to all servers immediately; /save input saves them in the primary configuration. Extra server profiles do not override that table.
+  EN ONLY: The config form is [hotkeys] followed by one KEY=action per line, up to 64. Duplicate keys, including terminal aliases, are errors.
+  EN ONLY: Custom actions run only in the main chat and command prompt. They do not override passwords, setup, paste, readers or confirmation screens.
+  EN ONLY: In the minimalist interface, read-only shortcut readers preserve the draft/caret. A shortcut that changes its target or editor refuses a nonempty draft; finish it or deliberately clear it first.
+  EN ONLY: The allowlist has no send action, arbitrary commands, shell code or text macros. Background and quit have their existing program effects.
+  EN ONLY: F1..F12, Ctrl-A..Z, Alt-a..z/0..9 and named navigation keys are available; ordinary printable characters remain text.
+  EN ONLY: Ctrl-H/Backspace, Ctrl-I/Tab, Ctrl-J/Ctrl-M/Enter and Ctrl-[/Escape share terminal bytes and cannot have separate bindings.
+  EN ONLY: Terminal signals and terminal/multiplexer shortcuts take precedence. A Ctrl-C or Ctrl-Z binding works only if that byte reaches the application; no terminal key is reassigned.
+  EN ONLY: Recognized bracketed paste cannot run bindings. Unframed paste is indistinguishable from typing. See /help keys for terminal timing and paste limits.
+
+topic /keys: 0/30 catalog lines
+  EN ONLY: Log: / opens Command; ? explains the selected conversation/watch log. Other printable keys open Compose with that character retained.
+  EN ONLY: Custom bindings may override these controls in main chat/Command; none are assigned by default. See /help hotkeys.
+  EN ONLY: Live log: Up scrolls a row older, Page Up a page, Home the oldest retained page. Down/Page Down/End stay live; Left/Right/Delete/Backspace do not open Compose.
+  EN ONLY: Insert or Enter opens empty Compose. Arrows, Home/End, Delete and Backspace edit text. Tab/Shift-Tab completes nicknames in Compose and command names in Command.
+  EN ONLY: Line composer mode keeps one input row below the live tail; fullscreen keeps a multi-line editor with a smaller live-tail pane.
+  EN ONLY: Command Down selects suggestions. Up/Down moves through them; Up from the first returns to the input.
+  EN ONLY: Suggestion Enter inserts without running. Read/edit it, then press Enter separately after display to execute.
+  EN ONLY: Command Up recalls matching accepted history; Down returns toward the original input. Compose Up/Down moves the caret, even when held; Enter submits.
+  EN ONLY: Delete removes a selected Recent history row or resets a selected Most-used count. Catalog commands remain available.
+  EN ONLY: ? on a selected command explains it and links to command-screen help. In all text editors, ? is ordinary text.
+  EN ONLY: Review uses a temporary alternate screen; its draft/prompt never enter chat history. Fresh Enter confirms; Escape or typing restores the editor/draft/caret. Up/Down, Page Up/Down and Home/End browse it.
+  EN ONLY: Help/response Up/Down scrolls; Page Up/Down changes page; Home/End reaches the beginning/end.
+  EN ONLY: Roster Enter returns to the log; Help and other response readers use Enter to scroll one line.
+  EN ONLY: In the reader, / opens Command with normal completion/history. Escape cancels that prompt back to the reader.
+  EN ONLY: In a summary reader, r refreshes the snapshot; ? explains the response and its reader.
+  EN ONLY: In context help, Enter follows the highlighted About screen link. Escape returns to item help, then to the exact originating screen.
+  EN ONLY: Setup Tab selects the question heading; ? explains its option/screen. Tab/Enter returns to answer editing.
+  EN ONLY: Executing a command replaces the previous response. Short acknowledgments return to the log; short errors keep the command editable.
+  EN ONLY: Escape cancels a Compose/Command editor to the log. From Review, Escape returns to that editor without discarding the draft. Escape on the log backgrounds the client.
+  EN ONLY: Bare Escape waits about 500 ms; a sequence in progress allows 1000 ms between continuation bytes. Networking continues.
+  EN ONLY: Complete key sequences are handled immediately. An opening paste marker delayed after its first Escape past that grace can background the client.
+  EN ONLY: Once paste capture starts, its closing marker remains recognized across arbitrarily delayed, split reads.
+  EN ONLY: Terminal interrupt, quit and suspend mappings and the enabled/disabled signal state are inherited.
+  EN ONLY: [input] force_terminal_signals=false is the default. true enables signals but never assigns key bytes.
+  EN ONLY: Enabled terminal signals terminate or suspend after restoring the terminal; fg resumes a suspended job.
+  EN ONLY: Ctrl-D is inert unless bound in main chat/Command. /quit exits; /background releases the terminal while networking continues.
+  EN ONLY: Routine screens omit recurring key hints; this topic remains the complete keyboard reference.
+  EN ONLY: Recognized bracketed paste stays literal. Keys wait for a visible editor, fresh input and a pause. Tiny/failed frames cannot approve it; resize and release held keys.
+  EN ONLY: Watch-log paste opens Compose with literal slashes. Paste inside Command stays there; CR/LF/Tab become spaces. Review it, then press a fresh Enter.
+  EN ONLY: Unframed paste is indistinguishable from typing; use bracketed-paste support.
+
+topic /limits: 6/6 catalog lines
+
+topic /logging: 3/8 catalog lines
+  EN ONLY: Each saved server profile appends to CONFIG_PATH.log. The final parent directory must be owned with mode 0700; the file must be owned, regular, single-link and exactly 0600. Symlinks and parent traversal are refused.
+  EN ONLY: Archive a full log outside the active path, then toggle logging off/on to resume. Rotation or rewriting can invalidate the previous catch-up anchor; send a new eligible message before relying on a later absence's disk catch-up.
+  EN ONLY: Known credential/service traffic and unsent drafts are excluded, including replayed authentication under old nicknames and qualified service targets. Ordinary chat, unknown service formats and custom secret text may still be recorded. Server and bouncer retention are separate policies.
+  EN ONLY: /catchup can use a healthy log only when its exact locally sent anchor was recorded in that running session. It never asks the bouncer to fetch an archive and does not import old logs after a process restart.
+  EN ONLY: Regular disk I/O can delay the process on slow storage. See /help catchup, /help history and SECURITY.md for the limits.
+
+topic /messages: 6/6 catalog lines
+
+topic /reconnect: 11/11 catalog lines
+
+topic /security: 9/9 catalog lines
+
+topic /sessions: 11/11 catalog lines
+
+topic /startup: 16/16 catalog lines
+
+topic /tls: 9/9 catalog lines
+
+topic /troubleshooting: 10/10 catalog lines

@@ -1,0 +1,52 @@
+{
+  "L": {
+    "file": "MANUAL.txt",
+    "section": "MESSAGE LENGTH AND FLOOD PREVENTION",
+    "source_lines": [
+      1409,
+      1451
+    ],
+    "english_words": 310,
+    "english_sha256": "74197e1e6983ce301972c3ad55db5a844ff0ae8bde4ebc998ebfe85c8ddcae1c"
+  },
+  "H": {
+    "file": "MANUAL.txt",
+    "section": "HISTORY, LOGGING AND PRIVACY",
+    "source_lines": [
+      1556,
+      1600
+    ],
+    "english_words": 352,
+    "english_sha256": "b0c065ed46b6cbb73666075f1eee2d050a5a82160fac0ddadd98ad80d2910ee3"
+  },
+  "P": {
+    "file": "MANUAL.txt",
+    "section": "SAVED SERVER PROFILES",
+    "source_lines": [
+      1601,
+      1626
+    ],
+    "english_words": 216,
+    "english_sha256": "ff3b21055c0b13e827ba1c38f80fbe8db59163af5b82bb486626649d1f7a61f2"
+  },
+  "T": {
+    "file": "MANUAL.txt",
+    "section": "TLS AND CUSTOM TRUST",
+    "source_lines": [
+      1748,
+      1769
+    ],
+    "english_words": 163,
+    "english_sha256": "b1882bb7f49f2bb4bad68591a7b150c2f131435de0d93aefb2c35386db894309"
+  },
+  "S": {
+    "file": "MANUAL.txt",
+    "section": "SECURITY AND RESOURCE BOUNDS",
+    "source_lines": [
+      1770,
+      1823
+    ],
+    "english_words": 395,
+    "english_sha256": "0244a7b43c7e5e46a5b365e081fc7bc6654afe3069aea9e68c0e1d0f46c1277e"
+  }
+}

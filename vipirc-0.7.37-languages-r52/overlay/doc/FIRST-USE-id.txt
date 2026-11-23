@@ -1,0 +1,68 @@
+vipirc / onekeyirc: first-use help (id)
+============================================
+
+DRAFT TRANSLATIONS - complete excerpts of three interactive help topics.
+Command names and option tokens are entered literally.
+For authoritative security details, read the English SECURITY.md and MANUAL.txt.
+
+/help startup
+-------------
+Jalankan program, tutup sambutan, lalu ketik /connect irc.example.org dan /join #channel.
+
+Tak perlu membuat profil server, alias, atau nomor lebih dulu. /server HOST adalah alias sambungan langsung.
+
+Jika tidak diberi nama panggilan, dipakai nama login sistem yang valid, atau user jika tak cocok. Tidak ada permintaan nama panggilan.
+
+Gunakan /saveconf untuk menyimpan konfigurasi dan pilihan baku. Saat dijalankan lagi, /connect menggunakannya.
+
+Menyimpan tidak mengaktifkan sambungan otomatis; pilih itu secara terpisah. /quickstart dan /panel adalah panduan opsional.
+
+Opsi shell juga berlaku: --server HOST, --channel '#CHANNEL', dan --nick NICK. Beri tanda kutip pada #CHANNEL di shell.
+
+Saat mulai biasa, --nick, --port, --channel, --tls, --plain, dan --ca-file mengganti pilihan baku yang tersimpan.
+
+--server yang ditentukan memilih sambungan pertama. --init-config dan --check-config memakai berkas konfigurasi utama.
+
+Mengubah --server ke host lain menghapus kredensial host lama, CA khusus, identitas bouncer, saluran, dan perintah awal.
+
+Jika pilihan baku tersimpan tidak tersedia, tentukan --server atau perbaiki pilihannya sebelum mengubah sambungan.
+
+Autoconnect, autojoin, dan autoauth berlaku per profil server tersimpan. Lihat /help autoconnect untuk pengalihnya.
+
+--no-connect mencegah sambungan awal; --test-mode mensimulasikan aktivitas tanpa jaringan atau penulisan konfigurasi.
+
+--sessions mencantumkan job terpasang dan terlepas. --resume [NUMBER] memasang lagi; lihat /help background.
+
+--close-session NUMBER menutup seluruh job terpilih beserta sambungan IRC setelah selesai terverifikasi. NUMBER adalah ID job, bukan PID.
+
+Setelah terminal terputus, pakai --sessions, lalu --detach-session NUMBER dan --resume NUMBER. Worker memakai kode lama sampai dimulai ulang; lihat /help sessions.
+
+-h/--help dan -v/--version bekerja tanpa terminal.
+
+/help messages
+--------------
+Gunakan /join #channel untuk bergabung dan memilih saluran, atau /query NICK untuk membuka percakapan pribadi.
+
+Pilih saluran tersimpan dengan /channel. /msg TARGET TEXT mengirim ke tujuan tertentu; /me TEXT mengirim aksi.
+
+/query membuka percakapan tanpa mengirim; /pm adalah alias. /ql memisahkan daftar percakapan pribadi dari saluran.
+
+Pengiriman langsung adalah baku; /set send_mode review menambah peninjauan. /set composer_mode line|fullscreen mengubah tampilan.
+
+Setelah batas satu pesan tercapai, akui dulu untuk lanjut mengedit; pemecahan pesan tetap memerlukan persetujuan terpisah.
+
+Bergabung dan autentikasi harus selesai sebelum pesan bisa diantrikan. /cancel membatalkan antrean, bukan pesan yang sudah terkirim.
+
+/help limits
+------------
+Batas IRC dihitung dalam byte, bukan jumlah karakter tampilan. Karakter UTF-8 dapat memakai lebih dari satu byte.
+
+Klien menghitung ruang pesan termasuk tujuan, perintah, dan overhead relai; ia tidak memotong karakter UTF-8.
+
+Pada batas satu pesan, teks tambahan ditahan sampai Enter mengonfirmasi lanjut mengedit; Enter itu tidak mengirim.
+
+Pesan yang terpecah tetap perlu izin terpisah sebelum antre, bahkan pada mode langsung. Obrolan dikirim satu baris tiap 1.2 detik.
+
+Sekali pengiriman maksimal 64 pesan dan 16384 byte teks. Singkat teks atau kirim terpisah secara sengaja.
+
+Maksimal ada 8 slot server dan 32 tampilan per server, termasuk tampilan cadangan.

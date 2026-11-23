@@ -1,0 +1,33 @@
+vipirc 0.7.36 - optional r18 translation draft (ms)
+Source: MANUAL.txt / INPUT EDITING through MOUSE CONTROLS
+English source SHA-256: efd7a5a2ee94dcc2a9923884399743cf9696f83790f9e79d1861b211d0a9453c
+Fluent review pending; original English manual is authoritative.
+
+PENYUNTINGAN INPUT
+
+    Enter                 Hantar atau semak tulisan.
+    Left/Right            Kumpulan aksara sebelumnya/seterusnya.
+    Up/Down               Bergerak antara baris input berbalut, bukan ingatan chat.
+    Home/End              Awal/akhir keseluruhan tulisan.
+    Backspace/Delete      Padam kumpulan aksara sebelumnya/semasa.
+    Tab/Shift-Tab         Lengkapkan nama pengguna seterusnya/sebelumnya.
+    Escape                Buka Queries dari perbualan peribadi, selain itu vipirc.
+    /clearinput           Kosongkan seluruh draf termasuk teks di luar paparan.
+
+F1..F6 membuka panel yang tersedia. Huruf yang ditaip dalam perbualan, termasuk hjkl, ialah teks biasa. Enter yang ditaip menghantar mesej; baris baharu yang nyata masuk melalui bracketed paste, dan tab yang ditampal menjadi ruang. Garis miring yang ditaip pada kedudukan kursor sifar membuka Command berasingan sambil mengekalkan draf; garis miring berikutnya atau yang ditampal kekal sebagai teks.
+
+Draf ialah satu penimbal logik: pembalutan baris tidak memasukkan teks, Backspace menyeberangi baris visual, dan perubahan saiz mengekalkan teks serta kursor. Medan tetap menyediakan floor(B/W)+1 baris berdasarkan belanjawan muatan B dan lajur boleh guna W, tertakluk kepada ruang terminal. Menaip atau memadam tidak menukar saiz medan; draf panjang ditatal di dalamnya. Perubahan paparan, belanjawan protokol dan saiz terminal mengira semula ketinggian. Command mempunyai medan sendiri; /msg atau /me tidak menggantikan draf chat.
+
+Escape mentah tanpa sambungan menunggu kira-kira 500 ms; urutan separa membenarkan 1000 ms antara bait sambungan sementara rangkaian terus berjalan. Kekunci yang sudah dinyahkod sepenuhnya bertindak serta-merta. Penanda awal tampalan yang lewat melepasi tempoh Escape pertama boleh dianggap Escape; dalam log minimalis ini boleh menghantar klien ke latar. Selepas penangkapan tampalan bermula, penanda akhir tetap dikenali merentas bacaan terpisah yang sangat lambat. Kekunci selepas tampalan tidak boleh membatalkan draf atau menukar mod sebelum sempadan semakan atau input tenang yang dipaparkan.
+
+Input memerlukan UTF-8 yang sah atau mod locale ASCII yang dipilih secara nyata; lihat FILES AND ENVIRONMENT. Aksara asas dan tanda lebar sifar selepasnya bergerak/dipadam bersama; segmentasi gugusan grafem Unicode penuh belum disediakan. Glif tidak disokong mendapat pengganti yang terlihat. Had draf ialah 8192 skalar Unicode atau 16384 bait UTF-8, yang mana dicapai dahulu. Pengekodan dan aksara kawalan tidak sah ditolak. Baris baharu yang ditampal terus kelihatan dan mempengaruhi pelan penghantaran; belanjawan IRC yang lebih kecil menentukan amaran dan pemecahan mesej.
+
+KAWALAN TETIKUS
+
+Tetikus aktif secara lalai jika curses, TERM dan terminal menyokongnya. /mouse menukar keadaan, /mouse on|off menetapkannya dan Settings > Interface mengubah/menyimpan pilihan mouse [interface] milik konfigurasi utama. Semua operasi boleh menggunakan papan kekunci; terminal atau pemultipleks SSH mesti menghantar acara tetikus.
+
+Klik kategori pengepala untuk membukanya, kawasan chat untuk meletakkan kursor, Clear untuk mengosongkan seluruh draf dan Send untuk menghantar mengikut semakan biasa. Clear/Send disembunyikan apabila tidak tersedia. Nama pengguna dalam chat/senarai menawarkan Whois/Query; klik #channel memilih atau menyertai saluran. Identiti token yang dipaparkan ketika klik, bukan pengganti kemudian pada koordinat sama, menentukan tindakan. URL dan kandungan papan klip tidak dibuka.
+
+Klik baris membuka pelayan/saluran/perbualan peribadi; klik tindakan menjalankannya pada pilihan semasa. Roda mengubah pilihan tanpa mengubah tindakan. Pada sejarah chat/senarai pengguna, ia menatal tiga baris visual atau pengguna. Settings dan transfers mempunyai medan dan tindakan sendiri. Chat memerlukan sekurang-kurangnya 9 baris dan 20 lajur; pengepala sempit tetap menunjukkan fokus.
+
+Tetikus tidak mengesahkan dialog panjang awal atau pemecahan mesej; gunakan pilihan papan kekunci. Command Run/Cancel memerlukan tindakan baharu selepas tampalan. Urutan klik atau baris baharu yang ditampal tidak boleh mengaktifkannya, dan klik pada susun atur lama tidak dipakai semula pada skrin baharu.

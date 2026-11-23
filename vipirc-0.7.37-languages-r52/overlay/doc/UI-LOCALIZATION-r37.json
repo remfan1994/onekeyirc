@@ -1,0 +1,259 @@
+[
+  {
+    "source": "src/settings.c",
+    "kind": "context-help",
+    "fields": [],
+    "english": "Add creates a disconnected server. Connect also starts the connection. Basic or Advanced changes which connection fields are shown. Cancel discards the form."
+  },
+  {
+    "source": "src/settings.c",
+    "kind": "context-help",
+    "fields": [],
+    "english": "Apply uses staged preferences now. Save also writes them to the configuration file. Back returns to the settings groups. Cancel closes the form and discards unapplied edits."
+  },
+  {
+    "source": "src/settings.c",
+    "kind": "context-help",
+    "fields": [],
+    "english": "Commonly used prioritizes common tasks for the live connection. Recent history lists retained commands. Most used ranks this configuration's saved command-name counts. Alphabetical sorts names. Contextual uses the screen that opened command entry. Down selects; Enter inserts for review. Delete forgets a history entry or resets a personal count. Apply uses the mode now; Save keeps the choice."
+  },
+  {
+    "source": "src/app.c",
+    "kind": "fixed-status",
+    "fields": [],
+    "english": "Enable offline test mode before opening a connection."
+  },
+  {
+    "source": "src/app.c",
+    "kind": "fixed-status",
+    "fields": [],
+    "english": "OFFLINE TEST MODE stopped. /connect starts the in-process simulator."
+  },
+  {
+    "source": "src/app.c",
+    "kind": "fixed-status",
+    "fields": [],
+    "english": "Use /help ls for help topics or /help commands for command syntax."
+  },
+  {
+    "source": "src/app.c",
+    "kind": "fixed-status",
+    "fields": [],
+    "english": "Type /help for the manual. /connect starts the configured connection."
+  },
+  {
+    "source": "src/app.c",
+    "kind": "fixed-status",
+    "fields": [],
+    "english": "QUIT reason must be valid UTF-8 without control characters."
+  },
+  {
+    "source": "src/app.c",
+    "kind": "fixed-status",
+    "fields": [],
+    "english": "Autojoin queue full; remaining channels were not requested."
+  },
+  {
+    "source": "src/app.c",
+    "kind": "fixed-status",
+    "fields": [],
+    "english": "Receiving network channel list..."
+  },
+  {
+    "source": "src/app.c",
+    "kind": "fixed-status",
+    "fields": [],
+    "english": "This command requires a registered connection."
+  },
+  {
+    "source": "src/app.c",
+    "kind": "fixed-status",
+    "fields": [],
+    "english": "Bouncer commands require the matching registered bouncer connection over verified TLS."
+  },
+  {
+    "source": "src/app.c",
+    "kind": "fixed-status",
+    "fields": [],
+    "english": "Bouncer command queued; its text is hidden from local history."
+  },
+  {
+    "source": "src/app.c",
+    "kind": "fixed-status",
+    "fields": [],
+    "english": "Channel directory is still receiving results."
+  },
+  {
+    "source": "src/app.c",
+    "kind": "fixed-status",
+    "fields": [],
+    "english": "Wait for the current LIST request to finish before clearing it."
+  },
+  {
+    "source": "src/app.c",
+    "kind": "fixed-status",
+    "fields": [],
+    "english": "Cached network channel directory cleared."
+  },
+  {
+    "source": "src/app.c",
+    "kind": "fixed-status",
+    "fields": [],
+    "english": "Minimum users cannot be greater than maximum users."
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed-status",
+    "fields": [],
+    "english": "Type a key name such as F7, Ctrl-K, Alt-x or PageUp; Enter chooses its action."
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed-status",
+    "fields": [],
+    "english": "Unknown key. Use F1..F12, Ctrl-A..Z, Alt-a..z/0..9 or a named navigation key."
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed-status",
+    "fields": [],
+    "english": "Select a visible activity entry."
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed-status",
+    "fields": [],
+    "english": "That source server is no longer available."
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed-status",
+    "fields": [],
+    "english": "That source conversation is no longer available."
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed-status",
+    "fields": [],
+    "english": "Cannot allocate context help; the selected screen is preserved."
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed-status",
+    "fields": [],
+    "english": "Cannot open the command prompt; chat draft preserved."
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed-status",
+    "fields": [],
+    "english": "The conversation list is updating; try again after it redraws."
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed-status",
+    "fields": [],
+    "english": "Server is channel 0. Choose Disconnect in the server list."
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed-status",
+    "fields": [],
+    "english": "Refreshing network channel directory."
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed-status",
+    "fields": [],
+    "english": "No channel is selected."
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed-status",
+    "fields": [],
+    "english": "Mouse off. Keyboard navigation remains available."
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed-status",
+    "fields": [],
+    "english": "Mouse unavailable for this terminal. Use arrows or hjkl."
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed-status",
+    "fields": [],
+    "english": "Mouse on."
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed-status",
+    "fields": [],
+    "english": "Pasted text is literal. Choose a channel or query to send it."
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed-status",
+    "fields": [],
+    "english": "Join this channel before sending pasted text; your draft is preserved."
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed-status",
+    "fields": [],
+    "english": "Original conversation closed. This preserved command cannot run; Esc cancels it."
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed-status",
+    "fields": [],
+    "english": "Restored command ready. Review it, then press Enter again to run."
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed-status",
+    "fields": [],
+    "english": "Enter a command beginning with /, or Esc to return."
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed-status",
+    "fields": [],
+    "english": "Paste contained rejected controls or exceeded input limits; review before sending."
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed-status",
+    "fields": [],
+    "english": "Paste captured as literal text. Review, then press Enter to send."
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed-status",
+    "fields": [],
+    "english": "Command draft cleared; chat draft preserved."
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed-status",
+    "fields": [],
+    "english": "Could not prepare IRC QUIT messages; session remains open."
+  },
+  {
+    "source": "src/app.c",
+    "kind": "named-fields",
+    "fields": [
+      "number",
+      "error"
+    ],
+    "english": "Automatic command {number} was not sent: {error}. Remaining automatic commands cancelled."
+  },
+  {
+    "source": "src/app.c",
+    "kind": "named-fields",
+    "fields": [
+      "number"
+    ],
+    "english": "Automatic command {number} was not sent: the message limit changed. Remaining automatic commands cancelled."
+  }
+]

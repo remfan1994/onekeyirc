@@ -1,0 +1,38 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / AUTOMATIC CONNECTION, JOIN, AND AUTHENTICATION
+English source SHA-256: f1eac619875693d1b8b4c03b26a6a90a7736048cf9d67e37619e675a887788b8
+
+AUTOMATISCHE VERBINDUNG, CHANNEL-BEITRITT UND AUTHENTIFIZIERUNG
+
+Jedes gespeicherte Profil hat eigene Einstellungen für automatische Verbindung, direkten Channel-Beitritt und Zugangsdaten. Speichern Sie gewünschte Startoptionen über Settings oder die Befehle. Ein ausdrücklich angegebenes --server für das Hauptprofil startet eine Verbindung; gespeicherte autoconnect-Profile starten unabhängig. --no-connect unterdrückt alle automatischen Starts. /connect oder Servers > Connect beginnt ausdrücklich eine Verbindung. Neue Profile übernehmen niemals die Geheimnisse anderer Profile.
+
+Für ein direktes Netzwerkkonto konfigurieren Sie:
+
+    [connection]
+    tls=true
+    auth=sasl
+    auth_user=your_registered_account
+    password_gpg_file=/home/yourname/.config/vipirc/sasl.gpg
+
+Wählen Sie für jede unabhängige Zugangsinformation genau eine Quelle:
+
+    SASL-Konto                     Server-PASS
+    password_gpg_file              server_password_gpg_file
+    password_file                  server_password_file
+    password                       server_password
+
+*_gpg_file enthält verschlüsselte Daten, *_file vertraulichen Klartext und Inline-Werte wörtlichen Klartext in der Konfiguration. Dateiendungen werden nicht erraten; bei Fehlern wird keine andere Quelle versucht. Führende/folgende Leerzeichen sowie #, ; und = in Inline-Werten bleiben erhalten: keine Anführungszeichen oder Kommentare anhängen. Eine Konfiguration mit Inline-Geheimnissen muss eine eigene reguläre Datei mit Modus 0600/0400 sein; Save erzeugt Modus 0600. Für Neuverbindung oder Speichern benötigte Werte verbleiben in der Sitzungskonfiguration.
+
+Unverschlüsselte/entschlüsselte Passwörter bestehen aus einer nicht leeren Zeile, optional mit LF/CRLF am Ende, ohne Steuerbytes: höchstens 1024 Bytes für SASL, 503 für gewöhnliches PASS. Beide Dateiarten müssen eigene reguläre Dateien mit Modus 0600/0400 sein; symbolische Links und '..'-Pfadbestandteile sind unzulässig. Ein Passwort kann nicht als CLI-Option übergeben werden. Zusammengesetzte Bouncer-Identitäten und Quellenbeschränkungen beschreibt BOUNCER CONNECTIONS.
+
+Verschlüsselte Dateien enthalten genau eine integritätsgeschützte OpenPGP-Nachricht von maximal 65536 Bytes. Das optionale gpg im PATH muss die festen Optionen unterstützen (GnuPG 2.2.20 oder neuer). Es wird erst nach erfolgreicher TLS-Prüfung direkt, ohne Shell, mit begrenzter Ausgabe und einer Frist von fünf Sekunden gestartet. Es gibt weder eine Klartext-Zwischendatei noch eine Passphrase-Abfrage in der App; andere Sitzungen laufen weiter. Fehlgeschlagene, gesperrte, ungültige, zu große oder zeitüberschrittene Zugangsdaten stoppen die Anmeldung.
+
+Das Hilfsprogramm verwendet --no-options, --batch, --no-tty, --pinentry-mode error und --no-autostart; Schlüsselabruf/-import und dirmngr sind deaktiviert. Bereiten Sie die Entschlüsselung außerhalb von vipirc vor:
+
+    gpg --output /dev/null --decrypt /absolute/password.gpg
+
+Versuchen Sie danach /connect erneut. Der Befehl enthält einen Pfad, kein Passwort. Der vorhandene Agent muss ohne Rückfrage entschlüsseln können; ein SSH-Rechner oder eine SSH-Sitzung kann andere Dateien, PATH, GnuPG-Verzeichnisse und Agent-Caches haben.
+
+--check-config prüft Quellenauswahl und Vertraulichkeit der Konfiguration, ohne Geheimnisse oder GPG zu öffnen. --test-mode liest/entschlüsselt niemals Zugangsdaten; Inline-Werte werden geparst, aber nicht verwendet. Beide Prüfungen beweisen nicht, dass echte Zugangsdaten funktionieren.
+
+Verpflichtendes SASL PLAIN wird erst nach TLS-Prüfung und Bestätigung der Serverunterstützung gesendet. Bei Fehlern wird die Verbindung vor dem direkten automatischen Channel-Beitritt beendet, statt unautorisiert fortzufahren. Der Client registriert keine Netzwerkkonten. Die Nickname-Dienstsyntax ist netzwerkspezifisch; direkte automatische Kontoanmeldung verwendet SASL. Server-PASS ist nicht das Nickname-Konto; die Upstream-Anmeldung eines Bouncers wird dort getrennt eingerichtet.

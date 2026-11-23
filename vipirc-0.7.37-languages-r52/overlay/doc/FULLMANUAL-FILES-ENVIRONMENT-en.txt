@@ -1,0 +1,66 @@
+VERBATIM ENGLISH SOURCE REFERENCE
+Source: MANUAL.txt / FILES AND ENVIRONMENT
+English source SHA-256: 3f0929a090403aa838e2094592ede3b01d8a8cac7f8b23ff6c35f31b3321edf6
+Source lines: 1901-1962
+
+FILES AND ENVIRONMENT
+
+Default primary configuration:
+
+    $XDG_CONFIG_HOME/vipirc/config.ini
+    $HOME/.config/vipirc/config.ini
+
+XDG_CONFIG_HOME takes precedence when nonempty and must be absolute. HOME
+supplies the fallback; account database information is used if an absolute
+home cannot be obtained from HOME. --config FILE selects another primary and
+its adjacent saved-server workspace. Paths written in configuration are
+literal, with no variable, tilde or shell expansion; the displayed variables
+above describe how the defaults are chosen. Your shell still performs normal
+argument quoting and expansion before passing command-line arguments.
+
+For primary path P, P.servers stores saved profile IDs and the optional
+[servers] default=PROFILE_ID choice managed by /saveconf. P.d/ contains
+secondary profile files. Each saved configuration may have a .commands file
+of canonical command counts and an optional .log transcript. Generated
+configurations and secondary profiles require explicit Save;
+accepted-command counts update their existing saved workspace automatically.
+An unreadable or missing remembered default is reported rather than silently
+retargeting a connection.
+
+The full interface offers $XDG_DATA_HOME/vipirc/downloads as the default DCC
+receive directory when XDG_DATA_HOME is absolute, otherwise
+$HOME/.local/share/vipirc/downloads when HOME is absolute. The offered
+directory is created only after explicit acceptance. Command-form /dcc
+accept NUMBER without DIRECTORY uses the process's launch directory and
+requires it to be owned and private. Choosing/browsing a path never changes
+that launch directory.
+
+PATH locates the optional gpg executable; no shell is invoked, and that
+executable is part of the trusted local environment. GNUPGHOME is
+interpreted by GnuPG for its key/agent environment. The client does not
+expand it inside credential paths. Remote SSH operation uses the environment
+and files on the host running vipirc.
+
+TERM describes capabilities for ncurses; it does not select the text
+encoding. LANG, LC_CTYPE and LC_ALL select the locale. Use an installed
+UTF-8 locale that matches the terminal for Unicode editing and widths.
+locale, locale charmap and locale -a help inspect the host; locale names
+differ across systems.
+
+Interface translation: set VIPIRC_LANG to id (Indonesian), ms (Malay),
+tr (Turkish), es (Spanish), pt (Portuguese), fr (French), de (German),
+ru (Russian), it (Italian), or ar (Arabic) when starting vipirc.
+The override also accepts values such as id_ID.UTF-8. Both the ncurses and
+-i interfaces select the same catalog. English is the fallback. A detached
+worker keeps the display language chosen when that worker was launched.
+IRC slash commands, config keys, and control values remain in English.
+This release translates selected interface controls, not every help page,
+security warning or error. See doc/LOCALIZATION.md for details.
+
+The active LC_CTYPE is respected. A non-UTF-8 or invalid locale selects
+explicit ASCII terminal mode, shown on the welcome. Non-ASCII input is
+refused with a status message; incoming non-ASCII code points display as '?'
+without changing stored network text. The client does not guess/transcode
+legacy encodings or force a locale. Select an installed UTF-8 locale and
+restart for Unicode use. ASCII remains the one-byte subset of UTF-8; SSH
+does not change IRC's encoded byte limits.

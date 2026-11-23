@@ -1,0 +1,66 @@
+Guia prático de vipirc / onekeyirc - session recovery and logging
+=================================================================
+
+TRADUÇÃO PRELIMINAR. Escreva os comandos e opções exatamente como aparecem.
+Para os detalhes de segurança, consulte MANUAL.txt e SECURITY.md em inglês.
+
+/help background
+----------------
+
+Restaura o terminal e desanexa a sessão ativa. O shell recebe o comando numerado para a retomar.
+
+No shell, --sessions lista as tarefas privadas anexadas e desanexadas; --resume retoma a única tarefa desanexada disponível.
+
+Se houver várias tarefas, use --resume NUMBER. NUMBER é o ID da tarefa, não o PID; mantém-se até sair e depois pode ser reutilizado.
+
+--detach-session NUMBER liberta o terminal anexado, mas mantém o processo, as ligações IRC, rascunhos e histórico para --resume NUMBER.
+
+--close-session NUMBER termina a tarefa inteira, ligações IRC, transferências, rascunhos não guardados e histórico em memória. Só confirma sucesso após verificar a conclusão.
+
+Se a retoma estiver ocupada após perder SSH, liste as tarefas, desanexe a tarefa e retome-a. Consulte /help sessions.
+
+Um processo sem resposta ou antigo sem o controlo solicitado pode falhar. Instalar outro binário não atualiza o processo ativo; reinicie-o após atualizar.
+
+Ao retomar, o histórico em memória reaparece mesmo sem novas mensagens. /set single_session on impede outra tarefa de fundo, mantendo --resume inequívoco.
+
+Para iniciar sem terminal, use --background no shell; consulte --help para as opções.
+
+Se background_away estiver ativo e permitido, /background ou a perda do terminal envia AWAY após desanexar. A retoma só limpa esse estado automático; um /away manual permanece.
+
+Adicione --reconnect para repetir falhas transitórias de ligação. Consulte /help deployment e /help reconnect.
+
+Não é preciso multiplexador de terminal. A resolução de nomes ou o auxiliar de credenciais pendente pode exigir outra tentativa.
+
+Suspender um processo normal em primeiro plano pausa a rede. Uma tarefa retomada pode suspender o controlador de terminal e manter o processo gerido ligado.
+
+/help catchup
+-------------
+
+Começa na última mensagem ou ação enviada localmente no canal ou conversa escolhido. As vistas servidor e menções não têm âncora de envio.
+
+Tenta primeiro um registo privado válido: devia estar ativo quando a âncora foi enviada e continuar íntegro. Texto sensível de autenticação não serve de âncora. Caso contrário, usa o histórico disponível na memória.
+
+O leitor de disco usa uma imagem fixa: Up/Down avança uma linha; Page Up/Page Down, uma página; Home volta à âncora; End vai ao fim e Escape volta ao vivo. Tráfego novo não desloca a imagem.
+
+Na memória, abre o histórico retido desde a âncora. Home vai à página mais antiga; End ou Escape regressa ao vivo. Ainda pode consultar mensagens anteriores.
+
+Uma âncora alterada ou substituída deixa de ser válida no disco. Um processo novo não recupera âncoras de registos antigos. Consulte /help logging e /help history.
+
+/help logging
+-------------
+
+O registo persistente e opcional e vem desligado. /set persistent_logging on ativa; /save output guarda.
+
+Cada perfil guardado acrescenta a CONFIG_PATH.log. O diretório pai final deve ser do utilizador e modo 0700; o ficheiro deve ser regular, próprio, com um só vínculo e modo exato 0600. Ligações simbólicas e travessia de pais são recusadas.
+
+Os logs sao plaintext, não copias cifradas. Limite: 16 MiB por ficheiro; um erro suspende o log, mas não o chat.
+
+Arquive o registo cheio fora do caminho ativo e desligue/ligue o registo. Rotação ou reescrita pode invalidar a âncora de /catchup; envie nova mensagem válida antes de depender dela.
+
+Credenciais conhecidas e rascunhos não enviados são excluídos, incluindo autenticação repetida com nomes antigos. Conversa normal, serviços desconhecidos e segredos inseridos podem ficar guardados. Servidor e bouncer retêm dados separadamente.
+
+/catchup usa um registo íntegro só se a âncora local exata tiver sido gravada neste processo. Não pede arquivos ao bouncer nem importa registos após reinício.
+
+/clear limpa só a RAM. Os registos persistem após sair, --close-session e guardar. Desativar o log impede novas entradas; não elimina as anteriores.
+
+A E/S normal do disco pode atrasar o processo em armazenamento lento. Consulte /help catchup, /help history e SECURITY.md.

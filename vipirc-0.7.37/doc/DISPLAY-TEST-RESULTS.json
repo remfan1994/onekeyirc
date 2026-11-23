@@ -1,0 +1,503 @@
+{
+  "date": "2026-11-08",
+  "timezone": "America/Los_Angeles",
+  "base_releases": [
+    "vipirc-0.7.16",
+    "onekeyirc-0.1.15"
+  ],
+  "releases": [
+    "vipirc-0.7.17",
+    "onekeyirc-0.1.16"
+  ],
+  "environment": {
+    "os": "Linux x86_64",
+    "kernel": "6.18.57",
+    "compiler": "cc (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0",
+    "python": "3.12.14",
+    "complete_onekeyirc_build": true,
+    "full_ncurses_frontend_built": false,
+    "native_openbsd_run": false,
+    "native_af_unix_lifecycle_retested": false
+  },
+  "baseline_wrapped_tail": {
+    "wire_exact": true,
+    "message_bytes": 112,
+    "normal_log_has_end": true,
+    "input_view_has_end": false,
+    "same_channel_has_end": true,
+    "normal_log": "[S1] Connecting to 127.0.0.1:54261\n-- S1 127.0.0.1 | server --\n[S1] Registering as tester\n[S1] Connected as tester. /help opens the manual.\n[17:05:34] Welcome to the local test server\n[17:05:34] - Test message of the day\n[17:05:34] - Local fixture MOTD\n[17:05:34] End of MOTD\n[S1] Connecting to 127.0.0.1:54261\n-- S1 127.0.0.1 | server --\n[S1] Registering as tester\n[S1] Connected as tester. /help opens the manual.\n[17:05:34] tester has joined #test\n-- S1 127.0.0.1 | #test --\n[S1] 1 message queued; paced at one per 1.2 seconds.\n[17:05:34] <tester> FIRST_ROW_abcdefghij abcdefghij abcdefghij abcdefghij abcdef\nghij abcdefghij abcdefghij abcdefghij SECOND_ROW_END\n",
+    "input_view": "Compose | S1 127.0.0.1 | #test | line | 1/475 bytes\n[S1] Connecting to 127.0.0.1:54261\n-- S1 127.0.0.1 | server --\n[S1] Registering as tester\n[S1] Connected as tester. /help opens the manual.\n[17:05:34] tester has joined #test\n-- S1 127.0.0.1 | #test --\n[S1] 1 message queued; paced at one per 1.2 seconds.\n[17:05:34] <tester> FIRST_ROW_abcdefghij abcdefghij abcdefghij abcdefghij abcde\n\n\n\n\n\n\n\n\nz",
+    "same_channel": "-- S1 127.0.0.1 | server --\n[S1] Registering as tester\n[S1] Connected as tester. /help opens the manual.\n[17:05:34] Welcome to the local test server\n[17:05:34] - Test message of the day\n[17:05:34] - Local fixture MOTD\n[17:05:34] End of MOTD\n[S1] Connecting to 127.0.0.1:54261\n-- S1 127.0.0.1 | server --\n[S1] Registering as tester\n[S1] Connected as tester. /help opens the manual.\n[17:05:34] tester has joined #test\n-- S1 127.0.0.1 | #test --\n[S1] 1 message queued; paced at one per 1.2 seconds.\n[17:05:34] <tester> FIRST_ROW_abcdefghij abcdefghij abcdefghij abcdefghij abcdef\nghij abcdefghij abcdefghij abcdefghij SECOND_ROW_END\nDraft cancelled; nothing sent.\n"
+  },
+  "baseline_regression_failures": {
+    "wrapped_tail": "Traceback (most recent call last):\n  File \"/workspace/scratch/906cef4a9bba/display-clipping-work/onekeyirc-0.1.16/tests/test_idle_wrapping.py\", line 134, in <module>\n    main()\n  File \"/workspace/scratch/906cef4a9bba/display-clipping-work/onekeyirc-0.1.16/tests/test_idle_wrapping.py\", line 122, in main\n    result = wrapped_tail(args.full, composer)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/scratch/906cef4a9bba/display-clipping-work/onekeyirc-0.1.16/tests/test_idle_wrapping.py\", line 31, in wrapped_tail\n    assert \"SECOND_ROW_END\" in session.screen.text(), (\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: ('opening input clipped the sent message continuation', 'line', 'Compose | S1 127.0.0.1 | #test | line | 1/475 bytes\\n[S1] Connecting to 127.0.0.1:51533\\n-- S1 127.0.0.1 | server --\\n[S1] Registering as tester\\n[S1] Connected as tester. /help opens the manual.\\n[17:11:11] tester has joined #test\\n-- S1 127.0.0.1 | #test --\\n[S1] 1 message queued; paced at one per 1.2 seconds.\\n[17:11:11] <tester> FIRST_ROW_abcdefghij abcdefghij abcdefghij abcdefghij abcde\\n\\n\\n\\n\\n\\n\\n\\n\\nz')\n",
+    "exact_margin_newline": "Traceback (most recent call last):\n  File \"/workspace/scratch/906cef4a9bba/display-clipping-work/onekeyirc-0.1.16/tests/test_idle_wrapping.py\", line 134, in <module>\n    main()\n  File \"/workspace/scratch/906cef4a9bba/display-clipping-work/onekeyirc-0.1.16/tests/test_idle_wrapping.py\", line 126, in main\n    result = exact_margin_newline(args.full, composer)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/scratch/906cef4a9bba/display-clipping-work/onekeyirc-0.1.16/tests/test_idle_wrapping.py\", line 98, in exact_margin_newline\n    assert shown == second, (\"exact-margin newline hid or displaced the second input line\",\n           ^^^^^^^^^^^^^^^\nAssertionError: ('exact-margin newline hid or displaced the second input line', 'line', '', 'SECOND_LINE_END')\n",
+    "interpretation": "Both fail their display assertions after the exact wire-payload assertions pass."
+  },
+  "fixed_matching_reproduction": [
+    {
+      "id": "vipirc-idle-normal",
+      "status": "PASS",
+      "payload_bytes": 112,
+      "wire_exact": true,
+      "normal_log_has_end": true,
+      "input_view_has_end": true,
+      "same_channel_has_end": true,
+      "no_duplicate_send": true,
+      "binary_sha256": "a5975836a33285c6bdad95bd58dbe07d58865a1bf78408190f3c4398c0f6c6d4"
+    },
+    {
+      "id": "onekeyirc-normal",
+      "status": "PASS",
+      "payload_bytes": 112,
+      "wire_exact": true,
+      "normal_log_has_end": true,
+      "input_view_has_end": true,
+      "same_channel_has_end": true,
+      "no_duplicate_send": true,
+      "binary_sha256": "8b0a4f6dab19891340e55f98a5df6ce3172070708c3588efe2ab85aa4b8ac6ae"
+    },
+    {
+      "id": "vipirc-idle-ASan-UBSan",
+      "status": "PASS",
+      "payload_bytes": 112,
+      "wire_exact": true,
+      "normal_log_has_end": true,
+      "input_view_has_end": true,
+      "same_channel_has_end": true,
+      "no_duplicate_send": true,
+      "binary_sha256": "2812a7d943a9848446db3041ce305977338e01c2c2f0397612b820cfaaaa3254"
+    },
+    {
+      "id": "onekeyirc-ASan-UBSan",
+      "status": "PASS",
+      "payload_bytes": 112,
+      "wire_exact": true,
+      "normal_log_has_end": true,
+      "input_view_has_end": true,
+      "same_channel_has_end": true,
+      "no_duplicate_send": true,
+      "binary_sha256": "0373a381da195f688266966de4f6b0c9e62cb62c6f6511b08b45fd814708dc5b"
+    }
+  ],
+  "focused_display_suites": [
+    {
+      "id": "onekeyirc-normal",
+      "status": "PASS",
+      "returncode": 0,
+      "seconds": 4.535,
+      "binary_sha256": "8b0a4f6dab19891340e55f98a5df6ce3172070708c3588efe2ab85aa4b8ac6ae",
+      "test_sha256": "d3075d4d634a247aec80bfda4f063e0b37388abd586476873b6ca3a39f2945eb",
+      "records": [
+        {
+          "case": "wrapped_tail",
+          "composer": "line",
+          "message_bytes": 112,
+          "unicode_resize": true,
+          "wire_exact": true
+        },
+        {
+          "caret_matches_text": true,
+          "case": "exact_margin_newline",
+          "composer": "line",
+          "messages": 2,
+          "wire_exact": true
+        },
+        {
+          "case": "wrapped_tail",
+          "composer": "fullscreen",
+          "message_bytes": 112,
+          "unicode_resize": true,
+          "wire_exact": true
+        },
+        {
+          "caret_matches_text": true,
+          "case": "exact_margin_newline",
+          "composer": "fullscreen",
+          "messages": 2,
+          "wire_exact": true
+        },
+        {
+          "cases": 4,
+          "frontend": "onekeyirc",
+          "result": "PASS"
+        }
+      ],
+      "log": "onekeyirc-normal-focused-wrapping.log"
+    },
+    {
+      "id": "vipirc-idle-normal",
+      "status": "PASS",
+      "returncode": 0,
+      "seconds": 4.563,
+      "binary_sha256": "a5975836a33285c6bdad95bd58dbe07d58865a1bf78408190f3c4398c0f6c6d4",
+      "test_sha256": "d3075d4d634a247aec80bfda4f063e0b37388abd586476873b6ca3a39f2945eb",
+      "records": [
+        {
+          "case": "wrapped_tail",
+          "composer": "line",
+          "message_bytes": 112,
+          "unicode_resize": true,
+          "wire_exact": true
+        },
+        {
+          "caret_matches_text": true,
+          "case": "exact_margin_newline",
+          "composer": "line",
+          "messages": 2,
+          "wire_exact": true
+        },
+        {
+          "case": "wrapped_tail",
+          "composer": "fullscreen",
+          "message_bytes": 112,
+          "unicode_resize": true,
+          "wire_exact": true
+        },
+        {
+          "caret_matches_text": true,
+          "case": "exact_margin_newline",
+          "composer": "fullscreen",
+          "messages": 2,
+          "wire_exact": true
+        },
+        {
+          "cases": 4,
+          "frontend": "vipirc -i",
+          "result": "PASS"
+        }
+      ],
+      "log": "vipirc-idle-normal-focused-wrapping.log"
+    },
+    {
+      "id": "onekeyirc-ASan-UBSan",
+      "status": "PASS",
+      "returncode": 0,
+      "seconds": 4.638,
+      "binary_sha256": "0373a381da195f688266966de4f6b0c9e62cb62c6f6511b08b45fd814708dc5b",
+      "test_sha256": "d3075d4d634a247aec80bfda4f063e0b37388abd586476873b6ca3a39f2945eb",
+      "records": [
+        {
+          "case": "wrapped_tail",
+          "composer": "line",
+          "message_bytes": 112,
+          "unicode_resize": true,
+          "wire_exact": true
+        },
+        {
+          "caret_matches_text": true,
+          "case": "exact_margin_newline",
+          "composer": "line",
+          "messages": 2,
+          "wire_exact": true
+        },
+        {
+          "case": "wrapped_tail",
+          "composer": "fullscreen",
+          "message_bytes": 112,
+          "unicode_resize": true,
+          "wire_exact": true
+        },
+        {
+          "caret_matches_text": true,
+          "case": "exact_margin_newline",
+          "composer": "fullscreen",
+          "messages": 2,
+          "wire_exact": true
+        },
+        {
+          "cases": 4,
+          "frontend": "onekeyirc",
+          "result": "PASS"
+        }
+      ],
+      "log": "onekeyirc-ASan-UBSan-focused-wrapping.log"
+    },
+    {
+      "id": "vipirc-idle-ASan-UBSan",
+      "status": "PASS",
+      "returncode": 0,
+      "seconds": 4.646,
+      "binary_sha256": "2812a7d943a9848446db3041ce305977338e01c2c2f0397612b820cfaaaa3254",
+      "test_sha256": "d3075d4d634a247aec80bfda4f063e0b37388abd586476873b6ca3a39f2945eb",
+      "records": [
+        {
+          "case": "wrapped_tail",
+          "composer": "line",
+          "message_bytes": 112,
+          "unicode_resize": true,
+          "wire_exact": true
+        },
+        {
+          "caret_matches_text": true,
+          "case": "exact_margin_newline",
+          "composer": "line",
+          "messages": 2,
+          "wire_exact": true
+        },
+        {
+          "case": "wrapped_tail",
+          "composer": "fullscreen",
+          "message_bytes": 112,
+          "unicode_resize": true,
+          "wire_exact": true
+        },
+        {
+          "caret_matches_text": true,
+          "case": "exact_margin_newline",
+          "composer": "fullscreen",
+          "messages": 2,
+          "wire_exact": true
+        },
+        {
+          "cases": 4,
+          "frontend": "vipirc -i",
+          "result": "PASS"
+        }
+      ],
+      "log": "vipirc-idle-ASan-UBSan-focused-wrapping.log"
+    }
+  ],
+  "existing_terminal_regressions": [
+    {
+      "test": "offline_editor_and_commands",
+      "status": "PASS",
+      "seconds": 3.72
+    },
+    {
+      "test": "paste_and_review",
+      "status": "PASS",
+      "seconds": 1.753
+    },
+    {
+      "test": "line_mode_live_tail_and_toggle",
+      "status": "PASS",
+      "seconds": 2.133
+    }
+  ],
+  "selected_unit_regressions": [
+    {
+      "test": "test_editor",
+      "returncode": 0,
+      "status": "PASS",
+      "seconds": 0.005
+    },
+    {
+      "test": "test_protocol",
+      "returncode": 0,
+      "status": "PASS",
+      "seconds": 0.816
+    },
+    {
+      "test": "test_security_app",
+      "returncode": 0,
+      "status": "PASS",
+      "seconds": 0.002
+    },
+    {
+      "test": "test_security_list",
+      "returncode": 0,
+      "status": "PASS",
+      "seconds": 0.001
+    },
+    {
+      "test": "test_security_auth",
+      "returncode": 0,
+      "status": "PASS",
+      "seconds": 0.002
+    },
+    {
+      "test": "test_dcc_file_identity",
+      "returncode": 0,
+      "status": "PASS",
+      "seconds": 0.001
+    }
+  ],
+  "builds": [
+    {
+      "id": "vipirc-idle-fixed-build",
+      "status": "PASS",
+      "seconds": 7.303
+    },
+    {
+      "id": "vipirc-idle-sanitize-build",
+      "status": "PASS",
+      "seconds": 13.853
+    },
+    {
+      "id": "onekeyirc-sanitize-build",
+      "status": "PASS",
+      "seconds": 13.511
+    }
+  ],
+  "manuals": {
+    "embedded_full_manual": "PASS: compiled and dumped byte-identical to doc/manual.txt",
+    "generated_minimalist_manuals": [
+      {
+        "path": "display-clipping-work/vipirc-0.7.17/doc/vipirc-idle-manual.txt",
+        "sha256": "b9b051e81d647216fb53b666116e0257b446c27e2170a6bfe578dde236c91786",
+        "bytes": 55110
+      },
+      {
+        "path": "display-clipping-work/onekeyirc-0.1.16/doc/onekeyirc-manual.txt",
+        "sha256": "12ea3d982d3b53f7a7cfa4fec8810168a8842e878f99003d84b0126609d593c1",
+        "bytes": 55079
+      }
+    ]
+  },
+  "sanitizer_environment": {
+    "ASAN_OPTIONS": "detect_leaks=0:halt_on_error=1",
+    "UBSAN_OPTIONS": "halt_on_error=1:print_stacktrace=1",
+    "leak_detection": "Disabled; no leak-check pass claimed."
+  },
+  "test_scope": [
+    "Real PTYs, production input/render/network paths and a private localhost IRC peer.",
+    "Complete standalone onekeyirc executable tested in normal and ASan/UBSan builds.",
+    "vipirc namespace uses actual main/idle and shared sources, with unused curses entry points stubbed to abort.",
+    "The vipirc idle harness is not a complete curses build, and does not use fabricated curses headers.",
+    "Both composer layouts tested, including wrapped chat, latest visual rows, explicit newline, Unicode/combining characters and 80/50-column resize.",
+    "No external IRC account, user conversation, persistent log or background session used in new display tests.",
+    "Same-channel selection can restore the normal screen without forcing history replay."
+  ],
+  "limits": [
+    "User installed binary and terminal were not inspected directly; this is a matching source reproduction.",
+    "No full ncurses, native OpenBSD, native AF_UNIX lifecycle, actual SSH or days-long availability pass claimed.",
+    "Prior security/session-control evidence retains its original release scope.",
+    "Existing bounded history and frame-overflow fallback remain; only visual rows that fit can be shown.",
+    "Already running workers require restart to execute the new renderer."
+  ],
+  "source_hashes": {
+    "vipirc-0.7.17": {
+      "src/app.c": "a9aec666137ba751df14798ca2b9c83cfec068e21cd41da82b556474e5700727",
+      "src/app.h": "464d0b85d33296a28da8015efae05426bc92547532a2be607589de701da56869",
+      "src/autocommands.c": "b93b59a25766441bbbae21ce0418d86a8ad24cd397ad1b82693de18f03ece301",
+      "src/background.c": "f539c4ad68c806e7e0ef6247c290c2881d8392aa3b2a44c01eaeee838bffc841",
+      "src/background.h": "4119b0d267ffcd380b174aa1ac4ea88e3d84723a7663c21e2a458b7d53f368a7",
+      "src/client.c": "7882c70ed77775e74819497b540ef352eb2655981fcbab91fc82175a838a50cd",
+      "src/client.h": "cc7f25a6dfc24f15ce01456dc87888ab770bddf643a8d8a435fe958293834b1e",
+      "src/commands.c": "149730d9f349cd7545e7371d497219e131a77d0b73ba4a421dfd553c6a51d1e2",
+      "src/commands.h": "3775dded0e3da48b4e26a9ba0b966f21180ff35f2886ae01900ee17a7d10bf45",
+      "src/config.c": "2a9fb7026a116a39db01f68a5e95b129c660b187d5ce7159ff09c31db5cb14e6",
+      "src/config.h": "8d68c7d49e5e2e566e11954a637701984a89f2c5f0f64510ea14589c7f47d9ce",
+      "src/credentials.c": "c8ea4976dae04e10993a00683ff2606098906449a8471193396709400c7fe50d",
+      "src/credentials.h": "a2f99f94050fb20b370dcd6167e5f1396c242374b8bef005f8e8092df2b3b94f",
+      "src/dcc.c": "7d7b83965e9e13b5bef44f946224340f4a7cf308f40309aa4f789a7bbfde6f1d",
+      "src/dcc.h": "fe3936e1ffdc197fa9c78a0dbcd34aadd31430f4e7797260205ce0d66f6e7a2f",
+      "src/dcc_commands.c": "b4c04ca392db54865fac91ba542660bf893f0939901890f0c4e4887818ff4557",
+      "src/dcc_commands.h": "ac1ed22c2e71c58bd36848f232a1c7e898f20d198c4b57683d2d8f5171535605",
+      "src/editor.c": "8e2702a6b8a8f9319c7ca14524d30b8c4febe459ebc106dc27abadf5fc59519f",
+      "src/editor.h": "91da290b4265227fe240eab5bed62fc0c6aca89531f828835de448c006282866",
+      "src/filepicker.c": "3861015064c7439e593683e3e36c48962a08450d7db4e5062b41d064e0fafa8d",
+      "src/filepicker.h": "6dc547aad2f511a8e1c623d221d037025ea4b59875d2d90dd6b9c7c897ead1ef",
+      "src/focus.h": "dadcd6da0fb984110f5539accee08c783ff35f36c296e69ce035f237c14be8fc",
+      "src/guided.c": "4d2461e287c42ba12b103f78ee2858438be579c61211bfb1f445cf7a05c47b33",
+      "src/guided.h": "f306d44102dda4846da4d5b542666dca7ee2fac5b6093d5309666573819c98b5",
+      "src/idle.c": "b4695f8363268f6c859ff2117084f1c4ea01f1772a6cf27e6f678631eb30420b",
+      "src/idle.h": "7dc2b66da16a81516beb7dc181ae14e71936efc1fb7a218767dd59c88457ff0f",
+      "src/idle_commands.c": "1aa737ed0284e8a48f365fa572dc4175a96029af25cbb14fe90f9b336ca7bc37",
+      "src/idle_commands.h": "de2c5a0c2c0e06e50c288b40f06165aeb01224dbe23dbb120ab4ae0df9ac690a",
+      "src/idle_setup.c": "9df1db6b06d0ea36ca8dd1c14f3b49a64317be99ec9b514e2b44cd04a231cd18",
+      "src/idle_setup.h": "9350b365fea12adab3f2b818e2ef88cafd72ecfb6834746bfa26451a10d66b0d",
+      "src/license.h": "f2b8bb5012177300ef8c03739f8b2a78a4c989eb89b663603aa80ca388d15f4b",
+      "src/main.c": "66d37b5961786ff31b0373096dc678fa40a81a2aa9f77208120e09cfad6f2e6c",
+      "src/manual.c": "d81090920675f82885b0c9f55be706a894ae3eb0ba2da63fe05c2ed94e5627bf",
+      "src/manual.h": "2786dc36c1ce84a4f7175c0383f000a4ae13592574f24acb5f01282f1c5d85d2",
+      "src/net.c": "87774e91d7394bd71931d28f7d6aa1e364f929b7d198c5b6f4f0563da1811603",
+      "src/net.h": "d0969e79df6e56e63c9db82d3baa7d9fb370834e498f84ac18cc5da3c964e76d",
+      "src/nicks.c": "f9b7a98706eb7ecff076be59b9d20fc1341d162df0e8e06606af195d2c13ceac",
+      "src/nicks.h": "4e1065cf8c1abe712189b7077454a534371aa4ff115ebee47009c42f1de7b27f",
+      "src/prompt.c": "2b8320a8781249975a089b7a7e4799b474be0d4bcf0bba6f9cf58521af435d0b",
+      "src/prompt.h": "de986c1cb73212e2360682c3d8de0818acd2b290a576830d156ebe846e8b407a",
+      "src/protocol.c": "7d8da00f6242884a011c8e6f230aae0fb34a4f869662cbb6777002e96b4346fc",
+      "src/protocol.h": "e9de84a45595d3d08a6da3ba4c91405a8f33425ea8d80a67477ff035689ee30a",
+      "src/readpage.c": "c8dd0af519560754ae40faa11f55f24b37fd5ca9e4a589c1b98ea78301b0f664",
+      "src/readpage.h": "ed660506cf5208b995869d8595c7e8761020f497a1609710d755eb10c2559efc",
+      "src/settings.c": "d4a8b92cbd0605d93b1974024b9166374d0b1fcb23e4034217e255af7664b540",
+      "src/settings.h": "e05dcfbb6ee36941e53a1036d29820a6ac11bdb69231a344ef1a9d6ca8d67d5a",
+      "src/sim.c": "9affd4be7588f4efb6bcc2099ca334683f331a58f47c7c580deba05d65fcf78d",
+      "src/sim.h": "9128b1cc1cf14fe69a55b6e879640cb444e28449606c09adaa81c696566cab82",
+      "src/summary.c": "712b11807b4e0e7f161abec9e69cbe6a6b60213a09b1ccad0d5c117677cd6f23",
+      "src/summary.h": "9b21e63490bf85fd45e5f4b9d318ac2d1221c530079fc9fadb2cee6707eb3eb0",
+      "src/transfers.c": "3b3b0d5b252343881343869007213b06f79dd2d2478f858f12b76f4bb636d577",
+      "src/transfers.h": "d335f195a21443517c74925e03e168b7ba7b8510381fc5746051061325b52097",
+      "src/ui.c": "72981b2633bc1c0bd53c5c556c9b801d97677d0d496d286cbabaf529fe042844",
+      "src/ui.h": "3342daa28f400cf356ed550b58e6b2ba0a0c5ae08f76a392088b9411f1722922"
+    },
+    "onekeyirc-0.1.16": {
+      "src/app.c": "a9aec666137ba751df14798ca2b9c83cfec068e21cd41da82b556474e5700727",
+      "src/app.h": "464d0b85d33296a28da8015efae05426bc92547532a2be607589de701da56869",
+      "src/autocommands.c": "b93b59a25766441bbbae21ce0418d86a8ad24cd397ad1b82693de18f03ece301",
+      "src/background.c": "f539c4ad68c806e7e0ef6247c290c2881d8392aa3b2a44c01eaeee838bffc841",
+      "src/background.h": "4119b0d267ffcd380b174aa1ac4ea88e3d84723a7663c21e2a458b7d53f368a7",
+      "src/client.c": "7882c70ed77775e74819497b540ef352eb2655981fcbab91fc82175a838a50cd",
+      "src/client.h": "cc7f25a6dfc24f15ce01456dc87888ab770bddf643a8d8a435fe958293834b1e",
+      "src/commands.c": "149730d9f349cd7545e7371d497219e131a77d0b73ba4a421dfd553c6a51d1e2",
+      "src/commands.h": "3775dded0e3da48b4e26a9ba0b966f21180ff35f2886ae01900ee17a7d10bf45",
+      "src/config.c": "2a9fb7026a116a39db01f68a5e95b129c660b187d5ce7159ff09c31db5cb14e6",
+      "src/config.h": "8d68c7d49e5e2e566e11954a637701984a89f2c5f0f64510ea14589c7f47d9ce",
+      "src/credentials.c": "c8ea4976dae04e10993a00683ff2606098906449a8471193396709400c7fe50d",
+      "src/credentials.h": "a2f99f94050fb20b370dcd6167e5f1396c242374b8bef005f8e8092df2b3b94f",
+      "src/dcc.c": "7d7b83965e9e13b5bef44f946224340f4a7cf308f40309aa4f789a7bbfde6f1d",
+      "src/dcc.h": "fe3936e1ffdc197fa9c78a0dbcd34aadd31430f4e7797260205ce0d66f6e7a2f",
+      "src/dcc_commands.c": "b4c04ca392db54865fac91ba542660bf893f0939901890f0c4e4887818ff4557",
+      "src/dcc_commands.h": "ac1ed22c2e71c58bd36848f232a1c7e898f20d198c4b57683d2d8f5171535605",
+      "src/editor.c": "8e2702a6b8a8f9319c7ca14524d30b8c4febe459ebc106dc27abadf5fc59519f",
+      "src/editor.h": "91da290b4265227fe240eab5bed62fc0c6aca89531f828835de448c006282866",
+      "src/idle.c": "b4695f8363268f6c859ff2117084f1c4ea01f1772a6cf27e6f678631eb30420b",
+      "src/idle.h": "7dc2b66da16a81516beb7dc181ae14e71936efc1fb7a218767dd59c88457ff0f",
+      "src/idle_commands.c": "1aa737ed0284e8a48f365fa572dc4175a96029af25cbb14fe90f9b336ca7bc37",
+      "src/idle_commands.h": "de2c5a0c2c0e06e50c288b40f06165aeb01224dbe23dbb120ab4ae0df9ac690a",
+      "src/idle_setup.c": "9df1db6b06d0ea36ca8dd1c14f3b49a64317be99ec9b514e2b44cd04a231cd18",
+      "src/idle_setup.h": "9350b365fea12adab3f2b818e2ef88cafd72ecfb6834746bfa26451a10d66b0d",
+      "src/main.c": "66d37b5961786ff31b0373096dc678fa40a81a2aa9f77208120e09cfad6f2e6c",
+      "src/manual.h": "2786dc36c1ce84a4f7175c0383f000a4ae13592574f24acb5f01282f1c5d85d2",
+      "src/net.c": "87774e91d7394bd71931d28f7d6aa1e364f929b7d198c5b6f4f0563da1811603",
+      "src/net.h": "d0969e79df6e56e63c9db82d3baa7d9fb370834e498f84ac18cc5da3c964e76d",
+      "src/nicks.c": "f9b7a98706eb7ecff076be59b9d20fc1341d162df0e8e06606af195d2c13ceac",
+      "src/nicks.h": "4e1065cf8c1abe712189b7077454a534371aa4ff115ebee47009c42f1de7b27f",
+      "src/protocol.c": "7d8da00f6242884a011c8e6f230aae0fb34a4f869662cbb6777002e96b4346fc",
+      "src/protocol.h": "e9de84a45595d3d08a6da3ba4c91405a8f33425ea8d80a67477ff035689ee30a",
+      "src/sim.c": "9affd4be7588f4efb6bcc2099ca334683f331a58f47c7c580deba05d65fcf78d",
+      "src/sim.h": "9128b1cc1cf14fe69a55b6e879640cb444e28449606c09adaa81c696566cab82",
+      "src/summary.c": "712b11807b4e0e7f161abec9e69cbe6a6b60213a09b1ccad0d5c117677cd6f23",
+      "src/summary.h": "9b21e63490bf85fd45e5f4b9d318ac2d1221c530079fc9fadb2cee6707eb3eb0",
+      "src/ui.h": "3342daa28f400cf356ed550b58e6b2ba0a0c5ae08f76a392088b9411f1722922"
+    }
+  },
+  "shared_source_files_identical": 38,
+  "clean_build_and_install": {
+    "status": "PASS",
+    "staged_binary_identical": true,
+    "binary_sha256": "8b0a4f6dab19891340e55f98a5df6ce3172070708c3588efe2ab85aa4b8ac6ae",
+    "installed_binary_identical": true,
+    "installed_version": "onekeyirc 0.1.16\nAn application of ThatIAm.vip (www.thatiam.vip).\nDesigned by remfan1994.\nLicense: IALA (Insha-Allah License Agreement).\nSource available under the included license.\nhttps://www.thatiam.vip",
+    "installed_docs": [
+      "SESSION-CONTROL-VALIDATION.txt",
+      "DISPLAY-CLIPPING.txt",
+      "DISPLAY-TEST-RESULTS.json",
+      "VALIDATION.txt",
+      "onekeyirc-manual.txt"
+    ],
+    "private_destdir": true,
+    "seconds": 7.61,
+    "source_checks": [
+      {
+        "release": "vipirc-0.7.17",
+        "python_tests_parsed": 43,
+        "manuals_rendered_without_diagnostics": 1,
+        "new_docs_ascii": true
+      },
+      {
+        "release": "onekeyirc-0.1.16",
+        "python_tests_parsed": 25,
+        "manuals_rendered_without_diagnostics": 1,
+        "new_docs_ascii": true
+      }
+    ]
+  },
+  "release_checks": {
+    "source_archive_integrity": "PASS: source-only membership, per-file hashes, sizes and modes verified in generated archives",
+    "shared_source_files_identical": 38,
+    "scope_review": "Only idle.c functional changes; app.h version macros; vipirc generated manual.c; supporting docs/tests/packaging."
+  }
+}

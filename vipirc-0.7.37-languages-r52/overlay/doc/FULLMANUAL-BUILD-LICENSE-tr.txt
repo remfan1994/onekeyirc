@@ -1,0 +1,17 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / PLATFORMS, BUILD, AND LICENSE
+English source SHA-256: c28dd1d52c0de855974159eabffe9cce9c94a78d0c7d7ae46cd65e9226993b3a
+
+PLATFORMLAR, DERLEME VE LİSANS
+
+Hedefler arasında Linux, ChromeOS'un Linux ortamı ve BSD sistemleri bulunur. Derleme C11, POSIX arayüzleri, GNU/BSD getopt_long, geniş karakterli curses ve uyumlu TLS geliştirme dosyaları gerektirir. İstemci ayrı bir programlama dili çalışma zamanı istemez. Python 3 test ve belge üretimi içindir; dağıtılan çıktılar Python olmadan normal derleme ve sohbeti sağlar. Bağımlılıklar için INSTALL'a bakın.
+
+    ./configure
+    make
+    make check-offline
+    make check
+    make install PREFIX="$HOME/.local"
+
+Derleme ve bağımlılıklar için INSTALL'a, güvenlik modeli/sınırları için SECURITY.md'ye, gerçekten test edilen platformlar için sürüm doğrulama raporuna bakın. Yerel BSD çalıştırması ayrıca doğrulanmalıdır; taşınabilirlik hedefi her Unix benzeri sistemin test edildiği anlamına gelmez. make check-offline ağ soketi olmadan CLI/PTY testlerini yürütür; daha geniş make check testi yerel loopback sahte sunucularını da kullanır.
+
+Bu, remfan1994 tarafından tasarlanan ThatIAm.vip (www.thatiam.vip) uygulamasıdır. Kaynak kod, tam metni LICENSE.md'de bulunan IALA (Insha-Allah License Agreement) kapsamında sunulur. Bağlı kütüphanelerin kendi lisansları geçerlidir; bkz. NOTICE. Bu uygulama başka bir IRC istemcisinin kodunu veya yapılandırma dilini kopyalamadan bu şartname için yazılmıştır.

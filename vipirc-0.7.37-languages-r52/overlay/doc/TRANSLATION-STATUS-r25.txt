@@ -1,0 +1,8 @@
+OPTIONAL vipirc LOCALIZATION/RTL PATCH r25 - SOURCE-LINKED MANUAL DRAFT COVERAGE
+Base English source r1 and application version 0.7.36 are unchanged.
+Languages: id ms tr es pt fr de ru it ar.
+Full vipirc source MANUAL.txt: 52/52 chapter drafts translated; 14,364/14,364 inventoried English source words covered.
+Added in r25: COMMAND-LINE OPTIONS (599), COMMAND PROMPT (480), CONNECTION AND STARTUP COMMANDS (578), CONVERSATION COMMANDS (665), CONFIGURATION (603); 2,925 English words per language.
+All translations remain drafts. English MANUAL.txt is authoritative for security-sensitive behavior.
+Full SECURITY.md, remaining UI/diagnostics, built-in ncurses manual reader and independent fluent reviews still remain.
+The existing Arabic RTL implementation was NOT changed in r25; only patch revision label changes in C.

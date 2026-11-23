@@ -1,0 +1,33 @@
+vipirc 0.7.36 - optional r18 translation draft (de)
+Source: MANUAL.txt / INPUT EDITING through MOUSE CONTROLS
+English source SHA-256: efd7a5a2ee94dcc2a9923884399743cf9696f83790f9e79d1861b211d0a9453c
+Fluent review pending; original English manual is authoritative.
+
+EINGABEBEARBEITUNG
+
+    Enter                 Entwurf senden oder prüfen.
+    Left/Right            Vorherige/nächste Zeichengruppe.
+    Up/Down               Zwischen umgebrochenen Eingabezeilen, nicht im Chatverlauf bewegen.
+    Home/End              Anfang/Ende des gesamten Entwurfs.
+    Backspace/Delete      Vorherige/aktuelle Zeichengruppe löschen.
+    Tab/Shift-Tab         Nächsten/vorherigen Benutzernamen vervollständigen.
+    Escape                Aus Privatgespräch Queries öffnen, sonst vipirc.
+    /clearinput           Ganzen Entwurf einschließlich unsichtbarem Text löschen.
+
+F1..F6 öffnet die verfügbaren Ansichten. Im Chat eingegebene Buchstaben einschließlich hjkl sind gewöhnlicher Text. Ein getipptes Enter sendet; ausdrückliche Zeilenumbrüche kommen durch bracketed paste, eingefügte Tabulatoren werden zu Leerzeichen. Ein / an Cursorposition null öffnet ein unabhängiges Command-Feld und bewahrt den Entwurf; spätere oder eingefügte Schrägstriche gelten als Text.
+
+Der Entwurf ist ein einziger logischer Puffer: Zeilenumbruch in der Darstellung fügt keinen Text ein, Backspace überquert visuelle Zeilen, und Größenänderungen erhalten Text und Cursor. Das feste Feld reserviert floor(B/W)+1 Zeilen für das Nutzlastbudget B und die nutzbare Breite W, begrenzt durch den Terminalplatz. Tippen oder Löschen verändert die Größe nicht; längere Entwürfe scrollen innerhalb des Felds. Änderungen von Ansicht, Protokollbudget oder Terminalgröße berechnen die Höhe neu. Command hat ein eigenes Feld; /msg oder /me ersetzt den Chatentwurf nie.
+
+Ein einzelnes rohes Escape wartet etwa 500 ms; eine unvollständige Tastenfolge erlaubt 1000 ms zwischen Fortsetzungsbytes, während die Netzwerkverarbeitung weiterläuft. Vollständig entschlüsselte Tasten wirken sofort. Ein verspäteter Beginnmarker für Einfügen kann nach Ablauf der ersten Escape-Frist als Escape wirken; im Minimalprotokoll kann dadurch der Client in den Hintergrund gehen. Sobald die Einfügeerfassung begonnen hat, werden Endmarker selbst bei beliebig verzögerten, aufgeteilten Lesevorgängen erkannt. Nachfolgende Tasten können den Entwurf vor der sichtbaren Prüf- oder Ruhe-Eingabegrenze weder abbrechen noch den Modus wechseln.
+
+Eingaben benötigen gültiges UTF-8 oder ausdrücklich gewählten ASCII-Locale-Modus; siehe FILES AND ENVIRONMENT. Ein Basiszeichen und folgende Nullbreiten-Zeichen werden gemeinsam bewegt oder gelöscht; vollständige Unicode-Graphemsegmentierung ist nicht implementiert. Nicht unterstützte Glyphen erhalten einen sichtbaren Ersatz. Entwürfe sind auf 8192 Unicode-Skalarwerte oder 16384 UTF-8-Bytes begrenzt, je nachdem, was zuerst erreicht wird. Ungültige Kodierungen und Steuerzeichen werden abgelehnt. Eingefügte Zeilenumbrüche bleiben sichtbar und beeinflussen den Sendeplan; das kleinere IRC-Budget entscheidet über Warnungen und Aufteilung.
+
+MAUSSTEUERUNG
+
+Die Maus ist standardmäßig aktiv, wenn curses, TERM und Terminal dies unterstützen. /mouse schaltet um, /mouse on|off setzt den Zustand ausdrücklich, und Settings > Interface bearbeitet/speichert die mouse-Einstellung in [interface] der primären Konfiguration. Die Tastatur funktioniert auch ohne Maus; Terminal oder SSH-Multiplexer müssen Mausereignisse weiterleiten.
+
+Ein Klick auf die Kopfkategorie öffnet sie, in den Chat setzt er den Cursor, Clear löscht den ganzen Entwurf und Send sendet nach den üblichen Prüfungen. Clear/Send sind bei Nichtverfügbarkeit verborgen. Benutzernamen in Chat/Liste bieten Whois/Query; ein Klick auf #channel wählt den Kanal oder tritt bei. Die beim Klick angezeigte Tokenidentität entscheidet über die Aktion, nicht ein späteres Element an denselben Koordinaten. URLs und Zwischenablageninhalte werden nicht geöffnet.
+
+Ein Klick auf eine Zeile öffnet Server/Kanal/Privatgespräch; Aktionsklicks wirken auf die Auswahl. Das Mausrad verändert die Auswahl, aber nicht die Aktion. Über Chatverlauf/Benutzerliste scrollt es drei visuelle Zeilen bzw. Benutzer. Settings und transfers haben eigene Feld- und Aktionssteuerungen. Chat benötigt mindestens 9 Zeilen und 20 Spalten; schmale Kopfzeilen halten den Fokus sichtbar.
+
+Die Maus bestätigt keine Dialoge zur frühzeitigen Längenwarnung oder zum geteilten Senden; verwenden Sie deren Tastaturauswahl. Command Run/Cancel erfordert nach Einfügen eine neue Aktion. Eingefügte Klickfolgen oder Zeilenumbrüche können dies nicht auslösen; Klicks aus einem alten Layout werden auf einem neu geöffneten Bildschirm nicht wiederverwendet.

@@ -1,0 +1,58 @@
+SITZUNGSVERWALTUNG UND HINTERGRUNDBETRIEB - vipirc 0.7.36
+Vollständige Übersetzung der MANUAL.txt-Abschnitte von RUNNING IN THE BACKGROUND bis UPGRADING A RUNNING WORKER.
+Status: Entwurf; im Zweifel ist die englische MANUAL.txt maßgeblich.
+
+IM HINTERGRUND AUSFÜHREN
+
+/background oder F1 > Background lässt IRC-Verbindungen, angenommene Übertragungen, Entwürfe und den Verlauf im Arbeitsspeicher weiterlaufen und stellt zugleich das Terminal wieder her. Es zeigt den nummerierten Wiederaufnahmebefehl, z. B. vipirc --resume 1. Beim ersten Abkoppeln werden ein Worker und ein privater Kommunikationsendpunkt erstellt. Weitere Abkopplungen behalten Nummer, Zustand und Endpunkt. Bei normalem Vordergrundbetrieb gibt es weder diesen Endpunkt noch einen zusätzlichen Hilfsprozess.
+
+Bei der Wiederaufnahme werden Terminalfähigkeiten, Größe und Locale auf demselben Rechner unter demselben Unix-Konto erneut ermittelt. stdin/stdout/stderr müssen dieselbe interaktive tty verwenden. Ein Vordergrund-Controller verarbeitet Signale und Größenänderungen; gleichzeitig darf nur ein Terminal verbunden sein. SESSION RECOVERY AND UPGRADES erläutert die Jobauswahl und belegte Verbindungen.
+
+Für unbeaufsichtigten Start zuerst gewünschte Autoconnect-Profile speichern und vipirc --background --reconnect --config /absolute/config.ini ausführen. --background aktiviert Autoconnect nicht; --no-connect unterdrückt es. Erfolg bestätigt nur die lokale Einrichtung. Bis zum Anhängen sind weder tty noch TERM erforderlich. Der Endpunkt wird vor den DNS- und Zugangsdaten-Helfern vorbereitet. Ein einfaches --resume behält das Frontend des Workers; explizites -i/-N wechselt es, ohne eine neue Verbindung oder einen neuen Worker zu erzeugen. Der Wechsel behält Gesprächsverlauf und angenommene Übertragungen, verwirft aber Entwürfe, offene Sendebestätigungen, Befehlsverlauf und nicht übernommene Formulare. Vorher wichtige Entwürfe abschließen oder kopieren. Abkoppeln und Wiederaufnehmen mit demselben Frontend bewahrt diesen lokalen Zustand. Ältere Worker können auf ihr ursprüngliches Frontend beschränkt sein.
+
+Konfigurierte Terminalsignale behalten ihre Aufgaben. Wird ein wiederaufgenommener Controller angehalten, arbeitet der Worker im Netzwerk weiter; fg stellt die Bedienung wieder her. Das Anhalten eines gewöhnlichen Vordergrundprozesses stoppt dagegen seine Netzwerkaktivität. Siehe TERMINAL SIGNALS zu geerbten Zuordnungen und SESSION RECOVERY zum Terminalverlust.
+
+Beim ersten Abkoppeln kann ein erneuter Versuch nötig sein, solange DNS- oder Zugangsdaten-Helfer arbeiten. Ignoriertes SIGCHLD oder automatisches Aufräumen von Kindprozessen verhindern den ersten Hintergrundstart und die Helfererstellung; der Starter muss seine Kinder abwartbar lassen. Erneutes Abkoppeln eines bereits verwalteten Workers erzeugt keinen weiteren Prozess.
+
+Verzeichnis und Socket sind nur für den Eigentümer zugreifbar. Die Suche prüft höchstens 64 Plätze innerhalb einer gemeinsamen Frist von 1500 ms und entfernt nur nachweislich veraltete Einträge ohne noch gehaltene Lebensdauer-Sperre. An erratene PID werden keine Signale gesendet. Nicht antwortende Jobs bleiben ungeprüft. Identitäts- und Instanzprüfungen verhindern, dass eine wiederverwendete Nummer die Verbindung beim Wechsel umleitet. Ein anderer Prozess mit denselben Kontorechten bleibt vertrauenswürdig. single_session=true verweigert einen zweiten Worker im vipirc-Namensraum, schränkt aber nicht die Server innerhalb des Workers ein.
+
+Worker-Zustand wird nicht dauerhaft gespeichert: Neustart, Beenden oder Terminierung verlieren Entwürfe, Anker und Speicherverlauf. Optionale Logs speichern nur das Transkript. Im Testmodus ist Hintergrundbetrieb über den lokalen Endpunkt möglich, ohne IRC/DCC-Netzwerkverkehr zu aktivieren. Ein Terminalmultiplexer ist nicht erforderlich.
+
+SITZUNGSWIEDERHERSTELLUNG UND UPGRADES
+
+Ein Shell-Job umfasst einen Worker mit allen IRC-Verbindungen, Übertragungen, Entwürfen und dem gespeicherten Verlauf. Seine Jobnummer ist weder die Betriebssystem-PID noch die im Client angezeigte Servernummer.
+
+So wird ein Job wiederhergestellt, dessen altes SSH-Terminal noch verbunden ist:
+
+    vipirc --sessions
+    vipirc --detach-session 1
+    vipirc --resume 1
+
+NUMBER aus der aktuellen Liste wählen. --detach-session löst den geprüften Controller, wartet auf den abgekoppelten Zustand und lässt Worker und IRC-Zustand erhalten. --resume ohne Nummer wählt nur einen einzigen verifizierten, abgekoppelten Job; mehrere oder ungeprüfte Kandidaten erfordern eine ausdrückliche Auswahl. Ein noch verbundenes Terminal wird niemals übernommen. Jobnummern bleiben bis zum Beenden stabil und können danach erneut vergeben werden.
+
+EINE SITZUNG AUS DER SHELL SCHLIESSEN
+
+Nur verwenden, wenn der gesamte Job beendet werden soll:
+
+    vipirc --sessions
+    vipirc --close-session 1
+
+Schliessen beendet alle IRC-Verbindungen und Übertragungen dieses Workers und verwirft ungespeicherte Entwürfe und den Speicherverlauf. Gespeicherte Konfiguration und vorhandene Klartext-Logdateien bleiben bestehen. Auch --close-session=1 und --detach-session=1 sind zulässig. Diese Verwaltungsbefehle benötigen weder ein interaktives Terminal noch laden sie die Konfiguration. Nicht mit --resume, --sessions, miteinander, --config oder Verbindungsoptionen kombinieren. Unterstützte Frontend-Flags dürfen in einem Alias verbleiben, ohne den gewählten Job zu ändern.
+
+Der Client nutzt den privaten Endpunkt des Eigentümers, die Eigentümerprüfung der Gegenstelle und das Identitätstoken des gewählten Workers. Erfolg bestätigt, dass die Anwendungsbereinigung und die Freigabe der ursprünglichen Job-Sperre abgeschlossen wurden; es bedeutet nicht nur die Annahme einer Anfrage und auch keine unabhängige Prüfung des OS-Prozessendes. Anfragen unterliegen einer Frist. Fehler oder Zeitüberschreitung entfernen keinen lebenden Endpunkt und signalisieren keine erratene PID. Eine vor der Frist angenommene Anfrage kann später noch fertig werden; --sessions erneut prüfen.
+
+Ein Worker, der auf ein geöffnetes, dauerhaft ungelesenes Terminal schreibt, verarbeitet Steueranfragen möglicherweise erst, wenn die Ausgabe wieder möglich ist oder das Terminal geschlossen wird. Ein völlig festgefahrener Worker kann nach Identifikation des tatsächlichen Prozesses einen Eingriff auf Betriebssystemebene erfordern. Ein Schliessstatus ungleich null bedeutet, dass der Abschluss nicht bestätigt wurde.
+
+WIEDERHERSTELLUNG NACH SSH-VERLUST
+
+Verlust von Terminal oder Controller bei einem bereits verwalteten Job koppelt den Worker ab. Hangup-/Fehlerbereitschaft, stdin EOF/EIO, stdout-Fehler, Controller-EOF und SIGHUP erhalten Verbindungen und gespeicherten Zustand. Im Vollmodus wird bei Terminalverlust oder extern angefordertem Schliessen die veraltete Worker-Ausgabe vor der curses-Bereinigung umgeleitet; der Vordergrund-Controller stellt seine eigene tty wieder her.
+
+Ein gewöhnlicher Vordergrundprozess, der nie verwaltet wurde, behält sein normales SIGHUP-Beendigungsverhalten. Für wiederaufnehmbare Jobs mit --background starten oder zuvor /background ausführen. Der Client ändert die SSH-Idle-Timeout-Richtlinien nicht. Synchrone Terminalausgabe kann weiterhin blockieren, wenn ein Terminal offen bleibt, aber nicht mehr gelesen wird.
+
+EINEN LAUFENDEN WORKER AKTUALISIEREN
+
+Installieren oder Neukompilieren ersetzt nicht den Code eines bereits laufenden Workers. Gewünschte Einstellungen speichern, den Worker bewusst beenden/schliessen, die installierte --version prüfen und einen neuen Job starten. Dies gilt auch für Sicherheitsupdates. Logs bleiben bestehen; Entwürfe, Befehlsverlauf und Nachhol-Anker nicht.
+
+Älteren Workern fehlen möglicherweise neue Abkoppel-/Schliessfunktionen oder der Frontend-Wechsel. Das dazu passende ausführbare Programm behalten, solange es zum Anhängen und Beenden mit den vorhandenen Funktionen gebraucht wird. Ein fehlgeschlagener Altvorgang wird nicht als erfolgreich gemeldet, nur weil ein Endpunkt verschwunden ist. Vorhandene Konfigurationen kann die aktuelle Version weiterhin lesen; ältere Programme können von neueren gespeicherte Schlüssel ablehnen.
+
+Siehe doc/SESSION-CONTROLS.txt für denselben Ablauf und doc/OPENBSD-VPS.txt für unbeaufsichtigten Betrieb auf dem Host. Das Installieren dieses Quellarchivs beendet oder verteilt auf entfernten Hosts nichts automatisch.

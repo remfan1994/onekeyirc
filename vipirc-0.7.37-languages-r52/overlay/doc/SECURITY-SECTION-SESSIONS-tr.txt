@@ -1,0 +1,16 @@
+Managed sessions and SSH loss
+Source: SECURITY.md, section "Managed sessions and SSH loss"
+English section SHA-256: f44a63f7faada1375f5769e9dfe2235da96547fa535b07d1c9869cba13ca063f
+Paragraphs: 5
+Status: Translation draft; fluent-speaker security review required
+English SECURITY.md remains authoritative. This is only one section, not the full security document.
+
+Background, hesap özelinde yerel bir iş uç noktası ve ömür kirası oluşturur. Kayıt, program ve Unix kullanıcısı başına ayrıdır; 64 numaralı yuvası vardır. Bu bir Internet dinleyicisi veya yeniden başlatmadan sonra kalıcılık mekanizması değildir. Keşif/bağlama/kontrol özel yolları, dosya kimliklerini ve seçilen işçinin sürüm-ömür belirtecini doğrular; iş numaraları PID sayılmaz. Platform destekliyorsa aynı kullanıcıya ait eş kimlik bilgileri denetlenir.
+
+Aynı anda yalnızca bir terminal bağlanabilir. Resume aktarılan terminal tanımlayıcılarını ve sınırlı TERM/locale bilgilerini doğrular. Keşif sınırlıdır, güvensiz nesneleri atlar ve kayıttaki beklenmedik içeriği özyinelemeli silmez. Canlı ama yanıtsız işçi kira hakkını korur ve doğrulanmamış olarak bildirilir. Argümansız --resume, doğrulanmamış aday yoksa yalnızca tek bir uygun ve doğrulanmış ayrık işçiyi seçer. single_session var olan işçideki IRC bağlantılarıni değil, yeni arka plan işlerini kısıtlar.
+
+--detach-session NUMBER seçilen terminali/denetleyiciyi bırakır; işçiyi, bağlantıları, taslakları, aktarımları ve saklanan geçmişi korur. --close-session NUMBER tüm işçiyi bitirir ve kaydedilmemiş RAM durumunu atar. Detach terminalin gerçekten bırakıldığınin; close ise uç nokta ve kira kaldırılmasının onayını bekler. İsteğin kabulü tamamlandığı anlamına gelmez. Denetimlerin son süresi vardır, tahmin edilen sayısal PID öldürülmez. Kurtarma amacıyla uç noktaları unlink etmeyin.
+
+Yönetilen terminal veya denetleyicinin kaybı işçiyi ayrık duruma getirir. Hiç yönetilen h!ale gelmemiş sıradan ön plan sürecinin sürdürülebilir işi yoktur. Yeni çalıştırılabilir dosya kurmak, çalışan işçinin protokolünü yükseltmez; eski işçileri temiz kapatmak için mevcut denetimler gerekebilir.
+
+Minimalist çıkış kuyruğu sınırlıdır ve tıkanıkken açık Background istekleri yine işlenebilir. Temizlik/bildirim yazıları en iyi çaba esasındadır, duran terminalde kaybolabilir. Tam ncurses çizimi h!al!a eşzamanlı terminal çıkışı kullanır; kalıcı biçimde bloke açık terminal denetim yoklamasını geciktirebilir. Zaman aşımı zorla sonlandırma başarısı olarak değil, zaman aşımı olarak bildirilir. Hiçbir istemci SSH sunucusunun boşta kalma bağlantı kesme politikasını ayarlamaz.

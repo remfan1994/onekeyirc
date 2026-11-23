@@ -1,0 +1,223 @@
+[
+  {
+    "source": "src/settings.c",
+    "kind": "fixed",
+    "english": "Add ignore mask",
+    "fields": []
+  },
+  {
+    "source": "src/settings.c",
+    "kind": "fixed",
+    "english": "Add watch term",
+    "fields": []
+  },
+  {
+    "source": "src/settings.c",
+    "kind": "fixed",
+    "english": "Select ZNC or soju in Connection type before entering bouncer settings.",
+    "fields": []
+  },
+  {
+    "source": "src/settings.c",
+    "kind": "fixed",
+    "english": "The bouncer restores channel membership. Use /join or /part after connecting; saved auto-join is ignored for this profile.",
+    "fields": []
+  },
+  {
+    "source": "src/settings.c",
+    "kind": "fixed",
+    "english": "Apply now: exact nick or nick!user@host with * and ?. Empty removes; 32 masks maximum.",
+    "fields": []
+  },
+  {
+    "source": "src/settings.c",
+    "kind": "fixed",
+    "english": "Apply now: literal mention text. Set this field empty to remove it.",
+    "fields": []
+  },
+  {
+    "source": "src/settings.c",
+    "kind": "fixed",
+    "english": "Apply now: add a literal mention term, at most 127 UTF-8 bytes (32 terms maximum).",
+    "fields": []
+  },
+  {
+    "source": "src/settings.c",
+    "kind": "named-fields",
+    "english": "Ignore mask {number}",
+    "fields": [
+      "number"
+    ]
+  },
+  {
+    "source": "src/settings.c",
+    "kind": "named-fields",
+    "english": "Watch term {number}",
+    "fields": [
+      "number"
+    ]
+  },
+  {
+    "source": "src/app.c",
+    "kind": "fixed",
+    "english": "No such channel or query view.",
+    "fields": []
+  },
+  {
+    "source": "src/app.c",
+    "kind": "fixed",
+    "english": "OFFLINE TEST MODE: /save is disabled; configuration was not written.",
+    "fields": []
+  },
+  {
+    "source": "src/app.c",
+    "kind": "fixed",
+    "english": "PART message must be valid UTF-8 without control characters.",
+    "fields": []
+  },
+  {
+    "source": "src/app.c",
+    "kind": "fixed",
+    "english": "Choose a channel/query for /me.",
+    "fields": []
+  },
+  {
+    "source": "src/app.c",
+    "kind": "named-fields",
+    "english": "You are not in this channel; use /join {channel}.",
+    "fields": [
+      "channel"
+    ]
+  },
+  {
+    "source": "src/app.c",
+    "kind": "named-fields",
+    "english": "Unknown command /{command}; /help lists supported commands.",
+    "fields": [
+      "command"
+    ]
+  },
+  {
+    "source": "src/app.c",
+    "kind": "named-fields",
+    "english": "Registering as {nick}",
+    "fields": [
+      "nick"
+    ]
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed",
+    "english": "[OFFLINE] Servers",
+    "fields": []
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed",
+    "english": "Channel 0: Server",
+    "fields": []
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed",
+    "english": "Session summary",
+    "fields": []
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed",
+    "english": "Cannot allocate this server's interface.",
+    "fields": []
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed",
+    "english": "Cannot initialize signal handlers.",
+    "fields": []
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed",
+    "english": "Background startup interrupted.",
+    "fields": []
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed",
+    "english": "Command prompt reference. / searches; n/N finds related text.",
+    "fields": []
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "indexed-help",
+    "english": "Open the selected server's connection settings. Its hostname, port, transport and startup choices belong to that server profile.",
+    "fields": []
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "indexed-help",
+    "english": "Open nickname settings for the selected server. /nick changes the nickname on a live connection.",
+    "fields": []
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "indexed-help",
+    "english": "Show the program version, connection totals and resource snapshot. Refresh updates that snapshot.",
+    "fields": []
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "indexed-help",
+    "english": "Read the included Insha-Allah license agreement. Escape returns to the vipirc main screen.",
+    "fields": []
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "indexed-help",
+    "english": "Open the complete built-in manual. It works while disconnected. Search its contents with /, then use n/N for the next or previous match.",
+    "fields": []
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed",
+    "english": "The selected action belongs to the manual reader. Find opens its search field; Previous and Next move between matches; Return restores the originating screen. Up/Down and Page Up/Page Down scroll the document.",
+    "fields": []
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "fixed",
+    "english": "This configuration panel collects answers in a separate draft. Tab selects the answer field or Next, Back and Cancel controls. Enter validates the answer or activates a selected control. The final review applies only the choices you approve. Closing help preserves the answer and draft.",
+    "fields": []
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "named-fields",
+    "english": "Connect server {number} before setting away status.",
+    "fields": [
+      "number"
+    ]
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "named-fields",
+    "english": "Away change requested on server {number}; waiting for its acknowledgment.",
+    "fields": [
+      "number"
+    ]
+  },
+  {
+    "source": "src/ui.c",
+    "kind": "named-fields",
+    "english": "Server {number}: {status}",
+    "fields": [
+      "number",
+      "status"
+    ]
+  },
+  {
+    "source": "src/prompt.c",
+    "kind": "fixed",
+    "english": "Commands (0 matches)",
+    "fields": []
+  }
+]

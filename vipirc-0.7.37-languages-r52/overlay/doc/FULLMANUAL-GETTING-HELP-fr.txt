@@ -1,0 +1,23 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / GETTING HELP
+English source SHA-256: 3be6bd8e2513deace7dbc089f74905843298167e9259b20a4a0495570b4c691f
+
+EXACT COMMAND/CONTROL EXAMPLES (not translated):
+vipirc -h
+vipirc -v
+vipirc --manual
+vipirc -i --manual
+man vipirc
+/help
+/manual
+/help TEXT
+
+vipirc -h ou --help affiche le résumé CLI ; vipirc -v ou --version affiche la version ; vipirc --manual écrit le manuel complet sur la sortie standard ; vipirc -i --manual écrit la référence minimaliste des thèmes et commandes. man vipirc ouvre la page de manuel installée. En mode complet, /help ou /manual ouvre ce manuel et /help TEXT y recherche TEXT.
+
+En mode complet, /help TEXT recherche dans ce manuel et non dans les thèmes minimalistes. /help commands et /help ls trouvent COMMAND PROMPT ; /help all ouvre le manuel entier ; /view help fonctionne aussi. Aucune citation n'est requise pour les expressions de recherche. Le lecteur fonctionne sans connexion et conserve la vue, le brouillon et le curseur. Ici / lance la recherche ; dans un lecteur minimaliste d'aide/réponse, / ouvre Command. Pour des étapes guidées par les symptômes, consultez doc/TROUBLESHOOTING.txt.
+
+Appuyez sur ? pendant la navigation pour expliquer l'élément et l'écran choisis. L'aide contextuelle comporte un lien About ; Left/Right ou Tab choisit une action, Enter l'exécute et Escape revient à l'origine et à la sélection exactes. Dans un champ modifiable, ? reste un caractère ordinaire. Sélectionnez d'abord une suggestion de Command avant de demander son aide.
+
+Les actions du manuel sont Back, Search, Previous et Next. Left/Right ou h/l choisissent, Enter exécute. Up/Down ou k/j défile d'une ligne ; Page Up/Down d'une page ; Home/End ou g/G atteint les extrémités. Escape/q/Back revient au panneau vipirc ou au chat précédent. F1..F6 ouvre les catégories disponibles ; le cycle des vues ignore le manuel. / ou Search modifie une requête UTF-8 littérale, limitée à 256 octets. Enter lance la recherche, Escape annule la modification. n/Next et N/Previous parcourent les résultats en boucle. La casse ASCII est ignorée ; les autres caractères restent littéraux. Pas d'expressions régulières, de syntaxe de shell ni d'historique de recherche. Le collage est ignoré dans le lecteur et la recherche.
+
+F1 contient Server, Nick, Settings, Manual, Command, Background, About et l'accord de licence Insha-Allah. Server/Nick ouvre les paramètres du profil actif ; Nick cible ce champ. About montre version, crédits et un instantané local à la demande : PID, durée d'exécution, totaux CPU, mémoire de pointe prise en charge et nombres de serveurs/vues. La mémoire de pointe n'est pas l'utilisation actuelle ; les totaux CPU ne sont pas un pourcentage instantané. Le lecteur de licence affiche LICENSE.md intégralement. Escape/Enter/q/Back revient d'About ou de la licence à vipirc.

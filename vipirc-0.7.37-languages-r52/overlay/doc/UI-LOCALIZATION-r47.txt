@@ -1,0 +1,8 @@
+r47: source-linked file-browser/transfer review guidance and safety labels in vipirc;
+shared onekeyirc/vipirc authentication and bouncer status explanations.
+FilePicker path traversal and inode revalidation are unchanged. Fixed error strings
+are translated only in the Transfers display layer, while formatted errno strings
+and user-supplied names remain literal. Transfer action-button labels still use
+English pending a combined localization and mouse-hitbox width pass.
+No change to IRC protocol, config values or application versions.
+Native speaker review and complete vipirc curses compilation are outstanding.

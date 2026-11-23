@@ -1,0 +1,23 @@
+VERBATIM ENGLISH SOURCE REFERENCE
+Source: MANUAL.txt / NICKNAME COMPLETION
+English source SHA-256: 89b368bbd759571d49afe8fccb96d986865af2f76dcd6d257f18cd768bda8e98
+
+NICKNAME COMPLETION
+
+Tab completes the nickname token at the chat caret. Further Tab presses
+cycle matching names in case-aware alphabetical order, wrapping; Shift-Tab
+cycles backwards. Matching follows this server's advertised ASCII, strict
+RFC1459, or RFC1459 nickname case rules. No lookup or outgoing message is
+needed. Ordinary editing ends the current completion cycle.
+
+At the beginning of a draft, completion adds ': '. At the end of a later
+word it adds a space. Existing punctuation and following words remain intact
+when completing inside a draft. Channels and URLs are not interpreted as
+nickname prefixes. A candidate that would exceed the draft's byte or
+character bound leaves the entire draft intact. Crossing the smaller IRC
+message budget opens the normal early warning; completion never sends.
+
+A channel uses its current roster. A query uses its peer and your nickname.
+Server and mention views use peers known from this server's joined channels
+and query list. Another server's users are never candidates. Current roster
+changes apply to the next completion, without storing an extra user list.

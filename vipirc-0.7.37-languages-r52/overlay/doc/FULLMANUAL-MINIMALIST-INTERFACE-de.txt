@@ -1,0 +1,36 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / MINIMALIST INTERFACE
+English source SHA-256: 21dd2fdc5c7552003eba414c032dbbece1a7caa875d21274eb5594748bf44568
+Source lines: 123-203
+
+MINIMALISTISCHE OBERFLÄCHE
+
+    vipirc -i
+    vipirc --idle --test-mode
+    /connect irc.ircnow.org
+    /join #ircnow
+    /saveconf
+
+-i verwendet dieselbe vipirc-Konfiguration und denselben Serverkatalog. Als Nickname dient standardmäßig ein gültiger Anmelde- oder Benutzername. /saveconf speichert Einstellungen und funktionierende Profile und merkt sich die gewählte Verbindung, auch ein sekundäres Profil, für den nächsten Aufruf von /connect ohne Argumente. Das Speichern aktiviert keine automatische Verbindung. /quickstart und /panel sind optionale Assistenten.
+
+Der normale Bildschirm ist das Protokoll. / öffnet Command, ? die kontextbezogene Hilfe; andere druckbare Zeichen beginnen Compose und bleiben erhalten. Enter oder Insert öffnet einen leeren Compose-Editor. Im Live-Protokoll geht Up eine gespeicherte Zeile zurück, Page Up eine Seite und Home zur ältesten gespeicherten Seite. Down/Page Down/End bleiben am aktuellen Ende. Left/Right/Delete/Backspace haben dort keine Wirkung. In einem Verlaufsleser kehrt End oder Escape zur Live-Ansicht zurück.
+
+Pfeiltasten bearbeiten in Compose den Text; sie rufen keine gesendeten Chatnachrichten ab. Tab/Shift-Tab vervollständigen in Compose Nicknames und in Command Befehlsnamen. Down wählt in Command Vorschläge; Up/Down blättert darin, und Up beim ersten Vorschlag führt zur Eingabe zurück. Enter übernimmt einen Vorschlag; erst ein weiteres Enter nach der Anzeige führt ihn aus. Up in der Command-Eingabe ruft passende angenommene Befehle aus dem Verlauf ab; Down führt zum ursprünglichen Entwurf zurück. Alle Tasten sind unter /help keys und /help commands beschrieben.
+
+Der einzeilige Eingabemodus hält eine Zeile unter dem Live-Protokoll bereit; fullscreen bietet einen mehrzeiligen Editor und einen kleineren Live-Protokollbereich. Neuzeichnungen durch Netzwerkverkehr bewahren Entwurf und Cursorposition. Escape verlässt den Editor zum Protokoll; Escape im Protokoll legt das Programm in den Hintergrund. In Review stellt Escape oder weiteres Tippen denselben Editor samt Entwurf und Cursor wieder her; ein neues Enter bestätigt. Ctrl-D bleibt ohne ausdrücklich zugewiesene Belegung wirkungslos; Terminalsignale folgen den geerbten Einstellungen. Erkannte Einfügungen bleiben wörtlicher Text und können keine Nachricht absenden.
+
+    /set send_mode direct|review
+    /set composer_mode line|fullscreen
+    /set output_format compact|full
+    /save input
+    /save output
+
+Voreingestellt sind direktes Senden, einzeilige Eingabe und die kompakte Ausgabe [HH:MM:SS] <nick> text. Die Ausgabe full enthält Datum/Server/Ziel; Erwähnungen und serverübergreifende Diagnosen behalten in beiden Formaten den nötigen Kontext. Diese dem Hauptprofil zugeordneten Einstellungen gelten für alle Server. Die gesonderte Bestätigung des Bytebudgets und die Zustimmung zu mehreren Nachrichten bleiben erforderlich.
+
+/help ls listet Themen; /help /ls erläutert den lokalen Listenbefehl. /help COMMAND zeigt Syntax und Beispiele für jeweils einen Themen- oder Befehlsnamen. /manual und vipirc -i --manual liefern die vollständige minimalistische Referenz, die auch unter doc/vipirc-idle-manual.txt vorliegt. Befehle und Bedienung unterscheiden sich von der vollständigen ncurses-Oberfläche. Hilfe und längere Befehlsausgaben verwenden einen eigenen, begrenzten Leser. Pfeiltasten/Page Up/Page Down/Home/End blättern, Escape kehrt zurück. Enter blättert in der Hilfe, schließt jedoch eine erfolgreiche /users-Liste. / öffnet aus dem Leser Command; ein Abbruch führt dorthin zurück. Eine neue Befehlsausgabe ersetzt die vorherige Antwort. r aktualisiert in Summary die Momentaufnahme. Während des Lesens läuft die Netzwerkverarbeitung weiter.
+
+/panel beginnt mit 0 Application preferences für Verlauf, Sende-/Eingabemodi, Ausgabe, Hinweise, Protokollierung, Einzelsitzungsmodus, Befehlsvorschläge und Standardoberfläche. Am Ende stehen Save oder Apply without saving zur Auswahl; dadurch wird weder eine Verbindung aufgebaut noch der Chat gewechselt. Beide Oberflächen nummerieren Profilbereiche 1..8: Bereich 1 bearbeitet das Hauptprofil, das im Vollmodus als server 0 und im Minimalmodus als 1 bezeichnet wird. Diese Bereiche bearbeiten serverspezifische Einstellungen einschließlich der Bouncer-Identität. Zum Abschluss stehen Save and connect, Save only (Standard), Connect once und Apply only bereit. /quickstart fragt Server/TLS/Port/Nickname ab und wählt standardmäßig Connect once; vorhandene Bouncer-Anmeldedaten werden nicht geändert.
+
+Enter übernimmt eine angezeigte Antwort; '-' leert optionale Felder. Escape geht einen Schritt zurück oder verlässt die erste Frage. Tab wählt eine Überschrift für die ?-Hilfe aus; anschließend setzt Tab/Enter die Bearbeitung fort. Verborgene Passwörter und Antworten gelangen nie in den Befehlsverlauf. Erst die letzte Auswahl wendet an/speichert/verbindet; eine aktive Verbindung wird nicht auf ein anderes Ziel umgestellt, und ein späterer Verbindungsfehler macht ausdrücklich vorgenommene Änderungen nicht rückgängig. Auch der Vollmodus bietet diese Assistenten; /settings öffnet dort das grafische Formular.
+
+Im Minimalmodus verwendet /servers die Nummern 1..8, im Vollmodus 0..7. Channel 0 bezeichnet in beiden Oberflächen die Server-/MOTD-Ansicht. Die Verlaufsgrenze des Hauptprofils beschränkt die interne Aufbewahrung aller Gespräche gemäß den festen Grenzen in /help history. Optionale Klartextprotokollierung ist standardmäßig ausgeschaltet. DCC nutzt die gemeinsamen ausdrücklichen /dcc-Befehle ohne grafische Formulare.

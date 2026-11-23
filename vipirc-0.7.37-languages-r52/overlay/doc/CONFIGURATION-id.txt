@@ -1,0 +1,62 @@
+Panduan praktis vipirc / onekeyirc - Konfigurasi
+======================================================
+
+DRAF TERJEMAHAN. Perintah dan opsi harus diketik persis seperti tercetak.
+Untuk rincian keamanan resmi, baca MANUAL.txt dan SECURITY.md berbahasa Inggris.
+
+/help configuration
+-------------------
+
+[connection] berisi server, port, tls, nick, username, realname, channel, autoconnect, auth, dan sumber kredensial.
+
+[bouncer] type=none|znc|soju, username, network, client, dan automatic_away mengatur profil bouncer per jaringan; lihat /help bouncers.
+
+[input] send_mode=direct|review dan [output] format=compact|full, queue_notices=true|false, program_messages=true|false, persistent_logging=true|false adalah preferensi di konfigurasi utama.
+
+[input] command_suggestions=common|history|frequent|alphabetical|contextual mengatur urutan perintah; bawaan common.
+
+[input] composer_mode=line|fullscreen memilih tata letak penulisan/komando minimalis; bawaan line. Keduanya menampilkan pesan terbaru.
+
+[input] use_signals=false Secara bawaan Use signals = no. Ctrl-C dan Ctrl-Z membatalkan pesan atau perintah yang belum dikirim, bukan menghentikan aplikasi. Pilih yes pada panel 0 (atau pengaturan Interface vipirc) untuk mengaktifkan sinyal terminal. Apply berlaku segera; Save juga menyimpan [input] use_signals=true|false. Pengaturan terminal asal dipulihkan saat keluar atau ditangguhkan.
+
+[hotkeys] memuat paling banyak 64 ikatan KEY=action opsional tanpa bawaan. Milik konfigurasi utama; lihat /help hotkeys.
+
+[session] single_session=true|false menentukan boleh tidaknya beberapa tugas latar; bawaan false.
+
+[session] default_interface=ncurses|idle adalah preferensi aplikasi utama. Pilihan saat mulai dijelaskan di bawah.
+
+Tampilan compact adalah bawaan. history_lines di konfigurasi utama mengatur jumlah riwayat yang disimpan untuk semua server.
+
+[mentions] word= dan [ignore] mask= boleh diulang.
+
+[autocommands] berisi enabled, delay_seconds, interval_seconds, dan baris command= berulang untuk satu server.
+
+Perintah ini berupa teks biasa dalam konfigurasi privat. /autocommands mengelolanya tanpa membuka rahasia di daftar/riwayat.
+
+Profil server tambahan yang disimpan memakai katalog .servers dan direktori .d di sebelahnya.
+
+Hubungkan lewat /connect HOST, lalu /join #channel dan /saveconf untuk menyimpan konfigurasi yang berfungsi.
+
+/saveconf menyimpan preferensi dan profil server yang sehat, serta mengingat server terpilih untuk /connect tanpa argumen nanti.
+
+/quickstart menanyakan empat hal koneksi. /panel memakai 0 untuk preferensi dan 1..8 untuk profil; panel 1 mengubah profil utama.
+
+Perubahan panel tetap privat sampai Finish. Menerima tujuan GPG dapat menyiapkan direktori 0700; enkripsi, penulisan konfigurasi, dan koneksi menunggu pilihan akhir.
+
+Agar tetap setelah mulai ulang, pakai /save untuk server terpilih, /save input atau /save output untuk profil utama, atau /saveconf untuk profil sehat dan pilihan bawaan.
+
+Konfigurasi yang tersimpan memakai <config_path>.commands untuk membaca/menulis hitungan penggunaan perintah; konfigurasi utama tidak menyimpan hitungan.
+
+Berkas privat terbatas ini hanya berisi nama perintah baku dan jumlahnya, bukan argumen atau riwayat pesan. Mode uji tidak membaca/menulisnya.
+
+Perubahan [connection] dari /autojoin atau /autoauth berlaku pada /connect berikutnya saat terputus; koneksi aktif tidak berubah.
+
+Berkas konfigurasi bersifat privat; penulisan mengganti tiap berkas secara atomik, bukan seluruh ruang kerja sekaligus. Tidak ada impor/ekspor.
+
+Bagian, kunci, atau nilai tak dikenal adalah kesalahan. Konfigurasi memakai nilai literal, bukan kutip shell, escape, variabel, atau ~.
+
+Nilai umum dipangkas di ujungnya. password= dan server_password= mempertahankan isi setelah = kecuali akhir baris; jangan tambah komentar atau tanda kutip.
+
+Penyimpanan menulis ulang pengaturan yang didukung dan mengganti format/komentar buatan tangan. Simpan catatan di luar konfigurasi yang dihasilkan.
+
+Lihat /help authentication untuk rahasia, /help tls untuk CA, /help logging untuk log disk, dan /help sessions untuk kendali pekerja aktif.

@@ -1,0 +1,12 @@
+Full-interface review and file browsing
+Source: SECURITY.md, section "Full-interface review and file browsing"
+English section SHA-256: e2f59ccd783bd17feedcf3bc49a14a3085c7f21783755ee9b06c265dc0f1eb54
+Paragraphs: 3
+Status: Translation draft; fluent-speaker security review required
+English SECURITY.md remains authoritative. This is one source-linked section, not a security certification.
+
+Semakan pemindahan ncurses memaparkan alamat pihak lain, port, kiraan bait dan destinasi sebelum tindakan Accept/Offer berasingan. Ia mengekalkan ID tawaran yang stabil dan bukannya indeks baris berubah, serta menolak persetujuan apabila skrin lebih kecil daripada saiz minimum semakan. Memilih baris dalam pelayar sumber tidak menghantar fail. Pelayar tidak mengikuti komponen laluan symlink, memeriksa semula inode yang dipilih, tidak mengubah cwd, dan tidak membaca kandungan fail sekadar untuk menyenaraikannya. Kerja dihadkan kepada 64 entri diperiksa bagi setiap langkah, 4096 nama diperiksa dan 512 baris; hasil terpotong dilaporkan. Metadata sistem fail masih boleh menyekat proses pada storan perlahan.
+
+Destinasi penerimaan berpandu lalai terletak dalam XDG_DATA_HOME/vipirc/downloads atau HOME/.local/share/vipirc/downloads pada hos proses, dan hanya dicipta selepas persetujuan nyata. Laluan relatif berasaskan perintah dan direktori penerimaan yang tidak diberikan menggunakan direktori pelancaran sambil mengekalkan pemeriksaan privasi. Tanpa IPv4 yang diiklankan secara nyata, penghantaran menggunakan alamat soket IRC setempat; ia tidak mencari alamat awam atau mengkonfigurasi pemajuan.
+
+Tindakan tetikus pada nama samaran atau saluran mengekalkan salinan terhad nilai yang dipaparkan. Perubahan senarai pengguna tidak boleh mengubah sasaran klik terdahulu. Klik pada nama samaran membuka menu setempat; pilihan Whois/Query/Ignore yang dibuat selepas itu menjalankan tindakan berkenaan. Mengklik saluran yang belum disertai boleh menyertainya secara nyata. Pelengkapan automatik dan sisipan cadangan tidak menghantar IRC. Persetujuan menghantar atau memindah tetap menggunakan laluan pengesahan biasa. Ketetapan sumber ini bukan dakwaan bahawa usaha dokumentasi ini telah menjalankan keseluruhan frontend curses.

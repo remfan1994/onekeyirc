@@ -1,0 +1,24 @@
+LANGUAGE AND DIAGNOSTIC PATCH r33 - vipirc 0.7.37
+
+Scope of this incremental release:
+- Three dynamically formatted startup errors now localize their sentence,
+  not the variable contents. The formatter substitutes named fields as
+  literal bytes and rejects missing, duplicated or unknown template fields.
+- No printf interpretation of catalog data; no change to IRC wire messages,
+  file names, credentials, command syntax, key labels or signal behavior.
+- vipirc additionally localizes selected key-binding editor prompts,
+  error notices, Settings close/discard outcomes and command-history misses.
+- Other ncurses source strings remain untranslated; this is not full UI parity.
+- Full app version stays 0.7.37. The English source r1 is unchanged.
+- Apply r33 only to a FRESH English r1 source, not r32 or earlier overlays.
+- English fallback and existing r31/r32 localization catalogs are retained.
+- All translations remain drafts, pending fluent review and native-terminal QA.
+
+Fields in the three dynamic messages:
+  {option}: literal command option name (e.g. nick)
+  {number}: decimal saved server number, not a process ID
+  {error}: literal application error text (may itself contain paths)
+These values are never passed through irc_tr, percent-formatting or
+Arabic-only visual transformations on the IRC network.
+
+See CLI-LOCALIZATION-r33.tsv for exact source-linked English strings.

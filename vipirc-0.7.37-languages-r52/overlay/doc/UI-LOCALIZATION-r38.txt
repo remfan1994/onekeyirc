@@ -1,0 +1,11 @@
+OPTIONAL DISPLAY LOCALIZATION REVISION r38
+
+Use only with the matching original English source r1, not with r37 or any other overlay.
+Application versions remain onekeyirc 0.1.36 and vipirc 0.7.37.
+47 newly translated source-linked display messages in this client.
+Three named-field statuses retain literal nicknames and server errors; the existing source
+translations for UI command-length and other statuses are reused rather than duplicated.
+Every locale must contain the same keys and named fields; the default remains English.
+See UI-LOCALIZATION-r38.tsv and run make check-ui-localization-r38.
+Unverified: full vipirc ncurses build without development headers, native terminals,
+live IRC/bouncer connections and fluent-speaker review.

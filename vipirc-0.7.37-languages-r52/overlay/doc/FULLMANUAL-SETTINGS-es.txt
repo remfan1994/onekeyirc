@@ -1,0 +1,24 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / SETTINGS
+English source SHA-256: 9c87d089b996a2f8af0ff0340f97da2bd4c3650e5fbc7816868f35b0df91ee05
+Source lines: 724-781
+
+CONFIGURACIÓN
+
+F1 > Settings o /settings abre los ajustes de la interfaz, todos los perfiles de servidor y New server sin cambiar de conversación. Las filas indican el estado de conexión automática y de guardado. Los campos de servidor incluyen transporte, identidad, unión automática a canales, conexión automática, fuentes de contraseñas de cuenta y de servidor (PASS), CA personalizada, tipo/usuario/red/cliente/ausencia automática del bouncer, historial, menciones y reglas de exclusión. Interface incluye User list, Mouse, Hints, Shortcut labels, avisos, registros, modo de sesión única, sugerencias de comandos e interfaz predeterminada.
+
+    Edit    Apply    Save    Back    Cancel
+
+Up/Down o k/j selecciona campos; Left/Right o h/l selecciona una acción; Enter la ejecuta. Home/End o g/G va a los extremos. Edit cambia un valor booleano, abre una elección o edita texto o números. Enter dentro del editor solo deja preparado ese valor; Tab/Shift-Tab lo valida y prepara antes de avanzar. Una entrada inválida sigue siendo editable. Las letras introducidas en un editor son texto. Vaciar un campo watch/ignore existente lo elimina; Add crea otro dentro de los límites.
+
+Apply valida y actualiza las preferencias activas, watch/ignore y la conexión automática; permanece en Settings con Edit seleccionado. Los campos de conexión, incluida la identidad del bouncer, quedan pendientes del siguiente Connect explícito tras desconectarse. Apply nunca guarda, reconecta ni redirige la sesión activa. /nick, /join y /part afectan a la conexión actual. Save escribe el perfil efectivo de forma privada y atómica y después lo aplica; /save también conserva las opciones pendientes. El primer Save de un servidor secundario crea su perfil aislado y una entrada en el catálogo.
+
+Interface Apply actualiza todas las posiciones de servidor presentes y futuras. Interface Save escribe la configuración principal antes de aplicar los cambios. Si Interface Save falla o se bloquea, las sesiones no cambian. Las claves de interfaz de los perfiles secundarios no pueden sustituir a las principales al iniciar. En modo completo, el historial sigue siendo independiente por servidor. La interfaz predeterminada solo se aplica a los nuevos arranques.
+
+Hints oculta indicaciones opcionales, pero conserva títulos, controles, errores y confirmaciones de seguridad. Shortcut labels oculta los prefijos habituales F1..F6. Ambas opciones están activadas de forma predeterminada y se guardan en [interface]. Son independientes de los colores normales del terminal y de la negrita que marca el foco.
+
+Cambiar Server a un valor distinto, sin distinguir mayúsculas de minúsculas, borra del formulario preparado la autenticación heredada, auth user, todas las fuentes de contraseñas de cuenta/PASS y autojoin. Cambiar el tipo de bouncer elimina las credenciales y los comandos heredados; introduzca después los valores deseados. La sesión activa no se altera. Al editar no se leen ni descifran archivos; las contraseñas introducidas directamente se ocultan, pero se conservan sus espacios. Transport elige TLS verificado o texto sin cifrar de forma explícita, independientemente de si se almacenan contraseñas cifradas.
+
+Back vuelve a la pantalla principal de Settings. Cancel/Escape cierra todo el formulario, incluso desde un campo o ventana emergente, descarta los cambios sin aplicar y vuelve a vipirc. Se conservan las preferencias ya aplicadas, las opciones pendientes y los borradores de conversación. El modo de prueba permite Apply en memoria, pero rechaza Save. Crear o conectar un servidor desde Settings conserva la conversación seleccionada.
+
+El pegado delimitado (bracketed paste) solo funciona en un campo activo; inserta sin confirmar y convierte las tabulaciones en espacios. Se rechazan CR/LF/Escape y los controles no admitidos. Se ignora el pegado en listas y ventanas de elección. Revise el contenido y pulse Enter para prepararlo. El asistente /panel es un flujo separado de preguntas y respuestas, descrito en MINIMALIST INTERFACE.

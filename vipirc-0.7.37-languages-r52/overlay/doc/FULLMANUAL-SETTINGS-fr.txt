@@ -1,0 +1,24 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / SETTINGS
+English source SHA-256: 9c87d089b996a2f8af0ff0340f97da2bd4c3650e5fbc7816868f35b0df91ee05
+Source lines: 724-781
+
+PARAMÈTRES
+
+F1 > Settings ou /settings ouvre les paramètres d'interface, tous les profils de serveur et New server, sans changer de conversation. Chaque ligne indique l'état de connexion automatique et d'enregistrement. Les champs du serveur comprennent le transport, l'identité, la jonction automatique aux canaux, la connexion automatique, les sources de mots de passe du compte et du serveur (PASS), une CA personnalisée, le type/nom d'utilisateur/réseau/client/absence automatique du bouncer, l'historique, les mentions et les règles d'ignorance. L'interface propose User list, Mouse, Hints, Shortcut labels, notifications, journalisation, mode à session unique, suggestions de commandes et interface par défaut.
+
+    Edit    Apply    Save    Back    Cancel
+
+Up/Down ou k/j sélectionne un champ ; Left/Right ou h/l choisit une action ; Enter l'exécute. Home/End ou g/G atteint les extrémités. Edit inverse une valeur booléenne, ouvre un choix ou modifie un texte/nombre. Enter dans l'éditeur prépare uniquement cette valeur ; Tab/Shift-Tab la valide et la prépare avant de passer au champ suivant. Une saisie invalide reste modifiable. Dans l'éditeur, les lettres sont du texte. Vider un champ watch/ignore existant le supprime ; Add en crée un autre dans les limites prévues.
+
+Apply valide et met à jour les préférences actives, watch/ignore et la connexion automatique, puis reste dans Settings avec Edit sélectionné. Les champs de connexion, y compris l'identité du bouncer, restent en attente d'un Connect explicite après déconnexion. Apply n'enregistre jamais, ne reconnecte jamais et ne réoriente pas une session active. /nick, /join et /part agissent sur la connexion en cours. Save écrit le profil effectif de manière privée et atomique avant de l'appliquer ; /save préserve également les choix en attente. Le premier Save d'un serveur secondaire crée son profil isolé et son entrée dans le catalogue.
+
+Interface Apply met à jour tous les emplacements de serveur présents et futurs. Interface Save écrit la configuration principale avant de l'appliquer. Si Interface Save échoue ou est bloqué, toutes les sessions restent inchangées. Les clés d'interface d'un profil secondaire ne peuvent pas prévaloir sur celles du profil principal au démarrage. En mode complet, l'historique reste propre à chaque serveur. L'interface par défaut ne s'applique qu'aux nouveaux lancements.
+
+Hints masque les explications facultatives, mais conserve titres, commandes, erreurs et confirmations de sécurité. Shortcut labels masque les préfixes habituels F1..F6. Les deux options sont activées par défaut et enregistrées sous [interface]. Elles ne dépendent ni des couleurs normales du terminal ni du gras qui signale le focus.
+
+Changer Server pour une valeur différente, sans distinction de casse, efface du formulaire préparé l'authentification héritée, auth user, toutes les sources de mots de passe compte/PASS et l'autojoin. Changer le type de bouncer efface les identifiants et commandes hérités ; saisissez ensuite les valeurs voulues. La session active reste intacte. Les fichiers ne sont ni lus ni déchiffrés pendant l'édition ; les mots de passe en clair saisis dans les champs sont masqués, sans perdre leurs espaces. Transport choisit explicitement entre TLS vérifié et texte en clair, indépendamment du stockage chiffré des mots de passe.
+
+Back revient à l'accueil de Settings. Cancel/Escape ferme tout le formulaire, même depuis un champ ou une fenêtre contextuelle, abandonne les modifications non appliquées et revient à vipirc. Les préférences déjà appliquées, les choix en attente et les brouillons de conversation sont conservés. En mode test, Apply est permis en mémoire, mais Save est refusé. Créer un serveur ou s'y connecter depuis Settings conserve la conversation sélectionnée.
+
+Le collage encadré (bracketed paste) ne fonctionne que dans un champ actif : il insère le texte sans valider et transforme les tabulations en espaces. CR/LF/Escape et les caractères de contrôle non pris en charge sont refusés. Le collage dans les listes et fenêtres de choix est ignoré. Vérifiez le texte, puis appuyez sur Enter pour le préparer. Le guide /panel est une procédure distincte de questions-réponses, décrite dans MINIMALIST INTERFACE.

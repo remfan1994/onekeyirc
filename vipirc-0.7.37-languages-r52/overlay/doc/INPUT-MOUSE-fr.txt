@@ -1,0 +1,33 @@
+vipirc 0.7.36 - optional r18 translation draft (fr)
+Source: MANUAL.txt / INPUT EDITING through MOUSE CONTROLS
+English source SHA-256: efd7a5a2ee94dcc2a9923884399743cf9696f83790f9e79d1861b211d0a9453c
+Fluent review pending; original English manual is authoritative.
+
+ÉDITION DU TEXTE SAISI
+
+    Enter                 Envoyer ou vérifier la composition.
+    Left/Right            Groupe de caractères précédent/suivant.
+    Up/Down               Parcourir les lignes de saisie repliées, pas rappeler le chat.
+    Home/End              Début/fin de toute la composition.
+    Backspace/Delete      Effacer le groupe de caractères précédent/actuel.
+    Tab/Shift-Tab         Compléter le pseudo suivant/précédent.
+    Escape                Ouvrir Queries depuis un échange privé, sinon vipirc.
+    /clearinput           Effacer tout le brouillon, y compris le texte hors écran.
+
+F1..F6 ouvre les panneaux disponibles. Les lettres saisies dans la conversation, y compris hjkl, restent du texte ordinaire. Enter saisi envoie le message ; les retours à la ligne explicites proviennent d'un bracketed paste, dont les tabulations deviennent des espaces. Une barre / tapée quand le curseur est à zéro ouvre Command séparément tout en conservant le brouillon ; les barres suivantes ou collées restent du texte.
+
+Le brouillon constitue un seul tampon logique : le retour à la ligne visuel n'ajoute aucun caractère, Backspace traverse les lignes affichées et un redimensionnement conserve le texte et le curseur. Le champ fixe réserve floor(B/W)+1 lignes pour le budget de contenu B et la largeur utilisable W, dans la limite de l'espace du terminal. Saisir ou effacer ne change pas sa taille ; les longs brouillons défilent à l'intérieur. Un changement de vue, de budget protocolaire ou de taille du terminal recalcule la hauteur. Command possède son propre champ ; /msg ou /me ne remplace jamais le brouillon de conversation.
+
+Un Escape brut isolé attend environ 500 ms ; une séquence incomplète autorise 1000 ms entre ses octets successifs tandis que le réseau continue de fonctionner. Les touches entièrement décodées agissent immédiatement. Si le marqueur d'ouverture du collage arrive après le délai initial d'Escape, il peut être interprété comme Escape ; dans le journal minimaliste, cela peut mettre le client en arrière-plan. Une fois la capture commencée, les marqueurs de fin sont reconnus même entre lectures fractionnées très espacées. Les touches qui les suivent ne peuvent annuler le brouillon ni changer de mode avant la limite visible de validation ou de saisie calme.
+
+La saisie exige un UTF-8 valide ou le mode de locale ASCII explicitement choisi ; voir FILES AND ENVIRONMENT. Une lettre de base et les marques de largeur nulle qui la suivent sont déplacées/effacées ensemble ; la segmentation complète des graphèmes Unicode n'est pas implémentée. Un glyphe non pris en charge reçoit un remplacement visible. Un brouillon est limité à 8192 valeurs scalaires Unicode ou 16384 octets UTF-8, selon la première limite atteinte. Les encodages et contrôles invalides sont refusés. Les retours à la ligne collés restent visibles et influencent le plan d'envoi ; le budget IRC plus faible détermine les avertissements et le découpage.
+
+CONTRÔLES DE LA SOURIS
+
+La souris est activée par défaut lorsque curses, TERM et le terminal la prennent en charge. /mouse bascule son état, /mouse on|off le définit et Settings > Interface modifie/enregistre la préférence mouse de [interface] dans la configuration principale. Tout reste accessible au clavier ; le terminal ou multiplexeur SSH doit transmettre les événements de souris.
+
+Cliquer sur une catégorie d'en-tête l'ouvre, cliquer sur le chat place le curseur, Clear efface tout le brouillon et Send soumet aux vérifications normales avant envoi. Clear/Send sont masqués lorsqu'ils sont indisponibles. Les pseudonymes dans le chat ou la liste proposent Whois/Query ; un clic sur #channel le sélectionne ou le rejoint. L'identité du jeton affiché au moment du clic, et non celle d'un remplaçant ultérieur aux mêmes coordonnées, détermine l'action. Ni les URL ni le contenu du presse-papiers ne sont ouverts.
+
+Cliquer sur une ligne ouvre un serveur, canal ou échange privé ; cliquer sur une action l'applique à la sélection. La molette change la sélection sans modifier l'action. Sur l'historique ou les utilisateurs, elle fait défiler trois lignes visuelles ou utilisateurs. Settings et transfers conservent leurs propres champs et actions. Le chat demande au moins 9 lignes et 20 colonnes ; les en-têtes étroits gardent le focus visible.
+
+La souris ne confirme pas les dialogues d'avertissement de longueur anticipée ou d'envoi fractionné ; utilisez leurs choix au clavier. Command Run/Cancel nécessite une nouvelle action après collage. Les séquences de clic et retours à la ligne collés ne peuvent pas le déclencher, et les clics d'une ancienne disposition ne sont pas réutilisés sur un écran nouvellement ouvert.

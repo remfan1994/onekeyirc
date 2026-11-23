@@ -1,0 +1,32 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / SECURITY AND RESOURCE BOUNDS
+English source SHA-256: 0244a7b43c7e5e46a5b365e081fc7bc6654afe3069aea9e68c0e1d0f46c1277e
+
+KESELAMATAN DAN HAD SUMBER
+
+TLS mengesahkan rantaian sijil serta nama hos atau alamat angka diminta. Tiada pintasan pengesahan sijil atau penurunan keselamatan senyap. IRC tanpa TLS hanya tersedia melalui tetapan nyata; lalu lintas IRC terdedah kepada pemerhati pada laluan sambungan dan rahsia tersimpan tidak boleh digunakan. TLS melindungi sambungan klien-ke-pelayan, bukannya privasi sembang hujung ke hujung.
+
+Permulaan operasi menolak ID pengguna atau kumpulan sebenar dan berkesan yang tidak sepadan, lalu mematikan core dump sebelum membaca konfigurasi. Linux juga mematikan kebolehan proses untuk didump. Klien ialah proses biasa tanpa sandbox OS; proses lain di bawah akaun yang sama berada dalam sempadan kepercayaannya.
+
+Arahan pengesahan persendirian yang dikenal pasti memerlukan TLS disahkan walaupun dimasukkan sebagai teks mesej biasa, dipecahkan dalam pelan penghantaran atau diletakkan dalam giliran. Pengesanan tidak mampu mengenal pasti setiap sintaks rahsia baharu dengan boleh dipercayai; jauhkan kelayakan daripada sembang dan argumen shell.
+
+Data IRC yang masuk tidak dipercayai. Urutan kawalan dan pemformatan tidak selamat disanitasi sebelum paparan. Penimbal input dan rangkaian mempunyai had. Klien tidak melaksanakan teks diterima, membuka URL, menjalankan arahan shell, memuatkan skrip atau plugin, atau membalas CTCP secara automatik. Mesej tindakan dipaparkan sebagai teks. Tawaran DCC SEND memerlukan semakan dan penerimaan nyata bagi setiap fail; sambungan langsungnya tidak disulitkan oleh TLS.
+
+Had dalam keluaran ini:
+
+    Sesi pelayan bagi setiap proses              8
+    Paparan bagi pelayan, termasuk terbina       32
+    Pengguna disimpan bagi saluran            4096
+    Rentetan sebutan khas bagi pelayan           32
+    Topeng abaikan bagi pelayan                  32
+    Mesej sembang beratur bagi pelayan           64
+    Entri sejarah arahan bagi pelayan            64
+    Teks sejarah arahan bagi pelayan         64 KiB
+    Teks sejarah disimpan bagi pelayan        8 MiB
+    Skalar Unicode input bagi draf             8192
+    Bait UTF-8 input bagi draf                16384
+    Tawaran DCC tertunda, seluruh ruang kerja    8
+    Pemindahan DCC aktif, seluruh ruang kerja    4
+    Rekod DCC disimpan, seluruh ruang kerja     12
+
+Had sejarah terpakai bagi setiap pelayan, bukan had memori keseluruhan proses. Dengan lapan sesi, teks sejarah tersimpan boleh mencapai 64 MiB. Keadaan pelayan diperuntukkan apabila diperlukan; sesi lebih sedikit tidak menempah lapan sejarah penuh. Pustaka, metadata paparan, senarai pengguna, input dan pengangkutan menggunakan memori tambahan. Sejarah perbualan berada dalam memori sahaja melainkan penglogan berterusan pilihan diaktifkan. Paparan sebutan berasingan bukan arkib kekal; perbualan sumber yang layak mungkin dilog. Tetapan, kelayakan dan log teks biasa pilihan ialah fail setempat; perisian lain dengan keistimewaan akaun anda boleh membacanya. Tiada klien boleh menjamin keselamatan daripada setiap pelayan bermusuhan atau terminal, sistem operasi, atau pustaka yang terjejas.

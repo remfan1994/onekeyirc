@@ -1,0 +1,33 @@
+vipirc 0.7.36 - optional r18 translation draft (tr)
+Source: MANUAL.txt / INPUT EDITING through MOUSE CONTROLS
+English source SHA-256: efd7a5a2ee94dcc2a9923884399743cf9696f83790f9e79d1861b211d0a9453c
+Fluent review pending; original English manual is authoritative.
+
+GİRDİ DÜZENLEME
+
+    Enter                 Taslağı gönder veya incele.
+    Left/Right            Önceki/sonraki karakter grubu.
+    Up/Down               Sarılan giriş satırlarında hareket et; sohbet geçmişi değil.
+    Home/End              Tüm taslağın başı/sonu.
+    Backspace/Delete      Önceki/geçerli karakter grubunu sil.
+    Tab/Shift-Tab         Sonraki/önceki takma adı tamamla.
+    Escape                Özel konuşmadayken Queries, değilse vipirc aç.
+    /clearinput           Ekran dışında kalanlar dahil tüm taslağı sil.
+
+F1..F6 kullanılabilen panelleri açar. Sohbette hjkl dahil harfler normal metin olarak girilir. Elle basılan Enter gönderir; açık satır sonları bracketed paste ile gelir, yapıştırılan sekmeler boşluğa dönüşür. İmleç sıfır konumundayken yazılan / bağımsız Command alanını açar ve taslağı korur; daha sonra yazılan veya yapıştırılan / metindir.
+
+Taslak tek bir mantıksal tampondur: satır kaydırma metne karakter eklemez, Backspace görsel satırlar arasında çalışır, yeniden boyutlandırma metni ve imleci korur. Sabit alan, yük bütçesi B ve kullanılabilir genişlik W için floor(B/W)+1 satır ayırır, ancak terminal alanıyla sınırlıdır. Yazma veya silme alanın boyutunu değiştirmez; uzun taslaklar kendi içinde kaydırılır. Görünüm, protokol bütçesi veya terminal boyutu değişince yükseklik yeniden hesaplanır. Command ayrı bir alandır; /msg veya /me sohbet taslağını değiştirmez.
+
+Tek başına gelen ham Escape yaklaşık 500 ms bekler; eksik bir tuş dizisi, ağ işlemleri sürerken devam baytları arasında 1000 ms süre tanır. Tam çözümlenmiş tuşlar hemen işlenir. Yapıştırma başlangıç belirteci ilk Escape süresinden sonra gelirse Escape sayılabilir; minimalist günlükte bu istemciyi arka plana alabilir. Yapıştırma yakalanmaya başlandıktan sonra kapanış belirteçleri çok gecikmeli bölünmüş okumalarda da tanınır. Sondaki tuşlar, görünür inceleme veya sakin giriş sınırından önce taslağı iptal edemez ve modu değiştiremez.
+
+Girdi geçerli UTF-8 veya açıkça seçilmiş ASCII yerel ayar modu gerektirir; FILES AND ENVIRONMENT bölümüne bakın. Temel karakter ve ardından gelen sıfır genişlikli işaretler birlikte taşınır/silinir; Unicode birleşik karakter kümelerinin tam ayrımı uygulanmamıştır. Desteklenmeyen şekiller görünür bir ikameyle gösterilir. Taslak sınırı 8192 Unicode skaler değeri veya 16384 UTF-8 baytıdır; hangisi önce dolarsa. Geçersiz kodlama/kontrol karakterleri reddedilir. Yapıştırılan satır sonları görünür kalır ve gönderim planını etkiler; daha küçük IRC bütçesi uyarıları/bölmeyi belirler.
+
+FARE DENETİMLERİ
+
+curses, TERM ve terminal destekliyorsa fare varsayılan olarak etkindir. /mouse açıp kapatır, /mouse on|off belirli durumu ayarlar; Settings > Interface ana yapılandırmanın [interface] mouse tercihini değiştirip kaydeder. Fare olmadan klavye kullanılabilir; terminal veya SSH çoklayıcısı fare olaylarını iletmelidir.
+
+Başlık kategorisine tıklayınca açılır, sohbet alanına tıklayınca imleç yerleştirilir, Clear tüm taslağı temizler, Send normal kontrollerden sonra gönderir. Clear/Send kullanılamadığında gizlenir. Sohbet/kullanıcı listesindeki takma adlar Whois/Query sunar; #channel seçilir veya ona katılınır. İşlemi, aynı koordinatta sonradan beliren öğe değil tıklama anında görüntülenen öğenin kimliği belirler. URL veya pano içeriği açılmaz.
+
+Satıra tıklamak sunucu/kanal/özel konuşma öğesini açar; işlem tıklaması geçerli seçime uygulanır. Tekerlek, işlemi koruyarak seçimi değiştirir. Sohbet geçmişi/kullanıcı listesi üzerinde üç görsel satır veya kullanıcı kadar kaydırır. Settings ve transfers kendi alan/işlem denetimlerini kullanır. Sohbet için en az 9 satır ve 20 sütun gerekir; dar başlıklarda odak görünür tutulur.
+
+Fare erken uzunluk veya bölünmüş gönderim iletişim kutularını onaylamaz; klavyeyle seçim yapın. Command Run/Cancel, yapıştırmadan sonra yeni bir işlem gerektirir. Yapıştırılan tıklama dizileri veya satır sonları bunu etkinleştiremez; eski düzende yapılan tıklamalar yeni açılan ekranda yeniden kullanılmaz.

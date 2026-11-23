@@ -1,0 +1,25 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / TROUBLESHOOTING
+English source SHA-256: b3416fb29408401823b85e292e40c40467a2ea2b528476630825bfbaeced49f5
+
+Suivez les vérifications ordonnées dans doc/TROUBLESHOOTING.txt. Ne partagez ni journaux privés ni secrets.
+
+Connexion : lisez l'erreur serveur et vérifiez hôte, port et TLS. /connect réessaie manuellement ; --reconnect retente les erreurs temporaires. Voir TLS AND CUSTOM TRUST. Ne contournez pas un échec de vérification en envoyant des identifiants sur IRC en clair.
+
+Authentification : /autoauth status affiche les chemins actuels/en attente, jamais les secrets. Vérifiez les règles de compte et de source sous AUTOMATIC CONNECTION, JOIN, AND AUTHENTICATION.
+
+GPG : voir CREATING ENCRYPTED PASSWORD FILES pour vérifier la destination avant création et AUTHENTICATION pour les limites de déchiffrement, les permissions et le déverrouillage externe.
+
+Canaux : terminez l'enregistrement/l'authentification. /autojoin affiche les jonctions en attente des profils directs ; les bouncers restaurent les canaux. Voir CONNECTION AND STARTUP COMMANDS.
+
+Reprise occupée : examinez --sessions, puis --detach-session NUMBER et --resume NUMBER. --close-session termine le processus persistant. Voir SESSION RECOVERY AND UPGRADES.
+
+Touches/affichage : les flèches de Compose éditent ; Command rappelle les commandes sûres acceptées. Pour les lignes repliées masquées, inspectez le texte conservé. Voir MINIMALIST WRAPPING AND INPUT HISTORY.
+
+Largeur du texte : utilisez une locale UTF-8, TERM et une police compatibles ; redimensionner préserve brouillon/curseur. Les petits terminaux limitent les panneaux. Voir FILES AND ENVIRONMENT.
+
+Enregistrement : le mode test refuse les écritures. Vérifiez chemins privés et permissions dans CONFIGURATION ; Save, Apply et autoconnect au démarrage sont distincts.
+
+Journal/rattrapage : inspectez l'erreur exacte ; le chat continue. Limites, rotation, nouveaux repères d'envoi et secours figurent dans HISTORY, LOGGING AND PRIVACY.
+
+Processus enfants : les enfants SIGCHLD doivent rester accessibles à wait. Ignorer ce signal ou les récupérer automatiquement empêche le premier démarrage des processus de fond ou auxiliaires ; corrigez le lanceur.

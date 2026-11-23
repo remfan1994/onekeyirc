@@ -1,0 +1,62 @@
+vipirc / onekeyirc - selected operations help (ms)
+====================================================
+
+DRAFT - selected help excerpts only; not a complete security manual.
+Commands, numeric limits and file names must be entered literally.
+Authoritative reference: English MANUAL.txt and SECURITY.md.
+
+/help deployment
+----------------
+Gunakan --background untuk memulakan sesi tanpa terminal atau menekan kekunci alu-aluan.
+
+Tetapkan dan simpan /autoconnect on bagi setiap pelayan yang perlu bermula.
+
+--background tidak menghidupkan autoconnect sendiri; --no-connect masih menghalang sambungan permulaan.
+
+Amaran biasa dicetak sekali sebelum terpisah daripada terminal. Berjaya bermakna tugas setempat wujud, bukan log masuk IRC berjaya.
+
+Dari terminal lain dengan akaun pengguna yang sama, gunakan --sessions dan --resume [NUMBER].
+
+But semula VPS menamatkan tugas lama, draf dan sejarah RAM. Tugas permulaan OS boleh melancar klien baharu.
+
+Arahan OpenBSD dan contoh rc.d pilihan ada di doc/OPENBSD-VPS.txt.
+
+Jalankan sebagai pengguna biasa dengan laluan konfigurasi dan kelayakan mutlak. Kunci GPG terkunci tidak boleh meminta input semasa but.
+
+--check-config menyemak tetapan, bukan akses kelayakan, DNS, TLS atau log masuk IRC.
+
+Gunakan --reconnect untuk gangguan rangkaian sementara; pemantauan proses yang ranap ialah tugas OS berasingan.
+
+/help security
+--------------
+Teks jauh ditapis sebelum dipaparkan pada terminal. Input diproses sebagai arahan IRC setempat, bukan arahan shell.
+
+Tiada /raw, pelarian shell atau penerimaan fail automatik. Tampalan bracketed yang dikenali tidak menghantar arahan.
+
+Bundel CA tersuai mesti fail PEM biasa yang tidak kosong, paling besar 16 MiB, tanpa gesaan kata laluan.
+
+Transkrip perbualan tidak disimpan pada cakera secara lalai. Perubahan konfigurasi mesti disimpan secara nyata.
+
+Lihat /help tls, /help authentication, /help logging dan SECURITY.md bagi had perlindungan dan sejarah audit.
+
+/help history
+-------------
+Sejarah paparan dan arahan terhad dalam RAM. Log kekal adalah pilihan dan dimatikan secara lalai.
+
+Menukar paparan mengulang rekod terkininya; /mentions mengulang baris sumber yang sepadan.
+
+/clear memadam sejarah RAM paparan, bukan transkrip lama di cakera. Ulangan bouncer dibekalkan oleh bouncer.
+
+Up/Down dalam Compose menggerakkan kursor, bukan mengingat sembang dihantar. Hanya arahan diterima diingat dalam Command.
+
+/help hotkeys
+-------------
+Ikatan kekunci tersuai adalah pilihan dan kosong secara lalai. Navigasi dan editor asal masih berfungsi.
+
+Gunakan /bindings untuk senarai, /bindings keys untuk kekunci dan /bindings actions untuk fungsi setempat.
+
+Tetapkan melalui /bind KEY ACTION; tetapkan semula untuk mengganti. Buang dengan /unbind KEY atau /unbind all.
+
+/help logging
+-------------
+/clear hanya mengosongkan RAM. Log kekal selepas keluar, --close-session atau simpan. Mematikan log menghentikan rekod baharu, bukan memadam rekod lama.

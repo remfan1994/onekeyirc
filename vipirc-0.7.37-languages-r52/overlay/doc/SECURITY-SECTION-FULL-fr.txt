@@ -1,0 +1,12 @@
+Full-interface review and file browsing
+Source: SECURITY.md, section "Full-interface review and file browsing"
+English section SHA-256: e2f59ccd783bd17feedcf3bc49a14a3085c7f21783755ee9b06c265dc0f1eb54
+Paragraphs: 3
+Status: Translation draft; fluent-speaker security review required
+English SECURITY.md remains authoritative. This is one source-linked section, not a security certification.
+
+L'écran ncurses de vérification des transferts présente l'adresse du correspondant, le port, le nombre d'octets et la destination avant l'action distincte Accept/Offer. Il conserve un ID d'offre stable plutôt qu'un index de ligne variable et refuse le consentement lorsque l'écran est inférieur à la taille minimale de vérification. Sélectionner une ligne du navigateur de sources n'envoie aucun fichier. Le navigateur ne suit aucun composant symlink, vérifie à nouveau l'inode choisi, ne modifie jamais cwd et ne lit jamais le contenu des fichiers uniquement pour les lister. Le travail est limité à 64 entrées examinées par étape, 4096 noms examinés et 512 lignes ; toute troncature est signalée. Les métadonnées du système de fichiers peuvent néanmoins bloquer sur un stockage lent.
+
+La destination proposée par défaut pour la réception guidée est XDG_DATA_HOME/vipirc/downloads ou HOME/.local/share/vipirc/downloads, sur l'hôte du processus ; elle n'est créée qu'après acceptation explicite. Les chemins relatifs fournis par commande et l'absence de répertoire de réception utilisent le répertoire de lancement tout en maintenant les contrôles de confidentialité. Sans adresse IPv4 annoncée explicitement, l'envoi utilise l'adresse du socket IRC local ; il ne découvre pas d'adresse publique et ne configure pas le transfert de port.
+
+Les actions de souris sur les pseudonymes et les canaux conservent des copies de taille limitée des valeurs affichées. Une modification de la liste d'utilisateurs ne doit pas rediriger un ancien clic vers une autre cible. Cliquer sur un pseudonyme ouvre un menu local ; choisir ensuite Whois/Query/Ignore déclenche l'action correspondante. Cliquer sur un canal non rejoint peut entraîner une jonction explicite. La complétion et l'insertion d'une suggestion ne transmettent rien sur IRC. Le consentement à l'envoi ou au transfert suit toujours la validation habituelle. Ces invariants du code source ne signifient pas que cette passe documentaire a exécuté toute l'interface curses.

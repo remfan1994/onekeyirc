@@ -1,0 +1,11 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / SAVED SERVER PROFILES
+English source SHA-256: ff3b21055c0b13e827ba1c38f80fbe8db59163af5b82bb486626649d1f7a61f2
+
+PROFIL SERVER TERSIMPAN
+
+Untuk jalur utama P, katalog P.servers di sebelahnya mencantumkan paling banyak tujuh profil sekunder dalam direktori privat P.d. Pada jalur bawaan, berkas tersebut adalah config.ini.servers dan config.ini.d di samping config.ini. Sintaks katalog adalah [servers] diikuti entri profile=ID berulang. Nama otomatis memakai server-<24 karakter heksadesimal huruf kecil>.ini. ID manual boleh terdiri dari 1 sampai 63 huruf ASCII, angka, garis bawah, tanda hubung, atau titik; karakter pertama wajib huruf atau angka dan titik berurutan dilarang. Komponen direktori dan jalur sembarang tidak diterima sebagai ID profil.
+
+Servers > New tidak membuat berkas. /save pertama yang eksplisit atau Settings Save membuat profil mode 0600 terpisah dalam direktori mode 0700 dan mendaftarkannya pada katalog. Penyimpanan berikutnya memperbarui profil server itu. Menyimpan profil sekunder tidak pernah menimpa konfigurasi utama. Perubahan katalog saat startup memakai penguncian. Entri katalog/profil yang tidak valid memunculkan kesalahan; profil sehat tetap dapat digunakan.
+
+Close menghapus referensi katalog profil sekunder tetapi mempertahankan berkas profilnya. Profil utama tidak dapat ditutup. --check-config memeriksa profil utama, katalog, dan profil terdaftar tanpa terhubung. Saat startup biasa, opsi koneksi selain host berlaku pada server bawaan yang diingat; --server secara eksplisit memilih profil utama. --init-config dan --check-config juga menerapkan opsi penggantinya pada profil utama. --no-connect mencegah koneksi awal seluruh profil. Dalam mode uji, Save dinonaktifkan dan Close hanya mengubah keadaan berjalan.

@@ -1,0 +1,36 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / COMMAND-LINE OPTIONS
+English source SHA-256: 2dd0066181d81214b50bdc848d76a75ed557f6bc4b62982d6c1d0d251ef3c932
+Source lines: 281-373
+
+OPÇÕES DA LINHA DE COMANDOS
+
+-i, --idle: Seleciona a interface minimalista nesta execução; --help e --manual descrevem-na.
+-N, --ncurses: Seleciona a interface completa nesta execução. Vale a última opção explícita de interface, sem mudar a preferência guardada; -n continua a indicar alcunha.
+-s, --server HOST: Seleciona o servidor principal por nome de host ou endereço IPv4/IPv6 numérico, nunca por URL.
+-p, --port PORT: Porta de 1..65535. Padrões: 6697 com TLS ou 6667 se for escolhido IRC em texto simples.
+-c, --channel LIST: Canais a juntar depois do registo num perfil direto. Aceita listas separadas por vírgulas ou opções repetidas. Coloque '#channel' entre aspas na shell; bouncers restauram as suas adesões.
+-n, --nick NICK: Substitui a alcunha do perfil efetivo no arranque.
+-C, --config FILE: Seleciona a configuração principal, catálogo .servers e diretório de perfis .d. O ficheiro tem de existir, exceto quando --init-config o cria; os caminhos são literais.
+--tls: Exige TLS verificado, a opção padrão. Indicar apenas uma porta não desativa TLS.
+--plain: Pede explicitamente texto não cifrado; a autenticação por credenciais guardadas é recusada.
+--ca-file FILE: Usa autoridades PEM personalizadas em vez da confiança do sistema. Ficheiro regular, não vazio, até 16 MiB; ligação simbólica normal permitida. Não pede palavras-passe.
+--no-connect: Impede todas as ligações ou simuladores de arranque. Ligue explicitamente depois.
+--background: Inicia um processo de trabalho destacado, sem tty, TERM nem tecla de boas-vindas. A preferência guardada escolhe a interface, salvo substituição por -i/-N. Guarde perfis de ligação automática ou forneça --server; --no-connect prevalece. Êxito indica preparação local, não autenticação IRC concluída.
+--reconnect: Repete tentativas após falhas transitórias de rede só neste processo, sem iniciar ligações ou guardar opções. Esperas: 5,10,20,40,80,160,300 segundos; 60 segundos registado reiniciam a sequência. /disconnect cancela e /connect reinicia. Erros de certificado, autenticação, configuração e protocolo não são repetidos. Conversas pendentes são descartadas. Em ligações novas repetem-se autenticação e comandos de arranque; perfis diretos repetem autojoin, bouncers restauram adesões. Alterações preparadas exigem /connect explícito depois de desligar.
+--test-mode: Simulação interativa offline, sem rede, DNS ou leitura/gravação de credenciais.
+--resume [JOB]: Anexa o único trabalho destacado e verificado ou escolhe o seu número; aceita --resume=JOB. Caminhos absolutos explícitos para sockets suportam processos antigos compatíveis. Sem número mantém a interface; -i/-N pede outra. stdin, stdout e stderr devem usar o mesmo tty interativo. Vários trabalhos ou trabalhos não verificados impedem escolha automática; anexados estão ocupados.
+--sessions: Lista trabalhos anexados e destacados desta conta, sem tty nem carregar configuração.
+--detach-session NUMBER: Liberta o controlador verificado mantendo o processo e o seu estado; use depois --resume NUMBER. Aceita --detach-session=NUMBER.
+--close-session NUMBER: Encerra todo o processo, ligações IRC, transferências, rascunhos e histórico em memória. Mantém ficheiros de configuração e registo. A limpeza verificada é necessária para êxito; um limite de tempo pode anteceder a conclusão, por isso consulte --sessions. Aceita --close-session=NUMBER.
+--init-config: Cria configuração privada sem substituir ficheiros existentes ou criações simultâneas. Um erro reportado de sincronização/limpeza pode deixar o ficheiro completo no disco.
+--check-config: Valida configuração, substituições, catálogo e perfis guardados e termina. Não abre segredos, executa GPG, testa CA/TLS, nem prova acesso ou autenticação.
+--manual: Imprime o manual completo da interface selecionada sem terminal.
+-h, --help: Imprime ajuda de CLI sem terminal.
+-v, -V, --version: Imprime versão, atribuição e licença sem terminal.
+
+Opções longas aceitam --name=value; podem agrupar-se opções curtas. -- termina opções; não há operandos posicionais. CLI prevalece sobre configuração e padrões. No arranque normal, substituições não relacionadas com host afetam o perfil padrão memorizado; --server explícito escolhe o principal. --init-config/--check-config aplicam-se ao principal. Se o perfil memorizado estiver indisponível, repare-o ou forneça --server antes de outras substituições.
+
+Um --server diferente, ignorando maiúsculas, elimina fontes herdadas de credenciais, autenticação, CA personalizada, identidade/opção de ausência automática do bouncer, canais e comandos de arranque. Configure o novo host explicitamente. Substituições para o mesmo host ou apenas --nick conservam o perfil. Outro --config seleciona espaço de trabalho separado.
+
+--resume, --sessions, --detach-session e --close-session são operações de gestão independentes: não as combine umas com as outras nem com opções de configuração/ligação/arranque. Indicadores de interface suportados podem permanecer num alias. --background não se combina com essas operações, --init-config ou --check-config. --test-mode também não se combina com --init-config/--check-config (estado de utilização 2).

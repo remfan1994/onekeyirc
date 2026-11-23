@@ -1,0 +1,18 @@
+TLS, credentials and endpoint identity
+Source: SECURITY.md, section "TLS, credentials and endpoint identity"
+English section SHA-256: 4ea410d65b0d7a489076cfd9898b5769f21e9e2f4fec63f7df8340f68bb5de45
+Paragraphs: 6
+Status: Translation draft; fluent-speaker security review required
+English SECURITY.md remains authoritative. This is only one section, not the full security document.
+
+TLS, 1.2 veya üzeri sürüm gerektirir ve sertifika zinciriyle seçilen ana bilgisayar adını doğrular. Yapılandırılmış SASL, sunucu PASS ve etkinleştirilmiş boş olmayan otomatik komut listeleri doğrulanmış TLS gerektirir. Sessizce şifresiz metne dönülmez. Parolayı diskte şifrelemek ağ iletimini şifrelemez. IRC TLS, seçilen sunucuya veya bouncer'a giden bağlantıyı korur; iletileri uçtan uca şifrelemez.
+
+Bu kaynakla birlikte bağlantılı TLS kitaplığını da güncel tutun. İnceleme makinesinde OpenSSL 3.5.7 kullanıldı; OpenSSL, normal TLS işleme sırasında sertifikalarla ilişkili bellek artışına neden olan CVE-2026-35189 sorununu belgelendirir. Bu sorun ilgili dalın 3.5.9 sürümünde düzeltilmiştir. Bu kaynak sürümü dış kitaplığa yama yapmaz. Dağıtım sağlayıcınızın sürümünü, geriye taşınan yamalarını ve güncel güvenlik düzeltmelerini kontrol edin: https://openssl-library.org/news/secadv/20260929.txt
+
+Boş ca_file sistemin güven deposunu seçer. Özel CA paketi, güvenilen yerel bir PEM dosyasıdır: yükleyici dosyayı bir kez açar, açılan normal dosyayı denetler, sınırlandırılmış içeriğini okur ve bu kopyayı parola sormadan ayrıştırır. Boş dosyaları, 16 MiB üzerindeki dosyaları, normal olmayan kaynakları ve algılanan boyut değişikliklerini reddeder. Sertifika ve AUX güven girdileri ile CRL kayıtları korunur. Özel yapılandırma ve kimlik bilgisi yollarının aksine, CA yolları açıkça seçilen herkese açık güven malzemesi olduğundan sembolik bağlantılardan geçebilir. Farklı CA seçmek istemcinin güvendiği sertifika düzenleyicilerini değiştirir. Yükleme eşzamanlıdır; normal dosya G/Ç işlemleri yavaş depolamada hâlâ takılabilir.
+
+Her kimlik bilgisi tam olarak tek kaynak seçer: özel düz metin dosyası, GPG ile şifrelenmiş özel dosya veya açıkça belirtilmiş satır içi değer. SASL ve sunucu PASS kaynakları ayrıdır. --server ile farklı bir ana bilgisayar adı seçilmesi devralınan kimlik doğrulamayı, CA seçimini, bouncer kimliğini, kanalları ve başlangıç komutlarını temizler. Aynı ana bilgisayara yeniden ayarlamak, portu ya da takma adı değiştirmek bu sıfırlamayı yapmaz. Yeni bir hizmete bağlanmadan önce seçilen profili inceleyin.
+
+Doğrudan SASL PLAIN, yapılandırılmış hesabını gerektirir. soju, SASL kimliğini bouncer alanlarından türetir. Görüşme, duyurulan son SASL mekanizma bildirimini kullanır, onay veya sınama isteğini bekler ve kimlik bilgisini ancak ondan sonra okur. Zorunlu kimlik doğrulama başarısız olursa kimlik doğrulamasız kayıt yapılmaz. ZNC bunun yerine sunucu PASS kaynağını kullanır.
+
+Elle girilen ve tanınan özel kimlik doğrulama komutları da doğrulanmış TLS gerektirir. Doğrulama mantıksal satırlara ve planlanan tüm parçalara uygulanır; gönderme anında tekrarlanır. Tanınan özel biçimler komut geçmişinden ve kalıcı konuşma günlüklerinden çıkarılır. Canlı terminaldeki gösterimleri yine de girilen metni içerebilir. Tanıma, yaygın hizmet komutlarını kapsar; serbest metindeki rastgele sırları veya her üçüncü taraf hizmet protokolünü kapsamaz.

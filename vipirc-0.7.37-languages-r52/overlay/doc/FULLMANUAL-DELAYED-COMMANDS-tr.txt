@@ -1,0 +1,20 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / DELAYED STARTUP COMMANDS
+English source SHA-256: dfb1220936318c5cfbdf407d869067d3a84de7968c73aa4be34594630d3ee9e1
+
+EXACT COMMAND/CONTROL EXAMPLES (not translated):
+/autocommands [list|add COMMAND|remove NUMBER|clear|on|off]
+/autocommands delay SECONDS       0..300
+/autocommands interval SECONDS    2..60
+/autocommands add /msg ChanServ OP #room mynick
+/save
+
+Her profil, kayıt ve gerekli SASL basarili olduktan sonra en fazla 16 gerçek komut çalıştirabilir. Varsayılan bekleme 15 saniyedir; tamamlanan komutlar arasında en az 2 saniye vardir. Takilan bağlantı gecikmis komutlari bir anda göndermez.
+
+Komutlar /autocommands [list|add COMMAND|remove NUMBER|clear|on|off], /autocommands delay SECONDS (0..300), /autocommands interval SECONDS (2..60) ile yonetilir; /save ile kaydedilir. Örnek: /autocommands add /msg ChanServ OP #room mynick.
+
+/msg, /join, /nick, /away, /back, /whois ve belgelenmis birebir eş adlar desteklenir. Her komut en fazla 511 UTF-8 bayt olur ve tek IRC satırina sigmalidir. Sessiz bolme, kabuk, ham IRC, döngu veya güncel sohbet yerine koyma yoktur. /join bir kanal ve isteğe bağlı geçici anahtar alir. Listeler mesaj/anahtar metnini gizler; çalıştirma komut geçmişi, yerel yanki veya özel görüşme oluşturmaz. Yanıtlar normal gelir; otomatik katılım seçili sohbeti değiştirmez.
+
+Değişiklikler sonraki bağlantıda geçerli olur. /cancel kalan başlangıç komutlarini ve kuyruktaki sohbeti durdurur; gönderilen veya aktarilmakta olan baytlari geri almaz. Hedefin kapatılmasi/ayrilmasi ona ait kalan diziyi iptal eder. Hata sonraki komutlari iptal eder ve gizli metin olmadan konumu bildirir. Yeniden bağlantı yeni dizi başlatir; bouncer profilleri de açık başlangıç komutlarini çalıştirir. Çevrimdışı mod hiçbirini çalıştirmaz.
+
+[autocommands] bolumunde enabled, delay_seconds, interval_seconds ve tekrarlanan command= satırlari vardir. = sonrasindaki baytlar boşluk, #, ; ve = dahil değiştirilmez. Devre disi bile olsa boş olmayan liste kullanıcıya ait 0600/0400 kipli normal yapılandırma dosyasi gerektirir; etkin boş olmayan liste doğrulanmış TLS gerektirir. Yeni profiller boş baslar; hedef değişince dokunulmamis miras liste temizlenir. Bilerek kaydedin: GPG parola depolamasi yapılandırmadaki bu komutlari şifrelemez.

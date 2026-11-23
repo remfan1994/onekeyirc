@@ -1,0 +1,17 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / PLATFORMS, BUILD, AND LICENSE
+English source SHA-256: c28dd1d52c0de855974159eabffe9cce9c94a78d0c7d7ae46cd65e9226993b3a
+
+المنصات والبناء والترخيص
+
+تشمل الأنظمة المستهدفة Linux وبيئة Linux في ChromeOS وأنظمة BSD. يتطلب البناء C11 وواجهات POSIX وGNU/BSD getopt_long ومكتبة curses ذات المحارف العريضة وملفات تطوير TLS المتوافقة. لا يحتاج العميل إلى بيئة تشغيل لغة برمجة. ويُستخدم Python 3 للاختبارات وإنشاء الوثائق؛ وتتيح الملفات المصدّرة المرفقة البناء والدردشة عادةً من دونه. راجع INSTALL للاعتماديات.
+
+    ./configure
+    make
+    make check-offline
+    make check
+    make install PREFIX="$HOME/.local"
+
+راجع INSTALL للاعتماديات والبناء، وSECURITY.md لنموذج الأمان والحدود، وتقرير التحقق من الإصدار للأنظمة التي اختُبرت فعلاً. يتطلب تشغيل BSD الأصلي تحققاً مستقلاً؛ فاستهداف قابلية النقل لا يُثبت اختبار جميع الأنظمة الشبيهة بـ Unix. يشغّل make check-offline اختبارات CLI/PTY من دون مقبس شبكة؛ وتشمل مجموعة make check الأوسع خوادم تجريبية محلية عبر loopback.
+
+هذا تطبيق تابع لـ ThatIAm.vip (www.thatiam.vip)، صممه remfan1994. تتوفر الشيفرة المصدرية بموجب اتفاقية IALA (Insha-Allah License Agreement) المرفقة، ونصها الكامل في LICENSE.md. وتحتفظ المكتبات المرتبطة بتراخيصها الخاصة؛ راجع NOTICE. كُتب التنفيذ لهذه المواصفات من دون نسخ تنفيذ عميل IRC آخر أو لغة إعداداته.

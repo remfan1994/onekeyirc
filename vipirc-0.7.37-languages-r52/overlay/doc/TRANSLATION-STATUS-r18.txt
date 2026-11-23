@@ -1,0 +1,38 @@
+OPTIONAL IRC LANGUAGE/RTL TRANSLATION COVERAGE - r18
+
+Application: vipirc 0.7.36; English r1 stays unchanged
+Patch: r18, ten languages; RTL logic unchanged from r17
+Localizations are drafts requiring fluent-speaker review.
+
+COMPLETED PREVIOUSLY
+- 844 catalog entries per locale; minimalist manuals and static help translated.
+- r17 source-linked session management and /background command sections.
+- Existing full-interface and security excerpts (not full manuals).
+
+NEW FULL VIPIRC MANUAL REGIONS IN r18
+- FILE TRANSFERS: 602 whitespace-delimited English source words.
+  doc/DCC-FULL-{en,id,ms,tr,es,pt,fr,de,ru,it,ar}.txt
+  Original source SHA-256: c3342db1ecfe58933be47c90ee8d60304d29f68f09303a30c005f3061126d611
+- INPUT EDITING through MOUSE CONTROLS: 479 English words.
+  doc/INPUT-MOUSE-{en,id,ms,tr,es,pt,fr,de,ru,it,ar}.txt
+  Original source SHA-256: efd7a5a2ee94dcc2a9923884399743cf9696f83790f9e79d1861b211d0a9453c
+- They are complete contiguous chapter drafts, not brief summaries.
+- Exact 52-heading coverage map: doc/MANUAL-SECTION-MAP-r18.tsv.
+- Tracked complete contiguous chapter translations: 2010 English
+  source words across r17 and r18 (not an overall localization rate).
+- Each retains unchanged command examples, security limits, and key names.
+
+REMAINING ENGLISH-PARITY GAPS
+- Complete full MANUAL.txt and SECURITY.md translations have NOT been
+  produced; many later full-mode chapters remain untranslated.
+- Top-level README.md, INSTALL, man pages, and contextual diagnostics
+  are not fully localized or audited.
+- Full ncurses help reader still uses the English original.
+- Review with fluent/native speakers is still needed for all languages,
+  especially DCC, identity, credentials, Unicode spoofing and RTL.
+- English source and existing safety documentation are authoritative.
+
+REVISION SAFETY
+- Only source code change from r17 is the [lang-rtl-r18] version text.
+- apply.sh verifies SHA-256 of overwritten English source files.
+- Apply to fresh matching English source r1; patches are not stackable.

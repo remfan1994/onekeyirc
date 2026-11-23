@@ -1,0 +1,17 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / OFFLINE TEST MODE
+English source SHA-256: e89ff4106e3e5a0bba3bbcac6d2d3f1eb41f410ac6a2f153aaed310c84b51cab
+
+EXACT COMMAND/CONTROL EXAMPLES (not translated):
+vipirc --test-mode
+vipirc --test-mode --config /absolute/config.ini --no-connect
+
+La simulazione usa interfaccia, editor, filtri e trattamento pertinente di protocollo/code reali, ma senza socket di rete, DNS, lettura di password o file CA, GPG o salvataggi. Gli hostname configurati sono etichette. Ogni profilo ha il proprio simulatore; New server ne aggiunge un altro. Server/nickname mancanti non provocano richieste; se non sono configurati canali, quelli dimostrativi sono #test-one e #test-two.
+
+La simulazione parte dopo la schermata iniziale a prescindere da autoconnect salvato; --no-connect ne impedisce l'avvio. /disconnect e /connect fermano/avviano il simulatore scelto. Per usare la rete vera, uscire e riavviare senza --test-mode. Il simulatore locale in C non richiede daemon esterni o Python.
+
+Ogni due secondi avvengono eventi di chat, menzioni, stringhe osservate, conversazione privata e modifiche degli utenti. Le stringhe watch personalizzate ruotano una per ciclo di 16 secondi. /msg riceve una risposta simulata etichettata; JOIN/PART/NICK/WHOIS/TOPIC/AWAY hanno anch'essi risposte simulate. Non vengono replicate tutte le regole del server, l'ammissione a canali con chiave, SASL o la consegna effettiva.
+
+Provare a capo automatico, modifica tra righe, ridimensionamento, incolla, avvisi/conferme, menzioni ed elenchi. L'offerta DCC campione esiste solo in memoria: esaminare/rifiutare/annullare funziona, ma Send/Accept viene rifiutato prima di accedere a file o socket. Chiudere un server secondario cambia solo lo stato corrente. Scrivere configurazione e file di contatori è disabilitato; modificare il file esternamente e riavviare per modifiche permanenti.
+
+--check-config controlla separatamente sintassi e valori dei file salvati. Nessuna delle due modalità dimostra DNS, TLS, credenziali o interoperabilità bouncer reali.

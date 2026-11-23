@@ -1,0 +1,21 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / MINIMALIST CATCH-UP AFTER RESUME
+English source SHA-256: a802f38661e54d486d4b92dd129ff267d6717b1e6a7568f0cfac1d7f72000e65
+Source lines: 242-280
+
+NACHHOLEN NACH DEM FORTSETZEN IM MINIMALISTISCHEN MODUS
+
+In vipirc -i öffnet /catchup den ausgewählten Kanal oder Privatdialog bei der ersten IRC-Zeile der letzten lokal verfassten und gesendeten Nachricht. Jeder Server und jeder Kanal bzw. Privatdialog hat einen eigenen Anker; Serverstatus- und Erwähnungsansichten haben keinen. Nach dem Fortsetzen muss jede Unterhaltung einzeln ausgewählt und /catchup jeweils neu ausgeführt werden.
+
+Zuerst versucht der Leser ein geeignetes privates Protokoll zu öffnen. Die dauerhafte Protokollierung muss bereits beim Senden der Ankernachricht aktiviert gewesen sein, weiterhin ordnungsgemäß funktionieren und genau diesen Ankereintrag noch in derselben Datei enthalten. Aktivieren Sie sie bewusst vor der Abwesenheit:
+
+    /set persistent_logging on
+    /save output
+
+Der Dateileser erfasst eine Momentaufnahme des aktuellen Dateiendes, statt sämtliche Nachrichten während der Abwesenheit dauerhaft in den Chat-Arbeitsspeicher zu importieren. Up/Down bewegt sich zeilenweise, PageUp/PageDown seitenweise; Home führt zum Anker der gesendeten Nachricht, End zur neuesten Seite der Momentaufnahme und Escape zurück zum Live-Chat. Neue Netzwerkdaten treffen weiter ein, ohne die Momentaufnahme zu verschieben.
+
+Ist der Plattenanker nicht verfügbar, die gesendete Nachricht aber noch im Speicher vorhanden, öffnet der Befehl den normalen gespeicherten Verlauf an dieser Stelle. Bei diesem Ersatzverfahren führt Home zur ältesten noch gespeicherten Seite, End oder Escape zurück zum Live-Chat; auch ältere erhaltene Nachrichten können gelesen werden. Das ist der gewöhnliche Speicherleser mit seinen normalen Verdrängungsgrenzen, kein wiederhergestelltes Plattenarchiv.
+
+Eine rotierte oder ersetzte Protokolldatei oder ein veränderter Ankereintrag kann nicht als ursprünglicher Plattenanker dienen. Die Eintragsprüfung erkennt unbeabsichtigte Änderungen, authentifiziert die Daten aber nicht gegenüber einem anderen Prozess desselben Benutzerkontos. Sensible Authentifizierungsdaten werden nicht als dauerhafte Anker verwendet. Bleibt weder auf Platte noch im Speicher ein geeigneter Anker erhalten, meldet /catchup die fehlende Historie, anstatt einen vollständigen Nachholvorgang zu behaupten.
+
+Der Anker gehört zum laufenden Worker-Prozess. Abkoppeln und Fortsetzen erhält ihn; ein neu gestarteter Prozess rekonstruiert weder Anker noch lädt er alte Mitschriften automatisch. Plattengestütztes /catchup ist nur in der minimalistischen Oberfläche verfügbar. Der vollständige ncurses-Modus bietet einen begrenzten Verlauf im Arbeitsspeicher über PageUp/PageDown.

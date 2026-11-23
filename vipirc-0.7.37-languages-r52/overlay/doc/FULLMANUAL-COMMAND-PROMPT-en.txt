@@ -1,0 +1,65 @@
+VERBATIM ENGLISH SOURCE REFERENCE
+Source: MANUAL.txt / COMMAND PROMPT
+English source SHA-256: 26d0386cf8c86773f04d44700c574befc084cde6939832553f44b1d52e3b3b6f
+Source lines: 479-539
+
+COMMAND PROMPT
+
+Open Command through F1's Command item or /, or type / at chat caret
+position zero. The independent chat draft/caret is preserved. A slash
+elsewhere or in bracketed chat paste is literal. Enter/Run submits;
+Escape/Cancel returns to the opener, including Summary. Empty input does
+nothing. Accepted commands return to chat unless they open another screen;
+invalid/refused commands remain editable.
+
+Settings > Interface > Command suggestions chooses:
+
+    Commonly used: default curated order, adapted to connection/view state.
+    Recent history: accepted complete command lines, newest first.
+    Most used: personal canonical-command counts for the saved profile.
+    Alphabetical: implemented command names.
+    Contextual: rank for the screen that opened Command, retaining other matches.
+
+Type a case-insensitive command-name prefix to filter; arguments are not
+predicted. Down selects suggestions, Up/Down browses, Up from the first
+returns to input. Enter on a selection inserts it without execution: a
+catalog row preserves existing arguments, a history row inserts its full
+line. Review/edit and press Enter separately after display. Extra Enter
+bytes in that input batch cannot run it. ? on a selected row opens
+item/screen help and restores the selection afterward; ? in input is
+literal.
+
+Delete removes a selected Recent history entry or resets a Most-used count,
+never the supported command. Page Up/Page Down or wheel browses suggestions.
+Invisible rows cannot be selected in tiny terminals. Right at the end of a
+command-name prefix completes/cycles it; clicking a suggestion inserts it.
+Tab does not navigate the header or execute. Nickname completion stays in
+chat.
+
+Up from input recalls accepted commands matching the original prefix; Down
+returns toward newer entries and the original draft. Arguments match
+byte-for-byte. Failed commands are not recorded. History holds at most 64
+entries/64 KiB per server, deduplicates consecutive identical entries and
+evicts oldest entries. Recall lasts while this frontend and server stay
+open; changing frontend or ending the worker discards it.
+
+Persistent usage counts are separate: CONFIG_PATH.commands holds at most 96
+canonical names and bounded counts, never arguments/targets/chat. A saved
+profile enables automatic private atomic updates on accepted
+commands/resets; unsaved counts stay in memory until Save. Bad/missing count
+files do not block startup. Test mode neither reads nor writes counts; the
+main config does not store them.
+
+Keyed joins and recognized service/authentication messages are omitted
+entirely from recall. Harmless messages to known sensitive services are
+omitted too. This filtering cannot recognize every arbitrary secret; do not
+put secrets in ordinary chat. Bouncer controls follow BOUNCER CONNECTIONS.
+
+Command paste is data: CR/LF/Tab become spaces, unsupported controls/size
+violations are reported, and a fresh Enter/Run is still required. No shell
+quoting, substitutions, command chaining or shell execution exists.
+TEXT/PATH arguments consume their documented literal remainder; quote
+#channel only in an actual shell, not inside these commands. /msg, /me and
+// retain message budgets, pacing and mandatory default-No split consent; //
+is literal chat and does not enter command recall. Join/New list actions
+prefill /join or /pm.

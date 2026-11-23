@@ -1,0 +1,17 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / OFFLINE TEST MODE
+English source SHA-256: e89ff4106e3e5a0bba3bbcac6d2d3f1eb41f410ac6a2f153aaed310c84b51cab
+
+EXACT COMMAND/CONTROL EXAMPLES (not translated):
+vipirc --test-mode
+vipirc --test-mode --config /absolute/config.ini --no-connect
+
+Die Simulation verwendet echte Oberfläche, Editor, Filter sowie zutreffende Protokoll- und Warteschlangenverarbeitung, jedoch ohne Netzwerksockets, DNS, Lesen von Passwörtern oder CA-Dateien, GPG und Speichern. Konfigurierte Hostnamen dienen nur als Bezeichnungen. Jedes Profil hat einen eigenen Simulator; New server fügt einen hinzu. Fehlende Server-/Nickname-Werte werden nicht abgefragt; ohne konfigurierte Kanäle heißen die Demokanäle #test-one und #test-two.
+
+Die Simulation beginnt nach der Begrüßung unabhängig von gespeichertem autoconnect; --no-connect verhindert den Start. /disconnect und /connect stoppen bzw. starten den ausgewählten Simulator. Für echte Netzverbindungen beenden und ohne --test-mode neu starten. Der lokale C-Simulator benötigt weder externen Daemon noch Python.
+
+Alle zwei Sekunden treten Chat-, Erwähnungs- und Beobachtungsereignisse, ein Privatdialog und Änderungen der Mitgliederliste auf. Eigene watch-Zeichenfolgen wechseln einmal je 16-Sekunden-Zyklus. /msg erhält eine gekennzeichnete simulierte Antwort; JOIN/PART/NICK/WHOIS/TOPIC/AWAY werden ebenfalls simuliert. Nicht nachgebildet sind sämtliche Serverregeln, der Zugang zu Schlüsselkanälen, SASL oder tatsächliche Zustellung.
+
+Testen Sie Zeilenumbruch, Bearbeitung über Zeilengrenzen, Größenänderung, Einfügen, Warnungen/Bestätigungen, Erwähnungen und Listen. Das Beispiel-DCC-Angebot existiert nur im Speicher: Prüfen/Ablehnen/Abbrechen funktioniert, Send/Accept wird vor Datei- oder Socketzugriff abgewiesen. Das Schließen eines zweiten Servers ändert nur den Laufzeitzustand. Das Schreiben von Konfiguration und Zählerdateien ist gesperrt; für dauerhafte Änderungen extern bearbeiten und neu starten.
+
+--check-config prüft separat Syntax und Werte gespeicherter Dateien. Keiner der beiden Modi beweist echtes DNS, TLS, gültige Zugangsdaten oder Bouncer-Kompatibilität.

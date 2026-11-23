@@ -1,0 +1,32 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / SECURITY AND RESOURCE BOUNDS
+English source SHA-256: 0244a7b43c7e5e46a5b365e081fc7bc6654afe3069aea9e68c0e1d0f46c1277e
+
+KEAMANAN DAN BATAS SUMBER DAYA
+
+TLS memeriksa rantai sertifikat serta nama host atau alamat numerik yang diminta. Tidak ada bypass verifikasi sertifikat atau penurunan keamanan diam-diam. IRC tanpa TLS hanya tersedia melalui pengaturan eksplisit; lalu lintas IRC terlihat oleh pengamat pada jalur koneksi dan kredensial tersimpan tidak boleh digunakan. TLS melindungi koneksi klien ke server, bukan privasi obrolan ujung-ke-ujung.
+
+Startup operasional menolak ketidaksesuaian ID pengguna atau grup asli dan efektif serta menonaktifkan core dump sebelum membaca konfigurasi. Linux juga mematikan kemampuan proses untuk di-dump. Klien berjalan sebagai proses biasa tanpa sandbox OS; proses lain dengan akun yang sama termasuk dalam batas kepercayaannya.
+
+Perintah autentikasi privat yang dikenali memerlukan TLS terverifikasi, sekalipun dimasukkan sebagai pesan biasa, dipecah dalam rencana pengiriman, atau masuk antrean. Deteksi tidak dapat mengenali semua sintaks rahasia baru secara andal; jangan masukkan kredensial ke obrolan atau argumen shell.
+
+Data IRC masuk tidak dipercaya. Urutan kontrol dan format berbahaya disanitasi sebelum ditampilkan. Buffer input dan jaringan memiliki batas. Klien tidak mengeksekusi teks yang diterima, membuka URL, menjalankan perintah shell, memuat skrip/plugin, atau otomatis menjawab CTCP. Pesan tindakan ditampilkan sebagai teks. Tawaran DCC SEND perlu ditinjau dan diterima secara eksplisit untuk setiap berkas; koneksi langsungnya tidak dienkripsi oleh TLS.
+
+Batas pada rilis ini:
+
+    Sesi server per proses                    8
+    Tampilan per server, termasuk bawaan     32
+    Pengguna tersimpan per kanal           4096
+    String sebutan khusus per server         32
+    Mask pengabaian per server               32
+    Pesan obrolan dalam antrean per server   64
+    Entri riwayat perintah per server        64
+    Teks riwayat perintah per server     64 KiB
+    Teks riwayat tersimpan per server     8 MiB
+    Skalar Unicode input per draf          8192
+    Byte UTF-8 input per draf             16384
+    Tawaran DCC tertunda, semua ruang kerja   8
+    Transfer DCC aktif, semua ruang kerja     4
+    Catatan DCC tersimpan, semua ruang kerja 12
+
+Batas riwayat berlaku per server, bukan sebagai batas memori seluruh proses. Pada delapan sesi, teks riwayat tersimpan dapat mencapai 64 MiB. Keadaan server dialokasikan sesuai kebutuhan; sesi yang lebih sedikit tidak memesan delapan riwayat penuh. Pustaka, metadata tampilan, daftar pengguna, input, dan transport menggunakan memori tambahan. Riwayat percakapan hanya berada di memori kecuali pencatatan persisten opsional diaktifkan. Tampilan sebutan terpisah bukan arsip permanen; percakapan sumbernya yang memenuhi syarat mungkin dicatat. Pengaturan, kredensial, dan log teks biasa opsional adalah berkas lokal; perangkat lunak lain dengan hak akun Anda dapat membacanya. Tidak ada klien yang dapat menjamin keamanan terhadap semua server bermusuhan atau terminal, sistem operasi, atau pustaka yang telah disusupi.

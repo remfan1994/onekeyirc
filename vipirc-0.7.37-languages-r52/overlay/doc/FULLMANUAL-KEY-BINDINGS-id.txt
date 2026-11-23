@@ -1,0 +1,18 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / CUSTOM KEY BINDINGS
+English source SHA-256: 947b11b40b8bb1c3fa32d14bc71aac77bc4ccb1186406a303e6b96d197a6b92d
+Source lines: 782-815
+
+PENGIKATAN TOMBOL KHUSUS
+
+Secara bawaan tidak ada tombol khusus yang ditetapkan. App > Key bindings atau /bindings membuka tabel pada vipirc lengkap. Add/Edit memilih nama tombol dan aksi lokal, sedangkan Remove menghapus baris. Apply menerapkan perubahan di memori; Save juga menulis konfigurasi utama. Escape/Cancel membatalkan suntingan yang belum diterapkan. Draf obrolan tetap tersimpan. Tabel memiliki kendali sendiri yang tidak dipengaruhi pengikatan khusus.
+
+Pada kedua antarmuka, /bindings keys dan /bindings actions menampilkan nama yang didukung. Contoh pilihan Anda sendiri: /bind F7 summary dan /bind Alt-c command. Jalankan masing-masing sebagai perintah terpisah. /unbind F7 menghapus satu pengikatan, dan /unbind all mengosongkan seluruh tabel khusus. /save input menyimpan perubahan untuk semua profil server. Dalam mode -i, /bindings menampilkan tabel, sedangkan /bind dan /unbind menyuntingnya melalui perintah.
+
+Tombol yang didukung: F1..F12, Ctrl-A..Z, Alt-a..z/0..9, Up, Down, Left, Right, Home, End, PageUp, PageDown, Insert, Delete, Backspace, Tab, Shift-Tab, Enter, Escape. Alias: Ctrl-H/Backspace, Ctrl-I/Tab, Ctrl-J/Ctrl-M/Enter, serta Ctrl-[/Escape. Huruf Alt memakai byte terminal huruf kecil. Intersepsi terminal atau multiplexer dan pemetaan sinyal didahulukan; tombol sinyal tidak dialihkan.
+
+Aksi yang didukung: compose, command, bindings, help, manual, summary, servers, channels, queries, unread, mentions, transfers, settings, quickstart, next, prev, clearinput, cancel, background, quit. Tidak tersedia makro untuk perintah sembarang atau mengirim pesan. Dalam mode lengkap, perintah yang dipulihkan memerlukan penekanan Enter baru untuk mengakuinya, lalu Enter kedua setelah jeda untuk menjalankannya. Jika tujuan aslinya sudah ditutup, Run ditolak.
+
+Aksi khusus hanya berjalan pada obrolan utama atau masukan perintah, tidak saat menempel teks, di kolom sandi, pengaturan awal, pembaca, maupun dialog konfirmasi. Tempelan tanpa pembingkaian tetap dianggap pengetikan. Pembaca pintasan mode minimalis mempertahankan draf dan kursor; perubahan tujuan atau editor menolak draf yang tidak kosong. clearinput sengaja menghapus draf yang sedang aktif.
+
+Bagian [hotkeys] pada konfigurasi utama menyimpan baris KEY=action, tanpa baris bawaan. Entri tak dikenal, duplikat, atau yang melebihi batas membuat seluruh pemuatan ditolak secara atomik. Maksimal 64 entri didukung. Lihat doc/HOTKEYS.txt untuk cara menyimpan, batas terminal, dan contoh.

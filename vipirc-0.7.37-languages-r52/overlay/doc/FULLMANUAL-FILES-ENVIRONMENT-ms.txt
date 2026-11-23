@@ -1,0 +1,25 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / FILES AND ENVIRONMENT
+English source SHA-256: 3f0929a090403aa838e2094592ede3b01d8a8cac7f8b23ff6c35f31b3321edf6
+Source lines: 1901-1962
+
+FAIL DAN PERSEKITARAN
+
+Lokasi lalai konfigurasi utama:
+
+    $XDG_CONFIG_HOME/vipirc/config.ini
+    $HOME/.config/vipirc/config.ini
+
+XDG_CONFIG_HOME diberi keutamaan jika tidak kosong dan mestilah laluan mutlak. HOME digunakan sebagai sandaran; maklumat pangkalan data akaun digunakan jika HOME tidak membekalkan direktori rumah mutlak. --config FILE memilih konfigurasi utama lain bersama ruang kerja profil pelayan bersebelahannya. Laluan yang ditulis dalam konfigurasi digunakan secara harfiah tanpa pengembangan pemboleh ubah, tilde atau shell. Pemboleh ubah yang dipaparkan di atas hanya menerangkan cara memilih lokasi lalai. Shell anda masih melakukan petikan dan pengembangan argumen biasa sebelum menghantar argumen baris perintah.
+
+Untuk laluan utama P, P.servers menyimpan ID profil pelayan dan pilihan [servers] default=PROFILE_ID yang diuruskan oleh /saveconf. P.d/ mengandungi fail profil sekunder. Setiap konfigurasi tersimpan mungkin mempunyai fail .commands berisi kiraan perintah kanonik dan transkrip .log pilihan. Konfigurasi yang dijana serta profil sekunder memerlukan Save yang jelas; kiraan perintah yang diterima dikemas kini secara automatik dalam ruang kerja tersimpan yang sedia ada. Profil lalai yang diingati tetapi hilang atau tidak boleh dibaca dilaporkan dan tidak akan diam-diam ditukar kepada sambungan lain.
+
+Antara muka penuh mencadangkan $XDG_DATA_HOME/vipirc/downloads sebagai direktori penerimaan DCC lalai jika XDG_DATA_HOME mutlak; jika tidak, $HOME/.local/share/vipirc/downloads digunakan apabila HOME mutlak. Direktori cadangan hanya dicipta selepas persetujuan jelas. Perintah /dcc accept NUMBER tanpa DIRECTORY menggunakan direktori pelancaran proses dan mensyaratkannya dimiliki pengguna serta persendirian. Memilih atau melayari laluan tidak pernah mengubah direktori pelancaran itu.
+
+PATH mencari program gpg pilihan. Tiada shell dijalankan; program tersebut adalah sebahagian daripada persekitaran setempat yang perlu dipercayai. GNUPGHOME ditafsirkan oleh GnuPG bagi persekitaran kunci dan agennya. Klien tidak mengembangkan GNUPGHOME dalam laluan kelayakan. Operasi SSH jauh menggunakan persekitaran dan fail pada hos tempat vipirc dijalankan.
+
+TERM menerangkan keupayaan terminal untuk ncurses, bukan pengekodan teks. LANG, LC_CTYPE dan LC_ALL memilih locale. Gunakan locale UTF-8 terpasang yang sepadan dengan terminal untuk penyuntingan Unicode dan lebar aksara. Perintah locale, locale charmap dan locale -a membantu memeriksa hos; nama locale berbeza antara sistem.
+
+Terjemahan antara muka: tetapkan VIPIRC_LANG kepada id (Indonesia), ms (Melayu), tr (Turki), es (Sepanyol), pt (Portugis), fr (Perancis), de (Jerman), ru (Rusia), it (Itali), atau ar (Arab) semasa memulakan vipirc. Nilai seperti id_ID.UTF-8 juga diterima. Antara muka ncurses dan -i menggunakan katalog yang sama. Bahasa Inggeris digunakan jika terjemahan tiada. Proses terpisah mengekalkan bahasa paparan yang dipilih semasa ia dilancarkan. Perintah IRC berawalan garis condong, kunci konfigurasi dan nilai kawalan kekal dalam bahasa Inggeris. Keluaran ini menterjemahkan sebahagian kawalan antara muka, bukan semua halaman bantuan, amaran keselamatan atau ralat. Lihat doc/LOCALIZATION.md.
+
+LC_CTYPE yang aktif dihormati. Locale tidak sah atau bukan UTF-8 mengaktifkan mod terminal ASCII secara jelas dan memaparkannya pada skrin alu-aluan. Input bukan ASCII ditolak dengan mesej status; titik kod masuk bukan ASCII dipaparkan sebagai '?' tanpa mengubah teks rangkaian yang disimpan. Klien tidak meneka atau menukar pengekodan lama dan tidak memaksa locale. Pilih locale UTF-8 terpasang dan mulakan semula untuk Unicode. ASCII kekal subset satu bait UTF-8; SSH tidak mengubah had bait IRC.

@@ -1,0 +1,8 @@
+OPTIONAL DISPLAY TRANSLATION PATCH r39 -- vipirc 0.7.37
+
+English source r1 remains unchanged; only install against that matching fresh source.
+The application version is not changed. Ten locale catalogs are extended.
+This pass contains 45 source-linked display strings; see the TSV for each callsite.
+No IRC commands, wire content or saved configuration fields were translated.
+Named fields are rendered literally with strict field and size checks; on failure English is used.
+Full vipirc curses testing and native-speaker verification are still required.

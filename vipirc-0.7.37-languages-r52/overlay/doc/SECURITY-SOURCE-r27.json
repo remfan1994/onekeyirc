@@ -1,0 +1,111 @@
+{
+  "source_file": "SECURITY.md",
+  "release": "r27",
+  "app": "vipirc",
+  "sections": [
+    {
+      "section": "Trust boundary",
+      "english_words": 176,
+      "status": "draft in 10 languages",
+      "paragraphs": 3,
+      "sha256": "b206f366472f34a9c25e1096f15d6fe813e99115c1e789ab4fa3d857e18f7595"
+    },
+    {
+      "section": "TLS, credentials and endpoint identity",
+      "english_words": 389,
+      "status": "draft in 10 languages",
+      "paragraphs": 6,
+      "sha256": "4ea410d65b0d7a489076cfd9898b5769f21e9e2f4fec63f7df8340f68bb5de45"
+    },
+    {
+      "section": "Configuration and private files",
+      "english_words": 506,
+      "status": "draft in 10 languages",
+      "paragraphs": 6,
+      "sha256": "209b86484d0457ecd63d96ed26d6ae5e5adb117a47353c36560dad9f80ae8466"
+    },
+    {
+      "section": "Child processes and synchronous work",
+      "english_words": 118,
+      "status": "draft in 10 languages",
+      "paragraphs": 2,
+      "sha256": "79a87ca8215648f2d1f870067a2afe1fb4221757b00560b4b4191aac7832ba7f"
+    },
+    {
+      "section": "Protocol, terminal input and bounded state",
+      "english_words": 462,
+      "status": "not fully translated in r27",
+      "paragraphs": 6,
+      "sha256": "0f8513944ff6d952092236574aa5be490f8a39c7d99ec7ac175d34eb41e5dc06"
+    },
+    {
+      "section": "Local history, saved logs and privacy",
+      "english_words": 311,
+      "status": "not fully translated in r27",
+      "paragraphs": 5,
+      "sha256": "8123a3ef64d1e4e83b7cc6891d66caa56780846eafd681342f8e2f9749251e94"
+    },
+    {
+      "section": "Automatic commands and cancellation",
+      "english_words": 174,
+      "status": "not fully translated in r27",
+      "paragraphs": 3,
+      "sha256": "d5949c21fd5a0dc4ef73af2c42931766637e3b4ba398ff7184e64a2ae9a0e305"
+    },
+    {
+      "section": "Managed sessions and SSH loss",
+      "english_words": 301,
+      "status": "not fully translated in r27",
+      "paragraphs": 5,
+      "sha256": "f44a63f7faada1375f5769e9dfe2235da96547fa535b07d1c9869cba13ca063f"
+    },
+    {
+      "section": "ZNC, soju and playback",
+      "english_words": 314,
+      "status": "not fully translated in r27",
+      "paragraphs": 5,
+      "sha256": "f0e223c83f0df60aa10260168ae7433ff77fbbd2f4cef7d4914cd07da4f7ed99"
+    },
+    {
+      "section": "DCC file transfers",
+      "english_words": 212,
+      "status": "not fully translated in r27",
+      "paragraphs": 3,
+      "sha256": "f0f91b6753c085b41c9c9071eabf9585ddc404919fe56e0989bfafb733db2e3b"
+    },
+    {
+      "section": "Offline checks and evidence",
+      "english_words": 184,
+      "status": "not fully translated in r27",
+      "paragraphs": 3,
+      "sha256": "9c67268cfad3c6bc3c5553f23c932c342c3f11231b325d758eeade66d790b4bd"
+    },
+    {
+      "section": "Full-interface review and file browsing",
+      "english_words": 229,
+      "status": "not fully translated in r27",
+      "paragraphs": 3,
+      "sha256": "e2f59ccd783bd17feedcf3bc49a14a3085c7f21783755ee9b06c265dc0f1eb54"
+    },
+    {
+      "section": "User-defined key bindings",
+      "english_words": 126,
+      "status": "not fully translated in r27",
+      "paragraphs": 2,
+      "sha256": "250d7d0eb62f8b649e64f59b1e69d2220ec79005f08d6a7dfba30905d1133303"
+    }
+  ],
+  "langs": [
+    "id",
+    "ms",
+    "tr",
+    "es",
+    "pt",
+    "fr",
+    "de",
+    "ru",
+    "it",
+    "ar"
+  ],
+  "native_speaker_review": false
+}

@@ -1,0 +1,25 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / TROUBLESHOOTING
+English source SHA-256: b3416fb29408401823b85e292e40c40467a2ea2b528476630825bfbaeced49f5
+
+Ikuti pemeriksaan berurutan dalam doc/TROUBLESHOOTING.txt. Jangan kongsi log peribadi atau rahsia.
+
+Sambungan: baca ralat pelayan; semak hos, port dan TLS. /connect mencuba semula secara manual; --reconnect cuba lagi untuk kegagalan sementara. Rujuk TLS AND CUSTOM TRUST. Jangan pintas kegagalan pengesahan dengan menghantar kelayakan melalui IRC tanpa penyulitan.
+
+Pengesahan: /autoauth status memaparkan laluan semasa dan tertangguh, bukan rahsia. Semak aturan akaun dan sumber di AUTOMATIC CONNECTION, JOIN, AND AUTHENTICATION.
+
+GPG: rujuk CREATING ENCRYPTED PASSWORD FILES untuk pemeriksaan destinasi dahulu dan AUTHENTICATION untuk had penyahsulitan, kebenaran serta buka kunci luar aplikasi.
+
+Saluran: lengkapkan pendaftaran/pengesahan. /autojoin menunjukkan penyertaan tertangguh profil langsung; bouncer memulihkan saluran. Lihat CONNECTION AND STARTUP COMMANDS.
+
+Sesi sibuk: semak --sessions, kemudian --detach-session NUMBER dan --resume NUMBER. --close-session menamatkan worker. Rujuk SESSION RECOVERY AND UPGRADES.
+
+Kekunci/paparan: anak panah Compose menyunting; Command mengingat arahan selamat yang diterima. Semak teks tersimpan untuk baris berbalut tersembunyi. Lihat MINIMALIST WRAPPING AND INPUT HISTORY.
+
+Lebar teks: padankan locale UTF-8, TERM dan fon; ubah saiz mengekalkan draf/kursor. Terminal kecil menghadkan panel. Rujuk FILES AND ENVIRONMENT.
+
+Simpan: mod ujian menolak penulisan. Semak laluan dan kebenaran peribadi dalam CONFIGURATION; Save, Apply dan autoconnect permulaan ialah tindakan berbeza.
+
+Log/catch-up: periksa ralat sebenar; sembang berterusan. Had, putaran, penanda mesej dihantar yang baharu dan kaedah sandaran terdapat dalam HISTORY, LOGGING AND PRIVACY.
+
+Pemilikan proses anak: proses anak SIGCHLD mesti boleh ditunggu. Mengabaikan isyarat itu atau menuai secara automatik menghalang permulaan pertama worker latar atau pembantu; betulkan pelancar.

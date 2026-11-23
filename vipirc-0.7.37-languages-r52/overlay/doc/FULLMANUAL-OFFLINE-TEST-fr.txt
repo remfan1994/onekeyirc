@@ -1,0 +1,17 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / OFFLINE TEST MODE
+English source SHA-256: e89ff4106e3e5a0bba3bbcac6d2d3f1eb41f410ac6a2f153aaed310c84b51cab
+
+EXACT COMMAND/CONTROL EXAMPLES (not translated):
+vipirc --test-mode
+vipirc --test-mode --config /absolute/config.ini --no-connect
+
+La simulation utilise l'interface, l'éditeur, les filtres et le traitement applicable du protocole et des files réels, mais sans sockets réseau, DNS, lecture de mots de passe ou de fichiers CA, GPG ni sauvegarde. Les hôtes configurés ne sont que des étiquettes. Chaque profil dispose d'un simulateur indépendant ; New server en ajoute un. Une absence de serveur ou pseudonyme ne provoque pas d'invite ; les canaux de démonstration sont #test-one et #test-two si aucun n'est configuré.
+
+La simulation démarre après l'accueil, même avec un autoconnect enregistré ; --no-connect l'empêche de démarrer. /disconnect et /connect arrêtent ou démarrent le simulateur choisi. Pour de vraies connexions, quittez et relancez sans --test-mode. Le simulateur C local n'exige ni démon externe ni Python.
+
+Toutes les deux secondes surviennent un chat, des mentions, des chaînes surveillées, une conversation privée et des changements de liste des membres. Les chaînes watch personnalisées alternent une par cycle de 16 secondes. /msg obtient une réponse simulée étiquetée ; JOIN/PART/NICK/WHOIS/TOPIC/AWAY ont aussi des réponses simulées. Cela ne reproduit pas toutes les règles des serveurs, l'accès aux canaux à clé, SASL ni la remise réelle.
+
+Testez le retour à la ligne, l'édition entre lignes, le redimensionnement, le collage, les avertissements/confirmations, les mentions et les listes. L'offre DCC de démonstration n'existe qu'en mémoire : examiner/refuser/annuler fonctionne, mais Send/Accept est refusé avant tout accès au fichier ou socket. Fermer un serveur secondaire ne change que l'état de l'exécution. L'écriture de configuration et de fichiers de compteurs est désactivée ; modifiez la configuration hors du programme puis relancez pour des changements durables.
+
+--check-config contrôle séparément la syntaxe et les valeurs des fichiers enregistrés. Aucun mode ne prouve le bon fonctionnement de DNS, TLS, identifiants ou de l'interopérabilité d'un bouncer réels.

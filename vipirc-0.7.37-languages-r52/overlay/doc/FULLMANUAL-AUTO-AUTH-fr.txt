@@ -1,0 +1,38 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / AUTOMATIC CONNECTION, JOIN, AND AUTHENTICATION
+English source SHA-256: f1eac619875693d1b8b4c03b26a6a90a7736048cf9d67e37619e675a887788b8
+
+CONNEXION, REJOINDRE LES SALONS ET AUTHENTIFICATION AUTOMATIQUES
+
+Chaque profil enregistré dispose de sa propre connexion automatique, de ses salons à rejoindre et de ses identifiants. Enregistrez les préférences de démarrage voulues dans Settings ou par les commandes. --server explicite sur le profil principal lance une connexion ; les profils autoconnect enregistrés démarrent séparément. --no-connect empêche tous les démarrages automatiques. /connect ou Servers > Connect lance une connexion explicite. Un nouveau profil n'hérite jamais des secrets d'un autre.
+
+Pour un compte de réseau direct, configurez :
+
+    [connection]
+    tls=true
+    auth=sasl
+    auth_user=your_registered_account
+    password_gpg_file=/home/yourname/.config/vipirc/sasl.gpg
+
+Choisissez exactement une source pour chacun des identifiants indépendants :
+
+    Compte SASL                    PASS serveur
+    password_gpg_file              server_password_gpg_file
+    password_file                  server_password_file
+    password                       server_password
+
+La source *_gpg_file est chiffrée ; *_file est un texte clair privé ; une valeur en ligne est du texte clair littéral dans la configuration. Aucune déduction d'après l'extension ni aucune source de repli. Les espaces initiaux/finaux ainsi que #, ; et = des valeurs en ligne sont préservés : n'ajoutez ni guillemets ni commentaires. Une configuration contenant des secrets en ligne doit être un fichier ordinaire appartenant à l'utilisateur, de mode 0600/0400 ; Save crée le mode 0600. Les valeurs restent dans la configuration de la session si nécessaires à la reconnexion ou à l'enregistrement.
+
+Les mots de passe en clair ou déchiffrés tiennent sur une ligne non vide, éventuellement terminée par LF/CRLF, sans octets de contrôle : 1024 octets au plus pour SASL et 503 pour PASS classique. Les deux types de fichiers doivent être ordinaires, appartenir à l'utilisateur, être en mode 0600/0400, sans liens symboliques ni composants '..' dans les chemins. Aucun mot de passe n'est accepté comme option CLI. Voir BOUNCER CONNECTIONS pour les identités et contraintes de sources des relais.
+
+Un fichier chiffré contient un seul message OpenPGP protégé en intégrité, de 65536 octets maximum. L'exécutable gpg facultatif trouvé dans PATH doit accepter les options fixes (GnuPG 2.2.20 au minimum). Il est lancé directement après la vérification TLS, sans shell, avec sortie bornée et délai de cinq secondes. Aucun fichier temporaire en clair et aucune demande de phrase secrète dans le client ; les autres sessions continuent. Un identifiant inaccessible, verrouillé, invalide, trop volumineux ou expiré arrête l'authentification.
+
+L'auxiliaire utilise --no-options, --batch, --no-tty, --pinentry-mode error et --no-autostart ; la recherche/importation des clés et dirmngr sont désactivés. Préparez ou déverrouillez la clé hors de vipirc :
+
+    gpg --output /dev/null --decrypt /absolute/password.gpg
+
+Réessayez ensuite /connect. La commande contient un chemin, pas un mot de passe. L'agent existant doit déchiffrer sans interaction ; un hôte ou une session SSH peut avoir d'autres fichiers, PATH, répertoire GnuPG et cache d'agent.
+
+--check-config valide le choix des sources et la confidentialité de la configuration sans ouvrir de secrets ni GPG. --test-mode ne lit ni ne déchiffre les identifiants ; les valeurs en ligne sont analysées mais inutilisées. Aucun des deux ne prouve la validité d'un vrai identifiant.
+
+SASL PLAIN obligatoire n'est envoyé qu'après vérification TLS et confirmation de la prise en charge du serveur. En cas d'échec, la connexion s'arrête avant la jonction automatique directe aux salons, au lieu de continuer sans authentification. Le client n'enregistre pas de comptes. La syntaxe des services de pseudonymes dépend du réseau ; l'authentification automatique directe des comptes utilise SASL. Le PASS serveur ne désigne pas un compte de pseudonyme ; l'authentification amont d'un bouncer est configurée séparément.

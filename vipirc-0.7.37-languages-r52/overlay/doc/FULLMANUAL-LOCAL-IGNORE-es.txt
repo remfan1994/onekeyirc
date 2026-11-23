@@ -1,0 +1,20 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / LOCAL IGNORE FILTERS
+English source SHA-256: 5404c975ca8193797b0ed81b5a9611149cbaa34bff67676680655f01885e9693
+
+EXACT COMMAND/CONTROL EXAMPLES (not translated):
+/ignore
+/ignore list
+/ignore MASK
+/ignore add MASK
+/unignore MASK
+/ignore remove MASK
+/ignore clear
+/ignore add NICK
+*!*@*.example
+
+Estos comandos locales funcionan incluso desconectado. Use /ignore o /ignore list para listar máscaras; /ignore MASK o /ignore add MASK para agregarlas; /unignore MASK o /ignore remove MASK para quitarlas; /ignore clear para borrarlas todas. Para apodos que se llamen literalmente list, add, remove o clear, use /ignore add NICK.
+
+Se permiten como máximo 32 máscaras de hasta 127 bytes ASCII cada una. Una máscara simple debe ser exactamente un apodo valido. Los comodines exigen el formato completo nick!user@host con tres componentes no vacíos; por ejemplo, *!*@*.example. En cada componente * coincide con cero o más bytes y ? con exactamente uno. Los demás bytes permitidos son literales; no hay clases de expresiones regulares, escapes ni expansión de shell. Nick sigue las reglas IRC de mayúsculas/minusculas; user y host ignoran distinciones ASCII de caso. Se rechazan espacios, caracteres de control y caracteres no ASCII. Para quitar una máscara se compara el patron almacenado según esas reglas, sin expandir comodines para borrar otras máscaras.
+
+Solo se filtran PRIVMSG/NOTICE entrantes originados por usuarios, antes de generar menciones o conversaciones privadas. Se exige un prefijo explicito del usuario de origen: máscaras de apodo pueden coincidir aunque falten datos de user/host, pero las completas requieren los tres campos. Los avisos puros del servidor y el estado del protocolo o miembros siguen visibles. El historial existente se conserva. Es un filtro local, no un veto en el servidor. Settings edita la misma lista y Apply surte efecto en directo. /save o Settings Save la guarda en modo normal; en --test-mode los cambios quedan en memoria. La configuración admite entradas mask= repetidas en [ignore].

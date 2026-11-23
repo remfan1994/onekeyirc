@@ -1,0 +1,13 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / MENTIONS AND WATCH STRINGS
+English source SHA-256: 7dd545c1b52064bcd746c17c664bc33816010b1a1bc6f7dfda8f6df48830ba1c
+
+ERWÄHNUNGEN UND ÜBERWACHTE ZEICHENFOLGEN
+
+Der eigene aktuelle Nickname wird automatisch überwacht. Die Zuordnung folgt der vom IRC-Server angekündigten Groß-/Kleinschreibung und den Nickname-Grenzen. Ein Namenswechsel aktualisiert diese automatische Zuordnung.
+
+    /watch add project name
+    /watch remove project name
+    /watch list
+
+Eigene Überwachungswerte sind wörtliche Teilzeichenfolgen, keine regulären Ausdrücke oder Shell-Muster. Für IRC/ASCII-Buchstaben und -Symbole gelten die dortigen Schreibungsregeln; Nicht-ASCII-Zeichen müssen exakt übereinstimmen. Bis zu 32 eigene Werte von je 127 UTF-8-Bytes werden akzeptiert. Verwenden Sie /save im Normalbetrieb, um Änderungen in der ausgewählten Konfiguration zu speichern; im Testmodus bleiben sie im Speicher. Erwähnungen unterliegen den Verlaufslimits im Arbeitsspeicher; sie sind weder dauerhaftes Benachrichtigungsarchiv noch Festplattenprotokoll. Zeitstempel zeigen den lokalen Empfang im Format YYYY-MM-DD HH:MM:SS.

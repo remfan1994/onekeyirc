@@ -1,0 +1,111 @@
+CURRENT SIGNAL POLICY (vipirc-0.7.37):
+Use signals is off by default. Ctrl-C and Ctrl-Z cancel an unfinished compose or command; they do not end or suspend the application. Enable Use signals in panel 0 (or full vipirc Interface settings) to allow the terminal to generate its normal interrupt/suspend signals. Apply takes effect immediately; Save also persists [input] use_signals=true|false. The original terminal modes are restored on exit or suspension.
+
+VERBATIM ENGLISH SOURCE REFERENCE
+Source: MANUAL.txt / CONFIGURATION
+English source SHA-256: e2956cfce20ea9e24f3a157c4edcdf403e26c851eb40004ecc77db98f83874de
+Source lines: 1452-1555
+
+CONFIGURATION
+
+vipirc --init-config --server irc.ircnow.org --channel '#ircnow'
+    vipirc --check-config
+
+Generate an editable starting point, edit it, then validate. One file
+describes one profile; --config selects the primary and adjacent
+saved-server catalog. Up to eight profiles share a process. Separate primary
+paths can form independent workspaces. The shipped examples and
+--init-config provide complete syntax.
+
+Current sections and supported fields:
+
+    [connection]
+      server, port, tls, nick, username, realname, channel, autoconnect,
+      auth, auth_user, password_file, password_gpg_file, password,
+      server_password_file, server_password_gpg_file, server_password, ca_file
+    [bouncer]
+      type=none|znc|soju, username, network, client, automatic_away=false
+    [interface]
+      user_list=true, mouse=true, hints=true, shortcut_labels=true,
+      history_lines=500
+    [input]
+      send_mode=direct|review, composer_mode=line|fullscreen,
+      command_suggestions=common|history|frequent|alphabetical|contextual,
+      use_signals=false
+    [hotkeys]
+      optional KEY=action rows; empty by default, at most 64
+    [output]
+      format=compact|full, queue_notices=true, program_messages=true,
+      persistent_logging=false
+    [session]
+      single_session=false, default_interface=ncurses|idle
+    [presence]
+      part_message=, quit_message=Client quit, background_away=true,
+      background_away_message=Detached from terminal,
+      autoaway_minutes=15, autoaway_message=Idle
+    [autocommands]
+      enabled=true, delay_seconds=15, interval_seconds=2, repeated command=
+    [mentions]
+      repeated word=literal phrase
+    [ignore]
+      repeated mask=nick!user@host
+
+This key map is a reference, not a config block to paste: each actual
+key=value occupies its own line. Defaults choose direct send, line composer,
+Common suggestions, compact output and ncurses launch. Application
+preferences belong to the primary config and apply across servers;
+connection/auth/bouncer/watch/ignore/startup lists belong to each profile.
+
+Nickname differs from IRC username; empty interactive primary nickname
+prompts with a login default. Username defaults from the account; realname
+is a descriptive USER field, not necessarily a legal name. channel is a
+comma-separated direct-profile autojoin list without spaces; empty means
+server view. Bouncers restore their own memberships.
+
+For direct SASL, auth=sasl needs auth_user and exactly one password source.
+Server PASS independently chooses one server_password source. More than one
+source per credential is an error without fallback; both paths require
+verified TLS. Bouncers require empty auth_user and derive their login; see
+BOUNCER CONNECTIONS. Inline secrets remain plaintext; file/GPG rules are
+under AUTHENTICATION.
+
+History accepts 50..5000 lines per view, default 500, with an 8 MiB
+per-server text cap that can evict sooner. Minimalist retention also has its
+global 2048-record/512 KiB caps. Booleans accept lowercase true/false,
+yes/no, 1/0. Unknown sections/keys and invalid/oversized values fail with a
+line number where applicable. Most duplicates use the last value; repeated
+watch/ignore/autocommand entries accumulate within limits.
+
+Lines beginning # or ; after whitespace are comments; there are no inline
+comments. Ordinary value edges are trimmed. No quoting, escapes,
+variable/tilde expansion or shell evaluation exists. Prefer absolute literal
+paths. Apply/Save rejects outer ASCII spaces in ordinary fields so they do
+not change on reload; interior spaces remain allowed where valid.
+
+password=, server_password= and autocommands command= preserve every byte
+after = except line endings, including spaces, =, # and ;. Do not add quotes
+or inline comments. Empty password means no source; spaces alone are
+nonempty. Password controls/newlines are invalid.
+
+/save regenerates supported settings including pending choices, replacing
+comments/formatting; keep notes separately. File edits load in a fresh
+process, not --resume. Save is disabled in test mode. Generated files are
+0600 in an owned 0700 final parent; existing config must be owned and not
+writable by others.
+Symlinks (including path components) and '..' are refused. Any nonempty
+inline password or startup-command list, even disabled, requires an owned
+regular 0600/0400 config. Writes replace one file atomically, not an entire
+workspace transaction.
+
+single_session=true prevents a second managed vipirc worker, not extra
+servers inside one worker. Presence defaults are listed above;
+autoaway_minutes=0 disables the idle timer. Automatic return clears only
+client-generated away, never a manual /away. Bouncer automatic away is
+separately off by default.
+
+Legacy [interface] keymap=original|vim and focus_style=reverse|brackets are
+accepted but ignored and omitted on Save; other values are invalid.
+The ordinary navigation and bold bracket focus remain. /keymap explains this
+compatibility behavior rather than selecting a mapping. Queue/program
+notices may be hidden independently; errors and required confirmations
+remain visible.

@@ -1,0 +1,11 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / NICKNAME COMPLETION
+English source SHA-256: 89b368bbd759571d49afe8fccb96d986865af2f76dcd6d257f18cd768bda8e98
+
+COMPLETAR ALCUNHAS
+
+Tab completa o nome IRC junto do cursor no chat. Premir Tab novamente percorre os nomes correspondentes por ordem alfabética segundo as regras de maiúsculas/minúsculas; Shift-Tab percorre-os ao contrário. A correspondência segue as regras de nomes ASCII, strict RFC1459 ou RFC1459 anunciadas pelo servidor. Não é necessária consulta à rede nem envio de mensagem. A edição normal encerra o ciclo atual.
+
+No início de um rascunho, acrescenta ': '; no fim de uma palavra posterior, acrescenta um espaço. Ao completar dentro do rascunho, a pontuação e as palavras seguintes ficam intactas. Canais e URL não são tratados como prefixos de alcunhas. Se um candidato ultrapassar o limite de bytes ou caracteres, todo o rascunho fica intacto. Se exceder o limite menor da mensagem IRC, surge o aviso habitual; completar nunca envia.
+
+Num canal usa-se a lista atual de membros; numa conversa privada, o interlocutor e o seu próprio nome. As vistas do servidor e de menções usam interlocutores conhecidos dos canais e conversas privadas desse servidor. Utilizadores de outros servidores nunca são candidatos. As alterações à lista de membros afetam a próxima conclusão, sem guardar uma lista adicional.

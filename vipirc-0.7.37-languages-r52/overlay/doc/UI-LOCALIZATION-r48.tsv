@@ -1,0 +1,36 @@
+source	category	english
+src/transfers.c	static control/state	Accept
+src/transfers.c	static control/state	Reject
+src/transfers.c	static control/state	Send...
+src/transfers.c	static control/state	Cancel transfer
+src/transfers.c	static control/state	Browse
+src/transfers.c	static control/state	Offer
+src/transfers.c	static control/state	Choose
+src/transfers.c	static control/state	Type path
+src/transfers.c	static control/state	closed server
+src/transfers.c	static control/state	to
+src/transfers.c	static control/state	from
+src/transfers.c	static control/state	offered
+src/dcc.c	static control/state	waiting for peer
+src/dcc.c	static control/state	connecting
+src/transfers.c	static control/state	sending
+src/transfers.c	static control/state	receiving
+src/transfers.c	static control/state	complete
+src/transfers.c	static control/state	rejected
+src/transfers.c	static control/state	cancelled
+src/dcc.c	static control/state	failed
+src/transfers.c	static control/state	empty
+src/transfers.c	named-field template	Transfer #{number}: {filename}
+src/transfers.c	named-field template	{state} with {nick}: {transferred}/{size} bytes.
+src/transfers.c	static control/state	Accept reviews an offer; Reject declines it; Cancel transfer stops it. Viewing help never accepts a file.
+src/transfers.c	named-field template	Edit: {field}
+src/transfer_ui_l10n.h	named-field template	{bytes} UTF-8 bytes | row {row} col {col}
+src/transfers.c	named-field template	{count} entries; {hidden} unsupported entries hidden
+src/transfers.c	named-field template	{count} bytes
+src/transfers.c	named-field template	{count} entries
+src/transfers.c	named-field template	Peer {address}
+src/transfers.c	named-field template	{direction} {nick} | {state} | {progress} | 
+src/transfers.c	named-field template	Port {port} | {nick} on {server}
+src/transfers.c	named-field template	{address}:{port} | {size} bytes | 
+src/transfers.c	named-field template	{nick} on {server}
+src/transfers.c	named-field template	Offer through {server}:{port}

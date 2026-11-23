@@ -1,0 +1,11 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / PROGRAM AND QUEUE NOTIFICATIONS, QUERY NUMBERS, AND ALIASES
+English source SHA-256: b62cd0965c386b1810fde3932890e4307baeed004c34a67b0724de33f2178937
+
+/set queue_notices off oculta los avisos rutinarios de mensajes en cola o enviados con pausas en todas las interfaces y servidores; /set queue_notices on los restablece. En la interfaz minimalista, un envío revisado expresamente omite ese aviso redundante aunque los avisos de cola estén activados. Por separado, /set program_messages off oculta los comentarios locales de baja prioridad, como borrador cancelado, entrada borrada o borrador conservado y otros avisos de éxito/cancelación. Los errores, advertencias de límites de bytes y confirmaciones de envío siguen visibles. Ambas opciones están activadas de forma predeterminada. /save output o /saveconf guarda los valores globales [output]; también aparecen en /panel Application preferences y en los ajustes gráficos Interface.
+
+/ql numera las conversaciones privadas por separado desde 1. /query 2 o /pm 2 selecciona la segunda; también puede indicar un apodo. Cerrar una conversación renumera las posteriores. Abrirla no envía mensajes. El canal 0 sigue mostrando mensajes y MOTD del servidor.
+
+Los alias exactos habituales incluyen /j, /leave, /message, /privmsg, /nickname, /names, /nicks, /conn, /disc, /unaway, /detach, /saveconfig, /configure y /preferences. Comparten validación, autocompletado y privacidad de los comandos originales. Las grafías desconocidas producen errores; el programa no adivina qué ejecutar.
+
+Los cambios de miembros, MOTD, WHOIS, invitaciones y errores frecuentes se muestran como textos legibles con información útil del servidor. Las respuestas internas de identidad y capacidades no duplican en el chat la contabilidad del protocolo. Las respuestas desconocidas mantienen el texto del servidor sin atribuir significado explicativo a un código numérico.

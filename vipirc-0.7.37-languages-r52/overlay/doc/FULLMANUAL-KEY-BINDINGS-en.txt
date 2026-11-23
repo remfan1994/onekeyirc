@@ -1,0 +1,38 @@
+VERBATIM ENGLISH SOURCE REFERENCE
+Source: MANUAL.txt / CUSTOM KEY BINDINGS
+English source SHA-256: 947b11b40b8bb1c3fa32d14bc71aac77bc4ccb1186406a303e6b96d197a6b92d
+Source lines: 782-815
+
+CUSTOM KEY BINDINGS
+
+No custom keys are assigned by default. App -> Key bindings or /bindings
+opens a table in full vipirc. Add/Edit chooses a key name and local action;
+Remove deletes a row. Apply changes memory; Save also writes the primary
+config; Escape/Cancel discards unapplied edits. Chat drafts are preserved.
+The table has its own controls, unaffected by custom bindings.
+
+In either interface, use /bindings keys and /bindings actions to list names.
+Examples to choose yourself: /bind F7 summary; /bind Alt-c command. Enter
+these as separate commands. /unbind F7 removes one; /unbind all clears the
+custom table. /save input saves changes for all server profiles. In -i mode,
+/bindings lists the table and /bind and /unbind edit it through commands.
+
+Keys: F1..F12, Ctrl-A..Z, Alt-a..z/0..9, Up, Down, Left, Right, Home, End,
+PageUp, PageDown, Insert, Delete, Backspace, Tab, Shift-Tab, Enter, Escape.
+Ctrl-H/Backspace, Ctrl-I/Tab, Ctrl-J/Ctrl-M/Enter and Ctrl-[/Escape are aliases.
+Alt letters use lowercase terminal bytes. Terminal/multiplexer interception
+and signal mappings take precedence; no signal key is reassigned.
+
+Actions: compose, command, bindings, help, manual, summary, servers, channels,
+queries, unread, mentions, transfers, settings, quickstart, next, prev,
+clearinput, cancel, background, quit. No arbitrary command or send macros.
+Restored full-mode commands require a fresh Enter to acknowledge, then a
+separate Enter after a pause to run. A closed original target blocks Run.
+Custom actions run only in main chat/command input, never in paste, password
+fields, setup, readers or confirmations. Unframed paste is still typing.
+Minimalist shortcut readers retain draft/caret; destination/editor changes
+refuse a nonempty draft. clearinput deliberately removes the current draft.
+
+The primary [hotkeys] section stores KEY=action rows, with no default rows.
+Unknown/duplicate/overflow entries reject a load atomically. Up to 64 entries
+are supported. See doc/HOTKEYS.txt for saving, terminal limits and examples.

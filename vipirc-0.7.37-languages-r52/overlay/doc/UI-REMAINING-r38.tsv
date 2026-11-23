@@ -1,0 +1,165 @@
+source	line	call	candidate_english
+src/settings.c	279	snprintf	Add ignore mask
+src/settings.c	282	snprintf	Add watch term
+src/settings.c	320	snprintf	, ignore < s->work.ignore_count ? s->work.ignores[ignore] : 
+src/settings.c	323	snprintf	, term < s->work.word_count ? s->work.words[term] : 
+src/settings.c	850	app_status	Configuration saved. Reconnect to use connection changes.
+src/settings.c	1185	snprintf	[OFFLINE] 
+src/settings.c	1185	snprintf	, s->changed ? 
+src/settings.c	1188	snprintf	(not saved)
+src/app.c	1388	app_status	OFFLINE TEST MODE stopped: %s
+src/app.c	1567	app_status	Automatic reconnect in %u seconds; /disconnect cancels it.
+src/app.c	1651	app_status	Cannot connect: %s
+src/app.c	1730	app_status	Connecting to %s:%d
+src/app.c	2007	app_status	Input exceeds %d UTF-8 bytes.
+src/app.c	2093	app_status	The outgoing queue cannot hold all %zu messages; nothing queued.
+src/app.c	2411	app_status	Automatic command %zu was not sent: %s. Remaining automatic commands cancelled.
+src/app.c	2456	app_status	Automatic command %zu was not sent: the message limit changed. Remaining automatic commands cancelled.
+src/app.c	2810	snprintf	, used ? 
+src/app.c	2851	snprintf	Credential request is not permitted in this connection state.
+src/app.c	2858	app_status	Decrypting %s with GPG.
+src/app.c	2858	app_status	server password
+src/app.c	2858	app_status	SASL password
+src/app.c	2963	app_status	Registering as %s
+src/app.c	3183	app_status	Channel list request failed: %s. Use /list to retry.
+src/app.c	3269	app_status	Channel list complete: %zu received, %zu matched, %zu cached%s.
+src/app.c	3338	snprintf	, used ? 
+src/app.c	3495	app_status	OFFLINE TEST MODE running as %s. No network or authentication.
+src/app.c	3497	app_status	Connected as %s. /help opens the manual.
+src/app.c	3526	app_status	, a->away ? 
+src/app.c	3542	app_status	Nickname%s%s %s.%s%s Use /nick another-nick.
+src/app.c	3638	app_status	Left %s; history retained. /close removes its view.
+src/app.c	4094	app_status	Closed %s%s; %zu queued message%s cancelled.%s
+src/app.c	4275	app_status	A network channel list is already in progress.
+src/app.c	4283	app_status	Network channel list requested%s; directory updates as replies arrive.
+src/app.c	4302	app_status	Usage: /list [MASK] [--min-users N] [--max-users N] [--name TEXT] [--topic TEXT] [--sort channel|users|topic] [--asc|--desc] [--limit N], /list show [--sort channel|users|topic] [--asc|--desc] [--limit N], or /list clear
+src/app.c	4397	app_status	A network channel list is already in progress.
+src/app.c	4413	app_status	Network channel list requested%s; directory updates as replies arrive.
+src/app.c	4444	app_status	Ignore list shown in the server view.%s
+src/app.c	4450	app_status	Ignore list cleared.%s
+src/app.c	4458	app_status	Usage: /ignore [list|clear|[add|remove] MASK], /unignore MASK; use a nickname or nick!user@host mask (127 bytes).
+src/app.c	4465	app_status	That ignore mask is not in the list.
+src/app.c	4473	app_status	Ignore mask removed.%s
+src/app.c	4477	app_status	That ignore mask is already present.
+src/app.c	4481	app_status	Ignore limit is %d masks; remove one before adding another.
+src/app.c	4485	app_status	Ignore mask added.%s
+src/app.c	4495	app_status	Usage: /join #channel [key] (one channel and one optional key)
+src/app.c	4524	app_status	Joining %s%s.
+src/app.c	4524	app_status	 with a supplied key
+src/app.c	4553	app_status	You are not in this channel; use /join %s.
+src/app.c	4564	app_status	A command name cannot contain a newline.
+src/app.c	4589	app_status	Usage: /%s
+src/app.c	4593	app_status	Usage: /%s
+src/app.c	4608	app_status	Usage: /%s nickname|query-number
+src/app.c	4613	app_status	Query with %s; type a message to send.
+src/app.c	4618	app_status	Usage: /channel N|#name (0 is server)
+src/app.c	4626	app_status	Usage: /close [channel-number|view-name]
+src/app.c	4628	app_status	No such channel or query view.
+src/app.c	4632	app_status	Usage: /%s
+src/app.c	4643	app_status	Usage: /users [on|off|toggle]
+src/app.c	4644	app_status	User list %s; %s
+src/app.c	4649	app_status	Usage: /views (channel list)
+src/app.c	4686	app_status	Cancelled %zu queued messages and %zu automatic commands.%s
+src/app.c	4696	app_status	OFFLINE TEST MODE: /save is disabled; configuration was not written.
+src/app.c	4706	app_status	Configuration saved to %s
+src/app.c	4713	app_status	Autoconnect %s; %s
+src/app.c	4717	app_status	Usage: /set autoconnect on|off
+src/app.c	4730	app_status	Watch text must contain 1 to 127 UTF-8 bytes.
+src/app.c	4736	app_status	That watch string already exists.
+src/app.c	4737	app_status	Watch limit is 32 strings.
+src/app.c	4739	app_status	Watch string added; %s
+src/app.c	4744	app_status	That watch string was not found.
+src/app.c	4750	app_status	Watch string removed; %s
+src/app.c	4754	app_status	Usage: /watch add|remove text, or /watch list
+src/app.c	4758	app_status	Invalid nickname (maximum 63 ASCII bytes).
+src/app.c	4762	app_status	Nickname set to %s; /connect to use it.
+src/app.c	4777	app_status	Usage: /back (or /away with no message)
+src/app.c	4788	app_status	Setting away status
+src/app.c	4809	app_status	Usage: /part [#channel] [message] (select a channel when omitting #channel)
+src/app.c	4814	app_status	PART message must be valid UTF-8 without control characters.
+src/app.c	4831	app_status	Leaving %s; history retained; %zu queued messages cancelled.%s
+src/app.c	4843	app_status	Usage: /msg nick-or-channel text
+src/app.c	4849	app_status	Choose a channel/query for /me.
+src/app.c	4850	app_status	Join this channel first.
+src/app.c	4854	app_status	Usage: /whois nick
+src/app.c	4860	app_status	Select a joined channel first.
+src/app.c	4864	app_status	Unknown command /%s; /help lists supported commands.
+src/ui.c	979	app_status	Returned to %s.
+src/ui.c	1159	app_status	Could not apply/save bindings: %s
+src/ui.c	1161	app_status	, save ? 
+src/ui.c	1271	text_at	ACTION              DESCRIPTION
+src/ui.c	1271	text_at	KEY                 ACTION
+src/ui.c	1281	snprintf	, key, action ? action->name : 
+src/ui.c	1444	app_status	Match %zu of %zu.%s
+src/ui.c	1444	app_status	 Wrapped.
+src/ui.c	1729	text_at	[OFFLINE] Servers
+src/ui.c	1805	app_status	Connecting server %zu.
+src/ui.c	1817	app_status	Server %zu disconnected. Accepted direct transfers continue.
+src/ui.c	1829	app_status	Connect server %zu before setting away status.
+src/ui.c	1832	app_status	Away change requested on server %zu; waiting for its acknowledgment.
+src/ui.c	1834	app_status	Server %zu: %s
+src/ui.c	2038	snprintf	Channel 0: Server
+src/ui.c	2253	snprintf	[source closed] 
+src/ui.c	2326	app_status	Cleared %zu mention%s across all servers.
+src/ui.c	2391	snprintf	[OFFLINE] 
+src/ui.c	2547	snprintf	[OFFLINE] 
+src/ui.c	2953	text_at	Help / Manual
+src/ui.c	2994	text_at	vipirc | ThatIAm.vip
+src/ui.c	3097	snprintf	An application of ThatIAm.vip
+src/ui.c	3098	snprintf	Website: www.thatiam.vip
+src/ui.c	3099	snprintf	Designed by remfan1994
+src/ui.c	3100	snprintf	License: Insha-Allah license agreement (IALA)
+src/ui.c	3101	snprintf	Process snapshot
+src/ui.c	3109	snprintf	CPU time: unavailable
+src/ui.c	3112	snprintf	Peak resident memory: unavailable on this platform
+src/ui.c	3115	snprintf	CPU and memory cover this process; helper processes are excluded.
+src/ui.c	3160	text_at	About vipirc
+src/ui.c	3208	text_at	Insha-Allah license agreement
+src/ui.c	3210	text_at	Resize; Esc: vipirc.
+src/ui.c	3444	snprintf	Session summary
+src/ui.c	3470	snprintf	command screen
+src/ui.c	3478	snprintf	, u->summary.action ? 
+src/ui.c	3479	snprintf	, u->summary.action ? 
+src/ui.c	3479	snprintf	Replace this snapshot with current local session state. Refresh does not request data from the network or mark conversations read. If allocation fails, the existing snapshot and scroll position are kept.
+src/ui.c	3506	snprintf	vipirc main screen
+src/ui.c	3512	snprintf	Servers screen
+src/ui.c	3517	snprintf	not configured
+src/ui.c	3518	snprintf	unavailable
+src/ui.c	3518	snprintf	disconnected
+src/ui.c	3519	snprintf	Server list
+src/ui.c	3524	snprintf	Network channel directory
+src/ui.c	3533	snprintf	, a->list.active ? 
+src/ui.c	3533	snprintf	No cached channel matches the current LIST filters.
+src/ui.c	3538	snprintf	, u->channels == 1 ? 
+src/ui.c	3538	snprintf	Queries screen
+src/ui.c	3542	snprintf	, map[row] == 0 ? 
+src/ui.c	3551	snprintf	There are no open private conversations. New opens a command input for a nickname; /query NICK opens a local conversation without sending a message.
+src/ui.c	3556	snprintf	Activity screen
+src/ui.c	3558	snprintf	Activity list
+src/ui.c	3559	snprintf	Open visits this item's source conversation. The server label distinguishes identical names on different networks. A closed query can be reopened locally; a missing channel is not silently joined. Reading help leaves the source unread.
+src/ui.c	3563	snprintf	nickname actions screen
+src/ui.c	3565	snprintf	Query opens a private conversation without sending. Whois asks the server for public nickname information. Ignore changes local filtering. Back returns to the conversation. Up/Down chooses an action; Enter activates it.
+src/ui.c	3569	snprintf	manual screen
+src/ui.c	3571	snprintf	The selected action belongs to the manual reader. Find opens its search field; Previous and Next move between matches; Return restores the originating screen. Up/Down and Page Up/Page Down scroll the document.
+src/ui.c	3573	snprintf	, u->about ? 
+src/ui.c	3573	snprintf	license screen
+src/ui.c	3575	snprintf	, u->about && u->about_action ? 
+src/ui.c	3575	snprintf	Return to the vipirc main screen. Up/Down or Page Up/Page Down scroll this document.
+src/ui.c	3628	snprintf	, help ? 
+src/ui.c	3668	text_at	Arrows: scroll/link | Enter: open | Esc: back
+src/ui.c	3668	text_at	R: refresh | /: command | Arrows: scroll/action | Esc: back
+src/ui.c	3796	snprintf	[OFFLINE] 
+src/ui.c	4600	app_status	Server 0 is the primary entry; use /disconnect 0 to stop it.
+src/ui.c	4604	app_status	Closing server %lu.
+src/ui.c	4648	snprintf	COMMAND PROMPT
+src/ui.c	4668	app_status	Command prompt reference. / searches; n/N finds related text.
+src/ui.c	4746	app_status	Usage: /set autoconnect on|off
+src/ui.c	4805	app_status	Usage: /keymap [original|vim]. Use /bindings to customize keys in chat and the command prompt.
+src/ui.c	4808	app_status	Built-in F1..F6 open categories and Tab completes nicknames. /bindings customizes keys in chat and the command prompt.
+src/ui.c	4847	app_status	User list %s.
+src/ui.c	5881	snprintf	Cannot allocate this server's interface.
+src/ui.c	5908	app_status	DCC offer from %s rejected: %s
+src/ui.c	5922	app_status	File offer from %s. Open Transfers or /dcc to review.
+src/ui.c	6162	snprintf	Cannot initialize signal handlers.
+src/ui.c	6165	snprintf	Background startup interrupted.
+src/prompt.c	508	snprintf	Commands (0 matches)

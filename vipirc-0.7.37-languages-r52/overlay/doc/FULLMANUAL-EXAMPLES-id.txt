@@ -1,0 +1,8 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / READING EXAMPLES
+English source SHA-256: 751bca637a31922e4d65e1e3fca1c3fd8a51728488978ad1f89f250aeda8bfd1
+
+CARA MEMBACA CONTOH
+
+Contoh yang diawali vipirc dijalankan di shell; /perintah dimasukkan di Command. Masukkan satu perintah setiap kali. Dalam ringkasan sintaks, kata HURUF BESAR adalah penanda yang harus diganti, [items] berarti opsional, dan | memisahkan pilihan.
+Saat Command dibuka, / sudah tersedia. Sebelum menempelkan /perintah lengkap, hapus garis miring awal itu; periksa hasilnya, lalu tekan Enter. Blok perintah yang ditempel bukan skrip: baris baru diubah menjadi spasi. Tempelan di chat/watch tetap menjadi teks percakapan.

@@ -1,0 +1,274 @@
+{
+  "review_date": "2026-11-08",
+  "baseline_releases": [
+    "vipirc 0.7.14",
+    "onekeyirc 0.1.13"
+  ],
+  "hardened_releases": [
+    "vipirc 0.7.15",
+    "onekeyirc 0.1.14"
+  ],
+  "environment": {
+    "os": "Linux x86_64",
+    "kernel": "6.18.57",
+    "compiler": "GCC 13.3.0",
+    "openssl": "3.0.13",
+    "python": "3.12.14",
+    "native_openbsd_run": false,
+    "full_ncurses_frontend_built": false,
+    "af_unix_available": false
+  },
+  "final_gates": {
+    "make_check_security": "PASS (onekeyirc)",
+    "make_check_security_detach": "PASS (onekeyirc fixture and shared boundary tests)",
+    "make_check_security_sanitize": "PASS (onekeyirc/shared; leak detection disabled)",
+    "full_make_check": "NOT COMPLETED: AF_UNIX prohibited; full vipirc also lacks curses development headers"
+  },
+  "sanitizer_environment": {
+    "ASAN_OPTIONS": "detect_leaks=0:halt_on_error=1",
+    "UBSAN_OPTIONS": "halt_on_error=1",
+    "leak_sanitizer_result": "HOST-BLOCKED, not a pass"
+  },
+  "final_production_idle": {
+    "client_cpu_seconds": 1.12,
+    "history_omission_notices": 87,
+    "persistent_log_files": 0,
+    "ping_max_ms": 5.798,
+    "ping_median_ms": 0.129,
+    "ping_replies": 180,
+    "pty_bytes_inspected": 6394755,
+    "resource_identity_verified": true,
+    "result": "PASS",
+    "seconds": 90.003,
+    "steady_baseline_fds": 4,
+    "steady_max_fds": 4,
+    "steady_peak_rss_kib": 4732,
+    "steady_rss_growth_kib": 92,
+    "terminal_controls_from_remote_data": 0,
+    "unexpected_client_sends": 0,
+    "unread_pty_seconds": 30.0,
+    "unsolicited_dcc_connections": 0,
+    "wire_records": 134752
+  },
+  "final_detach_boundary": {
+    "af_unix_used": false,
+    "background_worker_created": false,
+    "canonical_history_retained": true,
+    "editor_and_paste_do_not_detach": true,
+    "prepare_delay_ms": 507.837,
+    "prepare_error_displayed": true,
+    "pty_unread_until_prepare": true,
+    "result": "PASS"
+  },
+  "standalone_binary_sha256": "e1e32eb8fa0bfffd2006fb4ae71f813e683cc7a204cd020f84bd3d6a8efbf714",
+  "standalone_source_sha256_by_path": {
+    "src/app.c": "b2203583589fdb93616b4d59ee96b8b410a9283d6e8638fe8260fa81656f6e74",
+    "src/app.h": "6d3a17ba8a24b813a3a6334c0afe54f205c195f0bbb3ebfc5487bfa113176db1",
+    "src/autocommands.c": "b93b59a25766441bbbae21ce0418d86a8ad24cd397ad1b82693de18f03ece301",
+    "src/background.c": "09629a5da40ad8e11d42263cba7ba95f2f59f758a837e8fbed7a0141e82e88e1",
+    "src/background.h": "d594f9d1001d8b72d3da27885b8a5b39d1b3d233d81e02768ee105e47157c37f",
+    "src/client.c": "0008594cc79ba2c4642072304d90889b8965a7b417b5a9fe7b62c53582ca5621",
+    "src/client.h": "cc7f25a6dfc24f15ce01456dc87888ab770bddf643a8d8a435fe958293834b1e",
+    "src/commands.c": "9904a09e5104300ac3dd567e27d6b908b56a990faa1a08eb8fd6f9ea24eaef6f",
+    "src/commands.h": "3775dded0e3da48b4e26a9ba0b966f21180ff35f2886ae01900ee17a7d10bf45",
+    "src/config.c": "a25b8320e7fbfa894f3e39fd199f89625c1aaf2cea1b1a6ca0810eb97f3dedb4",
+    "src/config.h": "e3cec364cbc09238e56c097efcdb28a6f8a19133eb0d19bdd70410daf6be6dc0",
+    "src/credentials.c": "c8ea4976dae04e10993a00683ff2606098906449a8471193396709400c7fe50d",
+    "src/credentials.h": "a2f99f94050fb20b370dcd6167e5f1396c242374b8bef005f8e8092df2b3b94f",
+    "src/dcc.c": "7d7b83965e9e13b5bef44f946224340f4a7cf308f40309aa4f789a7bbfde6f1d",
+    "src/dcc.h": "fe3936e1ffdc197fa9c78a0dbcd34aadd31430f4e7797260205ce0d66f6e7a2f",
+    "src/dcc_commands.c": "b4c04ca392db54865fac91ba542660bf893f0939901890f0c4e4887818ff4557",
+    "src/dcc_commands.h": "ac1ed22c2e71c58bd36848f232a1c7e898f20d198c4b57683d2d8f5171535605",
+    "src/editor.c": "8e2702a6b8a8f9319c7ca14524d30b8c4febe459ebc106dc27abadf5fc59519f",
+    "src/editor.h": "91da290b4265227fe240eab5bed62fc0c6aca89531f828835de448c006282866",
+    "src/idle.c": "8a22ee920943d9ce44f9921df77c3c00fe797e4929e8115df2232e65f9b0c3a1",
+    "src/idle.h": "7dc2b66da16a81516beb7dc181ae14e71936efc1fb7a218767dd59c88457ff0f",
+    "src/idle_commands.c": "bfbdcc1fde06f952274f9be3cc7b613d1fbb242c3d2c583214b6308341844a93",
+    "src/idle_commands.h": "de2c5a0c2c0e06e50c288b40f06165aeb01224dbe23dbb120ab4ae0df9ac690a",
+    "src/idle_setup.c": "2da354dbeb99c82202ff597771fa8443f8d0ef51148df1aea1045b4f501ce6d9",
+    "src/idle_setup.h": "9350b365fea12adab3f2b818e2ef88cafd72ecfb6834746bfa26451a10d66b0d",
+    "src/main.c": "d22b77b0d68c9fef375dda3ba143d519932a3fa92df4a9f27bb46f48485ba19e",
+    "src/manual.h": "2786dc36c1ce84a4f7175c0383f000a4ae13592574f24acb5f01282f1c5d85d2",
+    "src/net.c": "87774e91d7394bd71931d28f7d6aa1e364f929b7d198c5b6f4f0563da1811603",
+    "src/net.h": "d0969e79df6e56e63c9db82d3baa7d9fb370834e498f84ac18cc5da3c964e76d",
+    "src/nicks.c": "f9b7a98706eb7ecff076be59b9d20fc1341d162df0e8e06606af195d2c13ceac",
+    "src/nicks.h": "4e1065cf8c1abe712189b7077454a534371aa4ff115ebee47009c42f1de7b27f",
+    "src/protocol.c": "7d8da00f6242884a011c8e6f230aae0fb34a4f869662cbb6777002e96b4346fc",
+    "src/protocol.h": "e9de84a45595d3d08a6da3ba4c91405a8f33425ea8d80a67477ff035689ee30a",
+    "src/sim.c": "9affd4be7588f4efb6bcc2099ca334683f331a58f47c7c580deba05d65fcf78d",
+    "src/sim.h": "9128b1cc1cf14fe69a55b6e879640cb444e28449606c09adaa81c696566cab82",
+    "src/summary.c": "712b11807b4e0e7f161abec9e69cbe6a6b60213a09b1ccad0d5c117677cd6f23",
+    "src/summary.h": "9b21e63490bf85fd45e5f4b9d318ac2d1221c530079fc9fadb2cee6707eb3eb0",
+    "src/ui.h": "3342daa28f400cf356ed550b58e6b2ba0a0c5ae08f76a392088b9411f1722922"
+  },
+  "standalone_source_map_digest": "78ec74ceefd8e4627259e9abc0451c35cbf2af46781ccbc96a230eae0215c2f6",
+  "source_map_digest_method": "SHA256 of JSON source map with sorted keys and separators comma/colon, encoded UTF-8",
+  "shared_source_file_count": 38,
+  "shared_sources_identical": true,
+  "normal_shared_and_focused_suites": [
+    {
+      "test": "test_protocol",
+      "exit_code": 0,
+      "stdout": "protocol: 91184 exact-allocation/truncation security cases passed\nprotocol: parser, limits, UTF-8, sanitizer, mentions, bounded ignore masks, splitter and 25000 randomized cases passed\n",
+      "stderr": ""
+    },
+    {
+      "test": "test_commands",
+      "exit_code": 0,
+      "stdout": "commands: 56-command catalog, five suggestion modes, context ranking, personal count reset, history deletion, bounded pagination and private history passed\n",
+      "stderr": ""
+    },
+    {
+      "test": "test_client",
+      "exit_code": 0,
+      "stdout": "personal command counts: unsaved primary ignores orphan sidecar; first successful save persists retained counts and enables saved-profile writes\npersonal command counts: unsaved-to-saved profile migration, restart, deletion, separate configuration isolation and counter-only save warning passed\nclient lifecycle: 512 reused-slot connections, 64 full eight-slot sets, 64 saved/closed profiles, 16 reloads, elapsed_ms=636; all Apps released\napplication preferences: all live/lazy profiles updated, primary-only persistence, independent startup of three saved servers, failed/offline save atomicity and current-session preservation passed\nautomatic profiles: independent private lists, clean new-server defaults and global primary-owned queue notice persistence passed\nclient default: stable selected-server restart, preserved primary preferences/credentials, no implicit connect, missing/corrupt default diagnostics, offline refusal, honest partial-save failure and explicit close reset passed\nreconnect preference: live/lazy profiles inherit opt-in without implicit connects or offline network access\nclient: lazy isolated sessions, safe defaults, per-profile save, catalog reload/errors, close transaction, stable tokens, cap and offline no-write checks passed\n",
+      "stderr": ""
+    },
+    {
+      "test": "test_editor",
+      "exit_code": 0,
+      "stdout": "editor: 471052 checks passed\n",
+      "stderr": ""
+    },
+    {
+      "test": "test_nicks",
+      "exit_code": 0,
+      "stdout": "nickname completion: bidirectional stable cycling, token boundaries, suffix/caret preservation, contexts, live roster mutation, IRC casemaps, duplicate suppression, and atomic byte/character limits passed\n",
+      "stderr": ""
+    },
+    {
+      "test": "test_idle_config",
+      "exit_code": 0,
+      "stdout": "idle config: independent paths, direct/review, line/fullscreen and compact/full defaults, native/full serialization, exact private secrets, compatible shared fields, atomic invalid-input rejection and preserved full-interface options passed\n",
+      "stderr": ""
+    },
+    {
+      "test": "test_summary",
+      "exit_code": 0,
+      "stdout": "summary: all sessions, duplicate names, channel 0, unread/mention deduplication, queues, startup state, transfers, no mutation, secret exclusion and bounded sanitized output passed\n",
+      "stderr": ""
+    },
+    {
+      "test": "test_idle_commands",
+      "exit_code": 0,
+      "stdout": "native connect: empty primary reuse, Unix/default nick, explicit nick flag, /server hostname and /query, idempotent matching session, endpoint isolation, secure transport defaults, stable numeric compatibility and test-mode no-save passed\nnative endpoint identity: pending empty hostname does not hide a live peer or turn an existing primary into a credential/history donor for a new server passed\nnative saveconf: application preferences, independent credentials, applied startup settings, stable selected default and honest partial failure without replacing unreadable profiles passed\nserver numbers: native 1..8 and panel-zero reservation, stable holes, channel-zero retention, selection/connect/disconnect/close/save routing and unchanged curses numbering passed\nmentions clear: all live servers cleared; source history/unread counts, selections and lazy profiles preserved; invalid arguments rejected\nidle commands: complete topic/catalog help, strict grammar, transactional startup settings, secret redaction/no reads, stable server/query/channel actions, global primary send mode, explicit unqueued plans, history policy and private persistence passed\n",
+      "stderr": ""
+    },
+    {
+      "test": "test_idle_setup",
+      "exit_code": 0,
+      "stdout": "idle setup: bounded cancelled drafts, four-field Quickstart, app panel 0 and stable one-based servers, global queue notices, private Save/history rollback, simulator no-write, preserved active chat/connection/late commands, masked existing and newly encrypted credentials, early path validation, absolute/private defaults, config/sidecar collision refusal, truthful partial creation, Finish-only helper, confirmation, pending cancellation, two-file publication conflict rollback, unchanged-inode cleanup, safe published-file revisit, config-save retry without re-encryption, and post-replacement-save-failure credential retention passed\n",
+      "stderr": ""
+    },
+    {
+      "test": "test_dcc",
+      "exit_code": 0,
+      "stdout": "dcc: strict parsing, offline guards, bounded offers/transfers, binary/empty round trips, safe paths, cancellation, timeouts and fragmented/invalid acknowledgements passed\n",
+      "stderr": ""
+    },
+    {
+      "test": "test_app",
+      "exit_code": 0,
+      "stdout": "program messages/logging: low-priority suppression, mandatory status visibility, private 0600 append, service-secret filtering, unsafe-mode and symlink refusal passed\nautojoin: saved pending list, unchanged automatic retry, explicit reconnect, duplicate welcome and SASL/GPG registration gate passed\nreconnect: explicit opt-in, bounded deadlines/backoff, stable reset, queue clearing, manual cancellation, fatal holds, staged settings and offline isolation passed\nnetwork LIST: structured cache, client-side user/name/topic filters, display limit, sorting, cached show re-sort/re-limit, clear, exact server mask, invalid grammar, failed-refresh preservation and queue saturation passed\nreadable IRC: hidden identity/feature bookkeeping, welcome/MOTD/WHOIS/errors, preserved unknown details, membership/invites, malformed bounds, control sanitizing and mode/auth privacy passed\nautomatic commands: registration/SASL gate, offline exclusion, timing/no catch-up, blocked/partial TLS writes, cancellation/wiping, limits, background joins and staged isolated reconnects passed\nquery/queue preferences: separate numbered/name selection, strict invalid numbers, renumbering after close, hidden success notices and visible errors/cancellation passed\napp: registration, memberships, mentions, plans, pacing, close/reclaim, TLS retries, hostile frames, SASL, offline simulation, settings, away, keyed joins, local ignores and independent connection activity passed\n",
+      "stderr": ""
+    },
+    {
+      "test": "test_security_app",
+      "exit_code": 0,
+      "stdout": "security app regressions: passed\n",
+      "stderr": ""
+    },
+    {
+      "test": "test_security_list",
+      "exit_code": 0,
+      "stdout": "LIST security: unsafe controls, invalid UTF-8, styling, safe Unicode, empty/long topics, and visible-topic filtering/sorting passed\n",
+      "stderr": ""
+    },
+    {
+      "test": "test_security_auth",
+      "exit_code": 0,
+      "stdout": "security auth: plaintext guard, split/queue atomicity, TLS, credential-log privacy and offline behavior passed\n",
+      "stderr": ""
+    },
+    {
+      "test": "test_dcc_file_identity",
+      "exit_code": 0,
+      "stdout": "dcc: substituted source inode rejected before listener creation\n",
+      "stderr": ""
+    },
+    {
+      "test": "test_config",
+      "exit_code": 0,
+      "stdout": "log paths: private descriptor-relative append, symlink ancestors/leaf refusal, exact parent mode, no directory creation, bounded suffix and nonblocking FIFO passed\nautomatic configuration: exact bounded grammar, literal secret text, UTF-8/control rejection, private disabled lists, verified TLS, atomic overlay and round trip passed\nconfig default: stable selection/order, atomic malformed/default validation, private persistence, unrelated edits preserved, removal clears selection and busy-lock failure passed\nconfig: private files, round trip, bounded ignores/catalogs, profile transactions/locks, strict parser, field-specific redacted diagnostics, injection and downgrade checks passed\n",
+      "stderr": ""
+    }
+  ],
+  "protocol_cases": {
+    "existing_randomized": 25000,
+    "added_exact_allocation_and_truncation": 91184
+  },
+  "transport_retry_classification_cases": 29,
+  "dcc_stress": {
+    "seconds": 10,
+    "parser_mutations": 200000,
+    "unique_offers": 80000,
+    "normal_completed_lifecycles": 91278,
+    "normal_verified_bytes": 317958086,
+    "sanitized_completed_lifecycles": 90648,
+    "sanitized_verified_bytes": 300170361,
+    "fd_count_returned_to_baseline": true
+  },
+  "build_mitigations_observed": [
+    "ELF PIE",
+    "GNU_RELRO",
+    "BIND_NOW",
+    "non-executable GNU_STACK",
+    "__stack_chk_fail import",
+    "fortified libc imports"
+  ],
+  "manual_parity": {
+    "onekeyirc": "generated from final --manual output",
+    "vipirc_minimalist": "generated using real shared idle_manual(stdout, vipirc) with a standalone driver",
+    "vipirc_full": "embedded manual byte-identical to doc/manual.txt via compiled data dumper"
+  },
+  "known_gaps": [
+    "Native OpenBSD build/runtime and service lifecycle not run",
+    "Full ncurses frontend not linked/run",
+    "AF_UNIX IPC/descriptor passing/peer UID end-to-end tests blocked",
+    "LeakSanitizer unsupported in host tracing arrangement",
+    "One credential ownership-switch fixture skipped only in scratch copy because host rejects chown to test UID",
+    "Full curses terminal-release backpressure remains unverified",
+    "No OS process sandbox added"
+  ],
+  "clean_source_build": {
+    "binary_sha256": "e1e32eb8fa0bfffd2006fb4ae71f813e683cc7a204cd020f84bd3d6a8efbf714",
+    "matches_final_tested_binary": true,
+    "staged_install": "PASS",
+    "focused_clean_tests": [
+      {
+        "test": "test_security_background_output",
+        "exit_code": 0,
+        "stdout": "background terminal output: blocked detach notice/cleanup, parent success, worker readiness, shared flags, and buffered-presentation discard passed\n",
+        "stderr": ""
+      },
+      {
+        "test": "test_idle_background_boundary",
+        "exit_code": 0,
+        "stdout": "idle detach: blocked-output request reaches prepare; canonical history/drafts retained and failure prioritized\n",
+        "stderr": ""
+      },
+      {
+        "test": "test_dcc_file_identity",
+        "exit_code": 0,
+        "stdout": "dcc: substituted source inode rejected before listener creation\n",
+        "stderr": ""
+      },
+      {
+        "test": "test_process_security",
+        "exit_code": 0,
+        "stdout": "onekeyirc 0.1.14\nAn application of ThatIAm.vip (www.thatiam.vip).\nDesigned by remfan1994.\nLicense: IALA (Insha-Allah License Agreement).\nSource available under the included license.\nhttps://www.thatiam.vip\nprocess security: identity and core-dump guards precede configuration reads; safe failure and information paths passed\n",
+        "stderr": "onekeyirc: set-user-ID/set-group-ID operation is not supported\nonekeyirc: set-user-ID/set-group-ID operation is not supported\nonekeyirc: cannot disable credential-bearing core dumps\nonekeyirc: cannot disable process memory dumps\nonekeyirc: intentional fixture stop before reading configuration\n"
+      }
+    ]
+  }
+}

@@ -1,0 +1,23 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / HISTORY, LOGGING AND PRIVACY
+English source SHA-256: b0c065ed46b6cbb73666075f1eee2d050a5a82160fac0ddadd98ad80d2910ee3
+
+CRONOLOGIA, REGISTRAZIONE E RISERVATEZZA
+
+Esistono diversi tipi di cronologia:
+
+    Conversazioni/menzioni conservate: memoria limitata per la visualizzazione.
+    Richiamo comandi: righe accettate in memoria, con filtraggio dei segreti.
+    Frequenza comandi: nomi canonici e conteggi in CONFIG_PATH.commands.
+    Trascrizione facoltativa: testo in chiaro nel file .log di ogni profilo salvato.
+    Riproduzione del bouncer: messaggi forniti secondo le sue regole.
+
+Detach/resume conserva la memoria della sessione attiva. /quit, --close-session, un errore di processo o un riavvio la terminano. Un nuovo processo carica configurazione e, se presenti, conteggi dei comandi, ma non importa vecchie trascrizioni come cronologia attiva né ricrea il precedente riferimento di catch-up. /clear cancella la cronologia in memoria della vista corrente senza eliminare la trascrizione su disco o ritirare un messaggio IRC.
+
+Abilitare la trascrizione con /set persistent_logging on e salvarla con /save output, oppure scegliere Settings > Interface > Persistent logging. È disattivata per impostazione predefinita, si applica a tutti i server e usa un file distinto per ogni profilo salvato. Restano valide tutte le verifiche di riservatezza di percorsi e file in CONFIGURATION.
+
+Ogni registro si arresta a 16 MiB; non esistono rotazione o cancellazione automatica. Un percorso non sicuro, un blocco occupato o un errore di scrittura disabilitano il registro del profilo interessato, con avviso, mentre la chat continua. Archiviare il vecchio file, quindi disattivare e riattivare la registrazione. La rotazione può invalidare il precedente riferimento di catch-up; inviare un nuovo messaggio idoneo prima di affidarsi al recupero durevole dopo un'assenza successiva.
+
+Sono esclusi i messaggi riconosciuti relativi a credenziali/servizi e le copie sensibili riferite a nickname attuali o passati, incluse destinazioni di servizio qualificate. Chat ordinarie, sintassi di servizi sconosciute o segreti incollati manualmente possono comunque finire nei registri; il servizio remoto potrebbe conservare una propria copia. Disabilitare la registrazione impedisce nuove voci senza cancellare le vecchie. I permessi privati non sono cifratura e non proteggono da un altro programma con lo stesso account Unix. I file ordinari su archivi lenti o di rete possono anche rallentare l'I/O del disco.
+
+Una trascrizione salvata si chiama CONFIG_PATH.log e si trova in una directory di proprietà dell'utente con modalità esatta 0700. Ogni componente del percorso deve superare i controlli contro symlink e risalite alle directory superiori. Il file aperto deve appartenere all'utente, essere regolare, avere un unico collegamento ed esattamente modalità 0600. La gestione non bloccante di file/blocchi rifiuta FIFO o registri occupati; il limite di 16 MiB vale per ogni profilo salvato.

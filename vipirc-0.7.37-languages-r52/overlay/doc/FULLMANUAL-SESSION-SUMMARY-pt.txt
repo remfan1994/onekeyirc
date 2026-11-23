@@ -1,0 +1,9 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / SESSION SUMMARY
+English source SHA-256: b2af79e132d98cb37475f734dff71c96a322570b71164c116cf5b7d8aa548be2
+
+/summary abre uma captura local de todo o cliente em execução num leitor independente com deslocação. Funciona desligado e agrupa por servidor. Inclui estado da ligação e nome, canal 0, vistas de canais em que se entrou ou de que se saiu, conversas privadas, contagens de não lidas e menções, filas de saída, comandos de arranque pendentes e transferências com estado atual. Os totais excluem a cópia do fluxo de menções para não duplicar mensagens de origem. Uma menção pode estar não lida; estes totais não são somados.
+
+Abrir ou atualizar o resumo não muda de conversa, não marca mensagens lidas, não envia pedidos de rede nem substitui o rascunho. Mostra contagens de fila sem divulgar texto de mensagens pendentes, comandos automáticos ou credenciais. É o estado atual, não uma interpretação do chat.
+
+Na interface completa, use Up/Down ou k/j, Page Up/Page Down, Home/End ou g/G. Prima r ou R, escolha Refresh pelo teclado ou clique Refresh para nova captura. Escape/Back regressa à origem. Em vipirc -i, r atualiza o leitor de resposta. Se falhar, mantém-se a captura anterior. A rede continua ativa durante a leitura. / abre Command; ao cancelar volta à captura. ? abre a ajuda do resumo e do leitor.

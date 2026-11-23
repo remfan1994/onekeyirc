@@ -1,0 +1,8 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / READING EXAMPLES
+English source SHA-256: 751bca637a31922e4d65e1e3fca1c3fd8a51728488978ad1f89f250aeda8bfd1
+
+ÖRNEKLERİ OKUMA
+
+vipirc ile başlayan örnekler kabukta çalıştırılır; /komutlar Command alanına yazılır. Her seferinde tek komut girin. Sözdizimi özetlerinde BÜYÜK HARFLİ sözcükler değiştirilecek yer tutuculardır, [items] isteğe bağlıdır ve | seçenekleri ayırır.
+Command açıldığında / zaten yazılıdır. Tam bir /komut yapıştırmadan önce baştaki bu eğik çizgiyi silin; sonucu kontrol edip Enter'a basın. Yapıştırılmış komut bloğu betik değildir: satır sonları boşluğa dönüştürülür. Chat/watch alanına yapıştırılan metin sohbet metni olarak kalır.

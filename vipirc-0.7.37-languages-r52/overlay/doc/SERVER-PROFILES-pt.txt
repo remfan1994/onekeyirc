@@ -1,0 +1,11 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / SAVED SERVER PROFILES
+English source SHA-256: ff3b21055c0b13e827ba1c38f80fbe8db59163af5b82bb486626649d1f7a61f2
+
+PERFIS DE SERVIDOR SALVOS
+
+Para o caminho principal P, o catálogo adjacente P.servers lista até sete perfis secundários no diretório privado P.d. No caminho padrão, são config.ini.servers e config.ini.d ao lado de config.ini. A sintaxe é [servers] seguida de entradas repetidas profile=ID. Nomes gerados usam server-<24 caracteres hexadecimais minúsculos>.ini. IDs manuais podem ter de 1 a 63 letras ASCII, dígitos, sublinhados, hifens ou pontos; o primeiro caractere deve ser letra ou dígito e pontos consecutivos são proibidos. Componentes de diretório ou caminhos arbitrários não servem como IDs de perfil.
+
+Servers > New não cria arquivo. O primeiro /save explícito ou Settings Save cria um perfil separado com modo 0600 no diretório de modo 0700 e o registra no catálogo. Salvamentos seguintes atualizam esse perfil de servidor. Salvar um perfil secundário nunca substitui a configuração principal. Atualizações do catálogo na inicialização usam bloqueio. Entradas inválidas do catálogo ou de perfis geram erros visíveis; perfis válidos continuam disponíveis.
+
+Close remove a referência do perfil secundário do catálogo, mas mantém seu arquivo. O perfil principal não pode ser fechado. --check-config examina o principal, o catálogo e os perfis referenciados sem conectar. Na inicialização normal, opções de conexão que não mudam o host aplicam-se ao servidor padrão lembrado; --server seleciona explicitamente o principal. --init-config e --check-config também aplicam suas substituições ao principal. --no-connect impede a conexão inicial de todos os perfis. No modo de teste, Save é desativado e Close muda apenas o estado em execução.

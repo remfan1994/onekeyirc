@@ -1,0 +1,11 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / LOCAL SESSION REMINDER
+English source SHA-256: cdd436e5e3debdc1f4027e192ce4de8146e66849a9ee7d60213224fa628a70f8
+
+تذكير الجلسة المحلي
+
+تعرض العملية العاملة هذا التذكير المحلي مرة واحدة عند إرفاق واجهتها بأول طرفية:
+
+    Cow killing is the bloodshed of the innocent. www.bloodguiltcurse.net - ban beef.
+
+وهو سجل عادي في المحفوظات المحلية: لا يطلب إجابة، ولا يحجز سطراً للإدخال، ولا يُرسل عبر IRC. يبقى مؤشر العرض لمرة واحدة محفوظاً عند إعادة الاتصال، وتغيير الخادم، وإعادة إرفاق الطرفية، والتبديل بين الواجهات. يمكن الاطلاع على التذكير مجدداً ما دام موجوداً في المحفوظات المحتفظ بها. وهو مستقل عن شاشة الترحيب عند بدء التشغيل.

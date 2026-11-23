@@ -1,0 +1,24 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / MESSAGE LENGTH AND FLOOD PREVENTION
+English source SHA-256: 74197e1e6983ce301972c3ad55db5a844ff0ae8bde4ebc998ebfe85c8ddcae1c
+
+LUNGHEZZA DEI MESSAGGI E PREVENZIONE DEL FLOOD
+
+Il limite normale di una riga IRC è di 512 byte, inclusi CR/LF, non 512 caratteri visualizzati. Un valore scalare UTF-8 occupa 1..4 byte e un glifo può combinare più valori scalari. Anche comando, destinazione e identità del mittente inoltrata occupano spazio. Per :nick!user@host PRIVMSG target :text, lo spazio utile è:
+
+    B = L - (len(nick) + len(user) + len(host)
+             + len(target) + len("PRIVMSG") + 9)
+
+Le lunghezze sono espresse in byte. L vale 512 o un LINELEN più piccolo riconosciuto. I messaggi di azione devono sottrarre anche il proprio involucro. Finché l'identità non è nota si applicano margini prudenti. Cambiare identità o destinazione può modificare B; vipirc non presume che righe più lunghe siano accettate.
+
+Nell'editor ncurses completo compare un avviso quando una riga logica raggiunge B o la bozza richiede più messaggi. Enter/Escape autorizza soltanto a proseguire la modifica, senza inviare nulla. Gli altri tasti non chiudono l'avviso ed è prevista una protezione dalle ripetizioni. L'avviso torna attivo dopo che la lunghezza scende sotto la soglia.
+
+Nell'editor minimalista, invece, al limite si bloccano ulteriori inserimenti finché Enter non autorizza esplicitamente a continuare; quel tasto Enter non invia nulla. Backspace/Delete possono accorciare il testo ed Escape annulla. /msg, /me e // sono misurati in base al contenuto realmente inviato; gli altri comandi locali non pertinenti no. Il testo incollato rimane integro entro i limiti di memoria e viene controllato dopo l'acquisizione.
+
+Il modo ncurses completo chiede una conferma separata prima di inviare una bozza da dividere in più messaggi:
+
+    This text needs N IRC messages. Send all to TARGET? [y/N]
+
+Solo y invia; Enter/n rifiuta e mantiene il testo. Nel modo minimalista compare Review: un nuovo Enter conferma, Escape torna alla modifica. Entrambi richiedono il consenso esplicito alla suddivisione anche in modalità direct. La divisione mantiene integri i valori scalari UTF-8 e produce parti non vuote; i ritorni a capo espliciti separano i messaggi, le righe vuote sono ignorate. I comandi restano su una sola riga; comporre una chat multilinea nell'editor della conversazione.
+
+I messaggi chat vengono distanziati di almeno 1.2 secondi attraverso una coda di 64 messaggi. /cancel rimuove i messaggi non ancora inviati ma non può richiamare quelli in transito o già consegnati. I controlli del protocollo, come PONG, sono separati. Una rete può imporre limiti più stretti o rifiutare un testo; l'accettazione o l'eco locale non dimostrano l'avvenuta consegna remota.

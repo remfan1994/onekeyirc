@@ -1,0 +1,11 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / TLS AND CUSTOM TRUST
+English source SHA-256: b1882bb7f49f2bb4bad68591a7b150c2f131435de0d93aefb2c35386db894309
+
+TLS UND BENUTZERDEFINIERTE VERTRAUENSSTELLEN
+
+Verifiziertes TLS prüft den angeforderten Hostnamen oder die numerische Adresse sowie die Zertifikatskette. Eine Umgehung oder ein stiller Rückfall auf Klartext existiert nicht; die Portnummer allein schaltet TLS nie ab. Verwenden Sie den genauen Endpunkt des Anbieters. --ca-file FILE oder [connection] ca_file=FILE wählt PEM-Zertifizierungsstellen statt des Standard-Vertrauensspeichers der TLS-Bibliothek; das ist benutzerdefiniertes Vertrauen, kein Pinning des Endzertifikats.
+
+Eine eigene CA-Sammlung muss eine nichtleere reguläre Datei mit <=16 MiB sein. Gewöhnliche Symlinks auf reguläre CA-Dateien sind zulässig, anders als bei Konfigurations- oder Zugangsdatenpfaden. Der Lader öffnet einmal mit nichtblockierenden Flags, liest von einem festen Dateideskriptor innerhalb der Größenbegrenzung und weist erkannte Größenänderungen zurück. FIFO, Geräte und nichtreguläre Quellen sind unzulässig. Der speicherbegrenzte PEM-Parser bewahrt unterstützte Zertifikats-Vertrauensmetadaten/CRLs und fordert kein Passwort an.
+
+Diese Prüfungen begrenzen nicht die E/A-Latenz regulärer Dateien oder Netzwerkdateisysteme. Verwenden Sie geeigneten vertrauenswürdigen Speicher. --check-config prüft weder das Laden der CA noch den TLS-Handshake; die Offline-Simulation nutzt TLS nicht. Klären Sie Zertifikatsfehler, bevor Sie Vertrauensstellen ändern; Klartext-Zugangsdaten werden abgewiesen. TLS schützt diese Verbindung, nicht den Chat Ende-zu-Ende oder die Upstream-Verbindung des Bouncers. DCC bleibt unverschlüsselt.

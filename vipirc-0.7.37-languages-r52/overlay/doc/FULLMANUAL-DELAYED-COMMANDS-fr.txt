@@ -1,0 +1,20 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / DELAYED STARTUP COMMANDS
+English source SHA-256: dfb1220936318c5cfbdf407d869067d3a84de7968c73aa4be34594630d3ee9e1
+
+EXACT COMMAND/CONTROL EXAMPLES (not translated):
+/autocommands [list|add COMMAND|remove NUMBER|clear|on|off]
+/autocommands delay SECONDS       0..300
+/autocommands interval SECONDS    2..60
+/autocommands add /msg ChanServ OP #room mynick
+/save
+
+Chaque profil peut exécuter jusqu'à 16 commandes littérales après la réussite de l'enregistrement et du SASL obligatoire. Le délai initial est de 15 secondes par défaut, puis au moins 2 secondes séparent deux commandes terminées. Une connexion bloquée ne provoque pas une rafale de commandes de rattrapage.
+
+Gérez avec /autocommands [list|add COMMAND|remove NUMBER|clear|on|off], /autocommands delay SECONDS (0..300), /autocommands interval SECONDS (2..60), puis /save pour enregistrer. Exemple : /autocommands add /msg ChanServ OP #room mynick.
+
+Sont acceptés /msg, /join, /nick, /away, /back, /whois et leurs alias exacts documentés. Chaque commande ne dépasse pas 511 octets UTF-8 et doit tenir sur une ligne IRC ; aucune division silencieuse, shell, IRC brut, boucle ni substitution de la conversation courante. /join prend un canal et une clé temporaire facultative. Les listes masquent les messages et clés ; l'exécution n'ajoute ni historique de commandes, ni écho local, ni conversation privée. Les réponses arrivent normalement ; les jonctions automatiques ne changent pas le chat choisi.
+
+Les modifications prennent effet à la connexion suivante. /cancel arrête les commandes restantes et les messages en file sans retirer les octets envoyés ou en cours d'envoi. Fermer/quitter une destination annule la suite qui la vise. Un échec annule les commandes suivantes et indique leur position sans texte secret. Une reconnexion commence une nouvelle séquence ; les profils bouncer exécutent aussi leurs commandes explicites de démarrage. Le mode hors ligne n'en exécute aucune.
+
+[autocommands] comporte enabled, delay_seconds, interval_seconds et des lignes command= répétées. Les octets après = sont littéraux, y compris espaces, #, ; et =. Toute liste non vide, même désactivée, exige un fichier de configuration ordinaire appartenant à l'utilisateur, de mode 0600/0400 ; une liste activée non vide exige TLS vérifié. Les nouveaux profils commencent vides ; un changement de destination efface une liste héritée restée inchangée. Enregistrez en connaissance de cause : le stockage GPG des identifiants ne chiffre pas ces commandes de configuration.

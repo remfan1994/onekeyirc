@@ -1,0 +1,58 @@
+GESTIONE DELLE SESSIONI E FUNZIONAMENTO IN BACKGROUND - vipirc 0.7.36
+Traduzione integrale delle sezioni di MANUAL.txt da RUNNING IN THE BACKGROUND a UPGRADING A RUNNING WORKER.
+Stato: bozza; in caso di discrepanze fa fede MANUAL.txt in inglese.
+
+ESECUZIONE IN BACKGROUND
+
+/background oppure F1 > Background mantiene attive le connessioni IRC, i trasferimenti accettati, le bozze e la cronologia in memoria, ripristinando il terminale. Mostra il comando numerato per riprendere la sessione, ad esempio vipirc --resume 1. Il primo distacco crea un processo di lavoro e un endpoint privato; i successivi conservano numero, stato ed endpoint. Nel normale funzionamento in primo piano non esistono né tale endpoint né un processo ausiliario aggiuntivo.
+
+Alla ripresa vengono rilevate di nuovo capacità, dimensioni e impostazioni locali del terminale sullo stesso host e con lo stesso account Unix. stdin/stdout/stderr devono condividere un unico tty interattivo. Un controller in primo piano gestisce segnali e ridimensionamenti; può essere collegato un solo terminale alla volta. SESSION RECOVERY AND UPGRADES spiega come scegliere il lavoro e come gestire i collegamenti occupati.
+
+Per l'avvio senza supervisione, salvare prima i profili che devono connettersi automaticamente, quindi eseguire vipirc --background --reconnect --config /absolute/config.ini. --background non abilita la connessione automatica e --no-connect la impedisce. Il successo conferma soltanto la preparazione locale. tty e TERM non sono necessari finché non si collega un terminale. L'endpoint viene preparato prima degli ausiliari DNS e delle credenziali. --resume senza opzioni di interfaccia mantiene quella del processo; -i/-N la cambia esplicitamente senza riconnettersi né sostituire il processo di lavoro. Il cambio conserva la cronologia delle conversazioni e i trasferimenti accettati, ma perde bozze, conferme d'invio in sospeso, cronologia dei comandi e moduli non applicati. Completare o copiare le bozze prima del cambio. Distacco e ripresa con la stessa interfaccia preservano questo stato locale. I processi meno recenti potrebbero supportare soltanto l'interfaccia originale.
+
+I segnali configurati del terminale conservano il loro ruolo. Sospendere un controller ripreso mette in pausa il controller, mentre il processo di lavoro continua a usare la rete; fg ripristina l'interazione. Sospendere un processo normale in primo piano interrompe invece la sua attività di rete. Vedere TERMINAL SIGNALS per le assegnazioni ereditate e SESSION RECOVERY per la perdita del terminale.
+
+Al primo distacco potrebbe essere necessario riprovare mentre terminano gli ausiliari DNS o delle credenziali. SIGCHLD ignorato o il recupero automatico dei processi figli impediscono il primo avvio in background e la creazione degli ausiliari: il programma che avvia il client deve lasciare i figli in uno stato in cui possano essere attesi. Un nuovo distacco di un lavoro già gestito non crea altri processi.
+
+Directory e socket sono privati del proprietario. La ricerca controlla al massimo 64 posizioni entro un'unica scadenza di 1500 ms e rimuove soltanto voci obsolete verificate prive di un blocco di durata ancora attivo. Non invia segnali a PID indovinati. I lavori che non rispondono restano non verificati. I controlli di identità e istanza impediscono che un numero riutilizzato reindirizzi il collegamento durante il passaggio. Un altro processo con gli stessi privilegi dell'account resta considerato attendibile. single_session=true rifiuta un secondo processo di lavoro nello spazio dei nomi vipirc senza limitare i server al suo interno.
+
+Lo stato del processo non viene serializzato: riavvio, uscita o terminazione eliminano bozze, riferimenti di recupero e cronologia in memoria. I registri facoltativi salvano soltanto la trascrizione. La modalità di prova può operare in background usando l'endpoint locale senza abilitare la rete IRC/DCC. Non serve un multiplexer di terminale.
+
+RIPRISTINO DELLE SESSIONI E AGGIORNAMENTI
+
+Un lavoro della shell corrisponde a un processo di lavoro del client con tutte le sue connessioni IRC, i trasferimenti, le bozze e la cronologia conservata. Il suo ID è distinto sia dal PID del sistema operativo sia dal numero del server mostrato nel client.
+
+Per recuperare un lavoro il cui vecchio terminale SSH è ancora collegato:
+
+    vipirc --sessions
+    vipirc --detach-session 1
+    vipirc --resume 1
+
+Scegliere NUMBER dall'elenco corrente. --detach-session rilascia il controller verificato, attende che sia scollegato e mantiene vivi il processo e lo stato IRC. --resume senza numero seleziona soltanto l'unico lavoro scollegato e verificato; candidati multipli o non verificati richiedono una scelta esplicita. Non sottrae mai il controllo a un terminale ancora collegato. I numeri dei lavori restano stabili fino all'uscita, poi possono essere riutilizzati.
+
+CHIUDERE UNA SESSIONE DALLA SHELL
+
+Usare soltanto quando si desidera terminare l'intero lavoro:
+
+    vipirc --sessions
+    vipirc --close-session 1
+
+La chiusura interrompe tutte le connessioni IRC e i trasferimenti del processo, scartando le bozze non salvate e la cronologia in memoria. La configurazione salvata e i file di log in chiaro già esistenti rimangono. Sono accettati anche --close-session=1 e --detach-session=1. Questi comandi di gestione non richiedono un terminale interattivo e non caricano la configurazione. Non combinarli con --resume, --sessions, tra loro, con --config o con opzioni di connessione. Le opzioni di interfaccia supportate possono restare in un alias senza cambiare il lavoro scelto.
+
+Il client usa l'endpoint privato del proprietario, controlli sulla proprietà del peer e il token d'identità del processo selezionato. Il successo conferma che sono stati completati la pulizia dell'applicazione e il rilascio del blocco originale del lavoro, non soltanto l'accettazione della richiesta né un'osservazione indipendente dell'uscita del processo del sistema operativo. Le richieste hanno una scadenza limitata. Errore o scadenza non rimuovono l'endpoint di un processo vivo e non inviano segnali a un PID ipotizzato. Una richiesta accettata prima della scadenza può completarsi in seguito; ricontrollare --sessions.
+
+Un processo bloccato nella scrittura su un terminale aperto, ma mai letto, può non raggiungere il controllo dei comandi finché l'output non si libera o il terminale non si chiude. Un processo completamente bloccato potrebbe richiedere un intervento del sistema operativo dopo aver identificato quello reale. Uno stato di chiusura diverso da zero indica che il completamento non è stato confermato.
+
+RIPRISTINO DOPO LA DISCONNESSIONE SSH
+
+La perdita del terminale o del controller in un lavoro già gestito scollega il processo di lavoro. Eventi di hangup/errore, stdin EOF/EIO, errore di stdout, EOF del controller e SIGHUP preservano connessioni e stato. Nella modalità completa, la pulizia dopo la perdita del terminale o una chiusura esterna reindirizza l'output obsoleto del processo prima di ripulire curses; il controller in primo piano ripristina il proprio tty.
+
+Un normale processo in primo piano che non è mai stato gestito conserva il comportamento usuale di terminazione con SIGHUP. Avviare con --background o usare prima /background quando è necessario poter riprendere la sessione. Il client non cambia i timeout di inattività di SSH. Il disegno sincrono del terminale può ancora bloccarsi se il terminale resta aperto ma non viene più letto.
+
+AGGIORNARE UN PROCESSO DI LAVORO IN ESECUZIONE
+
+Installare o ricompilare non sostituisce il codice di un processo già in esecuzione. Salvare la configurazione desiderata, uscire o chiudere deliberatamente il lavoro, verificare la versione installata con --version e avviare un nuovo lavoro. Vale anche per gli aggiornamenti di sicurezza. I registri rimangono; bozze, cronologia dei comandi e riferimenti per recuperare messaggi no.
+
+Un processo meno recente potrebbe non avere i controlli di distacco/chiusura o il cambio d'interfaccia. Conservare il suo eseguibile compatibile finché serve per collegarsi e uscire tramite i controlli disponibili. Una vecchia operazione fallita non viene mai dichiarata riuscita soltanto perché un endpoint è scomparso. I file di configurazione esistenti rimangono utilizzabili dalla versione corrente; un eseguibile precedente può rifiutare chiavi salvate esplicitamente da una versione successiva.
+
+Vedere doc/SESSION-CONTROLS.txt per la stessa procedura e doc/OPENBSD-VPS.txt per l'installazione senza supervisione sull'host. Installare questo archivio sorgente non interrompe né distribuisce automaticamente nulla su un host remoto.

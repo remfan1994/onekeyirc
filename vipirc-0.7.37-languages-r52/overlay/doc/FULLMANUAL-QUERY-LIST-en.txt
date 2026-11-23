@@ -1,0 +1,21 @@
+VERBATIM ENGLISH SOURCE REFERENCE
+Source: MANUAL.txt / QUERY LIST
+English source SHA-256: 50d842376967fbb5836870d2c2a91cdda08d55297314accffeb37b598776d8c1
+
+QUERY LIST
+
+F4 or /ql (/queries) lists only this server's private conversations,
+numbered from 1 independently of channels. Actions use the common list
+controls:
+
+    Open    New    Close    Back
+
+New opens Command with /pm prepared; in an empty list, Open on New query...
+does the same. c closes, o/n opens New. Close confirms a nonempty draft,
+default No. /pm NICK|NUMBER or /query NICK|NUMBER opens/selects without
+sending, even disconnected. /msg NICK TEXT sends explicitly; /close NICK
+closes by name.
+
+Escape from a query opens Queries with that query selected, however it was
+opened; Escape/Back from the list restores it and its draft. The query name
+stays in the conversation row rather than replacing a header category.

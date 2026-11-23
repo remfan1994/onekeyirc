@@ -1,0 +1,68 @@
+vipirc / onekeyirc: first-use help (pt)
+============================================
+
+DRAFT TRANSLATIONS - complete excerpts of three interactive help topics.
+Command names and option tokens are entered literally.
+For authoritative security details, read the English SECURITY.md and MANUAL.txt.
+
+/help startup
+-------------
+Execute o programa, feche a tela de boas-vindas e digite /connect irc.example.org e /join #channel.
+
+Não é preciso criar perfil de servidor, alias ou número antes. /server HOST é um alias para conexão direta.
+
+Sem apelido informado, usa-se um login válido do sistema ou, se inadequado, user. Não há pergunta de apelido.
+
+Use /saveconf para salvar a configuração e o padrão selecionado. Na próxima execução, /connect os reutiliza.
+
+Salvar não ativa a conexão automática; ela é uma escolha separada. /quickstart e /panel são guias opcionais.
+
+Também valem opções do shell: --server HOST, --channel '#CHANNEL' e --nick NICK. Coloque #CHANNEL entre aspas no shell.
+
+Na inicialização normal, --nick, --port, --channel, --tls, --plain e --ca-file substituem o padrão salvo.
+
+Um --server explícito seleciona a primeira conexão. --init-config e --check-config usam o arquivo principal de configuração.
+
+Mudar --server para outro host elimina credenciais antigas, CA personalizada, identidade do bouncer, canais e comandos iniciais.
+
+Se o padrão salvo não estiver disponível, informe --server ou corrija o padrão antes de substituir opções de conexão.
+
+Autoconnect, autojoin e autoauth pertencem a cada perfil de servidor salvo. Consulte /help autoconnect para ativá-los.
+
+--no-connect impede conexões na inicialização; --test-mode simula atividade sem rede ou gravação de configuração.
+
+--sessions lista tarefas com terminal anexado ou solto. --resume [NUMBER] reconecta o terminal; veja /help background.
+
+--close-session NUMBER encerra a tarefa inteira e todas as suas conexões IRC após confirmar o encerramento. NUMBER é ID da tarefa, não PID.
+
+Depois de perder o terminal, use --sessions, --detach-session NUMBER e --resume NUMBER. O processo mantém o código antigo até reiniciar; veja /help sessions.
+
+-h/--help e -v/--version funcionam sem terminal.
+
+/help messages
+--------------
+Use /join #channel para entrar e selecionar um canal, ou /query NICK para abrir uma conversa privada.
+
+Selecione um canal retido com /channel. /msg TARGET TEXT envia ao destino; /me TEXT envia uma ação.
+
+/query abre uma conversa sem enviar nada; /pm é um alias. /ql mantém conversas privadas separadas dos canais.
+
+O envio direto é o padrão; /set send_mode review adiciona revisão. /set composer_mode line|fullscreen muda a apresentação.
+
+Ao atingir o limite de uma mensagem, confirme para continuar editando; dividir mensagens exige outra autorização.
+
+É preciso concluir a entrada e autenticação antes de enfileirar mensagens. /cancel cancela a fila, não o que já foi enviado.
+
+/help limits
+------------
+Os limites de IRC contam bytes, não caracteres exibidos. Um caractere UTF-8 pode ocupar vários bytes.
+
+O cliente calcula o espaço incluindo destino, comando e sobrecarga de retransmissão; nunca divide um caractere UTF-8.
+
+No limite de uma mensagem, mais texto é bloqueado até Enter confirmar que deseja continuar editando; esse Enter não envia.
+
+Uma mensagem dividida exige consentimento separado, mesmo no modo direto. O chat envia uma linha a cada 1.2 segundos.
+
+Um plano de envio comporta no máximo 64 mensagens e 16384 bytes de texto. Reduza o texto ou envie em partes deliberadamente.
+
+Há no máximo 8 espaços de servidor e 32 visualizações por servidor, incluindo as reservadas.

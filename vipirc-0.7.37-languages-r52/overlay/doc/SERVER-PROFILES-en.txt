@@ -1,0 +1,29 @@
+VERBATIM ENGLISH SOURCE REFERENCE
+Source: MANUAL.txt / SAVED SERVER PROFILES
+English source SHA-256: ff3b21055c0b13e827ba1c38f80fbe8db59163af5b82bb486626649d1f7a61f2
+
+SAVED SERVER PROFILES
+
+For primary path P, the adjacent P.servers catalog lists up to seven
+secondary profiles in the private P.d directory. For the default path, these
+are config.ini.servers and config.ini.d beside config.ini. Catalog syntax is
+[servers] followed by repeated profile=ID entries. Generated names use
+server-<24 lowercase hexadecimal characters>.ini. Manual IDs may contain 1
+through 63 ASCII letters, digits, underscores, hyphens, or dots; the first
+character must be a letter or digit, and consecutive dots are forbidden.
+Directory components and arbitrary paths are not accepted as profile IDs.
+
+Servers > New creates no file. Its first explicit /save or Settings Save
+creates a separate mode-0600 profile in the mode-0700 directory and
+registers it in the catalog. Subsequent saves update that server's profile.
+Saving a secondary never replaces the primary configuration. Startup catalog
+updates are locked. Invalid catalog/profile entries produce visible errors;
+healthy profiles remain usable.
+
+Close removes a secondary's catalog reference but keeps its profile file.
+The primary cannot be closed. --check-config checks the selected primary,
+catalog, and referenced profiles without connecting. At normal startup,
+non-host connection overrides apply to the remembered default server;
+explicit --server selects the primary. --init-config and --check-config also
+apply their overrides to the primary. --no-connect suppresses startup for
+all profiles. In test mode, Save is disabled and Close changes runtime only.

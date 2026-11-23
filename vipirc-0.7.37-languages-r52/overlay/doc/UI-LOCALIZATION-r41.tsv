@@ -1,0 +1,30 @@
+source	kind	fields	english
+src/settings.c	fixed		Configuration saved. Reconnect to use connection changes.
+src/app.c	fixed		Credential request is not permitted in this connection state.
+src/app.c	fixed		Showing the cached channel directory.
+src/app.c	fixed		No completed channel directory is cached; use /list first.
+src/app.c	fixed		Usage: /join #channel [key] (one channel and one optional key)
+src/app.c	fixed		Usage: /channel N|#name (0 is server)
+src/app.c	fixed		Usage: /close [channel-number|view-name]
+src/app.c	fixed		Usage: /users [on|off|toggle]
+src/app.c	fixed		Usage: /views (channel list)
+src/app.c	fixed		Usage: /set autoconnect on|off
+src/app.c	fixed		Usage: /watch add|remove text, or /watch list
+src/app.c	fixed		Usage: /back (or /away with no message)
+src/app.c	fixed		Usage: /part [#channel] [message] (select a channel when omitting #channel)
+src/app.c	fixed		Usage: /msg nick-or-channel text
+src/app.c	fixed		Usage: /whois nick
+src/app.c	fixed		Setting away status; waiting for server confirmation.
+src/app.c	fixed		Clearing away status; waiting for server confirmation.
+src/app.c	named-fields	nick	Query with {nick}; type a message to send.
+src/app.c	named-fields	path	Configuration saved to {path}
+src/app.c	named-fields	nick	Nickname set to {nick}; /connect to use it.
+src/ui.c	fixed		Server 0 is the primary entry; use /disconnect 0 to stop it.
+src/ui.c	fixed		Replace this snapshot with current local session state. Refresh does not request data from the network or mark conversations read. If allocation fails, the existing snapshot and scroll position are kept.
+src/ui.c	fixed		Return to the vipirc main screen. Up/Down or Page Up/Page Down scroll this document.
+src/ui.c	fixed		Arrows: scroll/link | Enter: open | Esc: back
+src/ui.c	fixed		R: refresh | /: command | Arrows: scroll/action | Esc: back
+src/ui.c	fixed		Open visits this item's source conversation. The server label distinguishes identical names on different networks. A closed query can be reopened locally; a missing channel is not silently joined. Reading help leaves the source unread.
+src/ui.c	fixed		Query opens a private conversation without sending. Whois asks the server for public nickname information. Ignore changes local filtering. Back returns to the conversation. Up/Down chooses an action; Enter activates it.
+src/ui.c	fixed		Usage: /keymap [original|vim]. Use /bindings to customize keys in chat and the command prompt.
+src/ui.c	fixed		Built-in F1..F6 open categories and Tab completes nicknames. /bindings customizes keys in chat and the command prompt.

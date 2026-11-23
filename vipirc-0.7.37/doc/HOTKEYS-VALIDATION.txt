@@ -1,0 +1,184 @@
+USER-DEFINED HOTKEYS: IMPLEMENTATION AND VALIDATION
+onekeyirc 0.1.31 and vipirc 0.7.32
+2026-11-16 (America/Los_Angeles)
+
+RESULT
+
+The preceding releases had fixed keyboard controls, with no saved user
+binding table. These source releases add user-defined bindings to both
+clients. No custom bindings are installed by default. The user's existing
+ordinary editor/navigation controls remain until explicitly overridden in
+an eligible screen.
+
+This is a focused feature implementation and review, building on the prior
+security/documentation releases. It is not a new claim of universal security
+or proof that the clients cannot be compromised.
+
+USER CONTROLS
+
+In full ncurses vipirc, App -> Key bindings or /bindings opens the table.
+It has Key and Action columns, with a:Add, Enter/e:Edit, d/Delete:Remove,
+p:Apply, s:Save and Escape:Back. Add/Edit asks for the key name and presents
+an action chooser. Escape backs out of the chooser/field; from the table it
+discards unapplied edits. Applied or saved choices remain in effect.
+
+In either client, the in-program command prompt supports:
+
+    /bindings
+    /bindings keys
+    /bindings actions
+    /bind F7 summary
+    /bind Alt-c command
+    /unbind F7
+    /unbind all
+    /save input
+
+The sample assignments above are examples, not defaults. /bind replaces
+an existing assignment for that key; /unbind removes it. Changes apply
+immediately across server profiles. /save input explicitly persists them in
+the primary configuration. Plain /save still targets the selected profile.
+
+The optional [hotkeys] config section has KEY=action rows, up to 64.
+An empty or omitted section means no custom bindings. Full and minimalist
+formats share the same names. Separate programs have separate primary files.
+
+Supported keys are F1..F12; Ctrl-A..Ctrl-Z; Alt-a..Alt-z and Alt-0..Alt-9;
+and Up, Down, Left, Right, Home, End, PageUp, PageDown, Insert, Delete,
+Backspace, Tab, Shift-Tab, Enter and Escape. Terminal aliases normalize to
+one identity: Ctrl-H/Backspace, Ctrl-I/Tab, Ctrl-J/Ctrl-M/Enter, Ctrl-[/Escape.
+Alt letters use lowercase unshifted terminal bytes. Ordinary printable keys
+remain text; arbitrary escape strings and multi-key chords are not supported.
+
+The 20 actions are compose, command, bindings, help, manual, summary,
+servers, channels, queries, unread, mentions, transfers, settings, quickstart,
+next, prev, clearinput, cancel, background and quit. The last two retain
+their normal effects; a full-interface quit shortcut opens confirmation.
+There is no send action, shell expansion, raw IRC or arbitrary command macro.
+
+SAFETY AND STABILITY DECISIONS
+
+Custom dispatch belongs only to main chat and command entry. Paste, readers,
+password/setup fields, transfer forms and confirmation screens keep their
+own controls. Bracketed-paste content and terminator-adjacent shortcuts cannot
+run an action. Unframed paste remains indistinguishable from typing, and the
+existing opening-Escape timing limitation remains documented.
+
+Bindings never assign terminal signal characters or change ISIG. Ctrl-C/Z
+can act as a binding only if that byte reaches the program rather than being
+consumed by terminal signal handling. Ctrl-D remains inert by default; an
+explicit binding may use it in eligible chat/command input. It is still inert
+in welcome, paste and modal input. force_terminal_signals remains off by
+default and keeps its previous inherited/opt-in meaning.
+
+Shortcut response readers preserve exact drafts and carets. Minimalist
+shortcuts refuse a nonempty draft when an action would change its target or
+replace its editor. Full vipirc retains per-conversation drafts and parks a
+command while opening a shortcut page. Restoring that command selects its
+original stable buffer identity; a closed original view blocks execution.
+
+Buffered tails and held keys cannot cascade from a custom action into a
+send or confirmation. A returned minimalist editor must be fully visible
+and receive fresh Enter after a settling interval. Full-mode restored
+commands require one fresh Enter to acknowledge and a later Enter to run.
+Tiny/resize-only frames do not grant display credit. The same return guard
+covers custom context help. Overridden F-key labels are suppressed in the
+contexts where the displayed old mapping would be incorrect.
+
+The parser rejects duplicate normalized keys, unknown actions, control/text
+injection, excess arguments and overflow atomically. API edits validate the
+existing table before mutation. Saves use the existing private atomic writer.
+The primary owner propagates bindings to loaded, lazy, live and new profiles.
+Binding edits preserve staged connection/authentication fields and other
+preferences. The ncurses table stores only binding rows while editing; it
+reads a fresh effective primary config at Apply/Save and wipes that copy.
+
+REVIEW FINDINGS RESOLVED
+
+The review found and fixed draft retargeting on shortcut-driven navigation,
+buffered/repeated Enter after page return, the special HELP return path,
+display credit on undersized terminals, and obsolete category shortcut labels.
+The native/state-only test helper was also aligned with the actual redraw
+timing. No unresolved production defect was identified in the final focused
+source review. That statement is limited to the reviewed feature and checks.
+
+CHECKS COMPLETED
+
+- Normal configured onekeyirc build and strict compiler checks.
+- True vipirc main/core/minimalist build, with aborting replacements only for
+  unavailable ncurses entry points. This is a vipirc -i test harness.
+- Config grammar and real config/client/app/command tests, normally and with
+  AddressSanitizer/UndefinedBehaviorSanitizer, covering no defaults, all key
+  families and actions, aliases, capacity, duplicate rejection, replacement,
+  removal, private roundtrip, failed loads/saves, primary ownership, pending
+  settings, stale secondary profiles and offline no-write behavior.
+- Minimalist state-machine tests, normally and with ASan/UBSan.
+- Five new actual PTY cases per client, normally and with ASan/UBSan:
+  10 normal and 10 sanitized cases. They cover runtime editing, fragmented
+  keys, exact retained drafts/carets, same-read action/Enter and reader-return
+  input, paste/modal isolation, terminal restoration and no implicit saves.
+- Eight full-interface state test groups, normally and with ASan/UBSan,
+  covering the table, all actions, decoder, modal/paste scope, draft identity,
+  closed targets, batch/repeat guards, context help and label behavior.
+- Existing context tests for both minimalist frontends and focused existing
+  editor/reader/paste, signal, ASCII, Ctrl-D and fragmented-key regressions.
+- Twelve focused existing/new unit executables, including config, commands,
+  client profiles, setup, editor, protocol and catch-up behavior.
+- Eleven additional PTY cases for default controls, no-target escapes,
+  undersized review, resize, large drafts, live-tail layouts, send limits,
+  command destinations, scrollback and slow-terminal PING/backpressure.
+- Generated-manual synchronization, current examples, documentation links,
+  ASCII/whitespace checks, man-page structure and stale-output detection.
+  The final embedded full manual retains all 2030 lines within its 2048-line
+  Help-buffer limit, including the first and last lines.
+
+The new hotkey unit target is make check-hotkeys. The actual minimalist PTY
+target is make check-hotkeys-terminal. The full native UI test is included
+in the full project's check-hotkeys target for a configured curses host.
+
+BUILD AND ENVIRONMENT LIMITS
+
+The host has runtime curses libraries but lacks wide-curses development
+headers. Full native vipirc configure therefore cannot complete here. The
+full UI tests compile production state logic with a private non-ABI curses
+declaration fixture and an aborting renderer. They do not validate native
+curses ABI, rendering, physical key delivery, or a complete ncurses build.
+These private declarations and harness binaries are not shipped.
+
+LeakSanitizer encounters a host ptrace limitation. Recorded final ASan/UBSan
+runs use detect_leaks=0; no leak-sanitizer success is claimed. Native OpenBSD,
+LibreSSL, live IRCNow/bouncer service interoperability and long-running soak
+tests were not repeated for this feature. No production accounts, credentials
+or running IRC sessions were used by the checks. Private loopback fixtures
+and disposable profiles were used where network/config behavior was needed.
+
+Final full-manual wording changed after the paired sanitizer PTY runs.
+Their original hashes are retained in HOTKEYS-RESULTS.json. The only changed
+compiled file from those receipts is generated full-manual text; final normal
+build, capacity and documentation checks cover that text. Hotkey runtime
+sources match the recorded terminal tests. All 38 shared production C/H
+files are byte-identical between the two clients.
+
+PACKAGING AND USE
+
+The source packages include updated README, INSTALL, top-level MANUAL,
+security/developer guides, examples, installed manuals, in-program help,
+doc/HOTKEYS.txt, regression sources and this validation record. Earlier
+reports remain historical evidence for their named releases.
+
+Rebuild/install the new source and start a fresh session to use this feature.
+An already running worker retains the program and bindings it started with.
+Changing a config file then resuming that worker does not reload the table.
+
+The new writer emits [hotkeys] even when empty. Older releases reject that
+section. Restore a compatible backup or remove the entire section and its
+rows before downgrading, then validate with the older binary. An inconvenient
+Enter/Escape binding can be removed in the full table or by editing the
+primary file and starting a new process; documented session controls remain
+available from the shell to manage an existing worker.
+
+Clean-source package checks passed: strict onekeyirc configure/build,
+make check-hotkeys, generated docs, private install/uninstall, source hashes,
+and full-project documentation install recipes. Packaging permits only the
+previous manifest's source files plus explicit feature additions. Archives
+contain regular source members, not build binaries or private test shims.
+Each archive is checked byte-for-byte against its staged manifest.

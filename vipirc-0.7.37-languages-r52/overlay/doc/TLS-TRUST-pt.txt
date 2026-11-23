@@ -1,0 +1,11 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / TLS AND CUSTOM TRUST
+English source SHA-256: b1882bb7f49f2bb4bad68591a7b150c2f131435de0d93aefb2c35386db894309
+
+TLS E CONFIANÇA PERSONALIZADA
+
+O TLS verificado confere o nome de host ou endereço numérico solicitado e a cadeia de certificados. Não existe desvio de verificação nem retorno silencioso a texto sem criptografia; o número da porta, por si só, nunca desativa TLS. Use o endpoint exato do provedor. --ca-file FILE ou [connection] ca_file=FILE seleciona autoridades PEM em vez da loja de confiança padrão da biblioteca TLS; isso é confiança personalizada, não fixação do certificado final.
+
+Um pacote de CA personalizado deve ser um arquivo regular, não vazio, de tamanho <=16 MiB. Symlinks comuns para arquivos CA regulares são permitidos, diferentemente dos caminhos de configuração/credenciais. O carregador abre uma vez com sinalizadores não bloqueantes, lê por um descritor fixado dentro do limite de tamanho e rejeita alterações detectadas de tamanho. FIFO, dispositivos e entradas não regulares são rejeitados. O analisador PEM com memória limitada preserva metadados de confiança de certificados/CRL suportados e não pode pedir senha.
+
+Essas verificações não limitam a latência de E/S de arquivos regulares ou sistemas de arquivos de rede. Use armazenamento adequado e confiável. --check-config não testa carregamento de CA ou negociação TLS, e a simulação offline não executa TLS. Investigue erros de certificado antes de alterar a confiança; credenciais em texto simples são recusadas. TLS protege esta conexão, não o chat de ponta a ponta nem a conexão do bouncer com o servidor upstream. DCC permanece sem criptografia.

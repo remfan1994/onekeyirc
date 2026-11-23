@@ -1,0 +1,16 @@
+ZNC, soju and playback
+Source: SECURITY.md, section "ZNC, soju and playback"
+English section SHA-256: f0e223c83f0df60aa10260168ae7433ff77fbbd2f4cef7d4914cd07da4f7ed99
+Paragraphs: 5
+Status: Translation draft; fluent-speaker security review required
+English SECURITY.md remains authoritative. This is only one section, not the full security document.
+
+I profili bouncer espliciti richiedono TLS verificato e identità account/rete, con un nome client facoltativo. ZNC usa l'origine della password server; soju richiede SASL PLAIN e un'origine della password SASL. La transazione di configurazione applica insieme endpoint, identità e credenziali, cancellando bozze obsolete quando cambiano i relativi legami. L'autenticazione IRC verso i server a monte appartiene alla configurazione del bouncer.
+
+I JOIN ripristinati dal bouncer determinano l'appartenenza ai canali; gli elenchi di canali salvati non vengono riprodotti. I comandi di avvio espliciti rimangono eccezioni deliberate. L'away automatico è disattivato per impostazione predefinita nei profili bouncer, così un dispositivo non impone il proprio stato inattivo a un altro. /away e /back rimangono azioni manuali esplicite. I controlli del worker locale non amministrano il servizio bouncer remoto.
+
+Il testo di controllo /znc e /soju rientra in un solo messaggio cadenzato ed è omesso dal richiamo, dagli echi locali e dai log permanenti. Le copie in ingresso indirizzate al servizio bouncer sono soppresse anche con nickname vecchio o riferimento batch sconosciuto. Le risposte del servizio rimangono visibili nella vista server ma non vengono archiviate. Le copie riconosciute di autenticazione privata sono escluse dalle trascrizioni indipendentemente dal nickname del mittente, dall'inquadramento del replay o dalla destinazione qualificata. Il testo visibile conservato non è un archivio di segreti. Può essere visibile durante la composizione e l'amministratore del bouncer può riceverlo e registrarlo. Non c'è segretezza verso il bouncer selezionato.
+
+I batch di cronologia riconosciuti sono solo per la visualizzazione: non possono modificare l'appartenenza o la presenza attuale, creare nuovi avvisi mentions, rispondere a CTCP o attivare offerte DCC. I confini di cronologia annidati/intercalati sono limitati a 16 batch e riferimenti di 64-byte; una struttura malformata, incoerente o oltre limite provoca la disconnessione. I riferimenti batch sconosciuti sono trattati prudentemente come solo visualizzazione. I timestamp originali validi appaiono in UTC ma non guidano mai timer locali o cadenza d'invio.
+
+Il client supporta buffer inviati dal bouncer, non un browser di archivi a richiesta nè il rilevamento delle reti di tutto l'account. Non richiede echo-message, draft/chathistory o znc.in/playback. Un timestamp da solo non prova che un messaggio provenga dalla cronologia; il replay tradizionale senza batch mantiene la gestione dei messaggi live. Il replay arbitrario non viene deduplicato tra nuovi processi. Vedere doc/BOUNCERS.txt per configurazione e limiti.

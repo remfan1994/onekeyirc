@@ -1,0 +1,19 @@
+CURRENT SIGNAL POLICY (vipirc-0.7.37):
+Use signals varsayılan olarak no değerindedir. Ctrl-C ve Ctrl-Z, gönderilmemiş ileti veya komutu iptal eder; uygulamayı kapatmaz ya da askıya almaz. Terminal sinyallerini açmak için panel 0 veya vipirc Interface ayarlarında yes seçin. Apply hemen uygulanır; Save ayrıca [input] use_signals=true|false değerini kaydeder. Çıkışta veya askıya almada eski terminal ayarları geri yüklenir.
+
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / TERMINAL SIGNALS
+English source SHA-256: b88ff166737c03f4e8588e56bcb3bfd585a2d4ef6379caaf086b815dbbd935b6
+
+TERMİNAL SİNYALLERİ
+
+Gerçek Ctrl-D, ana sohbet/komut girişine açıkça atanmadıkça yok sayılır; ayrıca F1 çıkış sorusunu iptal edebilir. Yapıştırılan Ctrl-D bu soruya yanıt veremez. Normal çıkış için Command içinde /quit kullanın. Terminalin özel sinyal tuş atamaları normal tuş işleyişinden önceliklidir.
+
+Terminal sinyal işleyişi varsayılan olarak devralınır. İstemci Ctrl-C veya Ctrl-Z atamaz: bu tuşlar yalnızca terminal onları sinyale eşlemişse ve sinyal işleyişi etkinse çalışır. Özel kesme, çıkış ve askıya alma tuşları korunur. Sinyal işleyişini açıkça açmak için ana yapılandırmada şu tercihi ayarlayıp yeni bir istemci süreci başlatın:
+
+    [input]
+    use_signals=true
+
+Varsayılan false, devralınan etkin veya devre dışı durumu korur. Bu ayar terminalin tuş atamalarını değiştirmez. İstemci askıya alma ve çıkışta özgün terminal ayarlarını geri yükler.
+
+Etkin olduğunda terminal kesmesi taslakları kaydetmeden çıkar. Olağan ön plan sürecini askıya almak ağ etkinliğini durdurur ve zaman aşımına yol açabilir; fg ile sürdürün. Yönetilen/yeniden bağlanmış bir işte yalnızca ön plan denetleyicisi askıya alınırken işçi ağ bağlantısını sürdürür; bkz. RUNNING IN THE BACKGROUND.

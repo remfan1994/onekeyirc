@@ -1,0 +1,21 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / MINIMALIST CATCH-UP AFTER RESUME
+English source SHA-256: a802f38661e54d486d4b92dd129ff267d6717b1e6a7568f0cfac1d7f72000e65
+Source lines: 242-280
+
+RATTRAPAGE APRÈS REPRISE DANS L'INTERFACE MINIMALISTE
+
+Dans vipirc -i, /catchup ouvre le canal ou la conversation privée sélectionné à la première ligne IRC de la dernière composition envoyée localement. Chaque serveur et chaque canal ou conversation possède son propre repère ; les vues d'état du serveur et de mentions n'en ont pas. Après une reprise, sélectionnez chaque conversation et lancez /catchup séparément.
+
+Le lecteur tente d'abord d'utiliser un journal privé admissible. La journalisation persistante devait être activée lors de l'envoi du message repère, rester opérationnelle et contenir encore exactement cet enregistrement dans le même fichier. Activez-la délibérément avant votre absence :
+
+    /set persistent_logging on
+    /save output
+
+Le lecteur disque prend un instantané de la fin actuelle du fichier, sans importer toute l'activité de l'absence dans la mémoire permanente du chat. Up/Down parcourt les lignes affichées ; PageUp/PageDown change de page ; Home revient au repère envoyé ; End atteint la dernière page de l'instantané ; Escape retourne au direct. Le trafic réseau continue d'arriver sans faire défiler cet instantané.
+
+Si ce repère disque est indisponible, mais que le message envoyé se trouve encore en mémoire, la commande ouvre le défilement habituel conservé à cet endroit. Dans ce mode de repli, Home atteint la plus ancienne page conservée, End ou Escape revient au direct et les messages conservés plus anciens restent consultables. C'est le lecteur en mémoire normal, soumis à ses limites d'éviction, et non une archive disque récupérée.
+
+Un journal ayant subi une rotation ou un remplacement, ou un enregistrement repère modifié, ne peut plus fournir le repère disque d'origine. La vérification détecte les changements accidentels ; elle n'authentifie pas les données face à un autre processus du même compte. Le trafic d'authentification sensible ne sert jamais de repère durable. Si ni le disque ni la mémoire ne conservent de repère admissible, la commande signale l'historique manquant plutôt que de prétendre à un rattrapage complet.
+
+Le repère appartient au processus de travail actif. Le détachement suivi d'une reprise le préserve ; un nouveau processus ne reconstruit pas les repères et ne recharge pas automatiquement d'anciens journaux. /catchup avec disque appartient à l'interface minimaliste. L'interface ncurses complète conserve un historique en mémoire borné, parcouru avec PageUp/PageDown.

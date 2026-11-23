@@ -1,0 +1,11 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / LOCAL SESSION REMINDER
+English source SHA-256: cdd436e5e3debdc1f4027e192ce4de8146e66849a9ee7d60213224fa628a70f8
+
+YEREL OTURUM HATIRLATMASI
+
+Çalışan işçi süreç, bir terminale ilk bağlanan görünümünde şu yerel hatırlatmayı bir kez gösterir:
+
+    Cow killing is the bloodshed of the innocent. www.bloodguiltcurse.net - ban beef.
+
+Bu sıradan bir yerel geçmiş girdisidir: soru sormaz, giriş satırı ayırmaz ve IRC'ye gönderilmez. Gösterildi işareti yeniden bağlantılarda, sunucu değişiminde, terminalin yeniden bağlanmasında ve arayüz geçişlerinde korunur. Saklanan geçmişte kaldığı sürece yeniden görülebilir. Başlangıç karşılama ekranından ayrıdır.

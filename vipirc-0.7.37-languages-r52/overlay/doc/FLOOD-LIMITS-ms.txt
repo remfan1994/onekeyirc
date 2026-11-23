@@ -1,0 +1,24 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / MESSAGE LENGTH AND FLOOD PREVENTION
+English source SHA-256: 74197e1e6983ce301972c3ad55db5a844ff0ae8bde4ebc998ebfe85c8ddcae1c
+
+HAD PANJANG MESEJ DAN PENCEGAHAN BANJIRAN
+
+Had biasa bagi satu baris IRC ialah 512 bait termasuk CR/LF, bukannya 512 aksara yang dipaparkan. Satu skalar UTF-8 menggunakan 1..4 bait dan satu glif boleh terdiri daripada beberapa skalar. Arahan, sasaran dan identiti pengirim geganti turut menggunakan ruang. Bagi :nick!user@host PRIVMSG target :text, ruang muatan dikira seperti berikut:
+
+    B = L - (len(nick) + len(user) + len(host)
+             + len(target) + len("PRIVMSG") + 9)
+
+Semua panjang diukur dalam bait. L ialah 512 atau nilai LINELEN lebih kecil yang dikenal pasti. Mesej tindakan turut mengurangkan ruang bagi pembalutnya. Sebelum identiti diketahui, had konservatif digunakan. Perubahan identiti atau sasaran boleh mengubah B; vipirc tidak menganggap baris lebih panjang semestinya diterima.
+
+Penyunting ncurses penuh memberi amaran apabila satu baris logik mencapai B atau draf memerlukan beberapa mesej. Enter/Escape hanya mengakui amaran untuk meneruskan penyuntingan; tiada mesej dihantar. Kekunci lain tidak boleh menutup amaran, dan pengulangan kekunci dikawal. Amaran diaktifkan semula setelah panjang turun di bawah had.
+
+Penyunting minimalis pula menghalang sisipan tambahan pada had sehingga Enter membenarkan penyuntingan diteruskan secara nyata; Enter itu tidak menghantar mesej. Backspace/Delete boleh memendekkan teks dan Escape membatalkan. /msg, /me dan // diukur mengikut muatan sebenar, bukan arahan setempat lain yang tidak berkaitan. Tampalan dikekalkan selagi dalam had storan dan diperiksa selepas ditangkap.
+
+Mod ncurses penuh meminta persetujuan berasingan sebelum menghantar draf yang perlu dibahagi kepada beberapa mesej:
+
+    This text needs N IRC messages. Send all to TARGET? [y/N]
+
+Hanya jawapan y menghantar; Enter/n menolak dan mengekalkan teks. Mod minimalis memaparkan Review: Enter baharu mengesahkan, Escape kembali menyunting. Kedua-duanya memerlukan persetujuan jelas untuk pembahagian walaupun dalam mod direct. Pembahagian mengekalkan skalar UTF-8 lengkap dan teks tidak kosong; baris baharu yang nyata memisahkan mesej dan baris kosong dilangkau. Arahan kekal sebaris; tulis sembang berbilang baris dalam penyunting perbualan.
+
+Mesej sembang dijarakkan sekurang-kurangnya 1.2 saat melalui giliran 64 mesej. /cancel membuang kerja yang belum dihantar tetapi tidak boleh menarik balik mesej yang sedang atau sudah dihantar. Kawalan protokol seperti PONG berasingan. Rangkaian mungkin mengenakan had lebih ketat atau menolak teks; penerimaan atau gema setempat bukan bukti penghantaran jauh.

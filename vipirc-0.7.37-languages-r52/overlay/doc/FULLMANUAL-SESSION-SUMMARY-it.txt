@@ -1,0 +1,9 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / SESSION SUMMARY
+English source SHA-256: b2af79e132d98cb37475f734dff71c96a322570b71164c116cf5b7d8aa548be2
+
+/summary apre un'istantanea locale dell'intero client in esecuzione in un lettore a scorrimento separato. Funziona anche disconnesso e raggruppa per server. Comprende stato della connessione e nickname, canale 0, viste dei canali raggiunti/lasciati, conversazioni private, conteggi di non letti e menzioni, code in uscita, comandi di avvio pendenti e trasferimenti di file con stato corrente. I totali escludono il feed copiato delle menzioni per non contare due volte i messaggi originali. Le menzioni possono essere non lette, quindi i due totali non si sommano.
+
+Aprire o aggiornare il riepilogo non cambia conversazione, non marca messaggi letti, non invia richieste di rete e non sostituisce la bozza. Mostra le quantità in coda senza rivelare testi in attesa, comandi automatici o credenziali. Descrive lo stato attuale, non interpreta la chat.
+
+Nell'interfaccia completa usare Up/Down o k/j, Page Up/Page Down e Home/End o g/G. Premere r o R, attivare Refresh con tastiera o cliccare Refresh per una nuova istantanea. Escape o Back torna all'origine. In vipirc -i, r aggiorna il lettore delle risposte. Se fallisce rimane l'istantanea precedente. La rete continua durante la lettura. / apre Command; annullandolo si torna a quella istantanea. ? mostra l'aiuto del riepilogo e del lettore.

@@ -1,0 +1,87 @@
+{
+  "sections": [
+    {
+      "kind": "command",
+      "name": "soju",
+      "indices": [
+        0,
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "kind": "command",
+      "name": "znc",
+      "indices": [
+        0,
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "kind": "topic",
+      "name": "authentication",
+      "indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        8,
+        9,
+        10,
+        11
+      ]
+    },
+    {
+      "kind": "topic",
+      "name": "tls",
+      "indices": [
+        4,
+        5,
+        6
+      ]
+    },
+    {
+      "kind": "topic",
+      "name": "bouncers",
+      "indices": [
+        1,
+        5,
+        6,
+        8,
+        12
+      ]
+    }
+  ],
+  "lines": [
+    "Requires a connected soju profile configured in /panel. No argument asks BouncerServ for help.",
+    "COMMAND is sent as one paced private message, without local echo or command history.",
+    "A direct IRC connection cannot use this shortcut. Replies appear in the server view.",
+    "Use the bouncer's own help for account and network commands.",
+    "Requires a connected ZNC profile configured in /panel. No argument asks *status for Help.",
+    "Use /msg *module COMMAND for an enabled ZNC module. Module replies appear in the server view.",
+    "A direct IRC connection cannot use this shortcut. Use the bouncer's help for its commands.",
+    "The password file or decrypted GPG content supplies the credential; paths are literal.",
+    "Use /panel to create a new GPG-encrypted credential for an existing local public-key fingerprint.",
+    "Use an already-unlocked GPG key. No pinentry runs inside the chat editor.",
+    "Explicit plaintext password= and server_password= are also supported in private config files.",
+    "Choose only one source for each credential. /settings and /summary keep file locations redacted.",
+    "/autoauth status shows current and pending credential file locations without reading files or showing passwords.",
+    "On a bouncer profile, use /panel to manage the required login and source together; /autoauth changes are refused.",
+    "Credential files must be owned regular files with mode 0600 or 0400; symlinks and parent traversal are refused.",
+    "The SASL credential limit is 1024 bytes; ordinary server PASS permits 503 bytes. An assembled ZNC login must also fit its one IRC line.",
+    "--check-config validates configuration and source selection without reading credentials or checking the login. See /help tls and /help bouncers.",
+    "A custom bundle must be a nonempty regular file of at most 16 MiB. An ordinary symlink to a regular CA file is allowed; secret/config paths have stricter no-symlink rules.",
+    "The custom file is opened once, bounded and checked for size changes while read. FIFOs, devices and other nonregular inputs are rejected, and password-protected PEM cannot open an interactive prompt.",
+    "Bounded file size does not bound regular-file or network-filesystem I/O latency. Use a trustworthy readable CA bundle on suitable storage.",
+    "Enter the provider's bouncer hostname and TLS port, bouncer username, existing upstream network name and an optional stable client name.",
+    "Explicit startup commands still run. Review them before enabling a bouncer profile to avoid unwanted repeated joins or service commands.",
+    "Automatic idle/background away is off for each bouncer profile unless its automatic-away setting is enabled. Manual /away and /back still work.",
+    "History storage stays bounded. There is no on-demand archive search, automatic network discovery or automatic creation of one profile per network.",
+    "See doc/BOUNCERS.txt and the bouncer examples in examples/ for setup and the limits of recorded validation."
+  ]
+}

@@ -1,0 +1,10 @@
+Standalone source-linked guided setup help localization r52 (application unchanged).
+Apply only to matching clean English r1; never layer over r51.
+Optional source-linked validation/error localization r51 for English r1 (app unchanged).
+Apply on clean r1 only; never layer over r50.
+Optional language and Arabic RTL patch r50 for vipirc-0.7.37 English source r1.
+Install on clean source r1 only, then run ./configure && make.
+Ten locales: id, ms, tr, es, pt, fr, de, ru, it, ar.
+Documentation and Arabic shaping require fluent and native terminal review.
+
+r49 follow-up: eight setup help explanations are now source-linked in all ten languages. The actual full-screen prompt now translates command summaries.

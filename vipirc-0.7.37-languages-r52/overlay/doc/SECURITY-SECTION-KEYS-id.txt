@@ -1,0 +1,10 @@
+User-defined key bindings
+Source: SECURITY.md, section "User-defined key bindings"
+English section SHA-256: 250d7d0eb62f8b649e64f59b1e69d2220ec79005f08d6a7dfba30905d1133303
+Paragraphs: 2
+Status: Translation draft; fluent-speaker security review required
+English SECURITY.md remains authoritative. This is only one section, not the full security document.
+
+Konfigurasi utama mengatur paling banyak 64 ikatan tombol; tabel bakunya kosong. Tombol dinormalisasi ke identitas tetap, sedangkan tindakan dipilih dari daftar izin lokal. Tidak ada perintah sembarang, ekspansi shell, IRC mentah, ataupun tindakan kirim langsung. Ikatan tidak dikenal, duplikat, atau terlalu besar menyebabkan pembacaan konfigurasi ditolak secara atomik. Hanya Save yang eksplisit menyimpan perubahan melalui penulis berkas privat yang sudah ada.
+
+Penanganan ikatan khusus terbatas pada chat utama dan entri perintah. Tempelan dan kolom/jendela modal, pembaca, serta konfirmasi tidak menjalankan tindakan khusus. Penguraian tombol Function/Alt tidak dapat mengubah tempelan yang tertangkap menjadi tindakan, dan rentetan input yang mengakhiri tempelan tidak langsung mengeksekusi pintasan. Tempelan tanpa penanda tidak dapat dibedakan dari pengetikan. Terminal dapat mencegat tombol sebelum program menerimanya. Ikatan tidak pernah mengubah karakter sinyal terminal ataupun mengaktifkan sinyal. Lihat doc/HOTKEYS.txt untuk cakupan tepat dan perlindungan draf.

@@ -1,0 +1,16 @@
+Local history, saved logs and privacy
+Source: SECURITY.md, section "Local history, saved logs and privacy"
+English section SHA-256: 8123a3ef64d1e4e83b7cc6891d66caa56780846eafd681342f8e2f9749251e94
+Paragraphs: 5
+Status: Translation draft; fluent-speaker security review required
+English SECURITY.md remains authoritative. This is only one section, not the full security document.
+
+Sejarah arahan yang boleh dipanggil semula dihadkan kepada 64 entri/64 KiB dan kekal dalam memori. Mengarang mesej sembang bukan antara muka untuk memanggil semula sembang yang sudah dihantar. Bentuk kelayakan dan arahan kawalan yang dikenal pasti dikecualikan. Data kekerapan pilihan dalam <config_path>.commands menyimpan paling banyak 96 nama arahan kanonik dan bilangannya, tanpa argumen, sasaran, mesej atau kata laluan. Bacaan/tulisan automatik memerlukan konfigurasi tersimpan; fail bilangan yang tidak sah atau tidak selamat tidak menghalang permulaan. Mod ujian melangkau I/O ini.
+
+Transkrip kekal tidak direkodkan secara lalai. Setiap profil tersimpan yang mengaktifkan log menambah data pada <config_path>.log; direktori induk mestilah milik pengguna dengan mod tepat 0700 dan failnya mestilah fail biasa milik pengguna, berpautan tunggal dan bermod tepat 0600. Penelusuran relatif kepada deskriptor dan O_NOFOLLOW menolak pautan simbolik; O_NONBLOCK menghalang FIFO yang diletakkan oleh pihak lain daripada menyekat sebelum jenis fail diperiksa. Pencatatan tidak mencipta direktori induk.
+
+Had penambahan ialah 16 MiB bagi setiap log aktif. Kunci nasihat tidak menyekat menyelaraskan semakan saiz dan penulisan antara klien yang bekerjasama. Laluan tidak selamat, kunci sibuk, penulisan gagal atau had tercapai mematikan log untuk profil itu dengan diagnostik; sembang langsung diteruskan. Tiada pemendekan atau pemadaman automatik. Arkibkan atau pindahkan log, kemudian matikan dan hidupkan semula pencatatan secara nyata. Pengguna bertanggungjawab terhadap arkib luaran. I/O cakera masih boleh tersekat pada storan perlahan atau jauh; pencatat ini tidak tak segerak.
+
+Salinan Help/aggregate mentions, draf belum dihantar, penimbal SASL/PASS, arahan peribadi yang dikenal pasti dan balasan perkhidmatan yang diketahui dikecualikan daripada transkrip. Destinasi kawalan bouncer ditapis lagi seperti diterangkan kemudian. Nama perkhidmatan yang tidak diketahui dan rahsia yang ditaip sebagai sembang biasa masih boleh dicatat. Log kekal selepas keluar. Rakaman terminal, log pelayan dan salinan penerima adalah berasingan daripada tetapan ini.
+
+Catch-up menggunakan mesej terakhir yang layak dihantar secara setempat oleh worker yang masih hidup ini. Mula-mula ia cuba log peribadi dengan penanda fail/rekod yang disahkan serta penghujung yang dipatok, kemudian beralih kepada memori yang disimpan. Putaran log atau perubahan identiti membatalkan penanda cakera; ia tidak memilih rekod lain yang tiada kaitan secara senyap. Mesej sendiri yang dimainkan semula tidak menggantikan penanda itu. Proses baharu tidak mengimport log lama atau membina semula penanda catch-up worker yang sudah tamat.

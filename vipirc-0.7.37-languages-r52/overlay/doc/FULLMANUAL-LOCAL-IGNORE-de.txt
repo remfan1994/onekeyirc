@@ -1,0 +1,20 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / LOCAL IGNORE FILTERS
+English source SHA-256: 5404c975ca8193797b0ed81b5a9611149cbaa34bff67676680655f01885e9693
+
+EXACT COMMAND/CONTROL EXAMPLES (not translated):
+/ignore
+/ignore list
+/ignore MASK
+/ignore add MASK
+/unignore MASK
+/ignore remove MASK
+/ignore clear
+/ignore add NICK
+*!*@*.example
+
+Diese lokalen Befehle funktionieren auch offline. /ignore oder /ignore list listet Masken; /ignore MASK bzw. /ignore add MASK fügt hinzu; /unignore MASK bzw. /ignore remove MASK entfernt; /ignore clear löscht alle. Bei Nicknames, die wirklich list, add, remove oder clear heißen, nutzen Sie /ignore add NICK.
+
+Bis zu 32 Masken von jeweils 127 ASCII-Byte sind zulässig. Eine einfache Maske muss genau einem gültigen Nickname entsprechen. Platzhalter erfordern die vollständige Form nick!user@host mit drei nicht leeren Komponenten, zum Beispiel *!*@*.example. In jeder Komponente steht * für null oder mehr Bytes und ? für genau eins. Andere erlaubte Bytes sind wörtlich; es gibt keine Regex-Zeichenklassen, Escapes oder Shell-Erweiterung. Nick verwendet IRC-Regeln für Groß-/Kleinschreibung; user und host ignorieren ASCII-Groß-/Kleinschreibung. Leerraum, Steuerzeichen und Nicht-ASCII sind unzulässig. Entfernen vergleicht gespeicherte Muster nach diesen Regeln, ohne Platzhalter zu expandieren, um andere Masken zu löschen.
+
+Gefiltert werden nur eingehende nutzerverursachte PRIVMSG/NOTICE, bevor Erwähnungen oder Privatdialoge entstehen. Die Quelle braucht ein ausdrückliches Benutzerpräfix. Reine Nickmasken können auch bei unvollständigen user/host-Daten passen; volle Masken erfordern alle drei Teile. Reine Servermeldungen und sämtlicher Protokoll-/Mitgliedschaftszustand bleiben sichtbar. Bestehender Verlauf bleibt erhalten. Dies ist ein lokaler Filter, kein Serverbann. Settings bearbeitet dieselbe Liste; Apply wirkt sofort. /save oder Settings Save speichert im Normalmodus; --test-mode behält Änderungen im Speicher. In der Konfiguration stehen wiederholte mask=-Zeilen unter [ignore].

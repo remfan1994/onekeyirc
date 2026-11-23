@@ -1,0 +1,6 @@
+OPTIONAL LANGUAGE PATCH r42 - vipirc 0.7.37
+
+20 new source-linked display messages in all 10 languages.
+Apply only to unchanged English source r1; never over r41.
+Server names, filenames, user text, and numeric values remain literal.
+No application version change or IRC protocol translation.

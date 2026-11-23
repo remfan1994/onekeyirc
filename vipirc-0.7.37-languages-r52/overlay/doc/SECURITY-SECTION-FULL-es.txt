@@ -1,0 +1,12 @@
+Full-interface review and file browsing
+Source: SECURITY.md, section "Full-interface review and file browsing"
+English section SHA-256: e2f59ccd783bd17feedcf3bc49a14a3085c7f21783755ee9b06c265dc0f1eb54
+Paragraphs: 3
+Status: Translation draft; fluent-speaker security review required
+English SECURITY.md remains authoritative. This is one source-linked section, not a security certification.
+
+La pantalla de revisión de transferencias ncurses presenta la dirección del par, el puerto, el número de bytes y el destino antes de la acción separada Accept/Offer. Conserva un ID de oferta estable en lugar de un índice de fila cambiante y rechaza el consentimiento si la pantalla no alcanza el tamaño mínimo de revisión. Seleccionar una fila en el explorador de orígenes no envía un archivo. El explorador no sigue componentes symlink, vuelve a comprobar el inode seleccionado, nunca cambia cwd y no lee contenido de archivos solo para enumerarlos. El trabajo está limitado a 64 entradas examinadas por paso, 4096 nombres examinados y 512 filas; los recortes se notifican. Los metadatos del sistema de archivos aún pueden bloquearse en almacenamiento lento.
+
+La ubicación predeterminada de recepción guiada está en XDG_DATA_HOME/vipirc/downloads o HOME/.local/share/vipirc/downloads del equipo del proceso y se crea únicamente tras aceptación explícita. Las rutas relativas indicadas por comandos y la ausencia de directorio receptor emplean el directorio de lanzamiento, sin omitir los controles de privacidad. Si no se anuncia una IPv4 explícita, el envío usa la dirección del socket IRC local; no busca una dirección pública ni configura el reenvío de puertos.
+
+Las acciones de ratón sobre apodos y canales conservan copias de tamaño limitado de los valores mostrados. Los cambios en la lista de usuarios no deben redirigir un clic anterior a otro destino. Hacer clic en un apodo abre un menú local; una elección posterior de Whois/Query/Ignore ejecuta esa acción. Hacer clic en un canal al que no se pertenece puede unirse a él expresamente. La finalización automática y la inserción de sugerencias no transmiten IRC. El consentimiento para enviar o transferir sigue pasando por la validación ordinaria. Estas condiciones del código fuente no afirman que este trabajo de documentación haya ejecutado toda la interfaz curses.

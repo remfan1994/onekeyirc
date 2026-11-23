@@ -1,0 +1,36 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / COMMAND-LINE OPTIONS
+English source SHA-256: 2dd0066181d81214b50bdc848d76a75ed557f6bc4b62982d6c1d0d251ef3c932
+Source lines: 281-373
+
+PILIHAN BARIS ARAHAN
+
+-i, --idle: Pilih antara muka minimalis untuk pelancaran ini; --help dan --manual menerangkan mod ini.
+-N, --ncurses: Pilih antara muka penuh untuk pelancaran ini. Bendera antara muka eksplisit yang terakhir digunakan; pilihan lalai tersimpan tidak berubah. -n masih bererti nama samaran.
+-s, --server HOST: Pilih pelayan utama mengikut nama hos atau alamat IPv4/IPv6 berangka, bukan URL.
+-p, --port PORT: Port 1..65535. Lalai 6697 untuk TLS atau 6667 apabila IRC teks biasa dipilih secara nyata.
+-c, --channel LIST: Senarai saluran untuk disertai selepas pendaftaran bagi profil langsung. Senarai dipisahkan koma atau pilihan boleh diulang. Petik '#channel' dalam shell; bouncer memulihkan keahlian sendiri.
+-n, --nick NICK: Gantikan nama samaran profil berkesan semasa permulaan.
+-C, --config FILE: Pilih fail konfigurasi utama bersama katalog .servers dan direktori profil .d. Fail mesti wujud melainkan --init-config menciptanya; laluan konfigurasi dianggap harfiah.
+--tls: Wajibkan TLS yang disahkan, pilihan lalai. Menentukan port sahaja tidak mematikan TLS.
+--plain: Pilih sambungan teks biasa secara nyata; pengesahan menggunakan kelayakan tersimpan ditolak.
+--ca-file FILE: Gunakan fail autoriti PEM khusus menggantikan sumber kepercayaan sistem. Fail biasa tidak kosong, paling besar 16 MiB; pautan simbolik biasa dibenarkan. Tiada gesaan kata laluan.
+--no-connect: Sekat semua sambungan atau simulator ketika permulaan. Sambung secara nyata kemudian.
+--background: Mulakan worker terpisah tanpa tty, TERM atau tekan kekunci aluan. Antara muka lalai tersimpan digunakan melainkan -i/-N mengatasinya. Simpan profil sambung automatik atau bekalkan --server; --no-connect tetap mengatasi. Kejayaan hanya mengesahkan persediaan setempat, bukan log masuk IRC berjaya.
+--reconnect: Cuba semula gangguan rangkaian sementara bagi proses ini sahaja, tanpa memulakan sambungan atau menyimpan pilihan. Tempoh tunggu: 5,10,20,40,80,160,300 saat; selepas 60 saat berdaftar, tempoh direset. /disconnect menghentikan, /connect memulakan semula. Ralat sijil, pengesahan, konfigurasi dan protokol kekal terputus. Sembang tertunda dibuang. Sambungan baharu mengulangi arahan pengesahan dan permulaan; profil langsung menyertai saluran secara automatik, manakala bouncer memulihkan keahlian. Tetapan yang belum diterapkan tetap memerlukan /connect yang jelas setelah terputus.
+--test-mode: Simulasi interaktif luar talian tanpa rangkaian/DNS atau membaca/menyimpan kelayakan.
+--resume [JOB]: Lampirkan satu kerja terpisah yang disahkan atau nyatakan nombornya; --resume=JOB juga diterima. Laluan soket mutlak eksplisit boleh digunakan bagi worker lama yang serasi. Resume tanpa nombor mengekalkan antara mukanya; -i/-N meminta mod berlainan. stdin, stdout dan stderr mesti pada tty interaktif yang sama. Banyak kerja atau kerja tidak disahkan menghalang pemilihan automatik; kerja yang sudah dilampirkan sibuk.
+--sessions: Senaraikan kerja terlampir dan terpisah milik akaun tanpa tty atau memuatkan konfigurasi.
+--detach-session NUMBER: Lepaskan pengawal yang disahkan sambil mengekalkan worker dan keadaan; gunakan --resume NUMBER kemudian. --detach-session=NUMBER turut diterima.
+--close-session NUMBER: Tamatkan seluruh worker, semua IRC/pemindahan, draf dan sejarah dalam memori. Fail konfigurasi/log kekal. Pembersihan yang disahkan diwajibkan; had masa mungkin berlaku sebelum tamat, maka semak semula --sessions. --close-session=NUMBER turut diterima.
+--init-config: Cipta konfigurasi peribadi tanpa menggantikan fail sedia ada atau penciptaan serentak. Ralat penyegerakan/pembersihan yang dilaporkan mungkin meninggalkan fail yang sudah lengkap.
+--check-config: Sahkan konfigurasi, pilihan penggantian, katalog dan profil tersimpan, lalu keluar. Tidak membaca rahsia, menjalankan GPG, menguji CA/TLS atau membuktikan capaian/log masuk.
+--manual: Cetak manual lengkap antara muka terpilih tanpa terminal.
+-h, --help: Cetak bantuan CLI tanpa terminal.
+-v, -V, --version: Cetak versi, atribusi dan lesen tanpa terminal.
+
+Pilihan panjang menerima --name=value; pilihan pendek boleh dikelompokkan seperti biasa. -- menamatkan pilihan; operan kedudukan tidak digunakan. Nilai CLI mengatasi konfigurasi kemudian lalai. Pada permulaan biasa, penggantian bukan hos digunakan pada profil lalai yang diingati; --server nyata memilih utama. --init-config/--check-config digunakan pada utama. Profil lalai diingati yang hilang memerlukan pembaikan atau --server sebelum penggantian bukan hos.
+
+Apabila --server berbeza tanpa mengira huruf besar/kecil, sumber kelayakan, pengesahan, CA khusus, identiti bouncer/pilihan away automatik, saluran dan arahan permulaan warisan dipadam. Konfigurasikan hos baharu dengan nyata. Penggantian hos yang sama dan --nick sahaja mengekalkan profil. --config yang berlainan memilih ruang kerja berasingan.
+
+--resume, --sessions, --detach-session dan --close-session ialah operasi pengurusan yang berasingan: jangan gabungkan antara satu sama lain atau dengan pilihan konfigurasi/sambungan/permulaan. Bendera antara muka yang disokong boleh kekal dalam alias. --background tidak boleh digabung dengan operasi ini, --init-config atau --check-config. --test-mode tidak boleh digabung dengan --init-config/--check-config (status penggunaan 2).

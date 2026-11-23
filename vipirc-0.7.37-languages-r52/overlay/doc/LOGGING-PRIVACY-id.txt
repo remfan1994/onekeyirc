@@ -1,0 +1,23 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / HISTORY, LOGGING AND PRIVACY
+English source SHA-256: b0c065ed46b6cbb73666075f1eee2d050a5a82160fac0ddadd98ad80d2910ee3
+
+RIWAYAT, PENCATATAN, DAN PRIVASI
+
+Ada beberapa jenis riwayat yang berbeda:
+
+    Catatan percakapan/sebutan: memori terbatas untuk tampilan.
+    Pemanggilan ulang perintah: baris perintah yang diterima di memori, dengan penyaringan rahasia.
+    Frekuensi perintah: nama dan jumlah kanonis di CONFIG_PATH.commands.
+    Transkrip opsional: catatan teks biasa dalam berkas .log setiap profil tersimpan.
+    Pemutaran ulang bouncer: pesan yang disediakan bouncer menurut kebijakannya.
+
+Detach/resume mempertahankan memori sesi berjalan. /quit, --close-session, kegagalan proses, atau reboot mengakhirinya. Proses baru memuat konfigurasi dan, bila ada, jumlah perintah tersimpan; proses itu tidak mengimpor transkrip lama sebagai riwayat percakapan aktif atau membangun kembali penanda catch-up sebelumnya. /clear mengosongkan memori tampilan saat ini tanpa menghapus transkrip di disk atau menarik pesan IRC.
+
+Aktifkan transkrip dengan /set persistent_logging on, lalu simpan dengan /save output, atau pilih Settings > Interface > Persistent logging. Fitur ini mati secara bawaan, berlaku di seluruh server, dan menggunakan berkas terpisah untuk setiap profil tersimpan. Semua pemeriksaan privasi jalur dan berkas pada bagian CONFIGURATION tetap berlaku.
+
+Setiap log berhenti pada 16 MiB; tidak ada rotasi atau penghapusan otomatis. Jalur tak aman, kunci berkas yang sibuk, atau kegagalan menulis menonaktifkan pencatatan pada profil terkait dan menampilkan kesalahan, sementara obrolan tetap berjalan. Arsipkan berkas lama, lalu matikan dan hidupkan kembali pencatatan. Rotasi dapat membatalkan penanda catch-up lama; kirim pesan baru yang memenuhi syarat sebelum mengandalkan catch-up tahan lama pada ketidakhadiran berikutnya.
+
+Pesan kredensial/layanan yang dikenali dan salinan sensitif yang memakai nama panggilan lama maupun kini dikecualikan, termasuk tujuan layanan yang dinyatakan lengkap. Obrolan biasa, sintaks layanan yang tidak dikenal, atau rahasia yang ditempel manual masih dapat masuk ke log; layanan jarak jauh juga dapat menyimpan salinannya. Menonaktifkan pencatatan mencegah entri baru tanpa menghapus yang lama. Izin berkas privat bukan enkripsi dan tidak melindungi dari program lain dengan akun Unix yang sama. Berkas biasa di penyimpanan lambat atau terpasang lewat jaringan tetap dapat memperlambat operasi disk.
+
+Transkrip tersimpan bernama CONFIG_PATH.log dan berada dalam direktori milik pengguna dengan mode tepat 0700. Setiap komponen jalur harus lulus pemeriksaan tanpa symlink dan tanpa penelusuran direktori induk. Berkas yang dibuka harus milik pengguna, berupa berkas biasa, hanya memiliki satu tautan, dan bermode tepat 0600. Penanganan berkas/kunci nonblocking menolak FIFO atau log yang sibuk; batas 16 MiB berlaku per profil tersimpan.

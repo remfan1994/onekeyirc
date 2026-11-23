@@ -1,0 +1,25 @@
+VERBATIM ENGLISH SOURCE REFERENCE
+Source: MANUAL.txt / TLS AND CUSTOM TRUST
+English source SHA-256: b1882bb7f49f2bb4bad68591a7b150c2f131435de0d93aefb2c35386db894309
+
+TLS AND CUSTOM TRUST
+
+Verified TLS checks the requested hostname/numeric address and certificate
+chain. No bypass or silent plaintext fallback exists; a port number alone
+never disables TLS. Use the provider's exact endpoint. --ca-file FILE or
+[connection] ca_file=FILE selects PEM authorities instead of the TLS
+library's default store; this is custom trust, not leaf pinning.
+
+A custom bundle must be a nonempty regular file <=16 MiB. Ordinary symlinks
+to regular CA files are allowed, unlike config/credential paths. The loader
+opens once with nonblocking flags, reads a pinned descriptor within the size
+bound, and rejects detected growth/shrink. FIFOs/devices/nonregular inputs
+fail. The bounded-memory PEM parser preserves supported certificate trust
+metadata/CRLs and cannot prompt for a password.
+
+These checks do not bound regular/network-filesystem I/O latency. Use
+trustworthy suitable storage. --check-config does not test CA
+loading/handshake, and offline simulation never exercises TLS. Diagnose
+certificate errors before changing trust; plaintext credentials are refused.
+TLS covers this connection, not end-to-end chat or the bouncer's upstream.
+DCC is separately unencrypted.

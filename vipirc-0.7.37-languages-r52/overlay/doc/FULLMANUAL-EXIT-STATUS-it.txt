@@ -1,0 +1,13 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / EXIT STATUS
+English source SHA-256: a4feff37ea5665514327eb0e9d3930712772f4ff6cf26bdcefb48492f71f9923
+
+CODICI DI USCITA
+
+0     Terminazione normale o uscita interattiva.
+1     Errore operativo, ad esempio inizializzazione, salvataggio o gestione sessione.
+2     Opzioni/configurazione non valide o assenza di terminale per uso interattivo.
+130   SIGINT ha interrotto la schermata iniziale dopo il ripristino del terminale.
+131   SIGQUIT ha interrotto la schermata iniziale dopo il ripristino del terminale.
+
+Il successo di --background conferma solo la preparazione locale del processo, non l'autenticazione IRC remota. Se la chiusura di una sessione fallisce, il completamento non è verificato: ricontrollare --sessions, perché una richiesta accettata può concludersi più tardi.

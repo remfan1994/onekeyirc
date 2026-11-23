@@ -1,0 +1,18 @@
+TLS, credentials and endpoint identity
+Source: SECURITY.md, section "TLS, credentials and endpoint identity"
+English section SHA-256: 4ea410d65b0d7a489076cfd9898b5769f21e9e2f4fec63f7df8340f68bb5de45
+Paragraphs: 6
+Status: Translation draft; fluent-speaker security review required
+English SECURITY.md remains authoritative. This is only one section, not the full security document.
+
+TLS exige la version 1.2 ou une version ultérieure et vérifie la chaîne de certificats ainsi que le nom d'hôte sélectionné. SASL configuré, PASS du serveur et listes non vides de commandes automatiques activées exigent un TLS vérifié. Il n'y a aucun repli silencieux vers une connexion en clair. Chiffrer un mot de passe sur disque ne chiffre pas le transport. Le TLS d'IRC protège la connexion avec le serveur ou bouncer choisi, pas les messages de bout en bout.
+
+Maintenez à jour la bibliothèque TLS liée au programme, ainsi que ce code source. La machine d'audit utilisait OpenSSL 3.5.7 ; OpenSSL documente CVE-2026-35189, une croissance de mémoire liée aux certificats lors d'un traitement TLS normal, corrigée dans la version 3.5.9 de cette branche. Cette version des sources ne corrige pas cette bibliothèque externe. Vérifiez la version du fournisseur de déploiement, ses correctifs rétroportés et les mises à jour de sécurité actuelles : https://openssl-library.org/news/secadv/20260929.txt
+
+Un ca_file vide sélectionne le magasin de confiance du système. Un ensemble CA personnalisé est un fichier PEM local de confiance : le chargeur l'ouvre une seule fois, vérifie le fichier ordinaire ouvert, lit son contenu dans les limites prévues puis analyse cette copie sans demander de mot de passe. Il rejette les fichiers vides, de plus de 16 MiB, les sources non ordinaires et les changements de taille détectés. Les entrées de certificats, de confiance AUX et de CRL sont conservées. Les chemins CA peuvent passer par des liens symboliques car ils désignent du matériel public de confiance sélectionné explicitement, contrairement aux chemins privés de configuration ou d'identifiants. Changer de CA modifie les émetteurs auxquels le client fait confiance. Le chargement est synchrone ; les E/S sur fichiers ordinaires peuvent encore bloquer sur un stockage lent.
+
+Chaque identifiant secret choisit exactement une source : un fichier privé en clair, un fichier privé chiffré par GPG ou une valeur explicite intégrée. Les sources SASL et PASS du serveur sont distinctes. Un changement de nom d'hôte via --server efface l'authentification héritée, le choix de CA, l'identité du bouncer, les canaux et les commandes de démarrage. Un remplacement par le même hôte, un changement de port ou de pseudonyme ne déclenche pas cette réinitialisation. Vérifiez le profil sélectionné avant de vous connecter à un autre service.
+
+SASL PLAIN direct nécessite le compte configuré. soju déduit l'identité SASL des champs du bouncer. La négociation utilise la dernière annonce des mécanismes SASL, attend l'accusé de réception ou le défi, puis seulement lit l'identifiant secret. L'échec d'une authentification obligatoire ne se transforme pas en inscription non authentifiée. ZNC utilise à la place sa source PASS de serveur.
+
+Les commandes privées d'authentification reconnues et saisies manuellement exigent elles aussi un TLS vérifié. La validation porte sur les lignes logiques et tous les fragments prévus, et se répète à l'envoi. Les formes privées reconnues sont exclues du rappel des commandes et de la journalisation persistante des échanges. Leur affichage dans le terminal actif peut toutefois contenir le texte saisi. La reconnaissance couvre les verbes courants des services, pas les secrets quelconques dans la prose ni tous les protocoles de services tiers.

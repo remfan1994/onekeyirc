@@ -1,0 +1,354 @@
+[
+  {
+    "source": "src/settings.c",
+    "english": "Choice staged. Apply or Save to use it.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/settings.c",
+    "english": "OFFLINE TEST MODE: Apply previews in memory; Save is disabled.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/settings.c",
+    "english": "That saved server is no longer available. Return to Settings and choose another.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/settings.c",
+    "english": "Unsupported stored characters filtered for editing. Enter stages; Esc discards.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/settings.c",
+    "english": "Ignore masks can contain at most 127 ASCII bytes.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/settings.c",
+    "english": "Use an exact nickname or nick!user@host mask with * and ? wildcards.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/settings.c",
+    "english": "The ignore list is full.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/settings.c",
+    "english": "The watch-term list is full.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/settings.c",
+    "english": "The field is too long.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/settings.c",
+    "english": "Leading or trailing spaces cannot be represented in this config format.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/settings.c",
+    "english": "Bouncer fields use ASCII letters, digits, '.', '_' or '-'; enter components without '/' or '@'.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/settings.c",
+    "english": "Unapplied edits discarded. Select another settings group.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/settings.c",
+    "english": "Field input limit reached or unsupported control character.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/settings.c",
+    "english": "Open application preferences, including command suggestions. Apply changes the running client; Save keeps them for the next startup.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/settings.c",
+    "english": "Enter a server and nickname. Add keeps it disconnected; Connect starts the new connection. Save its settings to keep the profile.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/settings.c",
+    "english": "Open this server's connection, authentication, startup and conversation preferences. Editing this form does not change the selected conversation.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/app.c",
+    "english": "Out of memory; a display line was not retained.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/app.c",
+    "english": "View limit reached (32); message shown in the server view.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/app.c",
+    "english": "Cannot allocate a view.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/app.c",
+    "english": "That channel view is closed. Join it again or clear mentions.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/app.c",
+    "english": "Outgoing command exceeds the protocol byte limit.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/app.c",
+    "english": "Rejected an outgoing line containing CR or LF.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/app.c",
+    "english": "Cannot allocate outgoing command.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/app.c",
+    "english": "A registered connection, nickname and valid DCC SEND offer are required.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/app.c",
+    "english": "DCC offer exceeds the current IRC message budget.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/app.c",
+    "english": "DCC offer cannot contain control characters.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/app.c",
+    "english": "That DCC offer is already in flight.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/app.c",
+    "english": "That DCC offer is already queued.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/app.c",
+    "english": "Not registered with a server; /connect first.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/app.c",
+    "english": "A valid target and nonempty UTF-8 text are required.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/app.c",
+    "english": "Bouncer control requires one plain command over the authenticated TLS connection.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/app.c",
+    "english": "Messages cannot contain control characters except composed newlines.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/app.c",
+    "english": "Bouncer command exceeds one protocol line; nothing queued.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/app.c",
+    "english": "Text cannot fit within 64 messages and the current byte limit.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/app.c",
+    "english": "Input exceeds {limit} UTF-8 bytes.",
+    "kind": "named-fields",
+    "fields": [
+      "limit"
+    ]
+  },
+  {
+    "source": "src/app.c",
+    "english": "The outgoing queue cannot hold all {count} messages; nothing queued.",
+    "kind": "named-fields",
+    "fields": [
+      "count"
+    ]
+  },
+  {
+    "source": "src/ui.c",
+    "english": "Enter: find | Esc: cancel | Literal search, up to 256 UTF-8 bytes.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/ui.c",
+    "english": "No keeps your text for editing.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/ui.c",
+    "english": "Discard this view's unsent draft? [y/N]",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/ui.c",
+    "english": "No keeps the view and draft.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/ui.c",
+    "english": "Resize; Esc returns to chat.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/ui.c",
+    "english": "Close server",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/ui.c",
+    "english": "Cannot allocate the New server form.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/ui.c",
+    "english": "Connect this server before requesting Whois.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/ui.c",
+    "english": "Unable to refresh the inquiry; the previous snapshot is preserved.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/ui.c",
+    "english": "Local inquiry ready. R refreshes; Esc returns to the previous screen.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/ui.c",
+    "english": "Unable to refresh the summary; the previous snapshot is preserved.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/ui.c",
+    "english": "Snapshot ready. R refreshes; Esc returns to the previous screen.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/ui.c",
+    "english": "Too small.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/ui.c",
+    "english": "Resize; draft is safe.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/prompt.c",
+    "english": "Command completed; unable to retain its history entry.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/prompt.c",
+    "english": "Command completed; unable to save command usage counters.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/prompt.c",
+    "english": "Removed the selected command history entry.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/prompt.c",
+    "english": "Usage count reset for this session; unable to save the reset.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/prompt.c",
+    "english": "Reset this command's usage count; the command remains available.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/prompt.c",
+    "english": "Delete is available for Recent history and Most used suggestions.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/prompt.c",
+    "english": "Resize terminal to browse suggestions.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/prompt.c",
+    "english": "Command input limit reached or unsupported character.",
+    "kind": "fixed-display",
+    "fields": []
+  }
+]

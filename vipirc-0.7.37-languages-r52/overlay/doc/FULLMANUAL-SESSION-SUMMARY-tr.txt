@@ -1,0 +1,9 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / SESSION SUMMARY
+English source SHA-256: b2af79e132d98cb37475f734dff71c96a322570b71164c116cf5b7d8aa548be2
+
+/summary çalışan istemcinin tümunun yerel anlık goruntusunu ayrı, kaydırilabilir okuyucuda acar. Bağlantı yokken de çalışir ve girdileri sunucuya göre gruplar. Bağlantı durumu, takma ad, kanal 0, katılınmis/ayrilmis kanal görünümleri, özel görüşmeler, okunmamis/mentions sayilari, giden kuyruklari, bekleyen başlatma komutlarini ve dosya aktarma durumlarini gösterir. Mentions akisinin kopyasi kaynak iletilerle iki kez sayilmaz. Mentions aynı zamanda okunmamis olabilir; iki toplam birleştirilmez.
+
+Özeti açmak veya yenilemek görüşmeyi değiştirmez, iletileri okunmus isaretlemez, ag isteği göndermez veya sohbet taslağıni değiştirmez. Kuyruk sayilarini gösterir; bekleyen ileti metnini, otomatik komut metnini veya kimlik bilgilerini açıklamaz. Sohbet içerigini yorumlamaz, güncel durumu raporlar.
+
+Tam arayüzde Up/Down ya da k/j, Page Up/Page Down, Home/End ya da g/G ile okuyun. Yenilemek için r veya R, klavyeden Refresh ya da Refresh'e tiklama kullanın. Escape/Back başlangıça döner. vipirc -i içinde r yanıt okuyucusunu yeniler. Yenileme basarisizsa önceki goruntu kalır. Okurken ag çalışmaya devam eder. / Command'i açar; iptal eski goruntuye döner. ? özet/okuyucu yardımıni acar.

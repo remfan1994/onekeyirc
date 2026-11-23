@@ -1,0 +1,12 @@
+OPTIONAL vipirc LOCALIZATION/RTL PATCH r24 - MANUAL COVERAGE
+Original English source: vipirc 0.7.36 r1, unchanged.
+Languages: id, ms, tr, es, pt, fr, de, ru, it, ar.
+Complete, source-linked manual chapter DRAFTS: 47/52.
+Added in r24: MINIMALIST INTERFACE (620 words) and GLOBAL HEADER AND CHAT CONTROLS (416 words), in all 10 languages.
+Covered chapter words: 11439/14364 (79.64%). Remaining: 5 chapters, 2925 source words.
+These are companion files; the ncurses in-app reader still shows English MANUAL.txt.
+Native-speaker review is required; word and chapter counts do not establish linguistic equivalence.
+Untranslated: COMMAND-LINE OPTIONS (599); COMMAND PROMPT (480); CONNECTION AND STARTUP COMMANDS (578); CONVERSATION COMMANDS (665); CONFIGURATION (603).
+Complete SECURITY.md, uncatalogued UI and diagnostics, and full ncurses in-app translation remain outstanding.
+No RTL/editor/network/IRC behavior change relative to r23; only patch-version identification differs in executable C.
+See MANUAL-SECTION-MAP-r24.tsv and TRANSLATION-INDEX-r24.txt.

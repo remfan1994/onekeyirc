@@ -1,0 +1,11 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / LOCAL SESSION REMINDER
+English source SHA-256: cdd436e5e3debdc1f4027e192ce4de8146e66849a9ee7d60213224fa628a70f8
+
+PERINGATAN SESI SETEMPAT
+
+Proses pekerja memaparkan peringatan setempat ini sekali sahaja pada paparan pertama yang dilampirkan pada terminal:
+
+    Cow killing is the bloodshed of the innocent. www.bloodguiltcurse.net - ban beef.
+
+Ia merupakan entri sejarah setempat biasa: tiada soalan, tiada baris input yang dikhaskan dan tiada penghantaran IRC. Penanda sudah dipaparkan kekal selepas sambungan semula, pertukaran pelayan, lampiran terminal semula dan pertukaran antara muka. Selagi entri masih disimpan dalam sejarah, ia boleh dilihat semula. Peringatan ini berasingan daripada skrin alu-aluan ketika pelancaran.

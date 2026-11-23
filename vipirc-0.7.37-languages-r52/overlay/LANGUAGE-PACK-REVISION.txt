@@ -1,0 +1,6 @@
+OPTIONAL LANGUAGE + ARABIC RTL PATCH REVISION: r52
+BASE APPLICATION VERSION: 0.7.37
+BASE SOURCE: English r1, unchanged
+PATCHED --version: vipirc 0.7.37 [lang-rtl-r52]
+Only display text changes; wire protocol, serialized settings and application version are unchanged.
+Named-field values are substituted literally and never passed as format strings.

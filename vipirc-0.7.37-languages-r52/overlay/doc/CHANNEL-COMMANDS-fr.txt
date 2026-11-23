@@ -1,0 +1,55 @@
+Guide pratique vipirc / onekeyirc - Aide
+==================================================
+
+TRADUCTION PROVISOIRE. Tapez les commandes et options exactement comme indiqué.
+Pour la sécurité, consultez MANUAL.txt et SECURITY.md en anglais.
+
+/help clear
+-----
+
+Efface l'historique limité en mémoire de cette vue. Ne quitte pas le canal, ne déconnecte pas, ne retire pas les messages envoyés et n'efface aucun journal existant.
+
+L'historique de défilement déjà écrit est géré par le terminal.
+
+Dans le chat : Up recule d'une ligne, Page Up d'une page, Home va au début; Down/Page Down avancent. Le trafic nouveau ne déplace pas la page lue. End/Escape reviennent au direct; naviguer n'ouvre pas l'éditeur.
+
+/help ignore
+------
+
+Accepte un pseudo ou masque nick!user@host avec jokers * et ?. Masque localement les messages et avis correspondants.
+
+Le texte ignoré ne crée ni conversation privée ni mention. État du protocole, avis du serveur et appartenance restent actifs.
+
+Utilisez /save pour conserver les masques de ce serveur.
+
+/help join
+----
+
+Nécessite l'enregistrement. La clé est un seul jeton ASCII imprimable; elle n'est ni sauvegardée ni gardée dans l'historique des commandes.
+
+En connexion directe, le canal rejoint la liste d'auto-adhésion active; les changements /autojoin en attente prévalent à la sauvegarde.
+
+Utilisez /autojoin pour préparer la prochaine connexion explicite d'un profil direct sans rejoindre maintenant. Le bouncer gère ses adhésions.
+
+/help part
+----
+
+Sans canal, quitte le canal rejoint sélectionné. Le texte après un canal est la raison PART; sans canal, le texte est la raison du canal sélectionné.
+
+Sans raison explicite, part_message est utilisé s'il est configuré. L'entrée d'auto-adhésion active est supprimée.
+
+Les messages en attente pour ce canal sont annulés; un envoi en cours peut finir. Utilisez /close pour retirer la vue.
+
+/help topic
+-----
+
+Exige l'enregistrement et l'adhésion au canal. Sans texte, consulte le sujet; sinon envoie TEXT tel quel.
+
+Le serveur décide si vos droits sur le canal permettent le changement.
+
+/help quit
+----
+
+Envoie MESSAGE comme raison IRC QUIT au mieux sur chaque serveur actif, sinon quit_message; puis restaure le terminal et quitte.
+
+Utilisez /background pour garder les connexions actives.

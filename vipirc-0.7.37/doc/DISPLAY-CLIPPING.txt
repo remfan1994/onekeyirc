@@ -1,0 +1,88 @@
+MINIMALIST DISPLAY CLIPPING FOLLOW-UP
+Date: 2026-11-08 (America/Los_Angeles)
+vipirc 0.7.17 / onekeyirc 0.1.16
+Based on vipirc 0.7.16 / onekeyirc 0.1.15.
+
+CONFIRMED CAUSE
+
+The minimalist input view redraws recent chat separately from the ordinary
+scrolling log. Previously draw_live_tail counted one row for each retained
+message and sent that message to frame_text, which limits its display to one
+row. A message occupying two terminal rows therefore lost its visible ending
+when the input field opened, even though the stored text remained complete.
+
+Selecting the channel again returns to the ordinary scrolling display. That
+path can show the complete record, explaining why the missing text reappeared
+above the channel heading. It is not necessary to resend a message simply
+because this input-view clipping occurred.
+
+The baseline reproduction used an 80-column, 18-row PTY, a private local IRC
+peer and a 112-byte ASCII message with an ending marker. The peer received
+exactly all 112 payload bytes. The normal log showed the ending, opening the
+input field hid it, and selecting the same channel showed it again. No actual
+user conversation or external IRC server was used in this test. The user's
+installed binary and terminal were not directly inspected.
+
+CHANGES
+
+The shared minimalist renderer now lays out recent chat in wrapped terminal
+rows. It retains the newest rows that fit above the input field, measures
+Unicode in terminal cells and preserves the underlying message/history.
+If the available area is shorter than the history, older visual rows scroll
+out of view. Opening the input field no longer imposes a one-row limit on
+each message. Sending limits, pacing, authentication and network processing
+are unchanged by this fix.
+
+A related editor positioning defect is also corrected: a newline immediately
+after an exactly full row must not advance twice. The painter now agrees with
+the editor's cursor layout at that boundary, preventing the following line
+from being painted outside the calculated viewport.
+
+The same shared fix is present in vipirc -i and standalone onekeyirc. The full
+ncurses chat renderer is unchanged. Existing --close-session controls and
+vipirc's default_interface setting remain included.
+
+VALIDATION
+
+The matching 112-byte baseline case retained and transmitted the complete
+message but hid its ending when the next input field opened. The fixed case
+shows that ending in both frontends, with exactly one complete transmission.
+
+The focused display suite passes all four cases (two defects, each in line
+and fullscreen composer layouts) in four builds: normal and ASan/UBSan
+onekeyirc, and normal and ASan/UBSan vipirc idle harnesses. It checks newest
+visual-row selection, long records, Unicode/combining characters, resize,
+cursor/text agreement and exact transmitted text. Both baseline regressions
+fail at the display assertion after their wire-payload checks pass.
+
+Existing terminal checks for offline editing/commands, paste/send review and
+the line-mode live tail/toggle also pass. Selected editor, protocol, app/list/
+authentication security and DCC file-identity unit regressions pass.
+
+The complete onekeyirc build passes strict compiler warnings. The vipirc -i
+tests use its actual main and idle code with unused ncurses entry points
+stubbed to abort; no complete ncurses build or runtime pass is claimed.
+ASan/UBSan report no errors in these cases. Leak detection is disabled.
+No native OpenBSD, AF_UNIX session lifecycle or actual SSH test is claimed.
+
+BUILD AND UPGRADE
+
+From the extracted source directory on the intended host:
+
+  ./configure
+  make
+  make check-idle-display
+
+Use the existing INSTALL instructions for installation. Confirm the new
+version, and restart the worker that needs the fix. Installing a new executable
+cannot change the display code already loaded by an existing background job.
+Use --sessions to identify a modern job and --close-session NUMBER when you
+intend to terminate that whole client session; that also ends its IRC
+connections, transfers, unsaved drafts and in-memory history.
+
+The archives include current display evidence in doc/VALIDATION.txt and
+doc/DISPLAY-TEST-RESULTS.json. The earlier session-control validation is kept
+in doc/SESSION-CONTROL-VALIDATION.txt and doc/SESSION-CONTROL-TEST-RESULTS.json.
+The earlier security review remains in doc/SECURITY-REVIEW.txt,
+doc/SECURITY-VALIDATION.txt and doc/SECURITY-TEST-RESULTS.json. Historical
+results retain their own release scope and are not relabeled as new tests.

@@ -1,0 +1,27 @@
+VERBATIM ENGLISH SOURCE REFERENCE
+Source: MANUAL.txt / SESSION SUMMARY
+English source SHA-256: b2af79e132d98cb37475f734dff71c96a322570b71164c116cf5b7d8aa548be2
+
+SESSION SUMMARY
+
+/summary opens a local snapshot of the whole running client in a separate
+scrollable reader. It works while disconnected and groups entries by server.
+It includes connection state and nickname, channel 0, joined and left
+channel views, queries, unread and mention counts, outgoing queues, pending
+startup commands, and file transfers with their current status. Totals omit
+the copied mentions feed to avoid counting its source messages twice.
+Mentions may also be unread messages; those two totals are not added
+together.
+
+Opening or refreshing the summary does not switch conversations, mark them
+read, send a network request, or replace a chat draft. It reports queue
+counts without exposing queued message text, automatic-command text, or
+credentials. It shows current state rather than interpreting chat content.
+
+In the full interface, use Up/Down or k/j, Page Up/Page Down, and Home/End
+or g/G to read. Press r or R, activate Refresh with the keyboard, or click
+Refresh to take another snapshot. Escape or Back returns to the origin. In
+vipirc -i, r refreshes the response reader. A failed refresh retains the
+previous snapshot. Networking continues while the reader is open. Slash
+opens Command from Summary; cancelling it returns to that snapshot. Press ?
+to read help for the summary and its reader.

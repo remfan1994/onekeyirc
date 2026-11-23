@@ -1,0 +1,12 @@
+Full-interface review and file browsing
+Source: SECURITY.md, section "Full-interface review and file browsing"
+English section SHA-256: e2f59ccd783bd17feedcf3bc49a14a3085c7f21783755ee9b06c265dc0f1eb54
+Paragraphs: 3
+Status: Verbatim English reference
+English SECURITY.md remains authoritative. This is one source-linked section, not a security certification.
+
+The ncurses transfer review shows peer address, port, byte count and destination before a separate Accept/Offer action. It retains a stable offer ID rather than a changing row index and refuses consent below the review screen's minimum size. Selecting a source-browser row does not send a file. The browser follows no symlink components, rechecks the selected inode, never changes cwd and never reads file contents merely to list them. Work is bounded to 64 examined entries per step, 4096 examined names and 512 rows; truncation is reported. Filesystem metadata can still block on slow storage.
+
+The guided receive default is under XDG_DATA_HOME/vipirc/downloads or HOME/.local/share/vipirc/downloads on the process host and is created only through explicit acceptance. Command-based relative paths and an omitted receive directory use the launch directory while retaining privacy checks. Without an explicitly advertised IPv4, sending uses the local IRC socket address; it does not discover a public address or configure forwarding.
+
+Mouse nickname/channel actions retain bounded copies of the values shown. Roster changes must not redirect an earlier click to a different target. A nickname click opens a local menu; a subsequent Whois/Query/Ignore choice performs that action. Clicking an unjoined channel can explicitly join it. Completion and suggestion insertion do not transmit IRC. Send/transfer consent still uses the ordinary validation path. These source invariants are not a claim that this documentation pass executed the full curses frontend.

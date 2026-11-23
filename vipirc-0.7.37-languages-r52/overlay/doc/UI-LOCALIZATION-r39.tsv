@@ -1,0 +1,46 @@
+source	kind	fields	english
+src/ui.c	fixed		An application of ThatIAm.vip
+src/ui.c	fixed		Website: www.thatiam.vip
+src/ui.c	fixed		Designed by remfan1994
+src/ui.c	fixed		License: Insha-Allah license agreement (IALA)
+src/ui.c	fixed		Process snapshot
+src/ui.c	fixed		CPU time: unavailable
+src/ui.c	fixed		Peak resident memory: unavailable on this platform
+src/ui.c	fixed		CPU and memory cover this process; helper processes are excluded.
+src/ui.c	fixed		About vipirc
+src/ui.c	fixed		Help / Manual
+src/ui.c	fixed		command screen
+src/ui.c	fixed		Servers screen
+src/ui.c	fixed		Network channel directory
+src/ui.c	fixed		Activity screen
+src/ui.c	fixed		nickname actions screen
+src/ui.c	fixed		manual screen
+src/ui.c	fixed		Server list
+src/ui.c	fixed		Activity list
+src/ui.c	fixed		auto-join inquiry screen
+src/ui.c	fixed		authentication inquiry screen
+src/ui.c	fixed		session summary screen
+src/ui.c	fixed		Channels screen
+src/ui.c	fixed		Queries screen
+src/ui.c	fixed		About screen
+src/ui.c	fixed		license screen
+src/ui.c	fixed		not configured
+src/ui.c	fixed		unavailable
+src/ui.c	fixed		disconnected
+src/ui.c	fixed		The client is receiving LIST replies; no matching channel has arrived yet.
+src/ui.c	fixed		No cached channel matches the current LIST filters.
+src/ui.c	fixed		There are no open private conversations. New opens a command input for a nickname; /query NICK opens a local conversation without sending a message.
+src/app.c	fixed		A network channel list is already in progress.
+src/app.c	fixed		That ignore mask is not in the list.
+src/app.c	fixed		That ignore mask is already present.
+src/app.c	fixed		Watch limit is 32 strings.
+src/app.c	fixed		That watch string already exists.
+src/app.c	fixed		That watch string was not found.
+src/app.c	fixed		Invalid nickname (maximum 63 ASCII bytes).
+src/app.c	fixed		Watch text must contain 1 to 127 UTF-8 bytes.
+src/app.c	fixed		Select a joined channel first.
+src/app.c	fixed		Join this channel first.
+src/app.c	fixed		A command name cannot contain a newline.
+src/app.c	named-fields	nick	OFFLINE TEST MODE running as {nick}. No network or authentication.
+src/app.c	named-fields	nick	Connected as {nick}. /help opens the manual.
+src/app.c	named-fields	channel	Left {channel}; history retained. /close removes its view.

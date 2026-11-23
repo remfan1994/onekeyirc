@@ -1,0 +1,18 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / CUSTOM KEY BINDINGS
+English source SHA-256: 947b11b40b8bb1c3fa32d14bc71aac77bc4ccb1186406a303e6b96d197a6b92d
+Source lines: 782-815
+
+ÖZEL TUŞ ATAMALARI
+
+Varsayılan olarak hiçbir özel tuş atanmamıştır. Tam vipirc arayüzünde App > Key bindings veya /bindings bir tablo açar. Add/Edit tuş adını ve yerel eylemi seçer; Remove bir satırı siler. Apply değişiklikleri belleğe uygular, Save ayrıca birincil yapılandırmaya yazar. Escape/Cancel uygulanmamış düzenlemeleri iptal eder. Sohbet taslakları korunur. Tablonun özel atamalardan etkilenmeyen kendi kontrolleri vardır.
+
+İki arayüzde de /bindings keys ve /bindings actions kullanılabilir adları listeler. Kullanıcının seçebileceği örnekler: /bind F7 summary ve /bind Alt-c command; bunları ayrı komutlar olarak girin. /unbind F7 tek atamayı kaldırır; /unbind all özel tabloyu tamamen temizler. /save input değişiklikleri tüm sunucu profilleri için kaydeder. -i modunda /bindings tabloyu gösterir, /bind ve /unbind komutlarla düzenler.
+
+Desteklenen tuşlar: F1..F12, Ctrl-A..Z, Alt-a..z/0..9, Up, Down, Left, Right, Home, End, PageUp, PageDown, Insert, Delete, Backspace, Tab, Shift-Tab, Enter, Escape. Eşdeğerler: Ctrl-H/Backspace, Ctrl-I/Tab, Ctrl-J/Ctrl-M/Enter, Ctrl-[/Escape. Alt harfleri terminalin küçük harf baytlarını kullanır. Terminal/çoklayıcı tarafından yakalanan tuşlar ve sinyal atamaları önceliklidir; sinyal tuşları yeniden atanmaz.
+
+Eylemler: compose, command, bindings, help, manual, summary, servers, channels, queries, unread, mentions, transfers, settings, quickstart, next, prev, clearinput, cancel, background, quit. Rastgele komut çalıştıran veya ileti gönderen makrolar yoktur. Tam modda geri getirilen komut, kabul için yeni bir Enter basışı ve kısa bir aradan sonra çalıştırma için ikinci bir Enter gerektirir. Özgün hedef kapanmışsa Run engellenir.
+
+Özel eylemler yalnızca ana sohbette veya komut girişinde çalışır; yapıştırma sırasında, parola alanlarında, ilk kurulumda, okuyucularda ya da onay pencerelerinde çalışmaz. Çerçevelenmemiş yapıştırma normal yazma sayılır. Yalın kısayol okuyucuları taslağı ve imleci korur; boş olmayan taslak varken hedef veya düzenleyici değiştirme reddedilir. clearinput geçerli taslağı bilinçli olarak siler.
+
+Birincil [hotkeys] bölümü KEY=action satırlarını saklar; varsayılan satır yoktur. Bilinmeyen, yinelenen veya sınırı aşan girdiler bütün yüklemenin atomik olarak reddedilmesine yol açar. En fazla 64 girdi desteklenir. Kaydetme, terminal kısıtları ve örnekler için doc/HOTKEYS.txt dosyasına bakın.

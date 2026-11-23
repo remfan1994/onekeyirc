@@ -1,0 +1,209 @@
+DOCUMENTATION REFINEMENT
+vipirc 0.7.36 / onekeyirc 0.1.35
+2026-11-17 (America/Los_Angeles)
+
+PURPOSE AND SCOPE
+
+This pass refines the user and contributor documentation delivered with
+vipirc 0.7.35 and onekeyirc 0.1.34. The previous source archives, manifests
+and checksums were verified before editing. Historical reviews remain
+unchanged records of their own versions and environments.
+
+The checks below are complete, with the recorded test failure and limits.
+
+The application behavior remains the same. C edits are restricted to version
+macros, existing help-string payloads and the generated full manual. Runtime
+logic, tests/scripts and Makefile recipes are unchanged. The installed-document
+list gains the troubleshooting guide and this review/evidence pair.
+
+FIRST SESSION AND EVERYDAY USE
+
+The README now puts building and making the first connection before optional
+key customization. Connection and channel-join examples are separated by the
+registration checkpoint. It identifies placeholder hosts, names and numbers,
+distinguishes shell commands from in-program commands, and separates command
+syntax from explanatory text in the conversation-reference table.
+
+The standalone getting-started guide and both READMEs explain command paste
+correctly. Typing the initial slash opens Command with that slash already
+present. Paste either the remainder, or remove the prefilled slash before
+pasting one complete command. Bracketed paste into chat/watch remains message
+text; inside Command it edits a command and turns line breaks/tabs into spaces.
+A pasted block is therefore one edited line, not separate submissions.
+The existing fresh-input/send-review requirements are retained.
+
+Help navigation is explained for each interface. Minimalist /help ls lists
+topics; /help /ls describes the local list command; /help commands lists
+commands. Full vipirc /help TEXT searches the manual. The existing difference
+between explicit command-line interface selection and a saved startup default
+remains documented.
+
+NEW TROUBLESHOOTING GUIDE
+
+doc/TROUBLESHOOTING.txt is installed with both products and linked from the
+root guides and maintained help/manual. Its seven symptom groups cover:
+
+1. SSH loss and busy/unavailable resume, with listed job numbers, the same
+   Unix account, verified detach/resume and terminal requirements.
+2. A new executable versus an older worker still running its loaded code.
+3. Configuration selection, save scope, partial saves and private paths.
+4. Background worker startup versus actual IRC registration/autoconnect.
+5. TLS, SASL and GPG diagnostic differences and corrective next actions.
+6. Command recall, Compose caret movement, suggestions and wrapped chat tails.
+7. Bounded RAM history, optional logs, catch-up anchors and restart limits.
+
+The guide has 16 labelled shell/in-program examples and ten diagnostic
+strings/prefixes matched against source. Its two copies are byte-identical.
+It links detailed session, bouncer and key-binding references rather than
+repeating their complete specifications.
+
+CORRECTIONS CHECKED AGAINST THE IMPLEMENTATION
+
+Save scope:
+  /save input and /save output are identical aliases. Both select slot zero
+  and save the primary effective profile, including application preferences
+  and staged primary connection settings. They do not isolate input/output
+  sections or automatically save the selected secondary profile. Bare /save
+  targets the selected server. The README, standalone walkthrough, maintained
+  help/manual, troubleshooting guide and contributor example now agree.
+
+Server and panel numbering:
+  Full ncurses server commands use 0..7 with primary server 0. Minimalist
+  vipirc -i and onekeyirc use 1..8 with primary 1. Both /panel choosers use 0
+  for application preferences and 1..8 for profiles. Panel 1 therefore edits
+  the primary in either interface. These are separate from shell worker-job
+  numbers. Examples tell the reader to inspect the active interface's list.
+
+Split-send confirmation:
+  The full interface's y/N confirmation and the minimalist Review screen now
+  have separate instructions. In minimalist Review, a fresh Enter confirms
+  and Escape returns to the retained editor. The protocol-byte limit is still
+  distinct from the number of visual rows in a terminal.
+
+Setup side effects:
+  Accepting an offered managed GPG destination can prepare its private
+  directory before Finish. The old blanket claim that answering fields writes
+  no files was corrected. Directory preparation is distinguished from later
+  ciphertext/configuration publication and its failure handling.
+
+Configuration fallback:
+  An unset or empty XDG_CONFIG_HOME uses the home/account fallback. A nonempty
+  value must be absolute. The first-use guide and both READMEs now state the
+  empty-variable behavior accurately.
+
+Rebuilding with different flags:
+  Reconfiguration alone does not make compiler/flag values tracked build
+  dependencies. INSTALL and CONTRIBUTING now say to reconfigure, run make clean,
+  then rebuild when changing the toolchain or flags. The copyable changed-flags
+  example includes the clean step. Installation paths and executable version
+  checks are explained separately from the lifetime of running workers.
+
+CONTRIBUTING AND SOURCE NAVIGATION
+
+CONTRIBUTING.md now follows a small /summary help change from the long topic
+and short command description to implementation checks, focused fixtures,
+source mirroring and each product's authoritative manual. A second example
+traces output_format through Config.output_full, the INI format key, setup,
+validation and saving. It explains why runtime names and persisted names may
+differ, and why primary-profile save scope must be checked explicitly.
+
+doc/SOURCE-MAP.txt now gives concrete public-API pitfalls: boolean versus
+negative/enum results, SIZE_MAX sentinels, borrowed data lifetimes, publication
+before a reported save failure, and credential jobs still owned after a final
+poll result. The test guide distinguishes building a fixture from running it,
+describes what relevant fixtures establish, and covers the independent private
+installation regression and its distinct README paths.
+
+These guides were checked against 42 named functions and 33 Makefile targets.
+The shared guides match across products; CONTRIBUTING retains the correct
+product-specific executable, configuration example and manual instructions.
+
+BUILD FINDING AND CORRECTION
+
+The first strict builds caught an expanded help topic whose adjacent C
+literals formed a 4171-byte string, beyond the compiler's 4095-byte portable
+translation limit. The initial onekeyirc and private vipirc CLI build failures,
+and command-fixture compile failure, are preserved in the evidence.
+
+The help wording was shortened while retaining the controls and paste/consent
+rules. No compiler warning was disabled and no runtime code was changed.
+Adjacent-literal sizes were checked before rebuilding. CONTRIBUTING explains
+that splitting a string across quoted source lines does not reset this limit;
+long operational prose belongs in the linked guides.
+
+The command fixture then caught a shared history topic naming vipirc inside
+onekeyirc's help. That wording was made product-neutral and conditional on
+interface switching being supported. The product-boundary test was retained,
+and its initial failure is preserved separately from subsequent runs.
+
+The complete command fixture then reached a different assertion in
+persistent_primary_and_failure(): it expects the older phrase "was not saved"
+when saving to a directory. Static inspection finds the corresponding
+diagnostic says the save "did not complete". The entire save_one()
+implementation and fixture file are unchanged
+from the previous source archive. A private baseline build reproduced the
+same assertion failure. This remains a failed whole-fixture run; release tests
+and diagnostics were not changed in this documentation pass.
+
+The failed assertion combines the return-value and substring checks; its
+captured output was not printed. The diagnostic mismatch is a source-based
+explanation, while the matching baseline assertion failure was observed.
+
+A separate private harness runs only the existing metadata_and_help() and
+help_keeps_product_boundaries() functions, retaining their assertions and the
+complete production command-fixture sources. Its passing result covers those
+help functions only. It does not establish that the remaining command tests
+pass, and the harness is not included in the source archive.
+
+Focused checks after correction include:
+
+- A strict onekeyirc build with C11, configured hardening and -Werror.
+- A strict build of real vipirc command-line/minimalist sources and the full
+  embedded manual with explicit aborting substitutes for unavailable curses
+  entry points. This is a CLI/manual fixture, not a full UI build.
+- The existing command fixture built through its actual Makefile target; its
+  full execution fails the preexisting save-error assertion described above.
+  The separate help-only harness passes. The actual full App/manual capacity
+  fixture also passes, built through its Makefile target.
+- Both documentation generators and their read-only consistency checks.
+- Shared-source byte equality and comparison of all 232 C/header file copies
+  against the verified baselines. Only the five intended version/help/manual
+  file copies differ; no unexpected non-string tokens or directives changed.
+- Current guide links, ASCII/newlines/whitespace, generated roff structure,
+  all six shipped INI examples, stale-export detection/repair and an oversized
+  full-manual refusal using private fixtures.
+- A clean staged onekeyirc configure/build, version/docs check and full
+  documentation install/uninstall in a private destination containing spaces.
+
+The full manual contains 2023 lines, compared with 2045 before
+this pass. Its first and last lines remain available at minimum history;
+APP_HELP_LINES stays 2048. Repeated explanations were consolidated while the
+reference headings, command coverage and license/notice passages were retained.
+
+The exact commands, diagnostics, source hashes and editorial receipts are in
+doc/DOCUMENTATION-REFINEMENT-RESULTS.json. The source archives contain the
+new guides and generated help/man-page exports, with manifests and checksums.
+No validation executable or temporary UI substitute is included.
+
+LIMITS
+
+Native full vipirc configuration remains blocked by missing wide-character
+curses development headers/library in this Linux runner. No native curses,
+OpenBSD/LibreSSL, live IRC/bouncer or native session-handoff validation is
+claimed. No new sanitizer or broad security/load campaign was run for these
+documentation-only changes. Earlier reports retain their actual results.
+
+The complete command fixture still fails as described above. The source-based
+diagnostic explanation and matching baseline failure are recorded separately
+from the passing help-only result. This release does not claim a fully passing
+command test suite.
+
+An existing dependency advisory reference in INSTALL/SECURITY.md was checked
+against its published OpenSSL source. The deployment library was not changed;
+dependency maintenance remains separate from these source documentation edits.
+Reference: https://openssl-library.org/news/secadv/20260929.txt
+
+Documentation generation verifies agreement, not every behavioral claim.
+The specific corrections above were also traced to the implementation. This
+pass improves instructions and contributor understanding; it does not make a
+new security guarantee or add runtime features.

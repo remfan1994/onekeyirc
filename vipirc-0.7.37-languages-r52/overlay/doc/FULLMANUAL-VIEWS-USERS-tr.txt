@@ -1,0 +1,11 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / VIEWS AND USERS
+English source SHA-256: c02a51adb2e96f61d113aee6ccd47ba792577ee3c03d8708020250ea07f94354
+
+Her sunucunun 0 numarali sunucu/MOTD görünümu, kanallari, ayrı numarali özel görüşmeleri, mentions ve üye listeleri vardir. Başlıklar sunucuyu tanımlar; sunucu görünümu kayıt/MOTD/hatalari içerir. Mentions kaynaği, göndereni ve protokol sınırlari içinde tüm ileti metnini saklar. Uzun satırlar saklanan metin kısalmadan ekranda sarilir.
+
+/sl veya /servers sunuculari, /cl veya /channels kanallari, /ql veya /queries özel görüşmeleri acar. /server MOTD'yi, /channel NUMBER veya #NAME kanali, /pm NICK|NUMBER özel görüşmeyi seçer. /next ve /prev görünümleri dolasir. /summary çalışma alanınin anlık özetini, /unread kaynaklar/mentions birlesimini gösterir; /list ag dizinini sorgular. Kesin komut bicimleri COMMAND REFERENCE INDEX'tedir.
+
+/users kanal üye listesini acar/kapatir; on/off/up/down görünürluk ve kaydırmayi kontrol eder. Settings > Interface aynı ana tercihi kullanır. Küçük terminal yer açılana dek yan cubugu gizleyebilir. Üyelik ve yetki onekleri yerel tahminlere değil sunucudan gelen JOIN/PART/QUIT/NICK/KICK/NAMES olaylarina dayanir. Özel görüşme/sunucu görünümlerinde kanal üye listesi yoktur.
+
+Kendiliginden gelen özel iletiler, sekizden az görünüm varken yeni sorgu görünümu açar; sonrakiler kaynak bilgisiyle sunucu/mentions içinde görünür. Açık /pm veya /msg, 32 görünüm sınırina kadar daha fazlasini acar. /clear bellekteki görünüm geçmişini disk dokumlerini silmeden temizler; /clearinput bağımsız taslağıni temizler.

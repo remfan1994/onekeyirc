@@ -1,0 +1,10 @@
+Child processes and synchronous work
+Source: SECURITY.md, section "Child processes and synchronous work"
+English section SHA-256: 79a87ca8215648f2d1f870067a2afe1fb4221757b00560b4b4191aac7832ba7f
+Paragraphs: 2
+Status: Translation draft; fluent-speaker security review required
+English SECURITY.md remains authoritative. This is only one section, not the full security document.
+
+La risoluzione DNS avviene in un figlio diretto controllato e attendibile, con scadenza; la pulizia agisce su quel figlio direttamente gestito. Il resolver non viene inserito in un gruppo di processi ausiliari. GPG ha un gruppo separato e mantiene l'identità del figlio diretto attendibile fino alla chiusura delle pipe di uscita, così la cancellazione può interrompere gli scrittori delle pipe ereditate nello stesso gruppo. GPG è un programma attendibile, non una sandbox: i discendenti che lasciano intenzionalmente il gruppo sono fuori dalle garanzie di pulizia.
+
+L'avvio del resolver o dell'ausiliario e la prima creazione di sessione in background rifiutano SIGCHLD=SIG_IGN o SA_NOCLDWAIT ereditati. La prima separazione ricontrolla dopo la preparazione; una separazione successiva di sessione gestita non esegue fork. Non è supportata l'integrazione dei moduli sotto un gestore esterno che raccolga i loro figli. Le operazioni su file regolari e metadati rimangono sincrone anche quando O_NONBLOCK evita attese all'apertura delle FIFO.

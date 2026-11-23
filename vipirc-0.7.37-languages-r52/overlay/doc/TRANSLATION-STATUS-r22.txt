@@ -1,0 +1,35 @@
+OPTIONAL vipirc LOCALIZATION/RTL PATCH r22 - MANUAL COVERAGE
+Original English application: vipirc 0.7.36 source r1, unchanged.
+Languages: id ms tr es pt fr de ru it ar.
+
+Complete source-linked full-manual chapter DRAFTS: 43/52.
+New in r22: 4 full chapters in all ten languages (1,346 English source words):
+  MINIMALIST CATCH-UP AFTER RESUME
+  CUSTOM KEY BINDINGS
+  SERVERS AND UNREAD ACTIVITY
+  BOUNCER CONNECTIONS
+The translated drafts cover 9,503 of 14,364 inventoried English source words.
+This measures source chapter coverage, not linguistic accuracy or total UI
+translation completeness. Each r22 draft is linked to exact English lines
+and SHA-256. The 844-entry minimal help catalog is unchanged.
+
+Remaining 9 unverified chapters:
+  MINIMALIST INTERFACE (620 English words)
+  COMMAND-LINE OPTIONS (599 English words)
+  GLOBAL HEADER AND CHAT CONTROLS (416 English words)
+  COMMAND PROMPT (480 English words)
+  CONNECTION AND STARTUP COMMANDS (578 English words)
+  SETTINGS (425 English words)
+  CONVERSATION COMMANDS (665 English words)
+  CONFIGURATION (603 English words)
+  FILES AND ENVIRONMENT (475 English words)
+
+SECURITY.md has not been fully translated. Some command-line help and
+ncurses diagnostics remain English. The in-app full ncurses manual reader
+still uses English MANUAL.txt; these are installed companion documents.
+
+Security-critical content (bouncer passwords/TLS, persistent logs, command
+execution, hotkeys) needs review by fluent native speakers. Arabic source
+text stays logical UTF-8, without hidden bidi controls. English MANUAL.txt
+and SECURITY.md remain authoritative. RTL/editor/networking behavior is
+unchanged from r21 except the visible [lang-rtl-r22] version label.

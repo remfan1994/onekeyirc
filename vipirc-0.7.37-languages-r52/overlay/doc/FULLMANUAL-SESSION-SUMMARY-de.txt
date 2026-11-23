@@ -1,0 +1,9 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / SESSION SUMMARY
+English source SHA-256: b2af79e132d98cb37475f734dff71c96a322570b71164c116cf5b7d8aa548be2
+
+/summary öffnet eine lokale Momentaufnahme des gesamten laufenden Clients in einem separaten scrollbaren Leser. Sie funktioniert auch getrennt und gruppiert nach Server. Enthalten sind Verbindungsstatus und Nickname, Kanal 0, Ansichten beigetretener und verlassener Kanäle, Privatdialoge, Zahlen ungelesener Nachrichten und Erwähnungen, ausgehende Warteschlangen, ausstehende Startbefehle sowie Dateiübertragungen mit aktuellem Status. Die kopierte Erwähnungsliste zählt nicht nochmals die ursprünglichen Nachrichten. Erwähnungen können zugleich ungelesen sein; beide Summen werden nicht addiert.
+
+Öffnen oder Aktualisieren des Überblicks wechselt keinen Dialog, markiert nichts als gelesen, stellt keine Netzwerkanfrage und ersetzt keinen Chatentwurf. Warteschlangen werden nur gezählt; anstehende Nachrichtentexte, automatische Befehle und Zugangsdaten bleiben verborgen. Der Überblick beschreibt den Zustand, nicht die Chatbedeutung.
+
+Im vollständigen Modus mit Up/Down oder k/j, Page Up/Page Down und Home/End oder g/G lesen. Für einen neuen Stand r oder R drücken, Refresh per Tastatur aktivieren oder anklicken. Escape/Back kehrt zum Ausgang zurück. In vipirc -i aktualisiert r den Antwortleser. Schlägt dies fehl, bleibt die alte Momentaufnahme. Netzwerkaktivität läuft weiter. / öffnet Command, dessen Abbruch zur Momentaufnahme zurückkehrt. ? zeigt Hilfe für Überblick und Leser.

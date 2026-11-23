@@ -1,0 +1,424 @@
+SECURITY, EFFICIENCY AND STABILITY CONTINUATION
+Date: 2026-11-16 UTC
+Releases: onekeyirc 0.1.27 and vipirc 0.7.28
+Baselines: onekeyirc 0.1.26 and vipirc 0.7.27
+
+RESULT AND SCOPE
+
+This additional source review produced shared-core security and stability
+fixes, reproducible baseline failures, independent cross-reviews, corrected
+sanitizer harnesses and new regression targets in both source packages.
+No new authentication bypass or remote code execution was demonstrated.
+This is bounded verification with explicit limits, not a certification.
+
+Integrated final build/runtime gate groups: 37 PASS,
+1 UNAVAILABLE, 0 final runtime/build FAIL.
+A group may contain multiple binaries or individual cases. The named-session
+runtime probe is unavailable because native AF_UNIX bind is restricted.
+
+Static analysis: 3 changed shared translation units reviewed; 2 emitted no
+diagnostics and 1 emitted a demonstrated pre-existing analyzer false positive.
+Its strict command remains exit 1 and its raw diagnostic is retained.
+No wholly clean static-analysis result is claimed.
+
+All 38 common source files are identical in the two packages. A clean
+standalone source build matches the tested onekeyirc binary exactly. Private
+DESTDIR installation/uninstallation checks validate content and permissions;
+the final archive step rechecks finalized documents and every archived byte.
+
+The full machine-readable record is doc/DEEP-TEST-RESULTS.json in each archive.
+It embeds the commands, outputs, source hashes, diffs, historical reproductions
+and the separately scoped transport/local/state evidence described below.
+The archive SOURCE-MANIFEST.json and SHA256SUMS verify the distributed files.
+
+SECURITY FINDINGS AND CHANGES
+
+1. A single TLS read could monopolize the event loop.
+
+The old transport inherited OpenSSL's automatic retry mode. A nonblocking
+SSL_read could consequently consume a long sequence of valid TLS 1.3 control
+records internally before returning application data. The client's limit on
+application reads per turn did not limit work inside that call.
+
+The private, certificate-verified loopback reproduction sent 100,000 KeyUpdate
+records followed by a 22-byte IRC PING. The final sequential baseline run
+processed all 100,000 in one read, lasting 1,203,061 microseconds. Its 10 ms
+fixture timer was late by 1,193,071 microseconds. The candidate processed at
+most one update per read. Its first read took 603 microseconds; its largest
+observed read took 4,161 microseconds. The timer ran 137 times, with maximum
+observed lateness of 2,185 microseconds. Both versions delivered the complete
+PING/PONG exchange correctly.
+
+These are measurements from a transport fixture with a simple event loop,
+not the terminal application or a hard real-time guarantee. Scheduling,
+instrumentation and host load affect them. The security improvement is the
+return of control between records, not an assertion of a universal latency
+bound or lower total cryptographic cost.
+
+The fix clears SSL_MODE_AUTO_RETRY and explicitly disables read-ahead for
+the direct socket BIO. Unprocessed records then remain visible to poll,
+while SSL_pending still reports decoded application bytes. The tests cover
+coalesced control/data records, actual partial ciphertext, and decoded data
+remaining after the socket has no new readiness event. A partial record can
+make SSL_has_pending true without providing usable application bytes; it is
+not used to force immediate polling.
+
+This requires control of the authenticated TLS endpoint/server. An ordinary
+channel user or unauthenticated on-path peer cannot directly manufacture
+these authenticated TLS records. A hostile server can still consume network
+bandwidth and CPU. Certificate and hostname verification remain enabled.
+
+Primary implementation: src/net.c, src/net.h.
+Regression: tests/test_net_tls_budget.c and tests/test_net_tls_budget.py.
+Evidence: network/final-baseline-tls.json and network/final-one-tls-normal.json
+inside DEEP-TEST-RESULTS.json, with separate candidate/sanitizer records.
+
+2. TLS write retry precedence was not enforced consistently.
+
+The application already retained stable bytes and length for a partially
+written IRC frame, including a zero-byte TLS retry. However, a subsequent
+read could enter SSL_read after SSL_write had returned WANT_WRITE. OpenSSL's
+documented contract requires repeating that write before other TLS I/O.
+Advertising readable data and decoded pending bytes during this state could
+also wake the loop for work it was not permitted to perform.
+
+The transport now records an outstanding write retry. While it requires
+POLLOUT, it defers reads, suppresses decoded-data wakeups and polls for output
+space. Successful progress restores ordinary read behavior. A transition to
+WANT_READ retains read eligibility; that different direction must not be
+treated like a blocked output socket.
+
+Real TLS 1.2 and 1.3 backpressure tests leave 8,191 decoded bytes pending,
+verify the suppression while writes are blocked, and then verify all 8,194
+incoming and 81,920 outgoing bytes exactly. A reset during a stalled write
+terminates with the existing transient reconnect classification. One rare
+write-WANT_READ edge is explicitly injected and labeled; the remaining TLS
+cases use actual library outcomes.
+
+This is a confirmed API-contract/robustness defect. The installed OpenSSL
+baseline happened to complete the stream, so no reproduced crash, secret
+disclosure or application-byte corruption is claimed for this finding.
+
+3. Credential helper descendants could survive cancellation.
+
+A direct decryption/encryption helper could exit while a same-process-group
+descendant retained stdout or the status pipe. The old code reaped the
+leader early and marked the job exited. Later timeout/cancel then skipped
+group termination, leaving the descendant alive and holding the pipe.
+
+The fix keeps the direct child unreaped until both output pipes reach EOF.
+That child pins the process-group identity while cleanup may still need it.
+Cancellation signals the still-owned group and then retires/collects the
+direct child; it does not save a reaped numeric PID for later signaling.
+Normal output draining and successful completion still release the slot.
+
+Private real-process fixtures reproduce both decryption and encryption
+failures against the untouched baseline and verify the repair. They cover
+stdout-only, status-only and both inherited writers; explicit cancel;
+timeout; malformed status; direct-child exit before 1000 buffered bytes
+finish draining; and descriptor/process cleanup. The fixture supplies a
+controlled helper, not a real GnuPG keyring or agent.
+
+This is resource-lifecycle hardening for a trusted configured external
+helper. It is not a process sandbox and does not guarantee cleanup of a
+descendant which deliberately changes process groups or otherwise escapes
+the stated helper contract.
+
+Primary implementation: src/credentials.c.
+Regression: tests/test_credential_descendants.c.
+Evidence: local/LOCAL-REVIEW.txt, helper-baseline.txt, descendants-baseline.txt
+and local-checks.json inside DEEP-TEST-RESULTS.json.
+
+4. Automatic child reaping could invalidate PID ownership.
+
+Resolver and credential cancellation depend on owning waitable direct
+children. SIGCHLD=SIG_IGN and SA_NOCLDWAIT can make the operating system
+discard a child identity automatically on exit. The baseline resolver test
+observed a later SIGKILL attempt using its already auto-reaped numeric PID.
+The test did not force PID reuse or signal an unrelated process. Baseline
+credential starts likewise accepted all three unsafe disposition variants.
+
+Both creation boundaries now inspect SIGCHLD before creating helper pipes
+or forking. They fail with an actionable launcher-policy diagnostic if
+automatic reaping is enabled. Ordinary default behavior and a non-reaping
+handler remain supported. Rejected fixtures perform zero forks and leak no
+descriptors or credential destination file.
+
+The client does not later change this policy or install a child reaper.
+Embedding these modules in a process which independently reaps their children
+or changes SIGCHLD during owned work is outside the supported contract.
+The Linux launch-policy cases were executed. OpenBSD's documented exec behavior
+resets SIGCHLD, so this report does not assume that every OpenBSD launch
+inherits the Linux policy. No native OpenBSD execution is claimed.
+
+Primary implementation: src/net.c, src/credentials.c.
+Regressions: tests/test_net_resolver_ownership.c/.py and
+tests/test_credential_signals.c.
+
+PRESENCE STABILITY AND EFFICIENCY
+
+5. Cancelling a queued script could strand or overwrite away intent.
+
+Script/autocommand AWAY and BACK are distinct from client-generated idle or
+background away. The baseline changed presence bookkeeping when it queued
+a script frame, but removing that still-unsent frame did not restore the
+preceding intent. A cancelled AWAY could suppress future background away;
+a cancelled BACK could lose an earlier manual-away request; and a script
+could erase the ownership classification of an earlier automatic away.
+
+The application now owns one unsent script presence frame and keeps a small
+snapshot of the prior intent on that frame. Cancellation or pre-write
+rejection restores only that frame's still-current snapshot. A newer manual
+command supersedes it. The first write attempt releases rollback ownership,
+including a TLS retry which accepts zero bytes: a frame already involved in
+TLS I/O must retain its original contents and cannot be treated as unsent.
+Disconnect/reset/free clear the ownership pointer before releasing storage.
+
+The independent review added realistic orderings beyond the initial probe.
+An older 305/306 received while a script is still queued updates its saved
+prior state; it cannot acknowledge a frame which has not been sent. Local
+activity is observed by the frontends before command dispatch, so a return
+activity preceding /cancel is also retained in the snapshot. An older 305
+for BACK cannot acknowledge a newer pending nonempty AWAY; a later 306 or
+explicit newer BACK resolves that intent. Both manual and scripted requests,
+completed writes, partial writes and zero-byte retries are covered.
+
+This is bounded state tracking with one owned pointer and a few fields. It
+does not introduce an unbounded acknowledgement queue or scan the whole
+outgoing queue on each timer tick. The exact focused group counts and final
+source hashes are recorded in the state evidence.
+
+6. Clearing automatic away after reattach could be lost under queue pressure.
+
+With background away already active and the ordinary control queue full,
+foreground return tried to queue AWAY-without-text once. If that failed,
+the queue could later drain while the old automatic-away state remained
+indefinitely until another qualifying activity.
+
+The application now retains the current clear request and retries at the
+existing one-second deadline. A successful enqueue removes the request and
+deadline. Newer manual/script presence commands and renewed background-away
+intent supersede it; disconnect/reconnect reset it. An older 306 must not
+erase the clear request, while 305 confirms clearing. Disabling future
+automatic away does not discard a request to clear an already applied
+automatic-away state.
+
+Tests combine full queues, clear retry timing, script cancellation/rejection,
+delayed acknowledgements, frontend activity ordering, re-detach, manual
+priority and reconnect. Failed retries do not leave an expired zero-timeout
+timer spinning, and there is no recurring retry after success.
+
+Primary implementation: src/app.c, src/app.h.
+Regressions: tests/test_presence_cancellation.c and
+tests/test_presence_recovery.c, using the established in-memory transport
+and fake clock with complete outgoing-wire assertions.
+
+ADDITIONAL BOUNDARIES EXERCISED
+
+The new tests/test_background_rights.c uses actual socketpair, sendmsg,
+recvmsg, SCM_RIGHTS and PTYs with the production request decoder. It checks
+41 descriptor-count cases, ancillary truncation, six partial-request
+EOF/timeout cases, all 287 query split points, unexpected control rights,
+peer ownership, token rejection and a fragmented successful terminal
+attachment. Linux credential ancillary data is also rejected. Descriptor
+accounting checks actual F_GETFD results within the fixture's asserted range.
+The decoder passed both baseline and candidate tests, so this is additional
+coverage rather than a newly claimed production vulnerability.
+
+Native AF_UNIX pathname bind still returns EPERM in this environment.
+Socketpair coverage does not establish the complete pathname registry,
+detach/resume lifecycle or behavior across an actual dropped SSH connection.
+The existing scoped session-control and hangup fixtures remain separate.
+
+Frontend source inspection did not establish a first-time background fork
+while an encryption creation job remains active. Idle setup consumes its
+own input and cancels/frees creation work before returning to the log view.
+The full frontend routes guided keys and mouse events before background
+actions; returning to the application closes guided state before requesting
+background. The existing child/resolver readiness checks remain in place.
+
+A private configuration fault probe also checked fsync ordering. Failure
+before rename leaves the old file and runtime state. Directory fsync failure
+after rename reports explicitly that replacement occurred, while the old
+runtime seed remains; retry succeeds and aligns them. This is an exposed
+partial-commit/durability outcome, not a claim of rollback after a completed
+rename. Configuration/client APIs were not broadened for this review.
+
+VALIDATION INTEGRITY CORRECTIONS
+
+Two older Python transport harnesses, test_net.py and test_net_retry.py,
+ignored caller CFLAGS/LDFLAGS. Merely labeling those runs sanitizer runs did
+not instrument their compiled probes. During this continuation the harnesses
+were corrected to honor CC, CPPFLAGS, CFLAGS and LDFLAGS, and the retained
+transport/resolver and reconnect-classification suites were rerun with actual
+ASan/UBSan instrumentation. Earlier redundant normal records remain preserved
+and relabeled in the development evidence. They are not counted as sanitizer
+evidence. The new dedicated TLS/ownership tests already honored the flags.
+
+The final strict production build and normal/sanitizer runtime checks are
+recorded individually. Expected vulnerable-baseline assertions, corrected
+fixture assumptions, intermediate source failures and a deliberately
+interrupted integrated run remain visible as development evidence. Final
+gate records and their source hashes define the delivered candidate.
+
+The GCC 14.2 -O0 -fanalyzer run examined the changed application, credentials
+and transport translation units. Application and credentials are clean. The
+transport emits an analyzer-fd-leak warning at dup2(*result_fd, 3), and its
+strict -Werror command still exits 1. That warning is present in both
+baselines and both candidates; the resolver isolation body is unchanged.
+
+A correct minimal function that duplicates to descriptor 3 then closes 3
+produces the same warning. Equivalent code which closes the stored return
+value, or explicitly checks that return equals 3, is clean. An intentionally
+leaking control still warns. Actual success and failure paths retain the
+known target descriptor until the result is sent, close it and exit the child.
+The warning is a demonstrated analyzer alias-modeling false positive here.
+No production edit or diagnostic suppression was used to manufacture a clean
+result. Raw diagnostics, positive/negative controls and the ownership review
+are retained under local/static-triage. The overall analyzer run is described
+as triaged, not entirely warning-free.
+
+PRESERVED USER BEHAVIOR
+
+The once-per-worker local notice remains:
+
+  Cow killing is the bloodshed of the innocent. www.bloodguiltcurse.net - ban beef.
+
+It is local transcript content, not an IRC chat send or an automatic change
+to an away message. Terminal reattachment, reconnect and frontend changes
+share the same worker flag. Existing welcome/help branding is unchanged.
+
+Ctrl-C and Ctrl-Z are not assigned new application actions. The incoming
+terminal signal policy and key mappings remain the default. The optional
+primary configuration [input] force_terminal_signals=true enables terminal
+ISIG without remapping its interrupt/suspend characters; false/omitted
+preserves the inherited state. The earlier terminal restoration, wrapping,
+history privacy and session-control fixes are retained.
+
+--detach-session NUMBER releases a stale terminal/controller while keeping
+the IRC worker alive. --close-session NUMBER deliberately stops the whole
+worker. vipirc still supports its remembered idle/ncurses default and explicit
+-i/-N overrides. onekeyirc remains the standalone idle-interface client.
+
+LIMITS AND REMAINING DEPLOYMENT WORK
+
+- Executed here on Linux with GCC 14.2 and the installed OpenSSL 3.5.7.
+  Native OpenBSD and LibreSSL behavior was not executed. The TLS test fixture
+  reports UNAVAILABLE/77 if its development library lacks the needed server
+  APIs; this does not silently count as a TLS execution pass.
+- Full wide-curses development headers are absent. The complete vipirc
+  ncurses application was not compiled or run. Its production idle frontend,
+  main/core and shared modules were compiled with aborting stubs for unused
+  ncurses entrypoints. Source inspection of full-frontend call sites does not
+  replace native UI runtime validation.
+- Native named AF_UNIX bind remains restricted. Actual socketpair/descriptor
+  tests pass, but full named-session lifecycle and real SSH loss/resume remain
+  target-host checks.
+- Real GnuPG keyring/agent integration was not established. Controlled helper
+  subprocess tests cover the relevant client lifecycle, not GnuPG itself.
+- ASan and UBSan were used with detect_leaks=0. LeakSanitizer is unavailable
+  under this environment's tracing. System OpenSSL was not rebuilt under ASan.
+- Diagnostic timing samples and finite regressions do not establish indefinite
+  idle reliability, a hard CPU/memory ceiling for every workload or immunity
+  from vulnerabilities.
+- Same-user processes, root, the kernel, terminal, TLS library and configured
+  trust store remain trusted. There is no new process sandbox or privilege
+  separation. Classic DCC remains unencrypted/unauthenticated and explicitly
+  accepted endpoints may include private addresses. Optional logs remain
+  plaintext with their existing per-file cap, not a global disk quota.
+
+The prior broader security and terminal-policy reports are retained unchanged
+and apply to the releases and scope they name. This continuation adds verified
+findings and corrects the current validation record; it is not a security
+certification or a claim that defeating the client would defeat an AI model.
+
+BUILD, VERIFY AND UPGRADE
+
+Extract each source archive into its own directory. On the target host:
+
+  ./configure
+  make
+  make check-deep
+  make check-security
+
+Use the site's normal installation procedure after reviewing the results.
+Check --version on the executable that will actually be launched. The expected
+versions are onekeyirc 0.1.27 and vipirc 0.7.28. No new configuration key is
+required for these fixes. The full vipirc build needs the platform's wide
+ncurses development files in addition to the existing TLS dependencies.
+
+Replacing an executable does not replace an already-running background worker.
+Use --sessions to inspect workers. A worker must exit and be started with the
+new executable to receive these core fixes. Detach/resume intentionally keeps
+the existing process and therefore is not an upgrade. Close only the intended
+worker or quit it normally when ready to restart.
+
+This work did not install onto the user's host, restart live workers, alter
+their SSH daemon, contact public IRC networks, publish an upstream release,
+or send messages to other people. Testing used private source copies, temporary
+fixtures, loopback TCP/TLS and PTYs. The distributed archives contain source,
+tests, documentation and exact validation evidence, with source manifests
+and checksums; they do not contain the test private keys or built executables.
+
+PRIMARY TECHNICAL REFERENCES
+
+OpenSSL 3.5 mode behavior, record buffering and retry contracts:
+https://docs.openssl.org/3.5/man3/SSL_CTX_set_mode/
+https://docs.openssl.org/3.5/man3/SSL_CTX_set_read_ahead/
+https://docs.openssl.org/3.5/man3/SSL_pending/
+https://docs.openssl.org/3.5/man3/SSL_get_error/
+
+OpenBSD signal and descriptor semantics:
+https://man.openbsd.org/sigaction.2
+https://man.openbsd.org/dup2.2
+
+GCC 14.2 analyzer behavior and limits:
+https://gcc.gnu.org/onlinedocs/gcc-14.2.0/gcc/Static-Analyzer-Options.html
+
+RFC 2812, AWAY responses 305/306:
+https://www.rfc-editor.org/rfc/rfc2812.html
+
+These references explain the interface contracts used in the review. The
+source diffs, baseline reproductions and final regression outputs provide the
+evidence for this implementation's findings and measured behavior.
+
+FINAL INTEGRATED GATE RECORDS
+
+PASS  release-configure  exit=0  seconds=1.736
+PASS  release-strict-build  exit=0  seconds=10.778
+PASS  release-one-sanitize-build  exit=0  seconds=19.938
+PASS  release-vip-idle-normal-build  exit=0  seconds=9.614
+PASS  release-vip-idle-sanitize-build  exit=0  seconds=22.379
+PASS  release-security-normal  exit=0  seconds=120.715
+PASS  release-efficiency-normal  exit=0  seconds=14.191
+PASS  release-session-controls-normal  exit=0  seconds=20.749
+PASS  release-detach-normal  exit=0  seconds=10.901
+PASS  release-compat-units-build  exit=0  seconds=5.634
+PASS  release-test_app  exit=0  seconds=0.215
+PASS  release-test_credentials  exit=0  seconds=0.816
+UNAVAILABLE  release-native-session-probe  exit=77  seconds=0.115
+PASS  release-security-sanitize  exit=0  seconds=220.499
+PASS  release-session-controls-sanitize  exit=0  seconds=37.038
+PASS  release-one-sanitize-availability  exit=0  seconds=4.228
+PASS  release-vip-deep-normal  exit=0  seconds=14.706
+PASS  release-vip-deep-sanitize  exit=0  seconds=30.009
+PASS  release-cli  exit=0  seconds=0.164
+PASS  release-commands  exit=0  seconds=0.114
+PASS  release-setup-async  exit=0  seconds=28.802
+PASS  release-setup-paths  exit=0  seconds=8.137
+PASS  release-autojoin-reconnect  exit=0  seconds=5.479
+PASS  release-wrapping  exit=0  seconds=4.726
+PASS  release-notice  exit=0  seconds=1.52
+PASS  release-terminal-policy  exit=0  seconds=1.219
+PASS  release-vip-idle-normal-cli  exit=0  seconds=0.165
+PASS  release-vip-idle-normal-commands  exit=0  seconds=0.165
+PASS  release-vip-idle-normal-wrapping  exit=0  seconds=4.727
+PASS  release-vip-idle-normal-availability  exit=0  seconds=4.179
+PASS  release-vip-idle-normal-notice  exit=0  seconds=1.568
+PASS  release-vip-idle-normal-terminal-policy  exit=0  seconds=1.168
+PASS  release-vip-idle-sanitize-cli  exit=0  seconds=0.265
+PASS  release-vip-idle-sanitize-commands  exit=0  seconds=0.166
+PASS  release-vip-idle-sanitize-wrapping  exit=0  seconds=4.726
+PASS  release-vip-idle-sanitize-availability  exit=0  seconds=4.177
+PASS  release-vip-idle-sanitize-notice  exit=0  seconds=1.621
+PASS  release-vip-idle-sanitize-terminal-policy  exit=0  seconds=1.331

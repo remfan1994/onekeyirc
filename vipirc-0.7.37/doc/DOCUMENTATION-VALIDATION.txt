@@ -1,0 +1,176 @@
+DOCUMENTATION PASS: VIPIRC 0.7.31 AND ONEKEYIRC 0.1.30
+Date: 2026-11-16 (America/Los_Angeles)
+
+SCOPE AND OUTCOME
+
+This release updates source comments, source-root documentation, embedded
+help, printable manuals, man pages, examples and documentation maintenance.
+It is based on the exact vipirc 0.7.30 and onekeyirc 0.1.29 source archives.
+Protocol, transport, credentials, session controls, editing, configuration
+defaults and other executable runtime logic are unchanged. Help text/data,
+release-version labels, documentation tooling and documentation installation
+are the intended changes.
+
+The source-root README is now a current guide with a documentation map.
+Each archive has a complete MANUAL.txt, INSTALL, SECURITY.md, DESIGN.md and
+CHANGELOG.md. Code comments explain ownership and trust boundaries where the
+reason for a check would otherwise be easy to miss. Existing license text and
+attribution are preserved. NOTICE headers identify these source versions.
+
+IMPORTANT DOCUMENTATION CORRECTIONS
+
+1. Session recovery and identity
+   The guides distinguish local worker jobs, in-program server slots and OS
+   process IDs. --detach-session preserves the worker; --close-session ends
+   all connections/transfers and loses its RAM-only state. Busy SSH recovery
+   uses --sessions, --detach-session NUMBER, then --resume NUMBER. Completion
+   is verified, and a timeout is not a successful forced kill. Ordinary
+   foreground processes are not retroactively made resumable by SSH loss.
+
+2. Interface and input behavior
+   Saved default_interface selects the next fresh vipirc launch. -i/-N are
+   one-launch choices; -n still takes a nickname. Bare resume keeps the
+   worker's current interface. Up in Compose moves the caret; Up in Command
+   recalls accepted commands. Sent chat is not a command-recall history.
+   Review Escape restores the draft, while Escape from the live minimalist
+   log backgrounds. A redrawn local message is not proof of remote delivery.
+
+3. Terminal signal policy
+   The terminal's enabled/disabled signal state and key assignments are
+   inherited. force_terminal_signals defaults to false; true enables signals
+   without assigning Ctrl-C/Ctrl-Z. Literal Ctrl-D is not an application exit
+   key; a terminal signal deliberately mapped to that byte still applies.
+   Suspending an ordinary foreground process pauses its networking; suspending
+   a resumed terminal controller is distinct from the separate worker.
+
+4. Bouncers, credentials and TLS
+   ZNC and soju guides distinguish bouncer accounts from IRC nicknames and
+   upstream authentication. They cover their separate password sources,
+   identity construction, restored memberships, opt-in automatic away,
+   control privacy, bounded pushed playback and unsupported archive discovery.
+   Custom CA bundles are nonempty regular PEM files up to 16 MiB; CA symlinks
+   are allowed, unlike private config/credential paths. Existing-file reads,
+   private saves and exact-mode log directories have different checks.
+   --check-config does not test secret access, GPG, CA loading or a real login.
+
+5. History, logs and catch-up
+   Optional transcripts are plaintext, private and capped at 16 MiB per
+   active profile log. They do not reconstruct a dead worker. Catch-up first
+   tries an eligible validated log anchor, then retained memory. The disk
+   snapshot and memory-scrollback readers have different Home/End behavior.
+   Known sensitive/control forms are filtered; arbitrary secrets in ordinary
+   text cannot be recognized comprehensively. Slow filesystem latency remains
+   outside nonblocking socket guarantees.
+
+6. Installation and maintenance
+   INSTALL and the OpenBSD guides describe actual configure syntax, separate
+   client versus test/docs dependencies, saved profiles, service accounts,
+   upgrades and conservative uninstall. Installed docs now retain doc/ and
+   examples/ so README links work, alongside prior flat documentation paths.
+   Python is optional for tests/docs maintenance, not for ordinary builds.
+
+IN-PROGRAM HELP AND MANUALS
+
+The shared minimalist catalog retains all 56 existing names and usage
+strings. Its 18 named topics add documentation, logging, sessions, tls and
+troubleshooting. The full vipirc manual covers its separate 58-command
+catalog. Every topic is exercised by the existing help/catalog regression.
+
+The old full manual had 2563 lines, exceeding the Help buffer's guaranteed
+2048-line capacity. Consolidation removes repeated historical appendices and
+keeps the complete current manual at 1991 physical lines. Detailed operating
+and security material remains in the current top-level guides. Runtime
+resource limits are unchanged. A regression using actual App help storage
+retains every line, including first and last, at the minimum history setting.
+The old oversized manual fails that new capacity regression as expected.
+
+The new optional maintenance workflow is:
+
+  make docs
+  make check-docs
+
+For vipirc, MANUAL.txt generates src/manual.c and doc/manual.txt before
+building. The built program's -i --manual exports doc/vipirc-idle-manual.txt.
+For onekeyirc, its compiled --manual exports MANUAL.txt and
+doc/onekeyirc-manual.txt. Man pages are generated from those same sources,
+with the standalone shell-reference metadata kept in scripts/sync_docs.py.
+The checker verifies CLI option coverage, exact exports and the full-manual
+capacity. All generated files ship in the archives.
+
+COMMENTS AND DEVELOPER GUIDE
+
+Ten shared C/H files receive comments about App/client pointer ownership,
+TLS retry buffers and synchronous CA loading, resolver versus GPG child
+ownership, transactional credential publication, private background endpoints,
+terminal handoff, replay privacy, parser borrowing, composer/history roles,
+DCC acknowledgement counters and inode-bound partial-file cleanup.
+DESIGN.md explains module responsibilities, state lifetimes, bounded queues,
+documentation generation and the relevant regression targets.
+
+VALIDATION PERFORMED
+
+- Build onekeyirc with the configured hardening flags and -Werror.
+- Build vipirc's actual CLI/core/minimalist path and embedded full manual with
+  unavailable full UI entrypoints replaced by aborting fixture stubs.
+- Exercise all shared help topics/commands and their product boundaries.
+- Compare command-line manuals byte-for-byte with shipped exports; check
+  credential-free informational commands, strict flags and config behavior.
+- Exercise real PTY reader paging, Home/End, final command visibility,
+  command recall, resize, context restoration, held chat and IRC keepalive
+  processing in both minimalist frontends using local fixtures.
+- Verify full App Help storage retains all 1991 manual lines, and demonstrate
+  rejection of the previous oversized manual.
+- Check source/installed README links, generated man structure, CLI option
+  coverage, and all shipped configuration examples with --check-config.
+- Verify --check detects stale generated files without changing them, normal
+  regeneration repairs them, and an oversized canonical manual is refused.
+- Check private installation/uninstallation for both documentation recipes,
+  including paths containing spaces, 0644 docs/0755 executable modes, preserved
+  source-relative and legacy flat paths, and unrelated local files surviving
+  uninstall. Vipirc's recipe check uses its minimalist fixture binary only.
+- Compare 92 production C/H files to immutable baselines. All executable tokens
+  outside allowed help/version data remain identical; all 38 formerly shared
+  production files remain byte-identical between clients. Example active values
+  and license text remain unchanged. All 44 historical review/result documents
+  remain byte-identical and retain their original scope.
+
+The earlier paired-man test rejected any mention of the companion program
+in the full man page. Because that page now derives from the full manual,
+the test was corrected to check its exact product/release header while
+retaining standalone/minimalist isolation and export-equality checks. The
+revised test passed. No runtime change was made to satisfy the assertion.
+
+The clean staged onekeyirc source also passed configure, build, check-docs,
+private install and uninstall; its C/H hashes match the tested candidate.
+
+Detailed invocations, outputs, source hashes, structure checks and private
+install checks are in doc/DOCUMENTATION-RESULTS.json. Reports omit their own
+hashes to avoid a recursive digest; SOURCE-MANIFEST.json and SHA256SUMS cover
+the final report bytes in each source archive.
+
+LIMITATIONS AND HISTORICAL EVIDENCE
+
+The environment lacks wide-character curses development headers/libraries,
+so a full vipirc configure/build/rendering pass is unavailable. The actual
+Help storage and vipirc -i fixture do not substitute for native curses UI
+validation. The temporary fixture binary/stubs are not distributed.
+
+Native pathname AF_UNIX session lifecycle is restricted here and was not
+retested during this documentation release. There is no new OpenBSD/LibreSSL,
+live IRCNow, real ZNC/soju-daemon or long unattended soak claim. No groff or
+mandoc formatter is installed, so man source was checked for deterministic
+generation, coverage, ASCII and balanced roff structure without claiming a
+rendered-page check.
+
+This is a documentation pass. The prior security review remains explicitly
+scoped to vipirc 0.7.30 / onekeyirc 0.1.29 in
+doc/SECURITY-REVIEW-0.7.30-0.1.29.txt and its companion results. Earlier dated
+reports likewise describe their own versions and workloads. The current
+security guide explains the present contract without promising immunity.
+
+UPGRADE NOTE
+
+Build on the destination host, check --version, and start a fresh worker to
+load the new embedded help. Installing files does not replace code already
+running in an existing worker. Save wanted settings before deliberately
+quitting/closing that worker; its RAM-only drafts/history end with it.

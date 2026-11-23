@@ -1,0 +1,18 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / CUSTOM KEY BINDINGS
+English source SHA-256: 947b11b40b8bb1c3fa32d14bc71aac77bc4ccb1186406a303e6b96d197a6b92d
+Source lines: 782-815
+
+ASIGNACIONES PERSONALIZADAS DE TECLAS
+
+No hay teclas personalizadas asignadas de forma predeterminada. App > Key bindings o /bindings abre la tabla en vipirc completo. Add/Edit permite elegir el nombre de una tecla y una acción local; Remove borra una fila. Apply aplica los cambios a la memoria y Save también escribe la configuración primaria; Escape/Cancel descarta los cambios todavía no aplicados. Los borradores de chat se conservan. La tabla utiliza controles propios, no afectados por las asignaciones personalizadas.
+
+En cualquiera de las interfaces, /bindings keys y /bindings actions enumeran los nombres disponibles. Ejemplos que el usuario puede elegir: /bind F7 summary y /bind Alt-c command; se introducen como comandos distintos. /unbind F7 elimina uno y /unbind all vacía la tabla personalizada. /save input guarda los cambios para todos los perfiles de servidor. En -i, /bindings muestra la tabla; /bind y /unbind la modifican mediante comandos.
+
+Teclas admitidas: F1..F12, Ctrl-A..Z, Alt-a..z/0..9, Up, Down, Left, Right, Home, End, PageUp, PageDown, Insert, Delete, Backspace, Tab, Shift-Tab, Enter, Escape. Son alias Ctrl-H/Backspace, Ctrl-I/Tab, Ctrl-J/Ctrl-M/Enter y Ctrl-[/Escape. Las letras de Alt emplean bytes de terminal en minúsculas. Tienen prioridad las teclas interceptadas por el terminal o multiplexor y las asignaciones de señales; ninguna tecla de señal se reasigna.
+
+Acciones admitidas: compose, command, bindings, help, manual, summary, servers, channels, queries, unread, mentions, transfers, settings, quickstart, next, prev, clearinput, cancel, background, quit. No se permiten macros que envíen mensajes ni que ejecuten comandos arbitrarios. Para ejecutar un comando restaurado en el modo completo hace falta pulsar Enter una vez para reconocerlo y, después de una pausa, otra vez para ejecutarlo. Si ya no existe su destino original, Run queda bloqueado.
+
+Las acciones personalizadas solo funcionan en el chat principal y la entrada de comandos, nunca durante un pegado, en contraseñas, configuración inicial, lectores o confirmaciones. Un pegado sin delimitadores sigue siendo entrada mecanografiada. Los lectores de atajos minimalistas conservan el borrador y el cursor; los cambios de destino o editor se rechazan cuando el borrador no está vacío. clearinput elimina deliberadamente el borrador actual.
+
+La sección [hotkeys] de la configuración primaria contiene filas KEY=action, sin filas predeterminadas. Una entrada desconocida, duplicada o que supere los límites invalida atómicamente la carga. Se admiten hasta 64 asignaciones. Consulta doc/HOTKEYS.txt para guardado, límites del terminal y ejemplos.

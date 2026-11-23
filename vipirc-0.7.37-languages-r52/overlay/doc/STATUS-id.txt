@@ -1,0 +1,57 @@
+Panduan praktis vipirc / onekeyirc - Server, ringkasan, pengguna, dan kata pantau
+======================================================
+
+DRAF TERJEMAHAN. Perintah dan opsi harus diketik persis seperti tercetak.
+Untuk rincian keamanan resmi, baca MANUAL.txt dan SECURITY.md berbahasa Inggris.
+
+/help summary
+-------------
+
+Menampilkan semua server, channel 0, tampilan kanal/kueri, aktivitas belum dibaca, sebutan, antrean keluar, perintah awal, dan transfer berkas.
+
+Ringkasan ini lokal dan tetap bekerja tanpa koneksi. Tekan r di pembacanya atau jalankan lagi untuk menyegarkan.
+
+Membukanya tidak mengganti percakapan atau menandai pesan dibaca. Salinan umpan sebutan tidak dihitung sebagai aktivitas.
+
+Sebutan juga bisa belum dibaca; jangan jumlahkan kedua angka. Tampilan kanal yang bergabung dan ditinggalkan dibedakan.
+
+Laporan punya pembaca yang dapat digulir dan menjaga draf. Garis miring membuka perintah; batal kembali ke ringkasan.
+
+Jika penyegaran gagal, ringkasan lama tetap ada. Membuka atau menyegarkannya tidak mengirim permintaan jaringan.
+
+Kredensial dan isi pesan antrean maupun perintah otomatis tidak pernah ditampilkan.
+
+/help server
+------------
+
+Dengan nama host, ini sama dengan koneksi langsung /connect; tidak perlu membuat profil dahulu.
+
+Tanpa argumen, memilih tampilan pesan/MOTD server saat ini. NUMBER memilih slot server tanpa menghubungkannya.
+
+add membuat profil dengan kredensial baru, TLS terverifikasi dan autoconnect mati; tidak memilih, menghubungkan atau menyimpan.
+
+PORT bawaan adalah 6697. Port lain tidak menonaktifkan TLS; koneksi tanpa enkripsi harus dipilih secara eksplisit.
+
+connect/disconnect tidak mengganti pilihan. close membuang sesi/entri katalog sekunder, bukan berkas profil.
+
+Nomor server minimalis 1..8, utama 1. Server utama selalu ada; putuskan koneksinya, jangan tutup.
+
+Nomor tetap selama sesi berlangsung. Panel 0 disediakan untuk preferensi aplikasi.
+
+/help users
+-----------
+
+Ini daftar pengguna berupa teks, bukan pengalih visibilitas. Awalan mode pengguna disertakan jika diketahui.
+
+Daftar terbuka di pembaca terpisah meski kosong. Enter, Escape atau q kembali ke log obrolan terpilih.
+
+Up/Down dan Page Up/Down menggulir daftar. Dalam Help, Enter melanjutkan guliran.
+
+Balasan NAMES yang belum lengkap atau melampaui kapasitas diberi label. Tidak ada permintaan WHOIS.
+
+/help watch
+-----------
+
+Sebutan nama panggilan selalu aktif. Add/remove memperlakukan sisa teks secara harfiah, bukan ekspresi reguler.
+
+Tiap server mendukung hingga 32 teks tambahan sepanjang 1..127 byte UTF-8. Gunakan /save agar tetap tersimpan.

@@ -1,0 +1,73 @@
+vipirc / onekeyirc - command guide (fr)
+=======================================
+
+Commands, argument names and saved configuration keys remain literal.
+For complete reference and security details see MANUAL.txt and SECURITY.md.
+
+/autoconnect
+------------
+Sans argument, affiche le réglage du serveur choisi. Les modifications prennent effet au prochain démarrage.
+
+Utilisez /connect pour vous connecter immédiatement et /save pour enregistrer le choix de démarrage.
+
+Chaque serveur enregistré possède ses propres réglages de connexion automatique, de canaux et d'authentification.
+
+/away and /back
+---------------
+Une inscription au serveur est nécessaire. Le serveur confirme l'absence. MESSAGE est du texte littéral.
+
+Équivaut à /away sans message. Une connexion enregistrée est nécessaire.
+
+/cancel
+-------
+Supprime les messages en attente et arrête les commandes automatiques en attente du serveur choisi.
+
+Une trame déjà en cours d'écriture peut se terminer.
+
+L'annulation ne retire pas les messages déjà reçus par le serveur.
+
+/query, /ql, /pm
+----------------
+Sélectionne une conversation privée sans envoyer de message. Tapez normalement pour écrire à ce pseudonyme.
+
+Utilisez /ql pour lister les conversations numérotées et /close NICK pour en fermer une. /pm accepte les mêmes noms et numéros.
+
+Le numéro doit désigner une conversation existante sur le serveur choisi ; 0 ne sélectionne ni ne crée de conversation.
+
+/background
+-----------
+Utilisez /background pour garder les connexions actives.
+
+/whois
+------
+Nécessite une inscription. Ouvre la vue du serveur pour afficher sa réponse. Aucune commande locale n'est exécutée.
+
+/nick
+-----
+Les pseudonymes suivent la syntaxe IRC ASCII reconnue et sont limités à 63 octets.
+
+/server
+-------
+Un profil chargé reste disponible même sans connexion.
+
+Un serveur correspondant conserve son port, son transport, son pseudonyme et son authentification configurés.
+
+/autoauth
+---------
+Utilisez /save pour enregistrer. Déconnectez-vous puis lancez /connect ; la connexion active n'est jamais redirigée.
+
+/autojoin
+---------
+Les modifications sont vérifiées avant application et ne rejoignent ni ne quittent un canal actif.
+
+/bindings
+---------
+Aucun raccourci personnalisé par défaut. Consultez /bindings keys et /bindings actions pour les noms acceptés.
+
+/connect
+--------
+PORT vaut 6697 par défaut. Un autre port ne désactive pas TLS ; une connexion non chiffrée doit être choisie explicitement.
+
+/help
+-----
+Commande inconnue. Utilisez /help commands ou /help COMMAND ; ni shell ni commandes IRC brutes ne sont disponibles.

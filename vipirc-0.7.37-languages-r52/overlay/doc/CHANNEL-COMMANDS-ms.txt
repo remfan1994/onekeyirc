@@ -1,0 +1,55 @@
+Panduan praktikal vipirc / onekeyirc - Bantuan
+==================================================
+
+DRAF TERJEMAHAN. Taip arahan dan pilihan tepat seperti yang ditunjukkan.
+Untuk syarat keselamatan penuh, rujuk MANUAL.txt dan SECURITY.md dalam bahasa Inggeris.
+
+/help clear
+-----
+
+Memadamkan sejarah terhad dalam RAM bagi paparan ini. Tidak keluar saluran, memutuskan sambungan, menarik mesej atau memadam log sedia ada.
+
+Sejarah skrol terminal yang telah dicetak dikawal oleh terminal.
+
+Dalam sembang utama: Up satu baris lama, Page Up satu halaman, Home paling lama; Down/Page Down bergerak baharu. Trafik baharu tidak mengalih halaman dibaca. End/Escape kembali ke langsung; kekunci navigasi tidak membuka penyunting.
+
+/help ignore
+------
+
+Menerima nama samaran atau topeng nick!user@host dengan kad bebas * dan ?. Mesej/notis pengguna yang sepadan disembunyikan secara setempat.
+
+Teks diabaikan tidak mencipta sembang peribadi atau sebutan. Status protokol, notis pelayan dan keahlian masih berfungsi.
+
+Guna /save untuk menyimpan topeng pelayan ini.
+
+/help join
+----
+
+Perlu berdaftar. Kunci ialah satu token ASCII boleh cetak; tidak disimpan atau direkod dalam sejarah arahan.
+
+Pada sambungan terus, nama saluran masuk senarai sertai automatik semasa; suntingan /autojoin yang menunggu diutamakan apabila disimpan.
+
+Guna /autojoin untuk ubah sambungan nyata berikutnya bagi profil terus tanpa menyertai kini. Bouncer mengurus keahliannya sendiri.
+
+/help part
+----
+
+Tanpa nama saluran, keluar daripada saluran dipilih. Teks selepas saluran ialah sebab PART; tanpa saluran, teks ialah sebab untuk saluran dipilih.
+
+Jika tiada sebab nyata, part_message digunakan jika ditetapkan. Entri sertai automatik semasa dibuang.
+
+Mesej beratur untuk saluran dibatalkan; satu bingkai dalam penghantaran mungkin selesai. Guna /close untuk menutup paparan.
+
+/help topic
+-----
+
+Perlu berdaftar dan menyertai saluran. Tanpa teks, minta topik; jika ada, hantar TEXT secara literal.
+
+Pelayan menentukan sama ada hak saluran anda membenarkan perubahan.
+
+/help quit
+----
+
+Menghantar MESSAGE sebagai sebab IRC QUIT secara usaha terbaik pada setiap pelayan aktif, atau quit_message jika MESSAGE tiada; kemudian pulihkan terminal dan keluar.
+
+Gunakan /background supaya sambungan terus berjalan.

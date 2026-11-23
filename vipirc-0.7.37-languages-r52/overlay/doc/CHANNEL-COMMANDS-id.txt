@@ -1,0 +1,55 @@
+Panduan praktis vipirc / onekeyirc - Bantuan
+==================================================
+
+DRAF TERJEMAHAN. Perintah dan opsi harus diketik persis seperti tercetak.
+Untuk rincian keamanan resmi, baca MANUAL.txt dan SECURITY.md berbahasa Inggris.
+
+/help clear
+-----
+
+Menghapus riwayat terbatas di RAM untuk tampilan ini. Tidak keluar kanal, memutus koneksi, menarik pesan, atau menghapus log di disk.
+
+Riwayat gulir terminal yang sudah tercetak dikendalikan oleh terminal.
+
+Di obrolan utama: Up satu baris lama, Page Up satu halaman, Home paling lama; Down/Page Down maju. Pesan baru tidak menggeser halaman yang dibaca. End/Escape kembali ke langsung; tombol navigasi tidak membuka penulis.
+
+/help ignore
+------
+
+Menerima nama panggilan atau mask nick!user@host dengan wildcard * dan ?. Pesan/notifikasi pengguna yang cocok disembunyikan secara lokal.
+
+Teks yang diabaikan tidak membuat percakapan pribadi atau sebutan. Status protokol, notifikasi server, dan keanggotaan tetap berfungsi.
+
+Gunakan /save untuk menyimpan mask server ini.
+
+/help join
+----
+
+Harus sudah terdaftar. Kunci hanya satu token ASCII yang dapat dicetak; tidak disimpan di berkas atau riwayat perintah.
+
+Pada koneksi langsung, nama kanal masuk ke daftar gabung otomatis saat ini; perubahan /autojoin tertunda menang saat disimpan.
+
+Gunakan /autojoin untuk mengubah koneksi berikutnya dari profil langsung tanpa bergabung sekarang. Bouncer mengatur keanggotaannya sendiri.
+
+/help part
+----
+
+Tanpa nama kanal, keluar dari kanal yang dipilih. Teks setelah kanal menjadi alasan PART; tanpa kanal, teks adalah alasan bagi kanal terpilih.
+
+Jika alasan tidak diberikan, part_message dipakai bila disetel. Entri gabung otomatis aktif dihapus.
+
+Pesan tertunda kanal dibatalkan; satu bingkai yang sedang dikirim mungkin selesai. Gunakan /close untuk menutup tampilan.
+
+/help topic
+-----
+
+Harus terdaftar dan bergabung di kanal. Tanpa teks, meminta topik; dengan teks, mengirim TEXT apa adanya.
+
+Server menentukan apakah hak Anda di kanal mengizinkan perubahan.
+
+/help quit
+----
+
+Mengirim MESSAGE sebagai alasan IRC QUIT sebisanya di setiap server aktif, atau quit_message jika MESSAGE kosong; lalu mengembalikan terminal dan keluar.
+
+Gunakan /background agar koneksi tetap berjalan.

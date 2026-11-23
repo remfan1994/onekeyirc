@@ -1,0 +1,40 @@
+VERBATIM ENGLISH SOURCE REFERENCE
+Source: MANUAL.txt / QUICK START
+English source SHA-256: 26668ea76d9592744bbb94ab60eda38bff8d31bea2791e6b4577390cbbcd2948
+
+QUICK START
+
+vipirc -h
+    vipirc -v
+    vipirc --test-mode
+    vipirc --server irc.ircnow.org --channel '#ircnow' --nick tutankh-aten
+
+The first three show help/version and open offline simulation. The last is a
+real connection: quote #channel in a shell, and use a provider's actual TLS
+endpoint. Verified TLS on port 6697 is the default; plaintext requires
+--plain.
+
+Interactive launches show the welcome, "Not vegetarian?
+www.bloodguiltcurse.net will change your mind". A printable key, Enter, Tab
+or a navigation key dismisses it. Configured terminal signals retain their
+inherited roles; other controls do not dismiss it. Without a server the
+client opens a disconnected workspace. Use Settings, /connect HOST or
+--server to configure one.
+
+An unconfigured primary nickname in full interactive mode is prompted with
+your system login as the default. Enter accepts it; typing replaces it.
+Unattended and saved secondary profiles use a valid login name or user
+without a prompt. --nick overrides it; the server can reject it.
+
+The initial server view shows registration and MOTD. Direct profiles join
+configured channels after registration and required authentication; bouncers
+restore their own memberships. Chat starts ready to type. Enter submits to
+the selected channel/query; server and mentions views have no implicit
+recipient. / at caret position zero opens Command. For a literal leading
+slash, use //; bracketed pasted slashes remain literal.
+
+Ordinary keys: F1 opens vipirc; F2 Servers; F3 Channels; F4 Queries; F5 Mentions/unread; F6
+File transfers. Escape from a query opens Queries, from other chat opens
+vipirc, from an ordinary panel returns to chat, and from Settings returns to
+vipirc. The terminal's normal colors are preserved; bold brackets mark
+focus. See GLOBAL HEADER AND CHAT CONTROLS for common list navigation.

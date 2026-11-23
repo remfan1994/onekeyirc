@@ -1,0 +1,11 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / VIEWS AND USERS
+English source SHA-256: c02a51adb2e96f61d113aee6ccd47ba792577ee3c03d8708020250ea07f94354
+
+Jeder Server hat die Server-/MOTD-Ansicht 0, Kanäle, separat nummerierte Privatdialoge, Erwähnungen und Mitgliederlisten. Kopfzeilen nennen den Server; seine Ansicht enthält Registrierung, MOTD und Fehler. Erwähnungen bewahren Quelle, Absender und vollständigen Nachrichtentext innerhalb der Protokollgrenzen. Lange Anzeigezeilen umbrechen, ohne den gespeicherten Text zu verkürzen.
+
+/sl oder /servers öffnet Server; /cl oder /channels Kanäle; /ql oder /queries Privatdialoge. /server wählt MOTD, /channel NUMBER oder #NAME einen Kanal und /pm NICK|NUMBER einen Privatdialog. /next und /prev wechseln Ansichten. /summary zeigt den Arbeitsbereich, /unread bündelt Quellen/Erwähnungen, /list fordert das Netzwerkverzeichnis an. Die genaue Syntax steht in COMMAND REFERENCE INDEX.
+
+/users schaltet die Mitgliederliste des Kanals um; on/off/up/down steuert Sichtbarkeit und Scrollen. Settings > Interface nutzt dieselbe Hauptvoreinstellung. Bei kleinen Terminals verschwindet die Seitenleiste gegebenenfalls bis mehr Platz vorhanden ist. Mitgliedschaft und Privilegpräfixe richten sich nach JOIN/PART/QUIT/NICK/KICK/NAMES des Servers, nicht lokalen Annahmen. Server- und Privatdialogansichten haben keine Kanalmitgliederliste.
+
+Unaufgefordert eintreffende Privatnachrichten erzeugen nur bei weniger als acht vorhandenen Ansichten neue Dialogansichten; weitere bleiben mit Kontext in Server/Erwähnungen sichtbar. /pm oder /msg kann innerhalb der Grenze von 32 Ansichten weitere öffnen. /clear löscht den gehaltenen Ansichtsspeicher ohne Protokolldateien zu entfernen; /clearinput löscht den unabhängigen Entwurf.

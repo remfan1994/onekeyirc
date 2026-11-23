@@ -1,0 +1,7 @@
+R23 SOURCE-LINKED MANUAL TRANSLATION INDEX
+
+SETTINGS: doc/FULLMANUAL-SETTINGS-XX.txt (XX=en,id,ms,tr,es,pt,fr,de,ru,it,ar)
+FILES AND ENVIRONMENT: doc/FULLMANUAL-FILES-ENVIRONMENT-XX.txt (XX=en,id,ms,tr,es,pt,fr,de,ru,it,ar)
+
+Each document cites the exact original English section and SHA-256; translated documents are unreviewed drafts.
+See MANUAL-SECTION-MAP-r23.tsv and TRANSLATION-STATUS-r23.txt.

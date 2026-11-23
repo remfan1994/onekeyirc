@@ -1,0 +1,56 @@
+VIPIRC INTERFACCIA COMPLETA: ESTRATTI TRADOTTI DAL MANUALE
+Brani selezionati da MANUAL.txt: esempi, avvio, aiuto, pannelli, scrittura e mouse. Non è la traduzione integrale del manuale.
+
+I comandi e le opzioni mantengono la forma originale:
+    vipirc -h
+    vipirc -v
+    vipirc --test-mode
+    vipirc --server irc.ircnow.org --channel '#ircnow' --nick tutankh-aten
+
+Leggere gli esempi
+------------------
+Gli esempi che iniziano con vipirc sono comandi della shell. Quelli che iniziano con / si inseriscono nella vista Command. Un comando alla volta: le parole in MAIUSCOLO sono segnaposto, gli [elementi] sono facoltativi e | separa alternative.
+
+Command mostra già /. Rimuovere questa barra prima di incollare un /command completo. Un blocco di comandi incollato non è uno script: le righe nuove diventano spazi. Il testo incollato nella chat resta testo di chat.
+
+Avviare una connessione
+-----------------------
+Senza un server, vipirc apre uno spazio di lavoro disconnesso. --server seleziona il server; anche /connect HOST stabilisce la connessione. TLS verificato sulla porta 6697 è il valore predefinito. Il testo non cifrato richiede --plain; usare la destinazione corretta del provider.
+
+La vista iniziale mostra la registrazione al server è il MOTD. Nella modalità interattiva completa, se il nickname principale non è impostato, viene richiesto con il nome di login locale come proposta. Il server può rifiutarlo.
+
+I sei pannelli principali
+-------------------------
+F1 apre il pannello applicazione, F2 Servers, F3 Channels, F4 Queries, F5 Mentions/unread e F6 File transfers. Le categorie vuote possono essere nascoste, ma la numerazione dei tasti funzione non cambia.
+
+Escape da una conversazione privata apre Queries; dalle altre chat apre il pannello applicazione; da un pannello normale torna alla chat. Uscire dal pannello applicazione richiede una nuova pressione di y/Y dopo la richiesta.
+
+Aiuto e navigazione
+-------------------
+/help o /manual apre il manuale completo in vipirc. /help TEXT cerca nel manuale; nel lettore, / avvia la ricerca, n e N scorrono i risultati ed Escape torna indietro. La ricerca e letterale, non usa espressioni regolari.
+
+Nelle liste, Up/Down o k/j cambia voce; Left/Right o h/l sceglie un'azione; Enter la esegue. Home/End o g/G raggiunge gli estremi. ? fuori dai campi modificabili apre l'aiuto contestuale.
+
+    vipirc --manual
+    /help
+    /help TEXT
+    /mouse on|off
+
+Modificare, inviare e incollare
+-------------------------------
+La chat è pronta per scrivere. Enter invia al canale o alla conversazione privata selezionata. Una barra all'inizio di una bozza vuota apre Command separatamente; scrivere // per inviare una barra iniziale come testo.
+
+Left/Right si sposta per gruppi di caratteri. Up/Down passa tra righe visuali del campo, non tra messaggi inviati. Home/End raggiunge inizio/fine dell'intera bozza; Backspace/Delete elimina gruppi di caratteri.
+
+La bozza è un solo buffer logico: l'andata a capo visiva non inserisce righe nuove è il ridimensionamento mantiene testo e cursore. Tab/Shift-Tab completa i nickname. /clearinput cancella tutta la bozza, anche il testo non visibile.
+
+Il testo incollato con marcatori resta letterale e non conferma automaticamente un invio. Messaggi lunghi possono richiedere una conferma della lunghezza o il consenso separato a più invii. Controllare il risultato prima di Enter.
+
+Mouse e sicurezza
+-----------------
+Il mouse è facoltativo. Si possono selezionare categorie, punti della chat o voci delle liste se il terminale inoltra gli eventi. /mouse on|off lo controlla. URL e appunti non vengono aperti automaticamente.
+
+Laspetto di un messaggio non prova l'identità. Caratteri Unicode somiglianti e direzioni di scrittura miste possono ingannare. I testi inglesi MANUAL.txt e SECURITY.md restano il riferimento.
+
+SOURCE: vipirc 0.7.36 / MANUAL.txt
+STATUS: Draft translation; English source takes precedence.

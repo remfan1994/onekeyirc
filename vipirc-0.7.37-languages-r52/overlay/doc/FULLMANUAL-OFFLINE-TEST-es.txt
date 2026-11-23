@@ -1,0 +1,17 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / OFFLINE TEST MODE
+English source SHA-256: e89ff4106e3e5a0bba3bbcac6d2d3f1eb41f410ac6a2f153aaed310c84b51cab
+
+EXACT COMMAND/CONTROL EXAMPLES (not translated):
+vipirc --test-mode
+vipirc --test-mode --config /absolute/config.ini --no-connect
+
+La simulación usa la interfaz, editor, filtros y manejo aplicable del protocolo y las colas reales, pero no abre sockets, consulta DNS, lee contraseñas ni archivos CA, ejecuta GPG ni guarda cambios. Los nombres de servidor configurados son etiquetas. Cada perfil tiene su propio simulador; New server agrega otro. Si faltan servidor o apodo no se pregunta; los canales de demostración predeterminados son #test-one y #test-two cuando no se han configurado otros.
+
+La simulación comienza después de la bienvenida, aunque haya autoconnect guardado; --no-connect impide iniciarla. /disconnect y /connect detienen o inician la simulación seleccionada. Para conectarse de verdad, cierre y reinicie sin --test-mode. El simulador local en C no necesita demonio externo ni Python.
+
+Cada dos segundos se producen eventos: chat, menciones, cadenas observadas, una conversación privada y cambios de usuarios. Las cadenas watch personalizadas rotan una por ciclo de 16 segundos. /msg genera una respuesta simulada identificada; JOIN/PART/NICK/WHOIS/TOPIC/AWAY también simulan respuestas. No se reproducen todas las reglas del servidor, la admision con clave, SASL ni la entrega real.
+
+Pruebe el ajuste de líneas, edición entre filas, cambio de tamaño, pegado, advertencias/confirmaciones, menciones y listas. La oferta DCC de ejemplo solo existe en memoria: revisar, rechazar y cancelar funcionan, pero Send/Accept se rechazan antes de acceder a archivos o sockets. Cerrar un perfil secundario modifica solo la ejecución actual. No se escriben configuraciones ni archivos de recuentos; edite la configuración fuera del programa y reinicie para cambios permanentes.
+
+--check-config comprueba por separado la sintaxis y los valores guardados. Ningúno de los dos modos demuestra que DNS, TLS, las credenciales o la interoperabilidad con un bouncer funcionen realmente.

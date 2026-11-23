@@ -1,0 +1,46 @@
+vipirc / onekeyirc - komut yardımı
+========================================
+
+İstemciyi başlatmadan önce görüntüleme dilini seçin.
+
+Örnek: VIPIRC_LANG=id onekeyirc
+
+Örnek: VIPIRC_LANG=tr vipirc -i
+
+Kullanılabilen kodlar: id ms tr es pt fr de ru it ar.
+
+UTF-8 terminal, yazı tipi ve kurulu UTF-8 yerel ayarı kullanın.
+
+IRC komutları, yardım konusu adları ve yapılandırma anahtarları İngilizce kalır.
+
+Arapça metin, terminalde harf biçimlendirme ve çift yönlü yazı desteği gerektirir.
+
+Yardım konularını gör: /help ls.
+
+Komut listesi: /help commands. Ayrıntılar: /help COMMAND.
+
+İlk bağlantı: /connect irc.example.org, ardından /join #channel.
+
+Özel sohbet: /query NICK veya /msg NICK TEXT.
+
+Rehberli kurulum: /quickstart veya /panel.
+
+Ayarları kaydet: /saveconf. Kaydetmek autoconnect işlevini açmaz.
+
+Görünümleri değiştir: /servers, /channels, /ql.
+
+Başlangıç seçenekleri: /help autoconnect, /help autojoin, /help autoauth.
+
+SSH oturumlarını kurtar: /help sessions.
+
+Bouncer yönergeleri: /help bouncers.
+
+Ayarlar ve kısayollar: /help configuration, /help hotkeys.
+
+Sorunlar ve TLS güvenliği: /help troubleshooting, /help security, /help tls.
+
+Geçmiş ve günlükler: /help history, /help logging.
+
+Tam başvuru: /help all veya /manual.
+
+Çalışan bir oturumun dilini değiştirmek için programı yeniden başlatın.

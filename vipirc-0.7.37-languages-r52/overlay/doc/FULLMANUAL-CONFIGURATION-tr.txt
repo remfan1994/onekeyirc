@@ -1,0 +1,69 @@
+CURRENT SIGNAL POLICY (vipirc-0.7.37):
+Use signals varsayılan olarak no değerindedir. Ctrl-C ve Ctrl-Z, gönderilmemiş ileti veya komutu iptal eder; uygulamayı kapatmaz ya da askıya almaz. Terminal sinyallerini açmak için panel 0 veya vipirc Interface ayarlarında yes seçin. Apply hemen uygulanır; Save ayrıca [input] use_signals=true|false değerini kaydeder. Çıkışta veya askıya almada eski terminal ayarları geri yüklenir.
+
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / CONFIGURATION
+English source SHA-256: e2956cfce20ea9e24f3a157c4edcdf403e26c851eb40004ecc77db98f83874de
+Source lines: 1452-1555
+
+YAPILANDIRMA
+
+Aşağıdaki komutlarla düzenlenebilir özel bir başlangıç yapılandırması oluşturun, dosyayı değiştirin, sonra doğrulayın:
+
+    vipirc --init-config --server irc.ircnow.org --channel '#ircnow'
+    vipirc --check-config
+
+Her dosya bir profil tanımlar; --config birincil dosyayı ve yanındaki kayıtlı sunucu kataloğunu seçer. En fazla sekiz profil tek işlem paylaşır. Ayrı birincil yollar bağımsız çalışma alanı oluşturabilir. Birlikte verilen örnekler ve --init-config tam söz dizimini gösterir. Aşağıdaki anahtar haritası yapıştırılacak bir blok değildir; gerçek her key=value ayrı satıra yazılır.
+
+Varsayılanlar send_mode=direct, composer_mode=line, command_suggestions=common, format=compact ve default_interface=ncurses değerleridir. Uygulama tercihleri birincil yapılandırmada tutulur ve bütün sunuculara uygulanır; connection/auth/bouncer, watch, ignore ve başlangıç listeleri her profile özeldir. [hotkeys] başlangıçta boştur, en çok 64 KEY=action satırı alır.
+
+Takma ad IRC username değerinden farklıdır. Etkileşimli birincil nick boşsa giriş hesabı varsayılan olacak şekilde sorulur. username hesap adından gelir; realname yasal ad olmak zorunda olmayan açıklayıcı USER alanıdır. channel, aralarında boşluk bulunmayan virgülle ayrılmış doğrudan profil autojoin listesidir; boşsa sunucu görünümü seçilir. Bouncer kanal üyeliğini kendi geri yükler.
+
+Doğrudan SASL için auth=sasl, auth_user ve tam bir password kaynağı gerekir. Sunucu PASS bağımsız olarak tek server_password kaynağı seçer. Aynı kimlik bilgisi için birden fazla kaynak geri dönüşsüz hatadır; ikisi de doğrulanmış TLS ister. Bouncer, auth_user boş olmasını ister ve giriş bilgisini kendisi oluşturur. Satır içi sırlar düz metin kalır; dosya/GPG kuralları AUTHENTICATION bölümündedir.
+
+history_lines görünüm başına 50..5000 satır kabul eder; varsayılan 500. Sunucu başına 8 MiB metin sınırı daha erken çıkarma yapabilir. Yalın modun ayrıca küresel 2048 kayıt/512 KiB sınırları vardır. Boolean değerler küçük harf true/false, yes/no, 1/0 kabul eder. Bilinmeyen bölüm/anahtar veya geçersiz/fazla uzun değer uygun olduğunda satır numarasıyla reddedilir. Yinelenen çoğu anahtarın son değeri geçer; watch/ignore/autocommand satırları sınırlar içinde biriktirilir.
+
+Başındaki boşluktan sonra # veya ; ile başlayan satırlar yorumdur; satır içi yorum yoktur. Normal değerlerin kenar boşlukları temizlenir. Tırnak, kaçış, değişken/tilde genişletme veya kabuk değerlendirmesi bulunmaz. Mutlak harfî yolları yeğleyin. Apply/Save, yeniden yükleme değerleri değiştirmesin diye sıradan alanlarda dış ASCII boşluklarını reddeder; geçerli alanlarda iç boşluğa izin verir.
+
+password=, server_password= ve [autocommands] command= satırları = sonrasındaki satır sonları dışındaki tüm baytları, boşluk, =, # ve ; dahil saklar. Tırnak veya satır içi yorum eklemeyin. Boş password kaynak yok demektir; yalnız boşluklar boş sayılmaz. Parolada kontrol ve satır sonu geçersizdir.
+
+/save bekleyen seçenekler dahil desteklenen ayarları yeniden üretir; yorum/biçimlendirmeyi değiştirir, notları ayrı tutun. Dosya düzenlemeleri yeni bir işlemde yüklenir; --resume ile değil. Test mode içinde Save kapalıdır. Oluşturulan dosyalar kullanıcıya ait son dizin 0700 içinde 0600 kipindedir; var olan yapılandırma kullanıcıya ait olmalı ve başkaları tarafından yazılamamalıdır. Yol bileşenleri dahil symlink ve '..' reddedilir. Boş olmayan satır içi parola veya kapalı olsa bile başlangıç komut listesi kullanıcıya ait normal 0600/0400 dosya gerektirir. Dosyalar atomik değiştirilir, tüm çalışma alanı tek işlem değildir.
+
+single_session=true ikinci yönetilen vipirc worker'ını engeller, tek worker'daki ek sunucuları değil. presence varsayılanları haritada yazılıdır; autoaway_minutes=0 boşta kalma zamanlayıcısını kapatır. Otomatik dönüş yalnız klienin oluşturduğu away'i temizler, elle verilen /away durumunu değil. Bouncer otomatik away ayrıca varsayılan olarak kapalıdır.
+
+Eski [interface] keymap=original|vim ve focus_style=reverse|brackets seçenekleri kabul edilir ama etkisizdir ve Save ile kaldırılır; başka değerler hatadır. Normal gezinme ve kalın köşeli ayraç odağı sürer. /keymap bu uyumluluğu açıklar, tuş eşlemesi seçmez. queue/program bildirimleri ayrı ayrı gizlenebilir; hatalar ve zorunlu güvenlik onayları her zaman görünür.
+
+EXACT CONFIGURATION KEYS (reference only; not a block to paste):
+
+    [connection]
+    server, port, tls, nick, username, realname, channel, autoconnect,
+    auth, auth_user, password_file, password_gpg_file, password,
+    server_password_file, server_password_gpg_file, server_password, ca_file
+    [bouncer]
+    type=none|znc|soju, username, network, client, automatic_away=false
+    [interface]
+    user_list=true, mouse=true, hints=true, shortcut_labels=true,
+    history_lines=500
+    [input]
+    send_mode=direct|review, composer_mode=line|fullscreen,
+    command_suggestions=common|history|frequent|alphabetical|contextual,
+    use_signals=false
+    [hotkeys]
+    optional KEY=action rows; empty by default, at most 64
+    [output]
+    format=compact|full, queue_notices=true, program_messages=true,
+    persistent_logging=false
+    [session]
+    single_session=false, default_interface=ncurses|idle
+    [presence]
+    part_message=, quit_message=Client quit, background_away=true,
+    background_away_message=Detached from terminal,
+    autoaway_minutes=15, autoaway_message=Idle
+    [autocommands]
+    enabled=true, delay_seconds=15, interval_seconds=2, repeated command=
+    [mentions]
+    repeated word=literal phrase
+    [ignore]
+    repeated mask=nick!user@host
+
+    [interface] keymap=original|vim; focus_style=reverse|brackets

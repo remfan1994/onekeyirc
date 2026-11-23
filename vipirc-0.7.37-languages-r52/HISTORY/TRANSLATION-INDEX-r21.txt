@@ -1,0 +1,58 @@
+SOURCE-LINKED VIPIRC MANUAL TRANSLATION INDEX - r21
+
+full-r21           CONTENTS | doc/FULLMANUAL-CONTENTS-LANG.txt
+full-r20           READING EXAMPLES | See r17-r20 translated guides and source references
+full-r21           QUICK START | doc/FULLMANUAL-QUICK-START-LANG.txt
+full-r20           LOCAL SESSION REMINDER | See r17-r20 translated guides and source references
+full-r21           GETTING HELP | doc/FULLMANUAL-GETTING-HELP-LANG.txt
+not-verified-full  MINIMALIST INTERFACE | English MANUAL.txt only
+full-r20           DEFAULT INTERFACE | See r17-r20 translated guides and source references
+full-r20           MINIMALIST WRAPPING AND INPUT HISTORY | See r17-r20 translated guides and source references
+not-verified-full  MINIMALIST CATCH-UP AFTER RESUME | English MANUAL.txt only
+not-verified-full  COMMAND-LINE OPTIONS | English MANUAL.txt only
+full-r21           OFFLINE TEST MODE | doc/FULLMANUAL-OFFLINE-TEST-LANG.txt
+not-verified-full  GLOBAL HEADER AND CHAT CONTROLS | English MANUAL.txt only
+full-r20           NICKNAME COMPLETION | See r17-r20 translated guides and source references
+not-verified-full  COMMAND PROMPT | English MANUAL.txt only
+full-r21           COMMAND REFERENCE INDEX | doc/FULLMANUAL-COMMAND-INDEX-LANG.txt
+not-verified-full  CONNECTION AND STARTUP COMMANDS | English MANUAL.txt only
+full-r21           SESSION SUMMARY | doc/FULLMANUAL-SESSION-SUMMARY-LANG.txt
+not-verified-full  SETTINGS | English MANUAL.txt only
+not-verified-full  CUSTOM KEY BINDINGS | English MANUAL.txt only
+full-r20           TERMINAL SIGNALS | See r17-r20 translated guides and source references
+full-r17           RUNNING IN THE BACKGROUND | See r17-r20 translated guides and source references
+full-r17           SESSION RECOVERY AND UPGRADES | See r17-r20 translated guides and source references
+full-r17           CLOSE A SESSION FROM THE SHELL | See r17-r20 translated guides and source references
+full-r17           SSH DISCONNECT RECOVERY | See r17-r20 translated guides and source references
+full-r17           UPGRADING A RUNNING WORKER | See r17-r20 translated guides and source references
+not-verified-full  SERVERS AND UNREAD ACTIVITY | English MANUAL.txt only
+full-r21           VIEWS AND USERS | doc/FULLMANUAL-VIEWS-USERS-LANG.txt
+full-r21           CHANNEL CHOOSER AND CLOSING CONVERSATIONS | doc/FULLMANUAL-CHANNEL-CHOOSER-LANG.txt
+full-r20           QUERY LIST | See r17-r20 translated guides and source references
+full-r20           MENTIONS AND WATCH STRINGS | See r17-r20 translated guides and source references
+not-verified-full  CONVERSATION COMMANDS | English MANUAL.txt only
+full-r21           LOCAL IGNORE FILTERS | doc/FULLMANUAL-LOCAL-IGNORE-LANG.txt
+full-r21           DELAYED STARTUP COMMANDS | doc/FULLMANUAL-DELAYED-COMMANDS-LANG.txt
+full-r21           PROGRAM AND QUEUE NOTIFICATIONS, QUERY NUMBERS, AND ALIASES | doc/FULLMANUAL-NOTIFICATIONS-ALIASES-LANG.txt
+full-r18           FILE TRANSFERS | See r17-r20 translated guides and source references
+full-r18           INPUT EDITING | See r17-r20 translated guides and source references
+full-r18           MOUSE CONTROLS | See r17-r20 translated guides and source references
+full-r19           MESSAGE LENGTH AND FLOOD PREVENTION | See r17-r20 translated guides and source references
+not-verified-full  CONFIGURATION | English MANUAL.txt only
+full-r19           HISTORY, LOGGING AND PRIVACY | See r17-r20 translated guides and source references
+full-r19           SAVED SERVER PROFILES | See r17-r20 translated guides and source references
+full-r20           AUTOMATIC CONNECTION, JOIN, AND AUTHENTICATION | See r17-r20 translated guides and source references
+not-verified-full  BOUNCER CONNECTIONS | English MANUAL.txt only
+full-r19           TLS AND CUSTOM TRUST | See r17-r20 translated guides and source references
+full-r19           SECURITY AND RESOURCE BOUNDS | See r17-r20 translated guides and source references
+full-r20           CREATING ENCRYPTED PASSWORD FILES | See r17-r20 translated guides and source references
+full-r21           TROUBLESHOOTING | doc/FULLMANUAL-TROUBLESHOOTING-LANG.txt
+not-verified-full  FILES AND ENVIRONMENT | English MANUAL.txt only
+full-r20           EXIT STATUS | See r17-r20 translated guides and source references
+full-r20           PLATFORMS, BUILD, AND LICENSE | See r17-r20 translated guides and source references
+full-r20           DOCUMENTATION AND VALIDATION | See r17-r20 translated guides and source references
+full-r20           PROTOCOL REFERENCES | See r17-r20 translated guides and source references
+
+LANG is id ms tr es pt fr de ru it ar. en files reproduce
+the exact English reference for new r21 chapters.
+Complete section draft does not imply fluent/native reviewed translation.

@@ -1,0 +1,38 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / AUTOMATIC CONNECTION, JOIN, AND AUTHENTICATION
+English source SHA-256: f1eac619875693d1b8b4c03b26a6a90a7736048cf9d67e37619e675a887788b8
+
+KONEKSI, BERGABUNG KANAL, DAN AUTENTIKASI OTOMATIS
+
+Setiap profil yang disimpan memiliki pengaturan autoconnect, bergabung otomatis ke kanal langsung, dan kredensial sendiri. Simpan pengaturan awal yang diinginkan lewat Settings atau perintah. Opsi --server yang diberikan secara eksplisit untuk profil utama memulai koneksi; profil tersimpan dengan autoconnect memulai secara terpisah. --no-connect meniadakan semua koneksi awal. /connect atau Servers > Connect memulai satu koneksi secara eksplisit. Profil baru tidak pernah mewarisi rahasia profil lain.
+
+Untuk akun jaringan langsung, atur:
+
+    [connection]
+    tls=true
+    auth=sasl
+    auth_user=your_registered_account
+    password_gpg_file=/home/yourname/.config/vipirc/sasl.gpg
+
+Pilih tepat satu sumber untuk tiap kredensial yang berbeda:
+
+    Akun SASL                     PASS server
+    password_gpg_file              server_password_gpg_file
+    password_file                  server_password_file
+    password                       server_password
+
+Sumber *_gpg_file dienkripsi, *_file adalah teks biasa privat, dan nilai inline merupakan teks biasa harfiah dalam konfigurasi. Format tidak ditebak dari ekstensi dan tidak ada sumber cadangan. Spasi awal/akhir serta #, ;, dan = dalam nilai inline dipertahankan; jangan menambahkan tanda kutip atau komentar. Konfigurasi berisi rahasia inline harus berupa berkas biasa milik pengguna dengan mode 0600/0400; Save menghasilkan mode 0600. Nilai tetap berada dalam konfigurasi sesi bila diperlukan untuk koneksi ulang atau penyimpanan.
+
+Kata sandi teks biasa/hasil dekripsi harus satu baris tidak kosong, boleh diakhiri LF/CRLF, tanpa byte kontrol: SASL maksimal 1024 byte dan PASS biasa 503 byte. Kedua jenis berkas wajib berupa berkas biasa milik pengguna dengan mode 0600/0400; jalurnya tidak boleh mengandung tautan simbolis atau komponen '..'. Kata sandi tidak diterima sebagai opsi CLI. Untuk identitas gabungan dan batas sumber bouncer, lihat BOUNCER CONNECTIONS.
+
+Berkas terenkripsi berisi satu pesan OpenPGP dengan perlindungan integritas, maksimal 65536 byte. Program gpg opsional yang ditemukan di PATH harus mendukung opsi tetap (GnuPG 2.2.20 atau lebih baru). Program tersebut dijalankan langsung setelah TLS diverifikasi, tanpa shell, dengan keluaran terbatas dan tenggat lima detik. Tidak dibuat berkas sementara kata sandi biasa atau permintaan frasa sandi di dalam aplikasi; sesi lain terus berjalan. Kredensial yang gagal, terkunci, tidak sah, terlalu besar, atau kehabisan waktu menghentikan autentikasi.
+
+Program pembantu menggunakan --no-options, --batch, --no-tty, --pinentry-mode error, dan --no-autostart; pengambilan/impor kunci serta dirmngr dinonaktifkan. Siapkan atau buka kunci di luar vipirc:
+
+    gpg --output /dev/null --decrypt /absolute/password.gpg
+
+Kemudian ulangi /connect. Perintah ini mengandung jalur, bukan kata sandi. Agen yang sudah ada harus dapat mendekripsi tanpa interaksi; komputer/sesi SSH mungkin memiliki berkas, PATH, direktori GnuPG, dan cache agen yang berbeda.
+
+--check-config memvalidasi pilihan sumber dan privasi konfigurasi tanpa membuka rahasia atau GPG. --test-mode tidak pernah membaca atau mendekripsi kredensial; nilai inline dianalisis tetapi tidak digunakan. Tidak satu pun menjamin kredensial asli berfungsi.
+
+SASL PLAIN wajib dikirim hanya setelah verifikasi TLS dan dukungan server dipastikan. Kegagalan menghentikan koneksi sebelum bergabung ke kanal langsung secara otomatis, bukan melanjutkan tanpa autentikasi. Klien tidak mendaftarkan akun jaringan. Sintaks layanan nama panggilan bergantung pada jaringan; autentikasi akun langsung secara otomatis menggunakan SASL. PASS server berbeda dari akun nama panggilan; autentikasi upstream bouncer diatur secara terpisah.

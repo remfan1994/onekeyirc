@@ -1,0 +1,20 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / DELAYED STARTUP COMMANDS
+English source SHA-256: dfb1220936318c5cfbdf407d869067d3a84de7968c73aa4be34594630d3ee9e1
+
+EXACT COMMAND/CONTROL EXAMPLES (not translated):
+/autocommands [list|add COMMAND|remove NUMBER|clear|on|off]
+/autocommands delay SECONDS       0..300
+/autocommands interval SECONDS    2..60
+/autocommands add /msg ChanServ OP #room mynick
+/save
+
+Setiap profil dapat menjalankan hingga 16 perintah harfiah setelah registrasi dan SASL yang diwajibkan berhasil. Penundaan bawaan adalah 15 detik, lalu sedikitnya 2 detik antara perintah yang selesai. Koneksi yang tersendat tidak menimbulkan ledakan perintah tertunda.
+
+Gunakan /autocommands [list|add COMMAND|remove NUMBER|clear|on|off], /autocommands delay SECONDS dengan batas 0..300, /autocommands interval SECONDS dengan batas 2..60, dan /save untuk menyimpan. Contoh: /autocommands add /msg ChanServ OP #room mynick.
+
+Yang didukung ialah /msg, /join, /nick, /away, /back, /whois serta alias persis yang didokumentasikan. Setiap perintah maksimal 511 byte UTF-8 dan harus muat dalam satu baris IRC; tidak ada pemecahan diam-diam, shell, IRC mentah, perulangan, atau substitusi percakapan aktif. /join menerima satu kanal dan kunci sementara opsional. Daftar menyamarkan teks pesan/kunci; eksekusi tidak menambahkan riwayat perintah, echo lokal, atau membuat percakapan privat. Balasan muncul seperti biasa; join otomatis tidak mengalihkan obrolan.
+
+Perubahan berlaku pada sambungan berikutnya. /cancel menghentikan perintah awal yang tersisa dan obrolan terantre, tetapi tidak menarik kembali byte yang telah dikirim atau sedang dikirim. Menutup/meninggalkan tujuan membatalkan urutan berikutnya yang mengarah kepadanya. Kegagalan membatalkan perintah selanjutnya dan menyebutkan posisinya tanpa membocorkan teks rahasia. Menyambung ulang memulai urutan baru; profil bouncer juga menjalankan perintah awal eksplisit. Dalam mode luring tidak ada yang dijalankan.
+
+[autocommands] berisi enabled, delay_seconds, interval_seconds, serta baris command= berulang. Byte setelah = harfiah, termasuk spasi, #, ;, dan =. Daftar tidak kosong, meskipun nonaktif, memerlukan berkas konfigurasi reguler milik pengguna bermode 0600/0400; daftar yang aktif dan tidak kosong mensyaratkan TLS terverifikasi. Profil baru mulai dengan daftar kosong; perubahan tujuan membersihkan daftar warisan yang tak berubah. Simpan secara sadar: penyimpanan kredensial GPG tidak mengenkripsi perintah konfigurasi ini.

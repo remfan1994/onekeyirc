@@ -1,0 +1,68 @@
+VERBATIM ENGLISH SOURCE REFERENCE
+Source: MANUAL.txt / AUTOMATIC CONNECTION, JOIN, AND AUTHENTICATION
+English source SHA-256: f1eac619875693d1b8b4c03b26a6a90a7736048cf9d67e37619e675a887788b8
+
+AUTOMATIC CONNECTION, JOIN, AND AUTHENTICATION
+
+Each saved profile has independent autoconnect, direct autojoin and
+credentials. Save wanted startup settings through Settings or the commands.
+Explicit primary --server starts a connection; saved autoconnect profiles
+start independently. --no-connect suppresses all. /connect or Servers >
+Connect starts one explicitly. No new profile inherits another's secrets.
+
+For a direct network account, configure:
+
+    [connection]
+    tls=true
+    auth=sasl
+    auth_user=your_registered_account
+    password_gpg_file=/home/yourname/.config/vipirc/sasl.gpg
+
+Select exactly one source for each independent credential:
+
+    SASL account                  Server PASS
+    password_gpg_file              server_password_gpg_file
+    password_file                 server_password_file
+    password                      server_password
+
+The *_gpg_file source is encrypted; *_file is private plaintext; inline
+values are literal plaintext in config. There is no extension guessing or
+fallback. Inline leading/trailing spaces, #, ; and = are preserved; do not
+quote or append comments. Config with inline secrets must be owned regular
+0600/0400; generated Save is 0600. Values remain in session configuration as
+needed for reconnect/Save.
+
+Plaintext/decrypted passwords are one nonempty line, optionally
+LF/CRLF-ended, without control bytes: SASL at most 1024 bytes, ordinary PASS
+at most 503. Both file kinds must be owned regular 0600/0400, with no
+symlink or '..' path components. No password is accepted as a CLI option.
+Bouncers have assembled identities and source constraints described under
+BOUNCER CONNECTIONS.
+
+Encrypted files contain one integrity-protected OpenPGP message, at most
+65536 bytes. Optional gpg in PATH must support the fixed options (GnuPG
+2.2.20 or newer). It starts directly after verified TLS, without a shell,
+with bounded output and a five-second deadline. No plaintext temporary file
+or in-app passphrase prompt is used; other sessions continue. A
+failed/locked/invalid/oversized/timed-out credential stops authentication.
+
+The helper uses --no-options, --batch, --no-tty, --pinentry-mode error and
+--no-autostart, with key retrieval/import/dirmngr disabled. Prepare/unlock
+outside vipirc:
+
+    gpg --output /dev/null --decrypt /absolute/password.gpg
+
+Then retry /connect. That command contains a path, not a password. The
+existing agent must decrypt noninteractively; an SSH host/session may have
+different files, PATH, GnuPG home and agent cache.
+
+--check-config validates source selection/config privacy without opening
+secrets or GPG. --test-mode never decrypts/reads credentials; inline values
+are parsed but unused. Neither proves a real credential works.
+
+Required SASL PLAIN is sent only after TLS verification and server support.
+Failure stops connection before direct autojoin instead of proceeding
+unauthenticated. The client does not register network accounts.
+Nickname-service syntax is network-specific; direct automatic account
+authentication uses SASL. Server PASS is distinct from a nickname account;
+bouncer upstream authentication is separately configured there.

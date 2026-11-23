@@ -1,0 +1,98 @@
+[
+  {
+    "chapter": "CONTENTS",
+    "start_line": 7,
+    "end_line": 24,
+    "english_words": 119,
+    "source_sha256": "31ff509ba3d83762471b16f4ed79f6f14dde12738f288c80690542e608cbdd69",
+    "doc_base": "FULLMANUAL-CONTENTS"
+  },
+  {
+    "chapter": "QUICK START",
+    "start_line": 34,
+    "end_line": 70,
+    "english_words": 274,
+    "source_sha256": "26668ea76d9592744bbb94ab60eda38bff8d31bea2791e6b4577390cbbcd2948",
+    "doc_base": "FULLMANUAL-QUICK-START"
+  },
+  {
+    "chapter": "GETTING HELP",
+    "start_line": 83,
+    "end_line": 122,
+    "english_words": 332,
+    "source_sha256": "3be6bd8e2513deace7dbc089f74905843298167e9259b20a4a0495570b4c691f",
+    "doc_base": "FULLMANUAL-GETTING-HELP"
+  },
+  {
+    "chapter": "OFFLINE TEST MODE",
+    "start_line": 374,
+    "end_line": 406,
+    "english_words": 205,
+    "source_sha256": "e89ff4106e3e5a0bba3bbcac6d2d3f1eb41f410ac6a2f153aaed310c84b51cab",
+    "doc_base": "FULLMANUAL-OFFLINE-TEST"
+  },
+  {
+    "chapter": "COMMAND REFERENCE INDEX",
+    "start_line": 540,
+    "end_line": 619,
+    "english_words": 241,
+    "source_sha256": "8a4225fd0a80d59389fe979b521f46f3674fdc05c124a1f9fccd115d0b7da9e7",
+    "doc_base": "FULLMANUAL-COMMAND-INDEX"
+  },
+  {
+    "chapter": "SESSION SUMMARY",
+    "start_line": 700,
+    "end_line": 723,
+    "english_words": 209,
+    "source_sha256": "b2af79e132d98cb37475f734dff71c96a322570b71164c116cf5b7d8aa548be2",
+    "doc_base": "FULLMANUAL-SESSION-SUMMARY"
+  },
+  {
+    "chapter": "VIEWS AND USERS",
+    "start_line": 1019,
+    "end_line": 1044,
+    "english_words": 183,
+    "source_sha256": "c02a51adb2e96f61d113aee6ccd47ba792577ee3c03d8708020250ea07f94354",
+    "doc_base": "FULLMANUAL-VIEWS-USERS"
+  },
+  {
+    "chapter": "CHANNEL CHOOSER AND CLOSING CONVERSATIONS",
+    "start_line": 1045,
+    "end_line": 1064,
+    "english_words": 139,
+    "source_sha256": "da114abc3568be30c5d0cc9c66a970f8f23b79ab9555afca690c56aa25e37060",
+    "doc_base": "FULLMANUAL-CHANNEL-CHOOSER"
+  },
+  {
+    "chapter": "LOCAL IGNORE FILTERS",
+    "start_line": 1177,
+    "end_line": 1203,
+    "english_words": 228,
+    "source_sha256": "5404c975ca8193797b0ed81b5a9611149cbaa34bff67676680655f01885e9693",
+    "doc_base": "FULLMANUAL-LOCAL-IGNORE"
+  },
+  {
+    "chapter": "DELAYED STARTUP COMMANDS",
+    "start_line": 1204,
+    "end_line": 1237,
+    "english_words": 230,
+    "source_sha256": "dfb1220936318c5cfbdf407d869067d3a84de7968c73aa4be34594630d3ee9e1",
+    "doc_base": "FULLMANUAL-DELAYED-COMMANDS"
+  },
+  {
+    "chapter": "PROGRAM AND QUEUE NOTIFICATIONS, QUERY NUMBERS, AND ALIASES",
+    "start_line": 1238,
+    "end_line": 1265,
+    "english_words": 220,
+    "source_sha256": "b62cd0965c386b1810fde3932890e4307baeed004c34a67b0724de33f2178937",
+    "doc_base": "FULLMANUAL-NOTIFICATIONS-ALIASES"
+  },
+  {
+    "chapter": "TROUBLESHOOTING",
+    "start_line": 1865,
+    "end_line": 1900,
+    "english_words": 215,
+    "source_sha256": "b3416fb29408401823b85e292e40c40467a2ea2b528476630825bfbaeced49f5",
+    "doc_base": "FULLMANUAL-TROUBLESHOOTING"
+  }
+]

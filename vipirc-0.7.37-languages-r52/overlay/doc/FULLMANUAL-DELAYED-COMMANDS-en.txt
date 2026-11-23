@@ -1,0 +1,37 @@
+VERBATIM ENGLISH SOURCE REFERENCE
+Source: MANUAL.txt / DELAYED STARTUP COMMANDS
+English source SHA-256: dfb1220936318c5cfbdf407d869067d3a84de7968c73aa4be34594630d3ee9e1
+
+DELAYED STARTUP COMMANDS
+
+Each profile may run up to 16 literal commands after registration and
+required SASL succeed. Default delay is 15 seconds, then at least 2 seconds
+between completed commands; a stalled connection never creates a catch-up
+burst.
+
+    /autocommands [list|add COMMAND|remove NUMBER|clear|on|off]
+    /autocommands delay SECONDS       0..300
+    /autocommands interval SECONDS    2..60
+    /autocommands add /msg ChanServ OP #room mynick
+    /save
+
+Supported commands are /msg, /join, /nick, /away, /back, /whois and their
+documented exact aliases. Each is at most 511 UTF-8 bytes and must fit one
+IRC line; no silent split, shell, raw IRC, loops or current-conversation
+substitution exists. /join takes one channel/optional transient key. Lists
+redact message/key text; execution omits command history/local echo/query
+creation. Replies arrive normally; automatic joins do not switch chat.
+
+Edits apply next connection. /cancel stops remaining startup commands and
+queued chat without retracting sent/in-flight bytes. Closing/parting a
+target cancels a remaining sequence referring to it. Failure cancels later
+commands and identifies position without secret text. Reconnect starts a new
+sequence; bouncer profiles also run explicit startup commands. Offline mode
+runs none.
+
+[autocommands] has enabled, delay_seconds, interval_seconds and repeated
+command= lines. Bytes after = are literal, including spaces/#/;/=. Any
+nonempty list, even disabled, requires an owned regular 0600/0400 config;
+enabled nonempty lists require verified TLS. New profiles start empty; a
+changed destination clears an unchanged inherited list. Save deliberately;
+GPG credential storage does not encrypt these configuration commands.

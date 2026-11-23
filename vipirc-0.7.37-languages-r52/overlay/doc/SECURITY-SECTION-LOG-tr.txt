@@ -1,0 +1,16 @@
+Local history, saved logs and privacy
+Source: SECURITY.md, section "Local history, saved logs and privacy"
+English section SHA-256: 8123a3ef64d1e4e83b7cc6891d66caa56780846eafd681342f8e2f9749251e94
+Paragraphs: 5
+Status: Translation draft; fluent-speaker security review required
+English SECURITY.md remains authoritative. This is only one section, not the full security document.
+
+Komut geri çağırma geçmişi 64 kayıt/64 KiB ile sınırlıdır ve yalnızca bellekte tutulur. Sohbet metni yazma alanı, gönderilmiş sohbet mesajlarını geri çağırmak için kullanılmaz. Tanınan kimlik bilgisi ve denetim komutu biçimleri hariç tutulur. <config_path>.commands içindeki isteğe bağlı kullanım sıklığı verileri, en çok 96 standart komut adını ve sayılarını tutar; argümanları, hedefleri, mesajları veya parolaları saklamaz. Otomatik okuma ve yazma için kayıtlı yapılandırma gerekir; geçersiz veya güvensiz sayaç dosyası başlatmayı engellemez. Test modu bu G/Ç işlemlerini atlar.
+
+Kalıcı konuşma kayıtları varsayılan olarak kapalıdır. Etkinleştiren her kayıtlı profil, <config_path>.log dosyasına ekleme yapar. Üst dizinin kullanıcıya ait ve tam olarak 0700 kipinde olması, dosyanın ise kullanıcıya ait, tek bağlantılı, normal bir dosya ve tam olarak 0600 kipinde olması gerekir. Dosya tanıtıcısına göre yol çözümleme ve O_NOFOLLOW sembolik bağlantıları reddeder; O_NONBLOCK, yerleştirilmiş bir FIFO'nun tür kontrolünden önce işlemi engellemesini önler. Kayıt özelliği üst dizin oluşturmaz.
+
+Her etkin kayıt dosyasına ekleme sınırı 16 MiB'dir. Engellemeyen danışma kilidi, iş birliği yapan istemciler arasında boyut kontrolünü ve yazmayı sıralar. Güvensiz yol, meşgul kilit, yazma hatası veya sınıra ulaşılması, tanılama bildirimiyle o profilin kaydını kapatır; canlı sohbet devam eder. Hiçbir şey otomatik olarak kısaltılmaz veya silinmez. Günlüğü arşivleyin veya taşıyın; ardından kaydı açıkça kapatıp yeniden açın. Harici arşivler kullanıcının sorumluluğundadır. Yavaş ya da uzak depolamada disk G/Ç işlemleri yine bekleyebilir; kaydedici eşzamansız değildir.
+
+Help/aggregate mentions kopyaları, gönderilmemiş taslaklar, SASL/PASS arabellekleri, tanınan özel komutlar ve bilinen hizmet yanıtları konuşma dökümlerine yazılmaz. Bouncer denetim hedefleri ayrıca aşağıda açıklanan süzgeçten geçirilir. Bilinmeyen hizmet adları ve sıradan sohbet olarak yazılan gizli bilgiler yine kaydedilebilir. Günlükler programdan çıkıldığında kalır. Terminal kaydı, sunucu günlükleri ve alıcıların kopyaları bu ayardan bağımsızdır.
+
+Catch-up, bu çalışan worker'ın yerel olarak gönderdiği son uygun mesajı kullanır. Önce doğrulanmış dosya/kayıt dayanağı ve sabitlenmiş bitiş konumuyla özel günlüğü dener, sonra bellekte tutulan içeriğe döner. Günlüğün döndürülmesi veya kimliğin değişmesi disk dayanağını geçersiz kılar; ilgisiz bir kayıt sessizce seçilmez. Yeniden oynatılan kendi mesajları dayanağın yerini almaz. Yeni bir süreç eski günlükleri içe aktarmaz veya sonlandırılmış worker'ın catch-up dayanağını yeniden oluşturmaz.

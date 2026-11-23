@@ -1,0 +1,25 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / TROUBLESHOOTING
+English source SHA-256: b3416fb29408401823b85e292e40c40467a2ea2b528476630825bfbaeced49f5
+
+Ikuti pemeriksaan berurutan pada doc/TROUBLESHOOTING.txt. Jangan membagikan log privat atau rahasia.
+
+Koneksi: baca pesan galat server, periksa host, port, dan TLS. /connect mengulang secara manual; --reconnect mencoba lagi untuk kesalahan sementara. Lihat TLS AND CUSTOM TRUST. Jangan mengakali kegagalan verifikasi dengan mengirim kredensial lewat IRC tanpa enkripsi.
+
+Autentikasi: /autoauth status menampilkan lokasi berkas saat ini dan yang akan berlaku, tidak pernah rahasia. Periksa aturan akun/sumber pada AUTOMATIC CONNECTION, JOIN, AND AUTHENTICATION.
+
+GPG: lihat CREATING ENCRYPTED PASSWORD FILES untuk pemeriksaan lokasi tujuan sebelum pembuatan, dan AUTHENTICATION untuk batas dekripsi, izin berkas, serta pembukaan kunci di luar program.
+
+Kanal: selesaikan registrasi dan autentikasi. /autojoin menampilkan join tertunda untuk profil langsung; bouncer memulihkan kanal. Lihat CONNECTION AND STARTUP COMMANDS.
+
+Resume sibuk: periksa --sessions, lalu --detach-session NUMBER dan --resume NUMBER. --close-session mengakhiri worker. Lihat SESSION RECOVERY AND UPGRADES.
+
+Tombol/tampilan: panah Compose menyunting; Command mengingat perintah aman yang diterima. Untuk baris terbungkus yang tersembunyi, baca teks yang disimpan. Lihat MINIMALIST WRAPPING AND INPUT HISTORY.
+
+Lebar teks: samakan locale UTF-8, TERM, dan fon. Pengubahan ukuran mempertahankan draf/kursor; terminal kecil membatasi panel. Lihat FILES AND ENVIRONMENT.
+
+Penyimpanan: mode uji menolak penulisan. Periksa lokasi privat dan izin dalam CONFIGURATION; Save, Apply, dan autoconnect saat startup adalah tindakan berbeda.
+
+Log/catch-up: periksa galat tepatnya; obrolan tetap berjalan. Batas, rotasi, jangkar pesan terkirim baru, dan mekanisme cadangan dijelaskan di HISTORY, LOGGING AND PRIVACY.
+
+Kepemilikan anak proses: proses anak SIGCHLD harus tetap dapat ditunggu. Mengabaikan sinyal itu atau memanen proses otomatis akan mencegah startup worker latar atau helper pertama. Perbaiki peluncurnya.

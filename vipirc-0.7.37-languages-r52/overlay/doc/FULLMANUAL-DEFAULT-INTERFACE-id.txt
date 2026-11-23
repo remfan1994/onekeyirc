@@ -1,0 +1,16 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / DEFAULT INTERFACE
+English source SHA-256: 9767b356dcf1c634d38900a5165f736d96e65c58251579e065cdfa4d44b92e3c
+
+ANTARMUKA BAWAAN
+
+Untuk menyimpan pilihan antarmuka minimalis, jalankan dari salah satu antarmuka:
+
+    /set default_interface idle
+    /save input
+
+Pilihan ini juga tersedia melalui Settings > Interface > Default interface atau /panel > 0. Cara lain adalah menambahkan default_interface=idle pada bagian [session] yang sudah ada di konfigurasi utama tanpa menghapus kunci lain. Jika tidak diatur, bawaan adalah ncurses. Pilihan ini menentukan antarmuka pada peluncuran baru, termasuk --background, tetapi tidak mengganti antarmuka saat ini maupun menyambungkan ulang IRC.
+
+Opsi -i/--idle atau -N/--ncurses memilih antarmuka secara langsung untuk peluncuran ini; opsi terakhir berlaku, dan menyimpan pengaturan lain tidak membuatnya permanen. Huruf kecil -n/--nick tetap berarti nama panggilan. Untuk mengembalikan antarmuka lengkap sebagai bawaan, jalankan /set default_interface ncurses dan /save input. Profil sekunder tidak memiliki pilihan ini.
+
+--resume tanpa opsi antarmuka mempertahankan antarmuka proses yang sudah berjalan. -i --resume NUMBER meminta mode minimalis; -N --resume NUMBER meminta ncurses, tanpa menyambungkan ulang atau mengganti proses pekerja. Proses lama yang tidak mendukung perpindahan tetap memakai antarmukanya. Perpindahan menghapus draf dan riwayat perintah khusus antarmuka; baca RUNNING IN THE BACKGROUND. onekeyirc selalu memakai antarmuka minimalis dan menolak -N/--ncurses. sebelum berganti.

@@ -1,0 +1,212 @@
+[
+  {
+    "client": "vipirc",
+    "source": "src/transfers.c",
+    "kind": "fixed",
+    "english": "Offline sample offer. Sending and receiving are disabled before file or network access.",
+    "fields": []
+  },
+  {
+    "client": "vipirc",
+    "source": "src/transfers.c",
+    "kind": "fixed",
+    "english": "Select a pending offer to accept.",
+    "fields": []
+  },
+  {
+    "client": "vipirc",
+    "source": "src/transfers.c",
+    "kind": "fixed",
+    "english": "Accept connects to this peer and creates a new private file; existing files are never overwritten.",
+    "fields": []
+  },
+  {
+    "client": "vipirc",
+    "source": "src/transfers.c",
+    "kind": "fixed",
+    "english": "Enter the IPv4 address the peer can reach. Port 0 chooses a local port; NAT may require forwarding.",
+    "fields": []
+  },
+  {
+    "client": "vipirc",
+    "source": "src/transfers.c",
+    "kind": "fixed",
+    "english": "This field is not valid UTF-8.",
+    "fields": []
+  },
+  {
+    "client": "vipirc",
+    "source": "src/transfers.c",
+    "kind": "fixed",
+    "english": "File browser unavailable; enter the source path here.",
+    "fields": []
+  },
+  {
+    "client": "vipirc",
+    "source": "src/transfers.c",
+    "kind": "fixed",
+    "english": "Cannot read the launch directory. Use Type path.",
+    "fields": []
+  },
+  {
+    "client": "vipirc",
+    "source": "src/transfers.c",
+    "kind": "fixed",
+    "english": "The field allows at most 4095 UTF-8 bytes.",
+    "fields": []
+  },
+  {
+    "client": "vipirc",
+    "source": "src/transfers.c",
+    "kind": "fixed",
+    "english": "Use a single line without control characters.",
+    "fields": []
+  },
+  {
+    "client": "vipirc",
+    "source": "src/transfers.c",
+    "kind": "fixed",
+    "english": "Offer rejected. No connection or file was opened.",
+    "fields": []
+  },
+  {
+    "client": "vipirc",
+    "source": "src/transfers.c",
+    "kind": "fixed",
+    "english": "Transfer cancelled. An offer already sent or being sent cannot be recalled.",
+    "fields": []
+  },
+  {
+    "client": "vipirc",
+    "source": "src/transfers.c",
+    "kind": "fixed",
+    "english": "Transfer cancelled. Its incomplete receive file was removed if still unchanged.",
+    "fields": []
+  },
+  {
+    "client": "vipirc",
+    "source": "src/transfers.c",
+    "kind": "fixed",
+    "english": "Resize to at least 12 rows by 20 columns to review this transfer.",
+    "fields": []
+  },
+  {
+    "client": "vipirc",
+    "source": "src/transfers.c",
+    "kind": "fixed",
+    "english": "Receiving file. You can return to chat while it transfers.",
+    "fields": []
+  },
+  {
+    "client": "vipirc",
+    "source": "src/transfers.c",
+    "kind": "fixed",
+    "english": "OFFLINE TEST MODE: DCC sending is disabled before file or network access.",
+    "fields": []
+  },
+  {
+    "client": "vipirc",
+    "source": "src/transfers.c",
+    "kind": "fixed",
+    "english": "Connect this IRC server before offering a file.",
+    "fields": []
+  },
+  {
+    "client": "vipirc",
+    "source": "src/transfers.c",
+    "kind": "fixed",
+    "english": "Enter a valid recipient nickname.",
+    "fields": []
+  },
+  {
+    "client": "vipirc",
+    "source": "src/transfers.c",
+    "kind": "fixed",
+    "english": "Listen port must be an integer from 0 to 65535.",
+    "fields": []
+  },
+  {
+    "client": "vipirc",
+    "source": "src/transfers.c",
+    "kind": "fixed",
+    "english": "The file offer could not be queued within the IRC message budget. Try a shorter filename.",
+    "fields": []
+  },
+  {
+    "client": "vipirc",
+    "source": "src/transfers.c",
+    "kind": "fixed",
+    "english": "File offered. Waiting for the peer to connect.",
+    "fields": []
+  },
+  {
+    "client": "vipirc",
+    "source": "src/transfers.c",
+    "kind": "fixed",
+    "english": "Paste contained rejected controls or exceeded the field limit.",
+    "fields": []
+  },
+  {
+    "client": "vipirc",
+    "source": "src/transfers.c",
+    "kind": "fixed",
+    "english": "Field limit reached or unsupported control character.",
+    "fields": []
+  },
+  {
+    "client": "vipirc",
+    "source": "src/transfers.c",
+    "kind": "fixed",
+    "english": "Unencrypted peer connection. Accepting reveals your IP to the peer.",
+    "fields": []
+  },
+  {
+    "client": "vipirc",
+    "source": "src/transfers.c",
+    "kind": "fixed",
+    "english": "Unencrypted peer connection. Your advertised IP is included in the offer.",
+    "fields": []
+  },
+  {
+    "client": "vipirc",
+    "source": "src/transfers.c",
+    "kind": "fixed",
+    "english": "No file transfers.",
+    "fields": []
+  },
+  {
+    "client": "vipirc",
+    "source": "src/transfers.c",
+    "kind": "fixed",
+    "english": "File stays unopened until Accept.",
+    "fields": []
+  },
+  {
+    "client": "vipirc",
+    "source": "src/idle_commands.c",
+    "kind": "fixed",
+    "english": "No such server number. Servers start at 1; /servers lists them. Panel 0 contains application preferences.",
+    "fields": []
+  },
+  {
+    "client": "vipirc",
+    "source": "src/idle_commands.c",
+    "kind": "fixed",
+    "english": "No such server number. Use /servers to list available slots.",
+    "fields": []
+  },
+  {
+    "client": "vipirc",
+    "source": "src/idle_commands.c",
+    "kind": "fixed",
+    "english": "No matching channels received yet.",
+    "fields": []
+  },
+  {
+    "client": "vipirc",
+    "source": "src/idle_commands.c",
+    "kind": "fixed",
+    "english": "No cached channels match the current LIST filters.",
+    "fields": []
+  }
+]

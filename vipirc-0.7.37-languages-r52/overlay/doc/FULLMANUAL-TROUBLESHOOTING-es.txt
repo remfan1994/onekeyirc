@@ -1,0 +1,25 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / TROUBLESHOOTING
+English source SHA-256: b3416fb29408401823b85e292e40c40467a2ea2b528476630825bfbaeced49f5
+
+Siga las comprobaciones ordenadas en doc/TROUBLESHOOTING.txt. No comparta registros privados ni secretos.
+
+Conexión: lea el error del servidor y verifique host, puerto y TLS. /connect reintenta manualmente; --reconnect repite fallos transitorios. Consulte TLS AND CUSTOM TRUST. Nunca eluda un fallo de verificación enviando credenciales por IRC en claro.
+
+Autenticación: /autoauth status muestra rutas actuales y pendientes, nunca secretos. Compruebe las reglas de cuentas y fuentes en AUTOMATIC CONNECTION, JOIN, AND AUTHENTICATION.
+
+GPG: consulte CREATING ENCRYPTED PASSWORD FILES para la comprobación previa del destino y AUTHENTICATION para los límites de descifrado, permisos y desbloqueo externo.
+
+Canales: complete registro y autenticación. /autojoin muestra las uniones pendientes de perfiles directos; los bouncers restauran canales. Consulte CONNECTION AND STARTUP COMMANDS.
+
+Reanudación ocupada: inspeccione --sessions, use --detach-session NUMBER y después --resume NUMBER. --close-session termina el proceso persistente. Consulte SESSION RECOVERY AND UPGRADES.
+
+Teclas y pantalla: las flechas de Compose editan, mientras Command recupera comandos seguros aceptados. Para filas ocultas por ajuste de línea, revise el texto retenido. Consulte MINIMALIST WRAPPING AND INPUT HISTORY.
+
+Anchura: combine una configuración regional UTF-8, TERM y fuente compatibles; cambiar el tamaño conserva borrador y cursor. Los terminales pequenos limitan los paneles. Consulte FILES AND ENVIRONMENT.
+
+Guardado: el modo de prueba rechaza escrituras. Revise rutas privadas y permisos en CONFIGURATION. Guardar, aplicar y conectar automáticamente al iniciar son acciones distintas.
+
+Registros/recuperacion: inspeccione el error exacto; el chat sigue funcionando. Límites, rotacion, nuevas marcas de envio y alternativa de recuperacion se describen en HISTORY, LOGGING AND PRIVACY.
+
+Procesos hijos: los hijos SIGCHLD deben seguir siendo esperables por wait; ignorar esa señal o recoger procesos automáticamente impide iniciar por primera vez el trabajo en segundo plano o los ayudantes. Corrija el lanzador.

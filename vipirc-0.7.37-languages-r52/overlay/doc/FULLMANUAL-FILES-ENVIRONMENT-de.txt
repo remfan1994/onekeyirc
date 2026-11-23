@@ -1,0 +1,25 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / FILES AND ENVIRONMENT
+English source SHA-256: 3f0929a090403aa838e2094592ede3b01d8a8cac7f8b23ff6c35f31b3321edf6
+Source lines: 1901-1962
+
+DATEIEN UND UMGEBUNG
+
+Standardpfade für die primäre Konfiguration:
+
+    $XDG_CONFIG_HOME/vipirc/config.ini
+    $HOME/.config/vipirc/config.ini
+
+XDG_CONFIG_HOME hat Vorrang, wenn es nicht leer ist, und muss ein absoluter Pfad sein. HOME dient als Ersatz; die Benutzerkontendatenbank wird herangezogen, wenn aus HOME kein absolutes Heimatverzeichnis ermittelt werden kann. --config FILE wählt eine andere primäre Konfiguration samt benachbartem Arbeitsbereich der gespeicherten Serverprofile. Pfade in Konfigurationsdateien sind wörtlich, ohne Variablen-, Tilde- oder Shell-Erweiterung. Die oben gezeigten Variablen erklären nur die Auswahl der Standardpfade. Ihre Shell führt vor der Übergabe von Kommandozeilenargumenten weiterhin ihre normale Quotierung und Erweiterung aus.
+
+Für den primären Pfad P enthält P.servers die Kennungen gespeicherter Profile und die optionale Auswahl [servers] default=PROFILE_ID, die /saveconf verwaltet. P.d/ enthält sekundäre Profildateien. Jede gespeicherte Konfiguration kann eine .commands-Datei mit kanonischen Befehlszählern und optional ein .log-Protokoll besitzen. Erzeugte Konfigurationen und sekundäre Profile benötigen ein ausdrückliches Save; die Zähler akzeptierter Befehle werden in einem bereits gespeicherten Arbeitsbereich automatisch aktualisiert. Fehlt ein gemerktes Standardprofil oder ist es nicht lesbar, wird dies gemeldet, statt die Verbindung still umzulenken.
+
+Die Volloberfläche schlägt $XDG_DATA_HOME/vipirc/downloads als Standardverzeichnis für DCC-Empfang vor, wenn XDG_DATA_HOME absolut ist; andernfalls $HOME/.local/share/vipirc/downloads, wenn HOME absolut ist. Das vorgeschlagene Verzeichnis wird erst nach ausdrücklicher Annahme angelegt. Der Befehl /dcc accept NUMBER ohne DIRECTORY nutzt das Startverzeichnis des Prozesses; dieses muss dem Benutzer gehören und privat sein. Die Auswahl oder Durchsicht eines Pfads verändert dieses Startverzeichnis niemals.
+
+PATH findet das optionale Programm gpg. Es wird keine Shell ausgeführt; das Programm gehört zur vertrauenswürdigen lokalen Umgebung. GNUPGHOME wird von GnuPG als Umgebung für Schlüssel und Agent interpretiert. Der Client erweitert GNUPGHOME nicht innerhalb von Zugangsdatenpfaden. Bei entfernten SSH-Sitzungen gelten Umgebung und Dateien des Rechners, auf dem vipirc läuft.
+
+TERM beschreibt die Terminalfähigkeiten für ncurses, nicht die Textkodierung. LANG, LC_CTYPE und LC_ALL bestimmen die Locale. Verwenden Sie für Unicode-Eingabe und Zeichenbreiten eine installierte, zum Terminal passende UTF-8-Locale. locale, locale charmap und locale -a helfen bei der Prüfung; Locale-Namen unterscheiden sich je nach System.
+
+Oberflächensprache: Setzen Sie VIPIRC_LANG beim Start von vipirc auf id (Indonesisch), ms (Malaiisch), tr (Türkisch), es (Spanisch), pt (Portugiesisch), fr (Französisch), de (Deutsch), ru (Russisch), it (Italienisch) oder ar (Arabisch). Auch Werte wie id_ID.UTF-8 sind zulässig. ncurses und -i verwenden denselben Katalog. Englisch ist der Rückfall. Ein abgetrennter Worker behält die beim Start gewählte Anzeigesprache. IRC-Slash-Befehle, Konfigurationsschlüssel und Steuerwerte bleiben englisch. Diese Version übersetzt ausgewählte Bedienfelder, nicht jede Hilfeseite, Sicherheitswarnung oder Fehlermeldung. Siehe doc/LOCALIZATION.md.
+
+Das aktive LC_CTYPE wird beachtet. Bei ungültiger oder nicht-UTF-8-Locale wird ausdrücklich der ASCII-Terminalmodus gewählt, der auf dem Willkommensbildschirm angezeigt wird. Nicht-ASCII-Eingaben werden mit einer Statusmeldung abgewiesen; eingehende Nicht-ASCII-Codepunkte erscheinen als '?', ohne gespeicherten Netzwerktext zu ändern. Der Client errät oder konvertiert keine älteren Kodierungen und erzwingt keine Locale. Wählen Sie eine installierte UTF-8-Locale und starten Sie neu, um Unicode zu nutzen. ASCII bleibt die Ein-Byte-Teilmenge von UTF-8; SSH ändert die IRC-Bytegrenzen nicht.

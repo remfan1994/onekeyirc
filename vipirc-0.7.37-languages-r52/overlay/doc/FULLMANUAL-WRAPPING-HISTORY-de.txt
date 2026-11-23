@@ -1,0 +1,9 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / MINIMALIST WRAPPING AND INPUT HISTORY
+English source SHA-256: 530aeaefbd01d1eb2f184d0eabe5145550b9634fd9235a3f604b9f234b562160
+
+ZEILENUMBRUCH UND EINGABEVERLAUF IM MINIMALMODUS
+
+Compose reserviert Zeilen für die Eingabe; darüber erscheinen die neuesten visuell umgebrochenen Zeilen. Ältere Zeilen können aus diesem verkleinerten Ausschnitt herausfallen. Gespeicherter Text und Versandpläne werden dabei nicht gekürzt. Verlassen Sie die Eingabe oder wählen Sie das Gespräch erneut, um erhaltene Zeilen anzusehen; eine lokale Wiedergabe ist kein Zustellnachweis. Bei Größenänderung wird das Layout neu berechnet, ohne Entwurf oder Cursor zu verlieren.
+
+Auf/Ab verschiebt in Compose den Cursor, auch bei gedrückt gehaltener Taste. Nur Auf in Command ruft akzeptierte Befehle zurück; gesendete Nachrichten, vertrauliche Dienstzeilen und Channel-Beitritte mit Schlüssel werden nicht zurückgerufen. Die Datei .commands enthält ausschließlich Namen und Zähler. Siehe COMMAND PROMPT, INPUT EDITING und TROUBLESHOOTING.

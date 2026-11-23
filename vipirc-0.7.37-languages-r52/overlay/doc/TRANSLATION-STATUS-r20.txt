@@ -1,0 +1,46 @@
+OPTIONAL LANGUAGE/ARABIC RTL PATCH r20 - SOURCE-LINKED MANUAL COVERAGE
+Client: vipirc 0.7.36, original English source r1 remains unchanged.
+Ten languages: id ms tr es pt fr de ru it ar.
+
+FULL SOURCE-LINKED vipirc MANUAL.txt CHAPTERS: 27 of 52.
+Total English words in those chapters: 5562.
+Added in r20: 14 complete chapters, 2116 English source words translated in EACH of ten languages.
+Older r17-r19 complete sections: 13 chapters.
+Every new translation ships with the entire verbatim English source and its SHA-256.
+The 844-entry live help catalog and minimalist manual translations are unchanged.
+
+IMPORTANT: This is verified file/section coverage, NOT a claim of fluent accuracy
+or complete runtime localization. Each translation requires expert native review,
+particularly AUTHENTICATION, GPG and security warnings.
+The remaining 25 full-manual chapters and SECURITY.md are still not
+fully translated. English MANUAL.txt and SECURITY.md remain authoritative.
+Companion documents are installed alongside the English manual; the full
+ncurses /manual reader is NOT dynamically translated by these new files.
+The optional RTL engine and IRC behavior are unchanged from r19.
+
+Untranslated sections (source-linked audit):
+  CONTENTS (119 source words)
+  QUICK START (274 source words)
+  GETTING HELP (332 source words)
+  MINIMALIST INTERFACE (620 source words)
+  MINIMALIST CATCH-UP AFTER RESUME (308 source words)
+  COMMAND-LINE OPTIONS (599 source words)
+  OFFLINE TEST MODE (205 source words)
+  GLOBAL HEADER AND CHAT CONTROLS (416 source words)
+  COMMAND PROMPT (480 source words)
+  COMMAND REFERENCE INDEX (241 source words)
+  CONNECTION AND STARTUP COMMANDS (578 source words)
+  SESSION SUMMARY (209 source words)
+  SETTINGS (425 source words)
+  CUSTOM KEY BINDINGS (286 source words)
+  SERVERS AND UNREAD ACTIVITY (373 source words)
+  VIEWS AND USERS (183 source words)
+  CHANNEL CHOOSER AND CLOSING CONVERSATIONS (139 source words)
+  CONVERSATION COMMANDS (665 source words)
+  LOCAL IGNORE FILTERS (228 source words)
+  DELAYED STARTUP COMMANDS (230 source words)
+  PROGRAM AND QUEUE NOTIFICATIONS, QUERY NUMBERS, AND ALIASES (220 source words)
+  CONFIGURATION (603 source words)
+  BOUNCER CONNECTIONS (379 source words)
+  TROUBLESHOOTING (215 source words)
+  FILES AND ENVIRONMENT (475 source words)

@@ -1,0 +1,62 @@
+vipirc / onekeyirc - selected operations help (tr)
+====================================================
+
+DRAFT - selected help excerpts only; not a complete security manual.
+Commands, numeric limits and file names must be entered literally.
+Authoritative reference: English MANUAL.txt and SECURITY.md.
+
+/help deployment
+----------------
+Terminal veya karşılama tuşu olmadan oturum başlatmak için --background kullanın.
+
+Başlatılacak her sunucuda /autoconnect on ayarını yapıp kaydedin.
+
+--background tek başına autoconnect açmaz; --no-connect başlangıç bağlantılarını yine engeller.
+
+Normal uyarı ayrılmadan önce bir kez yazılır. Başarı, IRC oturum açma değil yerel arka plan işi demektir.
+
+Aynı kullanıcı hesabıyla sonraki terminalden --sessions ve --resume [NUMBER] kullanın.
+
+VPS yeniden başlatılırsa eski işler, taslaklar ve RAM geçmişi kaybolur. OS başlangıç görevi yeni istemci açabilir.
+
+OpenBSD yönergeleri ve isteğe bağlı rc.d örneği doc/OPENBSD-VPS.txt dosyasındadır.
+
+İstemciyi normal kullanıcıyla, mutlak yapılandırma ve kimlik bilgisi yollarıyla çalıştırın. Kilitli GPG anahtarı açılışta parola soramaz.
+
+--check-config ayarları denetler; kimlik bilgisi erişimini, DNS, TLS veya IRC girişini değil.
+
+Geçici ağ kesintileri için --reconnect kullanın; çökme sonrası işlem gözetimi ayrı OS görevidir.
+
+/help security
+--------------
+Uzak metin terminale yazılmadan temizlenir. Girişler kabuk komutu değil, yerel IRC komutu olarak yorumlanır.
+
+/raw, kabuk çıkışı veya otomatik dosya kabulü yoktur. Tanınan bracketed paste bir komutu asla göndermez.
+
+Özel CA paketi boş olmayan normal PEM dosyası olmalı, en fazla 16 MiB olmalı ve parola istemez.
+
+Diskte konuşma dökümü varsayılan olarak kapalıdır. Yapılandırma değişiklikleri açıkça kaydedilmelidir.
+
+Kesin sınırlar ve önceki incelemeler için /help tls, /help authentication, /help logging ve SECURITY.md dosyasına bakın.
+
+/help history
+-------------
+Görüntülenen kayıt ve komut geçmişi RAM'de sınırlıdır. Kalıcı günlük isteğe bağlıdır ve varsayılan kapalıdır.
+
+Görünüm değişince saklanan son kayıtlar gösterilir; /mentions eşleşen kaynak satırlarını gösterir.
+
+/clear bir görünümün RAM geçmişini siler, eski disk dökümünü değil. Bouncer tekrarını bouncer sağlar.
+
+Compose içinde Up/Down imleci taşır, gönderilen sohbeti çağırmaz. Command yalnız kabul edilmiş komutları geri çağırır.
+
+/help hotkeys
+-------------
+Özel tuş atamaları isteğe bağlıdır; başlangıçta boştur. Mevcut gezinme ve düzenleme tuşları çalışır.
+
+Liste için /bindings, tuşlar için /bindings keys, işlevler için /bindings actions kullanın.
+
+Atamak için /bind KEY ACTION; değiştirmek için tekrar atayın. Silmek için /unbind KEY veya /unbind all.
+
+/help logging
+-------------
+/clear yalnız RAM'i temizler. Loglar çıkış, --close-session ve kayıttan sonra kalır. Günlüğü kapatmak yeni kayıtları durdurur; eskileri silmez.

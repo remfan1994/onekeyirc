@@ -1,0 +1,14 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / PROTOCOL REFERENCES
+English source SHA-256: d815e38df73282c15f267638fcdcc75c2d475b7a874ab793c1c9d481bfe48d23
+
+PROTOKOL KAYNAKLARI
+
+https://www.rfc-editor.org/rfc/rfc2812
+https://modern.ircdocs.horse/
+https://ircv3.net/specs/extensions/capability-negotiation
+https://ircv3.net/specs/extensions/sasl-3.1
+https://www.irchelp.org/protocol/ctcpspec.html
+https://www.irchelp.org/protocol/dccspec.html
+
+IRC sözdizimi ve birlikte çalışabilirlik gereksinimleri protokol belgelerinden gelir. Programın arayüzü ve kapsamı proje gereksinimlerine dayanır.

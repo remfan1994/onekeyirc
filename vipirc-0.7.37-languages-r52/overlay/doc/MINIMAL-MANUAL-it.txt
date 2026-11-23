@@ -1,0 +1,1283 @@
+vipirc - IRC da terminale orientato ai comandi
+Non sei vegetariano? www.bloodguiltcurse.net ti farà cambiare idea
+vipirc aiuto comandi
+Vedi argomenti della guida: /help ls.
+Elenco dei comandi: /help commands. Dettagli: /help COMMAND.
+Prima connessione: /connect irc.example.org, poi /join #channel.
+Chat privata: /query NICK o /msg NICK TEXT.
+Configurazione guidata: /quickstart o /panel.
+Salva impostazioni: /saveconf. Non abilita autoconnect.
+Cambia visualizzazione: /servers, /channels, /ql.
+Opzioni di avvio: /help autoconnect, /help autojoin, /help autoauth.
+Recupera sessioni SSH: /help sessions.
+Guida bouncer: /help bouncers.
+Impostazioni e scorciatoie: /help configuration, /help hotkeys.
+Problemi e sicurezza TLS: /help troubleshooting, /help security, /help tls.
+Cronologia e log: /help history, /help logging.
+Scegli lingua: /help language.
+Riferimento completo: /help all o /manual.
+Escape chiude la guida; / apre Comando.
+
+about
+-----
+Un'applicazione di ThatIAm.vip (www.thatiam.vip), progettata da remfan1994.
+Licenza: IALA (Insha-Allah License Agreement); consulta il testo della licenza incluso.
+Avviso di benvenuto: Non sei vegetariano? www.bloodguiltcurse.net ti farà cambiare idea
+Una sessione in esecuzione mostra inoltre questo promemoria locale una volta quando viene collegata un'interfaccia:
+Uccidere le mucche significa versare sangue innocente. www.bloodguiltcurse.net - vietiamo la carne bovina.
+Il promemoria non richiede altre risposte e non viene inviato a IRC. Riconnettere o ricollegare l'interfaccia non azzera il suo indicatore di una volta per processo di lavoro.
+
+aliases
+-------
+Gli alias richiedono nomi esatti; nessuna esecuzione ambigua o approssimativa.
+/conn = /connect; /disc = /disconnect; /detach = /background; /exit = /quit
+/j = /join; /leave = /part; /message e /privmsg = /msg
+/nickname = /nick; /names e /nicks = /users; /unaway = /back
+/channellist = /cl; /querylist = /ql; /serverlist = /servers
+/configure e /preferences = /panel; /saveconfig = /saveconf
+/autocommand = /autocommands
+Il completamento propone i nomi canonici; gli argomenti restano invariati e il filtro della cronologia sensibile è identico.
+
+authentication
+--------------
+Usa TLS verificato con /autoauth sasl USER file PATH oppure /autoauth sasl USER gpg PATH.
+Le credenziali provengono dal file di password o dai dati GPG decifrati; i percorsi sono letterali.
+Usare /panel per creare una credenziale cifrata GPG per un'impronta di chiave pubblica locale esistente.
+Usare una chiave GPG già sbloccata. Nessun pinentry viene avviato nell'editor chat.
+Sono ammessi anche password= e server_password= in chiaro nei file di configurazione privati.
+Scegliere una sola fonte per ogni credenziale. /settings e /summary nascondono i percorsi dei file.
+/autoauth status mostra i percorsi attuali e in attesa senza leggere file né rivelare password.
+Le impostazioni di autenticazione valgono al prossimo /connect dopo la disconnessione; /save le salva.
+Per i profili bouncer, gestire accesso e fonte insieme in /panel; /autoauth rifiuta modifiche.
+I file credenziali devono essere regolari, di proprietà, con permessi 0600 o 0400; vietati link simbolici e attraversamento delle directory superiori.
+Limite credenziali SASL: 1024 byte; PASS normale: 503 byte. Login ZNC composto in una riga IRC.
+--check-config convalida configurazione e fonte senza leggere credenziali né provare l'accesso. Vedi /help tls e /help bouncers.
+
+bouncers
+--------
+Apri /panel, scegli un server e il tipo di connessione znc o soju.
+Inserire host e porta TLS del bouncer, utente bouncer, rete upstream esistente e nome client stabile facoltativo.
+Salva un profilo per rete a monte. Se vari profili usano lo stesso host, seleziona quello giusto prima di /connect senza argomenti.
+Il client compone l'identità. ZNC usa la sorgente della password server; soju quella di autenticazione. Inserisci solo la password del bouncer, non un login combinato né una password NickServ.
+Il bouncer ripristina i canali. /autojoin locale non viene ripetuto e non si può modificare; usa /join e /part.
+I comandi di avvio espliciti vengono eseguiti comunque. Controllarli prima di attivare il profilo per evitare join o comandi di servizio ripetuti.
+L'away automatico per inattività/background è spento salvo abilitazione nel profilo bouncer. /away e /back manuali funzionano.
+La cronologia ricevuta usa orari UTC originali, indirizza i privati al destinatario e non crea menzioni, esegue CTCP/DCC o modifica lo stato attivo.
+La cronologia è limitata. Non sono previsti ricerca archivi su richiesta, rilevamento automatico reti o profili per ogni rete.
+Usa /znc o /soju senza argomenti per la guida del servizio. I controlli non entrano in cronologia o eco; le risposte appaiono nella vista server senza log persistente.
+Le copie riconosciute dei controlli in uscita sono nascoste anche in replay con vecchio nick. Il testo digitato può apparire e il bouncer applica le proprie regole di log.
+Il client si collega solo al bouncer. Configura a parte TLS, autenticazione e conservazione a monte.
+Consultare doc/BOUNCERS.txt e gli esempi in examples/ per impostazione e limiti delle verifiche effettuate.
+
+configuration
+-------------
+File di configurazione predefinito: $XDG_CONFIG_HOME/vipirc/config.ini; XDG_CONFIG_HOME deve essere un percorso assoluto.
+Quando XDG_CONFIG_HOME non è impostato o è vuoto: $HOME/.config/vipirc/config.ini. --config FILE seleziona un altro file.
+La modalità minimalista usa la consueta configurazione dell'applicazione e il catalogo dei server salvato.
+[interface] history_lines= imposta il limite della cronologia di chat conservata; le altre preferenze dell'interfaccia restano salvate.
+[connection] contiene server, port, tls, nick, username, realname, channel, autoconnect, auth e fonti delle credenziali.
+[bouncer] type=none|znc|soju, username, network, client e automatic_away definiscono il profilo bouncer per rete; vedi /help bouncers.
+[input] send_mode=direct|review e [output] format=compact|full, queue_notices=true|false, program_messages=true|false, persistent_logging=true|false sono preferenze del file principale.
+[input] command_suggestions=common|history|frequent|alphabetical|contextual ordina i comandi; common è il valore iniziale.
+[input] composer_mode=line|fullscreen sceglie l'editor/comandi minimalista; line è il valore iniziale. Entrambi mostrano i messaggi recenti.
+[input] use_signals=false Use signals è impostato su no per impostazione predefinita. Ctrl-C e Ctrl-Z annullano un messaggio o comando non inviato, senza terminare o sospendere il programma. Scegliere yes nel pannello 0 o nelle impostazioni Interface di vipirc per abilitare i segnali del terminale. Apply ha effetto immediato; Save memorizza anche [input] use_signals=true|false. All'uscita o alla sospensione vengono ripristinate le impostazioni originali del terminale.
+[hotkeys] contiene fino a 64 associazioni KEY=action opzionali, senza predefiniti. È nella configurazione principale; vedi /help hotkeys.
+[session] single_session=true|false permette o vieta più lavori in background; false è il valore iniziale.
+[session] default_interface=ncurses|idle è una preferenza principale. Le opzioni iniziali sono descritte sotto.
+Il formato compact è iniziale. history_lines nella configurazione principale limita la cronologia di tutti i server.
+[mentions] word= e [ignore] mask= possono ripetersi.
+[autocommands] contiene enabled, delay_seconds, interval_seconds e righe command= ripetute per server.
+Questi comandi sono testo semplice nel file privato. /autocommands li gestisce senza rivelare segreti in liste o cronologia.
+I server aggiuntivi salvati usano il catalogo .servers e la directory .d adiacenti.
+Connettersi con /connect HOST, poi usare /join #channel e /saveconf per ricordare la configurazione funzionante.
+/saveconf salva preferenze e profili server validi e ricorda il server scelto per un futuro /connect senza argomenti.
+/quickstart pone quattro domande di connessione. /panel usa 0 per le preferenze e 1..8 per i profili; 1 modifica il principale.
+Le modifiche del pannello restano private fino a Finish. Un percorso GPG accettato può preparare la cartella 0700; cifratura, scrittura e connessione attendono la scelta finale.
+Per mantenere le modifiche: /save sul server scelto, /save input o /save output sul principale, o /saveconf sui profili validi e predefinito.
+La configurazione salvata usa <config_path>.commands per leggere/scrivere conteggi di comandi; il file principale non li salva.
+Il file privato limitato contiene solo nomi canonici e conteggi, non argomenti o cronologia. La modalità test non lo legge né scrive.
+Le modifiche [connection] da /autojoin o /autoauth valgono al prossimo /connect da disconnessi; non alterano la connessione attiva.
+I file di configurazione sono privati; ogni file viene sostituito atomicamente, non tutto insieme. Nessun import/export.
+Sezioni, chiavi o valori sconosciuti generano errori. La configurazione usa valori letterali, senza quoting shell, escape, variabili o ~.
+Valori normali: spazi esterni rimossi. password= e server_password= preservano tutto dopo = salvo fine riga; non aggiungere commenti o virgolette.
+Il salvataggio riscrive le impostazioni supportate e sostituisce formattazione/commenti manuali. Conservare le note altrove.
+Vedi /help authentication per segreti, /help tls per CA, /help logging per log e /help sessions per sessioni attive.
+Interfaccia predefinita: ncurses. /set default_interface idle|ncurses sceglie l'interfaccia del prossimo nuovo avvio; /save input salva la scelta nella configurazione principale.
+Le opzioni esplicite -i/--idle o -N/--ncurses sostituiscono la scelta per quell'avvio senza salvare la modifica. -n minuscolo continua a selezionare il soprannome.
+
+deployment
+----------
+Usa --background per avviare una sessione senza terminale o tasto di benvenuto.
+Configura e salva /autoconnect on per ogni server da avviare.
+--background non attiva autoconnect da solo; --no-connect blocca comunque le connessioni all'avvio.
+L'avviso appare una volta prima del distacco. Il successo conferma un job locale, non un accesso IRC riuscito.
+Da un altro terminale dello stesso account usa --sessions e --resume [NUMBER].
+--sessions include i lavori collegati. --detach-session NUMBER libera il terminale collegato senza distruggere il lavoro, per riprenderlo altrove. --close-session NUMBER termina il lavoro selezionato e tutte le sue connessioni IRC.
+Usa l'ID di lavoro elencato, non un PID. Processi bloccati o vecchi privi del controllo richiesto possono fallire. Vedi /help sessions per recupero e aggiornamento.
+Il riavvio del VPS termina job, bozze e cronologia RAM. Un'attività di sistema può avviare un nuovo client.
+Istruzioni OpenBSD ed esempio rc.d facoltativo: doc/OPENBSD-VPS.txt.
+Avvia come utente normale con percorsi assoluti per configurazione e credenziali. Una chiave GPG bloccata non può chiedere input all'avvio.
+--check-config verifica le impostazioni, non l'accesso alle credenziali, DNS, TLS o l'accesso IRC.
+Usa --reconnect per interruzioni di rete temporanee; la supervisione dei crash spetta separatamente al sistema operativo.
+I programmi di avvio devono consentire l'attesa dei figli: ignorare SIGCHLD o raccoglierli automaticamente fa fallire il primo avvio in background, la creazione del risolutore o dell'ausiliario delle credenziali. Scollegare nuovamente un lavoro gestito non crea un nuovo processo.
+
+documentation
+-------------
+Trova un argomento con /help ls; /help commands spiega l'inserimento e elenca i comandi disponibili. Usa un argomento o comando per volta.
+/help COMMAND mostra sintassi, effetti ed esempi. /help /ls spiega l'elenco locale; /help ls elenca gli argomenti.
+/help all oppure /manual apre questo riferimento. --help descrive le opzioni di avvio; l'output minimalista di --manual può essere reindirizzato a un file.
+README.md orienta fra i documenti; MANUAL.txt descrive l'interfaccia e INSTALL la compilazione. La pagina man installata spiega l'uso dalla shell.
+CONTRIBUTING.md tratta le modifiche; doc/SOURCE-MAP.txt individua il codice; tests/README.md elenca i test. DESIGN.md documenta proprietà e ordine.
+doc/TROUBLESHOOTING.txt aiuta per sintomo. SECURITY.md indica le minacce; doc/BOUNCERS.txt e doc/SESSION-CONTROLS.txt descrivono le operazioni. Gli audit valgono solo per versioni e ambienti dichiarati.
+
+history
+-------
+Cronologia visualizzata e comandi sono limitati nella RAM. I log persistenti sono facoltativi e disattivati inizialmente.
+Cambiare vista ripropone i record recenti; /mentions mostra righe sorgente corrispondenti.
+L'impostazione della cronologia limita le voci di tutti i server e le viste nel loro insieme; modificala tramite /panel, poi 0.
+La conservazione è limitata al minore tra tale impostazione e 2048 voci, con un limite rigido separato di 512 KiB.
+In un canale o conversazione privata, /catchup parte dall'ultima composizione inviata localmente da te. Prova un registro privato idoneo, poi la memoria conservata; /help catchup descrive i due lettori.
+Il recupero persistente è per server e conversazione. La registrazione deve già essere attiva quando invii il punto di riferimento; è una trascrizione privata in chiaro, limitata a 16 MiB per profilo salvato, non un archivio cifrato.
+Il richiamo dei comandi conserva al massimo 64 voci e 64 KiB, eliminando le più vecchie. /clear svuota la cronologia della conversazione, non quella dei comandi.
+I suggerimenti della cronologia recente usano queste righe complete. Delete elimina la riga di cronologia selezionata.
+I suggerimenti dei più usati impiegano invece al massimo 96 nomi canonici di comandi e contatori limitati in <config_path>.commands.
+Per le configurazioni salvate, comandi accettati e azzeramenti delle frequenze aggiornano automaticamente quel file privato. Argomenti, destinatari e messaggi non vi vengono conservati.
+I profili non salvati tengono i contatori in memoria fino al primo Salva riuscito. File dei contatori assenti o inutilizzabili non impediscono l'avvio.
+La guida e le risposte ai comandi su più righe usano un lettore separato con un buffer limitato a 512 KiB. Non entrano nella cronologia della chat.
+I comandi accettati si possono richiamare nell'editor dei comandi. Modifiche di autenticazione, ingressi nei canali con chiave e messaggi sensibili ai servizi vengono omessi.
+Up/Down in Compose sposta il cursore, non recupera chat inviate. Command richiama solo comandi accettati.
+Scollegare e riprendere nella stessa interfaccia conserva bozze e richiamo dei comandi. Cambiare interfaccia, ove consentito, li elimina insieme ai moduli di configurazione; uscire o riavviare il sistema elimina anche la chat in memoria e i suoi punti di recupero.
+I contatori di frequenza salvati contengono solo nomi. I vecchi registri in chiaro restano dopo l'uscita, ma non vengono importati automaticamente in una nuova sessione o nell'editor.
+/clear elimina la cronologia RAM della vista, non il vecchio log su disco. Il bouncer gestisce la propria riproduzione.
+Il limite predefinito della cronologia dell'applicazione è di 500 voci.
+
+hotkeys
+-------
+Nell'interfaccia completa ncurses, App -> Key bindings o /bindings apre una tabella modificabile con Apply, Save ed Escape/Cancel; -i usa i comandi.
+Le associazioni tasti personali sono facoltative e inizialmente vuote. Navigazione ed editor standard restano disponibili.
+Usa /bindings per la lista, /bindings keys per i tasti e /bindings actions per le funzioni locali.
+Assegna con /bind KEY ACTION; riassegna per sostituire. Rimuovi con /unbind KEY o /unbind all.
+Le modifiche valgono subito su tutti i server; /save input le salva nella configurazione principale. Gli altri profili non le sovrascrivono.
+Formato: [hotkeys] e una riga KEY=action per tasto, massimo 64. Duplicati, compresi alias del terminale, sono errori.
+Le azioni funzionano solo nella chat principale e nel prompt, non in password, configurazione, incolla, lettori o conferme.
+Nell'interfaccia minima i lettori conservano bozza e cursore. Un tasto che cambia vista/editor richiede di finire o svuotare la bozza.
+Nessuna azione di invio, comandi arbitrari, shell o macro di testo. Background e uscita mantengono i normali effetti.
+Disponibili F1..F12, Ctrl-A..Z, Alt-a..z/0..9 e tasti di navigazione; i caratteri stampabili restano testo.
+Ctrl-H/Backspace, Ctrl-I/Tab, Ctrl-J/Ctrl-M/Enter e Ctrl-[/Escape condividono gli stessi byte; non sono separabili.
+Segnali e scorciatoie di terminale/multiplexer hanno precedenza. Ctrl-C o Ctrl-Z agiscono solo se arrivano; nessun tasto è riassegnato.
+L'incolla delimitato riconosciuto non attiva scorciatoie. Senza delimitatori sembra digitazione; vedi /help keys.
+
+keys
+----
+Registro: / apre Comando; ? spiega il registro selezionato di conversazione o sorveglianza. Gli altri tasti stampabili aprono Scrivi conservando il carattere.
+Associazioni personalizzate possono sostituire questi controlli nella chat principale o Comando; nessuna è predefinita. Vedi /help hotkeys.
+Registro in diretta: Up risale di una riga, Page Up di una pagina, Home va alla pagina più vecchia conservata. Down/Page Down/End restano in diretta; Left/Right/Delete/Backspace non aprono Scrivi.
+Insert o Enter apre Scrivi vuoto. Frecce, Home/End, Delete e Backspace modificano il testo. Tab/Shift-Tab completa soprannomi in Scrivi e nomi di comandi in Comando.
+La modalità di composizione in linea mantiene una riga d'inserimento sotto la coda del registro in diretta; lo schermo intero mantiene un editor multiriga con un riquadro del registro in diretta più piccolo.
+In Comando, Down seleziona i suggerimenti. Up/Down li scorre; Up dal primo torna all'inserimento.
+Enter su un suggerimento lo inserisce senza eseguirlo. Leggilo o modificalo e, dopo averlo visto, premi Enter di nuovo per eseguirlo.
+In Comando, Up richiama comandi accettati corrispondenti; Down torna verso il testo originale. In Scrivi, Up/Down muove il cursore anche se tenuto premuto; Enter invia.
+Delete elimina la riga selezionata della Cronologia recente o azzera il contatore selezionato dei Più usati. I comandi del catalogo restano disponibili.
+? su un comando selezionato lo spiega e rimanda alla guida della sua schermata. In tutti gli editor di testo, ? è testo normale.
+Revisione usa uno schermo alternativo temporaneo; bozza e richiesta non entrano mai nella cronologia della chat. Un nuovo Enter conferma; Escape o la digitazione ripristina editor, bozza e cursore. Up/Down, Page Up/Down e Home/End lo scorrono.
+Nella guida o nelle risposte, Up/Down scorre; Page Up/Down cambia pagina; Home/End raggiunge l'inizio o la fine.
+Nell'elenco utenti, Enter torna al registro; nella guida e negli altri lettori di risposte, Enter scorre di una riga.
+Nel lettore, / apre Comando con il consueto completamento e la cronologia. Escape annulla quella richiesta e torna al lettore.
+In un lettore di riepilogo, r aggiorna l'istantanea; ? spiega la risposta e il suo lettore.
+Nella guida contestuale, Enter segue il collegamento evidenziato Informazioni sulla schermata. Escape torna alla guida dell'elemento e poi alla precisa schermata di origine.
+Nella configurazione, Tab seleziona l'intestazione della domanda; ? ne spiega l'opzione o la schermata. Tab/Enter torna alla modifica della risposta.
+Eseguire un comando sostituisce la risposta precedente. Le conferme brevi tornano al registro; gli errori brevi lasciano il comando modificabile.
+Escape annulla Scrivi o Comando tornando al registro. Da Revisione, Escape torna all'editor senza eliminare la bozza. Escape nel registro porta il client in background.
+Escape da solo attende circa 500 ms; una sequenza in corso consente 1000 ms tra i byte successivi. L'attività di rete continua.
+Le sequenze complete di tasti sono gestite subito. Un marcatore iniziale d'incolla ritardato oltre quell'intervallo dopo il primo Escape può portare il client in background.
+Dopo l'inizio dell'acquisizione dell'incolla, il marcatore finale resta riconosciuto anche con letture suddivise e ritardi arbitrari.
+I tasti di interruzione, uscita e sospensione mantengono le assegnazioni originali; Use signals = no ne disattiva i segnali mentre il client è attivo.
+[input] use_signals=false No (predefinito) disabilita i segnali del terminale durante l'utilizzo del programma; Ctrl-C/Ctrl-Z annullano la bozza. Yes abilita le associazioni esistenti senza modificarle. I segnali esterni del processo restano attivi ([input] use_signals=true).
+I segnali di terminale attivati terminano o sospendono dopo aver ripristinato il terminale; fg riprende un lavoro sospeso.
+Ctrl-D non agisce salvo associazione nella chat principale o Comando. /quit esce; /background libera il terminale mentre la rete continua a funzionare.
+Le schermate abituali omettono i suggerimenti ripetuti sui tasti; questo argomento resta la guida completa della tastiera.
+L'incolla delimitato riconosciuto resta letterale. I tasti attendono un editor visibile, nuovo input e una pausa. Schermate troppo piccole o non riuscite non possono approvarlo; ridimensiona e rilascia i tasti premuti.
+Incollare nel registro di sorveglianza apre Scrivi con barre letterali. L'incolla in Comando rimane lì; CR/LF/Tab diventano spazi. Rileggi, poi premi un nuovo Enter.
+L'incolla senza delimitatori è indistinguibile dalla digitazione; usa il supporto per l'incolla delimitato.
+
+limits
+------
+I limiti IRC sono in byte, non in caratteri visibili. Un carattere UTF-8 può occupare più byte.
+Il client calcola lo spazio includendo destinatario, comando e inoltro; non divide mai un carattere UTF-8.
+Al limite di un messaggio, altro testo è bloccato finché Enter conferma la modifica; quell'Enter non invia.
+Un messaggio diviso richiede consenso separato anche in modo diretto. La chat invia una riga ogni 1.2 secondi.
+Un invio contiene al massimo 64 messaggi e 16384 byte di testo. Accorcia il testo o invialo separatamente.
+Ci sono al massimo 8 spazi server e 32 viste per server, incluse quelle riservate.
+
+logging
+-------
+Il log persistente è facoltativo è spento di base. /set persistent_logging on attiva; /save output salva.
+Ogni profilo server salvato aggiunge a CONFIG_PATH.log. La directory genitore finale deve essere propria, modo 0700; il file regolare, proprio, con un solo link, modo esatto 0600. Vietati symlink e percorsi risalenti.
+I log sono plaintext, non backup cifrati. Limite 16 MiB per file; un errore interrompe il log, non la chat.
+Archiviare un log pieno fuori dal percorso attivo, poi disattivare e riattivare i log. Rotazione o riscrittura può invalidare il riferimento di /catchup: inviare prima un nuovo messaggio idoneo.
+Sono esclusi credenziali note e bozze non inviate, anche autenticazioni ripetute con vecchi nick. Chat normale, formati di servizio sconosciuti e segreti digitati possono essere registrati. Server e bouncer conservano dati separati.
+/catchup usa un log integro solo se il riferimento esatto inviato localmente fu scritto in questo processo. Non chiede archivi al bouncer e non importa vecchi log dopo il riavvio.
+/clear svuota solo la RAM. I log restano dopo uscita, --close-session e salvataggio. Disattivare i log ferma le nuove voci, non cancella quelle vecchie.
+L'I/O normale del disco può rallentare il processo su archivi lenti. Vedere /help catchup, /help history e SECURITY.md.
+
+messages
+--------
+Usa /join #channel per entrare e selezionare un canale, o /query NICK per aprire una conversazione privata.
+Seleziona un canale conservato con /channel. /msg TARGET TEXT invia a un destinatario, /me TEXT invia un'azione.
+/query apre una conversazione senza inviare; /pm è un alias. /ql separa le conversazioni private dai canali.
+L'invio diretto è predefinito; /set send_mode review aggiunge una revisione. /set composer_mode line|fullscreen cambia la vista.
+Al limite di un messaggio, conferma per continuare a scrivere; suddividerlo richiede un altro consenso.
+L'ingresso e l'autenticazione devono terminare prima di mettere messaggi in coda. /cancel annulla la coda, non ciò che è già inviato.
+
+reconnect
+---------
+--reconnect abilita nuovi tentativi in questo processo; non salva opzioni e non avvia la connessione.
+Senza l'opzione, una connessione fallita richiede /connect. /autoconnect regola soltanto l'avvio.
+Errori DNS temporanei, connessioni rifiutate/perse e scadenze riprovano dopo 5, 10, 20, 40, 80, 160 e 300 secondi.
+Una connessione registrata per almeno 60 secondi azzera l'attesa. Il polling non usa pause bloccanti.
+Errori di certificato, autenticazione, protocollo malformato e configurazione restano disconnessi fino alla correzione.
+Un ERROR del server prima della registrazione viene trattenuto; dopo può provocare la riconnessione.
+/disconnect esplicito annulla un tentativo in attesa. Un successivo /connect avvia un nuovo tentativo.
+I nuovi tentativi usano le impostazioni correnti; le modifiche in attesa richiedono ancora /connect esplicito.
+I messaggi in coda vengono scartati alla disconnessione e mai reinviati automaticamente.
+Autenticazione e comandi iniziali attivi si ripetono. Profili diretti ripetono autojoin; i bouncer ripristinano i canali.
+La modalità test offline non si riconnette mai alla rete.
+
+security
+--------
+Il testo remoto è filtrato prima del terminale. L'input è interpretato come comandi IRC locali, mai come comandi shell.
+Non esistono /raw, accesso shell o accettazione automatica dei file. L'incolla delimitato riconosciuto non esegue comandi.
+TLS verifica l'identità del server. SASL, PASS e i comandi privati di autenticazione richiedono TLS verificato. Aggiorna la libreria TLS di sistema; vedi SECURITY.md.
+Un bundle CA personale dev'essere un normale file PEM non vuoto, massimo 16 MiB; non chiede password.
+Le password configurate non appaiono nella guida o nelle impostazioni. I comandi di credenziali riconosciuti non tornano nella cronologia; segreti scritti come testo normale possono restare memorizzati.
+Nessun registro di conversazione su disco per impostazione predefinita. Le modifiche richiedono un salvataggio esplicito.
+Altri processi dello stesso account, il server IRC o bouncer e un terminale o sistema compromesso sono fuori da queste protezioni. TLS non cifra la chat da capo a capo.
+Log facoltativi e segreti inseriti nella configurazione sono in chiaro. I comandi sensibili noti vengono filtrati, ma i segreti nei messaggi normali non sempre sono riconoscibili.
+Vedi /help tls, /help authentication, /help logging e SECURITY.md per limiti e revisioni precedenti.
+
+sessions
+--------
+Un lavoro e un processo client con server, trasferimenti, bozze e cronologia. Il numero del server nell'app non e un ID di lavoro della shell.
+Nella shell esegui --sessions. Controlla se il job è collegato/staccato e usa il suo ID, non il PID.
+Se il vecchio terminale SSH controlla il job, usa --detach-session NUMBER e poi --resume NUMBER. IRC resta attivo.
+--resume senza numero riprende solo un lavoro scollegato verificato. Con più lavori serve un numero; quello collegato e occupato finche non si scollega. I numeri possono essere riutilizzati.
+Usa --close-session NUMBER solo per chiudere tutto il lavoro. Chiude IRC e trasferimenti; perdi bozze e cronologia RAM, ma configurazioni e log restano.
+La chiusura riesce solo dopo pulizia verificata. Se scade, ricontrolla --sessions: può terminare dopo. Un errore non elimina un endpoint attivo né invia segnali a un PID ipotizzato.
+Solo un lavoro gestito sopravvive alla perdita del terminale. Un normale processo in primo piano non diventa ripristinabile perdendo SSH. Avvia con --background o usa /background prima.
+Un lavoro appartiene allo stesso account Unix e host; un solo terminale alla volta può collegarsi. Altri programmi dell'account rientrano nel perimetro di fiducia.
+Installare un eseguibile non cambia il codice del processo in esecuzione. Salva la configurazione, chiudi il vecchio, verifica --version e avviane uno nuovo.
+Un processo precedente può mancare di controlli recenti o cambio d'interfaccia. Conserva l'eseguibile compatibile finche non viene arrestato, se serve per ricollegarti.
+Il client non modifica la scadenza per inattivita SSH. Vedi /help background, /help deployment e doc/SESSION-CONTROLS.txt.
+
+startup
+-------
+Avvia il programma, chiudi la schermata iniziale, poi digita /connect irc.example.org e /join #channel.
+Non serve creare prima un profilo server, un alias o un numero. /server HOST è un alias per la connessione diretta.
+Senza nickname viene usato un nome di accesso valido del sistema, altrimenti user. Non viene richiesto un nickname.
+Usa /saveconf per salvare configurazione e predefinito scelto. Al prossimo avvio, /connect li riutilizza.
+Salvare non abilita la connessione automatica: va scelta a parte. /quickstart e /panel sono guide facoltative.
+Funzionano anche le opzioni shell: --server HOST, --channel '#CHANNEL' e --nick NICK. Racchiudi #CHANNEL tra apici.
+All'avvio normale, --nick, --port, --channel, --tls, --plain e --ca-file sostituiscono i valori predefiniti salvati.
+Un --server esplicito sceglie la prima connessione. --init-config e --check-config usano il file di configurazione principale.
+Cambiare --server verso un altro host elimina credenziali vecchie, CA personalizzata, identità bouncer, canali e comandi iniziali.
+Se il predefinito salvato non è disponibile, usa --server o correggilo prima di cambiare le opzioni di connessione.
+Autoconnect, autojoin e autoauth appartengono a ogni profilo server salvato. Vedi /help autoconnect per l'opzione.
+--no-connect impedisce connessioni iniziali; --test-mode simula attività senza rete o scrittura della configurazione.
+--sessions elenca i processi collegati e scollegati dal terminale. --resume [NUMBER] ricollega; vedi /help background.
+--close-session NUMBER chiude l'intero processo e tutte le sue connessioni IRC dopo conferma. NUMBER è un ID processo, non un PID.
+Dopo la perdita del terminale, usa --sessions, poi --detach-session NUMBER e --resume NUMBER. Il worker mantiene il vecchio codice fino al riavvio; vedi /help sessions.
+-h/--help e -v/--version funzionano senza terminale.
+Interfaccia predefinita: ncurses. /set default_interface idle|ncurses sceglie l'interfaccia del prossimo nuovo avvio; /save input salva la scelta nella configurazione principale.
+Le opzioni esplicite -i/--idle o -N/--ncurses sostituiscono la scelta per quell'avvio senza salvare la modifica. -n minuscolo continua a selezionare il soprannome.
+Dalla shell: vipirc --sessions; vipirc --detach-session NUMBER; vipirc --resume NUMBER; vipirc --close-session NUMBER.
+vipirc --resume senza altre opzioni mantiene l'interfaccia attuale del processo di lavoro. vipirc -i --resume NUMBER seleziona quella minimalista; vipirc -N --resume NUMBER seleziona ncurses. Cambiare interfaccia conserva IRC, cronologia e trasferimenti, ma scarta bozze, revisioni d'invio in sospeso, richiamo dei comandi e moduli non applicati.
+vipirc -i --manual stampa questo manuale completo.
+
+tls
+---
+TLS verificato è predefinito. Nome/indirizzo del server e catena di certificati devono essere validi; nessun bypass o fallback plaintext.
+La porta non disattiva TLS. --plain o /connect -plain sceglie IRC non cifrato e non può usare credenziali account/server.
+Usa host e porta TLS esatti del fornitore. Errore possibile: destinazione errata, certificato scaduto/non fidato o fiducia locale; leggi prima l'errore.
+TLS usa le CA fidate dal sistema. --ca-file FILE o ca_file= seleziona un bundle PEM CA, non blocca il certificato finale.
+Il pacchetto CA deve essere un file regolare non vuoto entro 16 MiB. Link simbolico a CA consentito; percorsi segreti/config hanno regole più rigide.
+Il file CA viene aperto una volta, limitato e ricontrollato durante la lettura. FIFO, dispositivi e input non regolari respinti; PEM protetto non può chiedere password.
+Il limite dimensione non limita la latenza I/O dei file o dei file system di rete. Usare un pacchetto CA fidato su memoria adatta.
+--check-config non prova la connessione TLS né garantisce che CA e credenziali funzionino. --test-mode non contatta server.
+TLS protegge solo questa connessione. TLS a monte e cronologia plaintext del bouncer sono gestiti separatamente.
+
+troubleshooting
+---------------
+Occupato dopo caduta SSH? Usa --sessions, controlla il job, poi --detach-session NUMBER e --resume NUMBER. Evita --close-session. See /help sessions.
+Up non richiama testo: Compose modifica messaggi; Command richiama comandi accettati. Apri Command con / dal registro. Chat inviate e comandi sensibili non sono nella cronologia richiamabile.
+Se un messaggio a capo pare troncato: la vista riserva righe all'editor e mostra le più recenti. Esci dall'editor o riseleziona il canale; le righe visibili non provano la consegna remota.
+Se cambiando canale compare il testo intero, e una differenza di visualizzazione. Se persiste, annota interfaccia, modalità, dimensioni, locale e passaggi depurati senza password o chat private.
+Nessun canale? Controlla vista server e autenticazione. Profilo diretto: /autojoin list; bouncer: /join o /part.
+Autenticazione fallita? Controlla account, fonte, permessi, TLS e agente GPG. /autoauth status non legge segreti.
+Recupero non disponibile: il riferimento può essere scaduto, il log avviato dopo o fermato, o il file cambiato. Vedi /help catchup e /help logging; i log non ricreano un processo terminato.
+Modifica ignorata? Serve /connect dopo la disconnessione. Salvare non abilita autoconnect; opzioni iniziali richiedono riavvio.
+Se fallisce l'avvio di processi ausiliari, correggi la gestione SIGCHLD o la raccolta automatica dei figli nel programma di avvio, per permetterne l'attesa.
+Usa --check-config e doc/TROUBLESHOOTING.txt. --test-mode prova solo l'interfaccia, non DNS, TLS, credenziali o bouncer reale.
+
+Sistema dei comandi
+-------------------
+Premi / nel registro per aprire Comando; la barra iniziale è già inserita. Enter con il focus nell'inserimento esegue il comando modificato; Escape lo annulla.
+Sintassi: /COMMAND ARGUMENTS. I nomi non distinguono maiuscole e minuscole; usa le opzioni indicate. Le parole in maiuscolo (UPPERCASE) sono segnaposto, [items] è facoltativo e | indica un'alternativa.
+Inserisci un comando alla volta. Gli spazi separano gli argomenti; non si interpretano virgolette, espansioni o concatenazioni della shell. Le opzioni di avvio della shell si usano fuori da questo editor.
+TEXT e il percorso delle credenziali PATH usano letteralmente il resto della riga, spazi compresi. Per incollare un /command completo, elimina prima la barra già inserita; gli a capo incollati diventano spazi, non comandi separati.
+Home/End/Delete/Backspace modificano il testo. Tab/Shift-Tab completa i nomi dei comandi; Up dall'inserimento richiama la cronologia dei comandi accettati.
+Down seleziona i suggerimenti; Enter inserisce il comando selezionato per modificarlo. Un'altra pressione di Enter dopo averlo visualizzato lo esegue.
+Scegli Comuni, Cronologia recente, Più usati con questa configurazione, Alfabetico o Contestuale nelle Impostazioni dell'applicazione.
+Comuni offre un ordine utile selezionato in precedenza. Contestuale ricorda la schermata che ha aperto l'inserimento dei comandi. Le altre corrispondenze di prefisso restano disponibili.
+? su un suggerimento selezionato apre la guida dell'elemento e della schermata. Nell'inserimento rimane testo normale.
+Delete elimina una voce recente selezionata o azzera un contatore di frequenza personale; non elimina mai un comando del catalogo.
+Solo i comandi sicuri accettati entrano nella cronologia limitata in memoria. Sono esclusi i comandi di password o servizi e gli ingressi nei canali con chiave.
+Un comando con argomenti inattesi fallisce senza compiere l'azione richiesta. La guida mostra sintassi, effetti ed esempi.
+I comandi di messaggio creano un piano d'invio. La modalità d'invio e la conferma obbligatoria per messaggi multipli si applicano prima dell'inserimento in coda.
+La maggior parte dei comandi agisce sul server selezionato. /server NUMBER ne seleziona un altro; /server da solo seleziona la sua vista MOTD.
+Usa /connect HOST, /join #channel, /query NICK e /saveconf per il normale flusso di connessione e conversazione.
+Salva le impostazioni accettate per mantenerle dopo il riavvio. I profili salvati aggiornano automaticamente un file privato .commands solo per i conteggi d'uso; non contiene argomenti né chat.
+/summary legge localmente tutto lo stato attuale del client; /list [MASK] richiede i canali della rete, mentre /ls e /cl elencano viste locali.
+/help ls elenca tutti gli argomenti della guida.
+Comandi (usa /help COMMAND per sintassi ed esempi)
+--------------------------------------------------
+
+  /autoauth     Esaminare o preparare l'autenticazione SASL
+
+  /autocommands Preparare comandi differiti per la prossima connessione
+
+  /autoconnect  Esaminare o modificare la connessione automatica all'avvio
+
+  /autojoin     Esaminare o preparare gli ingressi nei canali all'avvio
+
+  /away         Impostare l'assenza o rimuoverla se non è indicato un messaggio
+
+  /back         Rimuovere lo stato di assenza
+
+  /background   Mantieni le connessioni e libera il terminale
+
+  /bind         Associare un tasto personalizzato a una funzione locale del programma
+
+  /bindings     Elenca tasti personalizzati o azioni e tasti disponibili
+
+  /cancel       Annullare i messaggi di chat e i comandi d'avvio in coda
+
+  /catchup      Leggere questa conversazione dall'ultimo messaggio inviato da te
+
+  /channel      Selezionare un canale; il numero 0 seleziona il server
+
+  /channels     Elenca i canali del server selezionato
+
+  /cl           Elencare i canali (alias di /channels)
+
+  /clear        Svuotare la cronologia conservata della vista selezionata
+
+  /close        Chiudere una vista di canale o conversazione privata
+
+  /connect      Connetti al server o riutilizza la connessione salvata
+
+  /dcc          Offrire, esaminare e gestire trasferimenti diretti di file
+
+  /disconnect   Disconnetti il server mantenendone il profilo
+
+  /help         Leggi guida, sintassi ed esempi pratici
+
+  /ignore       Gestire mittenti ignorati localmente
+
+  /join         Entra in un canale sul server selezionato
+
+  /list         Richiedere e filtrare l'elenco dei canali della rete
+
+  /ls           Elencare voci di server, canali, conversazioni private o non lette
+
+  /manual       Leggere il manuale integrato completo
+
+  /me           Inviare un'azione alla conversazione selezionata
+
+  /mentions     Visualizzare le menzioni o cancellare quelle conservate su tutti i server
+
+  /msg          Invia testo a un soprannome o a un canale
+
+  /next         Selezionare la conversazione successiva su questo server
+
+  /nick         Impostare o richiedere il soprannome attuale
+
+  /panel        Apri il pannello di configurazione interattivo
+
+  /part         Lascia un canale con motivo facoltativo e mantieni la cronologia
+
+  /pm           Selezionare o aprire una conversazione privata senza inviare
+
+  /prev         Selezionare la conversazione precedente su questo server
+
+  /ql           Elencare le conversazioni private sul server selezionato
+
+  /queries      Elencare le conversazioni private (alias di /ql)
+
+  /query        Apri o seleziona una conversazione privata
+
+  /quickstart   Apri la procedura guidata di connessione
+
+  /quit         Esci dal programma e chiudi tutte le sessioni
+
+  /save         Salvare il server attuale, le preferenze dell'applicazione o tutti i profili
+
+  /saveconf     Salva la configurazione e ricorda la connessione selezionata
+
+  /server       Connettersi a un server o selezionarne uno esistente
+
+  /servers      Elenca tutte le sessioni server configurate
+
+  /set          Scegliere preferenze di inserimento, uscita e presenza per tutta l'applicazione
+
+  /settings     Mostrare le impostazioni effettive con le credenziali nascoste
+
+  /sl           Elencare i server (alias di /servers)
+
+  /soju         Controllare il bouncer soju selezionato
+
+  /summary      Riassumere tutte le sessioni di server attuali e la loro attività
+
+  /topic        Richiedere o modificare l'argomento del canale attuale
+
+  /transfers    Gestire trasferimenti di file (alias di /dcc)
+
+  /unbind       Rimuovere una o tutte le associazioni di tasti personalizzate
+
+  /unignore     Rimuovere una maschera di esclusione locale
+
+  /unread       Elencare le conversazioni non lette su tutti i server
+
+  /users        Mostrare gli utenti noti del canale attuale o di quello indicato
+
+  /view         Selezionare una conversazione per nome o un canale per numero
+
+  /views        Elencare i canali (alias di /channels)
+
+  /watch        Gestire stringhe letterali aggiuntive per le menzioni
+
+  /whois        Richiedere al server informazioni su un soprannome
+
+  /znc          Controllare il bouncer ZNC selezionato
+
+/autoauth - Esaminare o preparare l'autenticazione SASL
+-------------------------------------------------------
+Uso: /autoauth [status|off|sasl USER file PATH|sasl USER gpg PATH]
+
+Cambia l'autenticazione del server selezionato per la prossima connessione. Richiede TLS verificato.
+Senza argomenti o con status, mostra stato di connessione/autenticazione e percorsi delle credenziali, non le password.
+Distingue le impostazioni attive da quelle in attesa. I percorsi lunghi sono completi in righe successive etichettate.
+PATH è tutto il testo restante, inclusi gli spazi; non esegue espansione shell né interpreta virgolette.
+Questo comando non apre file. Le chiavi GPG vanno sbloccate fuori dal programma.
+Le password in chiaro possono essere configurate solo esplicitamente in un file privato, mai come argomenti.
+Usa /panel per i profili bouncer; /autoauth è rifiutato perché identita e fonte credenziali sono gestite insieme.
+Usa /save per salvare. Disconnettiti prima, poi usa /connect; la connessione attiva non viene reindirizzata.
+
+Esempi:
+/autoauth status
+/autoauth sasl myaccount gpg /home/me/irc-account.gpg
+/autoauth off
+/save
+
+/autocommands - Preparare comandi differiti per la prossima connessione
+-----------------------------------------------------------------------
+Uso: /autocommands [list|add COMMAND|remove NUMBER|clear|on|off|delay SECONDS|interval SECONDS]
+
+I comandi appartengono al server selezionato. Si eseguono una volta dopo registrazione e SASL obbligatorio.
+L'attesa predefinita è 15 secondi, con almeno 2 secondi tra comandi completati.
+Usa delay 0..300 e interval 2..60 per i tempi. Una connessione bloccata non avvia una raffica di recupero.
+Comandi consentiti: /msg, /join, /nick, /away, /back e /whois, inclusi gli alias esatti documentati.
+Fino a 16 comandi di 511 byte UTF-8 ciascuno. Ogni comando deve stare in un messaggio IRC; non viene mai spezzato di nascosto.
+Niente shell, IRC grezzo o espansione della conversazione corrente. Gli accessi automatici non cambiano schermata.
+Le modifiche valgono alla prossima connessione. /cancel ferma i comandi iniziali non ancora inviati.
+Le liste oscurano testo dei messaggi e chiavi dei canali; i comandi automatici non entrano in cronologia né negli echi locali.
+Salva con /save. Il file deve essere privato (0600 o 0400); una lista attiva e non vuota richiede TLS verificato.
+La modalità test non esegue comandi automatici. Il loro testo resta letterale nella configurazione, senza cifratura GPG.
+
+Esempi:
+/autocommands add /msg ChanServ op #chat mynick
+/autocommands delay 15
+/autocommands interval 2
+/autocommands list
+/save
+
+/autoconnect - Esaminare o modificare la connessione automatica all'avvio
+------------------------------------------------------------------------
+Uso: /autoconnect [on|off]
+
+Senza argomenti mostra l'impostazione del server selezionato. Le modifiche valgono dal prossimo avvio.
+Usa /connect per connetterti subito e /save per salvare la scelta di avvio.
+Ogni server salvato ha impostazioni proprie per connessione automatica, canali e autenticazione.
+
+Esempi:
+/autoconnect
+/autoconnect on
+/save
+
+/autojoin - Esaminare o preparare gli ingressi nei canali all'avvio
+-------------------------------------------------------------------
+Uso: /autojoin [list|add #CHANNEL|remove #CHANNEL|clear]
+
+Senza argomenti o con list, mostra server, registrazione/autenticazione, lista attiva e lista in attesa.
+Modifica la lista di accesso automatico per il prossimo /connect. add/remove accetta un canale senza chiave.
+Le modifiche vengono convalidate prima dell'uso e non entrano né escono da canali attivi.
+I tentativi automatici mantengono la lista attiva. Disconnetti e usa /connect per applicare quella in attesa.
+Usa /join o /part nella connessione attiva e /save per salvare le modifiche all'avvio.
+I profili bouncer ripristinano i propri canali; /autojoin è rifiutato. Usa /join e /part.
+
+Esempi:
+/autojoin list
+/autojoin add #ircnow
+/autojoin remove #old
+/save
+
+/away - Impostare l'assenza o rimuoverla se non è indicato un messaggio
+------------------------------------------------------------------------
+Uso: /away [MESSAGE]
+
+Devi essere registrato. Il server conferma lo stato di assenza. MESSAGE è testo letterale.
+
+Esempi:
+/away Back after lunch
+/away
+
+/back - Rimuovere lo stato di assenza
+-------------------------------------
+Uso: /back
+
+Equivale a /away senza messaggio. Serve una connessione registrata.
+
+Esempi:
+/back
+
+/background - Mantieni le connessioni e libera il terminale
+-----------------------------------------------------------
+Uso: /background
+
+Ripristina il terminale e distacca la sessione attiva. La shell riceve il comando numerato per riprenderla.
+Nella shell, --sessions elenca i processi privati collegati e distaccati; --resume riprende l'unico processo distaccato disponibile.
+Se ci sono più processi, usare --resume NUMBER. NUMBER è l'ID del processo, non il PID; resta fisso fino all'uscita e poi può essere riutilizzato.
+--detach-session NUMBER libera il terminale collegato ma mantiene processo, connessioni IRC, bozze e cronologia per --resume NUMBER.
+--close-session NUMBER termina l'intero processo, tutte le connessioni IRC, i trasferimenti, le bozze non salvate e la cronologia in memoria. Conferma il successo solo dopo la verifica.
+Se la ripresa è occupata dopo la perdita di SSH, elencare i processi, distaccare quello interessato e riprenderlo. Vedere /help sessions.
+Un processo bloccato o vecchio senza il controllo richiesto può fallire. Installare un nuovo eseguibile non aggiorna quello in esecuzione; riavviarlo dopo l'aggiornamento.
+Riprendere mostra la cronologia in memoria anche senza nuovi messaggi. /set single_session on vieta un secondo processo in background, rendendo --resume univoco.
+Per iniziare senza terminale, usare --background nella shell; per le opzioni vedere --help.
+Se background_away è attivo e consentito, /background o la perdita del terminale imposta AWAY dopo il distacco. La ripresa toglie solo quello stato automatico; /away manuale rimane.
+Aggiungere --reconnect per ritentare connessioni dopo errori temporanei. Vedere /help deployment e /help reconnect.
+Non serve un multiplexer di terminale. Un resolver o un aiutante delle credenziali in attesa può richiedere un nuovo tentativo.
+Sospendere un normale processo in primo piano interrompe la sua rete. Un processo ripreso può sospendere il controllore del terminale mentre il worker continua a collegarsi.
+Dalla shell: vipirc --sessions; vipirc --detach-session NUMBER; vipirc --resume NUMBER; vipirc --close-session NUMBER.
+vipirc --resume senza altre opzioni mantiene l'interfaccia attuale del processo di lavoro. vipirc -i --resume NUMBER seleziona quella minimalista; vipirc -N --resume NUMBER seleziona ncurses. Cambiare interfaccia conserva IRC, cronologia e trasferimenti, ma scarta bozze, revisioni d'invio in sospeso, richiamo dei comandi e moduli non applicati.
+
+Esempi:
+/background
+
+/bind - Associare un tasto personalizzato a una funzione locale del programma
+------------------------------------------------------------------------
+Uso: /bind KEY ACTION
+
+Nessun tasto personalizzato è impostato di serie. Vedi /bindings keys e /bindings actions per i nomi ammessi.
+La nuova assegnazione sostituisce l'azione di quel tasto su ogni server; le altre restano.
+Le scorciatoie agiscono in chat e comandi, non in incolla, password, configurazione, lettori o conferme.
+Le modifiche sono immediate, ma serve /save input per conservarle. Senza scorciatoia attiva vale la navigazione normale.
+Ammesse solo funzioni locali con nome: niente comandi arbitrari, macro, invio o espansione shell.
+I tasti riservati al terminale potrebbero non arrivare all'app; associarli non cambia i segnali del terminale.
+
+Esempi:
+/bindings actions
+/bind F7 summary
+/bind Alt-c command
+/save input
+
+/bindings - Elenca tasti personalizzati o azioni e tasti disponibili
+--------------------------------------------------------------------
+Uso: /bindings [actions|keys]
+
+Senza argomenti mostra le associazioni personalizzate valide per tutta l'app. Lista vuota significa nessuna.
+Usa /bind per assegnare o sostituire, /unbind KEY per rimuovere e /unbind all per cancellare tutto.
+Sono supportati F1..F12, Ctrl-A..Ctrl-Z, Alt-a..Alt-z, Alt-0..Alt-9 e tasti di navigazione con nome.
+Ctrl-H è Backspace, Ctrl-I è Tab, Ctrl-J e Ctrl-M sono Enter e Ctrl-[ è Escape: stesso tasto logico.
+Le lettere Alt usano minuscole senza Shift. La ricezione dei tasti funzione/Alt dipende da terminale e multiplexer.
+Fino a 64 associazioni KEY=action in [hotkeys] della configurazione principale. /save input salva le modifiche.
+Vedi /help hotkeys per ambito, protezione bozze e segnali del terminale.
+Nell'interfaccia completa ncurses, App -> Key bindings o /bindings apre una tabella modificabile con Apply, Save ed Escape/Cancel; -i usa i comandi.
+
+Esempi:
+/bindings
+/bindings keys
+/bindings actions
+/help hotkeys
+
+/cancel - Annullare i messaggi di chat e i comandi d'avvio in coda
+------------------------------------------------------------------
+Uso: /cancel
+
+Rimuove i messaggi in attesa e ferma i comandi automatici in sospeso sul server selezionato.
+Un frame già in fase di scrittura può terminare.
+Annullare non ritira i messaggi già ricevuti dal server.
+
+Esempi:
+/cancel
+
+/catchup - Leggere questa conversazione dall'ultimo messaggio inviato da te
+------------------------------------------------------------------------
+Uso: /catchup
+
+Parte dall'ultimo messaggio o azione inviato localmente nel canale o chat scelto. Le viste server e menzioni non hanno un riferimento di invio.
+Prima prova un log privato valido: doveva essere attivo all'invio del riferimento e restare integro. Le credenziali sensibili non fanno da riferimento su disco. Altrimenti usa la cronologia in memoria, se disponibile.
+Il lettore disco mostra una copia fissa: Up/Down una riga, Page Up/Page Down una pagina, Home al riferimento, End alla pagina recente, Escape al flusso vivo. I nuovi messaggi non la spostano.
+Il ripiego in memoria apre la cronologia dal riferimento: Home va alla pagina più vecchia, End o Escape torna al flusso vivo. È possibile leggere anche messaggi precedenti.
+Un riferimento sostituito o modificato non vale più sul disco. Un nuovo processo non recupera riferimenti dai vecchi log. Vedere /help logging e /help history.
+
+Esempi:
+/catchup
+
+/channel - Selezionare un canale; il numero 0 seleziona il server
+-----------------------------------------------------------------
+Uso: /channel NUMBER|#CHANNEL
+
+I numeri sono elencati da /channels. La scelta cambia la conversazione visibile e la destinazione del prossimo testo normale.
+Non entra in un canale. Un canale abbandonato va raggiunto di nuovo prima di inviare messaggi.
+
+Esempi:
+/channels
+/channel 0
+/channel #ircnow
+
+/channels - Elenca i canali del server selezionato
+--------------------------------------------------
+Uso: /channels
+
+Il canale 0 mostra sempre i messaggi del server/MOTD. Le conversazioni private hanno il proprio elenco /ql.
+Le righe mostrano lo stato entrato/uscito e i conteggi di non letti e menzioni.
+
+Esempi:
+/channels
+/channel 1
+
+/cl - Elencare i canali (alias di /channels)
+--------------------------------------------
+Uso: /cl
+
+Elenca i canali di questo server, incluso il canale 0 per i messaggi del server e lo stato entrato/uscito di ogni canale.
+Usa /channel NUMBER o /channel #NAME per scegliere. Le conversazioni private hanno il proprio elenco /ql.
+
+Esempi:
+/cl
+/channel 1
+
+/clear - Svuotare la cronologia conservata della vista selezionata
+------------------------------------------------------------------
+Uso: /clear
+
+Cancella la cronologia limitata in memoria di questa vista. Non lascia il canale, non disconnette, non ritira messaggi inviati e non elimina log esistenti.
+Lo scorrimento precedente già stampato è gestito dal terminale.
+Nella chat: Up indietro di una riga, Page Up di una pagina, Home alla più vecchia; Down/Page Down avanzano. Nuovi messaggi non spostano la pagina letta. End/Escape tornano al vivo; navigare non apre l'editor.
+
+Esempi:
+/clear
+
+/close - Chiudere una vista di canale o conversazione privata
+-------------------------------------------------------------
+Uso: /close [NAME|NUMBER]
+
+Senza argomenti chiude la conversazione attuale. Si esce dal canale prima di rimuoverne la vista.
+Le viste permanenti di server e menzioni non possono essere chiuse. I numeri dei canali sono in /channels.
+
+Esempi:
+/close alice
+/close #old
+
+/connect - Connetti al server o riutilizza la connessione salvata
+-----------------------------------------------------------------
+Uso: /connect [-tls|-plain] [-nick NICK] HOST [PORT] | /connect
+
+Inizia con /connect irc.example.org. Non serve creare prima profilo, alias o numero di server.
+Un nuovo server usa TLS verificato sulla porta 6697 e il login di sistema, oppure user se non adatto.
+Un server esistente corrispondente conserva porta, trasporto, nickname e autenticazione configurati.
+Usa -nick NICK per un soprannome preciso o /nick NICK prima di connetterti. Le password non sono argomenti posizionali.
+Usa -plain per IRC non cifrato (porta iniziale 6667). -tls e -ssl selezionano TLS verificato.
+Anche +PORT seleziona TLS. Un numero di porta ordinario non disattiva TLS. Accetta --tls, --plain e --nick.
+La connessione viene selezionata e apre la vista server/MOTD. Una connessione attiva uguale non viene duplicata.
+Una destinazione diversa riceve impostazioni di autenticazione nuove; credenziali e canali altrui non vengono copiati.
+/connect senza argomenti usa il server selezionato e le impostazioni applicate. /saveconf memorizza il predefinito per il prossimo avvio.
+Se vari profili bouncer condividono l'host, seleziona con /server NUMBER e poi usa /connect da solo.
+I numeri di server esistenti restano accettati. La modalità test resta offline; le modifiche vanno salvate esplicitamente.
+
+Esempi:
+/connect irc.example.org
+/join #chat
+/saveconf
+/connect
+/connect -nick mynick irc.example.org +6697
+/connect -plain localhost 6667
+
+/dcc - Offrire, esaminare e gestire trasferimenti diretti di file
+-----------------------------------------------------------------
+Uso: /dcc [list|NICK PATH|send [-address IPV4] [-port PORT] NICK PATH|accept NUMBER [DIRECTORY]|reject NUMBER|cancel NUMBER]
+
+Senza argomenti elenca i trasferimenti. /dcc NICK PATH offre un file sul server selezionato.
+PATH è tutto il testo letterale restante, spazi inclusi; è relativo alla directory iniziale del processo.
+Il client non cambia mai tale directory, neppure mentre sfoglia file o lavora in background.
+La forma breve pubblica l'IPv4 locale della connessione IRC. Dietro NAT usa -address con l'IPv4 raggiungibile e -port con la porta inoltrata.
+Nessuna ricerca esterna dell'indirizzo. Una connessione IRC solo IPv6 richiede un IPv4 esplicito.
+DCC è una connessione diretta non cifrata. Il peer riceve l'IP annunciato; accettare un'offerta rivela l'IP al peer.
+Le offerte in entrata restano chiuse fino a /dcc accept NUMBER. DIRECTORY è la directory iniziale, di tua proprietà e privata.
+Non sovrascrive destinazioni esistenti; rifiuta link simbolici e file speciali. Il test offline non apre file o socket.
+Usa /dcc reject NUMBER per rifiutare un'offerta o /dcc cancel NUMBER per annullare un trasferimento attivo.
+I numeri di trasferimento sono comuni ai server del processo. Chiudere il server d'origine annulla i suoi trasferimenti; disconnettere IRC non annulla quelli accettati.
+
+Esempi:
+/dcc alice file.txt
+/dcc list
+/dcc accept 1 ./downloads
+/dcc send -address 203.0.113.20 -port 5000 alice file.txt
+/dcc cancel 2
+
+/disconnect - Disconnetti il server mantenendone il profilo
+-----------------------------------------------------------
+Uso: /disconnect [SERVER_NUMBER]
+
+Senza numero disconnette il server selezionato. Cronologia e configurazione restano disponibili.
+Non cambia l'impostazione di connessione automatica al prossimo avvio.
+
+Esempi:
+/disconnect
+/disconnect 1
+
+/help - Leggi guida, sintassi ed esempi pratici
+-----------------------------------------------
+Uso: /help [TOPIC|COMMAND]
+
+Usa /help ls per l'indice, /help commands per i comandi e il loro elenco, o /help autoconnect per un singolo comando.
+Richiedi un argomento o nome di comando senza parametri. /help /ls spiega l'elenco locale; /help ls elenca i temi. La barra iniziale è facoltativa.
+/help all apre il manuale completo in un lettore della guida separato.
+
+Esempi:
+/help
+/help ls
+/help commands
+/help autoconnect
+/help /ls
+
+/ignore - Gestire mittenti ignorati localmente
+----------------------------------------------
+Uso: /ignore [list|clear|[add|remove] MASK]
+
+Accetta un nick o maschera nick!user@host con jolly * e ?. I messaggi e gli avvisi corrispondenti vengono nascosti localmente.
+Il testo ignorato non crea chat private o menzioni. Stato del protocollo, avvisi del server e appartenenza continuano a funzionare.
+Usa /save per conservare le maschere del server.
+
+Esempi:
+/ignore list
+/ignore add noisy!*@*
+/ignore remove noisy!*@*
+
+/join - Entra in un canale sul server selezionato
+-------------------------------------------------
+Uso: /join #CHANNEL [KEY]
+
+Serve la registrazione. La chiave è un solo token ASCII stampabile; non viene salvata né conservata nella cronologia dei comandi.
+In connessione diretta, il canale entra nell'elenco di accesso automatico attivo; al salvataggio prevalgono le modifiche /autojoin in attesa.
+Usa /autojoin per preparare la prossima connessione esplicita di un profilo diretto senza entrare ora. Il bouncer gestisce i propri canali.
+
+Esempi:
+/join #ircnow
+/join #private channel-key
+
+/list - Richiedere e filtrare l'elenco dei canali della rete
+------------------------------------------------------------
+Uso: /list [MASK] [--min-users N] [--max-users N] [--name TEXT] [--topic TEXT] [--sort channel|users|topic] [--asc|--desc] [--limit N] | /list show [--sort channel|users|topic] [--asc|--desc] [--limit N] | /list clear
+
+Richiede i canali al server IRC selezionato; serve la registrazione. MASK è l'unico filtro inviato al server.
+I filtri per utenti minimi/massimi, nome e argomento sono locali, anche se la rete non supporta filtri LIST avanzati.
+--sort accetta channel, users o topic; il predefinito è users decrescente. --limit 0 non limita la vista nella cache finita.
+/list show mostra la cache; --sort, --asc/--desc e --limit riordinano o limitano localmente senza altra richiesta IRC. /list clear svuota la cache.
+Se ci si scollega o il server rifiuta LIST, resta la cache parziale ma la richiesta termina; riprovare /list dopo la registrazione o usare /list clear.
+L'interfaccia completa apre il browser canali ordinabile; quella minimale usa le stesse opzioni e /list show.
+Usare /ls o /cl per i canali locali; /list cerca nella rete.
+
+Esempi:
+/list
+/list *linux* --min-users 5 --max-users 500
+/list --topic help --sort users --desc --limit 100
+/list show --sort channel --asc --limit 50
+/list clear
+
+/ls - Elencare voci di server, canali, conversazioni private o non lette
+------------------------------------------------------------------------
+Uso: /ls [servers|channels|queries|unread]
+
+Senza argomenti elenca i canali del server selezionato. È un comando locale, non della shell né una richiesta IRC LIST a tutta la rete.
+Usare /server N, /channel N e /pm NICK per selezionare le relative voci.
+
+Esempi:
+/ls
+/ls servers
+/ls queries
+/ls unread
+
+/manual - Leggere il manuale integrato completo
+-----------------------------------------------
+Uso: /manual
+
+La guida su temi e comandi è disponibile anche offline. /help TOPIC è la scorciatoia.
+
+Esempi:
+/manual
+
+/me - Inviare un'azione alla conversazione selezionata
+------------------------------------------------------
+Uso: /me TEXT
+
+Richiede un canale raggiunto o una chat privata e una connessione registrata. Valgono limiti dei messaggi e regole di invio.
+L'interfaccia verifica un messaggio diviso prima di metterlo in coda.
+
+Esempi:
+/me waves
+
+/mentions - Visualizzare le menzioni o cancellare quelle conservate su tutti i server
+------------------------------------------------------------------------
+Uso: /mentions [clear]
+
+Seleziona le menzioni di questo server. Contiene un numero limitato di righe recenti con i timestamp originali.
+/mentions clear rimuove le copie salvate delle menzioni su tutti i server attuali senza cambiare vista.
+Cronologia originale, conteggi non letti e operazioni in sospeso sono conservati.
+Usa /watch per altri testi letterali; /channel o /pm torna a una chat in cui si può scrivere.
+
+Esempi:
+/mentions
+/mentions clear
+/channel #ircnow
+
+/msg - Invia testo a un soprannome o a un canale
+------------------------------------------------
+Uso: /msg TARGET TEXT
+
+Richiede registrazione. Crea un piano di invio; restano validi modo diretto/revisione e consenso alla divisione.
+Non cambia di nascosto la destinazione attuale. Messaggi di servizi/credenziali non entrano nella cronologia dei comandi.
+
+Esempi:
+/msg alice Hello
+/msg #ircnow Good evening
+
+/next - Selezionare la conversazione successiva su questo server
+----------------------------------------------------------------
+Uso: /next
+
+Scorre viste di server, menzioni, canali e privati; salta il buffer del manuale interno.
+
+Esempi:
+/next
+
+/nick - Impostare o richiedere il soprannome attuale
+----------------------------------------------------
+Uso: /nick NICK
+
+Da connesso chiede un cambio confermato dal server. Da disconnesso aggiorna l'identità della prossima connessione.
+I nickname seguono la sintassi IRC ASCII supportata e sono limitati a 63 byte.
+
+Esempi:
+/nick tutankh-aten
+
+/panel - Apri il pannello di configurazione interattivo
+-------------------------------------------------------
+Uso: /panel
+
+Scegli 0 (predefinito) per le preferenze dell'applicazione, oppure un pannello di profilo 1..8; il pannello 1 modifica il principale. Sono scelte di pannello, non ID dei lavori della shell.
+Le preferenze dell'applicazione comprendono conservazione della cronologia, modalità d'invio, formato di uscita, avvisi della coda e suggerimenti dei comandi per tutti i server.
+Funzionano senza un server configurato. Le scelte finali sono 1 Salva (predefinita) e 2 Applica senza salvare; nessuna avvia una connessione.
+Il pannello di un server contiene solo le sue impostazioni di connessione, avvio, autenticazione, menzioni ed esclusioni.
+Scegliere un pannello non cambia la conversazione in chat.
+Enter conserva il valore mostrato; '-' svuota un campo facoltativo. Escape torna indietro di una domanda alla volta; ripetilo per uscire senza applicare modifiche.
+Tab seleziona l'intestazione della domanda. Premi ? lì per la guida sull'opzione e sulla schermata; Tab o Enter riprende la risposta.
+Ogni risposta modificabile conserva ? come testo letterale, anche come primo carattere e nelle maschere con caratteri jolly.
+Termini da sorvegliare e maschere di esclusione si inseriscono uno alla volta; una nuova voce vuota termina l'elenco.
+L'inserimento delle credenziali è nascosto e le risposte di configurazione non entrano mai nella cronologia dei comandi. I file di credenziali esistenti non vengono letti durante la modifica.
+Per una fonte GPG, scegli Crea nuovo o Usa esistente. La creazione propone un percorso privato predefinito; Enter lo accetta e prepara la sua directory (0700).
+Un'altra destinazione deve trovarsi in una directory esistente di tua proprietà con modalità 0700. Il percorso viene controllato prima delle domande su chiave e password.
+La creazione richiede poi l'impronta completa di una chiave pubblica locale e la password due volte. File e collegamenti simbolici esistenti non vengono mai sostituiti.
+I percorsi delle credenziali sono salvati come percorsi assoluti. /autoauth status mostra tutte le posizioni configurate per esteso senza leggerne il contenuto.
+La cifratura inizia solo dopo Fine, mantiene IRC reattivo e non usa mai file temporanei in chiaro. Escape annulla il lavoro in sospeso.
+Se il salvataggio della configurazione fallisce, il risultato già cifrato resta disponibile per un nuovo tentativo deliberato; i file richiamati da una configurazione salvata vengono conservati.
+La modalità di prova non avvia GPG né crea file di credenziali. Sblocca esternamente la chiave privata corrispondente prima di autenticarti.
+Le scelte finali del pannello server sono 1 Salva e connetti, 2 Salva soltanto (predefinita), 3 Connetti una volta oppure 4 Applica soltanto.
+Aprire il pannello o rispondere alle domande precedenti non applica né salva nulla e non avvia connessioni.
+Connetti una volta applica senza salvare; Solo applica non salva né connette. Una connessione attiva non cambia mai destinazione o si riconnette implicitamente.
+Una connessione fallita non annulla le modifiche già applicate o salvate dall'azione finale.
+Usa /quickstart per configurare più brevemente server, trasporto, porta e soprannome.
+
+Esempi:
+/panel
+
+/part - Lascia un canale con motivo facoltativo e mantieni la cronologia
+------------------------------------------------------------------------
+Uso: /part [#CHANNEL] [MESSAGE]
+
+Senza canale, esce da quello selezionato. Il testo dopo il canale è il motivo PART; senza canale, il testo è il motivo per quello selezionato.
+Senza motivo esplicito si usa part_message, se configurato. La voce di accesso automatico attiva viene rimossa.
+I messaggi in coda per il canale vengono annullati; un invio già iniziato può terminare. Usa /close per rimuovere la vista.
+
+Esempi:
+/part
+/part Going offline
+/part #old Moving elsewhere
+
+/pm - Selezionare o aprire una conversazione privata senza inviare
+------------------------------------------------------------------
+Uso: /pm NICK|NUMBER
+
+I nomi aprono o selezionano un privato. I numeri selezionano uno esistente dall'elenco /ql di questo server.
+Aprire una chat privata non contatta il nickname prima di inviare. I numeri possono cambiare dopo averne chiusa una.
+
+Esempi:
+/pm alice
+/ql
+/pm 1
+
+/prev - Selezionare la conversazione precedente su questo server
+----------------------------------------------------------------
+Uso: /prev
+
+È il contrario di /next. Non connette, entra in canali o invia messaggi.
+
+Esempi:
+/prev
+
+/ql - Elencare le conversazioni private sul server selezionato
+--------------------------------------------------------------
+Uso: /ql
+
+I numeri dei privati iniziano da 1, separati dai canali. Usa /query NICK o /query NUMBER.
+Usa /close NICK per chiudere un privato; ripeti /ql perchè i numeri successivi possono cambiare.
+
+Esempi:
+/ql
+/query 1
+/query alice
+
+/queries - Elencare le conversazioni private (alias di /ql)
+-----------------------------------------------------------
+Uso: /queries
+
+Utilizza lo stesso elenco di privati di /ql. La numerazione dei canali resta separata.
+
+Esempi:
+/queries
+/pm alice
+
+/query - Apri o seleziona una conversazione privata
+---------------------------------------------------
+Uso: /query NICK|NUMBER
+
+Seleziona una conversazione privata senza inviare messaggi. Scrivi normalmente a quel nickname.
+Usa /ql per elencare le conversazioni numerate e /close NICK per chiuderne una. /pm accetta gli stessi nomi e numeri.
+Il numero deve indicare una conversazione già presente sul server selezionato; 0 non ne seleziona né crea.
+
+Esempi:
+/query alice
+/ql
+/query 1
+/close alice
+
+/quickstart - Apri la procedura guidata di connessione
+------------------------------------------------------
+Uso: /quickstart
+
+Modifica server, trasporto TLS, porta e nick del profilo attuale nell'ordine indicato, poi rivedi le impostazioni.
+TLS verificato e predefinito. Una connessione in chiaro va selezionata esplicitamente.
+Enter mantiene il valore mostrato. Escape torna indietro una domanda; ripetilo per uscire senza applicare. Le risposte non entrano nella cronologia dei comandi.
+Alla verifica finale scegli 1 Salva e connetti, 2 Solo salva, 3 Connetti una volta (predefinito), 4 Solo applica.
+Aprire la procedura guidata e rispondere alle domande non applica impostazioni, salva file o connette.
+Connetti una volta applica senza salvare; Solo applica non salva né connette. Una connessione attiva non cambia mai destinazione o si riconnette implicitamente.
+Una connessione fallita non annulla le modifiche già applicate o salvate dall'azione finale.
+Usa /panel per profili bouncer e opzioni ulteriori. Quickstart non modifica un accesso bouncer esistente.
+
+Esempi:
+/quickstart
+
+/quit - Esci dal programma e chiudi tutte le sessioni
+-----------------------------------------------------
+Uso: /quit [MESSAGE]
+
+Invia MESSAGE come motivo IRC QUIT, se possibile, su ogni server attivo; senza MESSAGE usa quit_message, poi ripristina il terminale ed esce.
+Usa /background per mantenere attive le connessioni.
+
+Esempi:
+/quit
+/quit Client restart
+
+/save - Salvare il server attuale, le preferenze dell'applicazione o tutti i profili
+------------------------------------------------------------------------
+Uso: /save [input|output|all]
+
+/save senza argomenti salva le impostazioni effettive del server selezionato, incluse modifiche di connessione in sospeso.
+/save input e /save output salvano entrambi il profilo principale completo, preferenze e connessione preparata. Non salvano solo la sezione indicata.
+/save all salva ciascun profilo valido separatamente. Se uno fallisce, i precedenti restano salvati e gli errori vengono segnalati.
+Ogni sostituzione di file e privata e atomica, ma non e una transazione unica fra file. La modalità test non scrive configurazioni.
+
+Esempi:
+/save
+/set send_mode review
+/save input
+/save all
+
+/saveconf - Salva la configurazione e ricorda la connessione selezionata
+------------------------------------------------------------------------
+Uso: /saveconf
+
+Salva preferenze e tutti i profili server validi, ricordando quello selezionato come predefinito.
+Al prossimo avvio, /connect usa quel predefinito; non servono numero di server o configurazione separata.
+Include nick, canali, autenticazione e scelte di avvio; prevalgono le modifiche esplicite in attesa.
+Non attiva la connessione automatica all'avvio. Se desiderata, usa prima /autoconnect on.
+Ogni file viene sostituito in modo privato e atomico. I salvataggi riusciti restano se un altro file fallisce.
+Il predefinito si memorizza solo se salvato bene; gli errori sono segnalati e i profili illeggibili non sovrascritti.
+La modalità test non scrive impostazioni. /save mantiene forme mirate per singoli profili e preferenze.
+
+Esempi:
+/connect irc.example.org
+/join #chat
+/saveconf
+/quit
+
+/server - Connettersi a un server o selezionarne uno esistente
+--------------------------------------------------------------
+Uso: /server [-tls|-plain] [-nick NICK] HOST [PORT] | /server [NUMBER|add HOST [PORT] [NICK]|connect NUMBER|disconnect NUMBER|close NUMBER]
+
+Con un nome host equivale a /connect diretto. Non serve creare prima un profilo.
+Senza argomenti mostra messaggi/MOTD del server corrente. NUMBER seleziona uno slot senza collegarsi.
+add crea un profilo con nuove credenziali, TLS verificato e autoconnect spento; non seleziona, collega né salva.
+PORT è 6697 per impostazione predefinita. Un'altra porta non disattiva TLS; il testo in chiaro va scelto esplicitamente.
+connect/disconnect non cambiano selezione. close rimuove sessione/voce secondaria, non il file del profilo.
+I numeri del server minimale sono 1..8, primario 1. Il primario resta disponibile: disconnetterlo, non chiuderlo.
+I numeri restano stabili durante la sessione. Panel 0 è riservato alle preferenze dell'applicazione.
+
+Esempi:
+/server irc.example.org
+/join #chat
+/saveconf
+/servers
+/server 1
+
+/servers - Elenca tutte le sessioni server configurate
+------------------------------------------------------
+Uso: /servers
+
+Mostra gli slot server 1..8 (principale 1) della modalità minimale, il server scelto, lo stato e autoconnect per server.
+Un profilo caricato resta disponibile anche senza connessione.
+
+Esempi:
+/servers
+/server 1
+
+/set - Scegliere preferenze di inserimento, uscita e presenza per tutta l'applicazione
+------------------------------------------------------------------------
+Uso: /set send_mode direct|review | /set composer_mode line|fullscreen | /set output_format compact|full | /set queue_notices on|off | /set program_messages on|off | /set persistent_logging on|off | /set single_session on|off | /set default_interface idle|ncurses | /set command_suggestions alphabetical|common|history|frequent|contextual | /set part_message [TEXT] | /set quit_message [TEXT] | /set background_away on|off | /set background_away_message TEXT | /set autoaway_minutes 0..1440 | /set autoaway_message TEXT
+
+direct è predefinito: Enter invia il testo; più messaggi IRC richiedono una conferma obbligatoria.
+review aggiunge una verifica volontaria prima di accodare i normali messaggi.
+output_format compact è predefinito: la chat scelta mostra [HH:MM:SS] <nick> testo.
+output_format full include server, data e destinatario per riga. compact conserva la provenienza di menzioni e diagnosi da altri server.
+queue_notices off nasconde gli avvisi ordinari della coda. In modalità minimale, l'invio già verificato evita l'avviso ripetuto. Errori e conferme multi-messaggio restano visibili.
+program_messages off nasconde avvisi locali minori: bozza annullata, input cancellato e bozza conservata. Errori e conferme di sicurezza restano visibili.
+persistent_logging on registra la chat in .log privato (0600) nella directory privata (0700) della configurazione. Disattivo di base; limite 16 MiB: archiviare e passare off/on. File non sicuro/occupato ferma il log, non la chat.
+single_session on consente un solo processo in background per client: --resume senza numero è univoco. Più server IRC restano possibili nella stessa sessione.
+default_interface sceglie l'interfaccia al prossimo avvio nuovo, se disponibile; non cambia quella attuale. /save input salva la scelta.
+command_suggestions sceglie ordine alfabetico, comandi comuni, recenti, più usati o pertinenti alla schermata di origine.
+composer_mode line lascia una riga di input sotto la chat; fullscreen offre editor multilinea con riquadro chat. Predefinito: line.
+part_message e quit_message sono motivi di uscita IRC predefiniti; testi espliciti /part o /quit prevalgono. Valori vuoti li disattivano.
+background_away invia background_away_message dopo /background riuscito o perdita del terminale. autoaway_minutes attiva away dopo inattività; 0 lo disattiva.
+Solo lo stato away creato dal client è cancellato automaticamente alla ripresa o a input reale. Un /away manuale non viene alterato.
+Common è predefinito. Contextual privilegia comandi di canale, chat privata, server o client conservando le altre corrispondenze.
+Common usa un ordine utile selezionato. Contextual ricorda la schermata che ha aperto il comando, incluso il lettore di riepilogo generale.
+Sono preferenze del client valide su tutti i server. Usare /save input o /save output per salvarle.
+/panel seguito da 0 modifica queste preferenze e il limite globale della cronologia.
+Interfaccia predefinita: ncurses. /set default_interface idle|ncurses sceglie l'interfaccia del prossimo nuovo avvio; /save input salva la scelta nella configurazione principale.
+Le opzioni esplicite -i/--idle o -N/--ncurses sostituiscono la scelta per quell'avvio senza salvare la modifica. -n minuscolo continua a selezionare il soprannome.
+
+Esempi:
+/set send_mode review
+/set composer_mode line
+/set command_suggestions contextual
+/save input
+/set output_format full
+/set queue_notices off
+/set program_messages off
+/set persistent_logging on
+/set single_session on
+/save output
+
+/settings - Mostrare le impostazioni effettive con le credenziali nascoste
+------------------------------------------------------------------------
+Uso: /settings
+
+Mostra le preferenze dell'app separatamente dalle opzioni di connessione in attesa del server selezionato.
+I valori di autenticazione sono indicati per tipo di origine; password e percorsi delle credenziali non sono mai stampati.
+Usa /autoconnect, /autojoin, /autoauth e /set per cambiare le rispettive impostazioni.
+
+Esempi:
+/settings
+/help configuration
+
+/sl - Elencare i server (alias di /servers)
+-------------------------------------------
+Uso: /sl
+
+Usa lo stesso elenco dei server configurati e numeri di slot stabili di /servers.
+Usa /server NUMBER per selezionare un server.
+
+Esempi:
+/sl
+/server 1
+
+/soju - Controllare il bouncer soju selezionato
+-----------------------------------------------
+Uso: /soju [COMMAND]
+
+Serve un profilo soju connesso e configurato in /panel. Senza argomenti chiede aiuto a BouncerServ.
+COMMAND è inviato come unico messaggio privato con intervallo, senza eco locale o cronologia comandi.
+Una connessione IRC diretta non può usare questa scorciatoia. Le risposte appaiono nella vista server.
+Per i comandi di account e rete consultare l'aiuto del bouncer.
+
+Esempi:
+/soju
+/soju network status
+
+/summary - Riassumere tutte le sessioni di server attuali e la loro attività
+------------------------------------------------------------------------
+Uso: /summary
+
+Mostra tutti i server, channel 0, canali/query, attività non letta, menzioni, code in uscita, comandi iniziali e trasferimenti di file.
+È un riepilogo locale, disponibile offline. Premere r nel lettore o riaprire il comando per aggiornarlo.
+Aprirlo non cambia chat né segna messaggi come letti. Le menzioni copiate non contano nelle attività totali.
+Le menzioni possono essere non lette: non sommare i totali. I canali raggiunti e lasciati sono distinti.
+Il report usa un lettore scorrevole e conserva bozze. Barra apre i comandi; annulla torna al riepilogo.
+Se l'aggiornamento fallisce, resta il riepilogo precedente. Aprire o aggiornare non invia richieste di rete.
+Credenziali e contenuti di messaggi in coda o comandi automatici non vengono mai stampati.
+
+Esempi:
+/summary
+
+/topic - Richiedere o modificare l'argomento del canale attuale
+---------------------------------------------------------------
+Uso: /topic [TEXT]
+
+Serve essere registrati e nel canale. Senza testo chiede il tema; altrimenti invia TEXT letteralmente.
+Il server decide se i tuoi permessi nel canale consentono la modifica.
+
+Esempi:
+/topic
+/topic Welcome to our channel
+
+/transfers - Gestire trasferimenti di file (alias di /dcc)
+----------------------------------------------------------
+Uso: /transfers [ARGUMENTS]
+
+Stessi comandi e protezioni di /dcc. Vedi /help dcc per invio, ricezione e annullamento.
+
+Esempi:
+/transfers
+/transfers alice file.txt
+
+/unbind - Rimuovere una o tutte le associazioni di tasti personalizzate
+-----------------------------------------------------------------------
+Uso: /unbind KEY|all
+
+Rimuovere un tasto ripristina il suo normale comportamento. all cancella solo la lista personalizzata.
+Il cambiamento vale subito su tutti i server. Usa /save input per mantenerlo dopo il riavvio.
+
+Esempi:
+/unbind F7
+/unbind all
+/save input
+
+/unignore - Rimuovere una maschera di esclusione locale
+-------------------------------------------------------
+Uso: /unignore MASK
+
+Equivale a /ignore remove MASK. Salvare il profilo selezionato per conservare la modifica.
+
+Esempi:
+/unignore noisy!*@*
+
+/unread - Elencare le conversazioni non lette su tutti i server
+---------------------------------------------------------------
+Uso: /unread
+
+Le righe includono numero del server, nome della chat, messaggi non letti e conteggio delle menzioni.
+Usa /server NUMBER seguito da /channel o /pm per scegliere una conversazione.
+
+Esempi:
+/unread
+/server 1
+/pm alice
+
+/users - Mostrare gli utenti noti del canale attuale o di quello indicato
+------------------------------------------------------------------------
+Uso: /users [#CHANNEL]
+
+È un elenco testuale, non un comando di visibilità. Mostra i prefissi dei modi utente quando noti.
+L'elenco apre un lettore separato anche se vuoto. Enter, Escape o q torna alla chat selezionata.
+Up/Down e Page Up/Down scorrono. In Help, Enter prosegue lo scorrimento.
+Le risposte NAMES incomplete o limitate sono segnalate. Non invia richieste WHOIS.
+
+Esempi:
+/users
+/users #ircnow
+
+/view - Selezionare una conversazione per nome o un canale per numero
+---------------------------------------------------------------------
+Uso: /view NAME|NUMBER
+
+I numeri dei canali sono in /channels, i nomi dei privati in /ql. Sono accettati anche server e menzioni.
+Usa /help invece di selezionare il buffer del manuale interno.
+
+Esempi:
+/view #ircnow
+/view alice
+/view 0
+
+/views - Elencare i canali (alias di /channels)
+-----------------------------------------------
+Uso: /views
+
+Questo alias usa numeri di canale; i privati restano in /ql.
+
+Esempi:
+/views
+
+/watch - Gestire stringhe letterali aggiuntive per le menzioni
+--------------------------------------------------------------
+Uso: /watch [list|add TEXT|remove TEXT]
+
+Le menzioni del nickname sono sempre attive. Add/remove legge il resto come testo letterale, non regex.
+Fino a 32 stringhe extra da 1..127 byte UTF-8 per server. Usare /save per conservarle.
+
+Esempi:
+/watch list
+/watch add release day
+/watch remove release day
+/mentions
+
+/whois - Richiedere al server informazioni su un soprannome
+-----------------------------------------------------------
+Uso: /whois NICK
+
+Richiede registrazione. Apre la vista del server per mostrare la risposta. Nessun comando locale viene eseguito.
+
+Esempi:
+/whois alice
+
+/znc - Controllare il bouncer ZNC selezionato
+---------------------------------------------
+Uso: /znc [COMMAND]
+
+Serve un profilo ZNC connesso e configurato in /panel. Senza argomenti chiede Help a *status.
+COMMAND è inviato come unico messaggio privato con intervallo, senza eco locale o cronologia comandi.
+Usare /msg *module COMMAND per un modulo ZNC attivo. Le risposte appaiono nella vista server.
+Una connessione IRC diretta non può usare questa scorciatoia. Consultare l'aiuto del bouncer.
+
+Esempi:
+/znc
+/znc ListNetworks
+/znc Connect

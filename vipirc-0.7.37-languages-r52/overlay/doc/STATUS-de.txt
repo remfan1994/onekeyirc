@@ -1,0 +1,57 @@
+Praxisleitfaden vipirc / onekeyirc - Server, Übersicht, Benutzer und überwachte Wörter
+======================================================
+
+ENTWURFSÜBERSETZUNG. Befehle und Optionen genauso wie gezeigt eingeben.
+Für Sicherheitsdetails die englischen Dateien MANUAL.txt und SECURITY.md lesen.
+
+/help summary
+-------------
+
+Zeigt alle Server, channel 0, Kanal/Privatansichten, Ungelesenes, Erwähnungen, Ausgangsqueues, Startbefehle und Dateiübertragungen.
+
+Lokale Übersicht, auch offline. Zum Aktualisieren im Leser r drücken oder den Befehl erneut ausführen.
+
+Öffnen wechselt keinen Chat und markiert nichts als gelesen. Kopierte Erwähnungen zählen nicht zur Aktivitätssumme.
+
+Erwähnungen können zugleich ungelesen sein; Summen nicht addieren. Beigetretene und verlassene Kanalansichten sind getrennt.
+
+Der Bericht hat einen scrollbaren Leser und bewahrt Entwürfe. Schrägstrich öffnet Befehle, Abbruch kehrt zurück.
+
+Bei fehlgeschlagenem Aktualisieren bleibt der alte Stand. Öffnen und Aktualisieren senden keine Netzanfrage.
+
+Zugangsdaten sowie Inhalte wartender Nachrichten oder automatischer Befehle werden nie ausgegeben.
+
+/help server
+------------
+
+Mit Hostnamen ist es ein direkter /connect. Vorher muss kein Profil erstellt werden.
+
+Ohne Argument wird die Nachrichten/MOTD-Ansicht des Servers gewählt. NUMBER wählt einen Slot ohne Verbindung.
+
+add erstellt ein Profil mit neuen Zugangsdaten, geprüftem TLS und autoconnect aus; wählt, verbindet und speichert nichts.
+
+PORT ist standardmäßig 6697. Ein anderer Port schaltet TLS nicht ab; Klartext muss ausdrücklich gewählt werden.
+
+connect/disconnect ändern die Auswahl nicht. close entfernt eine zweite Sitzung/einen Listeneintrag, nicht dessen Profildatei.
+
+Minimale Servernummern: 1..8, Hauptserver 1. Hauptserver bleibt; trennen statt schließen.
+
+Nummern bleiben während der Sitzung stabil. Panel 0 ist für Programmeinstellungen reserviert.
+
+/help users
+-----------
+
+Eine Textliste, kein Sichtbarkeitsschalter. Bekannte Benutzermodus-Präfixe erscheinen dabei.
+
+Die Liste öffnet einen eigenen Leser, auch leer. Enter, Escape oder q bringt zum gewählten Chat zurück.
+
+Up/Down und Page Up/Down scrollen. Im Help scrollt Enter weiter.
+
+Unvollständige oder begrenzte NAMES-Antworten sind markiert. WHOIS-Anfragen werden nicht gesendet.
+
+/help watch
+-----------
+
+Nick-Erwähnungen bleiben aktiv. Add/remove behandelt den Rest wörtlich, nicht als regulären Ausdruck.
+
+Pro Server bis zu 32 weitere Zeichenketten mit 1..127 UTF-8-Bytes. Mit /save sichern.

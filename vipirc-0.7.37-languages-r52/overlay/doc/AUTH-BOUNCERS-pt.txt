@@ -1,0 +1,68 @@
+vipirc / onekeyirc - authentication and bouncers (pt)
+=====================================================
+
+DRAFT TRANSLATIONS - native-speaker review is outstanding.
+Commands, flags, values and config keys must be entered literally.
+The English SECURITY.md and MANUAL.txt remain authoritative.
+
+/help soju
+----------
+Exige um perfil soju conectado e configurado em /panel. Sem argumento, pede ajuda ao BouncerServ.
+
+COMMAND e enviado como uma única mensagem privada com intervalo, sem eco local nem histórico de comandos.
+
+Uma conexão IRC direta não pode usar esse atalho. Respostas aparecem na visão do servidor.
+
+Use a ajuda do proprio bouncer para comandos de conta e rede.
+
+/help znc
+---------
+Exige um perfil ZNC conectado e configurado em /panel. Sem argumento, pede Help a *status.
+
+COMMAND e enviado como uma única mensagem privada com intervalo, sem eco local nem histórico de comandos.
+
+Use /msg *module COMMAND para um módulo ZNC ativo. As respostas aparecem na visão do servidor.
+
+Uma conexão IRC direta não pode usar esse atalho. Consulte a ajuda do bouncer para seus comandos.
+
+/help authentication
+--------------------
+O arquivo de senha ou o conteúdo GPG descriptografado fornece a credencial; caminhos são literais.
+
+Use /panel para criar uma credencial criptografada com GPG para uma impressão digital de chave pública local existente.
+
+Use uma chave GPG já desbloqueada. O pinentry não e executado no editor do chat.
+
+password= e server_password= em texto simples também são aceitos em arquivos privados de configuração.
+
+Escolha apenas uma fonte por credencial. /settings e /summary ocultam os caminhos dos arquivos.
+
+/autoauth status mostra caminhos atuais e pendentes sem ler arquivos nem exibir senhas.
+
+Em perfis bouncer, gerencie login e fonte juntos no /panel; alterações por /autoauth são rejeitadas.
+
+Arquivos de credenciais devem ser comuns, do usuário, modo 0600 ou 0400; links simbólicos e passagem por diretório pai são recusados.
+
+O limite de credenciais SASL e 1024 bytes; PASS normal permite 503 bytes. Login ZNC montado deve caber em uma linha IRC.
+
+--check-config valida configuração e fonte sem ler credenciais ou testar login. Veja /help tls e /help bouncers.
+
+/help tls
+---------
+O conjunto CA personalizado deve ser arquivo comum não vazio, até 16 MiB. Link simbolico para CA e permitido; caminhos de segredo/configuração são mais rigidos.
+
+O arquivo CA e aberto uma vez, limitado e tem tamanho verificado durante a leitura. FIFO, dispositivos e entradas não regulares são rejeitados; PEM com senha não pode solicitar entrada.
+
+O limite do arquivo não limita a latência I/O de arquivos comuns ou em rede. Use um conjunto CA confiável em armazenamento adequado.
+
+/help bouncers
+--------------
+Informe host e porta TLS do bouncer, usuário do bouncer, rede upstream existente e nome estavel de cliente opcional.
+
+Comandos explícitos de inicialização ainda rodam. Revise-os antes de ativar o perfil para evitar entradas e comandos de servico repetidos.
+
+Away automatico por inatividade/segundo plano fica desligado salvo ativação. /away e /back manuais continuam funcionando.
+
+O histórico e limitado. Nao ha busca de arquivo sob demanda, descoberta automatica de redes nem perfil automatico por rede.
+
+Consulte doc/BOUNCERS.txt e os exemplos do bouncer em examples/ para configuração e limites da validação.

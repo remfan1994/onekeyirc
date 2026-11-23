@@ -1,0 +1,59 @@
+source	kind	fields	english
+src/settings.c	fixed-display		Choice staged. Apply or Save to use it.
+src/settings.c	fixed-display		OFFLINE TEST MODE: Apply previews in memory; Save is disabled.
+src/settings.c	fixed-display		That saved server is no longer available. Return to Settings and choose another.
+src/settings.c	fixed-display		Unsupported stored characters filtered for editing. Enter stages; Esc discards.
+src/settings.c	fixed-display		Ignore masks can contain at most 127 ASCII bytes.
+src/settings.c	fixed-display		Use an exact nickname or nick!user@host mask with * and ? wildcards.
+src/settings.c	fixed-display		The ignore list is full.
+src/settings.c	fixed-display		The watch-term list is full.
+src/settings.c	fixed-display		The field is too long.
+src/settings.c	fixed-display		Leading or trailing spaces cannot be represented in this config format.
+src/settings.c	fixed-display		Bouncer fields use ASCII letters, digits, '.', '_' or '-'; enter components without '/' or '@'.
+src/settings.c	fixed-display		Unapplied edits discarded. Select another settings group.
+src/settings.c	fixed-display		Field input limit reached or unsupported control character.
+src/settings.c	fixed-display		Open application preferences, including command suggestions. Apply changes the running client; Save keeps them for the next startup.
+src/settings.c	fixed-display		Enter a server and nickname. Add keeps it disconnected; Connect starts the new connection. Save its settings to keep the profile.
+src/settings.c	fixed-display		Open this server's connection, authentication, startup and conversation preferences. Editing this form does not change the selected conversation.
+src/app.c	fixed-display		Out of memory; a display line was not retained.
+src/app.c	fixed-display		View limit reached (32); message shown in the server view.
+src/app.c	fixed-display		Cannot allocate a view.
+src/app.c	fixed-display		That channel view is closed. Join it again or clear mentions.
+src/app.c	fixed-display		Outgoing command exceeds the protocol byte limit.
+src/app.c	fixed-display		Rejected an outgoing line containing CR or LF.
+src/app.c	fixed-display		Cannot allocate outgoing command.
+src/app.c	fixed-display		A registered connection, nickname and valid DCC SEND offer are required.
+src/app.c	fixed-display		DCC offer exceeds the current IRC message budget.
+src/app.c	fixed-display		DCC offer cannot contain control characters.
+src/app.c	fixed-display		That DCC offer is already in flight.
+src/app.c	fixed-display		That DCC offer is already queued.
+src/app.c	fixed-display		Not registered with a server; /connect first.
+src/app.c	fixed-display		A valid target and nonempty UTF-8 text are required.
+src/app.c	fixed-display		Bouncer control requires one plain command over the authenticated TLS connection.
+src/app.c	fixed-display		Messages cannot contain control characters except composed newlines.
+src/app.c	fixed-display		Bouncer command exceeds one protocol line; nothing queued.
+src/app.c	fixed-display		Text cannot fit within 64 messages and the current byte limit.
+src/app.c	named-fields	limit	Input exceeds {limit} UTF-8 bytes.
+src/app.c	named-fields	count	The outgoing queue cannot hold all {count} messages; nothing queued.
+src/ui.c	fixed-display		Enter: find | Esc: cancel | Literal search, up to 256 UTF-8 bytes.
+src/ui.c	fixed-display		No keeps your text for editing.
+src/ui.c	fixed-display		Discard this view's unsent draft? [y/N]
+src/ui.c	fixed-display		No keeps the view and draft.
+src/ui.c	fixed-display		Resize; Esc returns to chat.
+src/ui.c	fixed-display		Close server
+src/ui.c	fixed-display		Cannot allocate the New server form.
+src/ui.c	fixed-display		Connect this server before requesting Whois.
+src/ui.c	fixed-display		Unable to refresh the inquiry; the previous snapshot is preserved.
+src/ui.c	fixed-display		Local inquiry ready. R refreshes; Esc returns to the previous screen.
+src/ui.c	fixed-display		Unable to refresh the summary; the previous snapshot is preserved.
+src/ui.c	fixed-display		Snapshot ready. R refreshes; Esc returns to the previous screen.
+src/ui.c	fixed-display		Too small.
+src/ui.c	fixed-display		Resize; draft is safe.
+src/prompt.c	fixed-display		Command completed; unable to retain its history entry.
+src/prompt.c	fixed-display		Command completed; unable to save command usage counters.
+src/prompt.c	fixed-display		Removed the selected command history entry.
+src/prompt.c	fixed-display		Usage count reset for this session; unable to save the reset.
+src/prompt.c	fixed-display		Reset this command's usage count; the command remains available.
+src/prompt.c	fixed-display		Delete is available for Recent history and Most used suggestions.
+src/prompt.c	fixed-display		Resize terminal to browse suggestions.
+src/prompt.c	fixed-display		Command input limit reached or unsupported character.

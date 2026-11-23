@@ -1,0 +1,23 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / HISTORY, LOGGING AND PRIVACY
+English source SHA-256: b0c065ed46b6cbb73666075f1eee2d050a5a82160fac0ddadd98ad80d2910ee3
+
+HISTORIQUE, JOURNALISATION ET CONFIDENTIALITÉ
+
+Plusieurs historiques distincts existent :
+
+    Conversations/mentions conservées : mémoire limitée pour l'affichage.
+    Rappel de commandes : lignes acceptées en mémoire, avec filtrage des secrets.
+    Fréquence des commandes : noms canoniques et compteurs dans CONFIG_PATH.commands.
+    Transcription facultative : texte clair dans le fichier .log de chaque profil enregistré.
+    Relecture du bouncer : messages fournis selon la politique du bouncer.
+
+Detach/resume conserve la mémoire de la session active. /quit, --close-session, une panne du processus ou un redémarrage y mettent fin. Un nouveau processus charge la configuration et, le cas échéant, les compteurs de commandes, mais n'importe pas les anciennes transcriptions comme historique vivant et ne reconstitue pas l'ancien repère de rattrapage. /clear efface la mémoire de la vue courante sans supprimer la transcription sur disque ni retirer un message IRC.
+
+Activez la transcription par /set persistent_logging on, puis enregistrez-la avec /save output, ou choisissez Settings > Interface > Persistent logging. Elle est désactivée par défaut, s'applique à tous les serveurs et utilise un fichier distinct par profil enregistré. Tous les contrôles de confidentialité des chemins et des fichiers décrits dans CONFIGURATION restent applicables.
+
+Chaque journal s'arrête à 16 MiB ; aucune rotation ni suppression automatique n'est effectuée. Un chemin dangereux, un verrou occupé ou une erreur d'écriture désactive le journal du profil concerné avec un message d'erreur, tandis que le chat continue. Archivez l'ancien fichier, puis désactivez et réactivez la journalisation. La rotation peut invalider l'ancien repère de rattrapage ; envoyez un nouveau message admissible avant de compter sur le rattrapage durable lors d'une absence ultérieure.
+
+Les messages connus de secrets/services et leurs copies sensibles sous d'anciens ou actuels pseudonymes sont exclus, y compris les destinations de service qualifiées. Le chat ordinaire, les syntaxes de services inconnues ou les secrets collés manuellement peuvent néanmoins figurer dans le journal ; le service distant peut aussi en conserver une copie. Désactiver la journalisation empêche les nouvelles entrées sans effacer les anciennes. Des permissions privées ne sont pas du chiffrement et ne protègent pas contre un autre programme exécuté sous le même compte Unix. Les fichiers ordinaires sur un stockage lent ou réseau peuvent aussi retarder les E/S disque.
+
+Une transcription enregistrée s'appelle CONFIG_PATH.log, dans un répertoire appartenant à l'utilisateur et de mode exact 0700. Chaque composant du chemin doit passer les contrôles anti-symlink et anti-remontée. Le fichier ouvert doit appartenir à l'utilisateur, être régulier, à lien unique et de mode exact 0600. La gestion non bloquante des fichiers/verrous refuse un FIFO ou un journal occupé ; la limite de 16 MiB s'applique à chaque profil enregistré.

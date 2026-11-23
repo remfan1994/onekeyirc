@@ -1,0 +1,46 @@
+VERBATIM ENGLISH SOURCE REFERENCE
+Source: MANUAL.txt / MESSAGE LENGTH AND FLOOD PREVENTION
+English source SHA-256: 74197e1e6983ce301972c3ad55db5a844ff0ae8bde4ebc998ebfe85c8ddcae1c
+
+MESSAGE LENGTH AND FLOOD PREVENTION
+
+IRC's ordinary line limit is 512 bytes including CR/LF, not 512 displayed
+characters. UTF-8 scalars use 1..4 bytes and glyphs can combine scalars.
+Command, target and relay identity consume space. For :nick!user@host
+PRIVMSG target :text, the payload is:
+
+    B = L - (len(nick) + len(user) + len(host)
+             + len(target) + len("PRIVMSG") + 9)
+
+Lengths are bytes; L is 512 or a recognized smaller LINELEN. Actions
+subtract their envelope too. Conservative allowances apply until identity is
+known. Changing identity/target can change B; vipirc does not assume larger
+lines are accepted.
+
+Full-mode editing warns when a logical line reaches B or the draft needs
+several messages. Enter/Escape acknowledges continued editing and sends
+nothing; other keys cannot dismiss it, and key-repeat protection applies.
+The warning rearms after returning below the threshold.
+
+Minimalist editing instead blocks additional insertion at the boundary until
+Enter explicitly authorizes continued editing; that Enter sends nothing.
+Backspace/Delete can reduce text and Escape cancels. /msg, /me and // are
+measured by their real payload, unrelated local commands are not. Paste
+stays intact within storage bounds and is checked after capture.
+
+Full ncurses asks separately before submitting a multi-message draft:
+
+    This text needs N IRC messages. Send all to TARGET? [y/N]
+
+Only affirmative y sends; Enter/n declines and keeps the text. Minimalist
+mode instead shows Review: a fresh Enter confirms, Escape returns to editing.
+Both require explicit split consent even in direct mode. Splits preserve
+complete UTF-8 scalars and nonempty text; explicit newlines separate messages
+and empty lines are skipped. Commands remain single-line; compose multiline
+chat in the conversation.
+
+Chat is paced at least 1.2 seconds apart through a 64-message queue. /cancel
+removes still-unsent work; it cannot retract an in-flight or delivered
+message. Protocol control such as PONG is separate. A network may impose
+stricter limits or reject text; local acceptance/echo does not prove remote
+delivery.

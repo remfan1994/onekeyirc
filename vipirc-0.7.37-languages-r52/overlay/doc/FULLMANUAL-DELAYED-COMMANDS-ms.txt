@@ -1,0 +1,20 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / DELAYED STARTUP COMMANDS
+English source SHA-256: dfb1220936318c5cfbdf407d869067d3a84de7968c73aa4be34594630d3ee9e1
+
+EXACT COMMAND/CONTROL EXAMPLES (not translated):
+/autocommands [list|add COMMAND|remove NUMBER|clear|on|off]
+/autocommands delay SECONDS       0..300
+/autocommands interval SECONDS    2..60
+/autocommands add /msg ChanServ OP #room mynick
+/save
+
+Setiap profil boleh melaksanakan sehingga 16 arahan harfiah selepas pendaftaran dan SASL wajib berjaya. Kelewatan lalai ialah 15 saat, kemudian sekurang-kurangnya 2 saat antara arahan siap. Sambungan tersangkut tidak menyebabkan lambakan arahan tertunggak.
+
+Gunakan /autocommands [list|add COMMAND|remove NUMBER|clear|on|off], /autocommands delay SECONDS (0..300), /autocommands interval SECONDS (2..60) dan /save untuk menyimpan. Contohnya, /autocommands add /msg ChanServ OP #room mynick.
+
+Arahan disokong: /msg, /join, /nick, /away, /back, /whois dan alias tepat yang didokumentasikan. Setiap satu paling panjang 511 bait UTF-8 dan mesti muat sebaris IRC; tiada pemisahan senyap, shell, IRC mentah, gelung atau penggantian perbualan semasa. /join menerima satu saluran serta kunci sementara pilihan. Senarai menyembunyikan teks mesej/kunci; pelaksanaan tidak merekod sejarah arahan, echo setempat atau mencipta perbualan peribadi. Respons tiba seperti biasa; penyertaan automatik tidak mengubah sembang terpilih.
+
+Suntingan berkuat kuasa pada sambungan seterusnya. /cancel menghentikan arahan permulaan berbaki dan sembang dalam giliran tanpa menarik balik bait sudah dihantar atau sedang dihantar. Menutup/meninggalkan sasaran membatalkan baki urutan kepadanya. Kegagalan membatalkan arahan berikut serta menunjukkan kedudukan tanpa teks rahsia. Sambungan semula memulakan urutan baharu; profil bouncer turut melaksanakan arahan permulaan nyata. Mod luar talian tidak melaksanakan apa-apa.
+
+[autocommands] menyimpan enabled, delay_seconds, interval_seconds dan baris command= berulang. Bait selepas = adalah harfiah, termasuk ruang, #, ; dan =. Senarai bukan kosong, walaupun dimatikan, memerlukan konfigurasi fail biasa milik pengguna bermod 0600/0400; senarai aktif bukan kosong memerlukan TLS disahkan. Profil baharu bermula kosong; perubahan destinasi mengosongkan senarai warisan yang belum disunting. Simpan dengan sengaja: simpanan kelayakan GPG tidak menyulitkan arahan ini di fail konfigurasi.

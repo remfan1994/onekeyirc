@@ -1,0 +1,24 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / MESSAGE LENGTH AND FLOOD PREVENTION
+English source SHA-256: 74197e1e6983ce301972c3ad55db5a844ff0ae8bde4ebc998ebfe85c8ddcae1c
+
+İLETİ UZUNLUĞU VE TAŞMA ÖNLEME
+
+IRC'de normal bir satırın sınırı, ekranda görünen 512 karakter değil, CR/LF dahil 512 bayttır. UTF-8 skaler değerleri 1..4 bayt kullanır; tek bir glif birden fazla skalerden oluşabilir. Komut, hedef ve aktarılan gönderici kimliği de yer kaplar. :nick!user@host PRIVMSG target :text için kullanılabilir yük şöyle hesaplanır:
+
+    B = L - (len(nick) + len(user) + len(host)
+             + len(target) + len("PRIVMSG") + 9)
+
+Uzunluklar bayt cinsindendir. L, 512 ya da tanınan daha küçük bir LINELEN değeridir. Eylem mesajlarında kendi zarfının uzunluğu da düşülür. Kimlik bilinmeden önce ihtiyatlı paylar kullanılır. Kimlik veya hedef değişince B de değişebilir; vipirc daha uzun satırların kabul edileceğini varsaymaz.
+
+Tam ncurses düzenleyicisi, mantıksal bir satır B'ye ulaştığında veya taslak birden fazla mesaj gerektirdiğinde uyarır. Enter/Escape yalnızca düzenlemeye devam edilmesini onaylar; hiçbir şey göndermez. Diğer tuşlar uyarıyı kapatamaz ve tuş tekrarı koruması uygulanır. Uzunluk sınırın altına inince uyarı yeniden etkinleşir.
+
+Minimalist düzenleyici ise Enter ile düzenlemeye devam etme açıkça onaylanana kadar sınırda yeni karakter eklemeyi engeller; bu Enter gönderim yapmaz. Backspace/Delete metni kısaltabilir, Escape iptal eder. /msg, /me ve // gerçek mesaj yüklerine göre ölçülür; ilgisiz yerel komutlar ölçülmez. Yapıştırılan metin depolama sınırları içinde bütün kalır ve alındıktan sonra denetlenir.
+
+Tam ncurses modu, birden fazla mesaja bölünecek taslak gönderilmeden önce ayrıca onay ister:
+
+    This text needs N IRC messages. Send all to TARGET? [y/N]
+
+Yalnızca y yanıtı gönderir; Enter/n reddeder ve metni korur. Minimalist modda Review gösterilir: yeni bir Enter onaylar, Escape düzenlemeye döner. direct modunda bile her ikisi bölme için açık izin ister. Bölme, UTF-8 skalerlerini bütün ve metin parçalarını boş olmayan halde tutar; açık satır sonları mesajları ayırır, boş satırlar atlanır. Komutlar tek satırdır; çok satırlı sohbeti konuşma düzenleyicisinde yazın.
+
+Sohbet, 64 mesajlık kuyrukta iletiler arasına en az 1.2 saniye koyar. /cancel henüz gönderilmeyen işleri kaldırır; yola çıkmış ya da teslim edilmiş bir mesajı geri alamaz. PONG gibi protokol denetimi ayrı işlenir. Ağ daha sıkı sınırlar koyabilir veya metni reddedebilir; yerel kabul ya da yankı, karşı tarafa teslim edildiği anlamına gelmez.

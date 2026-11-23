@@ -1,0 +1,16 @@
+Local history, saved logs and privacy
+Source: SECURITY.md, section "Local history, saved logs and privacy"
+English section SHA-256: 8123a3ef64d1e4e83b7cc6891d66caa56780846eafd681342f8e2f9749251e94
+Paragraphs: 5
+Status: Translation draft; fluent-speaker security review required
+English SECURITY.md remains authoritative. This is only one section, not the full security document.
+
+Riwayat perintah yang dapat dipanggil kembali dibatasi hingga 64 entri/64 KiB dan hanya disimpan dalam memori. Penyusunan pesan chat bukanlah sarana memanggil kembali pesan chat yang telah dikirim. Bentuk kredensial dan perintah kontrol yang dikenali dikecualikan. Data frekuensi opsional dalam <config_path>.commands menyimpan paling banyak 96 nama perintah kanonis beserta jumlah pemakaiannya, tanpa argumen, sasaran, pesan, atau kata sandi. Pembacaan/penulisan otomatis memerlukan konfigurasi yang sudah disimpan; berkas penghitung yang tidak sah atau tidak aman tidak menghalangi startup. Mode pengujian melewatkan I/O ini.
+
+Pencatatan transkrip permanen secara baku dimatikan. Setiap profil tersimpan yang mengaktifkannya menambahkan data ke <config_path>.log. Direktori induknya harus dimiliki pengguna dengan mode tepat 0700, dan berkasnya harus berkas biasa milik pengguna, dengan satu tautan dan mode tepat 0600. Penelusuran relatif terhadap deskriptor dan O_NOFOLLOW menolak tautan simbolis; O_NONBLOCK mencegah FIFO yang ditanamkan memblokir proses sebelum pemeriksaan jenis berkas. Pencatatan tidak membuat direktori induk.
+
+Batas penambahan setiap log aktif adalah 16 MiB. Kunci advisory nonblokir menserialkan pemeriksaan ukuran dan penulisan di antara klien yang bekerja sama. Jalur tidak aman, kunci sibuk, penulisan gagal, atau batas tercapai mematikan pencatatan untuk profil itu sambil menampilkan diagnostik; chat langsung tetap berjalan. Tidak ada pemotongan atau penghapusan otomatis. Arsipkan atau pindahkan log, lalu matikan dan hidupkan kembali pencatatan secara eksplisit. Arsip eksternal menjadi tanggung jawab pengguna. I/O disk masih dapat macet pada penyimpanan lambat atau jarak jauh; pencatat ini tidak asinkron.
+
+Salinan dari Help/aggregate mentions, draf yang belum dikirim, buffer SASL/PASS, perintah privat yang dikenali, dan jawaban layanan yang dikenal dikecualikan dari transkrip. Tujuan kontrol bouncer mendapat penyaringan tambahan yang dijelaskan di bawah. Nama layanan yang tidak dikenal dan rahasia yang diketik sebagai chat biasa masih dapat tercatat. Log tetap ada setelah program keluar. Perekaman terminal, log server, dan salinan milik penerima tidak dipengaruhi oleh pengaturan ini.
+
+Catch-up menggunakan pesan terakhir yang memenuhi syarat dan dikirim secara lokal oleh worker langsung ini. Pertama program mencoba log privat dengan jangkar berkas/catatan yang tervalidasi dan posisi akhir yang dipatok, lalu beralih ke memori tersimpan bila perlu. Rotasi atau perubahan identitas membatalkan jangkar disk; program tidak diam-diam memilih catatan lain yang tidak terkait. Pemutaran ulang pesan sendiri tidak menggantikan jangkar. Proses baru tidak mengimpor log lama atau membangun ulang jangkar catch-up worker yang telah berhenti.

@@ -1,0 +1,9 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / MINIMALIST WRAPPING AND INPUT HISTORY
+English source SHA-256: 530aeaefbd01d1eb2f184d0eabe5145550b9634fd9235a3f604b9f234b562160
+
+MİNİMALİST SATIR KAYDIRMA VE GİRİŞ GEÇMİŞİ
+
+Compose giriş için satırlar ayırır ve üstte son kaydırılmış görsel satırları gösterir; eski satırlar daralan görünümün dışına çıkabilir. Saklanan metin ve gönderme planları kısaltılmaz. Kalan satırları incelemek için girişten çıkın veya konuşmayı yeniden seçin; yerel yankı teslim kanıtı değildir. Terminalin yeniden boyutlandırılması taslağı ve imleci koruyarak düzeni hesaplar.
+
+Compose içindeki Yukarı/Aşağı, tuş basılı tutulduğunda da imleci taşır. Kabul edilmiş komutları yalnızca Command içindeki Yukarı geri çağırır; gönderilen sohbet, gizli servis satırları ve anahtarlı kanal katılımları geri çağrılmaz. .commands dosyasında yalnızca adlar ve sayılar bulunur. COMMAND PROMPT, INPUT EDITING ve TROUBLESHOOTING bölümlerine bakın.

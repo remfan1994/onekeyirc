@@ -1,0 +1,13 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / MENTIONS AND WATCH STRINGS
+English source SHA-256: 7dd545c1b52064bcd746c17c664bc33816010b1a1bc6f7dfda8f6df48830ba1c
+
+BAHSEDİLMELER VE İZLENEN DİZGELER
+
+Geçerli takma adınız kendiliğinden izlenir. Eşleşme IRC sunucusunun duyurduğu harf eşlemesi ve takma ad sınırlarına uyar. Takma ad değişikliği bu otomatik eşleşmeyi günceller.
+
+    /watch add project name
+    /watch remove project name
+    /watch list
+
+Özel izleme değerleri düz alt dizgelerdir; düzenli ifade veya kabuk deseni değildir. IRC/ASCII harf ve simge büyük/küçük harf kuralları kullanılır; ASCII dışı karakterler tam olarak eşleşmelidir. Her biri 127 UTF-8 baytlık en çok 32 özel değer kabul edilir. Normal kullanımda seçili yapılandırmadaki değişiklikleri kaydetmek için /save kullanın; test modundaki değişiklikler bellekte kalır. Bahsedilmeler geçmiş sınırları içinde bellekte tutulur; kalıcı bildirim arşivi veya disk günlüğü değildir. Zaman damgaları YYYY-MM-DD HH:MM:SS biçimindeki yerel alınma tarihidir.

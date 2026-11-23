@@ -1,0 +1,18 @@
+TLS, credentials and endpoint identity
+Source: SECURITY.md, section "TLS, credentials and endpoint identity"
+English section SHA-256: 4ea410d65b0d7a489076cfd9898b5769f21e9e2f4fec63f7df8340f68bb5de45
+Paragraphs: 6
+Status: Translation draft; fluent-speaker security review required
+English SECURITY.md remains authoritative. This is only one section, not the full security document.
+
+TLS memerlukan versi 1.2 atau lebih baharu serta mengesahkan rantaian sijil dan nama hos yang dipilih. SASL yang dikonfigurasi, PASS pelayan dan senarai perintah automatik aktif yang tidak kosong memerlukan TLS yang disahkan. Tiada pengunduran senyap kepada teks biasa. Penyulitan kata laluan pada cakera tidak menyulitkan penghantaran. TLS IRC melindungi sambungan ke pelayan atau bouncer terpilih, bukannya penyulitan mesej hujung ke hujung.
+
+Kekalkan pustaka TLS yang dipautkan serta kod sumber ini sentiasa dikemas kini. Hos semakan menggunakan OpenSSL 3.5.7; OpenSSL mendokumenkan CVE-2026-35189, pertambahan penggunaan memori berkaitan sijil semasa pemprosesan TLS biasa, yang dibetulkan pada 3.5.9 dalam cabang tersebut. Keluaran kod sumber ini tidak membaiki pustaka luaran itu. Semak versi vendor hos penggunaan, pembaikan undur dan kemas kini keselamatan terkini: https://openssl-library.org/news/secadv/20260929.txt
+
+ca_file yang kosong memilih stor kepercayaan sistem. Himpunan CA tersuai ialah fail PEM setempat yang dipercayai: pemuat membukanya sekali, memeriksa fail biasa yang telah dibuka, membaca kandungannya dalam had ditetapkan dan menghurai salinan itu tanpa meminta kata laluan. Fail kosong, fail melebihi 16 MiB, sumber bukan fail biasa dan perubahan saiz yang dikesan ditolak. Sijil, rekod kepercayaan AUX dan entri CRL dikekalkan. Laluan CA boleh melalui pautan simbolik kerana bahan kepercayaan awam itu dipilih secara jelas, tidak seperti laluan konfigurasi dan bukti kelayakan peribadi. Memilih CA lain mengubah pengeluar sijil yang dipercayai klien. Pemuat bekerja secara segerak; I/O fail biasa masih boleh terhenti pada storan perlahan.
+
+Setiap bukti kelayakan memilih tepat satu sumber: fail teks biasa peribadi, fail peribadi yang disulitkan dengan GPG atau nilai sebaris yang ditetapkan secara jelas. Sumber SASL dan PASS pelayan adalah berasingan. Nama hos yang berbeza melalui --server memadamkan pengesahan yang diwarisi, pemilihan CA, identiti bouncer, saluran dan perintah permulaan. Penggantian kepada hos yang sama atau perubahan port atau nama samaran tidak menyebabkan pemadaman ini. Semak profil yang dipilih sebelum bersambung ke perkhidmatan baharu.
+
+SASL PLAIN secara terus memerlukan akaun yang dikonfigurasi. soju memperoleh identiti SASL daripada medan bouncer. Rundingan menggunakan pengisytiharan mekanisme SASL terakhir yang diiklankan, menunggu pengakuan atau cabaran dan hanya kemudian membaca bukti kelayakan. Kegagalan pengesahan yang diwajibkan tidak berubah menjadi pendaftaran tanpa pengesahan. ZNC sebaliknya menggunakan sumber PASS pelayan.
+
+Perintah pengesahan peribadi yang dikenali dan ditaip secara manual juga memerlukan TLS yang disahkan. Pengesahan input dikenakan pada baris logik dan semua pecahan yang dirancang, kemudian diulang semasa penghantaran. Bentuk peribadi yang dikenali dikecualikan daripada ingatan perintah dan log transkrip berterusan. Paparan terminal yang sedang berjalan masih boleh menunjukkan teks yang ditaip. Pengecaman meliputi kata kerja perkhidmatan lazim, bukan semua rahsia dalam teks atau setiap protokol perkhidmatan pihak ketiga.

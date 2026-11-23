@@ -1,0 +1,16 @@
+ZNC, soju and playback
+Source: SECURITY.md, section "ZNC, soju and playback"
+English section SHA-256: f0e223c83f0df60aa10260168ae7433ff77fbbd2f4cef7d4914cd07da4f7ed99
+Paragraphs: 5
+Status: Translation draft; fluent-speaker security review required
+English SECURITY.md remains authoritative. This is only one section, not the full security document.
+
+Profil bouncer eksplisit membutuhkan TLS terverifikasi dan identitas akun/jaringan, dengan nama klien opsional. ZNC memakai sumber kata sandi server; soju mensyaratkan SASL PLAIN dan sumber kata sandi SASL. Transaksi pengaturan menerapkan endpoint, identitas, dan kredensial bersama-sama serta membuang draf lama ketika ikatannya berubah. Autentikasi IRC ke hulu adalah bagian dari konfigurasi bouncer itu sendiri.
+
+JOIN yang dipulihkan bouncer menentukan keanggotaan; daftar kanal tersimpan tidak diputar ulang. Perintah startup eksplisit tetap menjadi pengecualian yang disengaja. Away otomatis secara bawaan mati pada profil bouncer agar satu perangkat tidak memaksakan status menganggurnya kepada perangkat lain. /away dan /back tetap tindakan manual yang eksplisit. Kontrol worker lokal tidak mengadministrasikan layanan bouncer jarak jauh.
+
+Teks kontrol /znc dan /soju harus muat dalam satu pesan berjarak waktu, dan tidak dimasukkan ke recall, echo lokal, atau log permanen. Salinan pesan masuk yang ditujukan kepada layanan bouncer ditekan bahkan dengan nama panggilan lama atau referensi batch tidak dikenal. Balasan layanan tetap terlihat di tampilan server tetapi tidak disimpan. Salinan autentikasi privat yang dikenali tidak masuk transkrip, apa pun nama pengirim, bingkai playback, atau tujuan layanan yang ditentukan. Teks yang terlihat dan disimpan bukan tempat penyimpanan rahasia. Teks dapat terlihat saat disusun, dan admin bouncer dapat menerima serta mencatatnya. Ini bukan kerahasiaan dari bouncer pilihan Anda.
+
+Batch riwayat yang dikenal hanya untuk tampilan: tidak boleh mengubah keanggotaan/kehadiran saat ini, membuat peringatan mentions baru, membalas CTCP, atau mengaktifkan tawaran DCC. Batas batch riwayat bersarang atau saling berselang dibatasi hingga 16 batch dan referensi 64-byte; framing cacat, tidak konsisten, atau melampaui batas menyebabkan putus koneksi. Referensi batch tidak dikenal ditangani secara konservatif hanya sebagai tampilan. Stempel waktu asli yang sah ditampilkan sebagai UTC dan tidak pernah mengatur timer lokal atau laju pengiriman.
+
+Klien mendukung buffer yang didorong bouncer, bukan penjelajah arsip bouncer berdasarkan permintaan atau penemuan jaringan untuk seluruh akun. Klien tidak meminta echo-message, draft/chathistory, atau znc.in/playback. Stempel waktu saja tidak membuktikan bahwa pesan adalah riwayat; playback lama tanpa batch tetap diperlakukan sebagai pesan hidup biasa. Playback sembarang tidak dideduplikasi lintas proses baru. Lihat doc/BOUNCERS.txt untuk pengaturan dan batas.

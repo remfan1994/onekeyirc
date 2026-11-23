@@ -1,0 +1,9 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / SESSION SUMMARY
+English source SHA-256: b2af79e132d98cb37475f734dff71c96a322570b71164c116cf5b7d8aa548be2
+
+/summary ouvre un instantané local du client entier dans un lecteur défilant séparé. Il fonctionne déconnecté et regroupe les entrées par serveur. Il indique état de connexion et pseudonyme, canal 0, vues des canaux rejoints ou quittés, conversations privées, nombres de non-lus et mentions, files sortantes, commandes de démarrage en attente et transferts de fichiers avec état actuel. Les totaux excluent le flux copié des mentions pour éviter un double comptage. Une mention peut aussi être non lue : ces deux totaux ne sont pas additionnés.
+
+Ouvrir ou actualiser le résumé ne change pas de conversation, ne marque rien comme lu, n'envoie aucune demande réseau et ne remplace aucun brouillon. Il fournit les nombres des files sans exposer le texte des messages en attente, des commandes automatiques ou les identifiants. Il décrit l'état actuel sans interpréter le chat.
+
+Dans l'interface complète, utilisez Up/Down ou k/j, Page Up/Page Down, Home/End ou g/G. Appuyez sur r ou R, activez Refresh au clavier ou cliquez Refresh pour un nouvel instantané. Escape ou Back revient à l'origine. Dans vipirc -i, r actualise le lecteur de réponse. Un échec conserve l'instantané précédent. Le réseau continue pendant la lecture. / ouvre Command ; l'annulation revient à cet instantané. ? donne l'aide du résumé et du lecteur.

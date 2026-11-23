@@ -1,0 +1,38 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / AUTOMATIC CONNECTION, JOIN, AND AUTHENTICATION
+English source SHA-256: f1eac619875693d1b8b4c03b26a6a90a7736048cf9d67e37619e675a887788b8
+
+OTOMATİK BAĞLANTI, KANALA KATILMA VE KİMLİK DOĞRULAMA
+
+Kaydedilen her profilin ayrı otomatik bağlantı, doğrudan kanala katılma ve kimlik bilgileri vardır. İstenen başlangıç ayarlarını Settings veya komutlarla kaydedin. Ana profil için açıkça verilen --server bağlantı başlatır; kaydedilmiş autoconnect profilleri bağımsız başlar. --no-connect hepsinin başlangıç bağlantısını engeller. /connect ya da Servers > Connect bağlantıyı açıkça başlatır. Yeni profil, başka profilin sırlarını devralmaz.
+
+Doğrudan ağ hesabı için şöyle yapılandırın:
+
+    [connection]
+    tls=true
+    auth=sasl
+    auth_user=your_registered_account
+    password_gpg_file=/home/yourname/.config/vipirc/sasl.gpg
+
+Her bağımsız kimlik bilgisi için tam olarak bir kaynak seçin:
+
+    SASL hesabı                   Sunucu PASS
+    password_gpg_file              server_password_gpg_file
+    password_file                  server_password_file
+    password                       server_password
+
+*_gpg_file şifrelidir, *_file özel düz metindir; satır içi değerler yapılandırmadaki harfi harfine düz metindir. Dosya uzantısından tür tahmini veya başka kaynağa geri dönüş yoktur. Satır içi değerlerin baş/son boşlukları ve #, ;, = karakterleri korunur; tırnak ya da yorum eklemeyin. Satır içi sır içeren yapılandırma kullanıcıya ait normal bir dosya ve 0600/0400 kipinde olmalıdır; Save 0600 oluşturur. Yeniden bağlantı veya kaydetme için gereken değerler oturum yapılandırmasında kalır.
+
+Düz metin/çözülmüş parolalar denetim baytı içermeyen, isteğe bağlı LF/CRLF ile biten tek ve boş olmayan satırdır: SASL en fazla 1024 bayt, olağan PASS 503 bayt. Her iki dosya türü kullanıcıya ait normal dosya ve 0600/0400 kipinde olmalı; yolunda sembolik bağlantı veya '..' bileşeni bulunmamalıdır. Parola CLI seçeneği olarak kabul edilmez. Bouncer kimlikleri ve kaynak kısıtları için BOUNCER CONNECTIONS bölümüne bakın.
+
+Şifreli dosyalar, bütünlüğü korunan tek bir OpenPGP mesajı içerir ve en çok 65536 bayttır. PATH içindeki isteğe bağlı gpg sabit seçenekleri desteklemelidir (GnuPG 2.2.20 veya yenisi). Doğrulanmış TLS sonrasında kabuk kullanmadan, sınırlı çıktı ve beş saniye süreyle doğrudan çalıştırılır. Düz metin geçici dosyası oluşturulmaz; uygulama içinde anahtar parolası sorulmaz; diğer oturumlar sürer. Başarısız, kilitli, geçersiz, fazla büyük veya zaman aşımına uğramış kimlik bilgisi doğrulamayı durdurur.
+
+Yardımcı program --no-options, --batch, --no-tty, --pinentry-mode error ve --no-autostart kullanır; anahtar getirme/içe aktarma ve dirmngr devre dışıdır. Hazırlama/kilit açma işlemini vipirc dışında yapın:
+
+    gpg --output /dev/null --decrypt /absolute/password.gpg
+
+Ardından /connect komutunu yeniden deneyin. Komut parola değil yol içerir. Mevcut aracı etkileşimsiz şifre çözebilmelidir; SSH makinesi/oturumu farklı dosyalara, PATH'e, GnuPG ev dizinine ve aracı önbelleğine sahip olabilir.
+
+--check-config gizli dosyaları veya GPG'yi açmadan kaynak seçimi ve yapılandırmanın gizliliğini doğrular. --test-mode kimlik bilgilerini hiçbir zaman okumaz veya çözmez; satır içi değerleri ayrıştırır ama kullanmaz. Bunlar gerçek kimlik bilgisinin çalıştığını kanıtlamaz.
+
+Zorunlu SASL PLAIN yalnızca TLS doğrulaması ve sunucu desteğinden sonra gönderilir. Başarısızlık, kimlik doğrulaması olmadan devam etmek yerine doğrudan otomatik kanala katılmadan önce bağlantıyı keser. İstemci ağ hesabı kaydetmez. Nickname hizmeti sözdizimi ağa özgüdür; doğrudan otomatik hesap doğrulaması SASL kullanır. Sunucu PASS, nickname hesabından ayrıdır; bouncer üst ağ doğrulaması orada ayrıca yapılandırılır.

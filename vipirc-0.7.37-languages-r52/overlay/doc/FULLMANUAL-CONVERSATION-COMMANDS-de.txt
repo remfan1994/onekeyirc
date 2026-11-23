@@ -1,0 +1,47 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / CONVERSATION COMMANDS
+English source SHA-256: afbb4f4772f74759ce06e6394d72bc10a6895c4731b886ced43996217fc5945d
+Source lines: 1102-1176
+
+UNTERHALTUNGSBEFEHLE
+
+/join CHANNEL [KEY] fordert den Beitritt zu einem Kanal an, optional mit Schlüssel. /part [CHANNEL] [MESSAGE] verlässt ihn mit PART-Grund; /close [NAME|NUMBER] schließt Kanal- oder Privatansicht, NUMBER ist eine Kanalnummer. /pm NICK|NUMBER öffnet/wechselt Privatansicht ohne Nachricht. /msg TARGET TEXT sendet an Nick/Kanal, /me TEXT eine IRC-Aktion in die aktuelle Unterhaltung. /nick NICK fordert neuen Nick, /away [MESSAGE] setzt Abwesenheit, /back hebt sie auf, /whois NICK fragt Nickinformationen ab. /topic allein fragt das Kanalthema ab; /topic TEXT verlangt ein neues. /connect und /disconnect steuern Verbindungen; /dcc oder /transfers öffnen die gemeinsame Dateiübertragung. /cancel stoppt wartende Chatnachrichten; /background lässt den Prozess laufen und kehrt zur Shell zurück; /quit [MESSAGE] beendet alle Server. /settings, /save, /saveconf und /set autoconnect on/off steuern Voreinstellungen, Speicherung und Start.
+
+/away MESSAGE sendet eine einzelne standardmäßige AWAY-Nachricht. Die Textgrenze ist die aktuelle Drahtgrenze minus 8 Bytes, normalerweise 504 Bytes bei 512 Bytes Gesamtgrenze. Zu langer Text und Steuerzeichen werden abgewiesen, niemals aufgeteilt. /away ohne Text und /back heben Abwesenheit auf. Registrierung ist erforderlich. Die Anzeige ändert sich nur nach Serverbestätigung und wird bei Trennung/Wiederverbindung zurückgesetzt. Away in der Serverliste sendet das Wort Away als Nachricht oder entfernt bestätigte Abwesenheit unter Erhalt von Ansicht/Entwurf. Ein getrennter Server muss sich erst verbinden. Ignorierte Absender unter Ignore in Settings oder mit den lokalen Befehlen /ignore und /unignore bearbeiten.
+
+/join akzeptiert genau einen Kanal und höchstens ein KEY-Token. Der Schlüssel muss druckbares ASCII ohne Leerzeichen, Doppelpunkt oder Komma sein; der gesamte JOIN muss innerhalb des Drahtlimits bleiben. Der Schlüssel wird weder protokolliert noch gespeichert; nur der Kanalname gelangt in autojoin. Bei Wiederverbindung/Neustart nötigenfalls erneut eingeben. Der Offline-Simulator bestätigt Away-Änderungen und vorübergehende Join-Schlüssel, testet aber keinen echten Kanalschlüssel oder dessen Zulassungsregeln.
+
+Berechtigungen, Nickverfügbarkeit, Kanalzugang und Themenänderungen entscheidet der Server. Lokale Befehlsannahme beweist weder Serverannahme noch Zustellung an andere Nutzer. Chatzeilen warten kurz und werden in mindestens 1.2 Sekunden Abstand gesendet. /cancel entfernt ungesendete Nachrichten des gewählten Servers aus allen Kanälen/Privatgesprächen, nicht Entwürfe oder bereits gesendete Texte; gerade übertragene Nachrichten können fertig werden. Bei direkten Profilen aktualisieren /join und /part die autojoin-Wahl; /save sichert sie für spätere Starts, sofern vorgemerkte Settings sie nicht überschreiben. Bouncer stellen Mitgliedschaften selbst wieder her. /part verwirft zudem wartende Texte dieses Kanals, behält aber Ansicht und Verlauf; eine laufende Übertragung kann noch vor PART enden. Text nach dem Kanal ist dessen PART-Grund; bei ausgelassenem Kanal ist er Grund für den ausgewählten Kanal. Ohne Grund gilt [presence] part_message; das Schließen eines beigetretenen Kanals benutzt denselben Standardgrund.
+
+/quit MESSAGE nutzt den Text nach Möglichkeit als IRC-QUIT-Grund auf laufenden Servern. Ohne Text wird [presence] quit_message verwendet; ist diese Vorgabe leer, wird bloß QUIT gesendet. Das Beenden hat Zeitgrenzen und wartet nicht unbegrenzt auf ein ausgefallenes Netz.
+
+Automatische Abwesenheit ist von manuellem /away getrennt. Ist background_away aktiv, plant erfolgreiches Background oder erkannter Terminalverlust das konfigurierte AWAY erst nach Trennung des Terminals ein. Resume hebt nur den automatisch gesetzten Zustand auf. autoaway_minutes macht dasselbe nach Inaktivität lokaler Eingaben; 0 deaktiviert den Zeitgeber. Bouncer-Profile unterdrücken automatische Änderungen, außer [bouncer] automatic_away=true ist aktiv. Manuelles /away bleibt bis /back oder /away ohne Text bestehen. Eingehender IRC-Verkehr gilt nie als lokale Benutzeraktivität.
+
+EXACT IRC COMMAND SYNTAX (not translated):
+
+    /join CHANNEL [KEY]
+    /part [CHANNEL] [MESSAGE]
+    /close [NAME|NUMBER]
+    /pm NICK|NUMBER
+    /msg TARGET TEXT
+    /me TEXT
+    /nick NICK
+    /away [MESSAGE]
+    /back
+    /whois NICK
+    /topic
+    /topic TEXT
+    /connect [HOST [PORT]]
+    /disconnect [NUMBER]
+    /dcc
+    /transfers
+    /cancel
+    /background
+    /quit [MESSAGE]
+    /settings
+    /save [input|output|all]
+    /saveconf
+    /set autoconnect on
+    /set autoconnect off
+    /ignore
+    /unignore

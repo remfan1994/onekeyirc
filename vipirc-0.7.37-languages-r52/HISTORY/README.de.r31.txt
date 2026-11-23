@@ -1,0 +1,23 @@
+Use signals steht standardmäßig auf no. Ctrl-C und Ctrl-Z brechen eine ungesendete Nachricht oder einen Befehl ab, statt das Programm zu beenden oder anzuhalten. Wählen Sie yes in Panel 0 oder den Interface-Einstellungen von vipirc, um Terminalsignale zuzulassen. Apply wirkt sofort; Save speichert zusätzlich [input] use_signals=true|false. Beim Beenden oder Anhalten werden die ursprünglichen Terminaleinstellungen wiederhergestellt.
+
+vipirc 0.7.37: optional language + Arabic RTL patch r31
+English source: vipirc-0.7.37-english-source-r1.tar.gz
+Patch archive: vipirc-0.7.37-languages-r31.tar.gz
+
+    tar -xzf vipirc-0.7.37-english-source-r1.tar.gz
+    tar -xzf vipirc-0.7.37-languages-r31.tar.gz
+    sh vipirc-0.7.37-languages-r31/apply.sh vipirc-0.7.37
+    cd vipirc-0.7.37 && ./configure && make
+    ./vipirc --version
+
+Expected: vipirc 0.7.37 [lang-rtl-r31]
+Language: VIPIRC_LANG=de
+See doc/USE-SIGNALS-de.txt and README.txt.
+Do not apply over r27 or older application versions.
+
+Sieben von zwölf/dreizehn Sicherheitsabschnitten liegen nun als Übersetzungsentwurf vor. Maßgeblich bleibt das englische Original; die Prüfung durch muttersprachliche Fachleute steht aus.
+See doc/SECURITY-FULL-de.txt and doc/SECURITY-COVERAGE-r31.tsv.
+
+Security documentation r31: full section coverage as unreviewed drafts.
+See doc/SECURITY-FULL-XX.txt (XX = locale), and use original English SECURITY.md as authority.
+ÜBERSETZUNGSENTWURF. Eine fachkundige muttersprachliche Sicherheitsprüfung steht noch aus. Das englische SECURITY.md bleibt maßgeblich.

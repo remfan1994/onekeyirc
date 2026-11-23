@@ -1,0 +1,12 @@
+Offline checks and evidence
+Source: SECURITY.md, section "Offline checks and evidence"
+English section SHA-256: 9c67268cfad3c6bc3c5553f23c932c342c3f11231b325d758eeade66d790b4bd
+Paragraphs: 3
+Status: Translation draft; fluent-speaker security review required
+English SECURITY.md remains authoritative. This is one source-linked section, not a security certification.
+
+--help, --version et --manual ne chargent ni configuration ni identifiants. --check-config valide la syntaxe du fichier de configuration et du catalogue, les valeurs et les protections des fichiers ; il ne teste ni l'accès ou le déchiffrement des mots de passe, ni DNS, TLS ou une véritable connexion. --test-mode charge les profils valides dans un simulateur interne sans réseau IRC/DCC, sans lecture d'identifiants/CA, sans GPG et sans sauvegarde de configuration. Les valeurs inline peuvent être analysées mais ne sont jamais transmises. Une demande explicite Background peut malgré tout créer une IPC de session locale. Réussir une simulation ne démontre pas la compatibilité avec un serveur réel.
+
+La revue de reprise effectuée à l'époque porte sur vipirc 0.7.34 / onekeyirc 0.1.33 dans doc/STABILITY-REVIEW-0.7.34-0.1.33.txt et doc/STABILITY-PASS-RESULTS.json. Elle consigne les défaillances reproduites, les corrections, les tests de pénurie de ressources, les essais sous charge limitée et les limites de plateforme. La revue de sécurité précédente figure dans doc/SECURITY-REVIEW-0.7.33-0.1.32.txt et doc/SECURITY-PASS-RESULTS.json. Les rapports antérieurs nommés ou datés conservent leurs versions sources, charges d'essai et limites de plateforme d'origine ; ils ne signifient pas que les essais ont été renouvelés.
+
+Les scénarios de protocole locaux ne prouvent pas le fonctionnement avec un véritable démon ZNC/soju ou un compte IRCNow. Le fonctionnement ncurses complet, le cycle de vie natif des sockets AF_UNIX nommés, OpenBSD/LibreSSL et l'hôte de déploiement doivent être testés sur leurs cibles. Un bref test de charge ne prouve pas la fiabilité pendant des mois sans surveillance. Indiquez la version, la plateforme, les étapes reproductibles et des diagnostics expurgés ; ne fournissez ni mots de passe, ni clés privées, ni transcriptions de discussions privées.

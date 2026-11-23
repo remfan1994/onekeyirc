@@ -1,0 +1,21 @@
+OPTIONAL vipirc LOCALIZATION/RTL PATCH r23 - MANUAL COVERAGE
+Original English application: vipirc 0.7.36 source r1, unchanged.
+Languages: id ms tr es pt fr de ru it ar.
+
+Complete source-linked full-manual chapter DRAFTS: 45/52.
+New in r23: SETTINGS (425 English source words) and FILES AND ENVIRONMENT (475 words), each in ten languages.
+Covered source chapter words: 10403/14364. This is document coverage, not fluent approval or total application localization.
+The full in-app ncurses manual still defaults to English; translations are installed companion files.
+No Arabic RTL/runtime/IRC changes beyond [lang-rtl-r23] version label.
+The 844-entry minimalist help catalogs are unchanged. Original English MANUAL.txt and SECURITY.md remain authoritative.
+
+Remaining 7 manual sections:
+  MINIMALIST INTERFACE (620 words)
+  COMMAND-LINE OPTIONS (599 words)
+  GLOBAL HEADER AND CHAT CONTROLS (416 words)
+  COMMAND PROMPT (480 words)
+  CONNECTION AND STARTUP COMMANDS (578 words)
+  CONVERSATION COMMANDS (665 words)
+  CONFIGURATION (603 words)
+
+Still outstanding: complete SECURITY.md translations, uncatalogued UI/CLI help, fluent technical review, full ncurses manual integration and native OpenBSD/Crostini tests.

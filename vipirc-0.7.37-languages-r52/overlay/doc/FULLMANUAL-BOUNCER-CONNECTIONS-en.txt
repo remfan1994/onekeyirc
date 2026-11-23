@@ -1,0 +1,60 @@
+VERBATIM ENGLISH SOURCE REFERENCE
+Source: MANUAL.txt / BOUNCER CONNECTIONS
+English source SHA-256: 5b02f5c7003e1c3af127c7d3a30794ecad42f14dc1a1397d6d4aa16179b89b63
+Source lines: 1692-1747
+
+BOUNCER CONNECTIONS
+
+Use Settings or /panel to choose ZNC/soju, then provider hostname/TLS port,
+bouncer username, existing upstream network and optional stable client name.
+Use one saved profile per network. Profiles sharing a host should be
+selected by server number before bare /connect.
+
+[bouncer] supports type=none|znc|soju, username, network, client and
+automatic_away. Username/network are required, client optional; each permits
+at most 63 ASCII letters/digits/dots/underscores/hyphens. Enter components
+separately and only the password in its password source.
+
+ZNC requires auth=none, empty auth_user, no SASL source and exactly one
+server-password source. It builds username/network or
+username@client/network, appending the password for PASS. Identity,
+separator and password must fit the 503-byte payload, reducing the usable
+password length. soju requires auth=sasl, empty auth_user, one
+authentication-password source and no PASS source. It derives
+username/network or username/network@client as its SASL identity. Both
+require verified TLS. Configure upstream network/NickServ authentication on
+the bouncer separately.
+
+Bouncers restore memberships; local autojoin is not replayed and /autojoin
+edits are refused. /join and /part change memberships. /autoauth changes are
+refused too: use Settings or /panel for coherent identity/source changes.
+Explicit startup commands still run, so review any inherited direct-profile
+commands before reuse. Automatic idle/background away is off unless
+automatic_away=true; manual /away and /back remain available.
+
+    /znc                   Ask ZNC for Help.
+    /znc ListNetworks      Send one ZNC control command.
+    /soju                  Ask soju for help.
+    /soju network status   Send one soju control command.
+
+The shortcut requires the matching bouncer type. Arguments are literal
+service text fitting one IRC message, using normal pacing. /msg *status or
+*module addresses ZNC; /msg BouncerServ addresses soju. Remote command
+availability is defined by that bouncer; start with its help.
+
+Control text is excluded from local echo, recall and persistent logs.
+Recognized outgoing service replay copies remain suppressed even with an old
+nickname. Replies appear in the server view without persistent logging.
+Typed editor text remains visible and remote logging is separate.
+
+Known pushed history retains original UTC timestamps and routes outgoing
+private messages to their recipients. Replay does not trigger CTCP/DCC,
+fresh mentions or live-state mutation. Storage is bounded; unknown batch
+kinds are conservatively display-only. No on-demand archive browser,
+automatic network discovery or automatic profile-per-network creation is
+implemented.
+
+TLS covers client-to-bouncer only; upstream TLS/auth/access/retention need
+separate setup. See doc/BOUNCERS.txt and examples/bouncer-znc.ini /
+examples/bouncer-soju.ini. Controlled fixture results do not prove every
+live provider/version.

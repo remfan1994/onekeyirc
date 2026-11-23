@@ -1,0 +1,200 @@
+INTERACTIVE HELP LOCALIZATION COVERAGE
+======================================
+
+Exact whole-line translations in command/topic help only.
+Does not measure translation quality, screen layout, source comments, or manuals.
+Command examples are excluded. Pure alias mappings remain literal.
+
+Help lines: 477
+With catalog keys: 477
+Without catalog keys: 0
+
+Per-locale entries that differ from source English:
+(Count is not a native-speaker quality rating.)
+  id: 474/477
+  ms: 474/477
+  tr: 474/477
+  es: 474/477
+  pt: 474/477
+  fr: 474/477
+  de: 474/477
+  ru: 474/477
+  it: 474/477
+  ar: 474/477
+
+Pure command-only alias mappings: 3
+Translatable table lines: 474
+Translated prose by locale:
+  id: 474/474
+  ms: 474/474
+  tr: 474/474
+  es: 474/474
+  pt: 474/474
+  fr: 474/474
+  de: 474/474
+  ru: 474/474
+  it: 474/474
+  ar: 474/474
+
+Scope: only the static Command.detail and Topic.text tables in idle_commands.c.
+Client-specific generated additions, help elsewhere, diagnostics, CLI --manual
+exports, full ncurses MANUAL.txt and SECURITY.md are outside this count.
+
+command /autoauth: 8/8 catalog lines
+
+command /autocommands: 10/10 catalog lines
+
+command /autoconnect: 3/3 catalog lines
+
+command /autojoin: 6/6 catalog lines
+
+command /away: 1/1 catalog lines
+
+command /back: 1/1 catalog lines
+
+command /background: 13/13 catalog lines
+
+command /bind: 6/6 catalog lines
+
+command /bindings: 7/7 catalog lines
+
+command /cancel: 3/3 catalog lines
+
+command /catchup: 5/5 catalog lines
+
+command /channel: 2/2 catalog lines
+
+command /channels: 2/2 catalog lines
+
+command /cl: 2/2 catalog lines
+
+command /clear: 3/3 catalog lines
+
+command /close: 2/2 catalog lines
+
+command /connect: 11/11 catalog lines
+
+command /dcc: 10/10 catalog lines
+
+command /disconnect: 2/2 catalog lines
+
+command /help: 3/3 catalog lines
+
+command /ignore: 3/3 catalog lines
+
+command /join: 3/3 catalog lines
+
+command /list: 7/7 catalog lines
+
+command /ls: 2/2 catalog lines
+
+command /manual: 1/1 catalog lines
+
+command /me: 2/2 catalog lines
+
+command /mentions: 4/4 catalog lines
+
+command /msg: 2/2 catalog lines
+
+command /next: 1/1 catalog lines
+
+command /nick: 2/2 catalog lines
+
+command /panel: 22/22 catalog lines
+
+command /part: 3/3 catalog lines
+
+command /pm: 2/2 catalog lines
+
+command /prev: 1/1 catalog lines
+
+command /ql: 2/2 catalog lines
+
+command /queries: 1/1 catalog lines
+
+command /query: 3/3 catalog lines
+
+command /quickstart: 8/8 catalog lines
+
+command /quit: 2/2 catalog lines
+
+command /save: 4/4 catalog lines
+
+command /saveconf: 7/7 catalog lines
+
+command /server: 7/7 catalog lines
+
+command /servers: 2/2 catalog lines
+
+command /set: 18/18 catalog lines
+
+command /settings: 3/3 catalog lines
+
+command /sl: 2/2 catalog lines
+
+command /soju: 4/4 catalog lines
+
+command /summary: 7/7 catalog lines
+
+command /topic: 2/2 catalog lines
+
+command /transfers: 1/1 catalog lines
+
+command /unbind: 2/2 catalog lines
+
+command /unignore: 1/1 catalog lines
+
+command /unread: 2/2 catalog lines
+
+command /users: 4/4 catalog lines
+
+command /view: 2/2 catalog lines
+
+command /views: 1/1 catalog lines
+
+command /watch: 2/2 catalog lines
+
+command /whois: 1/1 catalog lines
+
+command /znc: 4/4 catalog lines
+
+topic /about: 6/6 catalog lines
+
+topic /aliases: 8/8 catalog lines
+  SOURCE-EQUAL [id,ms,tr,es,pt,fr,de,ru,it,ar]: /conn = /connect; /disc = /disconnect; /detach = /background; /exit = /quit
+  SOURCE-EQUAL [id,ms,tr,es,pt,fr,de,ru,it,ar]: /channellist = /cl; /querylist = /ql; /serverlist = /servers
+  SOURCE-EQUAL [id,ms,tr,es,pt,fr,de,ru,it,ar]: /autocommand = /autocommands
+
+topic /authentication: 12/12 catalog lines
+
+topic /bouncers: 13/13 catalog lines
+
+topic /configuration: 27/27 catalog lines
+
+topic /deployment: 13/13 catalog lines
+
+topic /documentation: 6/6 catalog lines
+
+topic /history: 17/17 catalog lines
+
+topic /hotkeys: 12/12 catalog lines
+
+topic /keys: 30/30 catalog lines
+
+topic /limits: 6/6 catalog lines
+
+topic /logging: 8/8 catalog lines
+
+topic /messages: 6/6 catalog lines
+
+topic /reconnect: 11/11 catalog lines
+
+topic /security: 9/9 catalog lines
+
+topic /sessions: 11/11 catalog lines
+
+topic /startup: 16/16 catalog lines
+
+topic /tls: 9/9 catalog lines
+
+topic /troubleshooting: 10/10 catalog lines

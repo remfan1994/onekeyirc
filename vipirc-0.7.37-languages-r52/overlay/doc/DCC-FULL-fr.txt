@@ -1,0 +1,35 @@
+vipirc 0.7.36 - optional r18 translation draft (fr)
+Source: MANUAL.txt / FILE TRANSFERS
+English source SHA-256: c3342db1ecfe58933be47c90ee8d60304d29f68f09303a30c005f3061126d611
+Fluent review pending; use English MANUAL.txt for authoritative safety details.
+
+TRANSFERTS DE FICHIERS
+
+F6, /dcc ou /transfers ouvre la liste des transferts de tout l'espace de travail en indiquant leur serveur d'origine. Les commandes habituelles des listes s'appliquent. Actions proposées :
+
+    Accept    Reject    Send...    Cancel transfer    Back
+
+La validation nécessite un terminal d'au moins 12 lignes et 20 colonnes. Escape depuis le navigateur de fichiers ou un champ revient au formulaire ; depuis le formulaire ou la liste, il revient à la conversation, sans perdre les brouillons ni les transferts acceptés. Seul le DCC SEND IPv4 classique et actif est pris en charge : ni CHAT, ni reprise, ni transfert passif ou inversé, ni acceptation automatique, ni découverte d'adresse, ni redirection de port. La taille maximale d'un fichier est de 4,294,967,295 octets. Les fichiers reçus ne sont jamais ouverts ou exécutés automatiquement.
+
+DCC établit une connexion directe non chiffrée, indépendante du TLS d'IRC, sans authentification cryptographique du correspondant. Une offre révèle l'IPv4 annoncée ; son acceptation révèle l'adresse IP du destinataire à son correspondant. Vérifiez l'expéditeur, le point de connexion, le fichier attendu et sa taille en octets avant d'accepter chaque offre.
+
+Une offre entrante n'ouvre aucun fichier ni socket avant une acceptation explicite. Accept dans la liste affiche un formulaire de vérification comprenant Directory/Save as et Edit/Accept/Cancel. Enter dans un champ ne fait que préparer la valeur ; seul Accept du formulaire démarre le transfert. Un collage n'insère des données que dans un éditeur actif et ne peut pas accepter une offre. Reject ne crée aucun fichier.
+
+En mode complet, le répertoire de réception proposé est $XDG_DATA_HOME/vipirc/downloads si ce chemin est absolu, sinon $HOME/.local/share/vipirc/downloads si HOME est absolu. Dans les autres cas, indiquez un chemin explicite. Les répertoires parents manquants sont créés avec les droits 0700 seulement lors d'Accept. Le dernier répertoire parent doit appartenir à l'utilisateur et rester privé ; le nouveau fichier reçoit les droits 0600. Les fichiers existants, liens symboliques et '..' sont refusés. Le nom de base doit être visible, non masqué, sans séparateur de chemin, caractère de contrôle ou de formatage bidirectionnel, ni guillemets. Les noms de fichiers entre guillemets sur le protocole peuvent contenir des espaces. Un fichier partiel après échec ou annulation n'est supprimé que s'il s'agit toujours du fichier créé à l'origine, jamais d'un fichier substitué.
+
+Send... ouvre les champs Nickname, Source file, Advertised IPv4 et Listen port ainsi que Edit/Browse, Offer, Cancel. Une conversation privée fournit le correspondant par défaut ; le formulaire indique le serveur IRC. Seul Offer ouvre un socket d'écoute et place une offre à débit régulé dans la file du serveur enregistré. La source doit être un fichier ordinaire existant, sans lien symbolique ni '..'. Le port 0 choisit un port disponible ; les ports précisés doivent être compris entre 1..65535. Le NAT peut exiger une IPv4 annoncée accessible et une redirection de port ; aucun service UPnP ou de découverte d'adresse publique n'est appelé.
+
+Browse démarre dans le répertoire de lancement : les flèches sélectionnent, Enter ouvre un répertoire ou choisit un fichier, parent/Backspace remonte, Type path accepte un chemin de fichier absolu et Escape annule sans modifier la source. La sélection remplit le formulaire sans envoyer d'offre ni changer le cwd du processus. Chaque tour examine au plus 64 entrées ; la liste en conserve 512 et s'arrête après 4096 entrées examinées. Utilisez Type path pour les entrées absentes. Les liens symboliques et noms dangereux sont exclus ; les métadonnées sont vérifiées à nouveau lors de la sélection et de l'offre.
+
+    /dcc alice file.txt
+    /dcc send -address 203.0.113.10 -port 5000 alice file with spaces.txt
+    /dcc list
+    /dcc accept 1 /home/me/private-downloads
+    /dcc reject 2
+    /dcc cancel 3
+
+Remplacez l'IP de l'exemple par une adresse accessible. Dans la commande, PATH est tout le reste du texte, espaces compris, sans guillemets de shell. Les chemins relatifs partent du cwd initial, même après passage en arrière-plan ou navigation dans les fichiers. L'IP annoncée par défaut est l'IPv4 locale du socket IRC ; une connexion IRC exclusivement IPv6 nécessite une IPv4 explicite et le NAT peut également l'imposer. La commande accept sans DIRECTORY utilise le cwd initial et les mêmes vérifications de répertoire privé. /dcc sans argument affiche une liste en mode minimaliste. Les deux interfaces partagent le gestionnaire, les limites et l'annulation.
+
+Avec SSH, tous les chemins, adresses et connexions concernent l'hôte qui exécute vipirc, pas l'ordinateur local du terminal. Les transferts acceptés continuent lors des changements de conversation ou de vue et après IRC Disconnect. Fermer le serveur d'origine annule ses transferts ; quitter le programme arrête tout. Un échec, une annulation ou une expiration retire une offre encore en file, sans pouvoir rappeler une offre déjà envoyée ou en cours d'envoi.
+
+Les limites de l'espace de travail sont de 8 offres en attente, 4 transferts actifs/en écoute/en connexion et 12 enregistrements conservés. Seulement à saturation, les plus anciens enregistrements terminés ou échoués sont recyclés d'abord ; les ID ne sont pas réutilisés pendant une exécution. Les offres expirent après 5 minutes ; les transferts s'arrêtent après 2 minutes sans progression. Le flux utilise des tampons bornés et des accusés de réception cumulatifs sur 32 bits. Le mode test permet de vérifier/refuser/annuler un exemple en mémoire ; Send/Accept est refusé avant toute opération sur fichier ou socket.

@@ -1,0 +1,33 @@
+vipirc 0.7.36 - optional r18 translation draft (pt)
+Source: MANUAL.txt / INPUT EDITING through MOUSE CONTROLS
+English source SHA-256: efd7a5a2ee94dcc2a9923884399743cf9696f83790f9e79d1861b211d0a9453c
+Fluent review pending; original English manual is authoritative.
+
+EDIÇÃO DA ENTRADA
+
+    Enter                 Enviar ou rever a composição.
+    Left/Right            Grupo de caracteres anterior/seguinte.
+    Up/Down               Mover entre linhas ajustadas, não recuperar mensagens do chat.
+    Home/End              Início/fim de toda a composição.
+    Backspace/Delete      Apagar grupo de caracteres anterior/atual.
+    Tab/Shift-Tab         Completar alcunha seguinte/anterior.
+    Escape                Abrir Queries numa conversa privada, senão vipirc.
+    /clearinput           Limpar o rascunho inteiro, incluindo texto fora do ecrã.
+
+F1..F6 abre os painéis disponíveis. As letras digitadas no chat, incluindo hjkl, são texto literal. Enter premido envia; as mudanças de linha explícitas entram por bracketed paste e os tabuladores colados tornam-se espaços. Escrever / com o cursor na posição zero abre um campo Command separado, preservando o rascunho; barras seguintes ou coladas permanecem texto.
+
+O rascunho é um único buffer lógico: a quebra visual de linha não acrescenta caracteres, Backspace atravessa linhas apresentadas e a mudança de tamanho preserva texto e cursor. O campo fixo reserva floor(B/W)+1 linhas para o orçamento de carga B e colunas utilizáveis W, limitado pelo espaço do terminal. Digitar ou apagar não altera o tamanho; rascunhos longos deslocam-se dentro dele. Alterações de vista, orçamento do protocolo ou tamanho do terminal recalculam a altura. Command tem o seu próprio campo; /msg ou /me não substitui o rascunho da conversa.
+
+Um Escape isolado aguarda cerca de 500 ms; uma sequência parcial permite 1000 ms entre bytes de continuação enquanto a rede continua a funcionar. Teclas totalmente descodificadas atuam imediatamente. Um marcador inicial de colagem que chegue após a tolerância do primeiro Escape pode ser interpretado como Escape; no registo minimalista pode colocar o cliente em segundo plano. Depois de começar a captura, os marcadores de fecho são reconhecidos mesmo entre leituras divididas muito atrasadas. As teclas finais não podem cancelar o rascunho nem mudar de modo antes do limite visível de revisão ou entrada tranquila.
+
+A entrada precisa de UTF-8 válido ou de modo locale ASCII escolhido explicitamente; consulte FILES AND ENVIRONMENT. Um carácter-base e marcas subsequentes de largura zero movem-se/apagam-se juntos; a segmentação Unicode completa de grafemas não está implementada. Glifos não suportados recebem um substituto visível. Os limites do rascunho são 8192 valores escalares Unicode ou 16384 bytes UTF-8, consoante o que for atingido primeiro. Codificação e controlos inválidos são rejeitados. Mudanças de linha coladas continuam visíveis e afetam o plano de envio; o orçamento IRC menor determina avisos e divisão.
+
+CONTROLOS DO RATO
+
+O rato está ativo por omissão se curses, TERM e o terminal o suportarem. /mouse alterna o estado, /mouse on|off define-o, e Settings > Interface edita/guarda a preferência mouse em [interface] da configuração principal. Tudo funciona também por teclado; o terminal ou multiplexador SSH tem de encaminhar eventos do rato.
+
+Clique numa categoria do cabeçalho para a abrir, na conversa para posicionar o cursor, em Clear para apagar o rascunho inteiro ou em Send para enviar após as verificações habituais. Clear/Send desaparecem quando indisponíveis. Alcunhas na conversa/lista de utilizadores oferecem Whois/Query; clicar em #channel seleciona ou entra no canal. A identidade do elemento mostrado no momento do clique, e não um substituto que apareça depois nas mesmas coordenadas, determina a ação. URLs e conteúdo da área de transferência não são abertos.
+
+Cliques nas linhas abrem servidores/canais/conversas privadas; cliques nas ações aplicam-se à seleção. A roda muda a seleção sem mudar a ação. Sobre o histórico/lista de utilizadores desloca três linhas visuais ou utilizadores. Settings e transfers mantêm os seus controlos de campos/ações. A conversa requer pelo menos 9 linhas e 20 colunas; cabeçalhos estreitos conservam o foco visível.
+
+O rato não confirma avisos antecipados de comprimento ou de envio dividido; use as opções do teclado. Command Run/Cancel exige uma nova ação após colar. Sequências de clique ou mudanças de linha coladas não o ativam, e cliques de um esquema antigo não são reutilizados num ecrã acabado de abrir.

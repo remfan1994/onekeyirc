@@ -1,0 +1,19 @@
+CURRENT SIGNAL POLICY (vipirc-0.7.37):
+Use signals è impostato su no per impostazione predefinita. Ctrl-C e Ctrl-Z annullano un messaggio o comando non inviato, senza terminare o sospendere il programma. Scegliere yes nel pannello 0 o nelle impostazioni Interface di vipirc per abilitare i segnali del terminale. Apply ha effetto immediato; Save memorizza anche [input] use_signals=true|false. All'uscita o alla sospensione vengono ripristinate le impostazioni originali del terminale.
+
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / TERMINAL SIGNALS
+English source SHA-256: b88ff166737c03f4e8588e56bcb3bfd585a2d4ef6379caaf086b815dbbd935b6
+
+SEGNALI DEL TERMINALE
+
+Ctrl-D letterale viene ignorato salvo assegnazione esplicita nell'input principale di chat/comandi; può anche annullare la domanda di uscita di F1. Ctrl-D incollato non può rispondere a tale domanda. Per uscire normalmente, usare /quit in Command. Le assegnazioni personalizzate dei segnali del terminale hanno precedenza sulla normale gestione dei tasti.
+
+La gestione dei segnali viene ereditata per impostazione predefinita. Il client non assegna Ctrl-C né Ctrl-Z: funzionano solo se il terminale li associa a segnali e abilita la relativa gestione. I tasti personalizzati per interruzione, uscita e sospensione vengono conservati. Per abilitare esplicitamente i segnali, impostare questa preferenza nella configurazione principale e avviare un nuovo processo:
+
+    [input]
+    use_signals=true
+
+Il valore predefinito false preserva lo stato di abilitazione ereditato. Questa opzione non modifica le assegnazioni dei tasti del terminale. Il client ripristina le impostazioni originali del terminale quando viene sospeso o termina.
+
+Quando abilitati, i segnali di interruzione terminano senza salvare le bozze. Sospendere un normale processo in primo piano interrompe la rete e può provocare un timeout; fg lo riprende. In una sessione gestita/ripresa si sospende il controller in primo piano, mentre il processo di lavoro mantiene la rete; vedere RUNNING IN THE BACKGROUND.

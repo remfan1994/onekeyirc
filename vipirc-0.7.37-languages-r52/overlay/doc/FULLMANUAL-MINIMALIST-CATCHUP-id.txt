@@ -1,0 +1,21 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / MINIMALIST CATCH-UP AFTER RESUME
+English source SHA-256: a802f38661e54d486d4b92dd129ff267d6717b1e6a7568f0cfac1d7f72000e65
+Source lines: 242-280
+
+MENGEJAR RIWAYAT SETELAH MELANJUTKAN SESI DALAM MODE MINIMALIS
+
+Dalam vipirc -i, /catchup membuka kanal atau percakapan pribadi yang dipilih pada baris IRC pertama dari pesan terakhir yang Anda susun dan kirim secara lokal. Penanda terpisah disimpan untuk setiap server dan kanal atau percakapan; tampilan status server dan tampilan penyebutan tidak memiliki penanda. Setelah melanjutkan sesi, pilih tiap percakapan dan jalankan /catchup secara terpisah.
+
+Pembaca terlebih dahulu mencoba log privat yang memenuhi syarat. Pencatatan persisten harus sudah aktif saat pesan penanda dikirim, tetap berjalan dengan baik, dan masih memuat rekaman penanda yang persis sama dalam berkas yang sama. Aktifkan dengan sengaja sebelum Anda meninggalkan sesi:
+
+    /set persistent_logging on
+    /save output
+
+Pembaca disk mengambil cuplikan dari ujung log saat ini; semua pesan selama Anda tidak hadir tidak dimuat ke memori obrolan permanen. Up/Down bergerak per baris tampilan, PageUp/PageDown per halaman, Home kembali ke penanda pesan terkirim, End menuju halaman terbaru pada cuplikan, dan Escape kembali ke obrolan langsung. Lalu lintas jaringan baru tetap diterima tanpa menggeser cuplikan tersebut.
+
+Jika penanda pada disk tidak tersedia tetapi pesan terkirimnya masih tersimpan dalam memori, /catchup membuka riwayat biasa yang masih tersimpan mulai dari penanda itu. Dalam mode cadangan ini, Home menuju halaman tersimpan paling lama, End atau Escape kembali ke obrolan langsung, dan Anda dapat membaca pesan tersimpan yang lebih lama. Ini adalah pembaca memori biasa dengan batas penghapusan riwayat yang sama, bukan arsip disk yang dipulihkan.
+
+Log yang telah dirotasi atau diganti, atau rekaman penanda yang berubah, tidak dapat dipakai sebagai penanda disk asli. Pemeriksaan rekaman mendeteksi perubahan tak disengaja, tetapi tidak mengautentikasi data terhadap proses lain yang berjalan sebagai akun yang sama. Lalu lintas autentikasi sensitif tidak digunakan sebagai penanda tahan lama. Jika tidak ada penanda yang memenuhi syarat di disk maupun memori, /catchup menjelaskan bahwa riwayat tidak tersedia, bukan mengklaim pemulihan lengkap.
+
+Penanda dimiliki oleh proses pekerja yang masih berjalan. Melepas lalu melanjutkan sesi mempertahankannya; proses baru tidak merekonstruksi penanda atau otomatis memuat ulang transkrip lama. /catchup yang membaca disk hanya ada pada antarmuka minimalis. Antarmuka ncurses lengkap memakai riwayat memori terbatas melalui PageUp/PageDown.

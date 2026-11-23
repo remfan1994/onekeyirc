@@ -1,0 +1,105 @@
+vipirc / onekeyirc - navigation help (ms)
+==========================================
+
+IRC commands and uppercase arguments are entered literally.
+For full English security and protocol details see MANUAL.txt.
+
+/channel
+--------
+Nombor disenaraikan oleh /channels. Pilihan ini menukar perbualan yang dipaparkan dan sasaran teks biasa seterusnya.
+Ini tidak menyertai saluran. Saluran yang telah ditinggalkan mesti disertai semula sebelum menghantar.
+
+/channels
+---------
+Saluran 0 sentiasa memaparkan mesej pelayan/MOTD. Perbualan peribadi mempunyai senarai /ql sendiri.
+Baris menunjukkan status sertai/tinggal dan bilangan belum dibaca/sebutan.
+
+/cl
+---
+Menyenaraikan paparan saluran pelayan ini, termasuk saluran 0 untuk mesej pelayan serta status sertai/tinggal.
+Gunakan /channel NUMBER atau /channel #NAME untuk memilih satu. Perbualan peribadi mempunyai senarai /ql sendiri.
+
+/close
+------
+Tanpa argumen, tutup perbualan semasa. Saluran ditinggalkan sebelum paparannya dibuang.
+Paparan pelayan dan sebutan kekal tidak boleh ditutup. Nombor saluran terdapat dalam /channels.
+
+/disconnect
+-----------
+Tanpa nombor, putuskan sambungan pelayan yang dipilih. Sejarah dan konfigurasi kekal tersedia.
+Ini tidak mengubah tetapan sambung automatik pada permulaan seterusnya.
+
+/help
+-----
+Gunakan /help ls untuk indeks topik, /help commands untuk arahan dan senarainya, atau /help autoconnect untuk satu arahan.
+Minta satu topik atau nama arahan tanpa argumen. /help /ls menerangkan senarai setempat; /help ls menyenaraikan topik. Garis miring awal tidak wajib.
+/help all membuka manual penuh dalam pembaca bantuan berasingan.
+
+/me
+---
+Memerlukan saluran yang telah disertai atau perbualan peribadi dan sambungan berdaftar. Had mesej dan peraturan penghantaran terpakai.
+Antara muka menyemak mesej yang dipecahkan sebelum meletakkannya dalam giliran.
+
+/mentions
+---------
+Memilih paparan sebutan pelayan ini. Ia menyimpan baris sumber terkini yang terhad serta cap masa asal.
+/mentions clear membuang salinan sebutan tersimpan daripada semua pelayan semasa tanpa menukar paparan.
+Sejarah perbualan asal, bilangan belum dibaca dan kerja tertunda dikekalkan.
+Gunakan /watch untuk teks tambahan; /channel atau /pm kembali ke perbualan yang boleh menerima mesej.
+
+/msg
+----
+Memerlukan pendaftaran. Arahan ini menyediakan rancangan penghantaran; mod terus/semak dan persetujuan pemecahan mesej tetap terpakai.
+Ia tidak mengubah sasaran penghantaran semasa secara senyap. Mesej perkhidmatan/kelayakan tidak masuk sejarah arahan.
+
+/next
+-----
+Berpusing antara paparan pelayan, sebutan, saluran dan perbualan peribadi; penimbal manual dalaman dilangkau.
+
+/nick
+-----
+Semasa tersambung, meminta perubahan yang disahkan pelayan. Semasa terputus, mengemas kini identiti sambungan seterusnya.
+Nama gelaran menggunakan sintaks IRC ASCII yang disokong dan terhad kepada 63 bait.
+
+/pm
+---
+Nama membuka atau memilih perbualan peribadi. Nombor memilih perbualan sedia ada daripada senarai /ql pelayan ini.
+Membuka perbualan tidak menghubungi nama panggilan sehingga mesej dihantar. Nombor boleh berubah selepas menutup perbualan.
+
+/prev
+-----
+Songsangan /next. Tidak menyambung, menyertai atau menghantar.
+
+/ql
+---
+Nombor perbualan peribadi bermula pada 1 dan berasingan daripada nombor saluran. Gunakan /query NICK atau /query NUMBER.
+Gunakan /close NICK untuk menutup perbualan; jalankan /ql semula kerana nombor seterusnya mungkin berubah.
+
+/queries
+--------
+Menggunakan senarai perbualan peribadi yang sama seperti /ql. Nombor saluran kekal berasingan.
+
+/settings
+---------
+Memaparkan pilihan aplikasi berasingan daripada pilihan sambungan pelayan yang belum digunakan.
+Nilai pengesahan dilaporkan mengikut jenis sumber; kata laluan dan laluan kelayakan tidak pernah dicetak.
+Gunakan /autoconnect, /autojoin, /autoauth dan /set untuk mengubah tetapan masing-masing.
+
+/sl
+---
+Menggunakan senarai pelayan berkonfigurasi serta nombor slot tetap yang sama dengan /servers.
+Gunakan /server NUMBER untuk memilih pelayan.
+
+/unread
+-------
+Baris mengandungi nombor pelayan, nama perbualan, mesej belum dibaca dan bilangan sebutan.
+Gunakan /server NUMBER diikuti /channel atau /pm untuk memilih perbualan.
+
+/view
+-----
+Nombor saluran disenaraikan oleh /channels; nama perbualan peribadi oleh /ql. Nama pelayan dan sebutan juga diterima.
+Gunakan /help dan bukannya memilih penimbal manual dalaman.
+
+/views
+------
+Alias ini menggunakan nombor saluran; perbualan peribadi kekal dalam /ql.

@@ -1,0 +1,192 @@
+{
+  "L": {
+    "file": "MANUAL.txt",
+    "section": "MESSAGE LENGTH AND FLOOD PREVENTION",
+    "source_lines": [
+      1409,
+      1451
+    ],
+    "english_words": 310,
+    "english_sha256": "74197e1e6983ce301972c3ad55db5a844ff0ae8bde4ebc998ebfe85c8ddcae1c"
+  },
+  "H": {
+    "file": "MANUAL.txt",
+    "section": "HISTORY, LOGGING AND PRIVACY",
+    "source_lines": [
+      1556,
+      1600
+    ],
+    "english_words": 352,
+    "english_sha256": "b0c065ed46b6cbb73666075f1eee2d050a5a82160fac0ddadd98ad80d2910ee3"
+  },
+  "P": {
+    "file": "MANUAL.txt",
+    "section": "SAVED SERVER PROFILES",
+    "source_lines": [
+      1601,
+      1626
+    ],
+    "english_words": 216,
+    "english_sha256": "ff3b21055c0b13e827ba1c38f80fbe8db59163af5b82bb486626649d1f7a61f2"
+  },
+  "T": {
+    "file": "MANUAL.txt",
+    "section": "TLS AND CUSTOM TRUST",
+    "source_lines": [
+      1748,
+      1769
+    ],
+    "english_words": 163,
+    "english_sha256": "b1882bb7f49f2bb4bad68591a7b150c2f131435de0d93aefb2c35386db894309"
+  },
+  "S": {
+    "file": "MANUAL.txt",
+    "section": "SECURITY AND RESOURCE BOUNDS",
+    "source_lines": [
+      1770,
+      1823
+    ],
+    "english_words": 395,
+    "english_sha256": "0244a7b43c7e5e46a5b365e081fc7bc6654afe3069aea9e68c0e1d0f46c1277e"
+  },
+  "R20-EXAMPLES": {
+    "file": "MANUAL.txt",
+    "section": "READING EXAMPLES",
+    "source_lines": [
+      25,
+      33
+    ],
+    "english_words": 69,
+    "english_sha256": "751bca637a31922e4d65e1e3fca1c3fd8a51728488978ad1f89f250aeda8bfd1"
+  },
+  "R20-SESSION-REMINDER": {
+    "file": "MANUAL.txt",
+    "section": "LOCAL SESSION REMINDER",
+    "source_lines": [
+      71,
+      82
+    ],
+    "english_words": 68,
+    "english_sha256": "cdd436e5e3debdc1f4027e192ce4de8146e66849a9ee7d60213224fa628a70f8"
+  },
+  "R20-DEFAULT-INTERFACE": {
+    "file": "MANUAL.txt",
+    "section": "DEFAULT INTERFACE",
+    "source_lines": [
+      204,
+      228
+    ],
+    "english_words": 158,
+    "english_sha256": "9767b356dcf1c634d38900a5165f736d96e65c58251579e065cdfa4d44b92e3c"
+  },
+  "R20-WRAPPING-HISTORY": {
+    "file": "MANUAL.txt",
+    "section": "MINIMALIST WRAPPING AND INPUT HISTORY",
+    "source_lines": [
+      229,
+      241
+    ],
+    "english_words": 95,
+    "english_sha256": "530aeaefbd01d1eb2f184d0eabe5145550b9634fd9235a3f604b9f234b562160"
+  },
+  "R20-NICKNAME-COMPLETION": {
+    "file": "MANUAL.txt",
+    "section": "NICKNAME COMPLETION",
+    "source_lines": [
+      459,
+      478
+    ],
+    "english_words": 173,
+    "english_sha256": "89b368bbd759571d49afe8fccb96d986865af2f76dcd6d257f18cd768bda8e98"
+  },
+  "R20-TERMINAL-SIGNALS": {
+    "file": "MANUAL.txt",
+    "section": "TERMINAL SIGNALS",
+    "source_lines": [
+      816,
+      841
+    ],
+    "english_words": 178,
+    "english_sha256": "b88ff166737c03f4e8588e56bcb3bfd585a2d4ef6379caaf086b815dbbd935b6"
+  },
+  "R20-QUERY-LIST": {
+    "file": "MANUAL.txt",
+    "section": "QUERY LIST",
+    "source_lines": [
+      1065,
+      1082
+    ],
+    "english_words": 114,
+    "english_sha256": "50d842376967fbb5836870d2c2a91cdda08d55297314accffeb37b598776d8c1"
+  },
+  "R20-MENTIONS-WATCH": {
+    "file": "MANUAL.txt",
+    "section": "MENTIONS AND WATCH STRINGS",
+    "source_lines": [
+      1083,
+      1101
+    ],
+    "english_words": 126,
+    "english_sha256": "7dd545c1b52064bcd746c17c664bc33816010b1a1bc6f7dfda8f6df48830ba1c"
+  },
+  "R20-EXIT-STATUS": {
+    "file": "MANUAL.txt",
+    "section": "EXIT STATUS",
+    "source_lines": [
+      1963,
+      1974
+    ],
+    "english_words": 73,
+    "english_sha256": "a4feff37ea5665514327eb0e9d3930712772f4ff6cf26bdcefb48492f71f9923"
+  },
+  "R20-BUILD-LICENSE": {
+    "file": "MANUAL.txt",
+    "section": "PLATFORMS, BUILD, AND LICENSE",
+    "source_lines": [
+      1975,
+      2002
+    ],
+    "english_words": 176,
+    "english_sha256": "c28dd1d52c0de855974159eabffe9cce9c94a78d0c7d7ae46cd65e9226993b3a"
+  },
+  "R20-DOCUMENTATION-VALIDATION": {
+    "file": "MANUAL.txt",
+    "section": "DOCUMENTATION AND VALIDATION",
+    "source_lines": [
+      2003,
+      2022
+    ],
+    "english_words": 121,
+    "english_sha256": "473247fbc03339063a7a803330c7b183708cbfe0ce8c56840245322454f570cc"
+  },
+  "R20-PROTOCOL-REFERENCES": {
+    "file": "MANUAL.txt",
+    "section": "PROTOCOL REFERENCES",
+    "source_lines": [
+      2023,
+      2033
+    ],
+    "english_words": 26,
+    "english_sha256": "d815e38df73282c15f267638fcdcc75c2d475b7a874ab793c1c9d481bfe48d23"
+  },
+  "R20-AUTO-AUTH": {
+    "file": "MANUAL.txt",
+    "section": "AUTOMATIC CONNECTION, JOIN, AND AUTHENTICATION",
+    "source_lines": [
+      1627,
+      1691
+    ],
+    "english_words": 386,
+    "english_sha256": "f1eac619875693d1b8b4c03b26a6a90a7736048cf9d67e37619e675a887788b8"
+  },
+  "R20-GPG-CREATION": {
+    "file": "MANUAL.txt",
+    "section": "CREATING ENCRYPTED PASSWORD FILES",
+    "source_lines": [
+      1824,
+      1864
+    ],
+    "english_words": 353,
+    "english_sha256": "8789663b344ea37f6bbe6f02a975800063873dc8c0ca6af4bdc7e3771d83cd93"
+  }
+}

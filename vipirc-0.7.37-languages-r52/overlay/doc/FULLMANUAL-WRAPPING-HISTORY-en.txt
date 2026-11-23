@@ -1,0 +1,16 @@
+VERBATIM ENGLISH SOURCE REFERENCE
+Source: MANUAL.txt / MINIMALIST WRAPPING AND INPUT HISTORY
+English source SHA-256: 530aeaefbd01d1eb2f184d0eabe5145550b9634fd9235a3f604b9f234b562160
+
+MINIMALIST WRAPPING AND INPUT HISTORY
+
+Compose reserves input rows and leaves the newest wrapped visual rows above
+it; older rows can leave that smaller viewport. Stored text and send plans
+are not shortened. Leave input or reselect the conversation to inspect
+retained lines; a local echo is not a delivery receipt. Resize recalculates
+geometry while preserving draft/caret.
+
+Compose Up/Down edits the caret, even when held. Only Command Up recalls
+accepted commands; sent chat, sensitive service lines and keyed joins are
+not recalled. The .commands file contains names/counts only. See COMMAND
+PROMPT, INPUT EDITING and TROUBLESHOOTING.

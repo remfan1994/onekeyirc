@@ -1,0 +1,30 @@
+VERBATIM ENGLISH SOURCE REFERENCE
+Source: MANUAL.txt / LOCAL IGNORE FILTERS
+English source SHA-256: 5404c975ca8193797b0ed81b5a9611149cbaa34bff67676680655f01885e9693
+
+LOCAL IGNORE FILTERS
+
+/ignore or /ignore list       list masks in the server view
+    /ignore MASK                 add a mask; /ignore add MASK also works
+    /unignore MASK               remove it; /ignore remove MASK also works
+    /ignore clear                remove all masks
+
+These local commands work disconnected. Use /ignore add NICK for nicknames
+literally named list, add, remove, or clear. Up to 32 masks of 127 ASCII
+bytes each are accepted. A plain mask must be an exact valid nickname.
+Wildcards require full nick!user@host form with three nonempty components;
+for example, *!*@*.example. Within each component, * matches zero or more
+bytes and ? matches one byte. Other permitted bytes are literal; there are
+no regex classes, escaping, or shell expansion. Nick uses IRC case rules;
+user and host ignore ASCII case. Whitespace, controls, and non-ASCII are
+invalid. Removal compares stored patterns under those case rules; it does
+not expand wildcards to remove other masks.
+
+Only incoming user-originated PRIVMSG/NOTICE is filtered, before mentions or
+query creation. A source needs an explicit user prefix; nickname-only masks
+can match incomplete user/host details, while full masks require all three
+parts. Bare server notices and all protocol/membership state remain visible.
+Existing history is retained. Filtering is local, not a server ban. Settings
+edits the same list; Apply acts live. /save or Settings Save persists it in
+normal mode; test-mode edits stay in memory. Config repeats mask= in
+[ignore].

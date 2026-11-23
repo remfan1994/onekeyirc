@@ -1,0 +1,65 @@
+Panduan praktis vipirc / onekeyirc - Kanal
+=======================================================
+
+DRAF TERJEMAHAN. Perintah dan opsi harus diketik persis seperti tercetak.
+Untuk rincian keamanan resmi, baca MANUAL.txt dan SECURITY.md berbahasa Inggris.
+
+/help list
+----------
+
+Meminta daftar kanal dari server IRC terpilih; harus sudah terdaftar. Hanya MASK yang dikirim sebagai filter ke server.
+
+Batas pengguna minimum/maksimum, nama, dan topik difilter secara lokal meski jaringan tidak mendukung filter LIST tambahan.
+
+--sort menerima nilai channel, users, atau topic; bawaan users menurun. --limit 0 berarti tanpa batas tampilan dalam cache terbatas.
+
+/list show menampilkan cache; --sort, --asc/--desc, dan --limit mengurutkan atau membatasi secara lokal tanpa permintaan IRC baru. /list clear menghapus cache.
+
+Jika koneksi putus atau server menolak LIST, cache parsial tetap ada, tetapi permintaan berakhir; coba /list setelah terdaftar atau gunakan /list clear.
+
+Klien layar penuh membuka penjelajah kanal yang dapat diurutkan; mode minimalis memakai opsi sama dan /list show.
+
+Gunakan /ls atau /cl untuk daftar kanal lokal; /list mencari di jaringan.
+
+/help ls
+--------
+
+Tanpa argumen, tampilkan kanal pada server terpilih. Ini perintah daftar lokal, bukan perintah shell atau permintaan IRC LIST seluruh jaringan.
+
+Gunakan /server N, /channel N, dan /pm NICK untuk memilih entri yang sesuai.
+
+/help manual
+------------
+
+Bantuan topik dan perintah juga tersedia tanpa koneksi. /help TOPIC adalah cara singkatnya.
+
+/help servers
+-------------
+
+Menampilkan slot server minimalis 1..8 (utama 1), server terpilih, status koneksi, dan autoconnect tiap server.
+
+Profil yang sudah dimuat tetap tersedia meskipun tidak terhubung.
+
+/help unignore
+--------------
+
+Setara dengan /ignore remove MASK. Simpan profil terpilih agar perubahan bertahan.
+
+/help aliases
+-------------
+
+Nama alias harus tepat; tidak ada eksekusi ambigu atau pencocokan kira-kira.
+
+/conn = /connect; /disc = /disconnect; /detach = /background; /exit = /quit
+
+/j = /join; /leave = /part; /message dan /privmsg = /msg
+
+/nickname = /nick; /names dan /nicks = /users; /unaway = /back
+
+/channellist = /cl; /querylist = /ql; /serverlist = /servers
+
+/configure dan /preferences = /panel; /saveconfig = /saveconf
+
+/autocommand = /autocommands
+
+Saran pelengkapan memakai nama resmi; argumen tetap persis dan penyaringan riwayat rahasia tidak berubah.

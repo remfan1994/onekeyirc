@@ -1,0 +1,36 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / MINIMALIST INTERFACE
+English source SHA-256: 21dd2fdc5c7552003eba414c032dbbece1a7caa875d21274eb5594748bf44568
+Source lines: 123-203
+
+ANTARMUKA MINIMALIS
+
+    vipirc -i
+    vipirc --idle --test-mode
+    /connect irc.ircnow.org
+    /join #ircnow
+    /saveconf
+
+-i memakai konfigurasi dan katalog server vipirc yang sama. Nama panggilan baku berasal dari nama login atau pengguna yang sah. /saveconf menyimpan preferensi dan profil yang sehat, serta mengingat koneksi terpilih, termasuk profil sekunder, untuk /connect berikutnya tanpa argumen. Menyimpan tidak mengaktifkan autoconnect. /quickstart dan /panel merupakan panduan opsional.
+
+Layar biasa adalah log. / membuka Command, ? membuka bantuan kontekstual, dan karakter tercetak lain memulai Compose serta dipertahankan. Enter atau Insert membuka Compose kosong. Pada log langsung, Up menggulir satu baris tersimpan ke belakang, Page Up satu halaman dan Home ke halaman tersimpan tertua; Down/Page Down/End tetap di ujung terbaru. Left/Right/Delete/Backspace tidak berfungsi di sana. Dalam pembaca riwayat, End atau Escape kembali ke tampilan langsung.
+
+Tombol panah di Compose menyunting teks; tombol itu tidak memanggil kembali pesan obrolan terkirim. Tab/Shift-Tab melengkapi nama panggilan dalam Compose dan nama perintah dalam Command. Down pada Command memilih saran; Up/Down menelusurinya, sedangkan Up dari saran pertama kembali ke masukan. Enter menyisipkan saran yang dipilih; setelah ditampilkan, diperlukan Enter terpisah untuk menjalankannya. Up dari masukan Command memanggil kembali perintah cocok yang telah diterima; Down kembali ke draf awal. Lihat /help keys dan /help commands untuk seluruh kendali.
+
+Mode penyusun satu baris menempatkan satu baris masukan di bawah ekor log langsung; fullscreen menggunakan penyunting multibaris dengan panel log langsung yang lebih kecil. Penggambaran ulang akibat lalu lintas mempertahankan draf dan posisi kursor. Escape meninggalkan penyunting menuju log; Escape pada log menjalankan program di latar belakang. Dalam Review, Escape atau mengetik memulihkan penyunting, draf, dan posisi kursor yang sama, sedangkan Enter yang baru mengonfirmasi. Ctrl-D tidak berfungsi kecuali diikat secara eksplisit; sinyal terminal mengikuti pengaturan yang diwarisi. Tempelan yang dikenali tetap berupa teks literal dan tidak dapat mengirim pesan.
+
+    /set send_mode direct|review
+    /set composer_mode line|fullscreen
+    /set output_format compact|full
+    /save input
+    /save output
+
+Baku awalnya ialah pengiriman langsung, penyusunan satu baris, dan keluaran ringkas [HH:MM:SS] <nick> text. Keluaran full menyertakan tanggal/server/tujuan; penyebutan dan diagnostik lintas-server tetap menyertakan konteks yang diperlukan dalam kedua format. Preferensi milik profil utama ini berlaku di semua server. Persetujuan terpisah atas anggaran byte dan izin pengiriman beberapa pesan tetap diperlukan.
+
+/help ls mencantumkan topik; /help /ls menjelaskan perintah daftar lokal. Gunakan /help COMMAND untuk sintaks dan contoh, satu nama topik atau perintah setiap kali. /manual dan vipirc -i --manual memberikan seluruh referensi minimalis, juga tersedia di doc/vipirc-idle-manual.txt. Perintah dan kendalinya berbeda dari ncurses penuh. Bantuan dan hasil perintah panjang memakai pembaca terbatas yang terpisah. Panah/Page Up/Page Down/Home/End menggulir; Escape kembali. Enter menggulir bantuan tetapi menutup daftar /users yang berhasil. / membuka Command dari pembaca; pembatalan kembali ke pembaca. Keluaran perintah baru menggantikan respons lama. r pada Summary menyegarkan ringkasannya. Jaringan tetap bekerja saat membaca.
+
+/panel dimulai pada 0 Application preferences, mencakup riwayat, mode kirim/penyusun, keluaran, pemberitahuan, pencatatan, mode satu sesi, saran perintah, dan antarmuka baku. Pada akhir panduan, pilihan Save atau Apply without saving tersedia; langkah ini tidak menghubungkan ataupun mengganti obrolan. Kedua antarmuka menomori panel profil 1..8: panel 1 mengubah profil utama, yang diberi label server 0 dalam mode penuh dan 1 dalam mode minimalis. Panel ini mengubah pengaturan per server, termasuk identitas bouncer. Akhirnya tersedia Save and connect, Save only (baku), Connect once, atau Apply only. /quickstart menanyakan server/TLS/port/nama panggilan dan secara baku memilih Connect once; langkah itu tidak mengubah login bouncer yang sudah ada.
+
+Enter mempertahankan jawaban yang ditampilkan; '-' mengosongkan kolom opsional. Escape mundur satu langkah atau keluar dari pertanyaan pertama. Tab memilih judul untuk bantuan ?, lalu Tab/Enter melanjutkan penyuntingan. Kata sandi dan jawaban tersembunyi tidak pernah masuk riwayat perintah. Hanya pilihan terakhir yang menerapkan/menyimpan/menghubungkan; koneksi aktif tidak dialihkan ke tujuan lain, dan kegagalan koneksi kemudian tidak membatalkan perubahan eksplisit. vipirc penuh juga mendukung panduan ini; /settings di sana membuka formulir grafis.
+
+/servers dalam mode minimalis memakai 1..8; dalam mode penuh memakai 0..7. Channel 0 adalah server/MOTD dalam kedua antarmuka. Pengaturan riwayat utama membatasi retensi internal untuk seluruh percakapan sesuai batas keras dalam /help history. Pencatatan teks biasa opsional nonaktif secara baku. DCC memakai perintah /dcc eksplisit yang sama tanpa formulir grafis.

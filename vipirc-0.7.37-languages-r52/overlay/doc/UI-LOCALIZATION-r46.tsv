@@ -1,0 +1,31 @@
+client	source	kind	english	fields
+vipirc	src/transfers.c	fixed	Offline sample offer. Sending and receiving are disabled before file or network access.	
+vipirc	src/transfers.c	fixed	Select a pending offer to accept.	
+vipirc	src/transfers.c	fixed	Accept connects to this peer and creates a new private file; existing files are never overwritten.	
+vipirc	src/transfers.c	fixed	Enter the IPv4 address the peer can reach. Port 0 chooses a local port; NAT may require forwarding.	
+vipirc	src/transfers.c	fixed	This field is not valid UTF-8.	
+vipirc	src/transfers.c	fixed	File browser unavailable; enter the source path here.	
+vipirc	src/transfers.c	fixed	Cannot read the launch directory. Use Type path.	
+vipirc	src/transfers.c	fixed	The field allows at most 4095 UTF-8 bytes.	
+vipirc	src/transfers.c	fixed	Use a single line without control characters.	
+vipirc	src/transfers.c	fixed	Offer rejected. No connection or file was opened.	
+vipirc	src/transfers.c	fixed	Transfer cancelled. An offer already sent or being sent cannot be recalled.	
+vipirc	src/transfers.c	fixed	Transfer cancelled. Its incomplete receive file was removed if still unchanged.	
+vipirc	src/transfers.c	fixed	Resize to at least 12 rows by 20 columns to review this transfer.	
+vipirc	src/transfers.c	fixed	Receiving file. You can return to chat while it transfers.	
+vipirc	src/transfers.c	fixed	OFFLINE TEST MODE: DCC sending is disabled before file or network access.	
+vipirc	src/transfers.c	fixed	Connect this IRC server before offering a file.	
+vipirc	src/transfers.c	fixed	Enter a valid recipient nickname.	
+vipirc	src/transfers.c	fixed	Listen port must be an integer from 0 to 65535.	
+vipirc	src/transfers.c	fixed	The file offer could not be queued within the IRC message budget. Try a shorter filename.	
+vipirc	src/transfers.c	fixed	File offered. Waiting for the peer to connect.	
+vipirc	src/transfers.c	fixed	Paste contained rejected controls or exceeded the field limit.	
+vipirc	src/transfers.c	fixed	Field limit reached or unsupported control character.	
+vipirc	src/transfers.c	fixed	Unencrypted peer connection. Accepting reveals your IP to the peer.	
+vipirc	src/transfers.c	fixed	Unencrypted peer connection. Your advertised IP is included in the offer.	
+vipirc	src/transfers.c	fixed	No file transfers.	
+vipirc	src/transfers.c	fixed	File stays unopened until Accept.	
+vipirc	src/idle_commands.c	fixed	No such server number. Servers start at 1; /servers lists them. Panel 0 contains application preferences.	
+vipirc	src/idle_commands.c	fixed	No such server number. Use /servers to list available slots.	
+vipirc	src/idle_commands.c	fixed	No matching channels received yet.	
+vipirc	src/idle_commands.c	fixed	No cached channels match the current LIST filters.	

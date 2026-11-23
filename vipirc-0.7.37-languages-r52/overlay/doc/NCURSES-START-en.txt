@@ -1,0 +1,56 @@
+VIPIRC FULL INTERFACE: TRANSLATED MANUAL EXCERPT
+Selected passages from MANUAL.txt: READING EXAMPLES, QUICK START, GETTING HELP, GLOBAL HEADER AND CHAT CONTROLS, INPUT EDITING, and MOUSE CONTROLS. Not the complete manual.
+
+Command names and options are literal:
+    vipirc -h
+    vipirc -v
+    vipirc --test-mode
+    vipirc --server irc.ircnow.org --channel '#ircnow' --nick tutankh-aten
+
+Reading the examples
+--------------------
+Examples beginning with vipirc are shell commands. Commands beginning with / are entered in the client Command view. Type one command at a time; uppercase words denote placeholders, [items] are optional, and | means a choice.
+
+Command opens with a prefilled /. Remove this slash before pasting a full /command. A pasted command block is not a script; its line breaks become spaces. Pasting into chat remains chat text.
+
+Starting a connection
+---------------------
+Running with no server opens a disconnected workspace. --server selects a server; /connect HOST also connects. Verified TLS on port 6697 is the default. Plaintext needs --plain, and the provider must supply the correct endpoint.
+
+The initial view shows server registration and MOTD. An unconfigured primary nickname in full interactive mode is prompted, using the local login name as default. The server may reject a nickname.
+
+The six main panels
+-------------------
+F1 opens the application panel, F2 Servers, F3 Channels, F4 Queries, F5 Mentions/unread, and F6 File transfers. Categories without content may be hidden; fixed function-key numbers do not move.
+
+Escape from a query opens Queries; from other chat it opens the application panel; from an ordinary panel it returns to chat. On the application panel, quitting requires a fresh y/Y after the confirmation prompt.
+
+Help and navigation
+-------------------
+Use /help or /manual to open the full manual in vipirc. /help TEXT searches the manual; in its reader, / starts a search, n and N move between matches, and Escape returns. The search is literal, not a regular expression.
+
+In lists, Up/Down or k/j moves between items; Left/Right or h/l selects an action; Enter activates it. Home/End or g/G goes to the ends. A ? outside an editable field opens contextual help.
+
+    vipirc --manual
+    /help
+    /help TEXT
+    /mouse on|off
+
+Editing, sending and paste
+--------------------------
+Chat is ready for typing. Enter submits to the selected channel or query. A slash at the start of an empty draft opens a separate Command prompt; type // to send a leading literal slash.
+
+Left/Right moves by character group. Up/Down moves between wrapped input rows, not through sent-message history. Home/End reaches the beginning/end of the whole draft; Backspace/Delete removes character groups.
+
+The draft is one logical buffer: wrapping inserts no newline, and resizing preserves draft and cursor. Tab/Shift-Tab completes nicknames. /clearinput removes the entire draft, including text beyond the visible area.
+
+Bracketed paste stays literal and cannot itself confirm sending. Large messages may require length acknowledgement or separate consent for multiple sends. Review the displayed result before pressing Enter.
+
+Mouse and safety
+----------------
+Mouse input is optional. Click a header category, chat position, or list item when supported; the terminal must forward mouse events. /mouse on|off controls it. URL text and clipboard contents are not opened automatically.
+
+Do not treat what an untrusted message looks like as proof of identity. Unicode look-alikes and mixed-direction text can deceive readers. The original English MANUAL.txt and SECURITY.md remain authoritative.
+
+SOURCE: vipirc 0.7.36 / MANUAL.txt
+STATUS: Draft translation; English source takes precedence.

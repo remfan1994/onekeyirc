@@ -1,0 +1,8 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / READING EXAMPLES
+English source SHA-256: 751bca637a31922e4d65e1e3fca1c3fd8a51728488978ad1f89f250aeda8bfd1
+
+CÓMO LEER LOS EJEMPLOS
+
+Los ejemplos que empiezan por vipirc se ejecutan en una shell; los /comandos se introducen en Command. Ejecute un comando cada vez. En los resúmenes de sintaxis, las palabras en MAYÚSCULAS son marcadores que debe sustituir, [items] son opcionales y | separa alternativas.
+Al abrir Command ya aparece /. Antes de pegar un /comando completo, quite esa barra inicial; revise el resultado y pulse Enter. Un bloque pegado no es un script: los saltos de línea se convierten en espacios. El texto pegado en chat o watch sigue siendo texto de chat.

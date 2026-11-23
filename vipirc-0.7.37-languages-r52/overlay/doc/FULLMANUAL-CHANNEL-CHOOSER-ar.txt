@@ -1,0 +1,12 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / CHANNEL CHOOSER AND CLOSING CONVERSATIONS
+English source SHA-256: da114abc3568be30c5d0cc9c66a970f8f23b79ab9555afca690c56aa25e37060
+
+EXACT COMMAND/CONTROL EXAMPLES (not translated):
+Open    Join    Part    Close    Back
+
+يعرض F3 أو /channels (/cl, /views) المدخل 0 الخاص بالخادم/MOTD ونوافذ القنوات المحتفظ بها بما فيها القنوات التي غودرت. ينطبق التنقل المعتاد في القوائم؛ الإجراءات هي Open وJoin وPart وClose وBack.
+
+يفتح Join واجهة Command وقد جهز فيها /join، مع الحفاظ على المسودات. يغادر Part القناة مع الاحتفاظ بالتاريخ، بينما يزيل Close النافذة. ينفذ p إجراء Part وc إجراء Close ويفتح o إجراء Join. يختار /channel NUMBER أو #NAME نافذة محتفظا بها؛ ويستخدم /view NUMBER ترقيم القنوات و/view NAME اسم النافذة. قد تتغير الأرقام بعد الإغلاق، فاستخدم القائمة الحالية.
+
+يغادر Close أولا أي قناة ما زال المستخدم فيها، ويحذف تاريخها ومسودتها ويلغي رسائل تلك الوجهة المعلقة في الطابور؛ وقد يكمل إرسال رسالة قيد النقل. تتطلب المسودة غير الفارغة تأكيدا، والقيمة الافتراضية No. لا يمكن إغلاق نافذتي الخادم والإشارات؛ ويوقف /disconnect اتصال الخادم. يغلق /close [NAME|NUMBER] القناة أو المحادثة المحددة أو المحادثة الحالية. لا يمكن مغادرة القناة 0. يعيد Back/Escape إلى المحادثة.

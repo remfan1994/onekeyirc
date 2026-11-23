@@ -1,0 +1,11 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / DOCUMENTATION AND VALIDATION
+English source SHA-256: 473247fbc03339063a7a803330c7b183708cbfe0ce8c56840245322454f570cc
+
+BELGELER VE DOĞRULAMA
+
+Kökteki MANUAL.txt tam vipirc için yetkili kaynaktır; doc/manual.txt bunun aynasıdır ve src/manual.c içine gömer. vipirc --manual ve vipirc(1) onu gösterir. vipirc -i --manual ve doc/vipirc-idle-manual.txt minimalist başvuruyu sağlar. Her iki arayüzde de /help ve /manual bulunur.
+
+README.md kurulum ve belgeleri yönlendirir; INSTALL derlemeyi anlatır; SECURITY.md güvenlik sınırlarını tanımlar. CONTRIBUTING.md düzenleme/inceleme akışını açıklar, doc/SOURCE-MAP.txt kodu buldurur, tests/README.md testleri listeler ve DESIGN.md değişmezleri anlatır. doc/TROUBLESHOOTING.txt belirtileri kontrollerle eşleştirir; doc/BOUNCERS.txt, doc/SESSION-CONTROLS.txt ve doc/OPENBSD-VPS.txt işletim adımlarını kapsar. Kullanmadan önce örnek ana bilgisayar, hesap ve mutlak dosya yollarını değiştirin.
+
+Bakım yapanlar yetkili belgeleri/yardımı düzenler, ardından make docs ve make check-docs çalıştırır. docs hedefi yeniden üretme/dışa aktarmadan önce kılavuzu programa gömer. Denetimler ve JSON dosyaları yalnızca adları belirtilen sürüm ve ortamlara aittir; denenmemiş platformlara/hizmetlere değil. Belgeler çalışma zamanı savunması eklemez; testler kusursuzluğu kanıtlayamaz.

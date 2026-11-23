@@ -1,0 +1,60 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / CONNECTION AND STARTUP COMMANDS
+English source SHA-256: 0e846b2d67181dea4d23ed844fc17149aeadd803e429bde3fbbed09330011d9e
+Source lines: 620-699
+
+أوامر الاتصال وبدء التشغيل
+
+يتصل /connect مع خياراته مباشرة بالمضيف HOST، بينما يعيد /connect دون وسائط استخدام الملف المختار الذي حُفظ أو طُبق. يسلك /server HOST [PORT] المسار المباشر نفسه. يختار /server NUMBER ملفاً دون اتصال، ويفتح /server وحده عرض الخادم/MOTD. يضيف /server add HOST [PORT] [NICK] ملفاً منفصلاً غير محفوظ. تتحكم /server connect NUMBER و/server disconnect NUMBER و/disconnect [NUMBER] بالاتصالات المرقمة. يغلق /server close NUMBER ملفاً ثانوياً مع إبقاء ملفه الفعلي على القرص.
+
+تستخدم الوجهات الجديدة TLS متحققاً منه على المنفذ 6697 ولقباً أو اسم مستخدم صالحاً للدخول، ولا ترث بيانات الاعتماد أو القنوات. تحفظ الوجهة المطابقة وسيلة النقل والمنفذ واللقب والمصادقة وتختار اتصالاً نشطاً موجوداً بدل مضاعفته. عندما تشترك ملفات bouncer في المضيف نفسه، اختر NUMBER الصحيح ثم شغّل /connect المجرد. لا يحفظ أي أمر اتصال إعداداته ضمنياً. فتحات الخوادم في الوضع الكامل 0..7 (الأساسي 0) وفي المبسط 1..8 (الأساسي 1). لا تغير أوامر الاتصال أو الفصل الاختيار الحالي. استعمل أرقام /servers الخاصة بالواجهة، لا أرقام منتقي /panel المختلفة.
+
+تسبق خيارات /connect الوسيط HOST. الخيار -ssl مرادف -tls؛ ويطلب +PORT استخدام TLS، ولا يعطله أبداً رقم منفذ عادي. تُقبل أيضاً صيغ --tls و--plain و--nick؛ ويستخدم الاتصال الجديد غير المشفر 6667. كلمات المرور ليست وسائط موضعية. يغلق Close الملف الثانوي ويحذف مرجعه من الفهرس والمسودات والتاريخ وعمليات النقل، لكنه يترك ملفه على القرص.
+
+يغير /autoconnect بدء التشغيل التالي لا الاتصال الجاري. يُعد /autojoin قنوات الملف المباشر لأمر /connect صريح تالٍ من دون انضمام أو مغادرة الآن؛ ويعرض استعلامه التسجيل والعضوية النشطة والمعلقة. تحافظ محاولات إعادة الاتصال الآلية على إعدادات التشغيل؛ أما /connect بعد الفصل فيأخذ التعديلات المطبقة. ينفذ /join بعد التسجيل مباشرة. يستعيد bouncer عضوية القنوات بنفسه ويرفض تعديل autojoin؛ كما يرفض تغيير /autoauth، واستعمل Settings أو /panel عوضاً عنه.
+
+يُعد /autoauth مصادقة SASL فقط عبر TLS متحقق منه. يعرض Status محلياً مسارات الاعتماد الحالية والمعلقة كاملة دون قراءة الملفات؛ وتخفيها مخرجات Settings المعتادة. يحتوي الاستعلام في الوضع الكامل على Refresh/Back ويحتفظ بالمسودات. يمثل PATH بقية النص حرفياً مع المسافات. توضع الأسرار المباشرة في ملف إعداد خاص أو Settings لا في الأوامر.
+
+يكتب /save المجرد الملف الفعلي المختار بما في ذلك الخيارات المعلقة. ويكتب كل من /save input و/save output الملف الأساسي الذي يحتوي تفضيلات التطبيق؛ فهما اسمان بديلان وليسا حفظاً جزئياً للمدخل أو المخرج. تتضمن العملية تغيرات الاتصال الأساسي المعلقة. يكتب /save all الملفات السليمة، ويُذكر /saveconf أيضاً بالملف الافتراضي المختار لأمر /connect لاحق. لا يفعّل الحفظ autoconnect. كل ملف خاص ويُكتب ذرياً، لكن مساحة العمل كلها ليست معاملة واحدة: يبقى النجاح السابق بعد فشل لاحق. لا تُستبدل الملفات غير المقروءة. لا يحفظ Test mode مطلقاً.
+
+/set autoconnect on|off اسم بديل للتوافق في الوضع الكامل. يعمل /set لتفضيلات التطبيق في الواجهتين؛ وتؤثر إعدادات الإرسال والتحرير والإخراج في الوضع المبسط. يفتح /panel الإعدادات الموجهة في كليهما، ويسأل /quickstart عن أربعة عناصر اتصال أساسية. يفتح /settings نماذج في الوضع الكامل وتقريراً في المبسط.
+
+يطلب /list [MASK] [OPTIONS] دليل قنوات الشبكة بعد التسجيل. يُرسل MASK وحده إلى الخادم؛ وتعمل --min-users/--max-users و--name و--topic مرشحات محلية. تتحكم --sort channel|users|topic و--asc/--desc و--limit N بالعرض؛ الافتراضي ترتيب عدد المستخدمين تنازلياً، وتعني --limit 0 عدم تحديد عدد المعروض ضمن ذاكرة مؤقتة سعتها 8192 مدخلاً. يمكن لـ/list show تغيير الترتيب والحد دون طلب آخر، ويمسح /list clear الذاكرة المؤقتة. أما /ls و/cl فتسرد العروض المحلية فقط.
+
+عند انقطاع الاتصال أو رفض الخادم الصريح لطلب LIST، تبقى النتائج الجزئية مخزنة ولكن يُحرر الطلب. أعد /list بعد التسجيل أو امسح بواسطة /list clear؛ ولا تُعد النتائج الناقصة دليلاً كاملاً لقنوات الشبكة.
+
+يستعمل متصفح الوضع الكامل Up/Down أو j/k للتنقل بين الصفوف، وLeft/Right أو h/l لاختيار عمود الفرز، وs لعكس الترتيب، وPage Up/Page Down وg/G للملاحة، وEnter للانضمام، وr لتكرار الطلب، و/ لفتح Command، وEscape للعودة. النقر على عمود يفرزه. في الوضع المبسط يطبع /list show الذاكرة المؤقتة، ويقدم /summary ملخصاً مستقلاً لمساحة العمل المحلية.
+
+EXACT COMMAND SYNTAX (not translated):
+
+    /connect [-tls|-plain] [-nick NICK] HOST [PORT]
+    /connect
+    /server HOST [PORT]
+    /server NUMBER
+    /server
+    /server add HOST [PORT] [NICK]
+    /server connect NUMBER
+    /server disconnect NUMBER
+    /disconnect [NUMBER]
+    /server close NUMBER
+
+    /autoconnect [on|off]
+    /autojoin [list|add #CHANNEL|remove #CHANNEL|clear]
+    /autoauth [status|off|sasl USER file PATH|sasl USER gpg PATH]
+    /save [input|output|all]
+    /saveconf
+    /set autoconnect on|off
+    /panel
+    /quickstart
+    /settings
+
+    /list [MASK] [OPTIONS]
+    /list show
+    /list clear
+    /ls
+    /cl
+    /summary
+
+    -ssl   -tls   +PORT   --tls   --plain   --nick
+    --min-users   --max-users   --name   --topic
+    --sort channel|users|topic   --asc   --desc   --limit N

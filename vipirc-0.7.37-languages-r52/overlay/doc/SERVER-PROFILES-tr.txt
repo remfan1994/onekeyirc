@@ -1,0 +1,11 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / SAVED SERVER PROFILES
+English source SHA-256: ff3b21055c0b13e827ba1c38f80fbe8db59163af5b82bb486626649d1f7a61f2
+
+KAYITLI SUNUCU PROFİLLERİ
+
+Birincil yol P için, bitişikteki P.servers kataloğu özel P.d dizinindeki en fazla yedi ikincil profili listeler. Varsayılan konumda bunlar config.ini yanındaki config.ini.servers ve config.ini.d'dir. Katalog sözdizimi [servers] ve tekrarlanan profile=ID girdileridir. Üretilen adlar server-<24 küçük harfli onaltılık karakter>.ini biçimindedir. Elle verilen ID 1 ile 63 ASCII harfi, rakamı, alt çizgi, tire veya noktadan oluşabilir; ilk karakter harf veya rakam olmalı, ardışık nokta bulunmamalıdır. Dizin bileşenleri ve rastgele yollar profil ID'si olamaz.
+
+Servers > New dosya oluşturmaz. İlk açık /save veya Settings Save, 0700 kipindeki dizinde ayrı bir 0600 kipli profil oluşturur ve katalogda kaydeder. Sonraki kaydetmeler o sunucunun profilini günceller. İkincil profili kaydetmek birincil yapılandırmayı değiştirmez. Açılış kataloğu güncellemeleri kilitlenir. Geçersiz katalog/profil girdileri görünür hata oluşturur; sağlam profiller kullanılabilir kalır.
+
+Close, ikincil profilin katalog başvurusunu siler ama profil dosyasını saklar. Birincil profil kapatılamaz. --check-config bağlanmadan seçilen birincili, kataloğu ve başvurulan profilleri denetler. Normal açılışta, ana makine dışındaki bağlantı geçersiz kılmaları hatırlanan varsayılan sunucuya uygulanır; açık --server birincili seçer. --init-config ve --check-config da kendi geçersiz kılmalarını birincile uygular. --no-connect tüm profiller için açılış bağlantısını engeller. Test modunda Save kapalıdır; Close yalnızca çalışan durumu değiştirir.

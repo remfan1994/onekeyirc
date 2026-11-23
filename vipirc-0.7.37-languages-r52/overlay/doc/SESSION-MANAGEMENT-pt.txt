@@ -1,0 +1,58 @@
+GESTÃO DE SESSÕES E EXECUÇÃO EM SEGUNDO PLANO - vipirc 0.7.36
+Tradução integral das secções de MANUAL.txt, desde RUNNING IN THE BACKGROUND até UPGRADING A RUNNING WORKER.
+Estado: rascunho; em caso de divergência, prevalece o MANUAL.txt em inglês.
+
+EXECUÇÃO EM SEGUNDO PLANO
+
+/background ou F1 > Background mantém as ligações IRC, transferências aceites, rascunhos e histórico em memória enquanto restaura o terminal. Apresenta o comando numerado para retomar, por exemplo vipirc --resume 1. A primeira separação cria um processo de trabalho e um ponto de comunicação privado; as separações seguintes conservam o número, o estado e esse ponto. Uma execução normal em primeiro plano não tem esse ponto nem um auxiliar adicional.
+
+Ao retomar, as capacidades, dimensões e definições de idioma do terminal são novamente detetadas no mesmo anfitrião e na mesma conta Unix. stdin/stdout/stderr têm de partilhar um único tty interativo. Um controlador em primeiro plano gere sinais e alterações de tamanho; apenas um terminal pode estar ligado de cada vez. SESSION RECOVERY AND UPGRADES explica a seleção de tarefas e as ligações ocupadas.
+
+Para iniciar sem supervisão, guarde primeiro os perfis que pretende ligar automaticamente e execute vipirc --background --reconnect --config /absolute/config.ini. --background não ativa a ligação automática; --no-connect impede-a. O êxito confirma apenas a preparação local. Não são necessários tty nem TERM até à ligação de um terminal. O ponto privado é preparado antes dos auxiliares de resolução DNS e credenciais. Um --resume simples conserva a interface do processo; -i/-N muda-a explicitamente sem voltar a ligar nem substituir o processo de trabalho. A mudança mantém o histórico das conversas e as transferências aceites, mas elimina rascunhos, revisões de envio pendentes, histórico de comandos e formulários por aplicar. Termine ou copie os rascunhos antes de mudar. Separar e retomar a mesma interface conserva esse estado local. Processos antigos podem permitir apenas a sua interface original.
+
+Os sinais configurados no terminal mantêm as suas funções. Suspender um controlador retomado interrompe esse controlador, mas o processo de trabalho continua ligado à rede; fg repõe a interação. Suspender um processo normal em primeiro plano suspende a atividade de rede. Consulte TERMINAL SIGNALS para as atribuições herdadas e SESSION RECOVERY para a perda do terminal.
+
+A primeira separação pode exigir uma nova tentativa enquanto terminam os auxiliares DNS ou de credenciais. SIGCHLD ignorado ou a recolha automática de processos filhos impede o primeiro arranque em segundo plano e a criação de auxiliares; o lançador deve deixar os filhos disponíveis para espera. Uma nova separação de uma tarefa já gerida não cria outro processo.
+
+O diretório e o socket são privados do proprietário. A descoberta verifica no máximo 64 posições dentro de um prazo global de 1500 ms, remove apenas entradas antigas verificadas sem bloqueio de vida ativo e não envia sinais a PID presumidos. As tarefas que não respondem continuam por verificar. As verificações de identidade e instância impedem que um número reutilizado redirecione uma ligação durante a passagem de controlo. Outro processo com os privilégios da mesma conta continua a ser considerado de confiança. single_session=true recusa um segundo processo de trabalho no espaço de nomes vipirc sem limitar os servidores dentro dele.
+
+O estado do processo de trabalho não é guardado de forma persistente: reiniciar, sair ou terminar apaga rascunhos, âncoras e histórico em memória. Os registos opcionais guardam apenas a transcrição. O modo de teste pode funcionar em segundo plano através do ponto local sem ativar comunicação IRC/DCC. Não é necessário um multiplexador de terminal.
+
+RECUPERAÇÃO DE SESSÕES E ATUALIZAÇÕES
+
+Uma tarefa da shell é um processo de trabalho do cliente e todas as suas ligações IRC, transferências, rascunhos e histórico conservado. O identificador da tarefa não é nem o PID do sistema operativo nem o número de servidor apresentado pelo cliente.
+
+Para recuperar uma tarefa cujo terminal SSH antigo ainda está ligado:
+
+    vipirc --sessions
+    vipirc --detach-session 1
+    vipirc --resume 1
+
+Escolha NUMBER da lista atual. --detach-session liberta o controlador verificado, espera pelo estado separado e mantém o processo e o estado IRC. --resume sem número seleciona apenas uma única tarefa separada e verificada; vários candidatos ou candidatos não verificados exigem seleção explícita. Nunca assume o controlo de um terminal que ainda esteja ligado. Os números das tarefas permanecem estáveis até à saída e podem ser reutilizados depois.
+
+FECHAR UMA SESSÃO A PARTIR DA SHELL
+
+Use apenas quando pretender terminar a tarefa inteira:
+
+    vipirc --sessions
+    vipirc --close-session 1
+
+Fechar termina todas as ligações IRC e transferências desse processo e elimina os rascunhos não guardados e o histórico em memória. A configuração guardada e os ficheiros existentes de registo em texto simples permanecem. --close-session=1 e --detach-session=1 também são aceites. Estes comandos de gestão não precisam de terminal interativo nem carregam a configuração. Não os combine com --resume, --sessions, entre si, --config ou opções de ligação. Opções de interface suportadas podem permanecer num alias sem alterar a tarefa escolhida.
+
+O cliente usa o ponto privado do proprietário, verificações de propriedade do par e o identificador de identidade do processo selecionado. Êxito significa que a limpeza da aplicação e a libertação do bloqueio original da tarefa foram confirmadas; não significa apenas que um pedido foi aceite nem que foi observada independentemente a saída do processo do sistema operativo. Os pedidos têm um prazo limitado. Falha ou expiração do prazo não elimina o ponto de uma tarefa ativa nem envia sinais a um PID presumido. Se um pedido tiver sido aceite antes do prazo, poderá terminar mais tarde; volte a consultar --sessions.
+
+Um processo bloqueado ao escrever num terminal aberto que já ninguém lê poderá só atender pedidos de controlo quando a saída for desbloqueada ou o terminal fechar. Um processo completamente bloqueado pode exigir intervenção do sistema operativo depois de identificar o processo correto. Um estado de fecho diferente de zero significa que a conclusão não foi confirmada.
+
+RECUPERAÇÃO APÓS PERDA DE SSH
+
+A perda do terminal ou do controlador de uma tarefa já gerida separa o respetivo processo de trabalho. Hangup/erro, stdin EOF/EIO, falha de stdout, EOF do controlador e SIGHUP preservam as ligações e o estado. Na interface completa, a limpeza após perda do terminal ou pedido externo de fecho redireciona a saída obsoleta do processo antes de limpar curses; o controlador em primeiro plano restaura o seu tty.
+
+Um processo normal em primeiro plano que nunca foi gerido mantém o comportamento habitual de terminar com SIGHUP. Comece com --background ou use primeiro /background quando precisar de uma tarefa recuperável. O cliente não altera a política de tempo limite por inatividade do SSH. A escrita síncrona no terminal ainda pode bloquear se o terminal permanecer aberto mas deixar de ser lido.
+
+ATUALIZAR UM PROCESSO DE TRABALHO EM EXECUÇÃO
+
+Instalar ou recompilar não substitui o código de um processo já em execução. Guarde a configuração pretendida, saia ou feche deliberadamente a tarefa, confirme a versão instalada com --version e inicie uma nova tarefa. Faça o mesmo para atualizações de segurança. Os registos permanecem; os rascunhos, histórico de comandos e âncoras de recuperação não.
+
+Um processo antigo pode não dispor dos novos controlos de separação/fecho nem da mudança de interface. Conserve o executável compatível enquanto for necessário para ligar e sair pelos controlos existentes. Uma operação antiga falhada nunca é declarada bem-sucedida apenas porque um ponto de comunicação desapareceu. Os ficheiros de configuração existentes continuam utilizáveis pela versão atual; um executável antigo pode rejeitar chaves guardadas explicitamente por uma versão mais recente.
+
+Consulte doc/SESSION-CONTROLS.txt para o mesmo procedimento e doc/OPENBSD-VPS.txt para configurar execução sem supervisão no anfitrião. Instalar este arquivo de código-fonte não para nem instala automaticamente nada num anfitrião remoto.

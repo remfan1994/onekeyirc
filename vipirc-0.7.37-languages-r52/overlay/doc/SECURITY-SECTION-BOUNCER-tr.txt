@@ -1,0 +1,16 @@
+ZNC, soju and playback
+Source: SECURITY.md, section "ZNC, soju and playback"
+English section SHA-256: f0e223c83f0df60aa10260168ae7433ff77fbbd2f4cef7d4914cd07da4f7ed99
+Paragraphs: 5
+Status: Translation draft; fluent-speaker security review required
+English SECURITY.md remains authoritative. This is only one section, not the full security document.
+
+Açık bouncer profilleri, doğrulanmış TLS ve hesap/ağ kimliği gerektirir; istemci adı isteğe bağlıdır. ZNC sunucu parolası kaynağını; soju SASL PLAIN ve SASL parolası kaynağını kullanır. Kurulum işlemi uç nokta, kimlik ve kimlik bilgilerini birlikte uygular; bağlar değişirse eski taslakları temizler. Yukarı akış IRC kimlik doğrulaması bouncer hizmetinin kendi yapılandırmasına aittir.
+
+Bouncer tarafından geri getirilen JOIN mesajları üyeliği belirler; kayıtlı kanal listeleri yeniden oynatılmaz. Açık başlangıç komutları bilinçli istisnalardır. Bir cihazın boşta kalma durumunu diğerine dayatmaması için bouncer profillerinde otomatik away varsayılan olarak kapalıdır. /away ve /back açık elle yapılan eylemlerdir. Yerel işçi denetimleri uzak bouncer hizmetini yönetmez.
+
+/znc ve /soju denetim metni tek zamanlanmış mesaja sığar; recall, yerel echo ve kalıcı loglardan çıkarılır. Bouncer hizmetine yönelik gelen kopyalar eski takma ad veya bilinmeyen batch başvurusu olsa da gizlenir. Hizmet yanıtları sunucu görünümünde görünür ama saklanmaz. Tanınan özel kimlik doğrulama kopyaları, gönderen takma adı, playback çerçevesi veya nitelikli hizmet hedefi ne olursa olsun tutanaklardan çıkarılır. Görünür saklanan metin gizli bilgi deposu değildir. Yazarken görünebilir; bouncer yöneticisi alıp kaydedebilir. Seçilen bouncer'dan gizlilik sağlanmaz.
+
+Bilinen geçmiş batch'leri yalnızca gösterim içindir: güncel üyelik veya varlığı değiştiremez, yeni mentions uyarısı üretemez, CTCP'yi yanıtlayamaz veya DCC teklifini etkinleştiremez. İç içe/geçişmiş geçmiş sınırları 16 batch ve 64-byte referansla sınırlıdır; bozuk, tutarsız veya sınır aşan çerçeve bağlantıyı keser. Bilinmeyen batch referansları temkinle sadece gösterim sayılır. Geçerli özgün zaman damgaları UTC olarak gösterilir, yerel zamanlayıcıları veya gönderim hızını etkilemez.
+
+İst emci bouncer'dan itilerek gelen tamponları destekler; istek üzerine arşiv tarayıcısı veya hesap genelinde ağ keşfi sunmaz. echo-message, draft/chathistory veya znc.in/playback istemez. Tek başına zaman damgası mesajın geçmiş olduğunu kanıtlamaz; batch içermeyen eski playback normal canlı mesaj işlemini korur. Yeni süreçler arasında keyfı playback yinelenmesi ayıklanmaz. Kurulum ve sınırlar için doc/BOUNCERS.txt dosyasına bakın.

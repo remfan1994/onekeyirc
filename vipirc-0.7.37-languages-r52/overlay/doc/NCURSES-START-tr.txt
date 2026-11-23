@@ -1,0 +1,56 @@
+VIPIRC TAM ARAYÜZ: ÇEVRİLMİŞ KILAVUZ BÖLÜMLERİ
+MANUAL.txt dosyasından seçilmiş bölümler: örnekler, başlangıç, yardım, paneller, düzenleme ve fare. Kılavuzun tam çevirisi değildir.
+
+Komut ve seçeneklerin yazılışı değişmez:
+    vipirc -h
+    vipirc -v
+    vipirc --test-mode
+    vipirc --server irc.ircnow.org --channel '#ircnow' --nick tutankh-aten
+
+Örnekleri okuma
+---------------
+vipirc ile başlayan örnekler kabuk komutlarıdır. / ile başlayan komutlar Command görünümüne yazılır. Her seferinde bir komut girin; BÜYÜK_HARFLİ sözcükler yer tutucudur, [öğeler] isteğe bağlıdır, | seçenekleri ayırır.
+
+Command alanı başlangıçta / karakterini içerir. Tam bir /command yapıştırmadan önce bunu silin. Yapıştırılan komut bloğu betik değildir: satır sonları boşluğa dönüşür. Sohbete yapıştırılan metin sohbet metni olarak kalır.
+
+Bağlantı başlatma
+-----------------
+Sunucu belirtilmezse vipirc bağlantısız bir çalışma alanı açar. --server sunucu seçer; /connect HOST da bağlanır. Varsayılan 6697 numaralı bağlantı noktasında doğrulanmış TLS kullanılır. Düz metin için --plain gerekir; sağlayıcının doğru adresini kullanın.
+
+İlk görünüm sunucu kaydını ve MOTD mesajını gösterir. Tam etkileşimli modda ana takma ad ayarlanmamışsa yerel oturum açma adı varsayılan olarak önerilir. Sunucu bu adı reddedebilir.
+
+Altı ana panel
+--------------
+F1 uygulama panelini, F2 Servers, F3 Channels, F4 Queries, F5 Mentions/unread ve F6 File transfers bölümlerini açar. Boş kategoriler gizlenebilir ancak işlev tuşlarının numaraları değişmez.
+
+Özel sohbetten Escape Queries bölümünü; diğer sohbetlerden uygulama panelini açar; normal panelde sohbet ekranına döner. Uygulama panelinden çıkmak için sorudan sonra yeni bir y/Y tuşlaması gerekir.
+
+Yardım ve gezinme
+-----------------
+/help veya /manual vipirc içinde tam kılavuzu açar. /help TEXT kılavuzda arama yapar; okuyucuda / aramayı başlatır, n ve N eşleşmeler arasında ilerler, Escape geri döner. Arama düz metindir, düzenli ifade kullanmaz.
+
+Listelerde Up/Down veya k/j öğeler arasında; Left/Right veya h/l işlemler arasında gezer; Enter işlemi yapar. Home/End veya g/G uçlara gider. Düzenlenebilir alanların dışında ? bağlamsal yardımı açar.
+
+    vipirc --manual
+    /help
+    /help TEXT
+    /mouse on|off
+
+Düzenleme, gönderme ve yapıştırma
+---------------------------------
+Sohbet yazmaya hazırdır. Enter seçili kanala ya da özel konusmaya gönderir. Boş taslağın başındaki / ayrı Command istemini açar; basinda gercek bir / gondermek için // yazin.
+
+Left/Right karakter grupları arasında hareket eder. Up/Down gönderilmiş mesaj geçmişinde değil, sarılmış giriş satırlarında ilerler. Home/End tum taslağın başına/sonuna gider; Backspace/Delete karakter gruplarını siler.
+
+Taslak tek bir mantiksal tampondur: ekranda satır kaydırma yeni satır eklemez, terminal boyutu değişince metin ve imleç korunur. Tab/Shift-Tab takma adları tamamlar. /clearinput görünmeyen kısım dâhil tum taslagi siler.
+
+Isaretli yapıştırma düz metin kalır ve gondermeyi kendiliginden onaylayamaz. Uzun mesajlarda uzunluk onayı veya birden fazla gonderim için ayrı izin istenebilir. Enter basmadan önce görünen sonucu inceleyin.
+
+Fare ve güvenlik
+----------------
+Fare isteğe bağlıdır. Terminal olaylari iletiyorsa üst kategoriye, sohbet konumuna veya liste ogesine tiklanabilir. /mouse on|off bu modu yönetir. URL ve pano içeriği otomatik açılmaz.
+
+Guvenilmeyen bir mesajin görünüşü kimlik kaniti değildir. Benzer Unicode karakterler ve karışık metin yonleri yanıltabilir. Ingilizce MANUAL.txt ve SECURITY.md asli esas kaynaktir.
+
+SOURCE: vipirc 0.7.36 / MANUAL.txt
+STATUS: Draft translation; English source takes precedence.

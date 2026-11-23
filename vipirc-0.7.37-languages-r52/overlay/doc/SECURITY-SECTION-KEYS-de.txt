@@ -1,0 +1,10 @@
+User-defined key bindings
+Source: SECURITY.md, section "User-defined key bindings"
+English section SHA-256: 250d7d0eb62f8b649e64f59b1e69d2220ec79005f08d6a7dfba30905d1133303
+Paragraphs: 2
+Status: Translation draft; fluent-speaker security review required
+English SECURITY.md remains authoritative. This is only one section, not the full security document.
+
+Die primäre Konfiguration enthält höchstens 64 Tastenbelegungen; die Vorgabetabelle ist leer. Tasten werden auf eine feste Identität normalisiert und Aktionen aus einer lokalen Zulassungsliste gewählt. Beliebige Befehle, Shell-Erweiterungen, rohe IRC-Befehle und direkte Sendeaktionen sind nicht möglich. Unbekannte, doppelte oder übergroße Belegungen führen zur atomaren Ablehnung des Konfigurationsladens. Nur ausdrückliches Save speichert Änderungen über den vorhandenen privaten Dateischreiber dauerhaft.
+
+Benutzerdefinierte Aktionen werden ausschließlich im Hauptchat und in der Befehlseingabe ausgelöst. Einfügevorgänge und modale Felder, Leseansichten oder Bestätigungen führen keine solchen Aktionen aus. Die Function/Alt-Auswertung kann erfasstes Einfügen nicht als Aktion umdeuten; der Eingabeschub am Ende eines Einfügevorgangs löst auch nicht sofort ein Kürzel aus. Einfügen ohne Markierung ist von Tippen nicht zu unterscheiden. Das Terminal kann Tasten vor dem Programm abfangen. Belegungen weisen weder Terminal-Signalzeichen neu zu noch aktivieren sie Signale. Den genauen Geltungsbereich und Entwurfsschutz beschreibt doc/HOTKEYS.txt.

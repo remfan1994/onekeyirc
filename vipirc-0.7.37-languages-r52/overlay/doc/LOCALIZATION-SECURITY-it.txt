@@ -1,0 +1,10 @@
+GUIDA BREVE ALLA SICUREZZA: LOCALIZZAZIONE E RTL ARABO
+
+1. Verificare gli SHA-256 delle sorgenti inglesi originali e della patch facoltativa lingue+RTL PRIMA di applicarla. La patch contiene codice C eseguibile, non solo traduzioni.
+2. Applicare la patch solo alle sorgenti r1 intatte, prima di configure o make. Non sovrapporre patch; se rifiutata, usare una copia nuova.
+3. Messaggi, soprannomi, argomenti e nomi di file IRC non sono attendibili. La pulizia del testo sostituisce controlli pericolosi del terminale, di direzione Unicode e annotazione; non autentica il mittente e non blocca nomi Unicode simili.
+4. La modalita araba visiva serve ai terminali UTF-8 senza formattazione e riordinamento dell'arabo. Richiede FriBidi; in caso di errore resta il testo logico.
+5. RTL cambia solo la visualizzazione. Comandi IRC, messaggi inviati e registri restano in ordine logico UTF-8. La direzione visiva non dimostra l'identita.
+6. Non inserire credenziali nelle chat, non pubblicare registri privati nei rapporti e non fidarsi di comandi o URL soltanto per l'aspetto RTL. Verificare testo e destinazione letterali.
+7. --check-config non verifica il server remoto, la sessione TLS o la password. SECURITY.md contiene il modello di minaccia completo; questa non e una sua traduzione.
+8. Disattivare RTL visivo se il terminale supporta gia il testo bidirezionale o se la visualizzazione differisce dalla sorgente.

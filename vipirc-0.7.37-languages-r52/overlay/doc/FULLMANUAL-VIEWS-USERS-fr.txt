@@ -1,0 +1,11 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / VIEWS AND USERS
+English source SHA-256: c02a51adb2e96f61d113aee6ccd47ba792577ee3c03d8708020250ea07f94354
+
+Chaque serveur possède une vue serveur/MOTD numéro 0, des canaux, des conversations privées numérotées séparément, des mentions et des listes de membres. Les en-têtes identifient le serveur ; sa vue montre l'enregistrement, le MOTD et les erreurs. Les mentions conservent la source, l'expéditeur et le texte complet dans les limites du protocole. Les longues lignes se replient à l'écran sans raccourcir le texte mémorisé.
+
+/sl ou /servers ouvre les serveurs ; /cl ou /channels les canaux ; /ql ou /queries les conversations privées. /server choisit MOTD, /channel NUMBER ou #NAME un canal, /pm NICK|NUMBER une conversation. /next et /prev parcourent les vues. /summary résume l'espace de travail, /unread regroupe sources/mentions et /list demande l'annuaire réseau. La syntaxe canonique figure dans COMMAND REFERENCE INDEX.
+
+/users affiche ou masque la liste des membres du canal ; on/off/up/down en règle la visibilité et le défilement. Settings > Interface utilise la même préférence principale. Sur un petit terminal, la barre latérale peut disparaître jusqu'au retour de l'espace. Membres et préfixes de privilège suivent JOIN/PART/QUIT/NICK/KICK/NAMES du serveur, et non des suppositions locales. Les vues serveur ou conversation privée n'ont pas de liste des membres du canal.
+
+Les messages privés non sollicités ne créent des vues que tant qu'il y en a moins de huit ; les suivants restent visibles avec contexte dans serveur/mentions. /pm ou /msg peut en créer davantage dans la limite de 32 vues. /clear vide l'historique conservé de la vue sans effacer les transcriptions sur disque ; /clearinput vide son brouillon indépendant.

@@ -1,0 +1,32 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / SECURITY AND RESOURCE BOUNDS
+English source SHA-256: 0244a7b43c7e5e46a5b365e081fc7bc6654afe3069aea9e68c0e1d0f46c1277e
+
+SICUREZZA E LIMITI DELLE RISORSE
+
+TLS verifica la catena dei certificati e il nome host o l'indirizzo numerico richiesto. Non esistono modi per eludere la verifica o declassamenti silenziosi. IRC senza TLS è disponibile solo con un'impostazione esplicita; il traffico è visibile agli osservatori lungo il percorso e non può usare segreti salvati. TLS protegge la connessione client-server, non la riservatezza end-to-end della chat.
+
+L'avvio operativo rifiuta ID utente o gruppo reali ed effettivi discordanti e disabilita i core dump prima di leggere la configurazione. Linux disabilita anche la possibilità di effettuare dump del processo. Il client è un normale processo senza sandbox del sistema operativo; un altro processo dello stesso account rientra nel suo perimetro di fiducia.
+
+I comandi di autenticazione privata riconosciuti richiedono TLS verificato anche se digitati come normale messaggio, suddivisi in un piano di invio o accodati. Il rilevamento non può identificare in modo affidabile ogni nuova sintassi per segreti; tenere le credenziali fuori dalla chat e dagli argomenti della shell.
+
+I dati IRC ricevuti non sono affidabili. Sequenze di controllo e formattazioni pericolose vengono neutralizzate prima della visualizzazione. I buffer di ingresso e di rete hanno limiti. Il client non esegue testo ricevuto, apre URL, esegue comandi shell, carica script/plugin né risponde automaticamente a CTCP. I messaggi di azione sono mostrati come testo. Le offerte DCC SEND richiedono verifica e accettazione esplicite per ogni file; le connessioni dirette non sono cifrate da TLS.
+
+Limiti di questa versione:
+
+    Sessioni server per processo                 8
+    Viste per server, comprese quelle interne   32
+    Utenti memorizzati per canale             4096
+    Stringhe di menzione per server             32
+    Maschere ignora per server                  32
+    Messaggi chat in coda per server            64
+    Voci cronologia comandi per server          64
+    Testo cronologia comandi per server     64 KiB
+    Testo cronologia conservata per server   8 MiB
+    Scalari Unicode per bozza                 8192
+    Byte UTF-8 per bozza                     16384
+    Offerte DCC in attesa, intero spazio        8
+    Trasferimenti DCC attivi, intero spazio     4
+    Record DCC conservati, intero spazio       12
+
+Il limite della cronologia vale per server, non per tutta la memoria del processo. Con otto sessioni il testo conservato può arrivare a 64 MiB. Lo stato dei server viene allocato quando serve; con meno sessioni non vengono prenotate otto cronologie complete. Librerie, metadati delle viste, elenchi utenti, input e trasporto richiedono altra memoria. Le conversazioni restano solo in memoria a meno che la registrazione persistente facoltativa sia abilitata. La vista separata delle menzioni non è un archivio permanente; conversazioni di origine idonee possono essere registrate. Impostazioni, credenziali e registri facoltativi in chiaro sono file locali che altri programmi con i privilegi dell'account possono leggere. Nessun client può garantire sicurezza contro qualsiasi server ostile o terminale, sistema operativo o libreria compromessi.

@@ -1,0 +1,27 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / BOUNCER CONNECTIONS
+English source SHA-256: 5b02f5c7003e1c3af127c7d3a30794ecad42f14dc1a1397d6d4aa16179b89b63
+Source lines: 1692-1747
+
+LIGAÇÕES A BOUNCERS
+
+Em Settings ou /panel, escolha ZNC/soju e depois o nome do anfitrião e a porta TLS do fornecedor, o utilizador do bouncer, uma rede upstream já existente e, opcionalmente, um nome de cliente estável. Guarde um perfil por rede. Se vários perfis partilharem o anfitrião, selecione o número do servidor antes de /connect sem argumentos.
+
+A secção [bouncer] admite type=none|znc|soju, username, network, client e automatic_away. username e network são obrigatórios; client é opcional. Cada componente permite no máximo 63 caracteres ASCII: letras, algarismos, pontos, sublinhados e hífenes. Introduza as componentes de identidade separadamente; coloque apenas a palavra-passe na respetiva fonte.
+
+ZNC exige auth=none, auth_user vazio, nenhuma fonte SASL e exatamente uma fonte de palavra-passe do servidor. Constrói username/network ou username@client/network e acrescenta a palavra-passe para PASS. Identidade, separadores e palavra-passe têm de caber nos 503 bytes do payload, diminuindo o espaço para a palavra-passe. soju exige auth=sasl, auth_user vazio, uma fonte de palavra-passe de autenticação e nenhuma fonte PASS. Deriva a identidade SASL como username/network ou username/network@client. Ambos exigem TLS verificado. Configure separadamente a rede upstream e a autenticação NickServ no próprio bouncer.
+
+Os bouncers restauram a pertença a canais: o autojoin local não é repetido e alterações com /autojoin são recusadas. /join e /part alteram a pertença. Alterações com /autoauth também são recusadas: utilize Settings ou /panel para alterar identidade e fontes de forma consistente. Comandos explícitos de arranque continuam a executar-se; reveja comandos herdados de um perfil direto antes de o reutilizar. A ausência automática por inatividade/segundo plano fica desligada salvo se automatic_away=true; /away e /back manuais continuam disponíveis.
+
+    /znc
+    /znc ListNetworks
+    /soju
+    /soju network status
+
+Os atalhos exigem o tipo de bouncer correspondente. Os argumentos são texto literal do serviço, cabendo numa mensagem IRC e respeitando o ritmo normal de envio. /msg *status e /msg *module dirigem-se ao ZNC; /msg BouncerServ ao soju. Os comandos remotos disponíveis dependem do bouncer; comece pela ajuda dele.
+
+O texto de controlo é excluído do eco local, da recuperação de comandos e dos registos persistentes. Cópias reconhecidas de repetição de serviços de saída também são suprimidas, mesmo usando nomes antigos. As respostas surgem na vista do servidor sem registo persistente. O texto introduzido no editor continua visível; o registo remoto é independente.
+
+O histórico reenviado reconhecido preserva os carimbos UTC originais e encaminha mensagens privadas enviadas aos destinatários. A reprodução não aciona CTCP/DCC, novas menções ou mutações do estado em direto. O armazenamento é limitado; tipos de lote desconhecidos são apresentados de forma conservadora, sem efeitos de estado. Não existe explorador de arquivo a pedido, descoberta automática de redes ou criação automática de perfis por rede.
+
+TLS protege apenas a ligação cliente-bouncer. TLS, autenticação, acesso e retenção upstream requerem configuração independente. Consulte doc/BOUNCERS.txt, examples/bouncer-znc.ini e examples/bouncer-soju.ini. Os testes controlados não comprovam todas as versões e fornecedores reais.

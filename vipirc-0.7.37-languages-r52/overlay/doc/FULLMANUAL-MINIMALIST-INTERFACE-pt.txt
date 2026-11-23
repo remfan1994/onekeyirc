@@ -1,0 +1,36 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / MINIMALIST INTERFACE
+English source SHA-256: 21dd2fdc5c7552003eba414c032dbbece1a7caa875d21274eb5594748bf44568
+Source lines: 123-203
+
+INTERFACE MINIMALISTA
+
+    vipirc -i
+    vipirc --idle --test-mode
+    /connect irc.ircnow.org
+    /join #ircnow
+    /saveconf
+
+-i utiliza a mesma configuração e o mesmo catálogo de servidores do vipirc. O nome de utilizador (nick) predefinido provém de um nome de início de sessão ou de utilizador válido. /saveconf guarda as preferências e os perfis em bom estado, recordando a ligação selecionada, incluindo uma secundária, para o próximo /connect sem argumentos. Guardar não ativa a ligação automática. /quickstart e /panel são assistentes opcionais.
+
+O ecrã habitual é o registo. / abre Command, ? abre a ajuda contextual e os restantes caracteres imprimíveis iniciam Compose e são preservados. Enter ou Insert abre Compose vazio. No registo em direto, Up recua uma linha retida, Page Up uma página e Home vai para a página retida mais antiga; Down/Page Down/End mantêm a visualização no fim em direto. Left/Right/Delete/Backspace não têm efeito aí. Num leitor de histórico, End ou Escape volta ao direto.
+
+As setas no Compose editam texto, não recuperam mensagens de conversa enviadas. Tab/Shift-Tab completam nicks no Compose e nomes de comandos no Command. Em Command, Down seleciona sugestões; Up/Down percorrem-nas e Up na primeira regressa à entrada. Enter insere a sugestão escolhida; é necessário um Enter separado, após a apresentação, para a executar. Up na entrada de Command recupera comandos aceites que correspondam; Down regressa em direção ao rascunho original. Consulte /help keys e /help commands para todos os controlos.
+
+O modo de composição line mantém uma linha de entrada sob o fim do registo em direto; fullscreen mantém um editor de várias linhas com uma área de registo mais pequena. A atualização do ecrã provocada pelo tráfego preserva o rascunho e o cursor. Escape sai do editor para o registo; Escape no registo coloca a aplicação em segundo plano. Em Review, Escape ou começar a escrever restaura o editor, rascunho e cursor anteriores; um novo Enter confirma. Ctrl-D não tem efeito sem associação explícita; os sinais do terminal obedecem às definições herdadas. Uma colagem reconhecida permanece literal e não consegue enviar mensagens.
+
+    /set send_mode direct|review
+    /set composer_mode line|fullscreen
+    /set output_format compact|full
+    /save input
+    /save output
+
+Os valores predefinidos são envio direto, composição numa linha e saída compacta [HH:MM:SS] <nick> text. A saída full inclui data/servidor/destinatário; as menções e diagnósticos entre servidores mantêm o contexto necessário nos dois formatos. Estas preferências pertencem ao perfil principal e aplicam-se a todos os servidores. Continuam a ser necessários o reconhecimento independente do orçamento de bytes e o consentimento para várias mensagens.
+
+/help ls lista os tópicos; /help /ls explica o comando de listagem local. Utilize /help COMMAND para sintaxe e exemplos, um único tópico ou nome de comando de cada vez. /manual e vipirc -i --manual fornecem a referência minimalista completa, também em doc/vipirc-idle-manual.txt. Os comandos/controlos diferem dos do ncurses completo. A ajuda e os resultados de comandos longos utilizam um leitor separado e limitado. Setas/Page Up/Page Down/Home/End deslocam-se; Escape regressa. Enter desloca a ajuda, mas fecha uma lista /users obtida com êxito. / abre Command a partir de um leitor; cancelar regressa ao leitor. A saída de um novo comando substitui a resposta anterior. r em Summary atualiza o resumo. A rede continua ativa durante a leitura.
+
+/panel começa em 0 Application preferences, abrangendo histórico, modos de envio/composição, saída, avisos, registos, modo de sessão única, sugestões de comandos e interface predefinida. No fim oferece Save ou Apply without saving; não liga nem troca de conversa. As duas interfaces numeram os painéis de perfis de 1..8: o painel 1 edita o perfil principal, identificado como server 0 no modo completo e 1 no minimalista. Estes painéis editam as opções de cada servidor, incluindo a identidade do bouncer. No fim oferecem Save and connect, Save only (predefinido), Connect once ou Apply only. /quickstart pede servidor/TLS/porta/nick e propõe Connect once; não altera credenciais de bouncer existentes.
+
+Enter mantém a resposta apresentada; '-' limpa os campos opcionais. Escape recua ou sai da primeira pergunta. Tab escolhe um título para obter ajuda com ?; depois Tab/Enter retoma a edição. As palavras-passe e respostas ocultas nunca entram no histórico de comandos. Só a escolha final aplica/guarda/liga; uma ligação ativa não é redirecionada e uma falha posterior de ligação não anula alterações explícitas. O vipirc completo também oferece estes assistentes; /settings abre aí o formulário gráfico.
+
+No modo minimalista, /servers usa 1..8; no modo completo, 0..7. Channel 0 representa o servidor/MOTD nas duas interfaces. A definição principal de histórico limita a retenção interna em todas as conversas, conforme os limites rígidos descritos em /help history. O registo opcional em texto simples está desativado por predefinição. DCC utiliza os comandos /dcc explícitos e partilhados, sem formulários gráficos.

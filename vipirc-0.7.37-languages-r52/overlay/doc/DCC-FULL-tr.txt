@@ -1,0 +1,35 @@
+vipirc 0.7.36 - optional r18 translation draft (tr)
+Source: MANUAL.txt / FILE TRANSFERS
+English source SHA-256: c3342db1ecfe58933be47c90ee8d60304d29f68f09303a30c005f3061126d611
+Fluent review pending; use English MANUAL.txt for authoritative safety details.
+
+DOSYA AKTARIMLARI
+
+F6, /dcc veya /transfers, çalışma alanındaki tüm aktarımları ve her aktarımın kaynak IRC sunucusunu gösterir. Normal liste denetimleri geçerlidir. Kullanılabilen işlemler:
+
+    Accept    Reject    Send...    Cancel transfer    Back
+
+İnceleme ekranı en az 12 satır ve 20 sütun gerektirir. Dosya tarayıcısı veya alandaki Escape forma, form ya da listedeki Escape sohbete döner; taslaklar ve kabul edilmiş aktarımlar korunur. Yalnızca klasik, etkin IPv4 DCC SEND desteklenir: CHAT, devam ettirme, pasif/ters aktarım, otomatik kabul, adres keşfi veya port yönlendirme yoktur. En büyük dosya boyutu 4,294,967,295 bayttır. Alınan dosyalar kendiliğinden açılmaz ya da çalıştırılmaz.
+
+DCC, IRC TLS bağlantısından bağımsız, şifrelenmemiş doğrudan bir bağlantıdır; eş için kriptografik kimlik doğrulaması yoktur. Teklif duyurulan IPv4 adresini açığa çıkarır; teklifi kabul etmek alıcının IP adresini eşe gösterir. Her teklifi kabul etmeden önce göndereni, uç noktayı, beklenen dosyayı ve bayt cinsinden boyutunu doğrulayın.
+
+Gelen teklif açıkça kabul edilene kadar dosya veya soket açılmaz. Listedeki Accept, Directory/Save as ve Edit/Accept/Cancel içeren bir inceleme formu açar. Alandaki Enter yalnızca değeri hazırlar; aktarımı sadece formdaki Accept başlatır. Yapıştırma yalnızca etkin düzenleyiciye veri ekler, teklifi kabul edemez. Reject hiçbir dosya oluşturmaz.
+
+Tam arayüzde önerilen indirme dizini, mutlaksa $XDG_DATA_HOME/vipirc/downloads; aksi halde HOME mutlaksa $HOME/.local/share/vipirc/downloads olur. Bunlar yoksa açık bir yol girin. Eksik üst dizinler ancak Accept ile 0700 izinleriyle oluşturulur. Son üst dizin kullanıcının mülkiyetinde ve özel olmalıdır; yeni dosya 0600 izinleriyle açılır. Var olan dosyalar, sembolik bağlar ve '..' reddedilir. Temel dosya adı görünür olmalı; gizli ad, yol ayırıcı, kontrol veya çift yönlü biçimlendirme karakteri ya da tırnak işareti içermemelidir. Protokolde tırnakla verilen dosya adları boşluk içerebilir. Başarısız veya iptal edilmiş kısmi dosyalar, yalnızca başlangıçta oluşturulan dosyanın kendisi olarak kaldıklarında silinir; yerine konan dosyalar asla silinmez.
+
+Send...; Nickname, Source file, Advertised IPv4 ve Listen port alanlarıyla Edit/Browse, Offer, Cancel işlemlerini açar. Özel konuşma varsayılan eşi sağlar; form ilgili IRC sunucusunu gösterir. Yalnızca Offer dinleme soketini başlatıp kayıtlı sunucu üzerinden hız sınırlı teklif kuyruğuna ekler. Kaynak, mevcut ve sıradan bir dosya olmalı, sembolik bağ veya '..' içermemelidir. Port 0 kullanılabilir bir port seçer; açıkça verilen portlar 1..65535 aralığında olmalıdır. NAT erişilebilir bir duyuru IPv4 adresi ve port yönlendirme gerektirebilir; UPnP ya da genel IP keşif hizmeti çağrılmaz.
+
+Browse programın başlatıldığı dizinde açılır: oklarla seçim yapılır; Enter bir dizine girer veya dosya seçer; parent/Backspace üst dizine çıkar; Type path mutlak dosya adı alır; Escape kaynağı değiştirmeden çıkar. Seçim, teklif göndermeden veya işlemin cwd değerini değiştirmeden formu doldurur. Her tur en fazla 64 girişi inceler; liste 512 girişi tutar ve 4096 giriş incelendiğinde durur. Gösterilmeyen girişler için Type path kullanın. Sembolik bağlar ve güvensiz adlar atlanır; seçim ve teklif sırasında meta veriler yeniden kontrol edilir.
+
+    /dcc alice file.txt
+    /dcc send -address 203.0.113.10 -port 5000 alice file with spaces.txt
+    /dcc list
+    /dcc accept 1 /home/me/private-downloads
+    /dcc reject 2
+    /dcc cancel 3
+
+Örnek IP yerine erişilebilir adresinizi kullanın. Komuttaki PATH, boşluklar dahil kalan metnin tamamıdır; kabuk tırnakları kullanılmaz. Göreli yollar, arka plana geçildikten veya dosya tarayıcısı kullanıldıktan sonra da başlangıç cwd konumuna göredir. Varsayılan duyurulan IP, IRC soketinin yerel IPv4 adresidir; yalnız IPv6 üzerinden IRC bağlantıları açık IPv4 değişikliği ister, NAT da bunu gerektirebilir. DIRECTORY olmadan accept komutu başlangıç cwd konumunu ve aynı özel dizin denetimlerini kullanır. Minimalist modda yalın /dcc listeyi gösterir. İki arayüz de aynı aktarım yöneticisini, sınırları ve iptal mekanizmasını paylaşır.
+
+SSH kullanırken tüm yollar, adresler ve bağlantılar terminalin yerel bilgisayarına değil vipirc çalışan ana makineye aittir. Kabul edilen aktarımlar sohbet/görünüm değişiminde ve IRC Disconnect sonrasında da sürer. Kaynak sunucuyu kapatmak ona ait aktarımları iptal eder; programdan çıkış hepsini durdurur. Hata, iptal veya zaman aşımı kuyruktaki teklifi kaldırır; ancak gönderilmiş veya gönderilmekte olan teklif geri alınamaz.
+
+Çalışma alanı sınırları: 8 bekleyen teklif, 4 etkin/dinleyen/bağlanan aktarım ve 12 saklanan kayıt. Yalnızca dolduğunda, en eski tamamlanmış/hatalı kayıtlar önce yeniden kullanılır; bir çalışma sırasında ID'ler tekrar verilmez. Teklifler 5 dakika sonra zaman aşımına uğrar; aktarım 2 dakika ilerleme olmazsa durur. Akış sınırlı tamponlar ve kümülatif 32-bit alındı bilgileri kullanır. Test modunda bellekteki örnek incelenebilir/reddedilebilir/iptal edilebilir; Send/Accept, dosya veya soket işlemi başlamadan reddedilir.

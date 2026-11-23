@@ -1,0 +1,16 @@
+ZNC, soju and playback
+Source: SECURITY.md, section "ZNC, soju and playback"
+English section SHA-256: f0e223c83f0df60aa10260168ae7433ff77fbbd2f4cef7d4914cd07da4f7ed99
+Paragraphs: 5
+Status: Translation draft; fluent-speaker security review required
+English SECURITY.md remains authoritative. This is only one section, not the full security document.
+
+Les profils bouncer explicites exigent TLS vérifié et une identité compte/réseau, avec nom de client facultatif. ZNC emploie une source de mot de passe serveur ; soju exige SASL PLAIN et une source de mot de passe SASL. La transaction de configuration applique ensemble point de connexion, identité et identifiants, puis efface les anciens brouillons lorsque ces associations changent. L'authentification IRC en amont relève de la configuration du bouncer lui-même.
+
+Les JOIN restaurés par le bouncer déterminent l'appartenance aux salons ; les listes de salons enregistrées ne sont pas rejouées. Des commandes de démarrage explicites restent des exceptions volontaires. L'absence automatique est désactivée par défaut pour un profil bouncer afin qu'un appareil n'impose pas son inactivité à un autre. /away et /back restent des actions manuelles explicites. Les contrôles du processus local n'administrent pas le service bouncer distant.
+
+Les messages de contrôle /znc et /soju tiennent dans un seul message cadencé et sont exclus du rappel, des échos locaux et des journaux permanents. Les copies reçues destinées au service bouncer sont supprimées même avec un ancien pseudo ou une référence de lot inconnue. Les réponses du service restent visibles dans la vue serveur, mais ne sont pas conservées. Les copies reconnues d'authentification privée sont exclues des transcriptions quels que soient le pseudo de l'expéditeur, l'encadrement du rejeu ou la destination qualifiée du service. Le texte visible conservé n'est pas un coffre à secrets. Il peut apparaître lors de la saisie, et l'administrateur du bouncer peut le recevoir et l'enregistrer. Il n'y a pas de secret vis-à-vis du bouncer choisi.
+
+Les lots d'historique reconnus sont uniquement affichés : ils ne peuvent modifier l'appartenance ou la présence actuelle, créer des alertes mentions, répondre à CTCP ni activer des offres DCC. Les frontières d'historique imbriquées ou entrelacées sont limitées à 16 lots et des références de 64-byte ; un encadrement malformé, incohérent ou hors limites provoque la déconnexion. Les références inconnues sont traitées prudemment comme de simples affichages. Les horodatages originaux valides apparaissent en UTC mais ne commandent jamais les minuteurs locaux ni la cadence.
+
+Le client prend en charge les tampons poussés par le bouncer, pas un navigateur d'archives à la demande ni la découverte de tous les réseaux du compte. Il ne demande pas echo-message, draft/chathistory ni znc.in/playback. Un horodatage seul ne prouve pas qu'un message provient de l'historique ; le rejeu ancien sans lots conserve le traitement habituel des messages en direct. Un rejeu arbitraire n'est pas dédupliqué entre nouveaux processus. Voir doc/BOUNCERS.txt pour la configuration et les limites.

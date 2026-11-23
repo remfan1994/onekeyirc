@@ -1,0 +1,12 @@
+Trust boundary
+Source: SECURITY.md, section "Trust boundary"
+English section SHA-256: b206f366472f34a9c25e1096f15d6fe813e99115c1e789ab4fa3d857e18f7595
+Paragraphs: 3
+Status: Verbatim English reference
+English SECURITY.md remains authoritative. This is only one section, not the full security document.
+
+IRC servers, peers, nicknames, topics, protocol fields, filenames and pasted text are untrusted input. The operating system, terminal, C/TLS libraries, certificate trust store and the user's account remain trusted components. The full vipirc interface also trusts curses. GPG adds its executable, keyring and agent. Server profiles share one process and are not isolated security compartments. Another process with the same account privileges can generally inspect private files and memory.
+
+Run as an ordinary account. Before reading configuration, operational invocations reject mismatched real/effective user or group IDs, disable core files and set umask 0077. Linux also disables process dumpability. Missing standard descriptors are reserved with /dev/null before opening application resources; inherited open streams and their flags remain unchanged. Required startup-protection failure stops the invocation. These controls do not provide pledge/unveil, seccomp, privilege separation or protection from host compromise.
+
+configure probes compiler/linker hardening supported by the selected host, including stack protection, fortified libc checks, format diagnostics, PIE, RELRO, immediate binding and a non-executable stack. Inspect the configured flags on the deployment host; not every platform supports every flag.

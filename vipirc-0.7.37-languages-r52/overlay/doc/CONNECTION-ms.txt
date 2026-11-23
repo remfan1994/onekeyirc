@@ -1,0 +1,121 @@
+vipirc / onekeyirc - connection help (ms)
+============================================
+
+Translation draft. Commands, options and config keys must be entered literally.
+For full security details read the authoritative English SECURITY.md and MANUAL.txt.
+
+/help connect
+-------------
+Mulakan dengan /connect irc.example.org. Profil, alias atau nombor pelayan tidak perlu dicipta dahulu.
+
+Pelayan baharu menggunakan TLS yang disahkan pada port 6697 dan nama log masuk sistem, atau user jika tidak sesuai.
+
+Pelayan sepadan yang sedia ada mengekalkan port, pengangkutan, nama gelaran dan pengesahannya.
+
+Gunakan -nick NICK untuk nama panggilan tertentu, atau /nick NICK sebelum bersambung. Kata laluan bukan argumen kedudukan.
+
+Gunakan -plain untuk IRC tanpa penyulitan (port lalai 6667). -tls dan -ssl memilih TLS yang disahkan.
+
++PORT juga memilih TLS. Nombor port biasa tidak mematikan TLS. --tls, --plain dan --nick turut diterima.
+
+Sambungan dipilih dan paparan pelayan/MOTD dibuka. Sambungan sepadan yang aktif tidak diduakan.
+
+Titik hujung lain mendapat tetapan pengesahan baharu; kelayakan dan saluran pelayan lain tidak disalin.
+
+/connect tanpa argumen menggunakan pelayan terpilih dan tetapan akan datang. /saveconf menyimpan pelayan lalai seterusnya.
+
+Bagi profil bouncer pada hos sama, pilih profil dengan /server NUMBER, kemudian gunakan /connect sahaja.
+
+Nombor pelayan sedia ada diterima untuk keserasian. Mod ujian kekal luar talian; perubahan konfigurasi perlu disimpan secara jelas.
+
+/help autoauth
+--------------
+Mengubah pengesahan pelayan terpilih untuk sambungan seterusnya. TLS yang disahkan diperlukan.
+
+Tanpa argumen atau dengan status, papar keadaan sambungan/pengesahan dan laluan fail kelayakan, bukan kandungan kata laluan.
+
+Tetapan semasa dan tertangguh dibezakan. Laluan panjang dipapar lengkap pada baris sambungan berlabel.
+
+PATH ialah semua teks yang tinggal, termasuk ruang; tiada pengembangan shell atau tafsiran petikan.
+
+Perintah ini tidak membuka fail. Kunci GPG mesti dinyahkunci di luar program.
+
+Kata laluan teks biasa hanya boleh ditetapkan secara jelas dalam fail konfigurasi persendirian, bukan argumen perintah.
+
+Gunakan /panel bagi profil bouncer; /autoauth ditolak kerana identiti log masuk dan sumber kelayakan diurus bersama.
+
+Gunakan /save untuk menyimpan. Putuskan sambungan dahulu, kemudian /connect untuk perubahan; sambungan aktif tidak dialih.
+
+/help autojoin
+--------------
+Tanpa argumen atau dengan list, papar pelayan, keadaan pendaftaran/pengesahan, serta senarai aktif dan tertangguh.
+
+Ubah senarai sertai automatik bagi /connect seterusnya. add/remove menerima satu saluran tanpa kunci.
+
+Perubahan disahkan sebelum digunakan dan tidak menyertai atau meninggalkan saluran aktif.
+
+Cubaan semula automatik mengekalkan senarai aktif. Putuskan sambungan, kemudian /connect untuk senarai tertangguh.
+
+Gunakan /join atau /part untuk sambungan semasa, dan /save untuk menyimpan perubahan permulaan.
+
+Profil bouncer memulihkan saluran sendiri; /autojoin ditolak. Gunakan /join dan /part.
+
+/help saveconf
+--------------
+Menyimpan pilihan aplikasi dan konfigurasi semua pelayan yang sihat, lalu mengingati pelayan terpilih sebagai lalai.
+
+Pada permulaan seterusnya, /connect menggunakan lalai tersimpan; nombor pelayan atau persediaan tambahan tidak diperlukan.
+
+Nama panggilan, saluran yang disertai, pengesahan dan pilihan mula termasuk; suntingan sambungan tertangguh diutamakan.
+
+Ini tidak menghidupkan sambungan automatik semasa mula. Gunakan /autoconnect on dahulu jika mahu.
+
+Setiap fail diganti secara peribadi dan atomik. Simpanan berjaya kekal walaupun fail lain gagal.
+
+Pelayan lalai diingati jika simpanannya berjaya; kegagalan dilapor dan profil tidak boleh dibaca tidak ditimpa.
+
+Mod ujian tidak menulis konfigurasi. /save masih menyediakan cara khusus bagi profil dan pilihan.
+
+/help tls
+---------
+TLS disahkan digunakan secara lalai. Nama hos/alamat dan rantaian sijil mesti sah; tiada pintasan atau undur ke plaintext.
+
+Nombor port tidak mematikan TLS. --plain atau /connect -plain memilih IRC tanpa penyulitan dan tidak boleh guna kelayakan akaun/pelayan.
+
+Gunakan nama hos dan port TLS tepat daripada penyedia. Kegagalan mungkin titik hujung salah, sijil tamat/tidak dipercayai atau amanah setempat; semak ralat dahulu.
+
+Secara lalai TLS menggunakan stor amanah sistem. --ca-file FILE atau ca_file= memilih himpunan CA PEM khas, bukan mengepin sijil hujung.
+
+Himpunan CA khusus mesti fail biasa yang tidak kosong, maksimum 16 MiB. Pautan simbolik ke fail CA dibenar; laluan rahsia/konfigurasi lebih ketat.
+
+Fail CA dibuka sekali, dihadkan dan saiz disemak ketika dibaca. FIFO, peranti dan input bukan fail ditolak; PEM berkata laluan tidak boleh meminta input.
+
+Had saiz fail tidak mengehadkan kependaman I/O fail biasa atau sistem fail rangkaian. Gunakan himpunan CA dipercayai pada storan sesuai.
+
+--check-config tidak menguji sambungan TLS atau membuktikan fail CA dan sumber kelayakan berfungsi. --test-mode tidak menghubungi pelayan.
+
+TLS hanya melindungi sambungan ini. TLS huluan dan sejarah plaintext bouncer diurus secara berasingan.
+
+/help reconnect
+---------------
+--reconnect membolehkan percubaan semula untuk proses ini; ia tidak menyimpan tetapan atau memulakan sambungan.
+
+Tanpa pilihan ini, sambungan gagal memerlukan /connect. /autoconnect hanya untuk permulaan.
+
+Masalah DNS sementara, sambungan ditolak/terputus dan tamat masa pelayan dicuba semula selepas 5, 10, 20, 40, 80, 160 lalu 300 saat.
+
+Sambungan berdaftar sekurang-kurangnya 60 saat menetapkan semula sela. Pengundian tidak menggunakan tidur yang menyekat.
+
+Ralat sijil, pengesahan, protokol rosak dan konfigurasi kekal terputus sehingga dibetulkan.
+
+ERROR pelayan sebelum pendaftaran dikekalkan; selepas pendaftaran ia boleh mencetuskan sambungan semula.
+
+/disconnect secara jelas membatalkan cubaan tertangguh. /connect kemudian memulakan cubaan baharu.
+
+Cubaan semula menggunakan tetapan sambungan semasa; suntingan tertangguh tetap memerlukan /connect.
+
+Mesej tertunda dibuang apabila terputus dan tidak dihantar semula secara automatik.
+
+Pengesahan dan perintah mula berulang. Profil langsung menjalankan autojoin selepas pendaftaran; bouncer memulihkan salurannya sendiri.
+
+Mod ujian luar talian tidak pernah menyambung semula ke rangkaian.

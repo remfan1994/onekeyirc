@@ -1,0 +1,280 @@
+TLS RETRY CLASSIFICATION VALIDATION
+Date: 2026-11-10 (America/Los_Angeles)
+vipirc 0.7.22 / onekeyirc 0.1.21
+
+RESULT
+
+A verified TLS connection reset during SSL_write is again eligible for the
+existing automatic reconnect policy on OpenSSL versions that represent the
+socket failure both as SSL_ERROR_SYSCALL and as an ERR_LIB_SYS entry on the
+OpenSSL error queue. The earlier classifier required an empty error queue for
+SSL_ERROR_SYSCALL transport retries, which made the same ECONNRESET fail held
+on OpenSSL 3.5.5.
+
+The correction is deliberately narrow. Certificate verification is checked
+first. A non-system TLS error remains held. A queued system errno must use the
+existing transient errno allowlist. If both the immediately saved errno and
+the queued system errno are nonzero and disagree, the connection is held.
+There is no plaintext fallback and no weakening of server identity checks.
+
+REPRODUCTION
+
+The 0.7.21/0.1.20 transport classifier on this Linux host used OpenSSL 3.5.5.
+A loopback TLS server completed a verified handshake, received application
+data, then reset the TCP connection. SSL_write returned -1; SSL_get_error
+reported SSL_ERROR_SYSCALL; errno was ECONNRESET; and the OpenSSL error queue
+contained ERR_LIB_SYS with reason ECONNRESET. The old classifier returned
+retryable=0.
+
+VALIDATION COMPLETED
+
+- Clean optimized onekeyirc build: PASS with project warning/hardening flags.
+- Transport identity/integrity suite: PASS for plaintext, TLS DNS/IP identity,
+  wrong identity, untrusted CA, expired certificate, deadlines and 12,345-byte
+  bidirectional integrity.
+- Transport classification suite: 31 scenarios PASS on OpenSSL 3.5.5.
+- TLS write reset: retryable=1 after verified handshake.
+- TLS read reset and unnotified EOF: retryable=1.
+- TLS bad descriptor: retryable=0.
+- TLS protocol violation: retryable=0.
+- Untrusted certificate and hostname mismatch: retryable=0.
+- Earlier connection refusal does not override later TLS certificate/protocol
+  hold: PASS.
+- ASan/UBSan transport classification suite: 31 scenarios PASS with
+  halt-on-error; leak detection disabled in this environment.
+- Security app, LIST sanitization, authentication/privacy, DCC identity,
+  process guards, session CLI, terminal-output detach and idle detach boundary
+  regressions completed before the aggregate command hit its execution limit.
+- Config security, command-history privacy, resolver/transport suite and the
+  protocol suite were then run separately and passed. The protocol run covered
+  91,184 exact-allocation/truncation cases plus 25,000 randomized cases.
+
+PORTABILITY
+
+The implementation uses ERR_LIB_SYS, ERR_GET_LIB and ERR_GET_REASON, interfaces
+available in both OpenSSL and LibreSSL/OpenBSD. No OpenSSL-3-only API was added.
+Native OpenBSD 7.8 execution was not available in this environment, so the
+release should still be built and run through its security gates on the target
+OpenBSD host.
+
+LIMITATIONS
+
+This is bounded regression testing, not a proof of indefinite availability or
+absence of every TLS/library interaction. The full vipirc ncurses frontend was
+not linked here because the environment lacks its wide-character curses
+development inputs; the modified transport source is shared with vipirc -i.
+
+PREVIOUS RELEASE VALIDATION (0.7.21 / 0.1.20)
+
+MINIMALIST REVIEW TRANSCRIPT FIX VALIDATION
+Date: 2026-11-10 (America/Los_Angeles)
+vipirc 0.7.21 / onekeyirc 0.1.20
+
+RESULT
+
+The minimalist message-review stage is now a temporary alternate-screen view.
+The draft preview and the "Send this message?" / "Send these messages?" prompt
+are not written into the normal terminal transcript. Editing from review and
+reviewing again replaces that temporary screen instead of appending another
+copy of the composition.
+
+After a reviewed send is explicitly confirmed, the minimalist frontend also
+suppresses the redundant routine queued/paced success notice. Direct sends
+still obey the queue_notices preference. Errors, stale-destination failures,
+message-limit changes and multi-message consent remain visible.
+
+Incoming IRC records received while review owns the temporary screen stay in
+the bounded retained stream. They render when the live log returns instead of
+being mixed into or corrupting the review screen. Successful single-message
+review therefore leaves one durable self-message entry: the ordinary outgoing
+chat echo.
+
+Long reviews retain Up/Down, Page Up/Page Down and Home/End navigation inside
+the temporary review screen. Enter confirms only after the review has been
+drawn and a fresh input batch arrives; Escape cancels; printable editing input
+returns to the composer.
+
+VALIDATION COMPLETED
+
+- Clean optimized onekeyirc build: PASS with project warning flags and no
+  compiler diagnostics.
+- All selected onekeyirc live-terminal components completed successfully
+  across the bounded final run plus a separate final main-log navigation case,
+  including review, review bounds, direct send, mandatory split review, reader,
+  output, routing, clear, backpressure, roster and background/resume.
+- Complete selected onekeyirc offline terminal suite: PASS.
+- All check-unit executables completed successfully; the aggregate make invocation
+  reached the execution window while entering its final idle-setup test, which
+  was then run separately and passed completely.
+- Focused review/edit/re-review regression: PASS through the actual vipirc
+  main/idle path with only unused ncurses entry points stubbed to abort.
+- Focused onekeyirc review and review-bounds regressions under ASan/UBSan:
+  PASS with halt-on-error and leak detection disabled.
+- The review regression proves that a confirmed edited draft produces one
+  wire message, no reviewed queue-notice transcript line, exactly one final
+  <self> chat entry, and no Review/Send prompt on the restored normal screen.
+  The bounds regression proves undersized terminals cannot confirm blindly and
+  that resize plus long-review paging remain usable.
+- vipirc -i --manual matches doc/vipirc-idle-manual.txt byte-for-byte; the
+  embedded full manual matches doc/manual.txt byte-for-byte.
+
+LIMITATIONS
+
+The complete ncurses vipirc executable is not rebuilt in this environment
+because the required wide-character curses development headers are absent.
+The review change is confined to the shared minimalist idle frontend; regular
+ncurses review/input behavior is unchanged. A larger vipirc idle terminal run
+reached the execution window after the focused review regression and several
+unrelated suites had passed, so only completed cases are counted. No native
+OpenBSD, public IRC, real SSH or long-duration soak test is claimed here.
+
+PRESERVED EARLIER VALIDATION
+
+MINIMALIST KEYBOARD USABILITY VALIDATION
+Date: 2026-11-10 (America/Los_Angeles)
+vipirc 0.7.20 / onekeyirc 0.1.19
+
+SCOPE
+
+The minimalist live log now treats terminal navigation keys according to their
+usual viewing/editing context instead of allowing every recognized special key
+to fall through to blank composition.
+
+Live log:
+  Up                 one retained visual row older
+  Page Up            one retained page older
+  Home               oldest retained page
+  Down/Page Down/End stay at the live tail
+  Left/Right          inert
+  Delete/Backspace    inert
+  Insert/Enter        open an empty Compose editor
+  /                   open Command
+  ?                   context help
+  other printable    open Compose and retain the typed character
+
+Scrollback:
+  Up/Down             one visual row
+  Page Up/Page Down   one page
+  Home                oldest retained page
+  End/Escape          live tail
+
+Once Compose or Command is open, arrows, Home/End and Delete retain their
+editor meanings. Command Up/Down keeps its command-history/suggestion behavior.
+Help/response readers retain Up/Down, Page Up/Page Down and Home/End. Setup
+continues to reserve Page Up/Page Down for long option details while editor
+navigation edits the answer. No function-key or new Ctrl-key shortcuts were
+added.
+
+IMPLEMENTATION NOTES
+
+The standard xterm-compatible Insert sequence ESC [ 2 ~ is now decoded.
+Home/End already accept the existing CSI/SS3 variants. New matching IRC traffic
+continues to keep an older scrollback page anchored. Returning Down from a
+one-row scroll now returns directly to the live tail rather than requiring a
+second Down press.
+
+The full ncurses frontend is intentionally unchanged. It has a persistent input
+field, so Home/End/arrows remain editor navigation there; its existing
+KEY_PPAGE/KEY_NPAGE chat-history handler remains in src/ui.c.
+
+VALIDATION COMPLETED
+
+- Clean onekeyirc rebuild: no compiler diagnostics.
+- Focused real-PTY/private-loopback keyboard regression: PASS in onekeyirc.
+- The same regression through vipirc's actual main/idle path, with only unused
+  ncurses entry points stubbed to abort: PASS.
+- Focused ASan/UBSan onekeyirc keyboard regression: PASS with halt-on-error.
+- Targeted native units: idle command interface PASS; editor 471052 checks PASS;
+  minimalist config PASS.
+- Standalone CLI/manual consistency test: PASS.
+- vipirc -i --manual matches doc/vipirc-idle-manual.txt byte-for-byte; vipirc
+  --manual matches doc/manual.txt byte-for-byte in the idle-path test binary.
+- All changed user-facing text checked here is ASCII.
+
+LIMITATIONS
+
+A complete make check-unit invocation exceeded this environment's command
+execution window while compiling unrelated targets and is not counted as a
+pass. The focused relevant targets above completed. groff is not installed in
+this environment, so man-page rendering was not re-run here. The complete
+ncurses executable was not built because the required wide-character curses
+development headers are unavailable. No native OpenBSD, real SSH, public IRC,
+AF_UNIX lifecycle or long-duration soak test is claimed for this keyboard-only
+follow-up.
+
+PRESERVED EARLIER VALIDATION
+
+MINIMALIST DISPLAY FIX VALIDATION
+Date: 2026-11-08 (America/Los_Angeles)
+vipirc 0.7.17 / onekeyirc 0.1.16
+
+The matching 112-byte baseline case retained and transmitted the complete
+message but hid its ending when the next input field opened. The fixed case
+shows that ending in both frontends, with exactly one complete transmission.
+
+The focused display suite passes all four cases (two defects, each in line
+and fullscreen composer layouts) in four builds: normal and ASan/UBSan
+onekeyirc, and normal and ASan/UBSan vipirc idle harnesses. It checks newest
+visual-row selection, long records, Unicode/combining characters, resize,
+cursor/text agreement and exact transmitted text. Both baseline regressions
+fail at the display assertion after their wire-payload checks pass.
+
+Existing terminal checks for offline editing/commands, paste/send review and
+the line-mode live tail/toggle also pass. Selected editor, protocol, app/list/
+authentication security and DCC file-identity unit regressions pass.
+
+The complete onekeyirc build passes strict compiler warnings. The vipirc -i
+tests use its actual main and idle code with unused ncurses entry points
+stubbed to abort; no complete ncurses build or runtime pass is claimed.
+ASan/UBSan report no errors in these cases. Leak detection is disabled.
+No native OpenBSD, AF_UNIX session lifecycle or actual SSH test is claimed.
+
+The full embedded manual was compiled and dumped byte-for-byte against the
+shipped manual text. Minimalist manuals were generated from current code.
+All 38 shared production source files are byte-identical between packages.
+
+REPRODUCE ON A CAPABLE HOST
+
+  ./configure
+  make
+  make check-idle-display
+
+The new target runs tests/test_idle_wrapping.py against the actual program.
+In vipirc it selects -i. Tests use temporary homes, real PTYs and a private
+localhost IRC peer. They require Python 3 and the normal build dependencies.
+No public IRC server or user configuration is needed.
+
+PACKAGE CHECKS
+
+Clean staged onekeyirc ./configure and strict make: PASS. Its executable
+is byte-identical to the tested production build:
+SHA256 8b0a4f6dab19891340e55f98a5df6ce3172070708c3588efe2ab85aa4b8ac6ae
+
+Private DESTDIR installation: PASS. Installed version, executable, man page,
+current display evidence and preserved session validation were checked.
+No host or VPS installation was changed.
+
+All shipped Python tests parse. Both man pages render with groff -Tascii -man
+without diagnostics. New user-facing documentation is ASCII. Source-only
+archives have per-file manifests/checksums with verified content, sizes and
+modes. No build outputs, test homes or credentials are included. These
+packaging checks do not expand the native-runtime test coverage.
+
+SCOPE AND HISTORY
+
+The functional change is limited to src/idle.c: wrap the composer live tail
+by terminal rows, and avoid a duplicate row advance for an exact-margin
+newline. Version metadata, manuals, regression tests and packaging are also
+updated. The sender, queue, network security and session-control code are
+unchanged. Existing workers need restart to execute the updated renderer.
+
+doc/DISPLAY-TEST-RESULTS.json contains this release's measured evidence,
+source hashes, baseline screen captures and test-binary hashes. The complete
+ncurses frontend cannot be built here without its development headers.
+No assertion is made about the user's installed binary or terminal.
+
+doc/SESSION-CONTROL-VALIDATION.txt and SESSION-CONTROL-TEST-RESULTS.json
+preserve the preceding session-control results. SECURITY-REVIEW.txt,
+SECURITY-VALIDATION.txt and SECURITY-TEST-RESULTS.json retain the earlier
+security audit scope. OPENBSD-VALIDATION.txt applies only to its named
+historical releases. These results are not relabeled as new runtime tests.

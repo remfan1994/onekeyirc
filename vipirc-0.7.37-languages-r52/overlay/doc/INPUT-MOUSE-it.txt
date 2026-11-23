@@ -1,0 +1,33 @@
+vipirc 0.7.36 - optional r18 translation draft (it)
+Source: MANUAL.txt / INPUT EDITING through MOUSE CONTROLS
+English source SHA-256: efd7a5a2ee94dcc2a9923884399743cf9696f83790f9e79d1861b211d0a9453c
+Fluent review pending; original English manual is authoritative.
+
+MODIFICA DELL'INPUT
+
+    Enter                 Inviare o rivedere il testo.
+    Left/Right            Gruppo di caratteri precedente/successivo.
+    Up/Down               Muoversi fra le righe a capo, non richiamare la chat.
+    Home/End              Inizio/fine dell'intera composizione.
+    Backspace/Delete      Cancellare il gruppo di caratteri precedente/attuale.
+    Tab/Shift-Tab         Completare nickname successivo/precedente.
+    Escape                Aprire Queries da una chat privata, altrimenti vipirc.
+    /clearinput           Cancellare l'intera bozza, incluso il testo fuori schermo.
+
+F1..F6 apre i pannelli disponibili. Le lettere digitate nella chat, comprese hjkl, sono testo letterale. Enter digitato invia; i ritorni a capo espliciti entrano tramite bracketed paste, e i tab incollati diventano spazi. Digitare / con il cursore in posizione zero apre un campo Command indipendente conservando la bozza; le barre successive o incollate restano testo.
+
+La bozza è un solo buffer logico: l'andata a capo visiva non aggiunge testo, Backspace attraversa le righe visualizzate e il ridimensionamento conserva testo e cursore. Il campo fisso riserva floor(B/W)+1 righe in base al limite di carico B e alle colonne utilizzabili W, entro lo spazio del terminale. Digitazione e cancellazione non ne modificano le dimensioni; le bozze lunghe scorrono al suo interno. Cambi di vista, limite del protocollo o dimensioni del terminale ricalcolano l'altezza. Command ha un campo proprio; /msg o /me non sostituisce mai la bozza della chat.
+
+Un Escape grezzo isolato attende circa 500 ms; una sequenza parziale permette 1000 ms tra i byte successivi mentre la rete continua a funzionare. I tasti decodificati completamente agiscono subito. Un marcatore iniziale di incollaggio che arriva dopo la tolleranza del primo Escape può essere interpretato come Escape; nel registro minimalista può mettere il client in background. Dopo l'inizio della cattura, i marcatori di chiusura sono riconosciuti anche se le letture frammentate arrivano con ritardi arbitrari. I tasti finali non possono annullare la bozza o cambiare modalità prima del confine visibile di revisione o di input inattivo.
+
+L'input richiede UTF-8 valido o una modalità locale ASCII scelta esplicitamente; vedere FILES AND ENVIRONMENT. Un carattere base e i segni successivi a larghezza zero si muovono/cancellano insieme; la segmentazione completa dei grafemi Unicode non è implementata. I glifi non supportati hanno un sostituto visibile. I limiti sono 8192 valori scalari Unicode o 16384 byte UTF-8, a seconda di quale si raggiunge prima. Codifiche e caratteri di controllo non validi sono rifiutati. I ritorni a capo incollati restano visibili e incidono sul piano d'invio; il budget IRC inferiore determina avvisi e suddivisione.
+
+COMANDI DEL MOUSE
+
+Il mouse è attivo per impostazione predefinita se curses, TERM e il terminale lo supportano. /mouse cambia lo stato, /mouse on|off lo imposta; Settings > Interface modifica/salva la preferenza mouse della sezione [interface] nella configurazione principale. La tastiera funziona anche senza mouse; il terminale o il multiplexer SSH deve inoltrare gli eventi del mouse.
+
+Fare clic su una categoria dell'intestazione la apre, sulla chat posiziona il cursore, Clear elimina l'intera bozza e Send invia dopo i controlli consueti. Clear/Send sono nascosti quando indisponibili. I nickname nella chat o nell'elenco offrono Whois/Query; fare clic su #channel lo seleziona o vi entra. L'identità dell'elemento visualizzato al clic, non quella di un sostituto successivo alle stesse coordinate, determina l'azione. URL e contenuto degli appunti non vengono aperti.
+
+I clic sulle righe aprono server/canali/conversazioni private; quelli sulle azioni operano sulla selezione. La rotellina cambia la selezione senza modificare l'azione. Sulla cronologia o elenco utenti scorre tre righe visive o utenti. Settings e transfers conservano i propri campi e azioni. Per la chat servono almeno 9 righe e 20 colonne; le intestazioni strette mantengono visibile il focus.
+
+Il mouse non conferma gli avvisi anticipati di lunghezza o d'invio suddiviso; usare le opzioni da tastiera. Command Run/Cancel richiede un'azione nuova dopo l'incollaggio. Sequenze di clic o ritorni a capo incollati non possono attivarlo e i clic della precedente disposizione non vengono riutilizzati in una schermata appena aperta.

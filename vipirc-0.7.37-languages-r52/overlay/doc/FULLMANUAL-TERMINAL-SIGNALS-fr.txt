@@ -1,0 +1,19 @@
+CURRENT SIGNAL POLICY (vipirc-0.7.37):
+Use signals est réglé sur no par défaut. Ctrl-C et Ctrl-Z annulent un message ou une commande non envoyés sans quitter ni suspendre le programme. Choisissez yes dans le panneau 0 ou les paramètres Interface de vipirc pour activer les signaux du terminal. Apply agit immédiatement ; Save enregistre aussi [input] use_signals=true|false. Les paramètres initiaux du terminal sont rétablis à la sortie ou lors de la suspension.
+
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / TERMINAL SIGNALS
+English source SHA-256: b88ff166737c03f4e8588e56bcb3bfd585a2d4ef6379caaf086b815dbbd935b6
+
+SIGNAUX DU TERMINAL
+
+Ctrl-D littéral est ignoré sauf attribution explicite dans la saisie principale du chat/des commandes ; il peut aussi annuler la question de sortie F1. Un Ctrl-D collé ne peut répondre à cette question. Pour quitter normalement, saisissez /quit dans Command. Les attributions personnalisées de signaux du terminal priment sur la gestion ordinaire des touches.
+
+Par défaut, la gestion des signaux est héritée. Le client n'attribue pas Ctrl-C ni Ctrl-Z : ces touches n'agissent que si le terminal les associe à des signaux et que cette gestion est activée. Les touches personnalisées d'interruption, de sortie et de suspension sont conservées. Pour activer explicitement les signaux, définissez cette préférence principale et démarrez un nouveau processus :
+
+    [input]
+    use_signals=true
+
+La valeur par défaut false conserve l'état d'activation reçu. Ce réglage ne modifie jamais les touches attribuées par le terminal. Le client rétablit les paramètres initiaux du terminal à la suspension et à la sortie.
+
+Si les signaux sont activés, l'interruption quitte sans enregistrer les brouillons. Suspendre un processus ordinaire au premier plan arrête sa communication réseau et peut provoquer une expiration ; fg le reprend. Pour une session déjà gérée/reprise, seul le contrôleur au premier plan est suspendu tandis que le processus de travail conserve le réseau ; voir RUNNING IN THE BACKGROUND.

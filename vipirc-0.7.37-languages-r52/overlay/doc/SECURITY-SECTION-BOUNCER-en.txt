@@ -1,0 +1,16 @@
+ZNC, soju and playback
+Source: SECURITY.md, section "ZNC, soju and playback"
+English section SHA-256: f0e223c83f0df60aa10260168ae7433ff77fbbd2f4cef7d4914cd07da4f7ed99
+Paragraphs: 5
+Status: Translation draft; fluent-speaker security review required
+English SECURITY.md remains authoritative. This is only one section, not the full security document.
+
+Explicit bouncer profiles require verified TLS and an account/network identity, with an optional client name. ZNC uses a server-password source; soju requires SASL PLAIN and a SASL-password source. The setup transaction applies endpoint, identity and credentials together and clears stale drafts when those bindings change. Upstream IRC authentication belongs to the bouncer's own configuration.
+
+Bouncer-restored JOINs determine membership; saved channel lists are not replayed. Explicit startup commands remain deliberate exceptions. Automatic away is off by default for a bouncer profile so one device does not impose its idle state on another. Manual /away and /back remain explicit actions. Local worker controls do not administer the remote bouncer service.
+
+/znc and /soju control text fits one paced message and is omitted from recall, local echoes and persistent logs. Incoming copies addressed to the bouncer service are suppressed even with an old nickname or unknown batch reference. Service replies remain visible in the server view but are not persisted. Recognized private authentication copies are excluded from transcripts regardless of sender nickname, replay framing or qualified service destination. Their visible retained text is not a secret store. Text can be visible while composed, and the bouncer administrator can receive and log it. This is not secrecy from the selected bouncer.
+
+Known history batches are display-only: they cannot change current membership or presence, generate new mention alerts, answer CTCP or activate DCC offers. Nested/interleaved history boundaries are bounded to 16 batches and 64-byte references; malformed/inconsistent/over-limit framing disconnects. Unknown batch references are handled conservatively as display-only. Original valid timestamps display in UTC but never drive local timers or pacing.
+
+The client supports pushed buffers, not an on-demand bouncer archive browser or account-wide network discovery. It does not request echo-message, draft/chathistory or znc.in/playback. A timestamp alone is not proof of history; unbatched legacy playback keeps ordinary live handling. Arbitrary replay is not deduplicated across fresh processes. See doc/BOUNCERS.txt for setup/limits.

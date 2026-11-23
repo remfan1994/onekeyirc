@@ -1,0 +1,85 @@
+VERBATIM ENGLISH SOURCE REFERENCE
+Source: MANUAL.txt / MINIMALIST INTERFACE
+English source SHA-256: 21dd2fdc5c7552003eba414c032dbbece1a7caa875d21274eb5594748bf44568
+Source lines: 123-203
+
+MINIMALIST INTERFACE
+
+vipirc -i
+    vipirc --idle --test-mode
+    /connect irc.ircnow.org
+    /join #ircnow
+    /saveconf
+
+-i uses the same vipirc config and server catalog. The nickname defaults to
+a valid login or user. /saveconf saves preferences and healthy profiles and
+remembers the selected connection, including a secondary, for the next bare
+/connect. Saving does not enable autoconnect. /quickstart and /panel are
+optional guides.
+
+The log is the normal screen. / opens Command, ? opens context help, other
+printable characters start Compose and are retained. Enter or Insert opens
+empty Compose. In the live log, Up scrolls one retained row older, Page Up a
+page, Home the oldest retained page; Down/Page Down/End stay at the live
+tail. Left/Right/Delete/Backspace are inert there. In a history reader, End
+or Escape returns live.
+
+Compose arrows edit; they do not recall sent chat. Tab/Shift-Tab completes
+nicknames in Compose and command names in Command. Command Down selects
+suggestions; Up/Down browses them and Up from the first returns to input.
+Enter inserts a selection; a separate Enter after display runs it. Up from
+command input recalls accepted matching commands; Down returns toward the
+original draft. See /help keys and /help commands for all controls.
+
+Line composer mode keeps one input row below a live tail; fullscreen keeps a
+multiline editor with a smaller live-tail pane. Traffic repaint preserves
+draft/caret. Escape leaves an editor for the log; Escape on the log
+backgrounds. In Review, Escape or typing restores the same
+editor/draft/caret, while a fresh Enter confirms. Ctrl-D is inert unless explicitly bound; terminal
+signals are inherited. A recognized paste remains literal and cannot submit.
+
+    /set send_mode direct|review
+    /set composer_mode line|fullscreen
+    /set output_format compact|full
+    /save input
+    /save output
+
+Direct sending, line composition and compact [HH:MM:SS] <nick> text are
+defaults. Full output includes date/server/target; mentions and cross-server
+diagnostics keep required context in either format. These primary-owned
+preferences apply across servers. Independent byte-budget acknowledgement
+and multi-message consent still apply.
+
+/help ls lists topics; /help /ls explains the local list command. Use
+/help COMMAND for syntax/examples, with one topic or command name at a time.
+/manual and vipirc -i --manual give the complete minimalist reference, also
+in doc/vipirc-idle-manual.txt. Commands/controls differ from full ncurses.
+Help and long command results use a separate bounded reader.
+Arrows/pages/Home/End scroll; Escape returns. Enter scrolls help but closes
+a successful /users roster. / opens Command from a reader; cancelling
+returns there. New command output replaces the old response. Summary r
+refreshes its snapshot. Networking continues while reading.
+
+/panel starts at 0 Application preferences, covering history, send/composer
+modes, output, notices, logging, single-session mode, command suggestions
+and default interface. Finish offers Save or Apply without saving; it never
+connects or switches chat. Both frontends number profile panels 1..8: panel
+1 edits the primary, labelled server 0 in full mode and 1 in minimalist mode.
+These panels edit per-server settings, including bouncer identity. Finish
+offers Save and connect, Save only (default), Connect once, or Apply only.
+/quickstart asks server/TLS/port/nickname and defaults to Connect once;
+it does not edit an existing bouncer login.
+
+Enter keeps a shown answer; '-' clears optional fields. Escape steps back or
+exits from the first question. Tab selects a heading for ? help, then
+Tab/Enter resumes editing. Hidden passwords and answers never enter command
+history. Only the final choice applies/saves/connects; an active connection
+is not retargeted, and a later connection failure does not undo explicit
+changes. Full vipirc also supports these guided flows; its /settings opens
+the graphical form.
+
+Minimalist /servers uses 1..8; full /servers uses 0..7. Channel 0 is the
+server/MOTD in either interface. The primary history setting limits native
+retention across all conversations, with the hard bounds described in /help
+history. Optional plaintext logging is off by default. DCC uses the shared
+explicit /dcc commands without graphical forms.

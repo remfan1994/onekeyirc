@@ -1,0 +1,49 @@
+client	source	english
+vipirc	src/transfers.c	Directory
+vipirc	src/transfers.c	Save as
+vipirc	src/transfers.c	Source file
+vipirc	src/transfers.c	Advertised IPv4
+vipirc	src/transfers.c	Listen port
+vipirc	src/transfers.c	Receive file
+vipirc	src/transfers.c	Send file
+vipirc	src/transfers.c	Choose file
+vipirc	src/transfers.c	Reading directory...
+vipirc	src/transfers.c	No sendable files here.
+vipirc	src/transfers.c	Listing limit reached; Type path for another file.
+vipirc	src/transfers.c	Unencrypted; IP sent
+vipirc	src/transfers.c	Input is on the chat screen.
+vipirc	src/transfers.c	(unavailable)
+vipirc	src/transfers.c	Enter: stage | Esc: cancel
+vipirc	src/transfers.c	File selection
+vipirc	src/transfers.c	file browser
+vipirc	src/transfers.c	Receive file screen
+vipirc	src/transfers.c	Send file screen
+vipirc	src/transfers.c	File transfers screen
+vipirc	src/transfers.c	This entry is a directory.
+vipirc	src/transfers.c	This entry is a file selection.
+vipirc	src/transfers.c	Use Up/Down to select, Enter to open or choose, and Backspace to visit the parent directory. Choosing a file fills the transfer form for review; it does not send it.
+vipirc	src/transfers.c	This field belongs to the transfer review form. Edit changes its value.
+vipirc	src/transfers.c	Directory and Save as determine the local destination after you choose Accept.
+vipirc	src/transfers.c	Nickname, source file, advertised IPv4 and listen port determine the offer after you choose Offer.
+vipirc	src/transfers.c	Left/Right chooses an action; Enter activates it. Escape returns without approving the transfer.
+vipirc	src/transfers.c	Open a new file-transfer form. There are currently no retained transfer entries. An offer requires an explicit reviewed action.
+vipirc	src/filepicker.c	Choose an absolute directory path without terminal controls.
+vipirc	src/filepicker.c	Use the parent-directory entry instead of '..' in a path.
+vipirc	src/filepicker.c	OFFLINE TEST MODE: file browsing is disabled; Type path can edit a sample.
+vipirc	src/filepicker.c	Directory path is too long or contains unsupported text.
+vipirc	src/filepicker.c	Choose an absolute directory path.
+vipirc	src/filepicker.c	OFFLINE TEST MODE: file selection is disabled.
+vipirc	src/filepicker.c	Select a file or directory after the listing finishes.
+vipirc	src/filepicker.c	That directory changed. Reopen it before selecting a file.
+vipirc	src/filepicker.c	That entry changed. Reopen its directory before selecting it.
+vipirc	src/filepicker.c	The selected path is too long. Use Type path.
+vipirc	src/filepicker.c	The selected path does not fit the source field.
+vipirc	src/filepicker.c	File browser unavailable.
+vipirc	src/idle_commands.c	Servers:
+vipirc	src/idle_commands.c	Unread conversations:
+vipirc	src/idle_commands.c	Authentication: bypassed in offline test mode.
+vipirc	src/idle_commands.c	Required SASL: off
+vipirc	src/idle_commands.c	File paths are shown only by this explicit inquiry. No credential file was read and no password content is displayed.
+vipirc	src/idle_commands.c	Automatic retries keep current authentication. /disconnect then /connect applies pending settings; /save persists them.
+vipirc	src/idle_commands.c	Bouncer profiles restore their own channel memberships; saved auto-join lists are not replayed.
+vipirc	src/idle_commands.c	Use /join and /part while connected, or /channels to inspect restored channels.

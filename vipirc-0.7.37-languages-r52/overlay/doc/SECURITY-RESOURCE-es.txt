@@ -1,0 +1,32 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / SECURITY AND RESOURCE BOUNDS
+English source SHA-256: 0244a7b43c7e5e46a5b365e081fc7bc6654afe3069aea9e68c0e1d0f46c1277e
+
+SEGURIDAD Y LIMITES DE RECURSOS
+
+TLS verifica la cadena de certificados y el nombre de host o la dirección numérica solicitados. No existe una opción para omitir la verificación ni degradacion silenciosa. IRC sin TLS solo se permite con una configuración explícita; expone el tráfico a observadores del trayecto y no puede usar secretos guardados. TLS protege la conexión entre cliente y servidor, no la privacidad de extremo a extremo.
+
+Al iniciar normalmente se rechazan discrepancias entre los ID reales y efectivos de usuario o grupo y se desactivan los volcados de memoria antes de leer la configuración. En Linux también se desactiva la capacidad de volcar el proceso. El cliente es un proceso normal, sin aislamiento del sistema operativo; otro proceso de la misma cuenta esta dentro de su frontera de confianza.
+
+Los comandos privados de autenticacion reconocidos requieren TLS verificado incluso si se escriben como texto normal, se dividen en varios envios o se ponen en cola. La deteccion no identifica de forma fiable cualquier sintaxis nueva de secretos; no introduzca credenciales en el chat ni en argumentos del shell.
+
+Los datos IRC entrantes no son fiables. Antes de mostrarlos se depuran secuencias de control y formatos peligrosos. Los buffers de entrada y red están limitados. El cliente no ejecuta texto recibido, abre URL, ejecuta comandos de shell, carga scripts o plugins ni responde automáticamente a CTCP. Las acciones se muestran como texto. Las ofertas DCC SEND exigen revision y aceptación explícitas para cada archivo; sus conexiones directas no están cifradas con TLS.
+
+Limites de esta version:
+
+    Sesiones de servidor por proceso             8
+    Vistas por servidor, incluidas las internas  32
+    Usuarios almacenados por canal            4096
+    Cadenas de mencion personalizadas          32
+    Mascaras de ignorar por servidor            32
+    Mensajes en cola por servidor               64
+    Comandos recordados por servidor            64
+    Texto de comandos por servidor          64 KiB
+    Historial de texto por servidor           8 MiB
+    Escalares Unicode por borrador            8192
+    Bytes UTF-8 por borrador                 16384
+    Ofertas DCC pendientes en el espacio         8
+    Transferencias DCC activas en el espacio     4
+    Registros DCC conservados en el espacio     12
+
+El límite del historial es por servidor, no un límite de memoria global del proceso. Con ocho sesiones puede haber hasta 64 MiB de texto retenido. El estado del servidor se asigna según se necesite; menos sesiones no reservan ocho historiales completos. Las bibliotecas, los metadatos de vistas, las listas de usuarios, la entrada y el transporte consumen memoria adicional. El historial de conversacion solo reside en memoria salvo que se habilite el registro persistente opcional. La vista separada de menciones no es un archivo permanente; algunas conversaciones originales aptas pueden registrarse. Ajustes, credenciales y registros opcionales sin cifrar son archivos locales que otro programa con los privilegios de su cuenta puede leer. Ningun cliente garantiza seguridad frente a todos los servidores hostiles ni frente a terminales, sistemas o bibliotecas comprometidos.

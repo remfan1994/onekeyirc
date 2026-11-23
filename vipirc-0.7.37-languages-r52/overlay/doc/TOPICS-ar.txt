@@ -1,0 +1,64 @@
+vipirc / onekeyirc - help topics (ar)
+========================================
+
+Commands and option tokens stay in English. Refer to MANUAL.txt and SECURITY.md for exact details.
+
+AUTHENTICATION
+--------------
+استخدم TLS الموثق مع /autoauth sasl USER file PATH أو /autoauth sasl USER gpg PATH.
+
+تطبق إعدادات المصادقة عند /connect بعد قطع الاتصال؛ يحفظها /save.
+
+BOUNCERS (ZNC / soju)
+---------------------
+افتح /panel واختر الخادم ثم نوع الاتصال znc أو soju.
+
+احفظ ملفا لكل شبكة خلف الوسيط. اختر الملف الصحيح قبل /connect عند اشتراكها في المضيف.
+
+يعيد الوسيط القنوات. لا يعاد تشغيل /autojoin المحلي ولا تعديله؛ استخدم /join و /part.
+
+يتصل العميل بالوسيط فقط. اضبط TLS والمصادقة وحفظ السجل عند المنبع بشكل مستقل.
+
+SESSION RECOVERY
+----------------
+شغل --sessions من الصدفة. افحص حالة المهمة واستخدم رقم المهمة لا رقم العملية.
+
+إن بقيت جلسة SSH القديمة متصلة: --detach-session NUMBER ثم --resume NUMBER. يبقى IRC جاريا.
+
+لا تستخدم --close-session NUMBER إلا لإنهاء المهمة كلها. يغلق اتصالات IRC والنقل ويفقد المسودات وتاريخ RAM؛ تبقى الإعدادات والسجلات المحفوظة.
+
+TLS
+---
+TLS الموثق افتراضي. يجب التحقق من اسم الخادم وشهاداته؛ لا تجاوز ولا رجوع إلى plaintext.
+
+رقم المنفذ لا يعطل TLS. يختار --plain أو /connect -plain اتصال IRC بلا تشفير ولا بيانات اعتماد.
+
+لا يجري --check-config مصافحة TLS ولا يثبت عمل CA أو مصدر بيانات الاعتماد. لا يتصل --test-mode بالخادم.
+
+يحمي TLS هذا الاتصال فقط. تضبط حماية المنبع وتاريخ plaintext لدى الوسيط بشكل منفصل.
+
+LOGGING
+-------
+التسجيل الدائم اختياري ومعطل افتراضيا. يفعله /set persistent_logging on ويحفظه /save output.
+
+السجلات plaintext وليست نسخا مشفرة. حد الملف 16 MiB؛ خطأ الكتابة يوقف التسجيل لا الدردشة.
+
+يمسح /clear ذاكرة RAM فقط. تبقى السجلات بعد الخروج أو --close-session أو الحفظ. إيقاف التسجيل يمنع السجلات الجديدة ولا يحذف القديمة.
+
+RECONNECT
+---------
+يفعل --reconnect إعادة المحاولة لهذه العملية؛ لا يحفظ إعدادا ولا يبدأ اتصالا.
+
+تسقط الرسائل المعلقة عند الانقطاع ولا تعاد تلقائيا.
+
+TROUBLESHOOTING
+---------------
+مشغول بعد انقطاع SSH؟ تحقق عبر --sessions ثم --detach-session NUMBER وبعده --resume NUMBER. تجنب --close-session. See /help sessions.
+
+لا قنوات؟ افحص الخادم والمصادقة. للاتصال المباشر /autojoin list؛ وللوسيط /join أو /part.
+
+فشل الدخول؟ افحص الحساب ومصدر السر والأذونات وTLS ووكيل GPG. لا يقرأ /autoauth status الأسرار.
+
+تغيير غير مطبق؟ يلزم /connect بعد الانقطاع. الحفظ لا يفعل autoconnect؛ إعدادات البدء تحتاج إعادة تشغيل.
+
+استخدم --check-config و doc/TROUBLESHOOTING.txt. يختبر --test-mode الواجهة لا DNS أو TLS أو الوسيط الفعلي.

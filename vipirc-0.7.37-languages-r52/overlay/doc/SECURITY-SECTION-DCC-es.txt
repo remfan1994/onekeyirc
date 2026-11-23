@@ -1,0 +1,12 @@
+DCC file transfers
+Source: SECURITY.md, section "DCC file transfers"
+English section SHA-256: f0f91b6753c085b41c9c9071eabf9585ddc404919fe56e0989bfafb733db2e3b
+Paragraphs: 3
+Status: Translation draft; fluent-speaker security review required
+English SECURITY.md remains authoritative. This is one source-linked section, not a security certification.
+
+El DCC SEND clásico activo sobre IPv4 usa texto sin cifrar y no autentica a la otra parte, independientemente de TLS en IRC. Un apodo no acredita la identidad del par que se conecta. El extremo mostrado puede ser una dirección privada o de loopback. Enviar anuncia una dirección; aceptar se conecta al par indicado y revela la dirección del equipo donde se ejecuta el proceso. Una oferta por sí sola no crea archivos ni sockets. Accept/send exige una acción explícita. Si se utiliza SSH, los archivos y sockets pertenecen al equipo remoto donde se ejecuta el proceso.
+
+Los orígenes deben ser archivos normales y ninguna parte de su ruta puede ser un symlink. Se transmiten como flujo, sin obtener una copia instantánea ni protegerse contra modificaciones posteriores: utilice un origen estable. La recepción crea un archivo nuevo con modo 0600 en un directorio privado propiedad del usuario y rechaza recorridos fuera de la ruta, enlaces simbólicos y destinos existentes. La limpieza de transferencias parciales elimina únicamente el archivo con el mismo dispositivo e inode que creó la transferencia. Nunca se abren ni ejecutan archivos automáticamente. Los acuses de cantidad de bytes no son hashes.
+
+Hay un máximo de ocho ofertas pendientes, cuatro transferencias activas y doce registros conservados, y el tamaño máximo es de 4294967295 bytes. Las ofertas caducan a los cinco minutos; las transferencias activas fallan tras dos minutos sin progreso. Los acuses idénticos repetidos no prolongan ese plazo. No se admiten DCC CHAT, resume, transferencias pasivas/inversas, archivos de tamaño desconocido ni IPv6. No hay detección de dirección pública ni configuración automática de NAT/firewall. Una desconexión de IRC deja en curso las transferencias directas ya aceptadas; cerrar su servidor o salir las termina. /cancel no sustituye a la cancelación específica de la transferencia.

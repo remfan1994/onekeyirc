@@ -1,0 +1,60 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / CONNECTION AND STARTUP COMMANDS
+English source SHA-256: 0e846b2d67181dea4d23ed844fc17149aeadd803e429bde3fbbed09330011d9e
+Source lines: 620-699
+
+PERINTAH SAMBUNGAN DAN STARTUP
+
+/connect dengan opsi menghubungkan langsung ke HOST, sedangkan /connect tanpa argumen memakai profil terpilih yang telah disimpan atau diterapkan. /server HOST [PORT] memakai jalur sambungan langsung yang sama. /server NUMBER memilih profil tanpa menghubungkan; /server saja membuka tampilan server/MOTD; /server add HOST [PORT] [NICK] menambah profil belum tersambung dan belum disimpan. /server connect NUMBER, /server disconnect NUMBER, serta /disconnect [NUMBER] mengatur sambungan bernomor. /server close NUMBER menutup profil sekunder tetapi meninggalkan berkas profil di disk.
+
+Tujuan baru memakai TLS terverifikasi pada 6697 dan nickname atau username masuk yang sah; tidak mewarisi kredensial atau kanal. Tujuan yang cocok mempertahankan transport, port, nick, autentikasi, dan memilih koneksi yang sudah aktif, bukan menggandakannya. Jika beberapa profil bouncer memakai host sama, pilih NUMBER yang benar lalu jalankan /connect. Tidak ada perintah sambungan yang menyimpan secara otomatis. Slot server mode penuh 0..7 (utama 0); mode minimalis 1..8 (utama 1). Perintah connect/disconnect tidak mengganti pilihan. Gunakan keluaran /servers milik frontend, bukan nomor pemilih /panel yang berbeda.
+
+Opsi /connect harus mendahului HOST. -ssl adalah alias -tls, +PORT meminta TLS, dan nomor port biasa tidak pernah mematikan TLS. Bentuk --tls, --plain dan --nick juga berlaku; sambungan teks biasa baru memakai 6667. Kata sandi tidak pernah menjadi argumen posisi. Menutup server sekunder menghapus referensi katalog, draf/riwayat, dan transfer, tetapi tidak menghapus berkas profil.
+
+/autoconnect mengubah perilaku startup berikutnya, bukan sambungan yang sedang berjalan. /autojoin menyiapkan kanal profil langsung untuk /connect eksplisit berikutnya tanpa join/part saat ini; hasil permintaan menampilkan status registrasi dan keanggotaan berjalan atau tertunda. Percobaan sambung otomatis mempertahankan pengaturan berjalan; /connect setelah terputus mengambil perubahan yang sudah diterapkan. /join berlaku segera setelah registrasi. Bouncer memulihkan keanggotaan sendiri dan menolak perubahan autojoin; perubahan /autoauth juga ditolak di sana, gunakan Settings atau /panel.
+
+/autoauth menyiapkan SASL hanya melalui TLS terverifikasi. Status menampilkan jalur kredensial aktif/tertunda secara lengkap secara lokal tanpa membacanya; keluaran Settings biasa menyembunyikannya. Pertanyaan mode penuh memiliki Refresh/Back dan mempertahankan draf. PATH adalah sisa teks literal, termasuk spasi. Rahasia langsung harus disimpan pada konfigurasi privat atau Settings, bukan dimasukkan melalui perintah.
+
+/save tanpa argumen menulis profil efektif terpilih termasuk perubahan tertunda. /save input dan /save output sama-sama menulis profil utama yang berisi preferensi aplikasi; keduanya alias, bukan simpan input saja atau output saja. Perubahan sambungan utama yang tertunda ikut disimpan. /save all menulis profil yang sehat; /saveconf juga mengingat profil baku terpilih untuk /connect berikutnya. Penyimpanan tidak mengaktifkan autoconnect. Setiap berkas ditulis privat dan atomik, tetapi seluruh ruang kerja bukan satu transaksi: keberhasilan awal tetap ada jika langkah kemudian gagal. Profil tidak terbaca tidak ditimpa. Test mode tidak menyimpan.
+
+/set autoconnect on|off adalah alias kompatibilitas mode penuh. /set preferensi aplikasi berlaku pada kedua antarmuka; pengaturan kirim/komposer/tampilan keluaran memengaruhi mode minimalis. /panel membuka pengaturan terpandu di keduanya; /quickstart menanyakan empat nilai koneksi pokok. Dalam mode penuh /settings membuka formulir, dalam mode minimalis menampilkan laporan.
+
+/list [MASK] [OPTIONS] meminta direktori kanal jaringan setelah registrasi. Hanya MASK dikirim ke server; --min-users/--max-users, --name, dan --topic menyaring secara lokal. --sort channel|users|topic, --asc/--desc, dan --limit N mengatur tampilan; baku urut pengguna menurun, dan --limit 0 berarti tidak ada pembatas tampilan di dalam cache 8192 entri. /list show dapat mengubah sort/urutan/limit tanpa permintaan jaringan baru; /list clear menghapus cache. /ls dan /cl hanya mendaftar tampilan lokal.
+
+Jika koneksi terputus atau server menolak LIST secara eksplisit, hasil sebagian tetap ada di cache tetapi permintaan dibebaskan. Ulangi /list setelah registrasi, atau hapus dengan /list clear; hasil tidak lengkap bukan daftar kanal jaringan penuh.
+
+Browser mode penuh menggunakan Up/Down atau j/k untuk baris, Left/Right atau h/l untuk kolom pengurutan, s untuk membalik urutan, Page Up/Page Down serta g/G untuk navigasi, Enter untuk join, r untuk mengulang permintaan, / untuk Command, dan Escape untuk kembali. Klik judul kolom untuk mengurutkan. Dalam mode minimalis, /list show mencetak cache; /summary memberi ringkasan ruang kerja lokal yang terpisah.
+
+EXACT COMMAND SYNTAX (not translated):
+
+    /connect [-tls|-plain] [-nick NICK] HOST [PORT]
+    /connect
+    /server HOST [PORT]
+    /server NUMBER
+    /server
+    /server add HOST [PORT] [NICK]
+    /server connect NUMBER
+    /server disconnect NUMBER
+    /disconnect [NUMBER]
+    /server close NUMBER
+
+    /autoconnect [on|off]
+    /autojoin [list|add #CHANNEL|remove #CHANNEL|clear]
+    /autoauth [status|off|sasl USER file PATH|sasl USER gpg PATH]
+    /save [input|output|all]
+    /saveconf
+    /set autoconnect on|off
+    /panel
+    /quickstart
+    /settings
+
+    /list [MASK] [OPTIONS]
+    /list show
+    /list clear
+    /ls
+    /cl
+    /summary
+
+    -ssl   -tls   +PORT   --tls   --plain   --nick
+    --min-users   --max-users   --name   --topic
+    --sort channel|users|topic   --asc   --desc   --limit N

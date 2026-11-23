@@ -1,0 +1,13 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / MENTIONS AND WATCH STRINGS
+English source SHA-256: 7dd545c1b52064bcd746c17c664bc33816010b1a1bc6f7dfda8f6df48830ba1c
+
+MENÇÕES E EXPRESSÕES VIGIADAS
+
+A sua alcunha atual é vigiada automaticamente. A correspondência segue as regras de equivalência de letras e os limites de alcunhas anunciados pelo servidor IRC. Mudar de alcunha atualiza essa correspondência.
+
+    /watch add project name
+    /watch remove project name
+    /watch list
+
+Os valores personalizados são substrings literais, não expressões regulares nem padrões de shell. Aplicam-se as regras de maiúsculas/minúsculas de letras e símbolos IRC/ASCII; os caracteres não ASCII têm de corresponder exatamente. São aceites até 32 expressões personalizadas de 127 bytes UTF-8 cada. Use /save em funcionamento normal para guardar as alterações na configuração selecionada; em modo de teste, ficam apenas na memória. As menções ficam na memória sujeitas aos limites do histórico; não são um arquivo permanente de notificações nem um registo em disco. Os carimbos de data/hora usam a hora local de receção no formato YYYY-MM-DD HH:MM:SS.

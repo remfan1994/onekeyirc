@@ -1,0 +1,65 @@
+vipirc / onekeyirc pratik kilavuzu - Kanallar
+=======================================================
+
+TASLAK CEVIRI. Komutlari ve secenekleri gosterildigi gibi aynen yazin.
+Kesin guvenlik sinirlari icin Ingilizce MANUAL.txt ve SECURITY.md dosyalarini okuyun.
+
+/help list
+----------
+
+Seçili IRC sunucusundan kanal listesi ister; kayıt tamamlanmış olmalıdır. Sunucuya yalnız MASK filtresi gönderilir.
+
+En az/en çok kullanıcı, ad ve konu filtreleri yerel uygulanır; ağ gelişmiş LIST filtrelerini desteklemese de çalışır.
+
+--sort değerleri channel, users veya topic olabilir; varsayılan users azalan sıralanır. --limit 0 sınırlı önbellekte gösterim sınırı koymaz.
+
+/list show önbelleği gösterir; --sort, --asc/--desc ve --limit yeni IRC isteği olmadan yerel sıralar/sınırlar. /list clear önbelleği siler.
+
+Bağlantı kesilirse veya sunucu LIST isteğini reddederse kısmi önbellek kalır, istek sona erer; kayıt sonrası /list deneyin ya da /list clear kullanın.
+
+Tam ekran istemci sıralanabilen kanal tarayıcısını açar; sade mod aynı seçenekleri ve /list show komutunu kullanır.
+
+Yerel kanallar için /ls veya /cl; ağ araması için /list kullanın.
+
+/help ls
+--------
+
+Argümansız, seçili sunucudaki kanalları listeler. Bu yerel istemci komutudur; kabuk komutu veya ağ genelinde IRC LIST isteği değildir.
+
+İlgili girdileri seçmek için /server N, /channel N ve /pm NICK kullanın.
+
+/help manual
+------------
+
+Aynı konu ve komut yardımı bağlantısız da kullanılabilir. /help TOPIC kısa yoldur.
+
+/help servers
+-------------
+
+Sade sunucu yuvalarını 1..8 (birincil 1), seçili sunucuyu, bağlantı durumunu ve sunucu başına autoconnect seçimini gösterir.
+
+Yüklenmiş profil bağlı olmasa da kullanılabilir.
+
+/help unignore
+--------------
+
+/ignore remove MASK ile eşdeğerdir. Değişikliği kalıcı kılmak için seçili profili kaydedin.
+
+/help aliases
+-------------
+
+Alternatif adlar tam eşleşmelidir; belirsiz veya yaklaşık komut çalıştırılmaz.
+
+/conn = /connect; /disc = /disconnect; /detach = /background; /exit = /quit
+
+/j = /join; /leave = /part; /message ve /privmsg = /msg
+
+/nickname = /nick; /names ve /nicks = /users; /unaway = /back
+
+/channellist = /cl; /querylist = /ql; /serverlist = /servers
+
+/configure ve /preferences = /panel; /saveconfig = /saveconf
+
+/autocommand = /autocommands
+
+Tamamlama resmi komut adlarını önerir; argümanlar aynen korunur, gizli geçmiş filtresi değişmez.

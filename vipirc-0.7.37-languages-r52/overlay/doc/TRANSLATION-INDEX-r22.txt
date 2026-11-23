@@ -1,0 +1,56 @@
+SOURCE-LINKED VIPIRC MANUAL TRANSLATION INDEX - r22
+
+full-r21           CONTENTS | Existing source-linked translation documents
+full-r20           READING EXAMPLES | Existing source-linked translation documents
+full-r21           QUICK START | Existing source-linked translation documents
+full-r20           LOCAL SESSION REMINDER | Existing source-linked translation documents
+full-r21           GETTING HELP | Existing source-linked translation documents
+not-verified-full  MINIMALIST INTERFACE | English MANUAL.txt only
+full-r20           DEFAULT INTERFACE | Existing source-linked translation documents
+full-r20           MINIMALIST WRAPPING AND INPUT HISTORY | Existing source-linked translation documents
+full-r22           MINIMALIST CATCH-UP AFTER RESUME | doc/FULLMANUAL-MINIMALIST-CATCHUP-LANG.txt
+not-verified-full  COMMAND-LINE OPTIONS | English MANUAL.txt only
+full-r21           OFFLINE TEST MODE | Existing source-linked translation documents
+not-verified-full  GLOBAL HEADER AND CHAT CONTROLS | English MANUAL.txt only
+full-r20           NICKNAME COMPLETION | Existing source-linked translation documents
+not-verified-full  COMMAND PROMPT | English MANUAL.txt only
+full-r21           COMMAND REFERENCE INDEX | Existing source-linked translation documents
+not-verified-full  CONNECTION AND STARTUP COMMANDS | English MANUAL.txt only
+full-r21           SESSION SUMMARY | Existing source-linked translation documents
+not-verified-full  SETTINGS | English MANUAL.txt only
+full-r22           CUSTOM KEY BINDINGS | doc/FULLMANUAL-KEY-BINDINGS-LANG.txt
+full-r20           TERMINAL SIGNALS | Existing source-linked translation documents
+full-r17           RUNNING IN THE BACKGROUND | Existing source-linked translation documents
+full-r17           SESSION RECOVERY AND UPGRADES | Existing source-linked translation documents
+full-r17           CLOSE A SESSION FROM THE SHELL | Existing source-linked translation documents
+full-r17           SSH DISCONNECT RECOVERY | Existing source-linked translation documents
+full-r17           UPGRADING A RUNNING WORKER | Existing source-linked translation documents
+full-r22           SERVERS AND UNREAD ACTIVITY | doc/FULLMANUAL-SERVERS-UNREAD-LANG.txt
+full-r21           VIEWS AND USERS | Existing source-linked translation documents
+full-r21           CHANNEL CHOOSER AND CLOSING CONVERSATIONS | Existing source-linked translation documents
+full-r20           QUERY LIST | Existing source-linked translation documents
+full-r20           MENTIONS AND WATCH STRINGS | Existing source-linked translation documents
+not-verified-full  CONVERSATION COMMANDS | English MANUAL.txt only
+full-r21           LOCAL IGNORE FILTERS | Existing source-linked translation documents
+full-r21           DELAYED STARTUP COMMANDS | Existing source-linked translation documents
+full-r21           PROGRAM AND QUEUE NOTIFICATIONS, QUERY NUMBERS, AND ALIASES | Existing source-linked translation documents
+full-r18           FILE TRANSFERS | Existing source-linked translation documents
+full-r18           INPUT EDITING | Existing source-linked translation documents
+full-r18           MOUSE CONTROLS | Existing source-linked translation documents
+full-r19           MESSAGE LENGTH AND FLOOD PREVENTION | Existing source-linked translation documents
+not-verified-full  CONFIGURATION | English MANUAL.txt only
+full-r19           HISTORY, LOGGING AND PRIVACY | Existing source-linked translation documents
+full-r19           SAVED SERVER PROFILES | Existing source-linked translation documents
+full-r20           AUTOMATIC CONNECTION, JOIN, AND AUTHENTICATION | Existing source-linked translation documents
+full-r22           BOUNCER CONNECTIONS | doc/FULLMANUAL-BOUNCER-CONNECTIONS-LANG.txt
+full-r19           TLS AND CUSTOM TRUST | Existing source-linked translation documents
+full-r19           SECURITY AND RESOURCE BOUNDS | Existing source-linked translation documents
+full-r20           CREATING ENCRYPTED PASSWORD FILES | Existing source-linked translation documents
+full-r21           TROUBLESHOOTING | Existing source-linked translation documents
+not-verified-full  FILES AND ENVIRONMENT | English MANUAL.txt only
+full-r20           EXIT STATUS | Existing source-linked translation documents
+full-r20           PLATFORMS, BUILD, AND LICENSE | Existing source-linked translation documents
+full-r20           DOCUMENTATION AND VALIDATION | Existing source-linked translation documents
+full-r20           PROTOCOL REFERENCES | Existing source-linked translation documents
+
+LANG is id ms tr es pt fr de ru it ar. Native review still required.

@@ -1,0 +1,122 @@
+vipirc / onekeyirc pratik kilavuzu - Kısayollar, otomatik komutlar ve DCC aktarımları
+======================================================
+
+TASLAK CEVIRI. Komutlari ve secenekleri gosterildigi gibi aynen yazin.
+Kesin guvenlik sinirlari icin Ingilizce MANUAL.txt ve SECURITY.md dosyalarini okuyun.
+
+/help autocommands
+------------------
+
+Komutlar seçili sunucuya aittir. Kayıt ve gerekli SASL başarılı olunca bir kez çalışırlar.
+
+Varsayılan gecikme 15 saniyedir; tamamlanan komutlar arasında en az 2 saniye vardır.
+
+Zamanları delay 0..300 ve interval 2..60 ile ayarlayın. Takılan bağlantıda birikmiş komutlar topluca çalışmaz.
+
+Desteklenenler: /msg, /join, /nick, /away, /back ve /whois ile belgelenen tam takma adları.
+
+En çok 16 komut; her biri 511 UTF-8 bayt. Bir komut tek IRC iletisine sığmalı; kendiliğinden bölünmez.
+
+Kabuk, ham IRC veya geçerli sohbetten genişletme yoktur. Otomatik kanala giriş seçili görünümü değiştirmez.
+
+Değişiklikler sonraki bağlantıda geçerlidir. /cancel henüz gönderilmemiş başlangıç komutlarını durdurur.
+
+Listeler ileti metnini ve kanal anahtarlarını gizler; otomatik komutlar geçmişe veya yerel yankıya girmez.
+
+/save ile kaydedin. Dosya özel olmalı (0600 veya 0400); etkin ve boş olmayan liste doğrulanmış TLS gerektirir.
+
+Test modu otomatik komut çalıştırmaz. Başlangıç metni yapılandırmada aynen saklanır, GPG ile şifrelenmez.
+
+/help bind
+----------
+
+Varsayılan özel tuş ataması yoktur. Desteklenen adlar için /bindings keys ve /bindings actions kullanın.
+
+Yeni atama bu tuşun önceki özel eylemini tüm sunucularda değiştirir; diğerleri korunur.
+
+Atamalar sohbet ve komut isteminde çalışır; yapıştırmada, parola/kurulum alanında, okuyucuda veya onayda değil.
+
+Anında uygulanır ama /save input olmadan saklanmaz. Etkin özel atama yoksa normal gezinme sürer.
+
+Yalnız adlandırılmış yerel işlevler kabul edilir; keyfi komut, makro, gönderme eylemi veya kabuk genişletmesi yoktur.
+
+Terminalin ayırdığı tuşlar uygulamaya ulaşmayabilir; tuş atamak terminal sinyal eşlemelerini değiştirmez.
+
+/help bindings
+--------------
+
+Argümansız, uygulama genelindeki özel tuş atamalarını listeler. Boş liste hiç atanmadığı anlamına gelir.
+
+Atamak veya değiştirmek için /bind, kaldırmak için /unbind KEY, hepsini silmek için /unbind all kullanın.
+
+F1..F12, Ctrl-A..Ctrl-Z, Alt-a..Alt-z, Alt-0..Alt-9 ve adlı gezinme tuşları desteklenir.
+
+Ctrl-H = Backspace, Ctrl-I = Tab, Ctrl-J ve Ctrl-M = Enter, Ctrl-[ = Escape; aynı atama sayılır.
+
+Alt harfleri Shift olmadan küçük harf kullanır. İşlev/Alt tuşlarının iletimi terminale ve çoklayıcıya bağlıdır.
+
+Ana yapılandırmadaki [hotkeys] altında en çok 64 KEY=action atanır. /save input değişiklikleri saklar.
+
+Kapsam, taslak koruması ve terminal sinyalleri için /help hotkeys bölümüne bakın.
+
+/help unbind
+------------
+
+Atamayı kaldırmak tuşun olağan davranışını geri getirir. all yalnız özel atama listesini siler.
+
+Değişiklik tüm sunucularda hemen geçerlidir. Yeniden başlatma sonrası saklamak için /save input kullanın.
+
+/help hotkeys
+-------------
+
+Özel tuş atamaları isteğe bağlıdır; başlangıçta boştur. Mevcut gezinme ve düzenleme tuşları çalışır.
+
+Liste için /bindings, tuşlar için /bindings keys, işlevler için /bindings actions kullanın.
+
+Atamak için /bind KEY ACTION; değiştirmek için tekrar atayın. Silmek için /unbind KEY veya /unbind all.
+
+Değişiklikler bütün sunucularda hemen geçerlidir; /save input ana yapılandırmaya kaydeder. Ek profiller bu tabloyu geçersiz kılamaz.
+
+Biçim: [hotkeys] altında satır başına bir KEY=action, en çok 64. Terminal takma adları dahil çift tuşlar hatadır.
+
+Özel eylemler yalnız ana sohbet ve komut isteminde çalışır; parola, kurulum, yapıştırma, okuyucu veya onayda değil.
+
+Minimal arayüzde okuyucular taslağı/imleci korur. Görünüm veya düzenleyici değiştiren kısayol dolu taslağı reddeder; bitirin veya silin.
+
+Gönderme eylemi, keyfi komut, kabuk kodu veya metin makrosu yoktur. Arka plan ve çıkış normal etkilerini korur.
+
+F1..F12, Ctrl-A..Z, Alt-a..z/0..9 ve gezinme tuşları vardır; yazdırılabilir karakterler metin kalır.
+
+Ctrl-H/Backspace, Ctrl-I/Tab, Ctrl-J/Ctrl-M/Enter ve Ctrl-[/Escape aynı baytları paylaşır; ayrı atanamaz.
+
+Terminal sinyalleri ve çoklayıcı kısayolları önceliklidir. Ctrl-C veya Ctrl-Z ancak baytı uygulamaya ulaşırsa çalışır; tuşlar yeniden atanmaz.
+
+Tanınan köşeli yapıştırma kısayol çalıştırmaz. Çerçevesiz yapıştırma yazıdan ayırt edilmez; bkz. /help keys.
+
+/help dcc
+---------
+
+Argümansız aktarım listesini gösterir. /dcc NICK PATH seçili sunucuda dosya teklif eder.
+
+PATH boşluklarla birlikte kalan metnin aynısıdır; süreç başlatma dizinine göre görecelidir.
+
+İstemci dosya gezerken veya arka planda bile o dizini değiştirmez.
+
+Kısa gönderim, IRC bağlantısının yerel IPv4 adresini duyurur. NAT arkasında erişilen IPv4 için -address, yönlendirilen port için -port kullanın.
+
+Harici adres bulma isteği yapılmaz. Yalnız IPv6 IRC bağlantısı için açık IPv4 belirtmek gerekir.
+
+DCC şifrelenmemiş doğrudan bağlantıdır. Karşı taraf duyurulan IP'nizi alır; teklifi kabul etmek de IP'nizi açığa çıkarır.
+
+Gelen teklif /dcc accept NUMBER olana kadar açılmaz. DIRECTORY varsayılan olarak başlangıç dizinidir; size ait ve özel olmalıdır.
+
+Mevcut hedef üzerine yazılmaz; sembolik bağlantı ve özel dosyalar reddedilir. Çevrimdışı test dosya/soket açmaz.
+
+Gelen teklifi /dcc reject NUMBER ile, etkin aktarımı /dcc cancel NUMBER ile iptal edin.
+
+Aktarım numaraları süreçteki sunucular arasında ortaktır. Kaynak sunucuyu kapatmak aktarımlarını iptal eder; IRC kesilmesi kabul edileni durdurmaz.
+
+/help transfers
+---------------
+
+/dcc ile aynı komutlar ve korumalar. Gönderme, alma ve iptal için /help dcc bölümüne bakın.

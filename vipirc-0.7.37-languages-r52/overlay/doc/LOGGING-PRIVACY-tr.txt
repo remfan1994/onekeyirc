@@ -1,0 +1,23 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / HISTORY, LOGGING AND PRIVACY
+English source SHA-256: b0c065ed46b6cbb73666075f1eee2d050a5a82160fac0ddadd98ad80d2910ee3
+
+GEÇMİŞ, KAYIT VE GİZLİLİK
+
+Birbirinden ayrı geçmiş türleri vardır:
+
+    Saklanan sohbet/atıf kayıtları: görüntüleme için sınırlı bellek.
+    Komut geçmişi: gizli veriler süzülerek bellekte tutulan kabul edilmiş komut satırları.
+    Komut sıklığı: CONFIG_PATH.commands içindeki standart adlar ve sayılar.
+    İsteğe bağlı konuşma dökümü: kayıtlı her profilin .log dosyasında düz metin.
+    Bouncer yeniden oynatma: bouncer'ın kendi kurallarına göre sağladığı mesajlar.
+
+Detach/resume canlı oturum belleğini korur. /quit, --close-session, süreç hatası veya yeniden başlatma bunu sona erdirir. Yeni bir süreç kayıtlı yapılandırmayı ve varsa komut sayılarını yükler; eski döküm dosyalarını canlı sohbet geçmişine aktarmaz, önceki catch-up işaretini yeniden oluşturmaz. /clear geçerli görünümün bellekteki geçmişini siler ama diskteki dökümü silmez ve IRC mesajını geri almaz.
+
+/set persistent_logging on ile döküm kaydını açın; /save output ile kaydedin veya Settings > Interface > Persistent logging seçin. Varsayılan olarak kapalıdır, tüm sunuculara uygulanır ve kayıtlı her profil için ayrı dosya kullanır. CONFIGURATION bölümündeki tüm dosya/yol gizliliği denetimleri burada da geçerlidir.
+
+Her günlük 16 MiB'de durur; otomatik döndürme ya da silme yoktur. Güvensiz yol, meşgul kilit veya yazma hatası ilgili profilin kaydını hata bildirerek durdurur; sohbet devam eder. Eski dosyayı arşivleyip kaydı kapatıp açın. Döndürme eski catch-up işaretini geçersiz kılabilir; sonraki yoklukta kalıcı catch-up'a güvenmeden önce uygun yeni bir mesaj gönderin.
+
+Tanınmış kimlik bilgisi/hizmet mesajları ve eski ya da yeni takma adlar altındaki hassas kopyalar, nitelikli hizmet hedefleri dahil, kayıt dışı bırakılır. Sıradan sohbet, tanınmayan hizmet sözdizimi veya elle yapıştırılan sırlar yine günlüğe girebilir; uzak hizmet de kendi kopyasını tutabilir. Kaydı kapatmak yeni satırları durdurur, eski satırları silmez. Özel dosya izinleri şifreleme değildir ve aynı Unix hesabı altındaki başka bir programa karşı koruma sağlamaz. Yavaş veya ağdan bağlı depolamadaki normal dosyalar disk G/Ç'sini geciktirebilir.
+
+Kayıtlı döküm, tam 0700 kipindeki kullanıcıya ait bir dizinde CONFIG_PATH.log adını taşır. Yolun her parçası sembolik bağ ve üst dizine geçiş yasaklarını sağlamalıdır. Açılan dosya kullanıcıya ait, normal, tek bağlantılı ve tam 0600 kipinde olmalıdır. Engellemeyen dosya/kilit işlemleri FIFO veya meşgul günlüğü reddeder; 16 MiB sınırı her kayıtlı profile ayrıca uygulanır.

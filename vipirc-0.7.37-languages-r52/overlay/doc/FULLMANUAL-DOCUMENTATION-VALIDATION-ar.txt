@@ -1,0 +1,11 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / DOCUMENTATION AND VALIDATION
+English source SHA-256: 473247fbc03339063a7a803330c7b183708cbfe0ce8c56840245322454f570cc
+
+الوثائق والتحقق
+
+ملف MANUAL.txt في المجلد الجذر هو المرجع المعتمد للواجهة الكاملة من vipirc؛ ويطابقه doc/manual.txt وتضمّنه src/manual.c. يعرضه vipirc --manual وvipirc(1). ويقدّم vipirc -i --manual وdoc/vipirc-idle-manual.txt المرجع المبسّط. تتوفر أيضاً /help و/manual في الواجهتين.
+
+يرشد README.md إلى الإعداد والوثائق؛ ويشرح INSTALL البناء؛ ويبيّن SECURITY.md حدود الأمان. يوضح CONTRIBUTING.md سير التعديل والمراجعة، ويحدد doc/SOURCE-MAP.txt مواضع الشيفرة، ويفهرس tests/README.md الاختبارات، ويشرح DESIGN.md الثوابت. يربط doc/TROUBLESHOOTING.txt الأعراض بخطوات الفحص؛ وتغطي doc/BOUNCERS.txt وdoc/SESSION-CONTROLS.txt وdoc/OPENBSD-VPS.txt العمليات. استبدل أسماء الخوادم والحسابات والمسارات المطلقة الواردة في الأمثلة قبل استخدامها.
+
+يعدّل المشرفون النصوص والمساعدة المعتمدة ثم يشغّلون make docs وmake check-docs. يُضمّن هدف docs هذا الدليل قبل إعادة بنائه وتصديره. لا تنطبق التدقيقات وملفات JSON إلا على الإصدارات والبيئات المذكورة بالاسم، وليس على أنظمة أو خدمات غير مختبرة. ولا تضيف الوثائق دفاعاً أثناء التشغيل؛ ولا يمكن للاختبارات إثبات انعدام العيوب.

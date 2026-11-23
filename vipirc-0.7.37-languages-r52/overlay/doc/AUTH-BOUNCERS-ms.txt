@@ -1,0 +1,68 @@
+vipirc / onekeyirc - authentication and bouncers (ms)
+=====================================================
+
+DRAFT TRANSLATIONS - native-speaker review is outstanding.
+Commands, flags, values and config keys must be entered literally.
+The English SECURITY.md and MANUAL.txt remain authoritative.
+
+/help soju
+----------
+Memerlukan profil soju bersambung yang ditetapkan melalui /panel. Tanpa argumen, meminta bantuan BouncerServ.
+
+COMMAND dihantar sebagai satu mesej peribadi berjarak masa, tanpa gema tempatan atau sejarah arahan.
+
+Sambungan IRC terus tidak boleh menggunakan pintasan ini. Balasan muncul pada paparan pelayan.
+
+Gunakan bantuan bouncer sendiri untuk arahan akaun dan rangkaian.
+
+/help znc
+---------
+Memerlukan profil ZNC bersambung yang ditetapkan melalui /panel. Tanpa argumen, meminta Help daripada *status.
+
+COMMAND dihantar sebagai satu mesej peribadi berjarak masa, tanpa gema tempatan atau sejarah arahan.
+
+Gunakan /msg *module COMMAND untuk modul ZNC yang aktif. Balasan modul muncul pada paparan pelayan.
+
+Sambungan IRC terus tidak boleh menggunakan pintasan ini. Rujuk bantuan bouncer untuk arahannya.
+
+/help authentication
+--------------------
+Fail kata laluan atau kandungan GPG yang dinyahsulit membekalkan kelayakan; laluan digunakan secara literal.
+
+Gunakan /panel untuk membuat kelayakan tersulit GPG bagi cap jari kunci awam setempat yang sedia ada.
+
+Gunakan kunci GPG yang sudah dibuka. pinentry tidak dijalankan dalam penyunting sembang.
+
+password= dan server_password= dalam teks biasa turut disokong dalam fail konfigurasi peribadi.
+
+Pilih satu sumber bagi setiap kelayakan. /settings dan /summary menyembunyikan lokasi fail.
+
+/autoauth status memaparkan lokasi fail kelayakan semasa dan tertangguh tanpa membaca fail atau menunjukkan kata laluan.
+
+Dalam profil bouncer, urus log masuk dan sumbernya bersama melalui /panel; perubahan /autoauth ditolak.
+
+Fail kelayakan mesti fail biasa milik pengguna, mod 0600 atau 0400; pautan simbolik dan lintasan direktori induk ditolak.
+
+Had kelayakan SASL ialah 1024 bait; PASS pelayan biasa 503 bait. Log masuk ZNC gabungan juga mesti muat dalam satu baris IRC.
+
+--check-config menyemak konfigurasi dan sumber tanpa membaca kelayakan atau menguji log masuk. Lihat /help tls dan /help bouncers.
+
+/help tls
+---------
+Himpunan CA khusus mesti fail biasa yang tidak kosong, maksimum 16 MiB. Pautan simbolik ke fail CA dibenar; laluan rahsia/konfigurasi lebih ketat.
+
+Fail CA dibuka sekali, dihadkan dan saiz disemak ketika dibaca. FIFO, peranti dan input bukan fail ditolak; PEM berkata laluan tidak boleh meminta input.
+
+Had saiz fail tidak mengehadkan kependaman I/O fail biasa atau sistem fail rangkaian. Gunakan himpunan CA dipercayai pada storan sesuai.
+
+/help bouncers
+--------------
+Masukkan nama hos dan port TLS bouncer, nama pengguna bouncer, nama rangkaian huluan sedia ada dan nama klien tetap pilihan.
+
+Arahan permulaan nyata masih dijalankan. Semak sebelum menghidupkan profil bouncer supaya arahan join atau servis tidak berulang tanpa sengaja.
+
+Away automatik semasa melahu/latar dimatikan bagi setiap profil bouncer kecuali dihidupkan. /away dan /back manual masih berfungsi.
+
+Sejarah dihadkan. Tiada carian arkib atas permintaan, penemuan rangkaian automatik atau pembinaan profil automatik bagi setiap rangkaian.
+
+Lihat doc/BOUNCERS.txt dan contoh bouncer dalam examples/ untuk persediaan dan had pengesahan yang direkodkan.

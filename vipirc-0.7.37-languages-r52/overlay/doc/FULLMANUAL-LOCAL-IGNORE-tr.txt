@@ -1,0 +1,20 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / LOCAL IGNORE FILTERS
+English source SHA-256: 5404c975ca8193797b0ed81b5a9611149cbaa34bff67676680655f01885e9693
+
+EXACT COMMAND/CONTROL EXAMPLES (not translated):
+/ignore
+/ignore list
+/ignore MASK
+/ignore add MASK
+/unignore MASK
+/ignore remove MASK
+/ignore clear
+/ignore add NICK
+*!*@*.example
+
+Bu yerel komutlar bağlantı yokken de çalışir. /ignore veya /ignore list kalıpları listeler; /ignore MASK veya /ignore add MASK ekler; /unignore MASK veya /ignore remove MASK kaldirir; /ignore clear tümunu temizler. Adi gerçekten list, add, remove veya clear olan takma adlar için /ignore add NICK kullanın.
+
+En çok 32 kalıp, her biri 127 ASCII bayt kabul edilir. Basit kalıp tam olarak geçerli bir takma ad olmalidir. Joker karakterler, üç bileşeni de boş olmayan nick!user@host tam bicimini gerektirir; örneğin *!*@*.example. Her bileşende * sıfır veya daha fazla, ? tam bir baytla eşleşir. Diğer izinli baytlar birebirdir; regex siniflari, kaçış veya kabuk genişletmesi yoktur. Nick IRC büyük/kucuk harf kurallarini kullanır; user ve host ASCII harf farkini yok sayar. Boşluk, kontrol karakterleri ve ASCII disi gecersizdir. Silme, saklanan kalibi bu kurallarla karşılastirir; diğer kalıpları silmek için jokeri genişletmez.
+
+Yalnizca kullanıcı kaynakli gelen PRIVMSG/NOTICE, mentions veya özel görüşme olusmadan önce filtrelenir. Kaynakta açık bir kullanıcı oneki olmalidir. Yalniz takma ad kalibi, user/host eksikken de eşleşebilir; tam kalıp üçunu de gerektirir. Çıplak sunucu bildirimleri ve tüm protokol/uyelik durumu görünür. Eski geçmiş korunur. Bu sunucu yasagi değil yerel filtredir. Settings aynı listeyi düzenler, Apply aninda uygular. Normal modda /save veya Settings Save kalicilastirir; --test-mode bellekte tutar. Yapılandırmada [ignore] altinda tekrarlanan mask= kullanılir.

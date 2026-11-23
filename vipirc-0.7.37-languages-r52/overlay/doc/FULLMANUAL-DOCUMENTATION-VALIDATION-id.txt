@@ -1,0 +1,11 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / DOCUMENTATION AND VALIDATION
+English source SHA-256: 473247fbc03339063a7a803330c7b183708cbfe0ce8c56840245322454f570cc
+
+DOKUMENTASI DAN VALIDASI
+
+MANUAL.txt di direktori utama adalah acuan resmi untuk vipirc penuh; doc/manual.txt mencerminkannya dan src/manual.c menyematkannya. vipirc --manual dan vipirc(1) menampilkannya. vipirc -i --manual dan doc/vipirc-idle-manual.txt menyediakan acuan minimalis. Kedua antarmuka juga memiliki /help dan /manual.
+
+README.md memetakan penyiapan dan dokumen; INSTALL membahas kompilasi; SECURITY.md menerangkan batas keamanan. CONTRIBUTING.md menjelaskan alur perubahan/peninjauan, doc/SOURCE-MAP.txt menunjukkan lokasi kode, tests/README.md memetakan pengujian, dan DESIGN.md menerangkan invariannya. doc/TROUBLESHOOTING.txt menghubungkan gejala dengan pemeriksaan; doc/BOUNCERS.txt, doc/SESSION-CONTROLS.txt, dan doc/OPENBSD-VPS.txt membahas operasi. Ganti contoh host, akun, dan jalur absolut sebelum digunakan.
+
+Pemelihara menyunting prosa dan bantuan otoritatif, lalu menjalankan make docs dan make check-docs. Target docs menyematkan manual sebelum membangun atau mengekspornya ulang. Audit dan berkas JSON hanya berlaku pada versi serta lingkungan yang disebutkan, bukan platform/layanan yang belum diuji. Dokumentasi tidak menambah pertahanan saat program berjalan; pengujian tidak dapat membuktikan tidak adanya cacat.

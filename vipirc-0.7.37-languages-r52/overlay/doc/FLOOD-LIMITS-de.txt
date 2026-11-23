@@ -1,0 +1,24 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / MESSAGE LENGTH AND FLOOD PREVENTION
+English source SHA-256: 74197e1e6983ce301972c3ad55db5a844ff0ae8bde4ebc998ebfe85c8ddcae1c
+
+NACHRICHTENLÄNGE UND FLOOD-SCHUTZ
+
+Eine normale IRC-Zeile darf einschließlich CR/LF höchstens 512 Byte enthalten, nicht 512 angezeigte Zeichen. Ein UTF-8-Skalar benötigt 1..4 Byte; ein sichtbares Zeichen kann mehrere Skalare enthalten. Befehl, Ziel und übermittelte Absenderkennung benötigen ebenfalls Platz. Für :nick!user@host PRIVMSG target :text wird die Nutzlast so berechnet:
+
+    B = L - (len(nick) + len(user) + len(host)
+             + len(target) + len("PRIVMSG") + 9)
+
+Längen sind Bytezahlen. L ist 512 oder ein erkannter kleinerer LINELEN-Wert. Aktionsnachrichten müssen außerdem ihren eigenen Rahmen abziehen. Solange die Identität unbekannt ist, werden vorsichtige Reserven verwendet. Ein Wechsel von Identität oder Ziel kann B ändern; vipirc setzt keine Akzeptanz längerer Zeilen voraus.
+
+Im vollständigen ncurses-Editor erscheint eine Warnung, wenn eine logische Zeile B erreicht oder der Entwurf mehrere Nachrichten benötigt. Enter/Escape bestätigt nur die Fortsetzung der Bearbeitung und sendet nichts. Andere Tasten können die Warnung nicht schließen; wiederholte Tastendrücke werden abgesichert. Nach Unterschreiten des Grenzwerts wird die Warnung erneut aktiviert.
+
+Der minimalistische Editor blockiert dagegen weitere Eingaben an der Grenze, bis Enter die Bearbeitung ausdrücklich wieder erlaubt; dieses Enter sendet nichts. Backspace/Delete können Text entfernen, Escape bricht ab. /msg, /me und // werden anhand ihrer tatsächlichen Nutzlast gemessen, andere lokale Befehle nicht. Eingefügter Text bleibt innerhalb der Speichergrenzen vollständig erhalten und wird nach der Übernahme geprüft.
+
+Der vollständige ncurses-Modus fragt vor dem Senden eines Entwurfs, der mehrere Nachrichten erfordert, gesondert nach:
+
+    This text needs N IRC messages. Send all to TARGET? [y/N]
+
+Nur y sendet; Enter/n lehnt ab und behält den Text. Im minimalistischen Modus erscheint Review: ein neuer Druck auf Enter bestätigt, Escape kehrt zur Bearbeitung zurück. Beide verlangen auch im Modus direct eine ausdrückliche Zustimmung zur Aufteilung. Die Aufteilung erhält vollständige UTF-8-Skalare und nichtleere Textteile; ausdrückliche Zeilenumbrüche trennen Nachrichten, leere Zeilen werden übersprungen. Befehle bleiben einzeilig; mehrzeilige Chats im Gesprächseditor verfassen.
+
+Chatnachrichten werden über eine Warteschlange von 64 Nachrichten mit mindestens 1.2 Sekunden Abstand gesendet. /cancel entfernt noch nicht gesendete Aufträge, kann aber laufende oder zugestellte Nachrichten nicht zurückholen. Protokollsteuerung wie PONG läuft getrennt. Ein Netzwerk kann strengere Grenzen setzen oder Text ablehnen; lokale Annahme oder Anzeige bestätigt keine entfernte Zustellung.

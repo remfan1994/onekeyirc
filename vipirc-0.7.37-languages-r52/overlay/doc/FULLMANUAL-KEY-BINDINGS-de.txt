@@ -1,0 +1,18 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / CUSTOM KEY BINDINGS
+English source SHA-256: 947b11b40b8bb1c3fa32d14bc71aac77bc4ccb1186406a303e6b96d197a6b92d
+Source lines: 782-815
+
+BENUTZERDEFINIERTE TASTENBELEGUNGEN
+
+Standardmäßig sind keine benutzerdefinierten Tasten belegt. App > Key bindings oder /bindings öffnet im vollständigen vipirc eine Tabelle. Add/Edit wählt einen Tastennamen und eine lokale Aktion, Remove entfernt einen Eintrag. Apply übernimmt Änderungen in den Arbeitsspeicher; Save schreibt zusätzlich die primäre Konfiguration. Escape/Cancel verwirft noch nicht übernommene Änderungen. Chatentwürfe bleiben erhalten. Die Tabelle besitzt eigene Steuerungen, die von benutzerdefinierten Bindungen nicht beeinflusst werden.
+
+In beiden Oberflächen listen /bindings keys und /bindings actions die zulässigen Namen auf. Selbst wählbare Beispiele: /bind F7 summary und /bind Alt-c command; jeden Befehl einzeln eingeben. /unbind F7 entfernt eine Belegung, /unbind all leert die gesamte benutzerdefinierte Tabelle. /save input speichert Änderungen für alle Serverprofile. Im Modus -i zeigt /bindings die Tabelle an; /bind und /unbind bearbeiten sie über Befehle.
+
+Tasten: F1..F12, Ctrl-A..Z, Alt-a..z/0..9, Up, Down, Left, Right, Home, End, PageUp, PageDown, Insert, Delete, Backspace, Tab, Shift-Tab, Enter, Escape. Aliasnamen sind Ctrl-H/Backspace, Ctrl-I/Tab, Ctrl-J/Ctrl-M/Enter und Ctrl-[/Escape. Alt-Buchstaben verwenden Terminalbytes in Kleinschreibung. Vom Terminal oder Multiplexer abgefangene Tasten und Signalbelegungen haben Vorrang; Signaltasten werden nicht neu zugewiesen.
+
+Aktionen: compose, command, bindings, help, manual, summary, servers, channels, queries, unread, mentions, transfers, settings, quickstart, next, prev, clearinput, cancel, background, quit. Beliebige Befehls- oder Sendemakros sind nicht erlaubt. Im vollständigen Modus erfordern wiederhergestellte Befehle einen neuen Enter-Druck zur Bestätigung und nach einer Pause einen zweiten Enter-Druck zur Ausführung. Ist das ursprüngliche Ziel geschlossen, wird Run gesperrt.
+
+Benutzerdefinierte Aktionen funktionieren nur im Hauptchat oder in der Befehlseingabe, niemals beim Einfügen, in Passwortfeldern, beim Einrichtungsassistenten, in Lesern oder Bestätigungen. Nicht geklammertes Einfügen gilt weiterhin als gewöhnliche Eingabe. Minimalistische Kurzbefehl-Leser erhalten Entwurf und Cursor; ein Wechsel von Ziel oder Editor wird bei nichtleerem Entwurf verweigert. clearinput löscht den aktuellen Entwurf absichtlich.
+
+Der primäre Abschnitt [hotkeys] speichert Zeilen der Form KEY=action, ohne Vorgabeeinträge. Unbekannte, doppelte oder überzählige Einträge führen zur atomaren Ablehnung des gesamten Ladevorgangs. Maximal 64 Einträge werden unterstützt. Siehe doc/HOTKEYS.txt für Speichern, Terminalgrenzen und Beispiele.

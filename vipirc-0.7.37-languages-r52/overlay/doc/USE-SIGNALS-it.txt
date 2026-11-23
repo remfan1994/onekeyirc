@@ -1,0 +1,5 @@
+USE SIGNALS - vipirc-0.7.37
+
+Use signals è impostato su no per impostazione predefinita. Ctrl-C e Ctrl-Z annullano un messaggio o comando non inviato, senza terminare o sospendere il programma. Scegliere yes nel pannello 0 o nelle impostazioni Interface di vipirc per abilitare i segnali del terminale. Apply ha effetto immediato; Save memorizza anche [input] use_signals=true|false. All'uscita o alla sospensione vengono ripristinate le impostazioni originali del terminale.
+
+No (predefinito) disabilita i segnali del terminale durante l'utilizzo del programma; Ctrl-C/Ctrl-Z annullano la bozza. Yes abilita le associazioni esistenti senza modificarle. I segnali esterni del processo restano attivi.

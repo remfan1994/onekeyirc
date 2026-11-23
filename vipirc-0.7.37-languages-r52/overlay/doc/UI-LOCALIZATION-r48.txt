@@ -1,0 +1,9 @@
+r48 optional DCC display/geometry translation pass
+
+35 new entries per language: DCC action labels, all transfer states,
+file-picker counters, transfer-row summaries, editor position and peer/server details.
+Mouse hitboxes use wchar terminal-cell widths of translated labels.
+Compact views expose one action with two arrow keys. Button semantics unchanged.
+Protocol, filepicker inode checks, socket behavior, path validation unchanged.
+User data remains literal, with fixed English fallback.
+Full ncurses build requires development headers; terminal review remains necessary.

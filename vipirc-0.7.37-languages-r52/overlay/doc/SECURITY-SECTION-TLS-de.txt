@@ -1,0 +1,18 @@
+TLS, credentials and endpoint identity
+Source: SECURITY.md, section "TLS, credentials and endpoint identity"
+English section SHA-256: 4ea410d65b0d7a489076cfd9898b5769f21e9e2f4fec63f7df8340f68bb5de45
+Paragraphs: 6
+Status: Translation draft; fluent-speaker security review required
+English SECURITY.md remains authoritative. This is only one section, not the full security document.
+
+TLS erfordert Version 1.2 oder höher und prüft die Zertifikatskette sowie den ausgewählten Hostnamen. Konfiguriertes SASL, Server-PASS und aktivierte, nicht leere Listen automatischer Befehle erfordern verifiziertes TLS. Es gibt keinen stillen Rückfall auf Klartext. Ein auf dem Datenträger verschlüsseltes Passwort verschlüsselt nicht die Übertragung. IRC-TLS schützt die Verbindung zum gewählten Server oder Bouncer, nicht die Nachrichten Ende-zu-Ende.
+
+Halten Sie neben dem Quellcode auch die eingebundene TLS-Bibliothek aktuell. Der Testhost verwendete OpenSSL 3.5.7; OpenSSL dokumentiert CVE-2026-35189, einen zertifikatsbedingten Speicheranstieg während normaler TLS-Verarbeitung, der in Version 3.5.9 dieses Zweigs behoben wurde. Diese Quellcodeversion korrigiert die externe Bibliothek nicht. Prüfen Sie Version, zurückportierte Korrekturen und aktuelle Sicherheitsupdates Ihres Anbieters: https://openssl-library.org/news/secadv/20260929.txt
+
+Ein leerer ca_file verwendet den systemweiten Vertrauensspeicher. Ein benutzerdefiniertes CA-Bündel ist eine vertrauenswürdige lokale PEM-Datei: Der Loader öffnet sie einmal, prüft die bereits geöffnete reguläre Datei, liest den begrenzten Inhalt und analysiert diese Kopie ohne Passwortabfrage. Er weist leere Dateien, Dateien über 16 MiB, nicht reguläre Quellen sowie erkannte Größenänderungen zurück. Zertifikats- und AUX-Vertrauenseinträge sowie CRL-Einträge bleiben erhalten. CA-Pfade dürfen symbolische Links durchlaufen, da dies bewusst ausgewähltes öffentliches Vertrauensmaterial ist, anders als private Konfigurations- und Zugangsdatenpfade. Eine andere CA ändert die vertrauenswürdigen Außteller. Der Loader arbeitet synchron; regulare Datei-E/A kann auf langsamem Speicher weiterhin blockieren.
+
+Jedes Zugangsdatenfeld wählt genau eine Quelle: eine private Klartextdatei, eine private mit GPG verschlüsselte Datei oder einen ausdrücklich eingetragenen Inline-Wert. SASL- und Server-PASS-Quellen sind getrennt. Ein anderer Hostname mit --server verwirft geerbte Authentifizierung, CA-Auswahl, Bouncer-Identität, Kanäle und Startbefehle. Eine Überschreibung mit demselben Host sowie Port- oder Nicknameänderungen bewirken dies nicht. Prüfen Sie das gewählte Profil, bevor Sie sich mit einem neuen Dienst verbinden.
+
+Direktes SASL PLAIN verlangt das konfigurierte Konto. soju leitet die SASL-Identität aus den Bouncer-Feldern ab. Die Aushandlung nutzt die zuletzt angekündigte SASL-Mechanismenliste, wartet auf Bestätigung oder Challenge und liest erst dann das Geheimnis. Scheitert eine erforderliche Authentifizierung, erfolgt keine unangemeldete Registrierung. ZNC verwendet stattdessen die Server-PASS-Quelle.
+
+Auch manuell eingegebene, erkannte private Authentifizierungsbefehle erfordern verifiziertes TLS. Die Prüfung gilt für logische Zeilen und alle geplanten Teilstücke und wird beim Senden wiederholt. Erkannte private Formen werden weder im Befehlsrückruf noch in dauerhaften Gesprächsprotokollen gespeichert. Die laufende Terminalanzeige kann den eingegebenen Text dennoch enthalten. Die Erkennung deckt üblichhe Dienstbefehle ab, nicht beliebige Geheimnisse im Nachrichtentext oder jedes Protokoll fremder Dienste.

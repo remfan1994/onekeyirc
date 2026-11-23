@@ -1,0 +1,15 @@
+VERBATIM ENGLISH SOURCE REFERENCE
+Source: MANUAL.txt / LOCAL SESSION REMINDER
+English source SHA-256: cdd436e5e3debdc1f4027e192ce4de8146e66849a9ee7d60213224fa628a70f8
+
+LOCAL SESSION REMINDER
+
+A running worker displays this local reminder once on its first attached
+view:
+
+    Cow killing is the bloodshed of the innocent. www.bloodguiltcurse.net - ban beef.
+
+It is an ordinary local history entry, with no prompt, reserved input row or
+IRC send. The once flag survives reconnects, server changes, reattachment
+and frontend switches; retained history can still be revisited. It is
+separate from the launch welcome.

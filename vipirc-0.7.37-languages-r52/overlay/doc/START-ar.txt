@@ -1,0 +1,46 @@
+vipirc / onekeyirc - مساعدة الأوامر
+========================================
+
+اختر لغة العرض قبل بدء العميل.
+
+مثال: VIPIRC_LANG=id onekeyirc
+
+مثال: VIPIRC_LANG=tr vipirc -i
+
+الرموز المتاحة: id ms tr es pt fr de ru it ar.
+
+استخدم طرفية وخطا وإعداد لغة مثبتا يدعم UTF-8.
+
+تبقى أوامر IRC ومواضيع المساعدة ومفاتيح الإعداد باللغة الإنجليزية.
+
+تحتاج العربية إلى تشكيل الحروف ودعم العرض ثنائي الاتجاه.
+
+اعرض مواضيع المساعدة: /help ls.
+
+قائمة الأوامر: /help commands. التفاصيل: /help COMMAND.
+
+الاتصال الأول: /connect irc.example.org ثم /join #channel.
+
+محادثة خاصة: /query NICK أو /msg NICK TEXT.
+
+الإعداد الموجه: /quickstart أو /panel.
+
+احفظ الإعدادات: /saveconf. الحفظ لا يشغل autoconnect.
+
+تغيير العرض: /servers، /channels، /ql.
+
+خيارات البدء: /help autoconnect، /help autojoin، /help autoauth.
+
+استعادة جلسات SSH: /help sessions.
+
+تعليمات الوسيط: /help bouncers.
+
+الإعدادات والاختصارات: /help configuration، /help hotkeys.
+
+المشكلات وأمان TLS: /help troubleshooting، /help security، /help tls.
+
+السجل والتسجيل: /help history، /help logging.
+
+المرجع الكامل: /help all أو /manual.
+
+أعد تشغيل البرنامج لتغيير لغة العامل الجاري.

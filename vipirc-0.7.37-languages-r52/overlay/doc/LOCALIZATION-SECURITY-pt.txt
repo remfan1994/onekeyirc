@@ -1,0 +1,10 @@
+GUIA BREVE DE SEGURANCA: LOCALIZACAO E RTL ARABE
+
+1. Confira os SHA-256 do codigo-fonte ingles original e do patch opcional de idiomas+RTL antes de aplicar. O patch inclui codigo C executavel, nao apenas traducoes.
+2. Aplique o patch somente a fonte r1 intacta, antes de configure ou make. Nao sobreponha patches; se for recusado, use uma copia nova.
+3. Mensagens, apelidos, topicos e nomes de arquivos IRC nao sao confiaveis. A limpeza de exibicao substitui controles perigosos de terminal, direcao Unicode e anotacoes; nao autentica remetentes nem impede nomes Unicode semelhantes.
+4. O modo visual arabe e para terminais UTF-8 sem formatacao e reordenacao arabe. Requer FriBidi; se falhar, permanece o texto logico.
+5. O RTL altera apenas a exibicao. Comandos IRC, mensagens enviadas e registros mantem a ordem logica UTF-8. A direcao exibida nao prova identidade.
+6. Nao digite credenciais no chat, compartilhe logs privados em relatos de erros ou confie em comandos e URLs somente pela aparencia RTL. Confira o texto e o destino literais.
+7. --check-config nao verifica o servidor remoto, a sessao TLS ou a senha. Consulte SECURITY.md para o modelo de ameacas completo; este guia nao e sua traducao.
+8. Desative o RTL visual se o terminal ja oferece texto bidirecional ou se a exibicao diverge do original.

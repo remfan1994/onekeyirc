@@ -1,0 +1,12 @@
+Full-interface review and file browsing
+Source: SECURITY.md, section "Full-interface review and file browsing"
+English section SHA-256: e2f59ccd783bd17feedcf3bc49a14a3085c7f21783755ee9b06c265dc0f1eb54
+Paragraphs: 3
+Status: Translation draft; fluent-speaker security review required
+English SECURITY.md remains authoritative. This is one source-linked section, not a security certification.
+
+La schermata di revisione dei trasferimenti ncurses mostra indirizzo dell'interlocutore, porta, numero di byte e destinazione prima di un'azione distinta Accept/Offer. Conserva un ID offerta stabile anziché un indice di riga variabile e rifiuta il consenso se lo schermo è sotto la dimensione minima di revisione. Selezionare una riga nel navigatore delle sorgenti non invia alcun file. Il navigatore non segue componenti symlink, verifica nuovamente l'inode selezionato, non cambia mai cwd e non legge il contenuto dei file solo per elencarli. Il lavoro è limitato a 64 voci esaminate per passo, 4096 nomi esaminati e 512 righe; viene segnalato ogni troncamento. I metadati del filesystem possono comunque bloccare su supporti lenti.
+
+La destinazione predefinita della ricezione guidata è sotto XDG_DATA_HOME/vipirc/downloads oppure HOME/.local/share/vipirc/downloads sull'host del processo ed è creata solo dopo consenso esplicito. I percorsi relativi forniti tramite comando e una directory di ricezione omessa usano la directory di avvio, senza rimuovere le verifiche di riservatezza. Senza un IPv4 pubblicizzato esplicitamente, l'invio usa l'indirizzo del socket IRC locale; non scopre un indirizzo pubblico né configura l'inoltro delle porte.
+
+Le azioni del mouse su soprannomi e canali conservano copie di dimensione limitata dei valori mostrati. I cambiamenti nell'elenco degli utenti non possono reindirizzare un clic precedente verso un altro destinatario. Un clic su un soprannome apre un menu locale; la successiva scelta Whois/Query/Ignore esegue quell'azione. Cliccare su un canale a cui non si è iscritti può comportare un ingresso esplicito. Il completamento e l'inserimento di suggerimenti non inviano dati IRC. Il consenso all'invio o al trasferimento segue sempre la normale procedura di validazione. Queste invarianti del sorgente non attestano che questo intervento di documentazione abbia eseguito l'intera interfaccia curses.

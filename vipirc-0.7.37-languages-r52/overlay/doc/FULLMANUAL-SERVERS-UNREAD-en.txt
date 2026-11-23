@@ -1,0 +1,54 @@
+VERBATIM ENGLISH SOURCE REFERENCE
+Source: MANUAL.txt / SERVERS AND UNREAD ACTIVITY
+English source SHA-256: e89196872f4f16927c865eeaf264a62e69ede5bb5ef6c213ab82511b5c61bd34
+Source lines: 969-1018
+
+SERVERS AND UNREAD ACTIVITY
+
+Full ncurses lists server slots 0..7, with primary 0. They share one event
+loop, each with independent credentials, identity, channels/queries,
+mentions, rosters, history and drafts. F2 or /servers opens these actions:
+
+    Open    New    Connect    Disconnect    Close    Away    Back
+
+Common list navigation is under GLOBAL HEADER AND CHAT CONTROLS. Open shows
+that server's MOTD (channel 0), preserving drafts/carets. Connect/Disconnect
+acts on the selected row. Away toggles the registered server's acknowledged
+away state using the default message Away. New (also n) opens a form;
+Back/Escape returns to chat.
+
+Primary server 0 cannot close. Disconnect retains views/drafts and accepted
+DCC transfers. Secondary Close always confirms, default No; it discards that
+server's memory, cancels its offers/transfers, removes its catalog reference
+and keeps its profile file. Closing the selected secondary returns to
+primary. Test-mode Close changes runtime only.
+
+New has Server, Port, Transport, Nickname, Autojoin and Autoconnect; actions
+are Edit, Add, Connect, Advanced, Cancel. Advanced exposes identity,
+authentication sources and CA choices before first connection. Enter in a
+field stages it; Escape cancels the form. Fresh profiles use TLS6697, login
+identity/default and autoconnect off, with no inherited secrets, CA,
+channels, watch/ignore lists. Only application preferences are shared. Add
+creates disconnected state regardless of the autoconnect checkbox; Connect
+creates/connects immediately. Both select the new server and require
+explicit Save for persistence.
+
+Rows show new N !M for unread activity/mentions; display caps at 999+
+without changing internal counts. Showing a conversation clears only its
+source counts; a covering list does not mark new text read. Totals omit
+copied Mentions and Help. Outgoing echoes add no unread count. Reading
+Mentions marks its feed independently, leaving source counts.
+
+F5 or /unread groups retained mentions first, then unread conversations, by
+server. Mentions show complete wrapped text/timestamps; source entries
+identify Server/Channel/Query. Actions are Open, Clear mentions, Back. Open
+selects the source; a closed query may reopen by recorded nickname without
+sending or restoring discarded history. Closed channels are not joined;
+unavailable servers are reported. Stable source identity, not row
+position/text, determines navigation.
+
+Clear mentions or /mentions clear removes copied mentions across servers
+without changing conversation histories/unread counts/drafts/queues. New
+mentions can arrive immediately. Page keys scroll a long selected mention
+before moving entries. Bare /mentions selects only the current server's
+feed.

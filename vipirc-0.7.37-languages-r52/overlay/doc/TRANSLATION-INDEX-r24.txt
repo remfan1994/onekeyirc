@@ -1,0 +1,8 @@
+R24 SOURCE-LINKED MANUAL TRANSLATION INDEX
+
+MINIMALIST INTERFACE: doc/FULLMANUAL-MINIMALIST-INTERFACE-XX.txt
+GLOBAL HEADER AND CHAT CONTROLS: doc/FULLMANUAL-GLOBAL-HEADER-CHAT-XX.txt
+XX: en,id,ms,tr,es,pt,fr,de,ru,it,ar.
+The en files are verbatim original English source references.
+All non-English files are drafts that need fluent independent review.
+See MANUAL-SECTION-MAP-r24.tsv and TRANSLATION-STATUS-r24.txt.

@@ -1,0 +1,20 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / LOCAL IGNORE FILTERS
+English source SHA-256: 5404c975ca8193797b0ed81b5a9611149cbaa34bff67676680655f01885e9693
+
+EXACT COMMAND/CONTROL EXAMPLES (not translated):
+/ignore
+/ignore list
+/ignore MASK
+/ignore add MASK
+/unignore MASK
+/ignore remove MASK
+/ignore clear
+/ignore add NICK
+*!*@*.example
+
+Ces commandes locales fonctionnent déconnecté. /ignore ou /ignore list affiche les masques ; /ignore MASK ou /ignore add MASK en ajoute ; /unignore MASK ou /ignore remove MASK en retire ; /ignore clear les supprime tous. Pour les pseudonymes littéralement appelés list, add, remove ou clear, employez /ignore add NICK.
+
+Jusqu'à 32 masques de 127 octets ASCII chacun sont acceptés. Un masque simple doit être exactement un pseudonyme valide. Les jokers exigent la forme complète nick!user@host avec trois éléments non vides, par exemple *!*@*.example. Dans chaque élément, * correspond à zéro ou plusieurs octets et ? à un seul. Les autres octets autorisés sont littéraux ; ni classes d'expression régulière, ni échappement, ni expansion de shell. Nick suit la casse IRC ; user et host ignorent la casse ASCII. Espaces, contrôles et caractères non ASCII sont interdits. La suppression compare les masques enregistrés selon ces règles, sans développer les jokers pour retirer d'autres masques.
+
+Seuls les PRIVMSG/NOTICE entrants émis par des utilisateurs sont filtrés avant les mentions ou la création de conversations privées. La source doit posséder un préfixe d'utilisateur explicite. Les masques de pseudonyme peuvent correspondre si user/host sont incomplets ; un masque complet exige les trois. Les avis purs du serveur et tous les états de protocole/adhésion restent visibles. L'historique existant demeure. C'est un filtre local, pas un bannissement serveur. Settings modifie la même liste et Apply agit immédiatement. /save ou Settings Save l'enregistre en mode normal ; --test-mode garde les changements en mémoire. La configuration répète mask= sous [ignore].
