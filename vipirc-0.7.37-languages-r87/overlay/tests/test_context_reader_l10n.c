@@ -1,0 +1,82 @@
+/* Exercise actual ANSI context-help construction, not just catalog lookups. */
+#include "idle.c"
+#include <assert.h>
+static void expect(const char *text, const char *key) { assert(strstr(text, irc_tr(key)) != NULL); }
+int main(void)
+{
+    const int translated = getenv("TEST_EXPECT_TRANSLATION") && *getenv("TEST_EXPECT_TRANSLATION");
+    const char *report = "/summary report";
+    const char *terminal = "an ANSI/VT-compatible interactive terminal is required";
+    assert(strstr(irc_tr(report), "/summary"));
+    assert(strstr(irc_tr(terminal), "ANSI/VT"));
+    assert((strcmp(report, irc_tr(report)) != 0) == translated);
+    assert((strcmp(terminal, irc_tr(terminal)) != 0) == translated);
+    Idle *idle = calloc(1, sizeof *idle);
+    assert(idle);
+    idle->client = calloc(1, sizeof *idle->client);
+    assert(idle->client);
+    char dir[] = "/tmp/irc-context-l10n-XXXXXX", path[256], error[512];
+    assert(mkdtemp(dir));
+    snprintf(path, sizeof path, "%s/config.ini", dir);
+    Config config;
+    config_minimal_defaults(&config);
+    strcpy(config.server, "fixture.invalid");
+    strcpy(config.nick, "tester"); strcpy(config.username, "tester");
+    assert(client_init(idle->client, &config, path, "tester", 1, 0, error, sizeof error) == 1);
+    App *app = client_get_app(idle->client, 0, error, sizeof error);
+    assert(app);
+    idle->program = "irc-test";
+    idle->commands = (IdleCommands){idle->client, "irc-test", command_print, idle, 0, 1, NULL, NULL};
+    idle->tty.rows = 24; idle->tty.cols = 100; idle->tty.utf8 = 1;
+    idle->catchup_fd = -1; idle->input_batch = 1;
+    ed_init(&idle->editor);
+    const char *target = "literal%n{nick}";
+    size_t query = app_buffer(app, target, B_QUERY, 1);
+    assert(query != SIZE_MAX); app_switch(app, query);
+    idle->mode = WATCH;
+    context_help_open(idle);
+    assert(idle->mode == CONTEXT_HELP && idle->help_return == WATCH);
+    assert(strstr(idle->help_text, target));
+    expect(idle->help_text, "A query is a private conversation on its server. /me sends an action, /whois requests information, and /close closes its local view.");
+    expect(idle->help_screen_text, "Watch log");
+    expect(idle->help_screen_text, "Select conversations with /channel, /query, or /view.");
+    idle->mode = READING; idle->response_summary = 1;
+    context_help_open(idle);
+    assert(idle->help_return == READING && idle->mode == CONTEXT_HELP);
+    expect(idle->help_text, report);
+    expect(idle->help_text, "Mentions can also be unread messages; their counts are not added together.");
+    expect(idle->help_screen_text, "The summary reader accepts r to refresh its snapshot. ? explains the response and this reader.");
+    idle->mode = SETUP;
+    idle->setup = idle_setup_new(idle->client, 0, error, sizeof error);
+    assert(idle->setup);
+    context_help_open(idle);
+    assert(idle->help_return == SETUP && idle->mode == CONTEXT_HELP);
+    expect(idle->help_screen_text, "Settings and Quickstart");
+    expect(idle->help_screen_text, "Page Up and Page Down scroll long question details.");
+    idle_setup_free(idle->setup); idle->setup = NULL;
+    idle->mode = COMMAND;
+    idle->suggestion_selected = 1;
+    assert(ed_from_utf8(&idle->editor, "/help"));
+    NativeSuggestion suggestion;
+    assert(selected_suggestion(idle, &suggestion));
+    char selected[128]; snprintf(selected, sizeof selected, "/%s", suggestion.spec->name);
+    context_help_open(idle);
+    assert(idle->help_return == COMMAND && idle->mode == CONTEXT_HELP);
+    assert(strstr(idle->help_text, selected));
+    expect(idle->help_screen_text, "Commands are edited separately from chat messages.");
+    char buf[2048], small[2];
+    const IrcDisplayField fields[] = {{"target", target}};
+    assert(irc_display_render(buf, sizeof buf, "Scrollback | {target}", fields, 1));
+    assert(strstr(buf, target));
+    assert(!irc_display_render(small, sizeof small, "Scrollback | {target}", fields, 1));
+    const IrcDisplayField review[] = {{"number","42"},{"target",target},{"count","17"},{"bytes","533"}};
+    assert(irc_display_render(buf, sizeof buf, "Review S{number} {target}: {count} messages ({bytes} UTF-8 bytes).", review, 4));
+    assert(strstr(buf,target) && strstr(buf,"42") && strstr(buf,"17") && strstr(buf,"533"));
+    while (idle->count) stream_pop(idle);
+    response_reset(idle);
+    client_free(idle->client); free(idle->client); free(idle);
+    config_wipe(&config, sizeof config);
+    assert(rmdir(dir) == 0);
+    puts("Actual ANSI contextual reader and named-field display: PASS");
+    return 0;
+}

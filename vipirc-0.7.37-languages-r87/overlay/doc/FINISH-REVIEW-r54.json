@@ -1,0 +1,750 @@
+[
+  {
+    "index": 0,
+    "english": "1 Save | 2 Apply without saving",
+    "source": "src/idle_setup.c",
+    "translations": {
+      "id": "1 Simpan | 2 Terapkan tanpa menyimpan",
+      "ms": "1 Simpan | 2 Guna tanpa menyimpan",
+      "tr": "1 Kaydet | 2 Kaydetmeden uygula",
+      "es": "1 Guardar | 2 Aplicar sin guardar",
+      "pt": "1 Salvar | 2 Aplicar sem salvar",
+      "fr": "1 Enregistrer | 2 Appliquer sans enregistrer",
+      "de": "1 Speichern | 2 Ohne Speichern anwenden",
+      "ru": "1 Сохранить | 2 Применить без сохранения",
+      "it": "1 Salva | 2 Applica senza salvare",
+      "ar": "1 حفظ | 2 تطبيق دون حفظ"
+    }
+  },
+  {
+    "index": 1,
+    "english": "History lines:",
+    "source": "src/idle_setup.c",
+    "translations": {
+      "id": "Baris riwayat:",
+      "ms": "Baris sejarah:",
+      "tr": "Geçmiş satırları:",
+      "es": "Líneas del historial:",
+      "pt": "Linhas do histórico:",
+      "fr": "Lignes d'historique :",
+      "de": "Verlaufseinträge:",
+      "ru": "Строк истории:",
+      "it": "Righe della cronologia:",
+      "ar": "أسطر السجل:"
+    }
+  },
+  {
+    "index": 2,
+    "english": "Send mode:",
+    "source": "src/idle_setup.c",
+    "translations": {
+      "id": "Mode kirim:",
+      "ms": "Mod hantar:",
+      "tr": "Gönderme modu:",
+      "es": "Modo de envío:",
+      "pt": "Modo de envio:",
+      "fr": "Mode d'envoi :",
+      "de": "Sendemodus:",
+      "ru": "Режим отправки:",
+      "it": "Modalità di invio:",
+      "ar": "وضع الإرسال:"
+    }
+  },
+  {
+    "index": 3,
+    "english": "Composer mode:",
+    "source": "src/idle_setup.c",
+    "translations": {
+      "id": "Mode penulisan:",
+      "ms": "Mod penulisan:",
+      "tr": "Yazma modu:",
+      "es": "Modo de redacción:",
+      "pt": "Modo de redação:",
+      "fr": "Mode de rédaction :",
+      "de": "Eingabemodus:",
+      "ru": "Режим ввода:",
+      "it": "Modalità di scrittura:",
+      "ar": "وضع الكتابة:"
+    }
+  },
+  {
+    "index": 4,
+    "english": "Output format:",
+    "source": "src/idle_setup.c",
+    "translations": {
+      "id": "Format keluaran:",
+      "ms": "Format keluaran:",
+      "tr": "Çıktı biçimi:",
+      "es": "Formato de salida:",
+      "pt": "Formato de saída:",
+      "fr": "Format de sortie :",
+      "de": "Ausgabeformat:",
+      "ru": "Формат вывода:",
+      "it": "Formato di output:",
+      "ar": "تنسيق الإخراج:"
+    }
+  },
+  {
+    "index": 5,
+    "english": "Queue notices:",
+    "source": "src/idle_setup.c",
+    "translations": {
+      "id": "Notifikasi antrean:",
+      "ms": "Pemberitahuan giliran:",
+      "tr": "Kuyruk bildirimleri:",
+      "es": "Avisos de cola:",
+      "pt": "Avisos da fila:",
+      "fr": "Avis de file :",
+      "de": "Warteschlangenhinweise:",
+      "ru": "Уведомления очереди:",
+      "it": "Avvisi della coda:",
+      "ar": "إشعارات قائمة الانتظار:"
+    }
+  },
+  {
+    "index": 6,
+    "english": "Program messages:",
+    "source": "src/idle_setup.c",
+    "translations": {
+      "id": "Pesan program:",
+      "ms": "Mesej program:",
+      "tr": "Program iletileri:",
+      "es": "Mensajes del programa:",
+      "pt": "Mensagens do programa:",
+      "fr": "Messages du programme :",
+      "de": "Programmmeldungen:",
+      "ru": "Сообщения программы:",
+      "it": "Messaggi del programma:",
+      "ar": "رسائل البرنامج:"
+    }
+  },
+  {
+    "index": 7,
+    "english": "Persistent logging:",
+    "source": "src/idle_setup.c",
+    "translations": {
+      "id": "Pencatatan tetap:",
+      "ms": "Log berterusan:",
+      "tr": "Kalıcı günlük:",
+      "es": "Registro persistente:",
+      "pt": "Log persistente:",
+      "fr": "Journalisation persistante :",
+      "de": "Dauerhafte Protokollierung:",
+      "ru": "Постоянный журнал:",
+      "it": "Registrazione persistente:",
+      "ar": "التسجيل الدائم:"
+    }
+  },
+  {
+    "index": 8,
+    "english": "Single-session mode:",
+    "source": "src/idle_setup.c",
+    "translations": {
+      "id": "Mode satu sesi:",
+      "ms": "Mod satu sesi:",
+      "tr": "Tek oturum modu:",
+      "es": "Modo de sesión única:",
+      "pt": "Modo de sessão única:",
+      "fr": "Mode session unique :",
+      "de": "Einzelsitzungsmodus:",
+      "ru": "Режим одного сеанса:",
+      "it": "Modalità sessione singola:",
+      "ar": "وضع الجلسة الواحدة:"
+    }
+  },
+  {
+    "index": 9,
+    "english": "Use signals:",
+    "source": "src/idle_setup.c",
+    "translations": {
+      "id": "Gunakan sinyal:",
+      "ms": "Guna isyarat:",
+      "tr": "Sinyalleri kullan:",
+      "es": "Usar señales:",
+      "pt": "Usar sinais:",
+      "fr": "Utiliser les signaux :",
+      "de": "Signale verwenden:",
+      "ru": "Использовать сигналы:",
+      "it": "Usa segnali:",
+      "ar": "استخدام الإشارات:"
+    }
+  },
+  {
+    "index": 10,
+    "english": "Command suggestions:",
+    "source": "src/idle_setup.c",
+    "translations": {
+      "id": "Saran perintah:",
+      "ms": "Cadangan arahan:",
+      "tr": "Komut önerileri:",
+      "es": "Sugerencias de comandos:",
+      "pt": "Sugestões de comandos:",
+      "fr": "Suggestions de commandes :",
+      "de": "Befehlsvorschläge:",
+      "ru": "Подсказки команд:",
+      "it": "Suggerimenti di comandi:",
+      "ar": "اقتراحات الأوامر:"
+    }
+  },
+  {
+    "index": 11,
+    "english": "Default interface:",
+    "source": "src/idle_setup.c",
+    "translations": {
+      "id": "Antarmuka bawaan:",
+      "ms": "Antara muka lalai:",
+      "tr": "Varsayılan arayüz:",
+      "es": "Interfaz predeterminada:",
+      "pt": "Interface padrão:",
+      "fr": "Interface par défaut :",
+      "de": "Standardoberfläche:",
+      "ru": "Интерфейс по умолчанию:",
+      "it": "Interfaccia predefinita:",
+      "ar": "الواجهة الافتراضية:"
+    }
+  },
+  {
+    "index": 12,
+    "english": "Configuration:",
+    "source": "src/idle_setup.c",
+    "translations": {
+      "id": "Konfigurasi:",
+      "ms": "Konfigurasi:",
+      "tr": "Yapılandırma:",
+      "es": "Configuración:",
+      "pt": "Configuração:",
+      "fr": "Configuration :",
+      "de": "Konfiguration:",
+      "ru": "Конфигурация:",
+      "it": "Configurazione:",
+      "ar": "الإعدادات:"
+    }
+  },
+  {
+    "index": 13,
+    "english": "idle (fixed in onekeyirc)",
+    "source": "src/idle_setup.c",
+    "translations": {
+      "id": "idle (tetap di onekeyirc)",
+      "ms": "idle (tetap pada onekeyirc)",
+      "tr": "idle (onekeyirc içinde sabit)",
+      "es": "idle (fijo en onekeyirc)",
+      "pt": "idle (fixo no onekeyirc)",
+      "fr": "idle (fixé dans onekeyirc)",
+      "de": "idle (fest in onekeyirc)",
+      "ru": "idle (фиксирован в onekeyirc)",
+      "it": "idle (fissa in onekeyirc)",
+      "ar": "idle (ثابت في onekeyirc)"
+    }
+  },
+  {
+    "index": 14,
+    "english": "idle (next fresh launch)",
+    "source": "src/idle_setup.c",
+    "translations": {
+      "id": "idle (peluncuran baru berikutnya)",
+      "ms": "idle (pelancaran baharu seterusnya)",
+      "tr": "idle (sonraki temiz başlatma)",
+      "es": "idle (próximo inicio desde cero)",
+      "pt": "idle (próxima inicialização limpa)",
+      "fr": "idle (au prochain démarrage neuf)",
+      "de": "idle (beim nächsten Neustart)",
+      "ru": "idle (при новом запуске)",
+      "it": "idle (prossimo avvio pulito)",
+      "ar": "idle (عند التشغيل الجديد)"
+    }
+  },
+  {
+    "index": 15,
+    "english": "ncurses (next fresh launch)",
+    "source": "src/idle_setup.c",
+    "translations": {
+      "id": "ncurses (peluncuran baru berikutnya)",
+      "ms": "ncurses (pelancaran baharu seterusnya)",
+      "tr": "ncurses (sonraki temiz başlatma)",
+      "es": "ncurses (próximo inicio desde cero)",
+      "pt": "ncurses (próxima inicialização limpa)",
+      "fr": "ncurses (au prochain démarrage neuf)",
+      "de": "ncurses (beim nächsten Neustart)",
+      "ru": "ncurses (при новом запуске)",
+      "it": "ncurses (prossimo avvio pulito)",
+      "ar": "ncurses (عند التشغيل الجديد)"
+    }
+  },
+  {
+    "index": 16,
+    "english": "1 Save and connect | 2 Save only | 3 Connect once | 4 Apply without saving",
+    "source": "src/idle_setup.c",
+    "translations": {
+      "id": "1 Simpan dan hubungkan | 2 Simpan saja | 3 Hubungkan sekali | 4 Terapkan tanpa menyimpan",
+      "ms": "1 Simpan dan sambung | 2 Simpan sahaja | 3 Sambung sekali | 4 Guna tanpa menyimpan",
+      "tr": "1 Kaydet ve bağlan | 2 Yalnız kaydet | 3 Bir kez bağlan | 4 Kaydetmeden uygula",
+      "es": "1 Guardar y conectar | 2 Solo guardar | 3 Conectar una vez | 4 Aplicar sin guardar",
+      "pt": "1 Salvar e conectar | 2 Apenas salvar | 3 Conectar uma vez | 4 Aplicar sem salvar",
+      "fr": "1 Enregistrer et connecter | 2 Enregistrer seulement | 3 Connecter une fois | 4 Appliquer sans enregistrer",
+      "de": "1 Speichern und verbinden | 2 Nur speichern | 3 Einmal verbinden | 4 Ohne Speichern anwenden",
+      "ru": "1 Сохранить и подключить | 2 Только сохранить | 3 Подключить раз | 4 Применить без сохранения",
+      "it": "1 Salva e connetti | 2 Salva soltanto | 3 Connetti una volta | 4 Applica senza salvare",
+      "ar": "1 حفظ واتصال | 2 حفظ فقط | 3 اتصال مرة | 4 تطبيق دون حفظ"
+    }
+  },
+  {
+    "index": 17,
+    "english": "Server:",
+    "source": "src/idle_setup.c",
+    "translations": {
+      "id": "Server:",
+      "ms": "Pelayan:",
+      "tr": "Sunucu:",
+      "es": "Servidor:",
+      "pt": "Servidor:",
+      "fr": "Serveur :",
+      "de": "Server:",
+      "ru": "Сервер:",
+      "it": "Server:",
+      "ar": "الخادم:"
+    }
+  },
+  {
+    "index": 18,
+    "english": "Nickname:",
+    "source": "src/idle_setup.c",
+    "translations": {
+      "id": "Nama panggilan:",
+      "ms": "Nama gelaran:",
+      "tr": "Takma ad:",
+      "es": "Apodo:",
+      "pt": "Apelido:",
+      "fr": "Pseudonyme :",
+      "de": "Spitzname:",
+      "ru": "Ник:",
+      "it": "Nickname:",
+      "ar": "اللقب:"
+    }
+  },
+  {
+    "index": 19,
+    "english": "Connection changes apply on the next connection.",
+    "source": "src/idle_setup.c",
+    "translations": {
+      "id": "Perubahan koneksi berlaku pada koneksi berikutnya.",
+      "ms": "Perubahan sambungan berkuat kuasa pada sambungan seterusnya.",
+      "tr": "Bağlantı değişiklikleri sonraki bağlantıda geçerli olur.",
+      "es": "Los cambios de conexión se aplicarán en la próxima conexión.",
+      "pt": "Alterações da conexão valem na próxima conexão.",
+      "fr": "Les changements de connexion prendront effet à la prochaine connexion.",
+      "de": "Verbindungsänderungen gelten bei der nächsten Verbindung.",
+      "ru": "Изменения подключения вступят в силу при следующем соединении.",
+      "it": "Le modifiche di connessione valgono dalla prossima connessione.",
+      "ar": "تسري تغييرات الاتصال عند الاتصال التالي."
+    }
+  },
+  {
+    "index": 20,
+    "english": "new saved profile",
+    "source": "src/idle_setup.c",
+    "translations": {
+      "id": "profil tersimpan baru",
+      "ms": "profil simpanan baharu",
+      "tr": "yeni kayıtlı profil",
+      "es": "nuevo perfil guardado",
+      "pt": "novo perfil salvo",
+      "fr": "nouveau profil enregistré",
+      "de": "neues gespeichertes Profil",
+      "ru": "новый сохраненный профиль",
+      "it": "nuovo profilo salvato",
+      "ar": "ملف تعريف محفوظ جديد"
+    }
+  },
+  {
+    "index": 21,
+    "english": "Previous server's startup/authentication settings were cleared in this draft.",
+    "source": "src/idle_setup.c",
+    "translations": {
+      "id": "Pengaturan awal/autentikasi server sebelumnya telah dihapus dari draf ini.",
+      "ms": "Tetapan mula/pengesahan pelayan terdahulu dibuang daripada draf ini.",
+      "tr": "Önceki sunucunun başlangıç ve kimlik doğrulama ayarları bu taslaktan silindi.",
+      "es": "Se borraron del borrador los ajustes de inicio y autenticación del servidor anterior.",
+      "pt": "Configurações iniciais e de autenticação do servidor anterior foram apagadas deste rascunho.",
+      "fr": "Les anciens réglages de démarrage et d'authentification du serveur ont été effacés du brouillon.",
+      "de": "Frühere Start- und Authentifizierungseinstellungen des Servers wurden aus dem Entwurf gelöscht.",
+      "ru": "Прежние настройки запуска и аутентификации сервера удалены из черновика.",
+      "it": "Le impostazioni di avvio e autenticazione del server precedente sono state eliminate dalla bozza.",
+      "ar": "حُذفت إعدادات بدء الخادم السابق والمصادقة من هذه المسودة."
+    }
+  },
+  {
+    "index": 22,
+    "english": "Previous authentication settings and startup commands in this draft were cleared; supply the current account's password.",
+    "source": "src/idle_setup.c",
+    "translations": {
+      "id": "Pengaturan autentikasi dan perintah awal sebelumnya dihapus; masukkan kata sandi akun sekarang.",
+      "ms": "Tetapan pengesahan dan arahan mula terdahulu dibuang; beri kata laluan akaun semasa.",
+      "tr": "Önceki kimlik doğrulama ve başlangıç komutları silindi; geçerli hesabın parolasını girin.",
+      "es": "Se borraron la autenticación y los comandos iniciales anteriores; indica la contraseña de la cuenta actual.",
+      "pt": "Autenticação e comandos iniciais anteriores foram apagados; informe a senha da conta atual.",
+      "fr": "Les anciens réglages d'authentification et commandes initiales ont été effacés ; indiquez le mot de passe du compte actuel.",
+      "de": "Frühere Authentifizierung und Startbefehle wurden gelöscht; Passwort des aktuellen Kontos eingeben.",
+      "ru": "Прежние настройки аутентификации и стартовые команды удалены; введите пароль текущей учетной записи.",
+      "it": "Autenticazione e comandi iniziali precedenti sono stati eliminati; inserisci la password dell'account attuale.",
+      "ar": "حُذفت إعدادات المصادقة وأوامر البدء السابقة؛ أدخل كلمة مرور الحساب الحالي."
+    }
+  },
+  {
+    "index": 23,
+    "english": "This server is already active; choose Save only or Apply without saving.",
+    "source": "src/idle_setup.c",
+    "translations": {
+      "id": "Server ini sudah aktif; pilih Simpan saja atau Terapkan tanpa menyimpan.",
+      "ms": "Pelayan ini sudah aktif; pilih Simpan sahaja atau Guna tanpa menyimpan.",
+      "tr": "Bu sunucu zaten etkin; Yalnız kaydet veya Kaydetmeden uygula seçin.",
+      "es": "Este servidor ya está activo; elige Solo guardar o Aplicar sin guardar.",
+      "pt": "Este servidor já está ativo; escolha Apenas salvar ou Aplicar sem salvar.",
+      "fr": "Ce serveur est déjà actif ; choisissez Enregistrer seulement ou Appliquer sans enregistrer.",
+      "de": "Dieser Server ist bereits aktiv; Nur speichern oder Ohne Speichern anwenden wählen.",
+      "ru": "Сервер уже активен; выберите Только сохранить или Применить без сохранения.",
+      "it": "Questo server è già attivo; scegli Salva soltanto oppure Applica senza salvare.",
+      "ar": "هذا الخادم نشط بالفعل؛ اختر حفظ فقط أو تطبيق دون حفظ."
+    }
+  },
+  {
+    "index": 24,
+    "english": "verified TLS",
+    "source": "src/idle_setup.c",
+    "translations": {
+      "id": "TLS terverifikasi",
+      "ms": "TLS disahkan",
+      "tr": "doğrulanmış TLS",
+      "es": "TLS verificado",
+      "pt": "TLS verificado",
+      "fr": "TLS vérifié",
+      "de": "verifiziertes TLS",
+      "ru": "проверенный TLS",
+      "it": "TLS verificato",
+      "ar": "TLS موثق"
+    }
+  },
+  {
+    "index": 25,
+    "english": "unencrypted",
+    "source": "src/idle_setup.c",
+    "translations": {
+      "id": "tanpa enkripsi",
+      "ms": "tanpa penyulitan",
+      "tr": "şifresiz",
+      "es": "sin cifrar",
+      "pt": "sem criptografia",
+      "fr": "non chiffré",
+      "de": "unverschlüsselt",
+      "ru": "без шифрования",
+      "it": "non cifrato",
+      "ar": "غير مشفر"
+    }
+  },
+  {
+    "index": 26,
+    "english": "Bouncer:",
+    "source": "src/idle_setup.c",
+    "translations": {
+      "id": "Bouncer:",
+      "ms": "Bouncer:",
+      "tr": "Bouncer:",
+      "es": "Bouncer:",
+      "pt": "Bouncer:",
+      "fr": "Bouncer :",
+      "de": "Bouncer:",
+      "ru": "Баунсер:",
+      "it": "Bouncer:",
+      "ar": "Bouncer:"
+    }
+  },
+  {
+    "index": 27,
+    "english": "Login identity:",
+    "source": "src/idle_setup.c",
+    "translations": {
+      "id": "Identitas masuk:",
+      "ms": "Identiti masuk:",
+      "tr": "Giriş kimliği:",
+      "es": "Identidad de acceso:",
+      "pt": "Identidade de acesso:",
+      "fr": "Identité de connexion :",
+      "de": "Anmeldeidentität:",
+      "ru": "Имя входа:",
+      "it": "Identità di accesso:",
+      "ar": "هوية الدخول:"
+    }
+  },
+  {
+    "index": 28,
+    "english": "Channels: restored by the bouncer",
+    "source": "src/idle_setup.c",
+    "translations": {
+      "id": "Kanal: dipulihkan oleh bouncer",
+      "ms": "Saluran: dipulihkan oleh bouncer",
+      "tr": "Kanallar: bouncer tarafından geri yüklenir",
+      "es": "Canales: restaurados por el bouncer",
+      "pt": "Canais: restaurados pelo bouncer",
+      "fr": "Canaux : restaurés par le bouncer",
+      "de": "Kanäle: vom Bouncer wiederhergestellt",
+      "ru": "Каналы: восстановлены баунсером",
+      "it": "Canali: ripristinati dal bouncer",
+      "ar": "القنوات: يستعيدها bouncer"
+    }
+  },
+  {
+    "index": 29,
+    "english": "Automatic away:",
+    "source": "src/idle_setup.c",
+    "translations": {
+      "id": "Away otomatis:",
+      "ms": "Away automatik:",
+      "tr": "Otomatik away:",
+      "es": "Ausencia automática:",
+      "pt": "Ausência automática:",
+      "fr": "Absence automatique :",
+      "de": "Automatisches Away:",
+      "ru": "Автоматический away:",
+      "it": "Assenza automatica:",
+      "ar": "الغياب التلقائي:"
+    }
+  },
+  {
+    "index": 30,
+    "english": "(incomplete)",
+    "source": "src/idle_setup.c",
+    "translations": {
+      "id": "(belum lengkap)",
+      "ms": "(belum lengkap)",
+      "tr": "(eksik)",
+      "es": "(incompleto)",
+      "pt": "(incompleto)",
+      "fr": "(incomplet)",
+      "de": "(unvollständig)",
+      "ru": "(неполно)",
+      "it": "(incompleto)",
+      "ar": "(غير مكتمل)"
+    }
+  },
+  {
+    "index": 31,
+    "english": "client rules enabled",
+    "source": "src/idle_setup.c",
+    "translations": {
+      "id": "aturan klien aktif",
+      "ms": "peraturan klien diaktifkan",
+      "tr": "istemci kuralları etkin",
+      "es": "reglas del cliente activadas",
+      "pt": "regras do cliente ativadas",
+      "fr": "règles du client activées",
+      "de": "Clientregeln aktiviert",
+      "ru": "правила клиента включены",
+      "it": "regole del client attive",
+      "ar": "قواعد العميل مفعلة"
+    }
+  },
+  {
+    "index": 32,
+    "english": "managed by bouncer",
+    "source": "src/idle_setup.c",
+    "translations": {
+      "id": "dikelola bouncer",
+      "ms": "diurus bouncer",
+      "tr": "bouncer tarafından yönetilir",
+      "es": "gestionado por el bouncer",
+      "pt": "gerenciado pelo bouncer",
+      "fr": "géré par le bouncer",
+      "de": "vom Bouncer verwaltet",
+      "ru": "управляет баунсер",
+      "it": "gestito dal bouncer",
+      "ar": "يديره bouncer"
+    }
+  },
+  {
+    "index": 33,
+    "english": "Authentication",
+    "source": "src/idle_setup.c",
+    "translations": {
+      "id": "Autentikasi",
+      "ms": "Pengesahan",
+      "tr": "Kimlik doğrulama",
+      "es": "Autenticación",
+      "pt": "Autenticação",
+      "fr": "Authentification",
+      "de": "Authentifizierung",
+      "ru": "Аутентификация",
+      "it": "Autenticazione",
+      "ar": "المصادقة"
+    }
+  },
+  {
+    "index": 34,
+    "english": "encrypted file",
+    "source": "src/idle_setup.c",
+    "translations": {
+      "id": "berkas terenkripsi",
+      "ms": "fail tersulit",
+      "tr": "şifreli dosya",
+      "es": "archivo cifrado",
+      "pt": "arquivo criptografado",
+      "fr": "fichier chiffré",
+      "de": "verschlüsselte Datei",
+      "ru": "шифрованный файл",
+      "it": "file cifrato",
+      "ar": "ملف مشفر"
+    }
+  },
+  {
+    "index": 35,
+    "english": "created",
+    "source": "src/idle_setup.c",
+    "translations": {
+      "id": "sudah dibuat",
+      "ms": "sudah dicipta",
+      "tr": "oluşturuldu",
+      "es": "creado",
+      "pt": "criado",
+      "fr": "créé",
+      "de": "erstellt",
+      "ru": "создан",
+      "it": "creato",
+      "ar": "أُنشئ"
+    }
+  },
+  {
+    "index": 36,
+    "english": "not created; created at Finish",
+    "source": "src/idle_setup.c",
+    "translations": {
+      "id": "belum dibuat; dibuat saat Finish",
+      "ms": "belum dicipta; dicipta pada Finish",
+      "tr": "henüz oluşturulmadı; Finish sırasında oluşturulur",
+      "es": "aún no creado; se creará en Finish",
+      "pt": "não criado; será criado em Finish",
+      "fr": "non créé ; créé à Finish",
+      "de": "noch nicht erstellt; bei Finish erstellt",
+      "ru": "не создан; будет создан при Finish",
+      "it": "non creato; verrà creato a Finish",
+      "ar": "لم يُنشأ؛ يُنشأ عند Finish"
+    }
+  },
+  {
+    "index": 37,
+    "english": "Local key:",
+    "source": "src/idle_setup.c",
+    "translations": {
+      "id": "Kunci lokal:",
+      "ms": "Kunci setempat:",
+      "tr": "Yerel anahtar:",
+      "es": "Clave local:",
+      "pt": "Chave local:",
+      "fr": "Clé locale :",
+      "de": "Lokaler Schlüssel:",
+      "ru": "Локальный ключ:",
+      "it": "Chiave locale:",
+      "ar": "المفتاح المحلي:"
+    }
+  },
+  {
+    "index": 38,
+    "english": "Encrypted credential created.",
+    "source": "src/idle_setup.c",
+    "translations": {
+      "id": "Kredensial terenkripsi dibuat.",
+      "ms": "Kelayakan tersulit dicipta.",
+      "tr": "Şifreli kimlik bilgisi oluşturuldu.",
+      "es": "Credencial cifrada creada.",
+      "pt": "Credencial criptografada criada.",
+      "fr": "Identifiant chiffré créé.",
+      "de": "Verschlüsselter Zugang erstellt.",
+      "ru": "Шифрованные учетные данные созданы.",
+      "it": "Credenziale cifrata creata.",
+      "ar": "أُنشئت بيانات اعتماد مشفرة."
+    }
+  },
+  {
+    "index": 39,
+    "english": "Encrypted credentials created.",
+    "source": "src/idle_setup.c",
+    "translations": {
+      "id": "Kredensial terenkripsi telah dibuat.",
+      "ms": "Kelayakan tersulit telah dicipta.",
+      "tr": "Şifreli kimlik bilgileri oluşturuldu.",
+      "es": "Credenciales cifradas creadas.",
+      "pt": "Credenciais criptografadas criadas.",
+      "fr": "Identifiants chiffrés créés.",
+      "de": "Verschlüsselte Zugänge erstellt.",
+      "ru": "Шифрованные учетные данные созданы.",
+      "it": "Credenziali cifrate create.",
+      "ar": "أُنشئت بيانات اعتماد مشفرة."
+    }
+  },
+  {
+    "index": 40,
+    "english": "Use /autoauth status on this server for full file paths.",
+    "source": "src/idle_setup.c",
+    "translations": {
+      "id": "Gunakan /autoauth status pada server ini untuk melihat semua jalur berkas.",
+      "ms": "Guna /autoauth status pada pelayan ini untuk semua laluan fail.",
+      "tr": "Tam dosya yolları için bu sunucuda /autoauth status kullanın.",
+      "es": "Usa /autoauth status en este servidor para ver las rutas completas.",
+      "pt": "Use /autoauth status neste servidor para ver os caminhos completos dos arquivos.",
+      "fr": "Utilisez /autoauth status sur ce serveur pour voir les chemins complets.",
+      "de": "Mit /autoauth status auf diesem Server die vollständigen Dateipfade anzeigen.",
+      "ru": "Для всех путей файлов выполните /autoauth status на этом сервере.",
+      "it": "Usa /autoauth status su questo server per i percorsi completi dei file.",
+      "ar": "استخدم /autoauth status على هذا الخادم لعرض المسارات الكاملة."
+    }
+  },
+  {
+    "index": 41,
+    "english": "Full file paths are in the Finish review; settings may not be applied.",
+    "source": "src/idle_setup.c",
+    "translations": {
+      "id": "Jalur berkas lengkap ada di tinjauan Finish; pengaturan mungkin belum diterapkan.",
+      "ms": "Laluan fail penuh ada dalam semakan Finish; tetapan mungkin belum digunakan.",
+      "tr": "Tam yollar Finish incelemesinde; ayarlar henüz uygulanmamış olabilir.",
+      "es": "Las rutas completas figuran en la revisión de Finish; puede que los ajustes no se hayan aplicado.",
+      "pt": "Os caminhos completos estão na revisão de Finish; as configurações talvez não tenham sido aplicadas.",
+      "fr": "Les chemins complets figurent dans la vérification Finish ; les réglages peuvent ne pas être appliqués.",
+      "de": "Vollständige Dateipfade stehen in der Finish-Übersicht; Einstellungen sind eventuell nicht angewendet.",
+      "ru": "Полные пути находятся в обзоре Finish; настройки могут быть не применены.",
+      "it": "I percorsi completi sono nella revisione Finish; le impostazioni potrebbero non essere applicate.",
+      "ar": "المسارات الكاملة في مراجعة Finish؛ قد لا تكون الإعدادات مطبقة."
+    }
+  },
+  {
+    "index": 42,
+    "english": "Server file:",
+    "source": "src/idle_setup.c",
+    "translations": {
+      "id": "Berkas server:",
+      "ms": "Fail pelayan:",
+      "tr": "Sunucu dosyası:",
+      "es": "Archivo del servidor:",
+      "pt": "Arquivo do servidor:",
+      "fr": "Fichier du serveur :",
+      "de": "Serverdatei:",
+      "ru": "Файл сервера:",
+      "it": "File del server:",
+      "ar": "ملف الخادم:"
+    }
+  },
+  {
+    "index": 43,
+    "english": "Authentication file:",
+    "source": "src/idle_setup.c",
+    "translations": {
+      "id": "Berkas autentikasi:",
+      "ms": "Fail pengesahan:",
+      "tr": "Kimlik doğrulama dosyası:",
+      "es": "Archivo de autenticación:",
+      "pt": "Arquivo de autenticação:",
+      "fr": "Fichier d'authentification :",
+      "de": "Authentifizierungsdatei:",
+      "ru": "Файл аутентификации:",
+      "it": "File di autenticazione:",
+      "ar": "ملف المصادقة:"
+    }
+  }
+]

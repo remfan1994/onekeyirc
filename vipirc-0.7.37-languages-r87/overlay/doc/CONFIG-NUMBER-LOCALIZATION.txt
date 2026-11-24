@@ -1,0 +1,22 @@
+Optional localization r84: 2349 keys per locale (+17). Numeric configuration diagnostics, field limits, GPG UID and permission-mode errors. Numeric values, config identifiers and paths remain literal. Apply to clean English r1 before configure/make. Application version unchanged.
+
+Added keys:
+Invalid or unknown configuration entry at line {line}
+Invalid server catalog entry at line {line}
+Default server at catalog line {line} is not a listed profile
+port must be between 1 and 65535 (received {received})
+history lines must be between 50 and 5000 (received {received})
+At most {limit} custom key bindings are allowed
+autocommands.command accepts at most {limit} entries
+mentions.word accepts at most {limit} entries
+ignore.mask accepts at most {limit} entries
+Invalid automatic command at position {position}; use /msg, /join, /nick, /away, /back or /whois
+{field} exceeds its text limit
+{field} cannot contain control characters
+{field} cannot begin or end with spaces
+{field} exceeds its byte limit
+{field} cannot contain control bytes
+The GPG credential is owned by UID {owner}; your UID is {uid}. GPG file: {path}
+The GPG credential has mode {mode}; use private mode 0600 or 0400. GPG file: {path}
+
+Run make check-config-number-l10n.

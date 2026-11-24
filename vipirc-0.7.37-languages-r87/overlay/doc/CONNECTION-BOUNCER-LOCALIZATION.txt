@@ -1,0 +1,14 @@
+Optional localization r82: 2301 keys per locale (+9). Connection argument validation, bouncer restrictions, invalid input, and mention clearing. Server names, topics, system errors and command tokens remain literal. Apply to clean English r1 before configure/make. Application version unchanged.
+
+Added keys:
+Use /panel to change this bouncer's login or password source; /autoauth status shows its settings.
+This bouncer manages channel membership. Use /join or /part while connected, or /panel to change connection type.
+Nickname must be a valid IRC nickname; use -nick NICK before the hostname.
+A +PORT requests TLS and cannot be combined with -plain.
+Port must be a number from 1 to 65535; use -nick NICK for a nickname.
+Extra connection arguments rejected. Use -nick NICK; passwords are configured with /autoauth or /panel.
+Enter a supported /command; /help lists commands. Invalid controls or oversized input are rejected.
+Cleared retained mentions across all servers.
+onekeyirc always uses the idle interface; ncurses requires vipirc. The saved preference is unchanged.
+
+Run make check-connection-bouncer-l10n.

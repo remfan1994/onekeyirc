@@ -1,0 +1,19 @@
+Optional localization r72: 1762 keys per locale (+14). Additional interface and connection notices; literal protocol fields, secrets and commands are not translated. Apply to clean English r1 before configure/make. Application version unchanged.
+
+Added keys:
+Joining {channel}.
+Joining {channel} with a supplied key.
+{command} from {source}: {message}
+server
+Usage: /list [MASK] [--min-users N] [--max-users N] [--name TEXT] [--topic TEXT] [--sort channel|users|topic] [--asc|--desc] [--limit N], /list show [--sort channel|users|topic] [--asc|--desc] [--limit N], or /list clear
+That channel view is closed. Join it again or clear mentions.
+That source conversation is no longer available.
+Channel directory is still receiving results.
+Showing the cached channel directory.
+No completed channel directory is cached; use /list first.
+Decrypting {credential} with GPG.
+server password
+SASL password
+Credential request is not permitted in this connection state.
+
+Run make check-additional-interface-l10n.

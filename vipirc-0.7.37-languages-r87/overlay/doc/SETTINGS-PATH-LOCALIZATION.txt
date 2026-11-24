@@ -1,0 +1,36 @@
+Optional localization r78: 2198 keys per locale (+31). Credential path labels, settings command summaries and connection failures. Path bytes remain recoverable; settings and summary redact credential paths and contents. Literal configuration tokens remain unchanged. Apply to clean English r1 before configure/make. Application version unchanged.
+
+Added keys:
+SASL password file
+SASL GPG file
+Server-password file
+Server-password GPG file
+Current {label}
+Next {label}
+{label} display uses {backslash} for a backslash and {hex} for other escaped bytes.
+{label} [bytes {range} of {total}]: {path}
+Application preferences:
+History lines: {count} | send mode: {mode}
+Output format: {format} | queue notices: {queue} | program messages: {messages}
+Persistent logging: {logging} | single-session mode: {session}
+Default interface: idle (fixed in onekeyirc; saved preference: {interface})
+Default interface: {interface} (next fresh launch)
+Command suggestions: {suggestions} | Composer mode: {mode}
+PART default: {part} | QUIT default: {quit}
+Effective settings for server {number} (connection edits apply on the next disconnected /connect):
+Server: {host} | port: {port} | verified TLS: {tls}
+Nickname: {nick} | username: {user} | real name: {real}
+Auto-connect: {state} | auto-join: {channels}
+Automatic commands: {state} | {count} entries | delay {delay} seconds | interval {interval} seconds
+CA: {source} | watch strings: {watch} | ignore masks: {ignore}
+explicit file
+system trust
+Settings unchanged: {detail}
+Connection could not start: {detail}
+Connection settings are invalid: {detail}
+Connection settings were not changed: {detail}
+Connection could not be created: {detail}
+Server not added: {detail}
+Auto-connect: {state}
+
+Run make check-settings-path-l10n.

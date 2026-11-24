@@ -1,0 +1,18 @@
+Optional localization r73: 1775 keys per locale (+13). Command cancellation, watch status, and interface dialogs where applicable; IRC commands and identifiers remain literal. Apply to clean English r1 before configure/make. Application version unchanged.
+
+Added keys:
+Cancelled {messages} queued messages and {commands} automatic commands.
+One in-flight message will finish.
+Watch string added; test-session change only; /save is disabled.
+Watch string added; /save preserves it.
+Watch string removed; test-session change only; /save is disabled.
+Watch string removed; /save preserves it.
+Nick mentions always match {nick}; {count} additional literal strings:
+Automatic command {number} was not sent: {error}. Remaining automatic commands cancelled.
+Automatic command {number} was not sent: the message limit changed. Remaining automatic commands cancelled.
+could not queue the command; check the connection and outgoing queue
+invalid automatic command
+text exceeds the one-message byte limit; automatic messages are never split
+no channel view is available
+
+Run make check-dialog-status-l10n.

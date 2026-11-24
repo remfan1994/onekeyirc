@@ -1,0 +1,31 @@
+Optional localization r80: 2251 keys per locale (+26). Server summaries, network directory counts, staged auto-join and profile save notices. Server names, topics, system errors and command tokens remain literal. Apply to clean English r1 before configure/make. Application version unchanged.
+
+Added keys:
+Network channel directory on server {number}: {counts} | {order}{receiving}
+showing {visible}, {cached} cached, {matched} matched, {received} received
+sort {sort} {direction}
+ | still receiving
+  {channel} | {count} users | {topic}
+Display limited to {visible} of {cached} cached matches.
+Channel cache reached its hard safety limit of {limit} entries.
+  {number}: {endpoint}{selected} | {details}
+nick {nick} | {status} | auto-connect {state} | {saved}
+(default)
+profile error
+Join requests use the running list after registration. Channels still not joined may be pending or rejected; see this server's replies.
+Pending channels do not change this connection or automatic retries. /disconnect then /connect applies them; /save persists them.
+Use /join for an immediate join on a registered connection. /autojoin add/remove/clear prepares the next explicit /connect.
+Server {number} was not saved: profile could not be loaded.
+Server {number} save did not complete: {error}
+Saved server {number}{preferences}.
+ (including application preferences)
+Saved {done} profile(s); {failed} failed. Each successful file remains saved.
+Configuration save incomplete: {saved} server(s) saved; {failed} failed. Selected default {state}. Successful writes remain saved.
+remembered
+not confirmed
+Saved configuration for {count} server(s). /connect will reuse the selected connection next time.
+OFFLINE TEST MODE: /saveconf does not write configuration.
+Selected server {number}: {host} | {status}
+The saved default connection is unavailable. Use /connect HOST or /server NUMBER to choose one explicitly.
+
+Run make check-server-directory-reader-l10n.

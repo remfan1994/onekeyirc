@@ -1,0 +1,17 @@
+Optional localization r76: 2136 keys per locale (+12). Connection and command messages, directory filters and UI labels. Named fields preserve IRC identifiers and other literal values. Apply to clean English r1 before configure/make. Application version unchanged.
+
+Added keys:
+mask {value}
+min {value}
+max {value}
+name {value}
+topic {value}
+limit {value}
+Return to: {view}
+Connection: {status}
+Nick: {nick}
+Users: {count}
+Users: {count}+ (limit)
+{count} users
+
+Run make check-connection-ui-l10n.

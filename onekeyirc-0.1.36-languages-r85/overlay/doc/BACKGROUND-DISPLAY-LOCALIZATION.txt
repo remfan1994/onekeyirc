@@ -1,0 +1,11 @@
+Optional localization r84: 2008 keys per locale (+6). Background startup, detach instructions, session-list server counts and nested filesystem diagnostics. Wire protocol and security checks are unchanged. Apply to clean English r1 before configure/make. Application version unchanged.
+
+Added keys:
+background startup failed: {detail}
+Use {resume} for a sole detached job; {sessions} lists jobs.
+({count} server)
+({count} servers)
+{detail}. GPG file: {path}
+Configuration must be your regular file, not writable by other users
+
+Run make check-background-display-l10n. The displayed legacy session label is translated only after reception; the ASCII worker label is intentionally unchanged.

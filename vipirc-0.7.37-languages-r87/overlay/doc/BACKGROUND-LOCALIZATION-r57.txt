@@ -1,0 +1,28 @@
+BACKGROUND SESSION LOCALIZATION r57 - vipirc-0.7.37
+
+35 source-linked display templates, translated for id ms tr es pt fr de ru it ar.
+New total: 1702 keys per language. Application version: 0.7.37, unchanged.
+
+New display-only translations: interactive-terminal and owned socket checks,
+resume error reasons, older frontend compatibility, stale entry count (separate
+singular/plural keys), number-qualified detach/close confirmations, verified
+job selection, and explicit unconfirmed control outcomes.
+
+The trusted English template and each translated template are checked for exact
+named display fields before expansion. Values are emitted as data, never passed
+as printf format strings. A malformed locale template falls back to English.
+
+LITERAL: --resume, --sessions, --detach-session, --close-session, TERM,
+LC_CTYPE, job IDs, socket permissions, nickname/server labels and worker wire
+markers. No modification to worker peer credentials, token checking, packet
+layout, selected frontend, timeouts, close/detach decisions or IRC traffic.
+The worker reply label itself remains English to preserve IPC compatibility.
+
+Check: python3 tests/test_background_tail_localization.py
+       python3 tests/test_background_localization.py
+       python3 tools/generate_localizations.py --check
+       make build/test_background build/test_background_control
+
+Unpack on untouched English source r1, apply this pack BEFORE ./configure/make;
+verify [lang-rtl-r57] with --version. Never apply on an older overlay.
+Full vipirc ncurses/Arabic geometry and native-speaker review remain outstanding.

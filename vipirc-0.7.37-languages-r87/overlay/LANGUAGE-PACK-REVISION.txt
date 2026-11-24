@@ -1,0 +1,7 @@
+OPTIONAL LANGUAGE + ARABIC RTL PATCH REVISION: r87
+BASE APPLICATION VERSION: 0.7.37
+BASE SOURCE: English r1 (unchanged)
+PATCHED --version: vipirc 0.7.37 [lang-rtl-r87]
+2437 keys per locale (+20 new) in ten languages.
+Optional localization r87: 2437 keys per locale (+20). ncurses navigation hints, manual-search geometry and draft-preservation notices. Application version unchanged. Apply to clean English r1.
+Native-speaker and full ncurses validation remain outstanding.

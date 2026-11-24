@@ -1,0 +1,14 @@
+Optional localization r73: 2087 keys per locale (+9). Additional interface and connection notices; literal protocol fields, secrets and commands are not translated. Apply to clean English r1 before configure/make. Application version unchanged.
+
+Added keys:
+Joining {channel}.
+Joining {channel} with a supplied key.
+{command} from {source}: {message}
+server
+Usage: /list [MASK] [--min-users N] [--max-users N] [--name TEXT] [--topic TEXT] [--sort channel|users|topic] [--asc|--desc] [--limit N], /list show [--sort channel|users|topic] [--asc|--desc] [--limit N], or /list clear
+User list on.
+User list off.
+DCC file offer #{id} from {nick}: {filename} ({bytes} bytes). Open /dcc to review.
+Cannot retain the file offer: out of memory.
+
+Run make check-additional-interface-l10n.

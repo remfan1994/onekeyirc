@@ -1,0 +1,11 @@
+Optional localization r75: 1792 keys per locale (+6). Connection and command messages, directory filters and UI labels. Named fields preserve IRC identifiers and other literal values. Apply to clean English r1 before configure/make. Application version unchanged.
+
+Added keys:
+Registering as {nick}
+Usage: /{command} nickname|query-number
+Query with {nick}; type a message to send.
+Nickname set to {nick}; /connect to use it.
+Unknown command /{command}; /help lists supported commands.
+Usage: /{command}
+
+Run make check-connection-ui-l10n.

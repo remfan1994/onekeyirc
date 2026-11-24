@@ -1,0 +1,37 @@
+Optional localization r76: 1824 keys per locale (+32). Authentication, auto-join and presence command summaries. Credential contents remain redacted; only explicit auth inquiries show configured paths. Named fields preserve literal identifiers and messages. Apply to clean English r1 before configure/make. Application version unchanged.
+
+Added keys:
+GPG file (redacted)
+private file (redacted)
+plaintext config value (redacted)
+none
+(default nickname)
+enabled for this profile
+succeeded
+not authenticated
+plaintext
+yes
+no
+Current connection authentication settings:
+Authentication settings:
+Pending authentication for the next explicit /connect:
+Bouncer: {type} | login: {login} | automatic away: {away}
+Bouncer credential: {source}
+Auto-auth: {mode} | account: {account} | credential: {source}
+Server password: {source}
+Next server password: {source}
+Server {number}: {host}:{port} ({transport})
+Connection: {status} | registered: {registered}
+Required SASL: {status}
+Next explicit /connect endpoint: {host}:{port} ({transport})
+not configured
+Background away: {background} | Idle away: {idle}
+Running auto-join: {channels}
+Pending auto-join for next explicit /connect: {channels}
+Channel {channel}: {status}
+not joined
+(none)
+Presence: background-away {state} | auto-away {minutes} minute
+Presence: background-away {state} | auto-away {minutes} minutes
+
+Run make check-auth-status-l10n. Explicit credential path labels are localized as of r77.

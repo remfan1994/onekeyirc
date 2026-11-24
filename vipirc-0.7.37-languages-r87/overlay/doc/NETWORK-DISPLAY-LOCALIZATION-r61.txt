@@ -1,0 +1,26 @@
+NETWORK DISPLAY LOCALIZATION: vipirc-0.7.37, optional language pack r61
+
+Catalog: 1819 keys per language, ten languages, English fallback.
+Additions: 50 keys per locale (some state labels already existed).
+Source-backed coverage in this pass:
+  - 37 network diagnostic messages and 15 connection-state labels.
+  - 10 known dynamic diagnostic prefixes (resolver, DNS, TCP, TLS).
+  - Constant English error messages are mapped only at the user display.
+  - Raw details from strerror(), gai_strerror(), TLS verifier, unknown
+    server replies and user-controlled strings stay literal through a
+    fixed snprintf format; no dynamic text becomes a printf format.
+  - src/net.c and its resolver child/IPC, retry bits, TLS settings, wire
+    protocol and the application version were not modified.
+
+Tests:
+  python3 tools/generate_localizations.py --check
+  python3 tests/test_network_display_l10n.py
+  python3 tests/test_client_profile_localization.py
+  python3 tests/test_cli_option_localization.py
+  python3 tests/test_cli_log_r59.py
+  ./configure && make
+  VIPIRC_LANG=fr ./vipirc --version
+
+Unverified: vipirc curses terminal and OpenBSD full build, native-speaker
+reviews, real remote IRC/DCC/GPG interoperability and remaining English
+messages in src/app.c, src/config.c, src/credentials.c, and src/ui.c.

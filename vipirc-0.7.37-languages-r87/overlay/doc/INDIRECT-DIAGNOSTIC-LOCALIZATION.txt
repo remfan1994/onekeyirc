@@ -1,0 +1,37 @@
+Optional localization r83: 2332 keys per locale (+31). GPG credential and encrypted-file diagnostics and file-browser errors. Underlying security policy, filenames, OS error strings and credentials remain unchanged. Apply to clean English r1 before configure/make. Application version unchanged.
+
+Added keys:
+Cannot allocate GPG credential state.
+Cannot allocate GPG encryption state.
+Cannot create isolated GPG encryption pipes.
+Cannot create isolated GPG pipes.
+Cannot start GPG credential process.
+Cannot start GPG encryption.
+GPG cleanup is still pending; retry shortly.
+No space for the default credential path.
+The absolute credential path does not fit this field.
+The credential must be one line without control bytes.
+The credential must contain 1 to 1024 bytes.
+The default credential directory path is too long.
+The default credential path is too long.
+Use a full 40- or 64-digit hexadecimal fingerprint of a local GPG key.
+Enter a filename, not a directory (at most 255 bytes).
+Parent traversal (..) is not allowed in credential paths.
+Credential directory does not exist; choose the offered default or an existing private directory.
+This credential path component is not a directory.
+New credential directory must be owned by you with mode 0700.
+Credential parent is not a directory.
+All 64 default credential filenames exist; choose a new custom filename.
+Only the offered default credential directory can be created automatically.
+GPG encryption failed; check the local key and GPG installation. This credential file was not published.
+GPG did not confirm complete protected encryption; this credential file was not published.
+The newly created credential was changed or replaced; it was left untouched.
+Cannot write and synchronize this encrypted credential; this file was not published.
+Cannot open directory: {detail}
+Cannot open directory (symlinks refused): {detail}
+Cannot read directory: {detail}
+Cannot read the launch directory: {detail}. Use Type path.
+Directory listing stopped: {detail}
+
+Run make check-indirect-diagnostic-l10n.
+Next audit: numeric config errors (line numbers, limits, port/history ranges), file permission modes and UID diagnostics.

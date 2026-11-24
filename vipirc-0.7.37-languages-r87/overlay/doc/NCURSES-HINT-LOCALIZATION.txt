@@ -1,0 +1,26 @@
+Optional localization r87: 2437 keys per locale (+20). ncurses navigation hints, manual-search geometry and draft-preservation notices. Application version unchanged. Apply to clean English r1.
+
+Added catalog keys:
+/: search | Esc: back
+Arrows: item/action
+Cannot initialize the full interface.
+Command cancelled; chat draft preserved.
+Draft preserved; keep editing. Nothing sent.
+Enter: join | s: sort | Esc: back
+Enter: run | Esc: chat
+Esc: quit
+Not sent; edit your draft.
+Returned to the unfinished command at its original conversation; chat draft preserved.
+Settings opened. Chat draft preserved.
+Up/Down: channel | Left/Right: sort column | s: direction | Enter: join | r: refresh | /: command | Esc: back
+Up/Down: item | Enter: open | /: command | Esc: quit
+Up/Down: item | Left/Right: action | Enter: run | ! mentions
+Up/Down: item | Left/Right: action | Enter: run | Esc: chat
+Up/Down: scroll | Esc: vipirc
+Up/Down: scroll | Left/Right: action | /: search | n/N: next/previous | Esc: back
+Up/Down: scroll | Left/Right: action | r: refresh | Esc: vipirc
+View kept open; draft preserved.
+r: refresh | Esc: back
+
+Existing Find, input-cleared, resource-refresh and closed-conversation labels now used. Hints choose the full or compact localized text using terminal cell width. Search coordinates share one origin. No command or wire protocol changes.
+Run make check-ui-hint-l10n. Full curses runtime not verified in this environment.

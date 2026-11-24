@@ -1,0 +1,32 @@
+Optional localization r79: 2225 keys per locale (+27). Conversation counts, roster headings, automatic command readers and parser errors. Command contents and channel keys remain hidden. IRC names and command tokens remain literal. Apply to clean English r1 before configure/make. Application version unchanged.
+
+Added keys:
+Channels on server {number}:
+Queries on server {number}:
+ (selected)
+parted
+{unread} unread, {mentions} mentions
+  0: server{selected} | {counts}
+  {number}: {name}{selected} | {counts}
+  server {number} | {name} | {counts}
+Users in {channel}: {count}{incomplete}{limit}
+ (NAMES incomplete)
+ (roster limit reached)
+Automatic commands: {state} | {count} | delay {delay} seconds | interval {interval} seconds
+ [text hidden]
+Automatic command list is full ({limit}); remove an entry first.
+That automatic command number does not exist. Use /autocommands list.
+Automatic command interval must be from 2 to 60 seconds.
+Automatic commands staged for the next connection; /save persists them. /cancel stops this connection's pending commands.
+Auto-connect changed for next startup. /save persists it; /connect acts now.
+Auto-auth disabled for the next connection. Existing authentication is unchanged; /save persists it.
+SASL source staged for the next connection; credential not read. /save persists it.
+Auto-join list staged. /disconnect then /connect applies it; automatic retries keep the running list. /save persists it.
+Automatic command must be a single line of at most 511 UTF-8 bytes beginning with '/'.
+Automatic /msg requires one nickname or channel and nonempty text.
+Automatic /join requires one channel and at most one printable ASCII key.
+Automatic /nick and /whois require exactly one nickname.
+Automatic /back takes no arguments.
+Automatic commands support /msg, /join, /nick, /away, /back and /whois only.
+
+Run make check-conversation-reader-l10n.

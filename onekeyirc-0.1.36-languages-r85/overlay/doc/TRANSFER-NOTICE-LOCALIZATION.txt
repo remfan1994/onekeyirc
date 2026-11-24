@@ -1,0 +1,16 @@
+Optional localization r74: 1786 keys per locale (+11). File transfer notices and channel directory display. IRC identifiers, wire commands and numeric fields remain literal. Apply to clean English r1 before configure/make. Application version unchanged.
+
+Added keys:
+Network channel list requested; directory updates as replies arrive.
+Network channel list requested with a server mask; directory updates as replies arrive.
+File transfer #{id} ({state}): {filename}
+File transfer #{id} ({state}): {filename}: {error}
+File offer #{id} from {nick}: {filename} ({size} bytes).
+Peer {address}:{port}. /dcc list shows details; acceptance is explicit.
+complete
+rejected
+cancelled
+failed
+Channel list request failed: {error}. Use /list to retry.
+
+Run make check-transfer-notice-l10n.

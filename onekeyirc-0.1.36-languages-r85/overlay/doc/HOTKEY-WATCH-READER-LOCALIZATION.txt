@@ -1,0 +1,46 @@
+Optional localization r80: 1950 keys per locale (+41). Hotkey descriptions, binding results, watch and ignore summaries, and server commands. Server names, topics, system errors and command tokens remain literal. Apply to clean English r1 before configure/make. Application version unchanged.
+
+Added keys:
+Watch strings: nickname {nick} plus {count} literal terms
+Ignore masks: {count}
+Custom key bindings: {count} (application-wide; none assigned by default)
+Bindings unchanged: {error}
+Bound {key} to {action} for all servers. /save input saves this preference.
+Removed {key} custom binding. /save input saves this preference.
+Selected {server}:{port} as {nick} ({status}).
+Connecting to {server}:{port} as {nick}{transport}.
+ (offline simulation)
+ with verified TLS
+ with explicit plaintext transport
+Added server {number} with verified TLS and autoconnect off. /server {select} selects it; /connect then connects; /save persists.
+Server {number}: {action} requested.
+Key
+Action
+Custom key actions (local program functions):
+Only main chat/command input accepts bindings; paste and modal screens retain their controls.
+/bind KEY ACTION assigns; /unbind KEY|all removes; /save input saves the list.
+Supported keys: F1..F12; Ctrl-A..Ctrl-Z; Alt-a..Alt-z; Alt-0..Alt-9.
+Aliases: Ctrl-H = Backspace, Ctrl-I = Tab, Ctrl-J/Ctrl-M = Enter, Ctrl-[ = Escape.
+Alt letters are unshifted lowercase. Terminal signals and terminal/multiplexer shortcuts take precedence.
+Focus the chat composer
+Open the command prompt
+Open or list custom key bindings
+Open help for the current screen
+Read the full manual
+Review all server activity
+List server connections
+List channels on this server
+List private conversations
+List unread conversations
+Review retained mentions
+Review file transfers
+Open application settings
+Open connection setup
+Select the next conversation
+Select the previous conversation
+Clear the current input draft
+Cancel this server's unsent queue
+Detach this terminal
+Quit all server sessions
+
+Run make check-hotkey-watch-reader-l10n.

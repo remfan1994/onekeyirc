@@ -1,0 +1,18 @@
+SOURCE-LINKED FINISH REVIEW LOCALIZATION r54
+vipirc-0.7.37, 44 new display expressions, 44 new keys per locale.
+TEN LANGUAGES: id, ms, tr, es, pt, fr, de, ru, it, ar
+
+Visual texts: Save/Apply/Connect choices, app/server summary labels, bouncer
+identity/status, GPG credential file status, created credential notices.
+Configuration option tokens, IRC wire data, path, nickname, bouncer account,
+credential fingerprint, encryption behavior, file permissions, validation
+and actual save/connect logic are not changed by this display-only pass.
+Translated words are never used as printf formats. The fixed source-format
+strings interpolate only literal values from the model.
+
+Install: Extract clean English r1 source and this ONE language-pack archive,
+run the package apply.sh before configure/make. Verify the r54 marker
+in --version with the selected locale. Do not layer language packs.
+
+Unverified: native linguistic review, complete vipirc ncurses compile on
+this image, live IRC/GPG paths and narrow-terminal visual rendering.

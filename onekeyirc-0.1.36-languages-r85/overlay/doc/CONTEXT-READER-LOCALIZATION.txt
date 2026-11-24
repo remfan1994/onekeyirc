@@ -1,0 +1,8 @@
+Optional localization r85: 2010 keys per locale (+2). Summary report label and interactive terminal requirement. IRC commands and values remain literal. Apply to clean English r1 before configure/make. Application version unchanged.
+
+Added catalog keys:
+/summary report
+an ANSI/VT-compatible interactive terminal is required
+
+The port from onekeyirc uses the same display-only code, with English fallback for insufficient output space. No changes to command dispatch, protocol, or history ownership.
+Run make check-context-reader-l10n.

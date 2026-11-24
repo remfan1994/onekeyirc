@@ -1,0 +1,28 @@
+Optional localization r71: 1748 keys per locale (+22). Localized standard uncommon IRC numeric replies; literal server fields preserved and nonstandard forms fall back to generic display. Apply to clean English r1 before configure/make. Application version unchanged.
+
+Supported numerics (standard parameter shape):
+263 Server is busy; try {command} again: {message}
+315 End of WHO for {target}: {message}
+341 Invited {nick} to {channel}.
+369 End of WHOWAS for {nick}: {message}
+406 No nickname history for {nick}: {message}
+411 No recipient supplied: {message}
+412 No message text supplied: {message}
+431 No nickname supplied: {message}
+436 Nickname collision for {nick}: {message}
+441 {nick} is not on {channel}: {message}
+442 You are not on {channel}: {message}
+443 {nick} is already on {channel}: {message}
+451 Not registered with the server: {message}
+462 Already registered with the server: {message}
+463 Host not allowed to connect: {message}
+464 Server password rejected: {message}
+465 Server access denied: {message}
+467 Channel key is already set for {channel}: {message}
+472 Unknown channel mode {mode}: {message}
+481 Permission denied: {message}
+501 Unknown user mode flag: {message}
+502 Cannot change another user's modes: {message}
+
+Run make check-uncommon-numeric-l10n.
+Unknown and extended numerics retain generic server text. The original routing recipient is not displayed.

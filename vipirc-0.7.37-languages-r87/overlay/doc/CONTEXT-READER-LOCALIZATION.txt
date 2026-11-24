@@ -1,0 +1,68 @@
+Optional localization r86: 2417 keys per locale (+62). ANSI contextual help, history navigation, send review, saved-server startup diagnostics and shared terminal notices. IRC commands and values remain literal. Apply to clean English r1 before configure/make. Application version unchanged.
+
+Added catalog keys:
+(none selected)
+/summary report
+A channel is a shared conversation on its server. /me sends an action, /topic reads or edits its topic, /users lists its users, and /part leaves it.
+A query is a private conversation on its server. /me sends an action, /whois requests information, and /close closes its local view.
+A question mark while typing is ordinary text. On a selected suggestion it opens this help.
+Application preferences apply across the client; server settings belong to the selected server profile.
+Catch-up from your most recent sent message | S{number} {target}
+Catch-up from your most recent sent message | {target}
+Changes take effect only after the final Save or Apply action. Connection changes apply on the next connection.
+Command response reader
+Command screen
+Commands are edited separately from chat messages.
+Contextual ordering remembers the screen that opened command entry. Other matching commands remain available.
+Delete removes a selected history entry, or resets a selected Frequent command's usage count.
+Down selects a suggestion; Up moves toward the input. Enter inserts the selected suggestion without executing it.
+Escape backgrounds from the log. Inside composition or a reader, Escape first returns to the previous screen.
+Escape or q returns to the log or the command that opened this response.
+Escape returns to the originating log or response.
+Escape returns to the previous question; Escape from the first question cancels the draft.
+Home or g goes to the beginning; End or G goes to the end.
+Mentions can also be unread messages; their counts are not added together.
+Mentions collect messages that matched your nickname or watch terms. Their original conversations remain separate.
+Page Up and Page Down scroll long question details.
+Press r in the summary reader to refresh from current state. Reading or refreshing does not send an IRC command.
+Question marks in the answer field are ordinary text, including the first character.
+Read or edit the inserted command, then press Enter again to run it.
+Review S{number} {target}: {count} message ({bytes} UTF-8 bytes).
+Review S{number} {target}: {count} messages ({bytes} UTF-8 bytes).
+Review rows {first}-{last} of {total} | Up/Down | PgUp/PgDn | Home/End
+Review unavailable conversation {target}: {count} message ({bytes} UTF-8 bytes).
+Review unavailable conversation {target}: {count} messages ({bytes} UTF-8 bytes).
+Saved server {number}: {error}
+Saved-server catalog: {error}
+Scrollback | {target}
+Select conversations with /channel, /query, or /view.
+Slash opens command entry from this reader; cancelling returns here.
+Slash opens command entry. An ordinary character starts composition. ? opens help for the selected conversation.
+Tab completes command names. Up from the input recalls recent commands.
+Tab selects the question heading; ? then opens its help. Tab or Enter returns to the answer.
+The log follows the selected server and conversation. A channel or query receives composed messages.
+The selected question edits a private configuration draft.
+The server log contains connection information and replies. /join opens a channel; /list searches the network's channels; /disconnect closes this connection.
+The setup result appears after the current paste and queued input finish.
+The summary is a snapshot of all configured server sessions, channel and query views, activity, pending work, and file transfers.
+The summary reader accepts r to refresh its snapshot. ? explains the response and this reader.
+This reader retains the result while you inspect it. The underlying conversation and unfinished command remain available.
+Type an answer and press Enter to continue. An empty answer keeps the displayed value unless the question requests confirmation.
+Up and Down scroll one line. Page Up, Page Down, Space, and b scroll a page.
+Up/Down row | PgUp/PgDn page | Home anchor | End newest | Esc live | row {row}/{total}
+Up/Down row | PgUp/PgDn page | Home oldest | End/Esc live | {count} back
+Use /servers, /channels, /queries, /unread, or /summary to inspect client activity.
+Watch log
+[About {screen}]
+an ANSI/VT-compatible interactive terminal is required
+chat
+command response reader
+profile could not be loaded
+watch log
+{item} is a suggestion on the command screen.
+{item} is an option on the {screen} screen.
+{item} is displayed in the command response reader.
+{item} is selected in the watch log.
+
+The port from onekeyirc uses the same display-only code, with English fallback for insufficient output space. No changes to command dispatch, protocol, or history ownership.
+Run make check-context-reader-l10n.

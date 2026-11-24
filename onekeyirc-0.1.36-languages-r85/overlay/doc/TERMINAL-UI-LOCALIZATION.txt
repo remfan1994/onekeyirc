@@ -1,0 +1,4 @@
+Optional localization r70: 1726 keys per locale (+4). Localized ANSI composer byte counts, editor coordinates, stream history omission and setup labels. Apply to clean English r1 before configure/make; verify [lang-rtl-r70]. Application version unchanged.
+
+New regression: tests/test_terminal_ui_l10n.c.
+Display-only translations use trusted named fields; no translated printf formats.
