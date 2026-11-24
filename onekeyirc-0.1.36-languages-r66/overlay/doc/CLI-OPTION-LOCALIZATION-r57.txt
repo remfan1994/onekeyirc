@@ -1,0 +1,27 @@
+IRC CANONICAL COMMAND-LINE OPTION HELP r57 - onekeyirc-0.1.36
+
+Application version: 0.1.36 (unchanged); patch applies ONLY to English r1.
+26 new catalog keys per each of id ms tr es pt fr de ru it ar.
+Total per locale: 1421 keys.
+
+Source: src/main.c, cli_usage_options() and cli_localized_intro().
+- All option names and argument spellings are literal C source strings.
+- 23 distinct descriptions are translated (shared across both UIs).
+- Heading Usage, program description and CLI overview are translated.
+- Existing translated overview context and localized manuals are retained.
+- Option translation is display only: no parsing, credential, network,
+  storage, config, IRC command or job-control bytes have changed.
+- ONEKEYIRC_LANG is shown in the one-key client's help instead of the
+  misleading VIPIRC_LANG documented by the older English program.
+
+HOW TO TEST
+  python3 tools/generate_localizations.py --check
+  python3 tests/test_cli_option_localization.py
+  python3 tests/test_cli_r38.py
+  ./configure && make
+  ONEKEYIRC_LANG=fr ./onekeyirc --help
+  ONEKEYIRC_LANG=ar ./onekeyirc --help
+
+Known coverage gaps: extended free-form paragraphs at the end of --help,
+several persistent log/connection failure messages, and non-primary vipirc
+ncurses screens. No native-speaker or terminal-bidi certification is claimed.

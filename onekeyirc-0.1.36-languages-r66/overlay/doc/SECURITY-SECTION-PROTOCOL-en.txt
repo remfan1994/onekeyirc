@@ -1,0 +1,18 @@
+Protocol, terminal input and bounded state
+Source: SECURITY.md, section "Protocol, terminal input and bounded state"
+English section SHA-256: 0f8513944ff6d952092236574aa5be490f8a39c7d99ec7ac175d34eb41e5dc06
+Paragraphs: 6
+Status: Translation draft; fluent-speaker security review required
+English SECURITY.md remains authoritative. This is only one section, not the full security document.
+
+There is no shell escape, raw IRC injection command, plugin/script engine or automatic CTCP response. Commands use an allowlisted parser. Unknown aliases fail instead of guessing a network action. Incoming protocol fields, UTF-8, nicknames, targets and parameter counts have explicit limits. Display paths remove terminal controls and unsafe formatting; LIST topics are sanitized before entering the directory cache.
+
+The outgoing budget includes command syntax, target, relay identity and action wrapper. Smaller valid server LINELEN values reduce the budget. Splits preserve UTF-8 scalars. Multiple-message sends need separate consent; bracketed paste cannot confirm its own send. The per-server chat queue has 64 entries and at least 1.2-second pacing, with a separate 64-entry control queue. These limits do not guarantee delivery or override server flood rules.
+
+The program supports eight server connections, 32 views per server, 4096 stored users per channel and 8192 LIST entries. A truncated roster/directory is incomplete. Disconnect or an explicit LIST rejection releases a pending request while preserving partial cached entries; it does not pretend the snapshot is complete. A later request or explicit clear remains possible. Unsolicited private messages create query views only below the eight-query automatic limit; extra conversations fall back to server/ mentions views. Explicit queries remain possible within the overall view cap.
+
+Retained text has an 8 MiB budget per server plus a 50..5000-line per-view setting. The minimalist display stream separately caps retained records at 2048 and text at 512 KiB. These are not total RSS limits: drafts, rosters, queues, libraries and allocator overhead use additional memory. A bounded program can still spend CPU on hostile traffic. Ignore masks reduce displayed user chat, not receipt/parsing work; they are not an access-control boundary.
+
+The terminal's original interrupt/quit/suspend key assignments are preserved, but [input] use_signals=false (the default) disables terminal-generated signals while the client owns the tty. Ctrl-C/Ctrl-Z cancel unsent Compose/Command text. Use signals=yes enables the existing terminal signal assignments. Apply works immediately; Save also persists the preference. Literal Ctrl-D is not an application exit shortcut unless explicitly bound in the main chat/command prompt. Normal/handled exits restore terminal modes; SIGKILL cannot run cleanup.
+
+Recognized bracketed paste remains literal. Before the opening marker is recognized, the client cannot distinguish a paste from ordinary terminal input. After a recognized paste ends, ordinary keys and custom actions wait for a later input batch and a quiet interval. An accepting editor or form must be fully displayed; an undersized or failed frame is not review credit. Repeated keys extend the interval. Resize/reattach clears display credit. Isolated Escape has a 500 ms grace period; incomplete sequences allow 1000 ms between continuation bytes while networking continues. A delayed opening marker can act as Escape (backgrounding from the minimalist log). Once capture begins, split closing markers have no inter-byte timeout. Unframed paste has no equivalent safety boundary.

@@ -1,0 +1,8 @@
+OPTIONAL onekeyirc LOCALIZATION/RTL PATCH r22
+Original English application: onekeyirc 0.1.35 source r1, unchanged.
+All ten 844-entry help catalogs and full minimalist manual translations
+are unchanged from r21. Arabic RTL remains an optional source overlay.
+This synchronized patch revision changes only package documentation and
+the patched --version identifier; no new onekeyirc chapter translation is
+claimed in this release. English MANUAL.txt and SECURITY.md remain
+controlling references. Native-speaker review is outstanding.

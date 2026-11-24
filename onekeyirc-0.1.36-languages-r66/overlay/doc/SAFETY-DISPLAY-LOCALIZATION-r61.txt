@@ -1,0 +1,24 @@
+SAFETY AND DISCONNECT LOCALIZATION: onekeyirc-0.1.36, r61
+
+Applied only to clean English source r1. App version unchanged.
+14 new fixed, user-facing English templates in ten languages:
+  - 11 bounded local security/safety disconnect reasons
+  - 2 pending-chat cancellation notices (verified TLS / relay limits)
+  - 1 explicit user-requested disconnect reason
+All other server, filesystem, GPG and credential diagnostics are
+still raw unless independently mapped by an existing safe display layer.
+No new printf format strings. No status message is sent to IRC.
+SASL, TLS, CAP, PING, NUL, count 16 and all literal IRC syntax
+retain their technical meaning. Source-linked tests inspect
+the call sites and compile the actual generated translation tables.
+
+Verification on patched source:
+  python3 tools/generate_localizations.py --check
+  python3 tests/test_safety_display_l10n.py
+  python3 tests/test_network_display_l10n.py
+  python3 tests/test_client_profile_localization.py
+  python3 tests/test_locale_catalog.py
+  python3 tests/test_complete_help_translation.py
+
+Unverified: full vipirc interactive ncurses and Arabic cell geometry,
+OpenBSD/Crostini live IRC, actual GPG/TLS/DCC, native speaker review.

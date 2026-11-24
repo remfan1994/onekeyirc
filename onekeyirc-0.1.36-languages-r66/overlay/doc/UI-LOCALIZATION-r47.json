@@ -1,0 +1,58 @@
+[
+  {
+    "client": "onekeyirc",
+    "source": "src/idle_commands.c",
+    "english": "Servers:",
+    "kind": "display-only",
+    "locale_count": 10
+  },
+  {
+    "client": "onekeyirc",
+    "source": "src/idle_commands.c",
+    "english": "Unread conversations:",
+    "kind": "display-only",
+    "locale_count": 10
+  },
+  {
+    "client": "onekeyirc",
+    "source": "src/idle_commands.c",
+    "english": "Authentication: bypassed in offline test mode.",
+    "kind": "display-only",
+    "locale_count": 10
+  },
+  {
+    "client": "onekeyirc",
+    "source": "src/idle_commands.c",
+    "english": "Required SASL: off",
+    "kind": "display-only",
+    "locale_count": 10
+  },
+  {
+    "client": "onekeyirc",
+    "source": "src/idle_commands.c",
+    "english": "File paths are shown only by this explicit inquiry. No credential file was read and no password content is displayed.",
+    "kind": "display-only",
+    "locale_count": 10
+  },
+  {
+    "client": "onekeyirc",
+    "source": "src/idle_commands.c",
+    "english": "Automatic retries keep current authentication. /disconnect then /connect applies pending settings; /save persists them.",
+    "kind": "display-only",
+    "locale_count": 10
+  },
+  {
+    "client": "onekeyirc",
+    "source": "src/idle_commands.c",
+    "english": "Bouncer profiles restore their own channel memberships; saved auto-join lists are not replayed.",
+    "kind": "display-only",
+    "locale_count": 10
+  },
+  {
+    "client": "onekeyirc",
+    "source": "src/idle_commands.c",
+    "english": "Use /join and /part while connected, or /channels to inspect restored channels.",
+    "kind": "display-only",
+    "locale_count": 10
+  }
+]

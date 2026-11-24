@@ -1,0 +1,37 @@
+MODELO DE SEGURANÇA: TRECHOS TRADUZIDOS
+Trechos selecionados sobre confianca, TLS, credenciais, registros e exibicao de SECURITY.md. Não e a traducao completa de SECURITY.md.
+
+Limites de confianca e inicialização
+------------------------------------
+Servidores IRC, usuários, apelidos, topicos, nomes de arquivos e textos colados são dados não confiáveis. Sistema operacional, terminal, bibliotecas de criptografia, certificados e conta do usuário fazem parte da base de confianca. Perfis de servidores no mesmo processo não são isolados.
+
+Execute o cliente como usuário comum. Ele não e um sandbox e não protege contra um sistema comprometido ou processos com os mesmos privilegios da sua conta. Medidas de proteção reduzem riscos, não os eliminam.
+
+TLS e autenticação
+------------------
+TLS 1.2 ou superior verifica a cadeia de certificados e o nome do servidor escolhido. Não ha retorno silencioso a texto simples. SASL configurado, server PASS e listas não vazias de comandos automaticos habilitadas exigem TLS verificado. TLS protege o enlace até o servidor ou bouncer, não mensagens IRC de ponta a ponta.
+
+Um ca_file vazio usa os certificados do sistema. Um ca_file personalizado seleciona um pacote PEM confiável e altera as autoridades aceitas. Deve ser um arquivo regular não vazio de até 16 MiB. --check-config não faz uma conexão TLS real.
+
+Escolha exatamente uma origem por segredo: arquivo privado em texto simples, arquivo privado criptografado com GPG ou valor explicito no arquivo. A origem de SASL e independente de server PASS. Criptografar a senha no disco não protege uma conexão sem criptografia.
+
+Configuração e senhas
+---------------------
+Arquivos de credenciais em texto ou GPG devem pertencer ao usuário, ser arquivos regulares e ter modo exato 0600 ou 0400. A configuração e INI literal, sem expansão de shell; chaves e valores inválidos são recusados. Credenciais em linha ou comandos automaticos exigem modo exato 0600 ou 0400.
+
+O GPG roda diretamente, sem shell e após verificar o TLS, com limites de E/S e tempo. O cliente não solicita dentro do programa a frase secreta da chave. Desbloqueie chaves protegidas fora dele; não publique segredos descriptografados nem logs privados ao relatar problemas.
+
+Mensagens, registros e exibicao
+-------------------------------
+O cliente não executa texto IRC recebido, abre URLs nem roda comandos do shell por causa de mensagens. Controles perigosos são filtrados antes da exibicao. O envio de várias mensagens exige consentimento separado; colagem delimitada não conta como nova confirmacao.
+
+Logs persistentes de conversa ficam desligados por padrão. Ao ativar, arquivos e diretorios privados passam por verificacoes rigorosas; os logs sobrevivem a saída e não são apagados automaticamente. Segredos digitados como chat comum podem ser gravados.
+
+O modo visual arabe altera apenas a exibicao, não a ordem logica UTF-8 dos comandos ou mensagens enviados. Letras Unicode parecidas e apelidos com escritas misturadas podem simular outra identidade. Confira a conta e o destino reais antes de confiar em comandos ou links.
+
+Transferencias DCC exigem aceite explicito e não são protegidas pelo TLS da conexão IRC. Trate nomes e dados dos arquivos como não confiáveis. IRC com TLS não significa transferencia DCC criptografada.
+
+Consulte sempre o SECURITY.md original para detalhes e limites completos. Estas traducoes são rascunhos e precisam de revisao por falantes fluentes, especialmente para decisões de segurança.
+
+SOURCE:  / SECURITY.md
+STATUS: Draft translation; English source takes precedence.

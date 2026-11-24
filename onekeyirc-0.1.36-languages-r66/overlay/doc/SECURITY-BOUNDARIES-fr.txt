@@ -1,0 +1,37 @@
+MODÈLE DE SÉCURITÉ : EXTRAITS TRADUITS
+Passages choisis sur la confiance, TLS, les identifiants, les journaux et l'affichage de SECURITY.md. Il ne s'agit pas de la traduction complète de SECURITY.md.
+
+Limites de confiance et lancement
+---------------------------------
+Les serveurs IRC, les utilisateurs, les pseudos, les sujets, les noms de fichiers et les textes colles sont des entrées non fiables. Le systeme, le terminal, les bibliotheques cryptographiques, les certificats et le compte utilisateur constituent la base de confiance. Les profils d'un même processus ne sont pas isoles.
+
+Executez le client comme un utilisateur ordinaire. Ce n'est pas un bac à sable de sécurité et il ne protege pas contre une machine compromise ou un autre processus avec les droits du compte. Le durcissement réduit les risques sans les supprimer.
+
+TLS et authentification
+-----------------------
+TLS 1.2 ou plus recent vérifié la chaine de certificats et le nom du serveur choisi. Aucun retour silencieux au texte non chiffré. SASL configure, server PASS et les listes de commandes automatiques activés non vides exigent TLS vérifié. TLS protege la liaison vers le serveur ou bouncer, pas les messages IRC de bout en bout.
+
+Un ca_file vide utilise les certificats du systeme. Un ca_file personnalise sélectionné à leur place un ensemble PEM de confiance et change les autorites admises. Ce doit être un fichier régulier non vide de 16 MiB au plus. --check-config ne teste pas une vraie connexion TLS.
+
+Choisissez une seule source par secret : fichier prive en clair, fichier prive chiffré par GPG ou valeur explicite en ligne. La source SASL est independante de celle de server PASS. Un mot de passe chiffré sur disque ne sécurisé pas un transport non chiffré.
+
+Configuration et mots de passe
+------------------------------
+Les fichiers d'identifiants en clair et GPG doivent appartenir au compte, être réguliers et avoir exactement le mode 0600 ou 0400. La configuration est un INI littéral sans expansion shell ; les champs invalides sont rejetes. Des identifiants en ligne ou des commandes automatiques exigent le mode exact 0600 ou 0400.
+
+GPG est lance directement sans shell après vérification TLS, avec limites de flux et de temps. Le client ne demande pas de phrase secrete pour une cle. Déverrouillez les cles protegees hors du client ; ne publiez ni secrets déchiffrés ni journaux prives dans un rapport de bogue.
+
+Messages, journaux et affichage
+-------------------------------
+Le client nexecute pas le texte IRC reçu, n'ouvre pas les URL et ne lance pas de commandes shell issues des messages. Les contrôles dangereux sont filtres à l'affichage. Plusieurs envois exigent un consentement distinct ; un collage encadre ne vaut pas nouvelle confirmation.
+
+Les journaux persistants sont desactives par défaut. Une fois activés, les fichiers et répertoires prives subissent des contrôles stricts ; les journaux restent après la sortie et ne sont pas effaces automatiquement. Un secret saisi en chat ordinaire peut être enregistre.
+
+Le mode visuel arabe modifie la presentation, pas lordre logique UTF-8 des commandes ni des messages sortants. Des caracteres ressemblants et des pseudos à écritures mixtes peuvent usurper une identité. Verifiez le compte et la destination reels avant de suivre commandes ou liens.
+
+Les transferts DCC demandent une acceptation explicite et ne sont pas protégés par le TLS IRC. Considerez noms et donnees de fichiers comme non fiables. Un IRC chiffré ne prouve pas quun transfert DCC est chiffré.
+
+Consultez toujours le SECURITY.md original pour les limites et procedures completes. Ces traductions sont des brouillons à faire relire par des locuteurs competents, surtout avant une decision de sécurité.
+
+SOURCE:  / SECURITY.md
+STATUS: Draft translation; English source takes precedence.

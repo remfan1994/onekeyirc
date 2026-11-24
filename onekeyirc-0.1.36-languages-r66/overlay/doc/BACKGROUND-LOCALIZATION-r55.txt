@@ -1,0 +1,26 @@
+BACKGROUND SESSION LOCALIZATION r55 - onekeyirc-0.1.36
+
+Protected registry, single-session collision and inability to verify registry;
+SIGCHLD waitability, credential helper completion, worker startup and detach;
+job list headings, attach states, empty jobs, resume/detach usage hints;
+terminal attachment conflicts and handshake refusal.
+
+30 source-linked messages, 30 new catalog keys per locale, 10 locales.
+Catalog total: 1360 each; base application 0.1.36, unchanged.
+
+Keep the following literal for protocol/administration:
+  --sessions, --resume, --detach-session, --close-session, SIGCHLD,
+  numeric job identifiers, sockets, permissions, paths, and worker packets.
+Never render a translation as a printf format string.
+
+In particular, no attempt is made to translate socket packet contents,
+received status labels, peer credentials or nicknames.
+
+Remaining untranslated: late resume/close diagnostics, successful detachment
+confirmation, stale-entry count, log failures, CLI usage, and other UI paths.
+Native-speaker and narrow-terminal Arabic bidi review are still outstanding.
+
+Test an untouched source-r1 extraction with this patch's apply.sh, before
+./configure and make. The binary's --version MUST show [lang-rtl-r55].
+To inspect the list in ten locales use ONEKEYIRC_LANG=fr (or id/ms/tr/es/
+pt/de/ru/it/ar) onekeyirc --sessions. Do not test against real account jobs.

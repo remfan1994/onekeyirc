@@ -1,0 +1,25 @@
+SOURCE-LINKED CLI AND PRIVATE-LOG LOCALIZATION r58
+Application: onekeyirc-0.1.36; version 0.1.36 unchanged.
+Source: src/main.c and src/app.c; the ten JSON catalogs in i18n/.
+Catalog entries: 23 new keys per language, 1444 total per language.
+
+The command-line guidance lines are translated as distinct display strings.
+IRC commands, shell flags and configuration tokens remain literal.
+
+Private log failure output translates a fixed heading and known diagnosis.
+The optional operating-system strerror() suffix remains raw text passed only
+through snprintf() with a fixed format string, never as a format string.
+Ownership, 0600 and 0700 permissions, file descriptor, lock and 16 MiB
+limit checks are untouched. Log file formats are unchanged.
+
+Tests:
+  python3 tools/generate_localizations.py --check
+  python3 tests/test_cli_log_r59.py
+  python3 tests/test_cli_option_localization.py
+  python3 tests/test_cli_r38.py
+  ./configure && make
+  ONEKEYIRC_LANG=fr ./onekeyirc --help
+  ONEKEYIRC_LANG=ar ./onekeyirc --help
+
+Limits: Other --help lines, several diagnostics and vipirc ncurses screens
+remain English. Native-speaker and real-terminal certification pending.

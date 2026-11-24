@@ -1,0 +1,21 @@
+[
+  "Saved server profile is missing.",
+  "Saved server profile needs a server.",
+  "Invalid client or primary configuration path.",
+  "Saved default server is unavailable:",
+  "No such server session.",
+  "Cannot allocate this server session.",
+  "Cannot initialize this offline simulation.",
+  "Enter a server before adding it.",
+  "Server limit reached (8); close a secondary session to make room.",
+  "Server identity counter exhausted; restart the application.",
+  "The primary server stays available; disconnect it instead.",
+  "OFFLINE TEST MODE: saving server profiles is disabled.",
+  "Settings saved; command usage could not be saved:",
+  "OFFLINE TEST MODE: saving configuration is disabled.",
+  "Cannot save a server profile that could not be loaded.",
+  "Choose a server with /connect HOST before /saveconf.",
+  "Server settings and default selection were written, but durability confirmation failed:",
+  "Server settings were saved, but the default selection was not changed:",
+  "No application configuration is available."
+]

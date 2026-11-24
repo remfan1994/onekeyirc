@@ -1,0 +1,12 @@
+DCC file transfers
+Source: SECURITY.md, section "DCC file transfers"
+English section SHA-256: f0f91b6753c085b41c9c9071eabf9585ddc404919fe56e0989bfafb733db2e3b
+Paragraphs: 3
+Status: Translation draft; fluent-speaker security review required
+English SECURITY.md remains authoritative. This is one source-linked section, not a security certification.
+
+O DCC SEND clássico ativo por IPv4 usa texto simples, sem autenticação, independentemente do TLS do IRC. Uma alcunha não autentica o par que se liga. O endereço de destino apresentado pode ser privado ou de loopback. O envio anuncia um endereço; aceitar liga-se ao par indicado e revela o endereço do anfitrião onde o processo corre. Uma oferta, por si só, não cria ficheiros nem sockets. Accept/send exige uma ação explícita. Através de SSH, os ficheiros e sockets pertencem ao anfitrião remoto onde o processo está a correr.
+
+As origens têm de ser ficheiros normais, sem componentes symlink no caminho. São transmitidos em fluxo, sem cópia instantânea nem proteção contra alterações posteriores; use uma origem estável. A receção cria um ficheiro novo com modo 0600 numa pasta privada pertencente ao utilizador, recusando percursos indevidos, ligações simbólicas e destinos existentes. A limpeza de um ficheiro parcial remove apenas o ficheiro com o mesmo dispositivo e inode criado pela transferência. Os ficheiros nunca são abertos ou executados automaticamente. As confirmações de contagem de bytes não são hashes.
+
+Há limites de oito ofertas pendentes, quatro transferências ativas e doze registos retidos, e um tamanho máximo de ficheiro de 4294967295 bytes. As ofertas expiram após cinco minutos; uma transferência ativa falha após dois minutos sem progresso. Confirmações repetidas sem alteração não prolongam esse prazo. DCC CHAT, resume, transferências passivas/inversas, ficheiros de dimensão desconhecida e IPv6 não são suportados. Não existe descoberta de endereço público nem configuração automática de NAT/firewall. A desconexão do IRC deixa as transferências diretas já aceites em curso; fechar o servidor correspondente ou sair termina-as. /cancel não substitui o cancelamento específico da transferência.

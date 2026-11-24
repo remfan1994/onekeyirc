@@ -1,0 +1,151 @@
+[
+  {
+    "client": "onekeyirc",
+    "source": "src/idle.c",
+    "english": "Review S{number} {target}: {count} message ({bytes} UTF-8 bytes).",
+    "kind": "named-fields",
+    "fields": [
+      "number",
+      "target",
+      "count",
+      "bytes"
+    ]
+  },
+  {
+    "client": "onekeyirc",
+    "source": "src/idle.c",
+    "english": "Review S{number} {target}: {count} messages ({bytes} UTF-8 bytes).",
+    "kind": "named-fields",
+    "fields": [
+      "number",
+      "target",
+      "count",
+      "bytes"
+    ]
+  },
+  {
+    "client": "onekeyirc",
+    "source": "src/idle.c",
+    "english": "Review unavailable conversation {target}: {count} message ({bytes} UTF-8 bytes).",
+    "kind": "named-fields",
+    "fields": [
+      "target",
+      "count",
+      "bytes"
+    ]
+  },
+  {
+    "client": "onekeyirc",
+    "source": "src/idle.c",
+    "english": "Review unavailable conversation {target}: {count} messages ({bytes} UTF-8 bytes).",
+    "kind": "named-fields",
+    "fields": [
+      "target",
+      "count",
+      "bytes"
+    ]
+  },
+  {
+    "client": "onekeyirc",
+    "source": "src/idle.c",
+    "english": "Message limit reached ({limit} bytes). Enter confirms continued editing; Backspace/Delete can reduce; Esc cancels.",
+    "kind": "named-fields",
+    "fields": [
+      "limit"
+    ]
+  },
+  {
+    "client": "onekeyirc",
+    "source": "src/idle.c",
+    "english": "This draft needs {count} IRC messages. Sending still requires explicit confirmation.",
+    "kind": "named-fields",
+    "fields": [
+      "count"
+    ]
+  },
+  {
+    "client": "onekeyirc",
+    "source": "src/idle.c",
+    "english": "Up/Down row | PgUp/PgDn page | Home anchor | End newest | Esc live | row {row}/{total}",
+    "kind": "named-fields",
+    "fields": [
+      "row",
+      "total"
+    ]
+  },
+  {
+    "client": "onekeyirc",
+    "source": "src/idle.c",
+    "english": "Up/Down row | PgUp/PgDn page | Home oldest | End/Esc live | {count} back",
+    "kind": "named-fields",
+    "fields": [
+      "count"
+    ]
+  },
+  {
+    "client": "onekeyirc",
+    "source": "src/idle.c",
+    "english": "{item} is a suggestion on the command screen.",
+    "kind": "named-fields",
+    "fields": [
+      "item"
+    ]
+  },
+  {
+    "client": "onekeyirc",
+    "source": "src/idle.c",
+    "english": "{item} is an option on the {screen} screen.",
+    "kind": "named-fields",
+    "fields": [
+      "item",
+      "screen"
+    ]
+  },
+  {
+    "client": "onekeyirc",
+    "source": "src/idle.c",
+    "english": "Saved-server catalog: {error}",
+    "kind": "named-fields",
+    "fields": [
+      "error"
+    ]
+  },
+  {
+    "client": "onekeyirc",
+    "source": "src/idle.c",
+    "english": "Saved server {number}: {error}",
+    "kind": "named-fields",
+    "fields": [
+      "number",
+      "error"
+    ]
+  },
+  {
+    "client": "onekeyirc",
+    "source": "src/idle.c",
+    "english": "profile could not be loaded",
+    "kind": "fixed",
+    "fields": []
+  },
+  {
+    "client": "onekeyirc",
+    "source": "src/idle.c",
+    "english": "Retained stream records for this conversation cleared.",
+    "kind": "fixed",
+    "fields": []
+  },
+  {
+    "client": "onekeyirc",
+    "source": "src/idle.c",
+    "english": "Setup cancelled.",
+    "kind": "fixed",
+    "fields": []
+  },
+  {
+    "client": "onekeyirc",
+    "source": "src/idle.c",
+    "english": "Draft cancelled; nothing sent.",
+    "kind": "fixed",
+    "fields": []
+  }
+]

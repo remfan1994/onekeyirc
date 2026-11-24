@@ -1,0 +1,16 @@
+Managed sessions and SSH loss
+Source: SECURITY.md, section "Managed sessions and SSH loss"
+English section SHA-256: f44a63f7faada1375f5769e9dfe2235da96547fa535b07d1c9869cba13ca063f
+Paragraphs: 5
+Status: Translation draft; fluent-speaker security review required
+English SECURITY.md remains authoritative. This is only one section, not the full security document.
+
+Background crée un point de communication local privé au compte et un bail couvrant la durée de vie du travail. Le registre est distinct par programme et utilisateur Unix, avec 64 emplacements numérotés. Ce n'est ni un service à l'écoute sur Internet ni une persistance après redémarrage. La découverte, le rattachement et les contrôles vérifient chemins privés, identité des fichiers et jeton d'incarnation du processus choisi ; les numéros de travaux ne sont jamais des PID. Les identifiants du pair du même utilisateur sont contrôlés là où la plateforme le permet.
+
+Un seul terminal peut être rattaché à la fois. Resume vérifie les descripteurs de terminal transférés et les métadonnées TERM/locale bornées. La découverte est limitée, ignore les objets dangereux et n'efface pas récursivement les contenus inattendus du registre. Un processus vivant mais sans réponse garde son bail et est signalé comme non vérifié. --resume sans argument ne sélectionne que l'unique processus détaché disponible et vérifié, sans autre candidat non vérifié. single_session limite la création de travaux en arrière-plan, pas le nombre de connexions IRC au sein d'un processus existant.
+
+--detach-session NUMBER libère le terminal ou contrôleur choisi tout en gardant processus, connexions, brouillons, transferts et historique conservé. --close-session NUMBER arrête tout le processus et abandonne l'état RAM non sauvegardé. Detach attend la confirmation de libération du terminal ; close attend la fermeture du point de communication et du bail. Une acceptation ne signifie pas que l'opération est achevée. Les contrôles ont des délais et ne tuent jamais un PID simplement supposé. Ne supprimez pas ces points de communication pour tenter une récupération.
+
+La perte d'un terminal ou contrôleur déjà géré détache le processus de travail. Un processus ordinaire en premier plan qui n'a jamais été géré n'a aucun travail récupérable. Installer un nouvel exécutable ne met pas à niveau le protocole d'un processus déjà actif ; les anciens processus peuvent exiger leurs commandes de contrôle d'origine pour s'arrêter proprement.
+
+La file de sortie minimaliste est bornée et peut traiter les requêtes Background explicites même lorsqu'elle est bloquée. Les messages de nettoyage et avis sont envoyés au mieux et peuvent manquer sur un terminal figé. L'affichage ncurses complet effectue toujours des écritures synchrones vers le terminal ; un terminal ouvert et bloqué indéfiniment peut retarder l'interrogation des contrôles. Un dépassement de délai est rapporté honnêtement, pas comme une réussite de terminaison forcée. Aucun des clients ne règle les déconnexions pour inactivité du serveur SSH.

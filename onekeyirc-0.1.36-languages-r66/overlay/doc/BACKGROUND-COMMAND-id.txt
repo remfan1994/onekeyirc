@@ -1,0 +1,36 @@
+onekeyirc 0.1.35 - /background
+Source: MANUAL.txt /background entry (complete translated prose).
+Status: draft; English MANUAL.txt is authoritative.
+
+Usage: /background
+
+Sesi yang berjalan dilepas setelah terminal dipulihkan. Shell menampilkan perintah melanjutkan sesi yang memiliki nomor.
+
+Dari shell, --sessions menampilkan pekerjaan privat program ini yang sedang terhubung maupun terlepas; --resume melanjutkan satu-satunya pekerjaan terlepas yang tersedia.
+
+Gunakan --resume NUMBER jika ada lebih dari satu pekerjaan. NUMBER adalah ID pekerjaan, bukan PID proses; nomor itu tetap sampai proses keluar dan kemudian bisa dipakai ulang.
+
+--detach-session NUMBER melepas terminal/pengendali yang masih terhubung, tetapi mempertahankan pekerja, koneksi IRC, draf, dan riwayat untuk --resume NUMBER.
+
+--close-session NUMBER mengakhiri seluruh pekerjaan, semua koneksi IRC dan transfernya, serta draf yang belum disimpan dan riwayat dalam memori. Keberhasilan dilaporkan hanya setelah penyelesaian diverifikasi.
+
+Jika resume menyatakan sibuk setelah terminal SSH hilang, tampilkan daftar pekerjaan, lepaskan pekerjaan itu, lalu lanjutkan. Lihat /help sessions untuk langkah pemulihannya.
+
+Pekerja yang tidak merespons atau pekerja lama tanpa kontrol yang diminta mungkin gagal. Memasang program baru tidak memperbarui pekerja yang sudah berjalan; mulai ulang dengan sengaja setelah pembaruan.
+
+Saat dilanjutkan, riwayat gulir dalam memori digambar kembali walaupun tidak ada pesan saat sesi terlepas. /set single_session on menolak pekerjaan latar belakang kedua agar --resume tanpa nomor tetap jelas.
+
+Untuk memulai tanpa terminal, gunakan --background dari shell; lihat --help untuk pilihan program ini.
+
+Jika background_away aktif dan profil ini mengizinkan status away otomatis, /background atau hilangnya terminal yang dikelola akan mengantrekan status AWAY yang telah dikonfigurasi setelah pelepasan. Melanjutkan sesi hanya menghapus status away yang dibuat klien; status /away manual tidak diubah.
+
+Tambahkan --reconnect untuk mengulangi kegagalan koneksi sementara. Lihat /help deployment dan /help reconnect.
+
+Tidak diperlukan multiplexer terminal. Jika proses pembantu DNS atau kredensial masih bekerja, pelepasan mungkin perlu dicoba kembali.
+
+Menangguhkan proses latar depan biasa menghentikan sementara aktivitas jaringannya. Dalam pekerjaan yang dilanjutkan, pengendali depan dapat ditangguhkan sementara pekerja terkelola tetap terhubung.
+
+Dari shell: onekeyirc --sessions; onekeyirc --detach-session NUMBER; onekeyirc --resume NUMBER; onekeyirc --close-session NUMBER.
+
+Examples:
+/background

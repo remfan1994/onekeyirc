@@ -1,0 +1,14 @@
+Optional r29 security translation status for onekeyirc 0.1.36
+
+Section drafts: 7 of 12 in each of ten languages.
+English source word coverage: 1800 of 3273.
+Added in r29: Local history, saved logs and privacy; Automatic commands and cancellation; User-defined key bindings.
+The original English SECURITY.md is authoritative. No translation has been reviewed by a fluent security specialist.
+Source hashes, paragraph counts, critical tokens, Unicode controls, and package integrity are checked automatically; this does not establish semantic accuracy.
+Other sections still untranslated as a complete draft:
+  - Protocol, terminal input and bounded state
+  - Managed sessions and SSH loss
+  - ZNC, soju and playback
+  - DCC file transfers
+  - Offline checks and evidence
+Existing optional Arabic RTL and Use signals behavior are unchanged. No network or terminal behavior is modified by this translation release.

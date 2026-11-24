@@ -1,0 +1,36 @@
+onekeyirc 0.1.35 - /background
+Source: MANUAL.txt /background entry (complete translated prose).
+Status: draft; English MANUAL.txt is authoritative.
+
+Usage: /background
+
+La session active est détachée après restauration du terminal. Le shell reçoit la commande de reprise numérotée propre à cette application.
+
+Depuis le shell, --sessions liste les travaux privés attachés et détachés de ce programme ; --resume reprend son seul travail détaché disponible.
+
+Utilisez --resume NUMBER si plusieurs travaux existent. NUMBER est le numéro du travail et non un PID ; il reste stable jusqu’à la sortie puis peut être réutilisé.
+
+--detach-session NUMBER libère un terminal/contrôleur attaché, mais conserve le processus de travail, ses connexions IRC, ses brouillons et son historique pour --resume NUMBER.
+
+--close-session NUMBER termine le travail entier, toutes ses connexions IRC et ses transferts, et perd ses brouillons non enregistrés et son historique en mémoire. La réussite n’est annoncée qu’après confirmation de l’achèvement.
+
+Si la reprise est occupée après la perte d’un terminal SSH, listez les travaux, détachez le travail concerné, puis reprenez-le. Voir /help sessions pour la procédure.
+
+Un processus sans réponse ou un ancien processus ne disposant pas du contrôle demandé peut échouer. Installer un nouvel exécutable ne met pas à jour un processus actif ; redémarrez-le volontairement après la mise à niveau.
+
+La reprise redessine l’historique déroulant encore présent en mémoire même si aucun message n’est arrivé pendant le détachement. /set single_session on refuse un second travail en arrière-plan pour que --resume sans numéro reste sans ambiguïté.
+
+Pour démarrer sans terminal, utilisez --background dans le shell ; voir --help pour les options de ce programme.
+
+Quand background_away est activé et que le profil autorise une absence automatique, /background ou la perte d’un terminal géré met en file le AWAY configuré après le détachement. La reprise n’efface que l’absence générée par le client ; un /away manuel est conservé.
+
+Ajoutez --reconnect pour réessayer après une panne transitoire de connexion. Voir /help deployment et /help reconnect.
+
+Aucun multiplexeur de terminal n’est nécessaire. Un auxiliaire DNS ou d’identifiants encore en cours peut imposer une nouvelle tentative.
+
+Suspendre un processus ordinaire au premier plan suspend son activité réseau. Un travail repris peut suspendre son contrôleur au premier plan pendant que le processus géré reste en réseau.
+
+Depuis le shell : onekeyirc --sessions; onekeyirc --detach-session NUMBER; onekeyirc --resume NUMBER; onekeyirc --close-session NUMBER.
+
+Examples:
+/background

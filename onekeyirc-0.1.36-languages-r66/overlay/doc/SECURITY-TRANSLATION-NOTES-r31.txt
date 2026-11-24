@@ -1,0 +1,9 @@
+Optional security translation r31.
+onekeyirc 0.1.36: complete draft coverage of all 12 source sections, 3273 English source words.
+New sections: DCC file transfers; Offline checks and evidence; (full-interface section is vipirc-only).
+Ten language drafts plus an exact English reference are included.
+Prior r27/r29/r30 partial documents remain as historical snapshots for compatibility.
+Use doc/SECURITY-FULL-XX.txt for the new complete draft.
+Source hashes, paragraph structure, command tokens and limits are checked.
+No fluent native-speaker security review has occurred.
+English SECURITY.md remains authoritative, with no warranty of translation accuracy.

@@ -1,0 +1,17 @@
+[
+  {
+    "source": "src/idle.c",
+    "kind": "fixed-status",
+    "fields": [],
+    "english": "Cannot retain the file offer: out of memory."
+  },
+  {
+    "source": "src/idle.c",
+    "kind": "named-fields",
+    "fields": [
+      "nick",
+      "error"
+    ],
+    "english": "File offer from {nick} rejected: {error}"
+  }
+]

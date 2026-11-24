@@ -1,0 +1,16 @@
+[
+  "Own relay identity exceeds supported bounds",
+  "Capability request exceeds supported bounds",
+  "Unexpected SASL challenge",
+  "Registration setup failed; check credentials and settings",
+  "Unexpected credential state; nothing sent.",
+  "Server exceeded the 16 active batch limit",
+  "Malformed or inconsistent server batch framing",
+  "Too many malformed source identities",
+  "Invalid or excessive server PING requests",
+  "Unexpected SASL success response",
+  "Server sent a NUL byte inside verified TLS; malformed IRC text rejected. Check that this endpoint is an IRC service",
+  "Private authentication requires verified TLS; pending chat cancelled before sending.",
+  "Pending chat cancelled because the relay identity changed the message limit.",
+  "Disconnected by user"
+]

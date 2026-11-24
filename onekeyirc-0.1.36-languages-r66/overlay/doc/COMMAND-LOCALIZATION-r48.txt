@@ -1,0 +1,6 @@
+Optional r48 command-description translations for onekeyirc-0.1.36
+51 added catalog keys in ten languages. Command names and options remain English.
+Each source description appears in the command suggestion display through irc_tr.
+Background on onekeyirc uses its own executable name in the help.
+No command parsing, network, storage, security, or input behavior changed.
+The full-screen vipirc build is not certified without ncurses development headers.

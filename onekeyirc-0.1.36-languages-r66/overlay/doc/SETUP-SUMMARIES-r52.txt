@@ -1,0 +1,7 @@
+r52: Guided setup summary localization
+
+25 new display keys, 26 traced source expressions.
+Do not translate IRC/config commands or user-supplied credential data.
+Status strings that interpolate errors and server numbers use bounded named-field rendering.
+Encrypted-credential completion notices are reserved for a subsequent pass.
+Complete vipirc ncurses frontend build and native-speaker review still required.

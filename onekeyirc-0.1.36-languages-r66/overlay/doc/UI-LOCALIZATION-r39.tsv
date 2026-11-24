@@ -1,0 +1,2 @@
+source	kind	fields	english
+src/idle.c	fixed		Response reached its 512 KiB limit; request a narrower topic.

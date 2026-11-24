@@ -1,0 +1,16 @@
+Local history, saved logs and privacy
+Source: SECURITY.md, section "Local history, saved logs and privacy"
+English section SHA-256: 8123a3ef64d1e4e83b7cc6891d66caa56780846eafd681342f8e2f9749251e94
+Paragraphs: 5
+Status: Translation draft; fluent-speaker security review required
+English SECURITY.md remains authoritative. This is only one section, not the full security document.
+
+L'historique de rappel des commandes est limité à 64 entrées/64 KiB et reste en mémoire. La composition de messages n'est pas une interface de rappel des messages déjà envoyés. Les formes reconnues d'identifiants et de commandes de contrôle en sont exclues. Les données facultatives de fréquence dans <config_path>.commands conservent au maximum 96 noms canoniques de commandes et leurs compteurs, sans arguments, cibles, messages ni mots de passe. La lecture et l'écriture automatiques nécessitent une configuration enregistrée ; un fichier de compteurs invalide ou dangereux n'empêche pas le démarrage. Le mode test évite ces E/S.
+
+Les transcriptions persistantes sont désactivées par défaut. Chaque profil enregistré qui les active ajoute des données à <config_path>.log ; le répertoire parent doit appartenir à l'utilisateur et avoir exactement le mode 0700, et le fichier doit être régulier, appartenir à l'utilisateur, n'avoir qu'un lien et avoir exactement le mode 0600. Le parcours relatif aux descripteurs et O_NOFOLLOW refusent les liens symboliques ; O_NONBLOCK empêche une FIFO piégée de bloquer avant la vérification du type de fichier. L'enregistrement ne crée aucun répertoire parent.
+
+La limite d'ajout est de 16 MiB par journal actif. Un verrou consultatif non bloquant sérialise la vérification de taille et l'écriture entre clients coopérants. Chemin dangereux, verrou occupé, écriture échouée ou limite atteinte désactivent le journal pour ce profil avec un diagnostic ; le chat en direct continue. Rien n'est tronqué ni supprimé automatiquement. Archivez ou déplacez le journal, puis désactivez et réactivez explicitement l'enregistrement. Les archives externes relèvent de l'utilisateur. Les E/S sur disque peuvent encore bloquer sur un stockage lent ou distant ; le journaliseur n'est pas asynchrone.
+
+Sont exclus des transcriptions les copies Help/aggregate mentions, les brouillons non envoyés, les tampons SASL/PASS, les commandes privées reconnues et les réponses connues des services. Les destinations de contrôle du bouncer sont soumises au filtrage supplémentaire décrit plus loin. Les noms de services inconnus et les secrets saisis comme chat ordinaire peuvent toujours être enregistrés. Les journaux persistent après la sortie. L'enregistrement du terminal, les journaux du serveur et les copies des destinataires sont indépendants de ce réglage.
+
+Le rattrapage catch-up utilise le dernier message admissible envoyé localement par ce worker actif. Il essaie d'abord le journal privé avec une ancre fichier/enregistrement validée et une fin fixée, puis se rabat sur la mémoire conservée. Une rotation ou un changement d'identité invalide l'ancre disque ; il ne choisit pas silencieusement un enregistrement sans rapport. Les messages propres rejoués ne remplacent pas l'ancre. Un nouveau processus n'importe pas d'anciens journaux et ne reconstitue pas l'ancre catch-up d'un worker terminé.

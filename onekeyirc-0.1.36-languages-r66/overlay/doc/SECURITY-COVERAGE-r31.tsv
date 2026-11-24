@@ -1,0 +1,13 @@
+section	english_words	status	paragraphs	sha256
+Trust boundary	176	draft in 10 languages	3	b206f366472f34a9c25e1096f15d6fe813e99115c1e789ab4fa3d857e18f7595
+TLS, credentials and endpoint identity	389	draft in 10 languages	6	4ea410d65b0d7a489076cfd9898b5769f21e9e2f4fec63f7df8340f68bb5de45
+Configuration and private files	506	draft in 10 languages	6	209b86484d0457ecd63d96ed26d6ae5e5adb117a47353c36560dad9f80ae8466
+Child processes and synchronous work	118	draft in 10 languages	2	79a87ca8215648f2d1f870067a2afe1fb4221757b00560b4b4191aac7832ba7f
+Protocol, terminal input and bounded state	462	draft in 10 languages	6	0f8513944ff6d952092236574aa5be490f8a39c7d99ec7ac175d34eb41e5dc06
+Local history, saved logs and privacy	311	draft in 10 languages	5	8123a3ef64d1e4e83b7cc6891d66caa56780846eafd681342f8e2f9749251e94
+Automatic commands and cancellation	174	draft in 10 languages	3	d5949c21fd5a0dc4ef73af2c42931766637e3b4ba398ff7184e64a2ae9a0e305
+Managed sessions and SSH loss	301	draft in 10 languages	5	f44a63f7faada1375f5769e9dfe2235da96547fa535b07d1c9869cba13ca063f
+ZNC, soju and playback	314	draft in 10 languages	5	f0e223c83f0df60aa10260168ae7433ff77fbbd2f4cef7d4914cd07da4f7ed99
+DCC file transfers	212	draft in 10 languages	3	f0f91b6753c085b41c9c9071eabf9585ddc404919fe56e0989bfafb733db2e3b
+Offline checks and evidence	184	draft in 10 languages	3	9c67268cfad3c6bc3c5553f23c932c342c3f11231b325d758eeade66d790b4bd
+User-defined key bindings	126	draft in 10 languages	2	250d7d0eb62f8b649e64f59b1e69d2220ec79005f08d6a7dfba30905d1133303

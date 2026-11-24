@@ -1,0 +1,27 @@
+onekeyirc 0.1.35 /dcc standalone reference (ru)
+Copied exactly from the previously translated minimalist manual.
+This document makes earlier translations easier to locate;
+it does not represent newly translated English prose.
+Source section SHA-256: 6f52bbcccf6b442079d4d2fb9df278824548adadf466d8e7eb8fcccf1114ca15
+
+/dcc - Предлагать, проверять и управлять прямыми передачами файлов
+------------------------------------------------------------------------
+Использование: /dcc [list|NICK PATH|send [-address IPV4] [-port PORT] NICK PATH|accept NUMBER [DIRECTORY]|reject NUMBER|cancel NUMBER]
+
+Без аргументов показ передач. /dcc NICK PATH предлагает файл на выбранном сервере.
+PATH - оставшийся буквальный текст, включая пробелы; путь относительно каталога запуска процесса.
+Клиент не меняет этот каталог, даже при просмотре файлов и в фоновом режиме.
+Краткая отправка объявляет локальный IPv4 IRC-соединения. За NAT укажите доступный IPv4 через -address и проброшенный порт через -port.
+Внешний поиск адреса не выполняется. Для IRC только по IPv6 нужен явный адрес IPv4.
+DCC - прямое незашифрованное соединение. Партнёр видит объявленный IP; принятие предложения также раскрывает ваш IP.
+Входящее предложение не открывается до /dcc accept NUMBER. DIRECTORY по умолчанию каталог запуска; он должен быть вашим и закрытым.
+Существующие файлы не перезаписываются; ссылки и спецфайлы запрещены. Тестовый режим не открывает файлов и сокетов.
+Отклонить предложение: /dcc reject NUMBER. Отменить передачу: /dcc cancel NUMBER.
+Номера передач общие для всех серверов процесса. Закрытие исходного сервера отменяет его передачи; разрыв IRC не отменяет принятую.
+
+Примеры:
+/dcc alice file.txt
+/dcc list
+/dcc accept 1 ./downloads
+/dcc send -address 203.0.113.20 -port 5000 alice file.txt
+/dcc cancel 2

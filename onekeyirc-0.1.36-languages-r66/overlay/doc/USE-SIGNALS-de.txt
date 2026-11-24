@@ -1,0 +1,5 @@
+USE SIGNALS - onekeyirc-0.1.36
+
+Use signals steht standardmäßig auf no. Ctrl-C und Ctrl-Z brechen eine ungesendete Nachricht oder einen Befehl ab, statt das Programm zu beenden oder anzuhalten. Wählen Sie yes in Panel 0 oder den Interface-Einstellungen von vipirc, um Terminalsignale zuzulassen. Apply wirkt sofort; Save speichert zusätzlich [input] use_signals=true|false. Beim Beenden oder Anhalten werden die ursprünglichen Terminaleinstellungen wiederhergestellt.
+
+No (Standard) deaktiviert Terminalsignale, solange das Programm das Terminal steuert; Ctrl-C/Ctrl-Z verwerfen den Entwurf. Yes aktiviert bestehende Signal-Tastenbelegungen ohne sie zu ändern. Externe Prozesssignale bleiben wirksam.

@@ -1,0 +1,12 @@
+DCC file transfers
+Source: SECURITY.md, section "DCC file transfers"
+English section SHA-256: f0f91b6753c085b41c9c9071eabf9585ddc404919fe56e0989bfafb733db2e3b
+Paragraphs: 3
+Status: Translation draft; fluent-speaker security review required
+English SECURITY.md remains authoritative. This is one source-linked section, not a security certification.
+
+Le DCC SEND classique en IPv4 actif transmet en clair et sans authentification, indépendamment de TLS pour IRC. Un pseudonyme ne prouve pas l'identité du correspondant qui se connecte. L'adresse affichée peut être privée ou de bouclage. Envoyer un fichier annonce une adresse ; accepter l'offre se connecte au correspondant indiqué et révèle l'adresse de l'hôte qui exécute le processus. Une offre seule ne crée ni fichier ni socket. Accept/send exige une action explicite. Avec SSH, fichiers et sockets se trouvent sur l'hôte distant où s'exécute le programme.
+
+Les sources doivent être des fichiers ordinaires, sans composant de chemin symlink. Leur contenu est transmis en flux, sans capture instantanée ni protection contre une modification ultérieure : utilisez une source stable. La réception crée un nouveau fichier de mode 0600 dans un répertoire privé appartenant à l'utilisateur, en refusant les traversées de chemin, les liens symboliques et les destinations existantes. Le nettoyage d'un fichier partiel ne retire que celui dont le périphérique et l'inode correspondent au fichier créé par le transfert. Les fichiers ne sont jamais ouverts ni exécutés automatiquement. Les accusés de réception exprimés en nombre d'octets ne sont pas des empreintes cryptographiques.
+
+Le client limite à huit les offres en attente, à quatre les transferts actifs et à douze les enregistrements conservés ; la taille maximale d'un fichier est de 4294967295 octets. Une offre expire après cinq minutes ; un transfert actif échoue après deux minutes sans progression. La répétition d'accusés identiques ne prolonge pas ce délai. DCC CHAT, resume, transfert passif/inversé, fichiers de taille inconnue et IPv6 ne sont pas pris en charge. Aucune découverte d'adresse publique ni configuration automatique NAT/firewall n'est effectuée. Une déconnexion IRC laisse actifs les transferts directs déjà acceptés ; fermer leur serveur ou quitter les termine. /cancel ne remplace pas l'annulation propre à chaque transfert.

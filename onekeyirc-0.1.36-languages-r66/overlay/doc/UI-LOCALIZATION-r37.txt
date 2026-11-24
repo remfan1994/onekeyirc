@@ -1,0 +1,19 @@
+OPTIONAL DISPLAY LOCALIZATION REVISION r37
+
+Apply r37 only to the matching unmodified English source r1 tree.
+Do not layer it onto any earlier language/RTL patch; application
+version numbers remain 0.1.36 for onekeyirc and 0.7.37 for vipirc.
+
+Two source-linked onekeyirc file-offer error messages, one with
+two independently substituted literal fields.
+
+Keys, source paths and named fields: UI-LOCALIZATION-r37.tsv / .json.
+Original network, filename, account and user data are copied literally.
+A translated string is never passed as a printf format. Failed bounded
+rendering uses the prior English message without changing its data.
+Command spellings, keyboard codes, data serialization and IPC protocol
+are unchanged. English-source documentation is the reference until
+a fluent technical reviewer approves security-sensitive translations.
+Still to test: full wide-character ncurses vipirc build; real OpenBSD
+and Crostini terminals; live network/bouncer; native-speaker review.
+Run: make check-ui-localization-r37; make check-l10n-security.

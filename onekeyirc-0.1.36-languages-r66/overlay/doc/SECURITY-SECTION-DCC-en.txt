@@ -1,0 +1,12 @@
+DCC file transfers
+Source: SECURITY.md, section "DCC file transfers"
+English section SHA-256: f0f91b6753c085b41c9c9071eabf9585ddc404919fe56e0989bfafb733db2e3b
+Paragraphs: 3
+Status: Verbatim English reference
+English SECURITY.md remains authoritative. This is one source-linked section, not a security certification.
+
+Classic active IPv4 DCC SEND is plaintext and unauthenticated, independent of IRC TLS. A nickname does not authenticate the connecting peer. The displayed endpoint may be a private/loopback address. Sending advertises an address; acceptance connects to the shown peer and reveals the process host's address. An offer alone creates no file/socket. Accept/send need an explicit action. Over SSH, files and sockets belong to the remote process host.
+
+Sources must be regular files, with no symlink path components. They are streamed, not snapshotted or protected from later modification; use a stable source. Receive creates a new mode-0600 file in an owned private directory, refusing traversal, symlinks and existing destinations. Partial cleanup removes only the same device/inode created by the transfer. Files are never automatically opened or executed. Byte-count acknowledgements are not hashes.
+
+There are eight pending offers, four active transfers and twelve retained records, with a maximum file size of 4294967295 bytes. Offers expire after five minutes; active transfers fail after two minutes without progress. Repeated unchanged acknowledgements do not extend that deadline. DCC CHAT, resume, passive/reverse transfer, unknown-size files and IPv6 are unsupported. There is no public-address discovery or automatic NAT/firewall configuration. IRC disconnect leaves accepted direct transfers alive; closing their server or quitting ends them. /cancel does not replace transfer-specific cancellation.

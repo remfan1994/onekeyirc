@@ -1,0 +1,50 @@
+[
+  {
+    "source": "src/idle.c",
+    "english": "Connection changed after this draft was prepared. Return to editing and review it again; nothing sent.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/idle.c",
+    "english": "The message limit changed. Review the updated message count before sending.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/idle.c",
+    "english": "Message limit acknowledged. A split send will still require explicit confirmation.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/idle.c",
+    "english": "Confirm the message-limit warning with Enter before adding more text.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/idle.c",
+    "english": "Cannot change terminal signals until reattachment; saved choice applies at next launch.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/idle.c",
+    "english": "Refresh could not complete; the previous summary is retained.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/idle.c",
+    "english": "This shortcut action is unavailable here; draft retained.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/idle.c",
+    "english": "Choose a channel or query with a command before composing.",
+    "kind": "fixed-display",
+    "fields": []
+  }
+]

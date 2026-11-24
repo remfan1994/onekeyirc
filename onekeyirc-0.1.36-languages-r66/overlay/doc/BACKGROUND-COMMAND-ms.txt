@@ -1,0 +1,36 @@
+onekeyirc 0.1.35 - /background
+Source: MANUAL.txt /background entry (complete translated prose).
+Status: draft; English MANUAL.txt is authoritative.
+
+Usage: /background
+
+Sesi yang sedang berjalan dipisahkan selepas terminal dipulihkan. Shell memaparkan arahan sambung semula bernombor bagi aplikasi ini.
+
+Dari shell, --sessions menyenaraikan kerja peribadi program ini yang dilampirkan dan dipisahkan; --resume menyambung semula satu-satunya kerja terpisah yang tersedia.
+
+Gunakan --resume NUMBER jika ada beberapa kerja. NUMBER ialah ID kerja, bukan PID proses; nombor itu kekal sehingga keluar dan boleh digunakan semula selepas itu.
+
+--detach-session NUMBER melepaskan terminal/pengawal yang dilampirkan tetapi mengekalkan pekerja, sambungan IRC, draf dan sejarah untuk --resume NUMBER.
+
+--close-session NUMBER menamatkan seluruh kerja, semua sambungan IRC dan pemindahannya, serta draf belum disimpan dan sejarah dalam ingatan. Kejayaan hanya dilaporkan selepas penyelesaian disahkan.
+
+Jika resume sibuk selepas terminal SSH hilang, senaraikan kerja, pisahkan kerja berkenaan, kemudian sambung semula. Lihat /help sessions untuk langkah pemulihan.
+
+Pekerja yang tidak responsif atau pekerja lama yang tiada kawalan diminta mungkin gagal. Memasang fail boleh laku baharu tidak mengemas kini pekerja yang sedang berjalan; mulakan semula dengan sengaja selepas naik taraf.
+
+Sambung semula melukis kembali sejarah tatal dalam ingatan walaupun tiada mesej diterima semasa terpisah. /set single_session on menolak kerja latar belakang kedua supaya --resume tanpa nombor tidak mengelirukan.
+
+Untuk memulakan tanpa terminal, gunakan --background daripada shell; lihat --help untuk pilihan program ini.
+
+Apabila background_away aktif dan profil membenarkan status away automatik, /background atau kehilangan terminal terurus akan mengatur AWAY yang dikonfigurasi selepas pemisahan. Sambung semula hanya membuang status away yang dihasilkan klien; status /away manual dikekalkan.
+
+Tambah --reconnect untuk mencuba semula kegagalan sambungan sementara. Lihat /help deployment dan /help reconnect.
+
+Pemultipleks terminal tidak diperlukan. Pembantu DNS atau kelayakan yang masih berjalan mungkin memerlukan percubaan semula.
+
+Menggantung proses latar depan biasa menghentikan sementara rangkaiannya. Kerja yang disambung semula boleh menggantung pengawal hadapannya sementara pekerja terurus meneruskan rangkaian.
+
+Dari shell: onekeyirc --sessions; onekeyirc --detach-session NUMBER; onekeyirc --resume NUMBER; onekeyirc --close-session NUMBER.
+
+Examples:
+/background

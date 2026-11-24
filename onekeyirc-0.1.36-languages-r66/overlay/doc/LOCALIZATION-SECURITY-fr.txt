@@ -1,0 +1,10 @@
+GUIDE DE SECURITE ABREGE : TRADUCTION ET RTL ARABE
+
+1. Verifiez les SHA-256 des sources anglaises originales et du correctif facultatif de langues+RTL AVANT application. Le correctif contient du code C executable, pas seulement des traductions.
+2. Appliquez le correctif uniquement a une copie r1 intacte, avant configure ou make. N'empilez pas les correctifs; si l'installation est refusee, repartez d'une copie neuve.
+3. Messages, pseudonymes, sujets et noms de fichiers IRC ne sont pas fiables. Le filtrage d'affichage remplace les controles dangereux du terminal, de direction Unicode et d'annotation; il n'authentifie pas l'expediteur et n'empeche pas les noms Unicode ressemblants.
+4. Le mode arabe visuel vise les terminaux UTF-8 sans mise en forme ni reordonnancement de l'arabe. FriBidi est necessaire; sinon le texte reste dans son ordre logique.
+5. Le RTL modifie seulement l'affichage. Commandes IRC, messages envoyes et journaux restent en ordre UTF-8 logique. La direction visible ne prouve pas l'identite.
+6. Ne saisissez pas de secrets dans le chat, ne diffusez pas de journaux prives dans les rapports de bogues et ne faites pas confiance aux commandes ou URL sur leur seule apparence RTL.
+7. --check-config ne valide ni le serveur distant, ni la session TLS, ni le mot de passe. Consultez SECURITY.md pour le modele de menace complet; ce guide n'en est pas la traduction.
+8. Desactivez le RTL visuel si le terminal gere deja les textes bidirectionnels ou si l'affichage differe du texte source.

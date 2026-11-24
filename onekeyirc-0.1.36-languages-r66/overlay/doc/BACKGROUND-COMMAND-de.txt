@@ -1,0 +1,36 @@
+onekeyirc 0.1.35 - /background
+Source: MANUAL.txt /background entry (complete translated prose).
+Status: draft; English MANUAL.txt is authoritative.
+
+Usage: /background
+
+Die laufende Sitzung wird nach Wiederherstellung des Terminals abgekoppelt. Die Shell erhält den nummerierten Wiederaufnahmebefehl dieser Anwendung.
+
+In der Shell zeigt --sessions angehängte und abgekoppelte private Jobs dieses Programms; --resume nimmt den einzigen verfügbaren abgekoppelten Job wieder auf.
+
+Bei mehreren Jobs --resume NUMBER verwenden. NUMBER ist die Jobnummer, nicht die Prozess-PID; sie bleibt bis zum Ende unverändert und kann danach erneut vergeben werden.
+
+--detach-session NUMBER löst ein angeschlossenes Terminal bzw. dessen Controller, lässt jedoch Worker, IRC-Verbindungen, Entwürfe und Verlauf für --resume NUMBER bestehen.
+
+--close-session NUMBER beendet den gesamten Job, alle IRC-Verbindungen und Übertragungen sowie ungespeicherte Entwürfe und Speicherverlauf. Erfolg wird erst nach bestätigtem Abschluss gemeldet.
+
+Ist das Wiederaufnehmen nach Verlust eines SSH-Terminals belegt, zuerst Jobs auflisten, den betroffenen Job abkoppeln und dann wiederaufnehmen. Siehe /help sessions für die genaue Abfolge.
+
+Ein nicht antwortender oder älterer Worker ohne die angeforderte Steuerfunktion kann fehlschlagen. Die Installation einer neuen Binärdatei ersetzt keinen laufenden Worker; nach dem Upgrade bewusst neu starten.
+
+Beim Wiederaufnehmen wird vorhandener Speicher-Scrollback neu angezeigt, auch wenn während der Abkopplung keine Nachricht kam. /set single_session on verhindert einen zweiten Hintergrundjob, damit --resume ohne Nummer eindeutig bleibt.
+
+Zum Start ohne Terminal --background in der Shell verwenden; die Optionen dieses Programms stehen unter --help.
+
+Wenn background_away aktiv ist und das Profil automatische Abwesenheit zulässt, stellt /background oder der Verlust eines verwalteten Terminals nach dem Abkoppeln das konfigurierte AWAY in die Warteschlange. Die Wiederaufnahme entfernt nur den vom Client gesetzten Away-Status; ein manuelles /away bleibt erhalten.
+
+Mit --reconnect werden vorübergehende Verbindungsfehler erneut versucht. Siehe /help deployment und /help reconnect.
+
+Ein Terminalmultiplexer ist nicht erforderlich. Noch aktive DNS- oder Zugangsdatenhelfer können einen erneuten Versuch nötig machen.
+
+Das Anhalten eines gewöhnlichen Vordergrundprozesses unterbricht seine Netzwerkverbindung. Bei einem wiederaufgenommenen Job kann der Vordergrund-Controller angehalten werden, während der verwaltete Worker weiterarbeitet.
+
+In der Shell: onekeyirc --sessions; onekeyirc --detach-session NUMBER; onekeyirc --resume NUMBER; onekeyirc --close-session NUMBER.
+
+Examples:
+/background

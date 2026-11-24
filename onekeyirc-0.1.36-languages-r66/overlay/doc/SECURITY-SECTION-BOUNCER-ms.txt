@@ -1,0 +1,16 @@
+ZNC, soju and playback
+Source: SECURITY.md, section "ZNC, soju and playback"
+English section SHA-256: f0e223c83f0df60aa10260168ae7433ff77fbbd2f4cef7d4914cd07da4f7ed99
+Paragraphs: 5
+Status: Translation draft; fluent-speaker security review required
+English SECURITY.md remains authoritative. This is only one section, not the full security document.
+
+Profil bouncer secara jelas memerlukan TLS yang disahkan dan identiti akaun/rangkaian, dengan nama klien pilihan. ZNC menggunakan sumber kata laluan pelayan; soju memerlukan SASL PLAIN serta sumber kata laluan SASL. Transaksi persediaan menerapkan titik hujung, identiti dan bukti kelayakan serentak, lalu mengosongkan draf lapuk jika ikatan itu berubah. Pengesahan IRC huluan berada dalam konfigurasi bouncer sendiri.
+
+JOIN yang dipulihkan oleh bouncer menentukan keahlian saluran; senarai saluran tersimpan tidak dimainkan semula. Arahan permulaan yang dinyatakan secara jelas kekal sebagai pengecualian disengajakan. Status away automatik dimatikan secara lalai untuk profil bouncer supaya satu peranti tidak mengenakan status lengahnya pada peranti lain. /away dan /back kekal tindakan manual yang jelas. Kawalan pekerja setempat tidak mentadbir perkhidmatan bouncer jauh.
+
+Teks kawalan /znc dan /soju muat dalam satu mesej mengikut sela penghantaran dan dikecualikan daripada recall, gema setempat dan log kekal. Salinan masuk yang ditujukan kepada perkhidmatan bouncer disekat walaupun dengan nama samaran lama atau rujukan kelompok tidak dikenali. Balasan perkhidmatan tetap kelihatan dalam paparan pelayan tetapi tidak disimpan. Salinan pengesahan peribadi yang dikenal pasti dikecualikan daripada transkrip tanpa mengira nama samaran pengirim, bingkai main semula atau sasaran perkhidmatan yang layak. Teks kelihatan yang dikekalkan bukan stor rahsia. Teks boleh kelihatan ketika ditaip dan pentadbir bouncer boleh menerima serta merekodkannya. Ini bukan kerahsiaan daripada bouncer yang dipilih.
+
+Kelompok sejarah yang dikenali adalah untuk paparan sahaja: ia tidak boleh mengubah keahlian atau kehadiran semasa, menjana amaran mentions baharu, membalas CTCP atau mengaktifkan tawaran DCC. Sempadan sejarah bersarang atau berselang dihadkan kepada 16 kelompok dan rujukan 64-byte; bingkai rosak, tidak konsisten atau melebihi had menyebabkan putus sambungan. Rujukan kelompok yang tidak dikenali dikendalikan dengan berhati-hati sebagai paparan sahaja. Cap masa asal yang sah ditunjukkan dalam UTC tetapi tidak menentukan pemasa setempat atau sela penghantaran.
+
+Klien menyokong penimbal yang dihantar secara tolak oleh bouncer, bukan pelayar arkib atas permintaan atau penemuan semua rangkaian dalam akaun. Ia tidak meminta echo-message, draft/chathistory atau znc.in/playback. Cap masa sahaja bukan bukti sesuatu mesej ialah sejarah; main semula lama tanpa kelompok mengekalkan pengendalian mesej langsung biasa. Main semula sebarang mesej tidak dinyahganda antara proses baharu. Lihat doc/BOUNCERS.txt untuk persediaan dan had.

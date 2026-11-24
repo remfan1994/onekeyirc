@@ -1,0 +1,11 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: SECURITY.md / Trust boundary
+English source SHA-256: 3a8de003f1fb27ecf4c0a8a05eaa1e384e3d8e756927b0645d3341cf27dd4f1f
+
+VERTRAUENSGRENZE
+
+IRC-Server, Gesprächspartner, Spitznamen, Themen, Protokollfelder, Dateinamen und eingefügter Text sind nicht vertrauenswürdige Eingaben. Betriebssystem, Terminal, C/TLS-Bibliotheken, Zertifikatsspeicher und Benutzerkonto bleiben vertrauenswürdige Komponenten. Die vollständige vipirc-Oberfläche vertraut zusätzlich curses. Bei GPG kommen Programm, Schlüsselbund und Agent hinzu. Serverprofile teilen sich einen Prozess und bilden keine isolierten Sicherheitsbereiche. Andere Prozesse mit denselben Kontorechten können normalerweise private Dateien und Speicher einsehen.
+
+Führen Sie das Programm unter einem normalen Konto aus. Vor dem Lesen der Konfiguration weisen reguläre Aufrufe unterschiedliche reale/effektive Benutzer- oder Gruppen-IDs zurück, deaktivieren Core-Dumps und setzen umask 0077. Linux schaltet zusätzlich die Dumpbarkeit des Prozesses aus. Fehlende Standarddeskriptoren werden vor dem Öffnen von Ressourcen über /dev/null reserviert; geerbte offene Datenströme und deren Flags bleiben unverändert. Schlägt ein vorgeschriebener Startschutz fehl, wird der Aufruf beendet. Das bietet weder pledge/unveil noch seccomp, Rechteaufteilung oder Schutz bei einem kompromittierten Host.
+
+configure prüft die auf dem gewählten Host unterstützte Compiler-/Linker-Härtung: Stack-Schutz, verstärkte libc-Prüfungen, Formatdiagnostik, PIE, RELRO, sofortige Bindung und einen nicht ausführbaren Stack. Prüfen Sie die konfigurierten Flags auf dem Zielsystem; nicht jede Plattform unterstützt alles.

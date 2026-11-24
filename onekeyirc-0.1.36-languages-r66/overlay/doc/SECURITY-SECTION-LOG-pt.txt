@@ -1,0 +1,16 @@
+Local history, saved logs and privacy
+Source: SECURITY.md, section "Local history, saved logs and privacy"
+English section SHA-256: 8123a3ef64d1e4e83b7cc6891d66caa56780846eafd681342f8e2f9749251e94
+Paragraphs: 5
+Status: Translation draft; fluent-speaker security review required
+English SECURITY.md remains authoritative. This is only one section, not the full security document.
+
+O histórico de recuperação de comandos limita-se a 64 entradas/64 KiB e permanece na memória. A composição de mensagens não é um meio de recuperar mensagens já enviadas. Formas reconhecidas de credenciais e comandos de controlo são excluídas. Os dados opcionais de frequência em <config_path>.commands guardam até 96 nomes canónicos de comandos e as respetivas contagens, sem argumentos, destinatários, mensagens ou palavras-passe. As leituras/escritas automáticas exigem uma configuração guardada; ficheiros de contagem inválidos ou inseguros não impedem o arranque. O modo de teste omite estas operações de E/S.
+
+Os registos persistentes estão desativados por predefinição. Cada perfil guardado que os ative acrescenta dados a <config_path>.log, exigindo um diretório-pai pertencente ao utilizador com modo exato 0700 e um ficheiro regular pertencente ao utilizador, com uma única ligação e modo exato 0600. A travessia relativa a descritores e O_NOFOLLOW rejeitam ligações simbólicas; O_NONBLOCK impede que um FIFO malicioso bloqueie antes da verificação do tipo de ficheiro. O registo não cria diretórios-pai.
+
+O limite de acrescento é de 16 MiB por registo ativo. Um bloqueio consultivo não bloqueante serializa a verificação do tamanho e a escrita entre clientes cooperantes. Caminhos inseguros, bloqueio ocupado, falha de escrita ou limite atingido desativam o registo desse perfil com diagnóstico; a conversa em direto prossegue. Nada é truncado ou apagado automaticamente. Arquive ou mova o registo e depois desative e reative expressamente o registo. Os arquivos externos são da responsabilidade do utilizador. A E/S de disco pode ainda bloquear em armazenamento lento ou remoto; o registador não é assíncrono.
+
+Excluem-se das transcrições as cópias de Help/aggregate mentions, os rascunhos não enviados, os buffers SASL/PASS, os comandos privados reconhecidos e as respostas conhecidas de serviços. Os destinos de controlo do bouncer recebem filtragem adicional descrita abaixo. Nomes de serviços desconhecidos e segredos escritos como conversa normal ainda podem ser registados. Os registos sobrevivem à saída. A gravação do terminal, os registos do servidor e as cópias dos destinatários são independentes desta opção.
+
+O catch-up utiliza a última mensagem elegível enviada localmente por este worker ativo. Primeiro tenta o registo privado usando uma âncora validada de ficheiro/registo e um fim fixado; depois recorre à memória retida. A rotação ou mudança de identidade invalida a âncora em disco; não escolhe silenciosamente outro registo não relacionado. As mensagens próprias reproduzidas não substituem a âncora. Um novo processo não importa registos antigos nem reconstrói a âncora de catch-up de um worker terminado.

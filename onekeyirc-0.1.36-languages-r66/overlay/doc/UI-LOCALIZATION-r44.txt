@@ -1,0 +1,19 @@
+OPTIONAL LANGUAGE OVERLAY r44 - onekeyirc-0.1.36
+
+Base application version and English source r1 remain unchanged.
+Apply to clean English r1, never over a previous language overlay.
+New source-linked messages in all ten locales: 11.
+Current catalog entries per locale: 977.
+
+vipirc: main menu, command-screen and channel-view help, connection and
+network LIST detail, ignore-mask confirmation, local view state.
+onekeyirc: Quickstart help, context-help title and review scroll position.
+
+IRC commands, keyboard names, variables, credentials and protocol content
+are not translated. Dynamic data is inserted literally and bounded; translated
+content is never passed to printf as a format string. English remains fallback.
+
+Validation: run make check-ui-localization-r44. Archive installation must
+be checked independently against untouched English source r1.
+Limitations: native speaker review and full vipirc ncurses frontend build,
+interactive screen navigation and OpenBSD/Crostini live tests are pending.

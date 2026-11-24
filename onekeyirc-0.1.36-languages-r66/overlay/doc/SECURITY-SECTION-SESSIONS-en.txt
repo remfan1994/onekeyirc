@@ -1,0 +1,16 @@
+Managed sessions and SSH loss
+Source: SECURITY.md, section "Managed sessions and SSH loss"
+English section SHA-256: f44a63f7faada1375f5769e9dfe2235da96547fa535b07d1c9869cba13ca063f
+Paragraphs: 5
+Status: Translation draft; fluent-speaker security review required
+English SECURITY.md remains authoritative. This is only one section, not the full security document.
+
+Background creates an account-private local job endpoint and lifetime lease. The registry is separate for each program and Unix user, with 64 numbered slots. It is not an Internet listener or a reboot-persistence mechanism. Discovery/attach/control validate private paths, file identities and the selected worker's incarnation token; job numbers are never treated as PIDs. Same-user peer credentials are checked where supported by the platform.
+
+One terminal can attach at a time. Resume validates transferred terminal descriptors and bounded TERM/locale metadata. Discovery is bounded, skips unsafe objects and does not recursively remove unexpected registry content. A live unresponsive worker keeps its lease and is reported as unverified. Bare --resume selects only a sole verified available detached worker with no unverified candidate. single_session restricts background-job creation, not the number of IRC connections inside an existing worker.
+
+--detach-session NUMBER releases the selected terminal/controller while preserving the worker, connections, drafts, transfers and retained history. --close-session NUMBER ends the whole worker and discards unsaved RAM state. Detach waits for confirmed terminal release; close waits for endpoint/lease teardown. Acceptance alone is not completion. Controls have deadlines and never kill a guessed numeric PID. Do not unlink endpoints as a recovery step.
+
+Loss of an already managed terminal/controller detaches the worker. An ordinary foreground process that never became managed has no resumable job. Installing a new executable does not upgrade a running worker's protocol; older workers may need their existing controls to stop cleanly.
+
+The minimalist output queue is bounded and explicit background requests can be serviced while it is blocked. Cleanup/notice writes are best effort and may be omitted on a stopped terminal. Full ncurses drawing still uses synchronous terminal output; a permanently blocked open terminal can delay its control poll. A timeout is reported honestly, not as a forced-kill success. Neither client configures SSH server idle-disconnect policy.

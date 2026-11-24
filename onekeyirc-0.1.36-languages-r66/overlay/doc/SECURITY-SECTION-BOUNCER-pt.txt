@@ -1,0 +1,16 @@
+ZNC, soju and playback
+Source: SECURITY.md, section "ZNC, soju and playback"
+English section SHA-256: f0e223c83f0df60aa10260168ae7433ff77fbbd2f4cef7d4914cd07da4f7ed99
+Paragraphs: 5
+Status: Translation draft; fluent-speaker security review required
+English SECURITY.md remains authoritative. This is only one section, not the full security document.
+
+Perfis explícitos de bouncer exigem TLS verificado e identidade de conta/rede, com nome de cliente opcional. ZNC usa a origem da senha do servidor; soju exige SASL PLAIN e uma origem de senha SASL. A transação de configuração aplica endpoint, identidade e credenciais juntos, limpando rascunhos antigos quando esses vínculos mudam. A autenticação IRC a montante pertence ã configuração do prõprio bouncer.
+
+JOINs restaurados pelo bouncer determinam a participação nos canais; listas de canais salvas não são reproduzidas. Comandos de inicialização explícitos continuam sendo exceções deliberadas. O away automãtico fica desativado por padrão em perfis bouncer, para um dispositivo não impor sua inatividade a outro. /away e /back continuam ações manuais explícitas. Controles do worker local não administram o bouncer remoto.
+
+O texto de controle /znc e /soju cabe numa única mensagem cadenciada e é excluído de recall, ecos locais e logs persistentes. Cõpias recebidas destinadas ao serviço bouncer são suprimidas mesmo com nick antigo ou referéncia de lote desconhecida. Respostas do serviço continuam visíveis na visualização do servidor, mas não são salvas. Cõpias reconhecidas de autenticação privada são excluídas das transcrições independentemente do nick do remetente, enquadramento da reprodução ou destino qualificado do serviço. Texto visível retido não é repositõrio de segredos. Pode aparecer durante a redação, e o administrador do bouncer pode recebé-lo e registrã-lo. Não hã sigilo diante do bouncer escolhido.
+
+Lotes de histõrico conhecidos servem apenas para exibição: não podem mudar participação ou presença atual, gerar novos alertas mentions, responder CTCP nem ativar ofertas DCC. Limites de histõrico aninhados/intercalados são de 16 lotes e referéncias de 64-byte; enquadramento malformado, inconsistente ou excessivo desconecta. Referéncias desconhecidas são tratadas conservadoramente sõ para exibição. Horãrios originais vãlidos aparecem em UTC mas jamais controlam temporizadores locais ou cadéncia.
+
+O cliente aceita buffers enviados pelo bouncer, não um navegador de arquivo histõrico sob demanda nem descoberta das redes de toda a conta. Não solicita echo-message, draft/chathistory nem znc.in/playback. Um carimbo de data/hora sozinho não comprova histõrico; reprodução antiga sem lotes mantém processamento normal de mensagens ao vivo. Reprodução arbitrãria não é desduplicada entre processos novos. Consulte doc/BOUNCERS.txt para configuração e limites.

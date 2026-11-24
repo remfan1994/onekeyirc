@@ -1,0 +1,11 @@
+source	kind	fields	english
+src/idle.c	named-fields	number,target	Catch-up from your most recent sent message | S{number} {target}
+src/idle.c	named-fields	target	Catch-up from your most recent sent message | {target}
+src/idle.c	named-fields	target	Scrollback | {target}
+src/idle.c	fixed		chat
+src/idle.c	fixed		Watch log
+src/idle.c	fixed		The log follows the selected server and conversation. A channel or query receives composed messages.
+src/idle.c	fixed		Slash opens command entry. An ordinary character starts composition. ? opens help for the selected conversation.
+src/idle.c	fixed		Use /servers, /channels, /queries, /unread, or /summary to inspect client activity.
+src/idle.c	fixed		Select conversations with /channel, /query, or /view.
+src/idle.c	fixed		Escape backgrounds from the log. Inside composition or a reader, Escape first returns to the previous screen.

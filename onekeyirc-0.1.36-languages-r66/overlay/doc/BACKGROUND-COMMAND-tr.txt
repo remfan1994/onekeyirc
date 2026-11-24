@@ -1,0 +1,36 @@
+onekeyirc 0.1.35 - /background
+Source: MANUAL.txt /background entry (complete translated prose).
+Status: draft; English MANUAL.txt is authoritative.
+
+Usage: /background
+
+Terminal eski durumuna getirildikten sonra çalışan oturum ayrılır. Kabuk, uygulamanın numaralı devam komutunu alır.
+
+Kabukta --sessions, bu programın bağlı ve ayrılmış özel işlerini listeler; --resume mevcut tek ayrılmış işi sürdürür.
+
+Birden fazla iş varsa --resume NUMBER kullanın. NUMBER süreç PID değeri değil iş numarasıdır; çıkışa kadar sabit kalır, sonra yeniden kullanılabilir.
+
+--detach-session NUMBER bağlı terminali/denetleyiciyi serbest bırakır; ancak çalışan süreci, IRC bağlantılarını, taslakları ve geçmişi --resume NUMBER için korur.
+
+--close-session NUMBER tüm işi, IRC bağlantılarını ve aktarımları sonlandırır; kaydedilmemiş taslakları ve bellek geçmişini siler. Başarı yalnızca tamamlandığı doğrulandıktan sonra bildirilir.
+
+SSH terminali kaybolduktan sonra devam işlemi meşgulse işleri listeleyin, ilgili işi ayırın, ardından sürdürün. Kurtarma adımları için /help sessions kullanın.
+
+Yanıt vermeyen veya istenen kontrolü bulunmayan eski bir çalışan başarısız olabilir. Yeni yürütülebilir dosyayı kurmak çalışan süreci güncellemez; yükseltmeden sonra bilinçli olarak yeniden başlatın.
+
+Devam etme, ayrıyken yeni ileti gelmemiş olsa bile bellekte tutulan kaydırma geçmişini yeniden çizer. /set single_session on ikinci bir arka plan işini reddederek numarasız --resume seçimini belirsiz bırakmaz.
+
+Terminalsiz başlatmak için kabukta --background kullanın; programın seçenekleri için --help bölümüne bakın.
+
+background_away açıksa ve profil otomatik uzaklık durumuna izin veriyorsa /background veya yönetilen terminalin kaybı, ayrılmadan sonra ayarlanmış AWAY durumunu kuyruğa alır. Devam etmek yalnızca istemcinin oluşturduğu uzaklık durumunu kaldırır; elle girilen /away korunur.
+
+Geçici bağlantı hatalarında yeniden denemek için --reconnect ekleyin. /help deployment ve /help reconnect bölümlerine bakın.
+
+Terminal çoklayıcı gerekmez. Henüz bitmemiş DNS çözümleyici veya kimlik bilgisi yardımcısı nedeniyle tekrar denemek gerekebilir.
+
+Normal bir ön plan sürecini askıya almak ağını duraklatır. Devam edilen bir işte ön plan denetleyicisi askıya alınabilirken yönetilen çalışan ağda kalır.
+
+Kabukta: onekeyirc --sessions; onekeyirc --detach-session NUMBER; onekeyirc --resume NUMBER; onekeyirc --close-session NUMBER.
+
+Examples:
+/background

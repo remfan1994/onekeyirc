@@ -1,0 +1,30 @@
+[
+  {
+    "client": "onekeyirc",
+    "source": "src/idle_commands.c",
+    "kind": "fixed",
+    "english": "No such server number. Servers start at 1; /servers lists them. Panel 0 contains application preferences.",
+    "fields": []
+  },
+  {
+    "client": "onekeyirc",
+    "source": "src/idle_commands.c",
+    "kind": "fixed",
+    "english": "No such server number. Use /servers to list available slots.",
+    "fields": []
+  },
+  {
+    "client": "onekeyirc",
+    "source": "src/idle_commands.c",
+    "kind": "fixed",
+    "english": "No matching channels received yet.",
+    "fields": []
+  },
+  {
+    "client": "onekeyirc",
+    "source": "src/idle_commands.c",
+    "kind": "fixed",
+    "english": "No cached channels match the current LIST filters.",
+    "fields": []
+  }
+]

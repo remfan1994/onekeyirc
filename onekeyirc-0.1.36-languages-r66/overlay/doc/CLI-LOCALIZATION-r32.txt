@@ -1,0 +1,17 @@
+COMMAND-LINE TRANSLATION r32 - TEN LANGUAGES
+This optional localization patch is for onekeyirc 0.1.36.
+Unreviewed translation drafts. The English source remains authoritative.
+English main.c SHA256: 916fac192c30e8a8032d4d13c79270bbdf68120fa446a847ec21cefe9fc0f2dd
+
+Added direct runtime translations: 24 fixed CLI errors, 4 other startup
+messages, and 8 translated introductory --help lines per locale.
+The complete English option table remains copyable and unchanged.
+No protocol text, options, configuration syntax, or exit codes changed.
+The summary prints before --help only for a supported non-English locale.
+Environment: ONEKEYIRC_LANG=id|ms|tr|es|pt|fr|de|ru|it|ar.
+Use --manual for the existing localized full manual and help.
+Arabic: logical UTF-8 is preserved; no visual reversal on the wire.
+
+A full source audit is still needed for diagnostics in other C files,
+dynamic printf messages, ncurses panels and per-server status notices.
+Only these fixed CLI paths have been added in this pass.

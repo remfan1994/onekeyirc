@@ -1,0 +1,16 @@
+Managed sessions and SSH loss
+Source: SECURITY.md, section "Managed sessions and SSH loss"
+English section SHA-256: f44a63f7faada1375f5769e9dfe2235da96547fa535b07d1c9869cba13ca063f
+Paragraphs: 5
+Status: Translation draft; fluent-speaker security review required
+English SECURITY.md remains authoritative. This is only one section, not the full security document.
+
+Background cria um endpoint de trabalho local privado para a conta e uma concessão de duração. O registro é separado por programa e usuãrio Unix, com 64 posições numeradas. Não é um ouvinte da Internet nem mecanismo de persisténcia apõs reiniciar. Descoberta/anexação/controle verificam caminhos privados, identidades de arquivos e token de encarnação do worker selecionado; números de trabalho nunca são tratados como PID. Credenciais do par do mesmo usuãrio são verificadas onde a plataforma permite.
+
+Sõ um terminal pode estar anexado por vez. Resume valida descritores de terminal transferidos e metadados TERM/locale limitados. A descoberta tem limites, ignora objetos inseguros e não apaga recursivamente conteúdo inesperado do registro. Um worker ativo mas sem resposta mantém sua concessão e é relatado como não verificado. --resume sem argumento seleciona apenas um único worker desconectado disponível e verificado, sem candidato não verificado. single_session restringe a criação de trabalhos em segundo plano, não a quantidade de conexões IRC dentro de um worker existente.
+
+--detach-session NUMBER libera o terminal/controlador escolhido preservando worker, conexões, rascunhos, transferéncias e histõrico retido. --close-session NUMBER encerra todo o worker e descarta o estado de RAM não salvo. Detach espera confirmação da liberação do terminal; close aguarda remoção do endpoint/concessão. Aceitação não significa conclusão. Os controles tém prazos e nunca matam um PID numérico presumido. Não remova endpoints como procedimento de recuperação.
+
+Se o terminal/controlador de um worker jã gerenciado desaparecer, o worker é desconectado dele. Um processo normal em primeiro plano que nunca foi gerenciado não tem trabalho recuperãvel. Instalar outro executãvel não atualiza o protocolo de um worker em execução; workers antigos podem exigir seus controles existentes para parar corretamente.
+
+A fila minimalista de saída tem limites e solicitações explícitas de Background podem ser atendidas enquanto estã bloqueada. Escritas de limpeza/avisos são de melhor esforço e podem faltar num terminal parado. O desenho ncurses completo ainda usa saída síncrona para o terminal; um terminal aberto e permanentemente bloqueado pode atrasar a verificação dos controles. Um prazo excedido é informado como tal, não como sucesso de encerramento forçado. Nenhum cliente configura a política de desconexão por inatividade do servidor SSH.

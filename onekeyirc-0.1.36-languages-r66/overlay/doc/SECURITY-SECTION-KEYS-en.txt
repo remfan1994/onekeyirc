@@ -1,0 +1,10 @@
+User-defined key bindings
+Source: SECURITY.md, section "User-defined key bindings"
+English section SHA-256: 250d7d0eb62f8b649e64f59b1e69d2220ec79005f08d6a7dfba30905d1133303
+Paragraphs: 2
+Status: Verbatim English reference
+English SECURITY.md remains authoritative. This is only one section, not the full security document.
+
+The primary config owns at most 64 bindings; the default table is empty. Keys normalize to a fixed identity and actions come from a local allowlist. There is no arbitrary command, shell expansion, raw IRC or direct send action. Unknown/duplicate/oversized bindings reject a config load atomically. Only explicit Save persists edits, through the existing private-file writer.
+
+Custom dispatch is confined to main chat and command entry. Paste and modal fields/readers/confirmations do not execute custom actions. Function/Alt decoding cannot reinterpret captured paste as an action, and a paste-ending input burst does not immediately execute a shortcut. Unframed paste remains indistinguishable from typing, and terminal interception of keys precedes the program. Bindings never reassign terminal signal characters or enable signals. See doc/HOTKEYS.txt for exact scope and draft protection.

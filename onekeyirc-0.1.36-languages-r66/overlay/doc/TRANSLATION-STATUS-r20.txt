@@ -1,0 +1,11 @@
+OPTIONAL LANGUAGE/ARABIC RTL PATCH r20 - STATUS
+Client: onekeyirc 0.1.35, original English source r1 unchanged.
+The onekeyirc minimalist command/topic help and exported minimalist manuals
+are already translated into all ten supported languages, with 844 catalog
+entries per locale. Full-line manual exports were completed in r10.
+No new onekeyirc prose translations are claimed in r20. The new source-linked
+vipirc ncurses manual chapters belong to the separate vipirc optional pack.
+This r20 onekeyirc revision updates the optional patch identifier, README
+instructions and documentation inventory only. RTL behavior is unchanged.
+Fluent proofreading and other long-form security and supporting documents
+remain to be completed. English documentation remains authoritative.

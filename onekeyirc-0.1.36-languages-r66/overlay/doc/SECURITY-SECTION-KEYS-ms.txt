@@ -1,0 +1,10 @@
+User-defined key bindings
+Source: SECURITY.md, section "User-defined key bindings"
+English section SHA-256: 250d7d0eb62f8b649e64f59b1e69d2220ec79005f08d6a7dfba30905d1133303
+Paragraphs: 2
+Status: Translation draft; fluent-speaker security review required
+English SECURITY.md remains authoritative. This is only one section, not the full security document.
+
+Konfigurasi utama memiliki paling banyak 64 ikatan kekunci; jadual lalai kosong. Kekunci dinormalkan kepada identiti tetap dan tindakan datang daripada senarai yang dibenarkan secara setempat. Tiada arahan sewenang-wenangnya, pengembangan shell, IRC mentah atau tindakan hantar terus. Ikatan tidak dikenali, berganda atau terlalu besar menyebabkan muatan konfigurasi ditolak secara atomik. Hanya Save yang nyata menyimpan suntingan melalui penulis fail peribadi sedia ada.
+
+Pengendalian ikatan tersuai hanya berlaku pada sembang utama dan kemasukan arahan. Tampalan serta medan, pembaca dan pengesahan modal tidak melaksanakan tindakan tersuai. Penyahkodan Function/Alt tidak boleh mentafsir semula tampalan yang ditangkap sebagai tindakan; rentetan input selepas tampalan tamat tidak terus melaksanakan pintasan. Tampalan tanpa pembingkaian tidak dapat dibezakan daripada menaip. Terminal memintas kekunci sebelum program menerimanya. Ikatan tidak sekali-kali menetapkan semula aksara isyarat terminal atau menghidupkan isyarat. Lihat doc/HOTKEYS.txt untuk skop tepat dan perlindungan draf.

@@ -1,0 +1,4 @@
+Standalone translation update r50: 34 new setup errors and result notices x 10 locales.
+Exact English config tokens and IRC commands remain unchanged.
+No user-supplied input or translated catalog is used as a printf format.
+Native-speaker, OpenBSD, Crostini and real terminal testing remain necessary.

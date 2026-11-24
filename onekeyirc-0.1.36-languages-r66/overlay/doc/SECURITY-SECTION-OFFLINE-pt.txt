@@ -1,0 +1,12 @@
+Offline checks and evidence
+Source: SECURITY.md, section "Offline checks and evidence"
+English section SHA-256: 9c67268cfad3c6bc3c5553f23c932c342c3f11231b325d758eeade66d790b4bd
+Paragraphs: 3
+Status: Translation draft; fluent-speaker security review required
+English SECURITY.md remains authoritative. This is one source-linked section, not a security certification.
+
+--help, --version e --manual não carregam configuração nem credenciais. --check-config valida a sintaxe da configuração/catálogo, valores e proteções dos ficheiros; não testa acesso/desencriptação de palavras-passe, DNS, TLS ou uma autenticação real. --test-mode carrega perfis válidos num simulador no próprio processo, sem rede IRC/DCC, leitura de credenciais/CA, GPG ou gravações de configuração. Valores inline podem ser analisados, mas nunca são enviados. Uma ação explícita Background ainda pode criar IPC de sessão local. Sucesso na simulação não demonstra compatibilidade com servidores reais.
+
+A revisão de recuperação da altura abrange vipirc 0.7.34 / onekeyirc 0.1.33 em doc/STABILITY-REVIEW-0.7.34-0.1.33.txt e doc/STABILITY-PASS-RESULTS.json. Regista falhas reproduzidas, correções, verificações de falhas de recursos e de carga limitada e restrições de plataforma. A revisão de segurança anterior está em doc/SECURITY-REVIEW-0.7.33-0.1.32.txt e doc/SECURITY-PASS-RESULTS.json. Relatórios anteriores identificados ou datados mantêm as versões de origem, cargas de teste e limites de plataforma originais; não afirmam que os testes tenham sido repetidos.
+
+Os testes locais de protocolo não comprovam o funcionamento num daemon ZNC/soju real nem numa conta IRCNow. A execução completa de ncurses, o ciclo de vida nativo de AF_UNIX com nome, OpenBSD/LibreSSL e o comportamento do anfitrião de implementação exigem testes nos seus ambientes de destino. Um teste de esforço curto não demonstra meses de fiabilidade sem supervisão. Comunique a versão, plataforma, passos reproduzíveis e diagnósticos sem dados sensíveis; omita palavras-passe, chaves privadas e transcrições de conversas privadas.

@@ -1,0 +1,17 @@
+client	source	kind	english	fields
+onekeyirc	src/idle.c	named-fields	"Review S{number} {target}: {count} message ({bytes} UTF-8 bytes)."	number,target,count,bytes
+onekeyirc	src/idle.c	named-fields	"Review S{number} {target}: {count} messages ({bytes} UTF-8 bytes)."	number,target,count,bytes
+onekeyirc	src/idle.c	named-fields	"Review unavailable conversation {target}: {count} message ({bytes} UTF-8 bytes)."	target,count,bytes
+onekeyirc	src/idle.c	named-fields	"Review unavailable conversation {target}: {count} messages ({bytes} UTF-8 bytes)."	target,count,bytes
+onekeyirc	src/idle.c	named-fields	"Message limit reached ({limit} bytes). Enter confirms continued editing; Backspace/Delete can reduce; Esc cancels."	limit
+onekeyirc	src/idle.c	named-fields	"This draft needs {count} IRC messages. Sending still requires explicit confirmation."	count
+onekeyirc	src/idle.c	named-fields	"Up/Down row | PgUp/PgDn page | Home anchor | End newest | Esc live | row {row}/{total}"	row,total
+onekeyirc	src/idle.c	named-fields	"Up/Down row | PgUp/PgDn page | Home oldest | End/Esc live | {count} back"	count
+onekeyirc	src/idle.c	named-fields	"{item} is a suggestion on the command screen."	item
+onekeyirc	src/idle.c	named-fields	"{item} is an option on the {screen} screen."	item,screen
+onekeyirc	src/idle.c	named-fields	"Saved-server catalog: {error}"	error
+onekeyirc	src/idle.c	named-fields	"Saved server {number}: {error}"	number,error
+onekeyirc	src/idle.c	fixed	"profile could not be loaded"	
+onekeyirc	src/idle.c	fixed	"Retained stream records for this conversation cleared."	
+onekeyirc	src/idle.c	fixed	"Setup cancelled."	
+onekeyirc	src/idle.c	fixed	"Draft cancelled; nothing sent."	

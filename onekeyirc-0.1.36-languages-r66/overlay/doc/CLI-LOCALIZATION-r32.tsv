@@ -1,0 +1,37 @@
+group	english	locales	status
+fixed-error	input is too long	id,ms,tr,es,pt,fr,de,ru,it,ar	draft/source-linked
+fixed-error	input contains an unsupported control character	id,ms,tr,es,pt,fr,de,ru,it,ar	draft/source-linked
+fixed-error	cannot reserve standard input/output descriptors	id,ms,tr,es,pt,fr,de,ru,it,ar	draft/source-linked
+fixed-error	the ncurses interface is available in vipirc; onekeyirc uses the minimalist interface	id,ms,tr,es,pt,fr,de,ru,it,ar	draft/source-linked
+fixed-error	specify --resume only once	id,ms,tr,es,pt,fr,de,ru,it,ar	draft/source-linked
+fixed-error	specify --close-session only once	id,ms,tr,es,pt,fr,de,ru,it,ar	draft/source-linked
+fixed-error	specify --detach-session only once	id,ms,tr,es,pt,fr,de,ru,it,ar	draft/source-linked
+fixed-error	invalid option; use --help	id,ms,tr,es,pt,fr,de,ru,it,ar	draft/source-linked
+fixed-error	unexpected operand; use --help	id,ms,tr,es,pt,fr,de,ru,it,ar	draft/source-linked
+fixed-error	set-user-ID/set-group-ID operation is not supported	id,ms,tr,es,pt,fr,de,ru,it,ar	draft/source-linked
+fixed-error	cannot disable credential-bearing core dumps	id,ms,tr,es,pt,fr,de,ru,it,ar	draft/source-linked
+fixed-error	cannot disable process memory dumps	id,ms,tr,es,pt,fr,de,ru,it,ar	draft/source-linked
+fixed-error	--resume, --sessions, --detach-session and --close-session are separate operations; do not combine them with connection or configuration options	id,ms,tr,es,pt,fr,de,ru,it,ar	draft/source-linked
+fixed-error	--test-mode cannot be combined with --init-config or --check-config	id,ms,tr,es,pt,fr,de,ru,it,ar	draft/source-linked
+fixed-error	--background and --reconnect are runtime options; do not combine them with --init-config or --check-config	id,ms,tr,es,pt,fr,de,ru,it,ar	draft/source-linked
+fixed-error	configuration path must not be empty	id,ms,tr,es,pt,fr,de,ru,it,ar	draft/source-linked
+fixed-error	port must be 1..65535	id,ms,tr,es,pt,fr,de,ru,it,ar	draft/source-linked
+fixed-error	channel list is too long	id,ms,tr,es,pt,fr,de,ru,it,ar	draft/source-linked
+fixed-error	config already exists; --init-config will not overwrite it	id,ms,tr,es,pt,fr,de,ru,it,ar	draft/source-linked
+fixed-error	--background requires an existing configuration or an explicit --server; configure and check it first	id,ms,tr,es,pt,fr,de,ru,it,ar	draft/source-linked
+fixed-error	interactive operation requires a terminal; use --help or --manual	id,ms,tr,es,pt,fr,de,ru,it,ar	draft/source-linked
+fixed-error	cannot allocate client state	id,ms,tr,es,pt,fr,de,ru,it,ar	draft/source-linked
+fixed-error	saved default connection is unavailable; specify --server HOST or repair the saved configuration before applying connection options	id,ms,tr,es,pt,fr,de,ru,it,ar	draft/source-linked
+fixed-error	cannot allocate session runtime	id,ms,tr,es,pt,fr,de,ru,it,ar	draft/source-linked
+startup	configuration file does not exist; use --init-config first	id,ms,tr,es,pt,fr,de,ru,it,ar	draft/source-linked
+startup	Configuration is valid.	id,ms,tr,es,pt,fr,de,ru,it,ar	draft/source-linked
+startup	Choose a valid IRC nickname (ASCII letters, digits, or IRC nickname symbols).	id,ms,tr,es,pt,fr,de,ru,it,ar	draft/source-linked
+startup	Created	id,ms,tr,es,pt,fr,de,ru,it,ar	draft/source-linked
+help-intro	Translated command-line overview (English option list follows):	id,ms,tr,es,pt,fr,de,ru,it,ar	draft/source-linked
+help-intro	Connect with --server HOST; use --no-connect to start without a network connection.	id,ms,tr,es,pt,fr,de,ru,it,ar	draft/source-linked
+help-intro	Choose verified TLS with --tls; --plain sends IRC without encryption.	id,ms,tr,es,pt,fr,de,ru,it,ar	draft/source-linked
+help-intro	Use --check-config to check settings; it does not test login or TLS.	id,ms,tr,es,pt,fr,de,ru,it,ar	draft/source-linked
+help-intro	Use --sessions to list jobs; --resume JOB resumes a detached job.	id,ms,tr,es,pt,fr,de,ru,it,ar	draft/source-linked
+help-intro	Use signals is off by default; Ctrl-C/Ctrl-Z cancel unsent text. Use /quit to exit.	id,ms,tr,es,pt,fr,de,ru,it,ar	draft/source-linked
+help-intro	Run --manual for the full manual in your selected language.	id,ms,tr,es,pt,fr,de,ru,it,ar	draft/source-linked
+help-intro	Command and option spellings in the English reference below are literal.	id,ms,tr,es,pt,fr,de,ru,it,ar	draft/source-linked

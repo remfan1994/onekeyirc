@@ -1,0 +1,11 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: SECURITY.md / Trust boundary
+English source SHA-256: 3a8de003f1fb27ecf4c0a8a05eaa1e384e3d8e756927b0645d3341cf27dd4f1f
+
+SEMPADAN KEPERCAYAAN
+
+Pelayan IRC, rakan, nama samaran, topik, medan protokol, nama fail dan teks tampalan ialah input tidak dipercayai. Sistem operasi, terminal, pustaka C/TLS, stor sijil dipercayai dan akaun pengguna kekal sebagai komponen dipercayai. Antara muka vipirc penuh turut mempercayai curses. GPG menambah program, keyring dan ejennya. Profil pelayan berkongsi satu proses, bukan ruang keselamatan berasingan. Proses lain dengan keistimewaan akaun sama lazimnya boleh memeriksa fail persendirian dan memori.
+
+Jalankan di bawah akaun biasa. Sebelum membaca konfigurasi, program menolak ID pengguna/kumpulan sebenar dan berkesan yang tidak sepadan, mematikan core dump dan menetapkan umask 0077. Linux juga mematikan kebolehan proses untuk didump. Deskriptor piawai yang tiada ditempah melalui /dev/null sebelum membuka sumber aplikasi; aliran terbuka yang diwarisi dan benderanya tidak diubah. Kegagalan perlindungan permulaan wajib menghentikan program. Kawalan ini bukan pledge/unveil, seccomp, pengasingan keistimewaan atau perlindungan terhadap hos yang telah diceroboh.
+
+configure menguji pengerasan compiler/linker yang disokong oleh hos, termasuk perlindungan stack, pemeriksaan libc diperkukuh, diagnostik format, PIE, RELRO, pengikatan segera dan stack tidak boleh dilaksanakan. Semak bendera konfigurasi pada hos sasaran; bukan semua platform menyokong semuanya.

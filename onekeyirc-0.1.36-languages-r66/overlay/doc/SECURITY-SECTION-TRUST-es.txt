@@ -1,0 +1,12 @@
+Trust boundary
+Source: SECURITY.md, section "Trust boundary"
+English section SHA-256: b206f366472f34a9c25e1096f15d6fe813e99115c1e789ab4fa3d857e18f7595
+Paragraphs: 3
+Status: Translation draft; fluent-speaker security review required
+English SECURITY.md remains authoritative. This is only one section, not the full security document.
+
+Los servidores IRC, los pares, los apodos, los temas, los campos del protocolo, los nombres de archivo y el texto pegado son entradas no confiables. Se consideran componentes de confianza el sistema operativo, el terminal, las bibliotecas C/TLS, el almacén de certificados de confianza y la cuenta del usuario. La interfaz completa de vipirc también confía en curses. GPG añade su ejecutable, su almacén de claves y su agente. Los perfiles de servidor comparten un proceso: no son compartimentos de seguridad aislados. Por lo general, otro proceso con los mismos privilegios de cuenta puede inspeccionar archivos privados y memoria.
+
+Ejecute el programa con una cuenta ordinaria. Antes de leer la configuración, las ejecuciones operativas rechazan discrepancias entre identificadores reales y efectivos de usuario o grupo, deshabilitan los archivos de volcado de memoria y establecen umask 0077. En Linux también se deshabilita la posibilidad de volcar la memoria del proceso. Los descriptores estándar ausentes se reservan mediante /dev/null antes de abrir recursos de la aplicación; los flujos abiertos heredados y sus indicadores permanecen intactos. Si falla una protección obligatoria del arranque, se detiene la ejecución. Estas medidas no proporcionan pledge/unveil, seccomp, separación de privilegios ni protección frente a un sistema anfitrión comprometido.
+
+configure comprueba las medidas de endurecimiento del compilador y enlazador admitidas por el sistema, incluidas la protección de pila, las comprobaciones reforzadas de libc, los diagnósticos de formato, PIE, RELRO, el enlace inmediato y una pila no ejecutable. Examine las opciones de compilación configuradas en el equipo de despliegue: no todas las plataformas admiten todas las opciones.

@@ -1,0 +1,12 @@
+Offline checks and evidence
+Source: SECURITY.md, section "Offline checks and evidence"
+English section SHA-256: 9c67268cfad3c6bc3c5553f23c932c342c3f11231b325d758eeade66d790b4bd
+Paragraphs: 3
+Status: Translation draft; fluent-speaker security review required
+English SECURITY.md remains authoritative. This is one source-linked section, not a security certification.
+
+لا تحمل الخيارات --help و --version و --manual التكوين أو بيانات الاعتماد. يتحقق --check-config من صياغة التكوين/الفهرس والقيم وحماية الملفات، لكنه لا يختبر الوصول إلى كلمات المرور أو فك تشفيرها أو DNS أو TLS أو تسجيل دخول حقيقي. يحمّل --test-mode الملفات التعريفية الصحيحة إلى محاكي داخل العملية من دون شبكة IRC/DCC أو قراءة بيانات الاعتماد/CA أو تشغيل GPG أو حفظ التكوين. قد يحلل القيم المكتوبة مباشرة لكنه لا يرسلها أبداً. ما زال طلب Background الصريح قادراً على إنشاء IPC محلي للجلسة. نجاح المحاكاة لا يثبت التوافق مع خادم حقيقي.
+
+تغطي مراجعة الاسترداد المنجزة آنذاك الإصدارين vipirc 0.7.34 / onekeyirc 0.1.33 في doc/STABILITY-REVIEW-0.7.34-0.1.33.txt و doc/STABILITY-PASS-RESULTS.json. وتوثق الإخفاقات المعاد إنتاجها والتصحيحات واختبارات فشل الموارد والأحمال المحدودة وحدود الأنظمة. أما المراجعة الأمنية الأسبق فترد في doc/SECURITY-REVIEW-0.7.33-0.1.32.txt و doc/SECURITY-PASS-RESULTS.json. تحتفظ التقارير الأقدم المسماة أو المؤرخة بإصدارات المصدر وأحمال الاختبار وحدود الأنظمة الأصلية، ولا تعني إعادة تشغيل تلك الاختبارات الآن.
+
+لا تثبت اختبارات البروتوكول المحلية عمل البرنامج مع خادم ZNC/soju فعلي أو حساب IRCNow. ويلزم اختبار تشغيل ncurses الكامل ودورة حياة AF_UNIX ذي الاسم على النظام الأصلي وسلوك OpenBSD/LibreSSL ومضيف النشر على البيئات المستهدفة. لا يثبت اختبار إجهاد قصير موثوقية التشغيل بلا مراقبة طوال أشهر. عند الإبلاغ أرفق الإصدار والنظام وخطوات إعادة إنتاج المشكلة وتشخيصات أزيلت منها الأسرار؛ ولا ترسل كلمات المرور أو المفاتيح الخاصة أو نصوص المحادثات الخاصة.

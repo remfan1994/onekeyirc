@@ -1,0 +1,6 @@
+onekeyirc-0.1.36 setup guidance localization r48
+8 source-linked guided setup explanations in ten locales.
+English r1 application version, TLS/security, authentication, GPG, config, protocol and wire behavior unchanged.
+Fixed-string printf wrapper required: snprintf(...,"%s",irc_tr("original string")).
+onekeyirc native command suggestions already use their own translated catalog; setup text here was previously English.
+Native-speaker and actual terminal/network verification remain necessary.

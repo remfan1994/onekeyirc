@@ -1,0 +1,10 @@
+Child processes and synchronous work
+Source: SECURITY.md, section "Child processes and synchronous work"
+English section SHA-256: 79a87ca8215648f2d1f870067a2afe1fb4221757b00560b4b4191aac7832ba7f
+Paragraphs: 2
+Status: Translation draft; fluent-speaker security review required
+English SECURITY.md remains authoritative. This is only one section, not the full security document.
+
+DNS çözümlemesi, zaman sınırlı ve gözetilen doğrudan beklenebilir bir alt süreçte yapılır; temizleme yalnızca sahip olunan bu alt süreci etkiler. Çözümleyici yardımcı süreç grubuna konulmaz. GPG ayrı bir süreç grubuna sahiptir ve çıktı kanalları bitene kadar beklenebilir doğrudan alt süreç kimliğini korur; böylece iptal, aynı gruptaki devralınan kanal yazarlarını durdurabilir. GPG güvenilen bir programdır, yalıtılmış bir çalışma ortamı değildir: gruptan isteyerek ayrılan alt süreçler temizleme kapsamı dışındadır.
+
+Çözümleyici/yardımcı süreç başlatmaları ve ilk arka plan oturumu oluşturma, devralınan SIGCHLD=SIG_IGN veya SA_NOCLDWAIT ayarlarını reddeder. İlk ayırma hazırlık sonrası yeniden denetler; yönetilen bir oturumu yeniden ayırmak fork yapmaz. Modüllerin, alt süreçlerini toplayan ilgisiz bir sinyal işleyicisi altında çalıştırılması desteklenmez. O_NONBLOCK FIFO açılışında beklemeyi önlese bile normal dosya ve üst veri işlemleri eşzamanlı kalır.

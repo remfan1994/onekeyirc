@@ -1,0 +1,9 @@
+source	kind	fields	english
+src/idle.c	fixed-display		Connection changed after this draft was prepared. Return to editing and review it again; nothing sent.
+src/idle.c	fixed-display		The message limit changed. Review the updated message count before sending.
+src/idle.c	fixed-display		Message limit acknowledged. A split send will still require explicit confirmation.
+src/idle.c	fixed-display		Confirm the message-limit warning with Enter before adding more text.
+src/idle.c	fixed-display		Cannot change terminal signals until reattachment; saved choice applies at next launch.
+src/idle.c	fixed-display		Refresh could not complete; the previous summary is retained.
+src/idle.c	fixed-display		This shortcut action is unavailable here; draft retained.
+src/idle.c	fixed-display		Choose a channel or query with a command before composing.

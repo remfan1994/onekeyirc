@@ -1,0 +1,76 @@
+[
+  {
+    "source": "src/idle.c",
+    "kind": "fixed",
+    "english": "The setup result appears after the current paste and queued input finish.",
+    "fields": []
+  },
+  {
+    "source": "src/idle.c",
+    "kind": "fixed",
+    "english": "command response reader",
+    "fields": []
+  },
+  {
+    "source": "src/idle.c",
+    "kind": "fixed",
+    "english": "watch log",
+    "fields": []
+  },
+  {
+    "source": "src/idle.c",
+    "kind": "fixed",
+    "english": "The summary is a snapshot of all configured server sessions, channel and query views, activity, pending work, and file transfers.",
+    "fields": []
+  },
+  {
+    "source": "src/idle.c",
+    "kind": "fixed",
+    "english": "Mentions can also be unread messages; their counts are not added together.",
+    "fields": []
+  },
+  {
+    "source": "src/idle.c",
+    "kind": "fixed",
+    "english": "Press r in the summary reader to refresh from current state. Reading or refreshing does not send an IRC command.",
+    "fields": []
+  },
+  {
+    "source": "src/idle.c",
+    "kind": "fixed",
+    "english": "This reader retains the result while you inspect it. The underlying conversation and unfinished command remain available.",
+    "fields": []
+  },
+  {
+    "source": "src/idle.c",
+    "kind": "fixed",
+    "english": "Mentions collect messages that matched your nickname or watch terms. Their original conversations remain separate.",
+    "fields": []
+  },
+  {
+    "source": "src/idle.c",
+    "kind": "fixed",
+    "english": "The server log contains connection information and replies. /join opens a channel; /list searches the network's channels; /disconnect closes this connection.",
+    "fields": []
+  },
+  {
+    "source": "src/idle.c",
+    "kind": "fixed",
+    "english": "A query is a private conversation on its server. /me sends an action, /whois requests information, and /close closes its local view.",
+    "fields": []
+  },
+  {
+    "source": "src/idle.c",
+    "kind": "fixed",
+    "english": "A channel is a shared conversation on its server. /me sends an action, /topic reads or edits its topic, /users lists its users, and /part leaves it.",
+    "fields": []
+  },
+  {
+    "source": "src/idle.c",
+    "kind": "named-fields",
+    "english": "{item} is displayed in the command response reader.",
+    "fields": [
+      "item"
+    ]
+  }
+]

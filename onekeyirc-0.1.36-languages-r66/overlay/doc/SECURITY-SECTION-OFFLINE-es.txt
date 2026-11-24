@@ -1,0 +1,12 @@
+Offline checks and evidence
+Source: SECURITY.md, section "Offline checks and evidence"
+English section SHA-256: 9c67268cfad3c6bc3c5553f23c932c342c3f11231b325d758eeade66d790b4bd
+Paragraphs: 3
+Status: Translation draft; fluent-speaker security review required
+English SECURITY.md remains authoritative. This is one source-linked section, not a security certification.
+
+--help, --version y --manual no cargan la configuración ni las credenciales. --check-config valida la sintaxis de configuración/catálogo, los valores y las protecciones de archivos; no comprueba el acceso ni descifrado de contraseñas, DNS, TLS ni un inicio de sesión real. --test-mode carga perfiles válidos en un simulador del mismo proceso, sin conexiones IRC/DCC, lecturas de credenciales/CA, GPG ni guardado de configuración. Puede analizar valores inline, pero nunca los envía. Una orden explícita Background todavía puede crear IPC local de sesión. Que la simulación funcione no demuestra compatibilidad con un servidor real.
+
+La revisión de recuperación de su época abarca vipirc 0.7.34 / onekeyirc 0.1.33 en doc/STABILITY-REVIEW-0.7.34-0.1.33.txt y doc/STABILITY-PASS-RESULTS.json. Registra fallos reproducidos, correcciones, pruebas de agotamiento de recursos y carga limitada, así como restricciones de plataforma. La revisión de seguridad anterior figura en doc/SECURITY-REVIEW-0.7.33-0.1.32.txt y doc/SECURITY-PASS-RESULTS.json. Los informes anteriores con nombre o fecha conservan sus versiones originales de código, cargas de prueba y limitaciones de plataforma; no afirman que las pruebas se hayan repetido.
+
+Las pruebas locales del protocolo no demuestran el funcionamiento con un servicio ZNC/soju real ni con una cuenta de IRCNow. Es necesario comprobar en los sistemas de destino la ejecución completa de ncurses, el ciclo de vida nativo de AF_UNIX con nombre, OpenBSD/LibreSSL y el comportamiento del servidor de despliegue. Una prueba de estrés breve no demuestra meses de fiabilidad sin supervisión. Informe la versión, plataforma, pasos reproducibles y diagnósticos anonimizados; omita contraseñas, claves privadas y transcripciones de conversaciones privadas.

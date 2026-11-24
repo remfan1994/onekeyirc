@@ -1,0 +1,18 @@
+CONFIGURATION ERROR LOCALIZATION r63 - onekeyirc-0.1.36
+Application version and original English source r1 are unchanged.
+
+30 fixed error messages from src/config.c are translated at display boundaries.
+The source program still validates and serializes only canonical English
+configuration syntax. Literal names such as auth=none, password_file,
+XDG_CONFIG_HOME, 0600, TLS and server_password never become localized inputs.
+Errors containing variable numbers, paths, UID/mode or strerror are NOT
+translated by this batch; known exact errors are translated, unknown errors
+and server-provided messages are not. Do not use localized text as a printf
+format. Six command error paths use the local c->translate callback.
+
+Test on matching clean English-r1 source after applying this patch:
+  cc -std=c11 -Wall -Wextra -Werror -Isrc -o config_l10n_test tests/test_config_diagnostic_l10n.c
+  ONEKEYIRC_LANG=fr TEST_EXPECT_TRANSLATION=1 ./config_l10n_test
+
+The full localized ncurses interface requires live testing on OpenBSD/Crostini.
+Translations have not been reviewed by native speakers.

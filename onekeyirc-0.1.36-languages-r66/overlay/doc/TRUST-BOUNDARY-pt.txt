@@ -1,0 +1,11 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: SECURITY.md / Trust boundary
+English source SHA-256: 3a8de003f1fb27ecf4c0a8a05eaa1e384e3d8e756927b0645d3341cf27dd4f1f
+
+FRONTEIRA DE CONFIANÇA
+
+Servidores IRC, outros participantes, apelidos, tópicos, campos de protocolo, nomes de arquivos e texto colado são entradas não confiáveis. O sistema operacional, terminal, bibliotecas C/TLS, repositório de certificados confiáveis e conta do usuário continuam sendo componentes confiados. A interface completa do vipirc também confia em curses. O GPG acrescenta seu executável, chaveiro e agente. Perfis de servidor compartilham um processo e não são compartimentos isolados de segurança. Outro processo com os privilégios da mesma conta geralmente pode examinar arquivos privados e memória.
+
+Execute sob uma conta normal. Antes de ler a configuração, as operações rejeitam IDs reais e efetivos de usuário ou grupo divergentes, desativam core dumps e definem umask 0077. O Linux também desativa a criação de dumps do processo. Descritores padrão ausentes são reservados com /dev/null antes da abertura de recursos; fluxos abertos herdados e seus sinalizadores permanecem inalterados. Falha de proteção obrigatória na inicialização interrompe a execução. Essas medidas não oferecem pledge/unveil, seccomp, separação de privilégios nem proteção contra comprometimento do host.
+
+configure verifica o endurecimento do compilador/linker suportado pela máquina, incluindo proteção de stack, verificações reforçadas de libc, diagnósticos de formato, PIE, RELRO, vinculação imediata e stack não executável. Inspecione os sinalizadores configurados na máquina de implantação; nem toda plataforma suporta todos.

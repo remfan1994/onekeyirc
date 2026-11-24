@@ -1,0 +1,14 @@
+app	key	source	kind	fields
+onekeyirc	A stream line could not be retained (allocation failed).	src/idle.c	fixed-display	
+onekeyirc	Completed command would exceed the input limit; draft retained.	src/idle.c	fixed-display	
+onekeyirc	Removed the selected command from recent history.	src/idle.c	fixed-display	
+onekeyirc	Reset the selected command's usage count.	src/idle.c	fixed-display	
+onekeyirc	This suggestion comes from the command catalog.	src/idle.c	fixed-display	
+onekeyirc	Catch-up is available in channel and query conversations.	src/idle.c	fixed-display	
+onekeyirc	Destination disconnected; draft retained.	src/idle.c	fixed-display	
+onekeyirc	Destination changed or channel was left; draft retained.	src/idle.c	fixed-display	
+onekeyirc	Finish or cancel the current draft before changing editors.	src/idle.c	fixed-display	
+onekeyirc	ASCII terminal: non-ASCII input rejected; use a UTF-8 LC_CTYPE.	src/idle.c	fixed-display	
+onekeyirc	Invalid UTF-8 input ignored.	src/idle.c	fixed-display	
+onekeyirc	Incomplete UTF-8 input ignored.	src/idle.c	fixed-display	
+onekeyirc	Paste interrupted by terminal change; review the retained draft before submitting.	src/idle.c	fixed-display	

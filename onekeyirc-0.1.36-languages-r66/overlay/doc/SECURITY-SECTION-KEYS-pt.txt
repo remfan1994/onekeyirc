@@ -1,0 +1,10 @@
+User-defined key bindings
+Source: SECURITY.md, section "User-defined key bindings"
+English section SHA-256: 250d7d0eb62f8b649e64f59b1e69d2220ec79005f08d6a7dfba30905d1133303
+Paragraphs: 2
+Status: Translation draft; fluent-speaker security review required
+English SECURITY.md remains authoritative. This is only one section, not the full security document.
+
+A configuração principal contém no máximo 64 associações de teclas; a tabela predefinida está vazia. As teclas são normalizadas para uma identidade fixa e as ações pertencem a uma lista local permitida. Não existe comando arbitrário, expansão de shell, IRC em bruto ou ação de envio direto. Associações desconhecidas, duplicadas ou demasiado grandes rejeitam atomicamente o carregamento da configuração. Só Save explícito persiste alterações através do mecanismo existente de escrita de ficheiros privados.
+
+A execução de ações personalizadas limita-se ao chat principal e à entrada de comandos. Colagens e campos, leitores ou confirmações modais não executam essas ações. A descodificação de teclas Function/Alt não transforma uma colagem capturada em ação, e a sequência de entrada que termina a colagem não executa imediatamente um atalho. Colagens sem delimitação não se distinguem de digitação. O terminal pode intercetar teclas antes da aplicação. As associações nunca reatribuem caracteres de sinal do terminal nem ativam sinais. Consulte doc/HOTKEYS.txt para o âmbito exato e a proteção de rascunhos.

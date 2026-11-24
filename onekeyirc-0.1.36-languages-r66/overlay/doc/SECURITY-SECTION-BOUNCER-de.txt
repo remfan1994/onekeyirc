@@ -1,0 +1,16 @@
+ZNC, soju and playback
+Source: SECURITY.md, section "ZNC, soju and playback"
+English section SHA-256: f0e223c83f0df60aa10260168ae7433ff77fbbd2f4cef7d4914cd07da4f7ed99
+Paragraphs: 5
+Status: Translation draft; fluent-speaker security review required
+English SECURITY.md remains authoritative. This is only one section, not the full security document.
+
+Explizite Bouncer-Profile erfordern geprüftes TLS sowie Konto-/Netzwerkidentität, optional mit Clientnamen. ZNC verwendet die Server-Passwortquelle; soju verlangt SASL PLAIN und eine SASL-Passwortquelle. Der Einrichtungsprozess übernimmt Endpunkt, Identität und Zugangsdaten gemeinsam und verwirft veraltete Entwürfe, wenn sich diese Bindungen ändern. Die vorgelagerte IRC-Authentifizierung wird im Bouncer selbst eingerichtet.
+
+Vom Bouncer wiederhergestellte JOINs bestimmen die Kanalmitgliedschaft; gespeicherte Kanallisten werden nicht erneut abgespielt. Ausdrückliche Startbefehle sind bewusst gesetzte Ausnahmen. Automatisches away ist bei Bouncer-Profilen standardmäßig deaktiviert, damit ein Gerät seinen Leerlaufstatus nicht einem anderen aufzwingt. /away und /back bleiben ausdrückliche manuelle Aktionen. Die lokalen Worker-Steuerelemente verwalten nicht den entfernten Bouncer-Dienst.
+
+Steuertext für /znc und /soju passt in genau eine getaktete Nachricht und wird von Recall, lokalen Echos und dauerhaften Logs ausgeschlossen. Eingehende Kopien an den Bouncer-Dienst werden auch bei altem Nickname oder unbekannter Batch-Referenz unterdrückt. Dienstantworten bleiben in der Serveransicht sichtbar, werden aber nicht gespeichert. Erkannte private Authentifizierungskopien fehlen in Transkripten, unabhängig von Sendernick, Playback-Rahmung oder qualifiziertem Dienstziel. Aufbewahrter sichtbarer Text ist kein Geheimnisspeicher. Beim Verfassen kann Text sichtbar werden; der Bouncer-Administrator kann ihn empfangen und protokollieren. Dies ist keine Geheimhaltung vor dem ausgewählten Bouncer.
+
+Bekannte Verlaufs-Batches werden nur angezeigt: Sie dürfen keine aktuelle Mitgliedschaft oder Präsenz ändern, neue mentions-Hinweise auslösen, CTCP beantworten oder DCC-Angebote aktivieren. Verschachtelte/überlappende Verlaufsklammern sind auf 16 Batches und 64-byte-Referenzen begrenzt; fehlerhafte, widersprüchliche oder zu große Rahmen führen zur Trennung. Unbekannte Batch-Referenzen werden vorsichtig ebenfalls nur angezeigt. Gültige Original-Zeitstempel erscheinen in UTC, steuern aber niemals lokale Timer oder Sendetaktung.
+
+Der Client unterstützt vom Bouncer zugestellte Puffer, keinen Archivbrowser auf Abruf und keine kontoweite Netzwerkerkennung. Er fordert weder echo-message noch draft/chathistory oder znc.in/playback an. Ein Zeitstempel allein beweist keinen Verlauf; altes Playback ohne Batches wird normal als Live-Verkehr behandelt. Beliebiges Playback wird nicht über neu gestartete Prozesse hinweg dedupliziert. Einrichtung und Grenzen: doc/BOUNCERS.txt.

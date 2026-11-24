@@ -1,0 +1,11 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: SECURITY.md / Trust boundary
+English source SHA-256: 3a8de003f1fb27ecf4c0a8a05eaa1e384e3d8e756927b0645d3341cf27dd4f1f
+
+GÜVEN SINIRI
+
+IRC sunucuları, diğer kullanıcılar, takma adlar, konular, protokol alanları, dosya adları ve yapıştırılan metin güvenilmeyen girdilerdir. İşletim sistemi, terminal, C/TLS kütüphaneleri, sertifika güven deposu ve kullanıcının hesabı güvenilen bileşenler olarak kalır. Tam vipirc arayüzü ayrıca curses'a güvenir. GPG, çalıştırılabilir dosyasını, anahtar halkasını ve aracısını ekler. Sunucu profilleri tek bir süreci paylaşır; birbirinden yalıtılmış güvenlik bölmeleri değildir. Aynı hesap yetkilerine sahip başka bir süreç genellikle özel dosyaları ve belleği inceleyebilir.
+
+Normal bir kullanıcı hesabıyla çalıştırın. Yapılandırmayı okumadan önce program gerçek/etkin kullanıcı veya grup kimlikleri uyuşmazsa çalışmayı reddeder, core dump'ları kapatır ve umask 0077 ayarlar. Linux, süreç dökümünü de engeller. Eksik standart dosya tanıtıcıları, uygulama kaynakları açılmadan önce /dev/null ile doldurulur; devralınan açık akışlar ve bayrakları değiştirilmez. Zorunlu başlangıç koruması başarısız olursa program durur. Bu önlemler pledge/unveil, seccomp, ayrıcalık ayrımı veya ele geçirilmiş ana makineye karşı koruma sağlamaz.
+
+configure, seçilen sistemde desteklenen derleyici/bağlayıcı sertleştirmesini dener: stack koruması, güçlendirilmiş libc kontrolleri, biçim tanıları, PIE, RELRO, anında bağlama ve çalıştırılamayan stack. Kurulum makinesindeki yapılandırılmış bayrakları denetleyin; her platform her seçeneği desteklemez.

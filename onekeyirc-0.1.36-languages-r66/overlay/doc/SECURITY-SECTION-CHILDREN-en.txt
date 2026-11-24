@@ -1,0 +1,10 @@
+Child processes and synchronous work
+Source: SECURITY.md, section "Child processes and synchronous work"
+English section SHA-256: 79a87ca8215648f2d1f870067a2afe1fb4221757b00560b4b4191aac7832ba7f
+Paragraphs: 2
+Status: Verbatim English reference
+English SECURITY.md remains authoritative. This is only one section, not the full security document.
+
+DNS resolution runs in a supervised waitable direct child with a deadline; its cleanup acts on that directly owned child. The resolver is not placed in a helper process group. GPG has a separate process group and keeps its waitable direct-child identity until output pipes finish, so cancellation can stop same-group inherited pipe writers. GPG is a trusted program, not a sandbox: descendants deliberately leaving that group are outside its cleanup contract.
+
+Resolver/helper starts and first background-session creation reject inherited SIGCHLD=SIG_IGN or SA_NOCLDWAIT. First detach rechecks after preparation; managed re-detach does not fork. Embedding the modules under an unrelated handler that reaps their children is unsupported. Regular-file and metadata operations remain synchronous even where O_NONBLOCK prevents FIFO-open waits.

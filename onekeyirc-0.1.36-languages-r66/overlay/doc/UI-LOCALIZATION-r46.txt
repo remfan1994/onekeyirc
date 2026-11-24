@@ -1,0 +1,5 @@
+r46: DCC file offer/receive and security notices (vipirc), and shared channel/server errors.
+All ten language catalogs include these source-linked keys. Transfer source names,
+IP addresses, paths, server replies and protocol tokens remain literal data.
+The English r1 source and application versions are unchanged.
+Native-speaker review and complete vipirc curses tests remain outstanding.

@@ -1,0 +1,6 @@
+Standalone optional setup-validation translation pass r49 for onekeyirc-0.1.36.
+28 English source keys x 10 locales. Source: src/idle_setup.c.
+Fixed "%s" display wrapper, never dynamic format strings.
+Security and file operations still validate exact English command tokens,
+paths and inputs; no changes to authorization, secret storage or IRC traffic.
+Translations require native-speaker review and actual terminal testing.

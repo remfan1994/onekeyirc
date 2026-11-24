@@ -1,0 +1,6 @@
+Optional r45 display localization: source-linked English strings and protected named fields.
+Original English r1 and application versions remain unchanged.
+New r45 keys: 16; selected language by ONEKEYIRC_LANG.
+All usernames, IRC parameters, filenames, status counts and server text are inserted literally.
+English fallback remains available on rejected or overlong translations.
+See UI-LOCALIZATION-r45.tsv for exact source links; native review is still required.

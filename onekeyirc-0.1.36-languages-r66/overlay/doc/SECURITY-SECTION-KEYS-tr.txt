@@ -1,0 +1,10 @@
+User-defined key bindings
+Source: SECURITY.md, section "User-defined key bindings"
+English section SHA-256: 250d7d0eb62f8b649e64f59b1e69d2220ec79005f08d6a7dfba30905d1133303
+Paragraphs: 2
+Status: Translation draft; fluent-speaker security review required
+English SECURITY.md remains authoritative. This is only one section, not the full security document.
+
+Ana yapılandırmada en fazla 64 özel tuş ataması bulunur; varsayılan tablo boştur. Tuşlar sabit bir kimliğe dönüştürülür ve eylemler yerel izin listesinden seçilir. Keyfî komut, kabuk genişletmesi, ham IRC veya doğrudan gönderme eylemi yoktur. Bilinmeyen, yinelenen veya aşırı büyük atamalar yapılandırmanın yüklenmesini atomik olarak reddettirir. Değişiklikler yalnızca açıkça verilen Save ile mevcut özel dosya yazıcısı üzerinden kalıcılaştırılır.
+
+Özel eylemler yalnızca ana sohbet ve komut girişinde çalıştırılır. Yapıştırma veya kipli alanlar, okuyucular ve onay pencereleri özel eylem çalıştırmaz. Function/Alt çözümleme, yakalanmış yapıştırmayı eyleme dönüştüremez; yapıştırmayı bitiren giriş dizisi de kısayolu hemen çalıştıramaz. Çerçevesiz yapıştırma normal yazmadan ayırt edilemez; terminal tuşları programdan önce yakalayabilir. Atamalar terminalin sinyal karakterlerini değiştirmez veya sinyalleri etkinleştirmez. Tam kapsam ve taslak koruması için doc/HOTKEYS.txt dosyasına bakın.

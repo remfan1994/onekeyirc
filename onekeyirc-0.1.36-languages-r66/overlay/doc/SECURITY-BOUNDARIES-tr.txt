@@ -1,0 +1,37 @@
+GÜVENLİK MODELI: ÇEVRİLMİŞ SECILI BOLUMLER
+SECURITY.md dosyasından güven siniri, TLS, kimlik bilgileri, kayıtlar ve gosterime dair seçilmiş aciklamalar. Tam çevirisi değildir.
+
+Güven siniri ve başlatma
+------------------------
+IRC sunuculari, kullanıcılar, takma adlar, konular, dosya adları ve yapıştırılan metinler güvenilmeyen girdilerdir. Isletim sistemi, terminal, kriptografi kitapliklari, sertifika deposu ve kullanıcı hesabi guvenilen bileşenlerdir. Tek süreçte bulunan sunucu profilleri birbirinden yalitilmis değildir.
+
+Istemciyi normal bir kullanıcı olarak çalıştırın. Bu bir güvenlik kum havuzu değildir; ele gecirilmis bilgisayara veya aynı hesap yetkisine sahip süreçlere karsi korumaz. Sertlestirme riski azaltir, yok etmez.
+
+TLS ve kimlik doğrulama
+-----------------------
+TLS 1.2 veya yenisi sertifika zincirini ve secilen sunucu adini dogrular. Habersizce düz metne geri donulmez. Yapilandirilmis SASL, server PASS ve etkin, boş olmayan otomatik komut listeleri doğrulanmış TLS gerektirir. TLS sunucuya veya bouncer hizmetine bağlantıyı korur; IRC mesajlarini uctan uca sifrelemez.
+
+Boş ca_file sistemin sertifika deposunu kullanir. Özel ca_file bunun yerine güvenilir PEM paketini seçer ve guvenilen sertifika makamlarini değiştirir. Dosya boş olmayan normal dosya olmali, 16 MiB boyutunu asmamalidir. --check-config gercek TLS el sikismasi yapmaz.
+
+Her sır için tam bir kaynak seçin: özel düz metin dosyasi, GPG ile şifrelenmiş özel dosya veya açıkça belirtilen satır ici deger. SASL kaynagi, server PASS kaynagindan bağımsızdır. Diskte şifrelenmiş parola şifresiz ag baglantisini güvenli yapmaz.
+
+Yapılandırma ve parolalar
+-------------------------
+Düz metin ve GPG kimlik bilgisi dosyaları kullanıcıya ait normal dosyalar olmali ve tam 0600 veya 0400 iznine sahip olmalıdır. Yapılandırma kabuk genisletmesi olmayan düz INI bicimindedir; gecersiz anahtar/degerler reddedilir. Satir ici parola veya otomatik komut iceren yapılandırma da tam bu izinleri gerektirir.
+
+GPG, TLS doğrulandıktan sonra kabuk kullanmadan, sınırlı G/C ve zaman asimi ile doğrudan çalıştırılır. Istemci anahtar parola cumlesini kendi içinde sormaz. Korumali anahtari program dışında acin; hata raporlarinda cozulen sirlari ve özel kayıtları paylasmayin.
+
+Mesajlar, kayıtlar ve görüntüleme
+---------------------------------
+Istemci gelen IRC metnini calistirmaz, mesajlardan URL acmaz veya kabuk komutu baslatmaz. Tehlikeli denetim karakterleri gösterilmeden önce suzulur. Birden fazla IRC mesaji için ayrı onay gerekir; işaretli yapıştırma yeni bir onay sayilmaz.
+
+Kalıcı sohbet kayıtları varsayılan olarak kapalidir. Acilinca özel dosya ve dizin izinleri sıkı denetlenir; kayıtlar çıkıştan sonra kalır ve otomatik silinmez. Siradan sohbet olarak yazılan taninmamis sırlar kayda gecebilir.
+
+Arapca görsel mod yalnizca gorunumu değiştirir; giden IRC komut veya mesajlarinin mantiksal UTF-8 sırasını değiştirmez. Benzer Unicode harfleri ve farklı alfabeleri karistiran takma adlar kimlik taklidi yapabilir. Komutlara veya bağlantılara güvenmeden önce gercek hesabi ve hedefi kontrol edin.
+
+DCC dosya aktarimi açık kabul gerektirir ve IRC TLS baglantisi tarafindan korunmaz. Dosya adlarini ve verileri güvenilmeyen kabul edin. TLS ile IRC baglantisi, DCC aktariminin şifreli olduğu anlamina gelmez.
+
+Tum ayrintilar ve sınırlar için özgün SECURITY.md dosyasina basvurun. Bu çeviriler taslaktir; özellikle güvenlik kararlari için akıcı konusan kişiler tarafindan gözden gecirilmelidir.
+
+SOURCE:  / SECURITY.md
+STATUS: Draft translation; English source takes precedence.

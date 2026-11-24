@@ -1,0 +1,10 @@
+PANDUAN KESELAMATAN RINGKAS: PENYETEMPATAN DAN RTL ARAB
+
+1. Sahkan jumlah SHA-256 sumber Inggeris asal dan tampalan bahasa+RTL sebelum digunakan. Tampalan mengandungi kod C boleh laksana, bukan terjemahan sahaja.
+2. Gunakan tampalan pada sumber r1 asal sebelum configure atau make. Jangan tindih beberapa tampalan; jika ditolak, mulakan dengan salinan baharu.
+3. Mesej, nama pengguna, topik dan nama fail IRC tidak dipercayai. Penapisan paparan menggantikan kawalan terminal, arah Unicode dan anotasi berbahaya, tetapi tidak mengesahkan pengirim atau menghalang nama Unicode yang menyerupai.
+4. Mod visual Arab untuk terminal UTF-8 tanpa sokongan bentuk dan arah Arab. Pustaka FriBidi diperlukan. Jika tidak tersedia, teks kekal mengikut susunan logik.
+5. Paparan RTL tidak mengubah arahan IRC, mesej dihantar atau rekod disimpan: semuanya kekal UTF-8 logik. Arah paparan bukan bukti identiti.
+6. Jangan masukkan kelayakan dalam sembang, kongsi log peribadi dalam laporan pepijat, atau percayai arahan atau URL berdasarkan paparan RTL semata-mata. Semak teks dan destinasi sebenar.
+7. --check-config tidak menyemak pelayan jauh, sesi TLS atau kata laluan. Rujuk SECURITY.md untuk model ancaman penuh; panduan ini bukan terjemahan dokumen tersebut.
+8. Matikan RTL visual jika terminal sudah menyokong teks dua arah atau paparan berbeza daripada sumber.

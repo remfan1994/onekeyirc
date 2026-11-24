@@ -1,0 +1,56 @@
+[
+  {
+    "source": "src/idle.c",
+    "english": "Command frequency is available this session; its file could not be saved.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/idle.c",
+    "english": "Catch-up cannot guarantee the absence: persistent logging stopped after an error, and the sent-message anchor is no longer retained in memory.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/idle.c",
+    "english": "The durable sent-message anchor is unavailable (for example, logging began after that message or the log was replaced). The retained-memory anchor is also gone.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/idle.c",
+    "english": "Your most recent sent message is older than retained memory. Enable persistent_logging before the next absence for durable /catchup.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/idle.c",
+    "english": "Usage: /catchup",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/idle.c",
+    "english": "The command's original conversation is no longer available.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/idle.c",
+    "english": "Finish or cancel the current draft before changing its conversation or opening settings.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/idle.c",
+    "english": "Return to the retained draft before opening another command.",
+    "kind": "fixed-display",
+    "fields": []
+  },
+  {
+    "source": "src/idle.c",
+    "english": "Unsupported character or composition capacity reached; existing draft preserved.",
+    "kind": "fixed-display",
+    "fields": []
+  }
+]

@@ -1,0 +1,23 @@
+OPTIONAL DISPLAY-ONLY LOCALIZATION r34 - onekeyirc-0.1.36
+
+Scope: 13 new source-linked message templates in ten locales.
+Base app version unchanged; English source r1 untouched.
+Source test: python3 tests/test_ui_r34.py
+Catalog test: python3 tests/test_locale_catalog.py
+
+Thirteen fixed display-only notices in the minimalist onekeyirc UI:
+command completion, suggestion history, draft retention, UTF-8 input and
+terminal-change paste handling. These are not protocol replies and cannot
+affect bytes sent to IRC or configuration serialization. A fourteenth
+call site reuses an existing translated key for suggestion misses.
+
+Runtime check: 11 locales x 5 CLI paths plus catalog security checks.
+Minimalist ncurses-independent source builds; terminal experience in
+OpenBSD/Crostini and native-language idiomatic review remain outstanding.
+
+Preserve all literal identifiers: command names, Ctrl/Alt key names,
+UTF-8, LC_CTYPE and numeric restrictions. Arabic visual handling remains
+optional and is not used on the IRC network.
+Do not layer r34 onto an earlier language pack. Always use fresh matching
+English source r1. Original English SECURITY.md is authoritative until
+native fluent review of translated drafts.

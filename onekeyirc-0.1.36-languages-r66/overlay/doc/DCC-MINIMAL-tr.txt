@@ -1,0 +1,27 @@
+onekeyirc 0.1.35 /dcc standalone reference (tr)
+Copied exactly from the previously translated minimalist manual.
+This document makes earlier translations easier to locate;
+it does not represent newly translated English prose.
+Source section SHA-256: 13d9316e9c62923d2b4f237192ffe566192865fff0d87839b901b36cc73d6384
+
+/dcc - Doğrudan dosya aktarımlarını önerin, inceleyin ve yönetin
+----------------------------------------------------------------------
+Kullanım: /dcc [list|NICK PATH|send [-address IPV4] [-port PORT] NICK PATH|accept NUMBER [DIRECTORY]|reject NUMBER|cancel NUMBER]
+
+Argümansız aktarım listesini gösterir. /dcc NICK PATH seçili sunucuda dosya teklif eder.
+PATH boşluklarla birlikte kalan metnin aynısıdır; süreç başlatma dizinine göre görecelidir.
+İstemci dosya gezerken veya arka planda bile o dizini değiştirmez.
+Kısa gönderim, IRC bağlantısının yerel IPv4 adresini duyurur. NAT arkasında erişilen IPv4 için -address, yönlendirilen port için -port kullanın.
+Harici adres bulma isteği yapılmaz. Yalnız IPv6 IRC bağlantısı için açık IPv4 belirtmek gerekir.
+DCC şifrelenmemiş doğrudan bağlantıdır. Karşı taraf duyurulan IP'nizi alır; teklifi kabul etmek de IP'nizi açığa çıkarır.
+Gelen teklif /dcc accept NUMBER olana kadar açılmaz. DIRECTORY varsayılan olarak başlangıç dizinidir; size ait ve özel olmalıdır.
+Mevcut hedef üzerine yazılmaz; sembolik bağlantı ve özel dosyalar reddedilir. Çevrimdışı test dosya/soket açmaz.
+Gelen teklifi /dcc reject NUMBER ile, etkin aktarımı /dcc cancel NUMBER ile iptal edin.
+Aktarım numaraları süreçteki sunucular arasında ortaktır. Kaynak sunucuyu kapatmak aktarımlarını iptal eder; IRC kesilmesi kabul edileni durdurmaz.
+
+Örnekler:
+/dcc alice file.txt
+/dcc list
+/dcc accept 1 ./downloads
+/dcc send -address 203.0.113.20 -port 5000 alice file.txt
+/dcc cancel 2

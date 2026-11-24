@@ -1,0 +1,7 @@
+OPTIONAL onekeyirc LANGUAGE + RTL PATCH r23
+Original English onekeyirc 0.1.35 source r1 remains unchanged.
+The onekeyirc minimalist help and language catalogs are identical to r22.
+This revision synchronizes optional patch identity with vipirc r23.
+The two new source-linked full manual sections in r23 belong to vipirc only.
+RTL/network/editor behavior remains unchanged from r22.
+SECURITY.md, untranslatable text and fluent review remain open.

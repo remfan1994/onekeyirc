@@ -1,0 +1,68 @@
+[
+  {
+    "source": "src/idle_setup.c",
+    "kind": "setup-help",
+    "fields": [],
+    "english": "GPG is encrypting with the selected local key. Settings have not been applied."
+  },
+  {
+    "source": "src/idle_setup.c",
+    "kind": "setup-help",
+    "fields": [],
+    "english": "Application preferences apply to every server. Server panels edit one connection profile."
+  },
+  {
+    "source": "src/idle_setup.c",
+    "kind": "setup-help",
+    "fields": [],
+    "english": "Your nickname on IRC."
+  },
+  {
+    "source": "src/idle_setup.c",
+    "kind": "setup-help",
+    "fields": [],
+    "english": "A public description; it need not be your legal name. '-' clears it."
+  },
+  {
+    "source": "src/idle_setup.c",
+    "kind": "setup-help",
+    "fields": [],
+    "english": "Connect this profile automatically on future starts: yes or no."
+  },
+  {
+    "source": "src/idle_setup.c",
+    "kind": "setup-help",
+    "fields": [],
+    "english": "Comma-separated channels, for example #chat,#friends. '-' clears saved joins."
+  },
+  {
+    "source": "src/idle_setup.c",
+    "kind": "setup-help",
+    "fields": [],
+    "english": "none = no automatic account login; sasl = log in during connection. Verified TLS is required."
+  },
+  {
+    "source": "src/idle_setup.c",
+    "kind": "setup-help",
+    "fields": [],
+    "english": "Stored directly in the private configuration file. Password input is hidden."
+  },
+  {
+    "source": "src/idle_setup.c",
+    "kind": "setup-help",
+    "fields": [],
+    "english": "Password to encrypt. Input is hidden; no plaintext password file is created."
+  },
+  {
+    "source": "src/idle_setup.c",
+    "kind": "setup-help",
+    "fields": [],
+    "english": "Type the same password again to confirm it."
+  },
+  {
+    "source": "src/idle_setup.c",
+    "kind": "setup-help",
+    "fields": [],
+    "english": "Optional CA file. Empty uses the system trust store; '-' clears. Server identity is always verified."
+  }
+]

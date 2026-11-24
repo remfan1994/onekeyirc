@@ -1,0 +1,69 @@
+[
+  {
+    "source": "src/idle.c",
+    "kind": "named-fields",
+    "english": "Catch-up from your most recent sent message | S{number} {target}",
+    "fields": [
+      "number",
+      "target"
+    ]
+  },
+  {
+    "source": "src/idle.c",
+    "kind": "named-fields",
+    "english": "Catch-up from your most recent sent message | {target}",
+    "fields": [
+      "target"
+    ]
+  },
+  {
+    "source": "src/idle.c",
+    "kind": "named-fields",
+    "english": "Scrollback | {target}",
+    "fields": [
+      "target"
+    ]
+  },
+  {
+    "source": "src/idle.c",
+    "kind": "fixed",
+    "english": "chat",
+    "fields": []
+  },
+  {
+    "source": "src/idle.c",
+    "kind": "fixed",
+    "english": "Watch log",
+    "fields": []
+  },
+  {
+    "source": "src/idle.c",
+    "kind": "fixed",
+    "english": "The log follows the selected server and conversation. A channel or query receives composed messages.",
+    "fields": []
+  },
+  {
+    "source": "src/idle.c",
+    "kind": "fixed",
+    "english": "Slash opens command entry. An ordinary character starts composition. ? opens help for the selected conversation.",
+    "fields": []
+  },
+  {
+    "source": "src/idle.c",
+    "kind": "fixed",
+    "english": "Use /servers, /channels, /queries, /unread, or /summary to inspect client activity.",
+    "fields": []
+  },
+  {
+    "source": "src/idle.c",
+    "kind": "fixed",
+    "english": "Select conversations with /channel, /query, or /view.",
+    "fields": []
+  },
+  {
+    "source": "src/idle.c",
+    "kind": "fixed",
+    "english": "Escape backgrounds from the log. Inside composition or a reader, Escape first returns to the previous screen.",
+    "fields": []
+  }
+]

@@ -1,0 +1,10 @@
+User-defined key bindings
+Source: SECURITY.md, section "User-defined key bindings"
+English section SHA-256: 250d7d0eb62f8b649e64f59b1e69d2220ec79005f08d6a7dfba30905d1133303
+Paragraphs: 2
+Status: Translation draft; fluent-speaker security review required
+English SECURITY.md remains authoritative. This is only one section, not the full security document.
+
+La configuration principale possède au maximum 64 associations de touches ; la table par défaut est vide. Les touches sont normalisées en une identité fixe et les actions proviennent d'une liste d'autorisation locale. Il n'y a ni commande arbitraire, ni expansion du shell, ni IRC brut, ni action d'envoi direct. Toute association inconnue, en double ou surdimensionnée fait rejeter atomiquement le chargement de configuration. Seule une action Save explicite conserve les modifications au moyen du mécanisme existant d'écriture privée.
+
+Les actions personnalisées ne sont déclenchées que dans le chat principal et la saisie de commandes. Les collages, champs modaux, lecteurs et confirmations n'exécutent pas ces actions. Le décodage des touches Function/Alt ne peut pas transformer un collage capturé en action ; la séquence de saisie qui termine un collage ne déclenche pas immédiatement un raccourci. Un collage sans délimitation est indiscernable de la frappe normale. Le terminal peut intercepter les touches avant le programme. Les associations ne réaffectent jamais les caractères de signal du terminal et n'activent pas les signaux. Consultez doc/HOTKEYS.txt pour la portée exacte et la protection des brouillons.

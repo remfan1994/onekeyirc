@@ -1,0 +1,27 @@
+onekeyirc 0.1.35 /dcc standalone reference (ar)
+Copied exactly from the previously translated minimalist manual.
+This document makes earlier translations easier to locate;
+it does not represent newly translated English prose.
+Source section SHA-256: 7592181d924ba99fb32524a0ba7d7ba2c0931b0916a1c57f23d582c182ceab71
+
+/dcc - عرض نقل الملفات مباشرة، ومراجعة عمليات النقل وإدارتها
+------------------------------------------------------------------------
+الاستخدام: /dcc [list|NICK PATH|send [-address IPV4] [-port PORT] NICK PATH|accept NUMBER [DIRECTORY]|reject NUMBER|cancel NUMBER]
+
+دون معاملات يعرض النقل. يعرض /dcc NICK PATH ملفا على الخادم المحدد.
+PATH هو بقية النص حرفيا بما فيه الفراغات؛ والمسار نسبي لمجلد بدء العملية.
+لا يغير العميل هذا المجلد حتى عند تصفح الملفات أو التشغيل في الخلفية.
+يعلن الإرسال المختصر IPv4 المحلي لاتصال IRC. خلف NAT استخدم -address لعنوان IPv4 يمكن الوصول إليه و-port لمنفذ محول.
+لا يطلب كشف العنوان من خدمة خارجية. اتصال IRC المعتمد على IPv6 فقط يتطلب IPv4 محددا.
+DCC اتصال مباشر غير مشفر. يرى الطرف الآخر IP المعلن؛ وقبول العرض يكشف له IP أيضا.
+لا يفتح العرض الوارد حتى /dcc accept NUMBER. يستخدم DIRECTORY مجلد البدء افتراضيا ويجب أن يكون ملكك وخاصا.
+لا يستبدل ملفا موجودا؛ وترفض الروابط الرمزية والملفات الخاصة. وضع الاختبار لا يفتح ملفات أو مقابس.
+ارفض العرض عبر /dcc reject NUMBER أو ألغ النقل الجاري عبر /dcc cancel NUMBER.
+أرقام النقل مشتركة بين خوادم العملية. إغلاق الخادم الأصلي يلغي نقله؛ وقطع IRC لا يلغي نقلا مقبولا.
+
+أمثلة:
+/dcc alice file.txt
+/dcc list
+/dcc accept 1 ./downloads
+/dcc send -address 203.0.113.20 -port 5000 alice file.txt
+/dcc cancel 2

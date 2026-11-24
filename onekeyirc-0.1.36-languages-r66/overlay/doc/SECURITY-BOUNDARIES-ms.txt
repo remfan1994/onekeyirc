@@ -1,0 +1,37 @@
+MODEL KESELAMATAN: PETIKAN TERJEMAHAN TERPILIH
+Penerangan terpilih tentang sempadan kepercayaan, TLS, kelayakan, log dan paparan daripada SECURITY.md. Ini bukan terjemahan penuh SECURITY.md.
+
+Sempadan kepercayaan dan permulaan
+----------------------------------
+Server IRC, pengguna, nama gelaran, topik, nama fail dan mesej yang ditampal ialah input tidak dipercayai. Sistem pengendalian, terminal, pustaka kriptografi, stor sijil dan akaun pengguna ialah komponen dipercayai. Profil server dalam satu proses tidak terasing antara satu sama lain.
+
+Jalankan klien sebagai pengguna biasa. Ia bukan kotak pasir keselamatan dan tidak dapat melindungi daripada hos yang diceroboh atau proses lain dengan hak akaun yang sama. Langkah pengukuhan mengurangkan risiko, bukan menghapuskannya.
+
+TLS dan pengesahan
+------------------
+TLS versi 1.2 atau lebih baharu mengesahkan rantaian sijil server dan nama hos yang dipilih. Tiada peralihan senyap kepada teks biasa. SASL yang dikonfigurasi, server PASS dan senarai arahan automatik aktif yang tidak kosong memerlukan TLS disahkan. TLS melindungi sambungan ke server atau bouncer, bukan mesej IRC hujung ke hujung.
+
+ca_file kosong menggunakan stor sijil sistem. ca_file tersuai memilih berkas PEM dipercayai sebagai ganti dan mengubah pengeluar sijil yang dipercayai. Fail mesti fail biasa yang tidak kosong dan tidak melebihi 16 MiB. --check-config tidak menguji jabat tangan TLS sebenar.
+
+Pilih tepat satu sumber bagi setiap rahsia: fail teks biasa peribadi, fail peribadi disulitkan GPG atau nilai sebaris yang jelas. Sumber SASL berasingan daripada sumber server PASS. Penyulitan fail kata laluan tidak menjadikan sambungan rangkaian tanpa penyulitan selamat.
+
+Konfigurasi dan kata laluan
+---------------------------
+Fail kelayakan teks biasa dan GPG mesti dimiliki pengguna, berupa fail biasa dan bermod tepat 0600 atau 0400. Konfigurasi ialah INI harfiah tanpa pengembangan shell; kunci dan nilai tidak sah ditolak. Konfigurasi dengan kelayakan sebaris atau entri arahan automatik memerlukan mod tepat 0600 atau 0400.
+
+GPG dilancarkan terus tanpa shell selepas pengesahan TLS, dengan I/O terbatas dan had masa. Klien tidak meminta frasa laluan kunci di dalam aplikasi. Buka kunci terlindung di luar aplikasi; jangan berkongsi rahsia yang dinyahsulit, tangkapan skrin atau log peribadi dalam laporan ralat.
+
+Mesej, log dan paparan
+----------------------
+Klien tidak melaksanakan teks IRC yang diterima, membuka URL atau menjalankan arahan shell daripada mesej masuk. Aksara kawalan disaring untuk paparan. Menghantar beberapa mesej IRC memerlukan persetujuan berasingan; tampalan berkurung tidak dikira pengesahan baharu.
+
+Log transkrip kekal dimatikan secara lalai. Jika dihidupkan, fail dan direktori log peribadi melalui pemeriksaan ketat; log kekal selepas keluar dan tidak dipadam automatik. Rahsia yang tidak dikenali dalam chat biasa mungkin direkod. Rakaman terminal dan log server adalah berasingan.
+
+Mod visual Arab mengubah paparan, bukan susunan logik UTF-8 arahan atau mesej IRC keluar. Huruf Unicode yang serupa dan nama bercampur skrip masih boleh menyamar sebagai orang dipercayai. Semak identiti akaun dan destinasi sebenar sebelum mempercayai arahan atau pautan.
+
+Pemindahan fail DCC memerlukan penerimaan jelas dan tidak dilindungi oleh sambungan TLS IRC. Anggap nama fail dan kandungan tidak dipercayai. Jangan anggap penghantaran selamat hanya kerana IRC menggunakan TLS.
+
+Sentiasa rujuk SECURITY.md asal untuk butiran operasi dan had semasa. Terjemahan ini ialah draf yang memerlukan semakan penutur fasih, terutamanya sebelum digunakan untuk keputusan keselamatan.
+
+SOURCE:  / SECURITY.md
+STATUS: Draft translation; English source takes precedence.

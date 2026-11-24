@@ -1,0 +1,27 @@
+onekeyirc 0.1.35 /dcc standalone reference (fr)
+Copied exactly from the previously translated minimalist manual.
+This document makes earlier translations easier to locate;
+it does not represent newly translated English prose.
+Source section SHA-256: 8cf7454c07e41116680dc9c378504322327843ea9cfdf02f87c531b5bb104ceb
+
+/dcc - Proposer, examiner et gérer les transferts directs de fichiers
+----------------------------------------------------------------------
+Utilisation : /dcc [list|NICK PATH|send [-address IPV4] [-port PORT] NICK PATH|accept NUMBER [DIRECTORY]|reject NUMBER|cancel NUMBER]
+
+Sans argument, liste les transferts. /dcc NICK PATH propose un fichier sur le serveur sélectionné.
+PATH est le texte littéral restant, espaces compris ; il est relatif au répertoire initial du processus.
+Le client ne change jamais ce répertoire, même pendant la navigation ou en arrière-plan.
+L'envoi court annonce l'IPv4 locale du lien IRC. Derrière NAT, utilisez -address avec votre IPv4 joignable et -port avec le port redirigé.
+Aucune recherche d'adresse externe. Un lien IRC uniquement IPv6 nécessite une IPv4 explicitement indiquée.
+DCC est une connexion directe non chiffrée. Le pair reçoit votre IP annoncée ; accepter une offre lui révèle aussi votre IP.
+Les offres entrantes restent fermées jusqu'à /dcc accept NUMBER. DIRECTORY vise le répertoire initial et doit être privé et vous appartenir.
+Les destinations existantes ne sont pas écrasées ; liens symboliques et fichiers spéciaux sont refusés. Le mode test n'ouvre ni fichier ni socket.
+Utilisez /dcc reject NUMBER pour refuser ou /dcc cancel NUMBER pour annuler un transfert en cours.
+Les numéros de transfert sont communs aux serveurs du processus. Fermer le serveur d'origine annule ses transferts ; couper IRC n'annule pas un transfert accepté.
+
+Exemples :
+/dcc alice file.txt
+/dcc list
+/dcc accept 1 ./downloads
+/dcc send -address 203.0.113.20 -port 5000 alice file.txt
+/dcc cancel 2

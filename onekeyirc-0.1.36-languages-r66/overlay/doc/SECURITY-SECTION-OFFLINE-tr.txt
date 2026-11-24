@@ -1,0 +1,12 @@
+Offline checks and evidence
+Source: SECURITY.md, section "Offline checks and evidence"
+English section SHA-256: 9c67268cfad3c6bc3c5553f23c932c342c3f11231b325d758eeade66d790b4bd
+Paragraphs: 3
+Status: Translation draft; fluent-speaker security review required
+English SECURITY.md remains authoritative. This is one source-linked section, not a security certification.
+
+--help, --version ve --manual yapılandırma veya kimlik bilgilerini yüklemez. --check-config, yapılandırma/katalog sözdizimini, değerleri ve dosya korumalarını doğrular; parola erişimini/çözmeyi, DNS'yi, TLS'yi veya gerçek oturum açmayı denemez. --test-mode, geçerli profilleri IRC/DCC ağı, kimlik bilgisi/CA okuması, GPG ve yapılandırma kaydetmesi olmadan işlem içi simülatöre yükler. Satır içi değerler ayrıştırılabilir ama asla gönderilmez. Açık bir Background isteği yine de yerel oturum IPC'si oluşturabilir. Simülasyon başarısı, gerçek sunucuyla uyumluluğu kanıtlamaz.
+
+O dönemdeki kurtarma incelemesi doc/STABILITY-REVIEW-0.7.34-0.1.33.txt ve doc/STABILITY-PASS-RESULTS.json içinde vipirc 0.7.34 / onekeyirc 0.1.33 sürümlerini kapsar. Yeniden üretilen hataları, düzeltmeleri, kaynak yetersizliği ve sınırlı yük sınamalarını ve platform kısıtlarını kaydeder. Önceki güvenlik incelemesi doc/SECURITY-REVIEW-0.7.33-0.1.32.txt ve doc/SECURITY-PASS-RESULTS.json dosyalarındadır. Daha eski adlandırılmış/tarihlenmiş raporlar özgün kaynak sürümlerini, test yüklerini ve platform sınırlarını korur; yeni test yapıldığı anlamına gelmez.
+
+Yerel protokol test düzenekleri, gerçek ZNC/soju hizmetinde veya IRCNow hesabında çalışmayı kanıtlamaz. Tam ncurses çalışma zamanı, yerel adlandırılmış AF_UNIX yaşam döngüsü, OpenBSD/LibreSSL ve dağıtım ana makinesindeki davranış ilgili hedeflerde sınanmalıdır. Kısa bir stres testi, aylarca gözetimsiz güvenilirliği kanıtlamaz. Sürümü, platformu, tekrarlanabilir adımları ve gizli verileri ayıklanmış tanı bilgilerini bildirin; parolaları, özel anahtarları ve özel sohbet dökümlerini paylaşmayın.

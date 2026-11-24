@@ -1,0 +1,18 @@
+Fluent security translation review checklist, r31 (NOT YET COMPLETED)
+Review every locale against the exact English SECURITY.md, one paragraph at a time.
+For each section, check negatives, exceptions, ownership, and who is trusted.
+DCC: IRC TLS does not protect DCC; a nickname is not peer authentication.
+DCC: accepting connects and reveals the process-host address; offer alone creates nothing.
+DCC: 0600, regular-file/symlink restrictions, device/inode cleanup, and ACK != hash.
+DCC: eight offers, four active, twelve records, 4294967295 bytes, five/two minutes.
+DCC: accepted transfers survive IRC disconnect; closing server or quitting stops them.
+Offline: --check-config cannot prove credentials, DNS, TLS or login.
+Offline: --test-mode does not use IRC/DCC networking or credentials,
+         but explicit Background can still create local session IPC.
+Offline: report versions refer to OLD test runs; never imply retesting.
+Full vipirc: selecting a file does not send; Accept/Offer is separate.
+Full vipirc: mouse, suggested commands and completion must not send IRC.
+Verify every flag, filepath, version, count, timeout, platform, and file mode.
+Review Arabic mixed-script command readability on real terminals; retain logical UTF-8.
+Record locale, reviewer, date, issues, corrections, and sign-off separately.
+English source remains authoritative until review and acceptance.

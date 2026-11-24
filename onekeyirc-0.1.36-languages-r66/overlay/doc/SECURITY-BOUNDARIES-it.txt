@@ -1,0 +1,37 @@
+MODELLO DI SICUREZZA: ESTRATTI TRADOTTI
+Brani selezionati da SECURITY.md su fiducia, TLS, credenziali, registri e visualizzazione. Non è la traduzione completa di SECURITY.md.
+
+Confini di fiducia e avvio
+--------------------------
+Server IRC, utenti, nickname, argomenti, nomi di file e testi incollati sono input non attendibili. Sistema operativo, terminale, librerie crittografiche, archivio certificati e account utente sono componenti attendibili. Profili server nello stesso processo non sono isolati.
+
+Eseguire il client come utente ordinario. Non è una sandbox di sicurezza e non protegge da un host compromesso o da altri processi con i privilegi del proprio account. Il rafforzamento riduce i rischi senza eliminarli.
+
+TLS è autenticazione
+--------------------
+TLS 1.2 o successivo verifica la catena dei certificati è il nome host selezionato. Non avviene alcun ritorno silenzioso al testo non cifrato. SASL configurato, server PASS e liste attive non vuote di comandi automatici richiedono TLS verificato. TLS protegge il collegamento a server o bouncer, non i messaggi IRC end-to-end.
+
+Un ca_file vuoto usa l'archivio di certificati di sistema. Un ca_file personalizzato seleziona invece un insieme PEM attendibile, cambiando gli emittenti accettati. Deve essere un file regolare non vuoto di massimo 16 MiB. --check-config non esegue una vera negoziazione TLS.
+
+Scegliere esattamente una fonte per ogni segreto: file privato in chiaro, file privato cifrato con GPG oppure valore esplicito incorporato. La fonte SASL e indipendente da quella di server PASS. La cifratura della password su disco non rende sicura una connessione di rete in chiaro.
+
+Configurazione e password
+-------------------------
+I file di credenziali in chiaro e GPG devono essere file regolari di proprietà dell'utente con modalità esatta 0600 o 0400. La configurazione e INI letterale, senza espansione shell; chiavi e valori invalidi vengono respinti. Credenziali incorporate o comandi automatici richiedono esattamente 0600 o 0400.
+
+GPG viene avviato direttamente, senza shell e dopo la verifica TLS, con limiti di I/O e tempo. Il client non chiede la passphrase della chiave al proprio interno. Sbloccare le chiavi protette fuori dal programma; non condividere segreti decifrati o log privati nelle segnalazioni.
+
+Messaggi, registri e visualizzazione
+------------------------------------
+Il client non esegue testo IRC ricevuto, non apre URL e non avvia comandi shell in base ai messaggi. I caratteri di controllo pericolosi sono filtrati prima della visualizzazione. Invii multipli richiedono consenso separato; un incolla delimitato non vale come nuova conferma.
+
+I log permanenti delle conversazioni sono disattivati per impostazione predefinita. Se attivati, file e cartelle private vengono controllati rigorosamente; i log restano dopo l'uscita e non sono cancellati automaticamente. Segreti digitati nella chat normale possono essere registrati.
+
+La modalità visuale araba cambia la presentazione, non l'ordine logico UTF-8 dei comandi e messaggi IRC in uscita. Caratteri Unicode simili e nickname con alfabeti misti possono imitare altre identità. Verificare account e destinazione reali prima di fidarsi di comandi o collegamenti.
+
+I trasferimenti DCC richiedono accettazione esplicita e non sono protetti dal TLS della connessione IRC. Trattare nomi e contenuti dei file come non attendibili. Una connessione IRC cifrata non significa un trasferimento DCC cifrato.
+
+Consultare sempre il SECURITY.md originale per tutti i dettagli e i limiti. Queste traduzioni sono bozze da far rivedere a parlanti esperti, soprattutto per decisioni di sicurezza.
+
+SOURCE:  / SECURITY.md
+STATUS: Draft translation; English source takes precedence.

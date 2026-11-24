@@ -1,0 +1,14 @@
+r25 FULL VIPIRC MANUAL TRANSLATION DRAFTS
+
+Last five full chapters, each with en source and ten locale drafts:
+COMMAND-LINE OPTIONS: doc/FULLMANUAL-CLI-OPTIONS-XX.txt
+COMMAND PROMPT: doc/FULLMANUAL-COMMAND-PROMPT-XX.txt
+CONNECTION AND STARTUP COMMANDS: doc/FULLMANUAL-CONNECTION-STARTUP-XX.txt
+CONVERSATION COMMANDS: doc/FULLMANUAL-CONVERSATION-COMMANDS-XX.txt
+CONFIGURATION: doc/FULLMANUAL-CONFIGURATION-XX.txt
+
+XX = en,id,ms,tr,es,pt,fr,de,ru,it,ar.
+Full offline companion: doc/FULL-MANUAL-XX.txt.
+The compiled companion manual is assembled from all 52 translated section drafts.
+English MANUAL.txt is authoritative. The ncurses reader itself remains English.
+Independent native-speaker review is required.

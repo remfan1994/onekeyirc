@@ -1,0 +1,27 @@
+onekeyirc 0.1.35 /dcc standalone reference (id)
+Copied exactly from the previously translated minimalist manual.
+This document makes earlier translations easier to locate;
+it does not represent newly translated English prose.
+Source section SHA-256: 65dc01ea2b9209fe07b3ecc875c3c08890aa0c5957d339d4bc052b75f41907c6
+
+/dcc - Tawarkan, tinjau, dan kelola transfer berkas langsung
+------------------------------------------------------------
+Penggunaan: /dcc [list|NICK PATH|send [-address IPV4] [-port PORT] NICK PATH|accept NUMBER [DIRECTORY]|reject NUMBER|cancel NUMBER]
+
+Tanpa argumen, tampilkan transfer. /dcc NICK PATH menawarkan berkas pada server terpilih.
+PATH adalah seluruh teks tersisa, termasuk spasi; jalurnya relatif terhadap direktori saat proses dimulai.
+Klien tidak pernah mengubah direktori itu, termasuk saat menelusuri berkas atau berjalan di latar.
+Pengiriman singkat mengumumkan IPv4 lokal koneksi IRC. Di balik NAT, pakai -address berisi IPv4 yang dapat diakses dan -port port yang diteruskan.
+Tidak meminta alamat dari layanan luar. Koneksi IRC khusus IPv6 memerlukan IPv4 yang diisi secara eksplisit.
+DCC adalah koneksi langsung tanpa enkripsi. Rekan menerima IP yang diumumkan; menerima tawaran juga membuka IP kepada rekan.
+Tawaran masuk belum dibuka sampai /dcc accept NUMBER. DIRECTORY memakai direktori awal secara bawaan dan harus milik Anda serta privat.
+Berkas tujuan yang ada tidak ditimpa; symlink dan berkas khusus ditolak. Mode uji tidak membuka berkas atau soket.
+Gunakan /dcc reject NUMBER untuk menolak tawaran atau /dcc cancel NUMBER untuk membatalkan transfer aktif.
+Nomor transfer berlaku di semua server proses ini. Menutup server asal membatalkan transfernya; putus IRC tidak membatalkan transfer yang sudah diterima.
+
+Contoh:
+/dcc alice file.txt
+/dcc list
+/dcc accept 1 ./downloads
+/dcc send -address 203.0.113.20 -port 5000 alice file.txt
+/dcc cancel 2

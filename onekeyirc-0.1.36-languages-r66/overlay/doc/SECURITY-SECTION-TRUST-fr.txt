@@ -1,0 +1,12 @@
+Trust boundary
+Source: SECURITY.md, section "Trust boundary"
+English section SHA-256: b206f366472f34a9c25e1096f15d6fe813e99115c1e789ab4fa3d857e18f7595
+Paragraphs: 3
+Status: Translation draft; fluent-speaker security review required
+English SECURITY.md remains authoritative. This is only one section, not the full security document.
+
+Les serveurs IRC, les correspondants, les pseudonymes, les sujets, les champs du protocole, les noms de fichiers et le texte collé constituent des entrées non fiables. Le système d'exploitation, le terminal, les bibliothèques C/TLS, le magasin de certificats de confiance et le compte utilisateur restent des composants de confiance. L'interface complète de vipirc fait aussi confiance à curses. GPG ajoute son exécutable, son trousseau de clés et son agent. Les profils de serveurs partagent un même processus et ne forment pas des compartiments de sécurité isolés. Un autre processus disposant des mêmes droits de compte peut généralement examiner les fichiers privés et la mémoire.
+
+Exécutez le client sous un compte ordinaire. Avant toute lecture de la configuration, les exécutions opérationnelles refusent les divergences entre identifiants réels et effectifs de l'utilisateur ou du groupe, désactivent les fichiers de vidage mémoire et définissent umask 0077. Sous Linux, elles interdisent également les vidages du processus. Les descripteurs standards manquants sont réservés via /dev/null avant l'ouverture des ressources de l'application ; les flux ouverts hérités et leurs indicateurs restent inchangés. L'échec d'une protection de démarrage obligatoire arrête l'exécution. Ces mesures ne fournissent ni pledge/unveil, ni seccomp, ni séparation des privilèges, ni protection contre la compromission de la machine hôte.
+
+configure détecte les mesures de durcissement du compilateur et de l'éditeur de liens prises en charge par l'hôte choisi : protection de pile, contrôles renforcés de libc, diagnostics de format, PIE, RELRO, liaison immédiate et pile non exécutable. Vérifiez les options configurées sur la machine de déploiement ; toutes les plateformes ne les prennent pas toutes en charge.

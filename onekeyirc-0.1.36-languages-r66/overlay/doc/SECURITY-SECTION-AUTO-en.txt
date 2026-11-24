@@ -1,0 +1,12 @@
+Automatic commands and cancellation
+Source: SECURITY.md, section "Automatic commands and cancellation"
+English section SHA-256: d5949c21fd5a0dc4ef73af2c42931766637e3b4ba398ff7184e64a2ae9a0e305
+Paragraphs: 3
+Status: Verbatim English reference
+English SECURITY.md remains authoritative. This is only one section, not the full security document.
+
+Each profile has at most 16 literal commands, each at most 511 UTF-8 bytes. Only message, single-channel join, nick, away/back and WHOIS operations are accepted. Listings/errors hide arguments because text may contain secrets. The connection owns a fixed startup-command snapshot. Edits are staged for the next explicit connection; automatic retry retains the interrupted connection's settings. Identity changes clear inherited private command text.
+
+Execution starts after registration and required SASL. The initial delay is 0..300 seconds; subsequent intervals are 2..60 seconds after a completed write. Only one automatic frame is pending, so a stall cannot cause a catch-up burst. Automatic messages must fit one frame and are not split/locally echoed. An error stops subsequent commands with a redacted indexed diagnostic.
+
+/cancel removes unsent queued text and future automatic work. A partially written frame or an in-flight TLS retry must retain its bytes and may finish, even when the retry has not yet reported accepted bytes. Sent bytes cannot be recalled. Disconnect clears the transport/queues. Automatic-away retries are timed and yield to newer accepted manual/script/background intent.

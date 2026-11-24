@@ -1,0 +1,7 @@
+OPTIONAL LANGUAGE + ARABIC RTL PATCH REVISION: r66
+BASE APPLICATION VERSION: 0.1.36
+BASE SOURCE: English r1, unchanged
+PATCHED --version: onekeyirc 0.1.36 [lang-rtl-r66]
+21 IRC numeric/WHOIS/topic/channel-list display keys translated in ten languages; 1679 keys per locale.
+Named-field renderer preserves server data; unknown numerics remain unchanged.
+No changes to connection behavior, IRC protocol or credential/configuration handling.

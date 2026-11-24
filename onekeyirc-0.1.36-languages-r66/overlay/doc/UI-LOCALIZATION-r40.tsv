@@ -1,0 +1,13 @@
+source	kind	fields	english
+src/idle.c	fixed		The setup result appears after the current paste and queued input finish.
+src/idle.c	fixed		command response reader
+src/idle.c	fixed		watch log
+src/idle.c	fixed		The summary is a snapshot of all configured server sessions, channel and query views, activity, pending work, and file transfers.
+src/idle.c	fixed		Mentions can also be unread messages; their counts are not added together.
+src/idle.c	fixed		Press r in the summary reader to refresh from current state. Reading or refreshing does not send an IRC command.
+src/idle.c	fixed		This reader retains the result while you inspect it. The underlying conversation and unfinished command remain available.
+src/idle.c	fixed		Mentions collect messages that matched your nickname or watch terms. Their original conversations remain separate.
+src/idle.c	fixed		The server log contains connection information and replies. /join opens a channel; /list searches the network's channels; /disconnect closes this connection.
+src/idle.c	fixed		A query is a private conversation on its server. /me sends an action, /whois requests information, and /close closes its local view.
+src/idle.c	fixed		A channel is a shared conversation on its server. /me sends an action, /topic reads or edits its topic, /users lists its users, and /part leaves it.
+src/idle.c	named-fields	item	{item} is displayed in the command response reader.

@@ -1,0 +1,12 @@
+Offline checks and evidence
+Source: SECURITY.md, section "Offline checks and evidence"
+English section SHA-256: 9c67268cfad3c6bc3c5553f23c932c342c3f11231b325d758eeade66d790b4bd
+Paragraphs: 3
+Status: Verbatim English reference
+English SECURITY.md remains authoritative. This is one source-linked section, not a security certification.
+
+--help, --version and --manual do not load configuration or credentials. --check-config validates config/catalog syntax, values and file protections; it does not test password access/decryption, DNS, TLS or a real login. --test-mode loads valid profiles into an in-process simulator without IRC/DCC networking, credential/CA reads, GPG or config saves. Inline values may be parsed but are never sent. Explicit Background can still create local session IPC. Success in simulation does not establish real-server compatibility.
+
+The current recovery review covers vipirc 0.7.34 / onekeyirc 0.1.33 in doc/STABILITY-REVIEW-0.7.34-0.1.33.txt and doc/STABILITY-PASS-RESULTS.json. It records reproduced failures, corrections, resource-failure and bounded-load checks, and platform limits. The preceding security review remains in doc/SECURITY-REVIEW-0.7.33-0.1.32.txt and doc/SECURITY-PASS-RESULTS.json. Earlier named/date-stamped reports retain their original source versions, test workloads and platform limits; they are not rerun claims.
+
+Local protocol fixtures do not prove operation against a real ZNC/soju daemon or IRCNow account. Full ncurses runtime, native named AF_UNIX lifecycle, OpenBSD/LibreSSL and deployment-host behavior need their stated target checks. A short stress test does not prove months of unattended reliability. Report the version, platform, reproducible steps and redacted diagnostics; omit passwords, private keys and private chat transcripts.

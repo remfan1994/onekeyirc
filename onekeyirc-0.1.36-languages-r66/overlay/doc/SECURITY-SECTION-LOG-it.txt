@@ -1,0 +1,16 @@
+Local history, saved logs and privacy
+Source: SECURITY.md, section "Local history, saved logs and privacy"
+English section SHA-256: 8123a3ef64d1e4e83b7cc6891d66caa56780846eafd681342f8e2f9749251e94
+Paragraphs: 5
+Status: Translation draft; fluent-speaker security review required
+English SECURITY.md remains authoritative. This is only one section, not the full security document.
+
+La cronologia per richiamare i comandi è limitata a 64 voci/64 KiB e resta in memoria. La composizione della chat non consente di richiamare i messaggi già inviati. Le forme riconosciute di credenziali e comandi di controllo sono escluse. I dati facoltativi di frequenza in <config_path>.commands conservano al massimo 96 nomi canonici di comandi e i rispettivi conteggi, senza argomenti, destinazioni, messaggi o password. Lettura e scrittura automatiche richiedono una configurazione salvata; file di conteggio non validi o non sicuri non impediscono l'avvio. La modalità di test salta queste operazioni di I/O.
+
+I registri persistenti delle conversazioni sono disattivati per impostazione predefinita. Ogni profilo salvato con registrazione attiva aggiunge dati a <config_path>.log. La directory padre deve appartenere all'utente e avere esattamente modalità 0700; il file deve essere regolare, di proprietà dell'utente, con un solo collegamento e modalità esatta 0600. Il percorso relativo ai descrittori e O_NOFOLLOW rifiutano i collegamenti simbolici; O_NONBLOCK impedisce che una FIFO predisposta ad arte blocchi prima della verifica del tipo di file. La registrazione non crea directory padre.
+
+Il limite di aggiunta è 16 MiB per registro attivo. Un blocco consultivo non bloccante serializza il controllo della dimensione e la scrittura tra client cooperanti. Percorsi non sicuri, blocco occupato, scrittura fallita o limite raggiunto disattivano la registrazione per quel profilo con un messaggio diagnostico; la chat dal vivo continua. Non avvengono troncamenti o eliminazioni automatiche. Archiviare o spostare il registro, quindi disattivare e riattivare esplicitamente la registrazione. Gli archivi esterni sono responsabilità dell'utente. L'I/O su disco può ancora bloccarsi con supporti lenti o remoti; il registratore non è asincrono.
+
+Le copie Help/aggregate mentions, le bozze non inviate, i buffer SASL/PASS, i comandi privati riconosciuti e le risposte note dei servizi sono esclusi dai registri. Le destinazioni di controllo del bouncer sono ulteriormente filtrate come indicato sotto. Nomi di servizi sconosciuti e segreti digitati come chat ordinaria possono comunque finire nei registri. I file restano dopo l'uscita. La registrazione del terminale, i log del server e le copie dei destinatari sono indipendenti da questa impostazione.
+
+Il catch-up usa l'ultimo messaggio idoneo inviato localmente da questo worker ancora attivo. Prova prima il registro privato con un riferimento validato a file/record e un'estremità fissata, poi ripiega sulla memoria conservata. Rotazione o cambio d'identità invalidano il riferimento su disco, senza scegliere silenziosamente un record non correlato. I messaggi propri riprodotti non sostituiscono il riferimento. Un nuovo processo non importa vecchi registri né ricostruisce il riferimento catch-up di un worker terminato.

@@ -1,0 +1,16 @@
+Local history, saved logs and privacy
+Source: SECURITY.md, section "Local history, saved logs and privacy"
+English section SHA-256: 8123a3ef64d1e4e83b7cc6891d66caa56780846eafd681342f8e2f9749251e94
+Paragraphs: 5
+Status: Verbatim English reference
+English SECURITY.md remains authoritative. This is only one section, not the full security document.
+
+Command recall is bounded to 64 entries/64 KiB and stays in memory. Chat composition is not a sent-chat recall interface. Known credential/control forms are excluded. Optional frequency data in <config_path>.commands stores at most 96 canonical command names and counts, without arguments, targets, messages or passwords. Automatic reads/writes require a saved configuration; invalid/unsafe count files do not prevent startup. Test mode skips this I/O.
+
+Persistent transcripts are off by default. Each enabled saved profile appends to <config_path>.log, requiring an owned exact-mode-0700 parent and an owned single-link regular exact-mode-0600 file. Descriptor-relative traversal and O_NOFOLLOW reject symlinks; O_NONBLOCK prevents a planted FIFO from blocking before type checks. Logging creates no parent directories.
+
+The append cap is 16 MiB per active log. A nonblocking advisory lock serializes the size check/write among cooperating clients. Unsafe paths, a busy lock, failed writes or a reached cap disable logging for that profile with a diagnostic; live chat continues. Nothing is automatically truncated/deleted. Archive or move the log, then explicitly toggle logging off and on. External archives are the user's responsibility. Disk I/O can still stall on slow or remote storage; the logger is not asynchronous.
+
+Help/aggregate mentions copies, unsent drafts, SASL/PASS buffers, recognized private commands and known service replies are excluded from transcripts. Bouncer control destinations receive additional filtering described below. Unknown service names and secrets typed as ordinary chat can still be logged. Logs survive exit. Terminal recording, server logging and recipients' copies are independent of this setting.
+
+Catch-up uses this live worker's last eligible locally sent message. It first tries the private log with a validated file/record anchor and pinned end, then falls back to retained memory. Rotation or changed identity invalidates the disk anchor; it does not silently select an unrelated record. Replayed own messages do not replace the anchor. A fresh process does not import old logs or reconstruct a terminated worker's catch-up anchor.

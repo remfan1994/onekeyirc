@@ -1,0 +1,16 @@
+Managed sessions and SSH loss
+Source: SECURITY.md, section "Managed sessions and SSH loss"
+English section SHA-256: f44a63f7faada1375f5769e9dfe2235da96547fa535b07d1c9869cba13ca063f
+Paragraphs: 5
+Status: Translation draft; fluent-speaker security review required
+English SECURITY.md remains authoritative. This is only one section, not the full security document.
+
+Background erstellt einen kontoprivaten lokalen Job-Endpunkt und eine Lease für dessen Lebensdauer. Die Registrierung ist pro Programm und Unix-Benutzer getrennt und bietet 64 nummerierte Plätze. Sie ist weder Internet-Listener noch Neustart-Persistenz. Suche/Anhängen/Steuern prüfen private Pfade, Dateiidentitäten und das Instanz-Token des ausgewählten Workers; Jobnummern werden niemals als PID verwendet. Wo die Plattform dies bietet, werden Zugangsdaten gleichberechtigter Benutzer-Peers geprüft.
+
+Gleichzeitig kann nur ein Terminal angehängt sein. Resume überprüft übertragene Terminaldeskriptoren und begrenzte TERM-/locale-Metadaten. Die Suche ist begrenzt, überspringt unsichere Objekte und löscht unerwarteten Registry-Inhalt nicht rekursiv. Ein lebender, nicht antwortender Worker behält seine Lease und wird als ungeprüft gemeldet. --resume ohne Argument wählt nur genau einen nachweislich verfügbaren, abgekoppelten Worker aus, wenn kein ungeprüfter Kandidat vorliegt. single_session beschränkt neue Hintergrundjobs, nicht die Anzahl der IRC-Verbindungen in einem laufenden Worker.
+
+--detach-session NUMBER gibt das gewählte Terminal beziehungsweise die Steuerverbindung frei und behält Worker, Verbindungen, Entwürfe, Übertragungen und Verlauf. --close-session NUMBER beendet den ganzen Worker und verwirft nicht gespeicherten RAM-Zustand. Detach wartet auf die bestätigte Freigabe des Terminals; close auf den Abbau von Endpunkt/Lease. Eine angenommene Anfrage ist noch kein Abschluss. Steuerbefehle haben Fristen und töten nie eine vermutete numerische PID. Endpunkte dürfen nicht als Wiederherstellungsversuch gelöscht werden.
+
+Der Verlust eines bereits verwalteten Terminals/Controllers koppelt den Worker ab. Ein normaler Vordergrundprozess, der nie verwaltet wurde, besitzt keinen wiederaufnehmbaren Job. Die Installation einer neuen Programmdatei aktualisiert nicht das Protokoll eines laufenden Workers; ältere Worker müssen möglicherweise mit ihren bisherigen Steuerbefehlen sauber beendet werden.
+
+Die minimalistische Ausgabewarteschlange ist begrenzt; ausdrückliche Background-Anfragen können auch bei blockierter Ausgabe bearbeitet werden. Aufräum- und Hinweis-Ausgaben erfolgen nach Möglichkeit und können auf einem angehaltenen Terminal fehlen. Die vollständige ncurses-Anzeige schreibt weiterhin synchron auf das Terminal; ein dauerhaft blockiertes, noch offenes Terminal kann die Steuerabfrage verzögern. Ein Timeout wird als solcher gemeldet, nicht als erfolgreicher Zwangsabbruch. Keiner der Clients konfiguriert die Leerlauf-Trennrichtlinie des SSH-Servers.

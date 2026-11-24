@@ -1,0 +1,6 @@
+OPTIONAL LANGUAGE PATCH r41, onekeyirc 0.1.36
+
+9 source-linked keys for ten languages.
+Apply to clean English r1 only, never over r40.
+All variables are copied literally through named fields, without printf formatting.
+Application version and IRC command/protocol syntax remain unchanged.

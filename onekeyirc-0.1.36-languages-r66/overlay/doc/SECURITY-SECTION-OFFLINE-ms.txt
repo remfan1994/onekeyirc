@@ -1,0 +1,12 @@
+Offline checks and evidence
+Source: SECURITY.md, section "Offline checks and evidence"
+English section SHA-256: 9c67268cfad3c6bc3c5553f23c932c342c3f11231b325d758eeade66d790b4bd
+Paragraphs: 3
+Status: Translation draft; fluent-speaker security review required
+English SECURITY.md remains authoritative. This is one source-linked section, not a security certification.
+
+--help, --version dan --manual tidak memuatkan konfigurasi atau kelayakan. --check-config mengesahkan sintaks konfigurasi/katalog, nilai dan perlindungan fail; ia tidak menguji akses/penyahsulitan kata laluan, DNS, TLS atau log masuk sebenar. --test-mode memuatkan profil yang sah ke dalam simulator dalam proses tanpa rangkaian IRC/DCC, bacaan kelayakan/CA, GPG atau simpanan konfigurasi. Nilai inline boleh dihuraikan tetapi tidak dihantar. Background yang diminta secara nyata masih boleh mencipta IPC sesi setempat. Kejayaan simulasi tidak membuktikan keserasian dengan pelayan sebenar.
+
+Kajian pemulihan ketika itu meliputi vipirc 0.7.34 / onekeyirc 0.1.33 dalam doc/STABILITY-REVIEW-0.7.34-0.1.33.txt dan doc/STABILITY-PASS-RESULTS.json. Ia merekodkan kegagalan yang berjaya diulang, pembetulan, ujian kegagalan sumber dan beban terbatas, serta batas platform. Kajian keselamatan sebelumnya ada dalam doc/SECURITY-REVIEW-0.7.33-0.1.32.txt dan doc/SECURITY-PASS-RESULTS.json. Laporan lama bernama atau bertarikh mengekalkan versi sumber, beban ujian dan batas platform asalnya; laporan itu bukan dakwaan ujian telah dijalankan semula.
+
+Peralatan ujian protokol setempat tidak membuktikan operasi pada daemon ZNC/soju sebenar atau akaun IRCNow. Runtime ncurses penuh, kitar hayat AF_UNIX bernama secara natif, OpenBSD/LibreSSL dan tingkah laku hos pemasangan memerlukan ujian pada sasaran masing-masing. Ujian tekanan singkat tidak membuktikan kebolehpercayaan tanpa pengawasan selama berbulan-bulan. Laporkan versi, platform, langkah untuk mengulang masalah dan diagnostik yang telah disunting; jangan sertakan kata laluan, kunci peribadi atau transkrip perbualan peribadi.

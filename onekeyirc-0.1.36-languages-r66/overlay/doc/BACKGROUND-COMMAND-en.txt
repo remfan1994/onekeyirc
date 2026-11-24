@@ -1,0 +1,25 @@
+VERBATIM ENGLISH REFERENCE: onekeyirc 0.1.35 MANUAL.txt
+Source: complete /background command entry.
+English source SHA-256: 11ddd6fca175fe79d966e65731f70ea4986ede0bad4d3bfc2b4cd2c277677881
+
+/background - Keep connections running and release the terminal
+---------------------------------------------------------------
+Usage: /background
+
+Detaches the running session after restoring the terminal. The shell receives this application's numbered resume command.
+From the shell, --sessions lists this program's attached and detached private jobs; --resume resumes its sole available detached job.
+Use --resume NUMBER when more than one job exists. NUMBER is the job ID, not a process ID; it stays stable until exit and may then be reused.
+--detach-session NUMBER releases an attached terminal/controller but keeps the worker, IRC connections, drafts and history alive for --resume NUMBER.
+--close-session NUMBER ends the whole job, all IRC connections and transfers, and its unsaved drafts and in-memory history. Success is reported only after verified completion.
+If resume is busy after a lost SSH terminal, list jobs, detach that job, then resume it. See /help sessions for the recovery sequence.
+An unresponsive worker or a legacy worker lacking a requested control can fail. Installing a binary does not update a running worker; restart it deliberately after an upgrade.
+Resume redraws retained in-memory scrollback even when no chat arrived while detached. /set single_session on refuses a second background job so bare --resume remains unambiguous.
+To start without a terminal, use --background from the shell; see --help for this program's options.
+When background_away is on and this profile permits automatic away, /background or managed terminal loss queues the configured AWAY after detach. Resume clears only that client-generated away state; a manual /away is preserved.
+Add --reconnect to retry transient connection failures. See /help deployment and /help reconnect.
+No terminal multiplexer is required. A pending resolver or credential helper can require a retry.
+Suspending an ordinary foreground process pauses its networking. A resumed job can suspend its foreground controller while its managed worker continues networking.
+From the shell: onekeyirc --sessions; onekeyirc --detach-session NUMBER; onekeyirc --resume NUMBER; onekeyirc --close-session NUMBER.
+
+Examples:
+/background

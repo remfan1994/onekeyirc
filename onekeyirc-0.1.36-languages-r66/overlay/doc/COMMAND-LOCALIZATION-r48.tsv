@@ -1,0 +1,52 @@
+command	english	source	display_source
+autoauth	Inspect credential locations or prepare authentication	src/commands.c	src/idle.c
+autoconnect	Show or change automatic startup connection	src/commands.c	src/idle.c
+autojoin	Inspect running joins or prepare the next explicit connection	src/commands.c	src/idle.c
+away	Set or clear away status	src/commands.c	src/idle.c
+background	Keep running and release this terminal; resume with onekeyirc --resume	src/commands.c	src/idle.c
+bind	Assign a user-selected key to a local function	src/commands.c	src/idle.c
+bindings	Edit custom key bindings or list available names	src/commands.c	src/idle.c
+cancel	Stop unsent chat and startup commands on this server	src/commands.c	src/idle.c
+channel	Switch channel; 0 is the server	src/commands.c	src/idle.c
+channels	Open this server's channel list	src/commands.c	src/idle.c
+cl	Open this server's channel list (alias of /channels)	src/commands.c	src/idle.c
+clear	Clear the current view's stored lines	src/commands.c	src/idle.c
+clearinput	Clear this conversation's draft	src/commands.c	src/idle.c
+connect	Connect directly, or reuse the selected saved server	src/commands.c	src/idle.c
+dcc	Open file transfers, or manage a transfer directly	src/commands.c	src/idle.c
+disconnect	Disconnect the selected or numbered server	src/commands.c	src/idle.c
+help	Open the manual; TEXT searches its contents	src/commands.c	src/idle.c
+join	Join one channel	src/commands.c	src/idle.c
+keymap	Explain ordinary navigation and legacy keymap names	src/commands.c	src/idle.c
+list	Open and filter this network channel directory	src/commands.c	src/idle.c
+ls	Open a local list; channels by default	src/commands.c	src/idle.c
+manual	Open the application manual	src/commands.c	src/idle.c
+me	Send an action to this conversation	src/commands.c	src/idle.c
+mentions	View this server's mentions, or clear retained mentions across servers	src/commands.c	src/idle.c
+mouse	Toggle or set mouse controls	src/commands.c	src/idle.c
+next	Switch to the next view	src/commands.c	src/idle.c
+nick	Set or request a nickname	src/commands.c	src/idle.c
+panel	Open the application configuration panel	src/commands.c	src/idle.c
+prev	Switch to the previous view	src/commands.c	src/idle.c
+ql	Open this server's query list	src/commands.c	src/idle.c
+queries	Open this server's query list (alias of /ql)	src/commands.c	src/idle.c
+query	Open or select a private conversation without sending	src/commands.c	src/idle.c
+quickstart	Open the selected server's connection settings	src/commands.c	src/idle.c
+quit	Exit all sessions with an optional quit reason	src/commands.c	src/idle.c
+save	Save this server, primary preferences, or all profiles	src/commands.c	src/idle.c
+server	Connect or select a server; no argument opens its MOTD	src/commands.c	src/idle.c
+servers	Open the server connection list	src/commands.c	src/idle.c
+set	Set application preferences	src/commands.c	src/idle.c
+settings	Open the configuration panel	src/commands.c	src/idle.c
+sl	Open the server connection list (alias of /servers)	src/commands.c	src/idle.c
+soju	Send a private control command to this soju bouncer; help by default	src/commands.c	src/idle.c
+summary	Review all servers, conversations, activity, queues and transfers	src/commands.c	src/idle.c
+topic	Show or change the current channel topic	src/commands.c	src/idle.c
+transfers	Open file transfers	src/commands.c	src/idle.c
+unread	Open grouped unread conversations and mentions across servers	src/commands.c	src/idle.c
+users	Show, hide or scroll the user list	src/commands.c	src/idle.c
+view	Switch to a named view or numbered channel	src/commands.c	src/idle.c
+views	Open this server's channel list	src/commands.c	src/idle.c
+watch	Manage additional mention strings	src/commands.c	src/idle.c
+whois	Request information about a nickname	src/commands.c	src/idle.c
+znc	Send a private control command to this ZNC bouncer; Help by default	src/commands.c	src/idle.c

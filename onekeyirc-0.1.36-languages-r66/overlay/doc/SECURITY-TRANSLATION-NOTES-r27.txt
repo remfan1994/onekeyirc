@@ -1,0 +1,17 @@
+Security translation status for r27
+
+Four complete source-linked SECURITY.md sections are translated into id, ms,
+tr, es, pt, fr, de, ru, it and ar. Each section retains all English source
+paragraphs and its exact source SHA-256 in a separate English reference.
+These are drafts, not security-verified authoritative guidance.
+
+Sections: Trust boundary; TLS, credentials and endpoint identity;
+Configuration and private files; Child processes and synchronous work.
+
+Remaining: protocol/terminal/state; local history/privacy; automatic
+commands/cancellation; managed sessions/SSH; bouncer/playback; DCC;
+offline checks; key bindings; and in vipirc, full-interface browsing.
+
+Technical token checks cannot establish translation correctness or semantic
+fidelity. Fluent speakers with security knowledge must review each edition.
+Original English SECURITY.md remains complete and authoritative.

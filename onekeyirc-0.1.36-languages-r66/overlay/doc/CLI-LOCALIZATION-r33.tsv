@@ -1,0 +1,4 @@
+section	source	english	locales
+dynamic-cli	src/main.c	{option} is too long	id,ms,tr,es,pt,fr,de,ru,it,ar
+dynamic-cli	src/main.c	cannot start in background: saved-server catalog: {error}	id,ms,tr,es,pt,fr,de,ru,it,ar
+dynamic-cli	src/main.c	cannot start in background: saved server {number}: {error}	id,ms,tr,es,pt,fr,de,ru,it,ar

@@ -1,0 +1,76 @@
+[
+  {
+    "english": "The selected question edits a private configuration draft.",
+    "source": "src/idle.c",
+    "kind": "fixed",
+    "fields": []
+  },
+  {
+    "english": "Type an answer and press Enter to continue. An empty answer keeps the displayed value unless the question requests confirmation.",
+    "source": "src/idle.c",
+    "kind": "fixed",
+    "fields": []
+  },
+  {
+    "english": "Escape returns to the previous question; Escape from the first question cancels the draft.",
+    "source": "src/idle.c",
+    "kind": "fixed",
+    "fields": []
+  },
+  {
+    "english": "Page Up and Page Down scroll long question details.",
+    "source": "src/idle.c",
+    "kind": "fixed",
+    "fields": []
+  },
+  {
+    "english": "Tab selects the question heading; ? then opens its help. Tab or Enter returns to the answer.",
+    "source": "src/idle.c",
+    "kind": "fixed",
+    "fields": []
+  },
+  {
+    "english": "Question marks in the answer field are ordinary text, including the first character.",
+    "source": "src/idle.c",
+    "kind": "fixed",
+    "fields": []
+  },
+  {
+    "english": "Changes take effect only after the final Save or Apply action. Connection changes apply on the next connection.",
+    "source": "src/idle.c",
+    "kind": "fixed",
+    "fields": []
+  },
+  {
+    "english": "Application preferences apply across the client; server settings belong to the selected server profile.",
+    "source": "src/idle.c",
+    "kind": "fixed",
+    "fields": []
+  },
+  {
+    "english": "About {screen}",
+    "source": "src/idle.c",
+    "kind": "named-fields",
+    "fields": [
+      "screen"
+    ]
+  },
+  {
+    "english": "[About {screen}]",
+    "source": "src/idle.c",
+    "kind": "named-fields",
+    "fields": [
+      "screen"
+    ]
+  },
+  {
+    "english": "Review rows {first}-{last} of {total} | Up/Down | PgUp/PgDn | Home/End",
+    "source": "src/idle.c",
+    "kind": "named-fields",
+    "fields": [
+      "first",
+      "last",
+      "total"
+    ]
+  }
+]

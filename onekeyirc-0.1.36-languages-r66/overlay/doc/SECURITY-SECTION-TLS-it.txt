@@ -1,0 +1,18 @@
+TLS, credentials and endpoint identity
+Source: SECURITY.md, section "TLS, credentials and endpoint identity"
+English section SHA-256: 4ea410d65b0d7a489076cfd9898b5769f21e9e2f4fec63f7df8340f68bb5de45
+Paragraphs: 6
+Status: Translation draft; fluent-speaker security review required
+English SECURITY.md remains authoritative. This is only one section, not the full security document.
+
+TLS richiede la versione 1.2 o successiva e verifica la catena dei certificati e il nome host selezionato. SASL configurato, PASS del server ed elenchi abilitati e non vuoti di comandi automatici richiedono TLS verificato. Non esiste un ripiego silenzioso su testo in chiaro. Cifrare una password su disco non cifra il trasporto. TLS di IRC protegge il collegamento con il server o bouncer selezionato, non i messaggi end-to-end.
+
+Mantenere aggiornata la libreria TLS collegata oltre al codice sorgente. L'host della revisione utilizzava OpenSSL 3.5.7; OpenSSL documenta CVE-2026-35189, una crescita della memoria legata ai certificati durante la normale elaborazione TLS, corretta nella versione 3.5.9 di quel ramo. Questa versione dei sorgenti non corregge la libreria esterna. Controllare versione, backport e aggiornamenti di sicurezza del fornitore di distribuzione: https://openssl-library.org/news/secadv/20260929.txt
+
+Un ca_file vuoto seleziona l'archivio delle autorità attendibili di sistema. Un bundle CA personalizzato è un file PEM locale attendibile: il caricatore lo apre una sola volta, controlla il file regolare aperto, ne legge il contenuto entro i limiti e analizza quella copia senza chiedere una password. Rifiuta file vuoti, oltre 16 MiB, sorgenti non regolari e variazioni di dimensione rilevate. Le voci di certificato e di fiducia AUX e CRL vengono conservate. I percorsi CA possono attraversare link simbolici perché identificano materiale pubblico attendibile scelto esplicitamente, a differenza dei percorsi privati di configurazione e credenziali. Scegliere una CA diversa modifica gli emittenti attendibili. Il caricamento è sincrono: l'I/O su file regolari può comunque bloccarsi su memoria di massa lenta.
+
+Ogni credenziale seleziona esattamente una sorgente: un file privato in chiaro, un file privato cifrato con GPG oppure un valore esplicito in linea. Le sorgenti SASL e PASS del server sono distinte. Cambiare il nome host con --server cancella autenticazione ereditata, scelta della CA, identità del bouncer, canali e comandi di avvio. Un override sullo stesso host, un cambio di porta o di nickname non provoca tale azzeramento. Controllare il profilo selezionato prima di connettersi a un altro servizio.
+
+SASL PLAIN diretto richiede l'account configurato. soju ricava l'identità SASL dai campi del bouncer. La negoziazione usa l'ultima dichiarazione annunciata dei meccanismi SASL, attende conferma o richiesta di autenticazione e solo allora legge la credenziale. Il fallimento di un'autenticazione obbligatoria non si trasforma in registrazione non autenticata. ZNC usa invece la propria sorgente PASS del server.
+
+Anche i comandi privati di autenticazione riconosciuti e immessi a mano richiedono TLS verificato. La convalida riguarda le righe logiche e tutti i frammenti previsti e viene ripetuta al momento dell'invio. Le forme private riconosciute vengono escluse dalla cronologia dei comandi e dai log persistenti delle conversazioni. La loro rappresentazione sul terminale attivo può comunque contenere il testo digitato. Il riconoscimento copre i verbi comuni dei servizi, non segreti arbitrari nella prosa o tutti i protocolli dei servizi di terze parti.

@@ -1,0 +1,18 @@
+TLS, credentials and endpoint identity
+Source: SECURITY.md, section "TLS, credentials and endpoint identity"
+English section SHA-256: 4ea410d65b0d7a489076cfd9898b5769f21e9e2f4fec63f7df8340f68bb5de45
+Paragraphs: 6
+Status: Translation draft; fluent-speaker security review required
+English SECURITY.md remains authoritative. This is only one section, not the full security document.
+
+TLS exige a versão 1.2 ou posterior e verifica a cadeia de certificados e o nome de anfitrião selecionado. SASL configurado, PASS do servidor e listas automáticas de comandos não vazias e ativadas exigem TLS verificado. Não há regresso silencioso a texto simples. Cifrar uma palavra-passe em disco não cifra o transporte. O TLS de IRC protege a ligação ao servidor ou bouncer escolhido, não as mensagens de ponta a ponta.
+
+Mantenha a biblioteca TLS associada atualizada, além deste código-fonte. O anfitrião de análise utilizou OpenSSL 3.5.7; o OpenSSL documenta CVE-2026-35189, um aumento de memória relacionado com certificados durante o processamento normal de TLS, corrigido na versão 3.5.9 desse ramo. Esta versão do código-fonte não corrige a biblioteca externa. Confirme a versão do fornecedor, as correções retroportadas e as atualizações de segurança atuais: https://openssl-library.org/news/secadv/20260929.txt
+
+Um ca_file vazio seleciona o repositório de confiança do sistema. Um conjunto CA personalizado é um ficheiro PEM local de confiança: o carregador abre-o uma vez, verifica o ficheiro regular aberto, lê conteúdo com limites e analisa essa cópia sem pedir uma palavra-passe. Rejeita ficheiros vazios, superiores a 16 MiB, fontes não regulares e alterações de tamanho detetadas. Preserva certificados e entradas de confiança AUX e CRL. Os caminhos CA podem atravessar ligações simbólicas porque são material público de confiança selecionado expressamente, ao contrário dos caminhos privados de configuração e credenciais. Selecionar outra CA altera os emissores considerados de confiança. O carregamento é síncrono; E/S de ficheiros regulares pode ainda bloquear em armazenamento lento.
+
+Cada credencial usa exatamente uma origem: ficheiro privado em texto simples, ficheiro privado cifrado com GPG ou valor explícito inserido diretamente. As origens SASL e PASS do servidor são separadas. Alterar o nome de anfitrião com --server elimina a autenticação herdada, a seleção de CA, a identidade do bouncer, os canais e os comandos de arranque. Substituir pelo mesmo anfitrião, mudar a porta ou o apelido não provoca essa limpeza. Reveja o perfil escolhido antes de ligar a outro serviço.
+
+SASL PLAIN direto exige a conta configurada. O soju deriva a identidade SASL dos campos do bouncer. A negociação usa a última declaração anunciada de mecanismos SASL, aguarda a confirmação ou desafio e só então lê a credencial. A falha de autenticação obrigatória não se transforma num registo sem autenticação. O ZNC utiliza, em alternativa, a origem PASS do servidor.
+
+Os comandos privados de autenticação reconhecidos e introduzidos manualmente também exigem TLS verificado. A validação aplica-se às linhas lógicas e a todos os fragmentos previstos e é repetida ao enviar. As formas privadas reconhecidas são excluídas do histórico de comandos e do registo persistente de conversas. A representação no terminal ativo pode ainda conter o texto introduzido. O reconhecimento abrange verbos comuns de serviços, não segredos arbitrários em mensagens nem todos os protocolos de serviços de terceiros.

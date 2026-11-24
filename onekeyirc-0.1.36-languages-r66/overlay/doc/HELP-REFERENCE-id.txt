@@ -1,0 +1,1649 @@
+vipirc / onekeyirc - Bantuan
+==================================================
+
+REFERENSI BANTUAN PERINTAH DAN TOPIK
+
+Referensi ini memuat tabel bantuan perintah/topik tetap. Sintaks dan contoh tetap literal. Tambahan yang dihasilkan khusus klien tidak disertakan. Referensi ini tidak menggantikan MANUAL.txt lengkap atau SECURITY.md berbahasa Inggris. Terjemahan masih perlu ditinjau penutur asli.
+
+r9 / English source r1
+
+/help about
+-----------
+
+Aplikasi dari ThatIAm.vip (www.thatiam.vip), dirancang oleh remfan1994.
+
+Lisensi: IALA (Insha-Allah License Agreement); lihat teks lisensi yang disertakan.
+
+Peringatan pembuka: Bukan vegetarian? www.bloodguiltcurse.net akan mengubah pikiran Anda
+
+Sesi berjalan juga menampilkan pengingat lokal ini sekali ketika antarmuka dipasang:
+
+Membunuh sapi adalah menumpahkan darah yang tidak bersalah. www.bloodguiltcurse.net - larang daging sapi.
+
+Pengingat ini tanpa pertanyaan tambahan dan tidak dikirim ke IRC. Menghubungkan ulang atau memasang ulang antarmuka tidak mengatur ulang penanda sekali per proses pekerja.
+
+/help aliases
+-------------
+
+Nama alias harus tepat; tidak ada eksekusi ambigu atau pencocokan kira-kira.
+
+/conn = /connect; /disc = /disconnect; /detach = /background; /exit = /quit
+
+/j = /join; /leave = /part; /message dan /privmsg = /msg
+
+/nickname = /nick; /names dan /nicks = /users; /unaway = /back
+
+/channellist = /cl; /querylist = /ql; /serverlist = /servers
+
+/configure dan /preferences = /panel; /saveconfig = /saveconf
+
+/autocommand = /autocommands
+
+Saran pelengkapan memakai nama resmi; argumen tetap persis dan penyaringan riwayat rahasia tidak berubah.
+
+/help authentication
+--------------------
+
+Gunakan TLS terverifikasi dengan /autoauth sasl USER file PATH atau /autoauth sasl USER gpg PATH.
+
+Berkas kata sandi atau isi GPG yang didekripsi menyediakan kredensial; jalur digunakan apa adanya.
+
+Gunakan /panel untuk membuat kredensial terenkripsi GPG bagi sidik jari kunci publik lokal yang sudah ada.
+
+Gunakan kunci GPG yang telah dibuka. pinentry tidak dijalankan dalam editor chat.
+
+password= dan server_password= teks biasa juga didukung dalam berkas konfigurasi privat.
+
+Pilih satu sumber saja per kredensial. /settings dan /summary menyembunyikan lokasi berkas.
+
+/autoauth status menampilkan lokasi berkas kredensial aktif dan tertunda tanpa membacanya atau menampilkan kata sandi.
+
+Pengaturan autentikasi berlaku pada /connect berikutnya setelah terputus; /save menyimpannya.
+
+Pada profil bouncer, kelola login dan sumbernya bersama lewat /panel; perubahan /autoauth ditolak.
+
+Berkas kredensial harus berjenis biasa, dimiliki pengguna, bermode 0600 atau 0400; symlink dan lintasan direktori induk ditolak.
+
+Batas kredensial SASL ialah 1024 byte; server PASS biasa 503 byte. Login ZNC gabungan juga harus muat dalam satu baris IRC.
+
+--check-config memvalidasi konfigurasi dan pilihan sumber tanpa membaca kredensial atau menguji login. Lihat /help tls dan /help bouncers.
+
+/help bouncers
+--------------
+
+Gunakan /panel, pilih server, lalu jenis koneksi znc atau soju.
+
+Masukkan hostname dan port TLS bouncer, nama pengguna bouncer, nama jaringan upstream yang ada, serta nama klien tetap opsional.
+
+Simpan satu profil per jaringan hulu. Pilih profil yang tepat sebelum /connect tanpa argumen jika nama host sama.
+
+Klien menyusun identitas masuk. ZNC memakai sumber sandi server; soju memakai sumber sandi autentikasi. Masukkan hanya sandi bouncer, bukan identitas gabungan atau sandi NickServ.
+
+Bouncer memulihkan kanal yang diikuti. /autojoin lokal tidak dijalankan dan tidak dapat diubah; gunakan /join dan /part.
+
+Perintah startup eksplisit tetap dijalankan. Tinjau sebelum mengaktifkan profil bouncer agar join atau perintah layanan tidak berulang tanpa niat.
+
+Away otomatis saat idle/latar belakang mati pada tiap profil bouncer kecuali diaktifkan. /away dan /back manual tetap berlaku.
+
+Riwayat dorongan memakai waktu UTC asli, mengarahkan pesan pribadi ke penerima, dan tidak membuat mention, menjalankan CTCP/DCC, atau mengubah status aktif.
+
+Riwayat dibatasi. Tak ada pencarian arsip sesuai permintaan, penemuan jaringan otomatis, atau pembuatan profil otomatis per jaringan.
+
+Jalankan /znc atau /soju tanpa argumen untuk bantuan layanan. Teks kendali tidak masuk riwayat atau echo; jawaban tampil di server tanpa log persisten.
+
+Salinan kendali keluar yang dikenali disembunyikan walaupun replay memakai nama lama. Teks yang diketik masih bisa tampil dan bouncer punya aturan log sendiri.
+
+Klien hanya terhubung ke bouncer. Atur TLS, autentikasi, dan penyimpanan riwayat di sisi hulu secara terpisah.
+
+Lihat doc/BOUNCERS.txt dan contoh bouncer di examples/ untuk pengaturan dan batas validasi yang dicatat.
+
+/help configuration
+-------------------
+
+[connection] berisi server, port, tls, nick, username, realname, channel, autoconnect, auth, dan sumber kredensial.
+
+[bouncer] type=none|znc|soju, username, network, client, dan automatic_away mengatur profil bouncer per jaringan; lihat /help bouncers.
+
+[input] send_mode=direct|review dan [output] format=compact|full, queue_notices=true|false, program_messages=true|false, persistent_logging=true|false adalah preferensi di konfigurasi utama.
+
+[input] command_suggestions=common|history|frequent|alphabetical|contextual mengatur urutan perintah; bawaan common.
+
+[input] composer_mode=line|fullscreen memilih tata letak penulisan/komando minimalis; bawaan line. Keduanya menampilkan pesan terbaru.
+
+[input] use_signals=false Secara bawaan Use signals = no. Ctrl-C dan Ctrl-Z membatalkan pesan atau perintah yang belum dikirim, bukan menghentikan aplikasi. Pilih yes pada panel 0 (atau pengaturan Interface vipirc) untuk mengaktifkan sinyal terminal. Apply berlaku segera; Save juga menyimpan [input] use_signals=true|false. Pengaturan terminal asal dipulihkan saat keluar atau ditangguhkan.
+
+[hotkeys] memuat paling banyak 64 ikatan KEY=action opsional tanpa bawaan. Milik konfigurasi utama; lihat /help hotkeys.
+
+[session] single_session=true|false menentukan boleh tidaknya beberapa tugas latar; bawaan false.
+
+[session] default_interface=ncurses|idle adalah preferensi aplikasi utama. Pilihan saat mulai dijelaskan di bawah.
+
+Tampilan compact adalah bawaan. history_lines di konfigurasi utama mengatur jumlah riwayat yang disimpan untuk semua server.
+
+[mentions] word= dan [ignore] mask= boleh diulang.
+
+[autocommands] berisi enabled, delay_seconds, interval_seconds, dan baris command= berulang untuk satu server.
+
+Perintah ini berupa teks biasa dalam konfigurasi privat. /autocommands mengelolanya tanpa membuka rahasia di daftar/riwayat.
+
+Profil server tambahan yang disimpan memakai katalog .servers dan direktori .d di sebelahnya.
+
+Hubungkan lewat /connect HOST, lalu /join #channel dan /saveconf untuk menyimpan konfigurasi yang berfungsi.
+
+/saveconf menyimpan preferensi dan profil server yang sehat, serta mengingat server terpilih untuk /connect tanpa argumen nanti.
+
+/quickstart menanyakan empat hal koneksi. /panel memakai 0 untuk preferensi dan 1..8 untuk profil; panel 1 mengubah profil utama.
+
+Perubahan panel tetap privat sampai Finish. Menerima tujuan GPG dapat menyiapkan direktori 0700; enkripsi, penulisan konfigurasi, dan koneksi menunggu pilihan akhir.
+
+Agar tetap setelah mulai ulang, pakai /save untuk server terpilih, /save input atau /save output untuk profil utama, atau /saveconf untuk profil sehat dan pilihan bawaan.
+
+Konfigurasi yang tersimpan memakai <config_path>.commands untuk membaca/menulis hitungan penggunaan perintah; konfigurasi utama tidak menyimpan hitungan.
+
+Berkas privat terbatas ini hanya berisi nama perintah baku dan jumlahnya, bukan argumen atau riwayat pesan. Mode uji tidak membaca/menulisnya.
+
+Perubahan [connection] dari /autojoin atau /autoauth berlaku pada /connect berikutnya saat terputus; koneksi aktif tidak berubah.
+
+Berkas konfigurasi bersifat privat; penulisan mengganti tiap berkas secara atomik, bukan seluruh ruang kerja sekaligus. Tidak ada impor/ekspor.
+
+Bagian, kunci, atau nilai tak dikenal adalah kesalahan. Konfigurasi memakai nilai literal, bukan kutip shell, escape, variabel, atau ~.
+
+Nilai umum dipangkas di ujungnya. password= dan server_password= mempertahankan isi setelah = kecuali akhir baris; jangan tambah komentar atau tanda kutip.
+
+Penyimpanan menulis ulang pengaturan yang didukung dan mengganti format/komentar buatan tangan. Simpan catatan di luar konfigurasi yang dihasilkan.
+
+Lihat /help authentication untuk rahasia, /help tls untuk CA, /help logging untuk log disk, dan /help sessions untuk kendali pekerja aktif.
+
+/help deployment
+----------------
+
+Gunakan --background untuk menjalankan sesi tanpa terminal atau menekan tombol pembuka.
+
+Atur dan simpan /autoconnect on pada setiap server yang harus dimulai.
+
+--background tidak otomatis mengaktifkan autoconnect; --no-connect tetap mencegah koneksi saat mulai.
+
+Peringatan biasa ditampilkan sekali sebelum lepas dari terminal. Sukses berarti tugas lokal berjalan, bukan login IRC berhasil.
+
+Dari terminal lain pada akun pengguna yang sama, gunakan --sessions dan --resume [NUMBER].
+
+--sessions mencakup pekerjaan terpasang. --detach-session NUMBER melepas terminal tanpa merusak pekerjaan agar bisa dilanjutkan di tempat lain. --close-session NUMBER mengakhiri pekerjaan terpilih dan semua koneksi IRC.
+
+Gunakan ID pekerjaan dalam daftar, bukan PID. Pekerja tidak responsif atau versi lama tanpa kendali yang diminta bisa gagal. Lihat /help sessions untuk pemulihan dan peningkatan.
+
+Mulai ulang VPS mengakhiri tugas lama, draf, dan riwayat RAM. Tugas awal OS dapat memulai klien baru.
+
+Petunjuk OpenBSD dan contoh rc.d opsional ada di doc/OPENBSD-VPS.txt.
+
+Jalankan sebagai pengguna biasa dengan jalur konfigurasi dan kredensial absolut. Kunci GPG yang terkunci tidak dapat meminta input saat boot.
+
+--check-config memeriksa pengaturan, bukan akses kredensial, DNS, TLS, atau login IRC.
+
+Gunakan --reconnect saat jaringan putus sementara; pengawasan proses yang crash adalah tugas sistem operasi terpisah.
+
+Peluncur harus membiarkan anak dapat ditunggu: SIGCHLD yang diabaikan atau penuaian anak otomatis menggagalkan awal latar pertama, resolver, atau pembantu kredensial. Pelepasan ulang terkelola tidak membuat pekerja baru.
+
+/help documentation
+-------------------
+
+Cari tugas lewat /help ls; /help commands menjelaskan cara memasukkan perintah dan daftar perintah. Masukkan satu topik atau nama perintah saja.
+
+/help COMMAND menampilkan sintaks, dampak, dan contoh. /help /ls menjelaskan daftar lokal; /help ls mencantumkan topik.
+
+/help all atau /manual membuka referensi lengkap. --help menjelaskan opsi saat mulai; keluaran --manual pada mode minimal dapat dialihkan ke berkas.
+
+README.md menunjukkan panduan; MANUAL.txt membahas antarmuka dan INSTALL cara membangun program. Halaman man terpasang menjelaskan penggunaan lewat shell.
+
+CONTRIBUTING.md menjelaskan perubahan; doc/SOURCE-MAP.txt memetakan kode; tests/README.md memetakan pengujian. DESIGN.md mencatat kepemilikan dan urutan proses.
+
+doc/TROUBLESHOOTING.txt memberi langkah menurut gejala. SECURITY.md memuat model ancaman; doc/BOUNCERS.txt dan doc/SESSION-CONTROLS.txt memuat operasi. Audit hanya berlaku untuk versi dan lingkungan yang disebut.
+
+/help history
+-------------
+
+Riwayat tampilan dan perintah dibatasi di RAM. Log persisten bersifat opsional dan mati secara baku.
+
+Beralih tampilan memutar ulang riwayat terakhirnya; /mentions memutar ulang baris sumber yang cocok.
+
+Pengaturan riwayat aplikasi membatasi gabungan catatan semua server/tampilan; edit melalui /panel, lalu 0.
+
+Retensi dibatasi nilai terkecil antara pengaturan itu dan 2048 catatan, dengan batas byte mutlak terpisah 512 KiB.
+
+/catchup dalam kanal atau percakapan pribadi mulai dari pesan susunan terakhir yang Anda kirim lokal. Ia mencoba log privat yang layak, lalu memori tersimpan; /help catchup menjelaskan kedua pembaca.
+
+Pemulihan persisten berlaku per server dan percakapan. Log harus sudah aktif saat pesan acuan dikirim; isinya transkrip teks polos privat, maksimal 16 MiB per profil tersimpan, tanpa enkripsi.
+
+Riwayat perintah menampung hingga 64 entri dan 64 KiB, membuang yang terlama. /clear menghapus riwayat percakapan, bukan riwayat perintah.
+
+Saran Riwayat terbaru memakai baris lengkap ini. Delete menghapus baris riwayat terpilih.
+
+Saran Paling sering memakai hingga 96 nama perintah baku dan hitungan terbatas dalam <config_path>.commands.
+
+Untuk konfigurasi tersimpan, perintah yang diterima dan pengaturan ulang frekuensi otomatis memperbarui berkas privat itu. Argumen, tujuan, dan pesan tidak disimpan di dalamnya.
+
+Profil belum tersimpan menyimpan hitungan di memori hingga Simpan pertama berhasil. Berkas hitungan yang hilang atau tidak dapat dipakai tidak menghalangi awal aplikasi.
+
+Bantuan dan respons perintah multibaris memakai pembaca terpisah dengan penyangga terbatas 512 KiB. Keduanya tidak masuk riwayat percakapan.
+
+Perintah yang diterima dapat dipanggil lagi di editor perintah. Perubahan autentikasi, bergabung dengan kunci, dan pesan layanan sensitif dikecualikan.
+
+Up/Down di Compose memindahkan kursor, bukan memanggil chat terkirim. Hanya perintah diterima dapat dipanggil di Command.
+
+Lepas/lanjut pada antarmuka sama mempertahankan draf dan riwayat perintah. Ganti antarmuka, jika didukung, membuang keduanya dan formulir; keluar/reboot juga menghapus percakapan dalam memori dan acuan catch-up.
+
+Hitungan frekuensi tersimpan hanya memuat nama. Log teks polos lama tetap ada setelah keluar, tetapi tidak diimpor otomatis ke sesi baru atau editor.
+
+/clear menghapus riwayat RAM tampilan, bukan transkrip lama di disk. Pemutaran ulang bouncer berasal dari bouncer.
+
+/help hotkeys
+-------------
+
+Pintasan tombol khusus opsional dan awalnya kosong. Navigasi dan editor bawaan tetap tersedia.
+
+Gunakan /bindings untuk daftar, /bindings keys untuk tombol, dan /bindings actions untuk fungsi lokal.
+
+Tetapkan dengan /bind KEY ACTION; tetapkan lagi untuk mengganti. Hapus dengan /unbind KEY atau /unbind all.
+
+Perubahan langsung berlaku pada semua server; /save input menyimpannya di konfigurasi utama. Profil server lain tidak mengganti tabel ini.
+
+Format [hotkeys], lalu satu KEY=action per baris, maksimal 64. Tombol ganda termasuk alias terminal adalah kesalahan.
+
+Aksi khusus hanya berjalan di obrolan utama dan kolom perintah, bukan pada sandi, pengaturan, tempelan, pembaca, atau konfirmasi.
+
+Di mode minimal, pembaca mempertahankan draf dan kursor. Pintasan pengalih tampilan/editor menolak draf yang belum kosong; selesaikan atau hapus dahulu.
+
+Tidak ada aksi kirim, perintah bebas, kode shell, atau makro teks. Latar dan keluar tetap berfungsi seperti biasa.
+
+Tersedia F1..F12, Ctrl-A..Z, Alt-a..z/0..9, dan tombol navigasi; karakter biasa tetap menjadi teks.
+
+Ctrl-H/Backspace, Ctrl-I/Tab, Ctrl-J/Ctrl-M/Enter, Ctrl-[/Escape berbagi byte; tak bisa diberi ikatan berbeda.
+
+Sinyal dan pintasan terminal/multiplexer lebih utama. Ctrl-C atau Ctrl-Z bekerja hanya bila byte tiba di aplikasi; tombol tak dipetakan ulang.
+
+Tempelan berbingkai yang dikenali tidak menjalankan pintasan. Tempelan tanpa bingkai tampak seperti ketikan; lihat /help keys.
+
+/help keys
+----------
+
+Log: / membuka Perintah; ? menjelaskan log percakapan/pantauan terpilih. Tombol cetak lain membuka Tulis pesan dengan karakter itu tetap ada.
+
+Ikatan tombol khusus dapat mengganti kendali ini dalam percakapan utama/Perintah; tidak ada yang ditetapkan secara bawaan. Lihat /help hotkeys.
+
+Log langsung: Up mundur satu baris, Page Up satu halaman, Home ke halaman tersimpan terlama. Down/Page Down/End tetap langsung; Left/Right/Delete/Backspace tidak membuka Tulis pesan.
+
+Insert atau Enter membuka Tulis pesan kosong. Panah, Home/End, Delete dan Backspace mengedit teks. Tab/Shift-Tab melengkapi nama panggilan di Tulis pesan dan nama perintah di Perintah.
+
+Mode penulis sebaris menyisakan satu baris masukan di bawah ekor log langsung; layar penuh memakai editor multibaris dengan panel log langsung yang lebih kecil.
+
+Dalam Perintah, Down memilih saran. Up/Down berpindah antarsaran; Up dari yang pertama kembali ke masukan.
+
+Enter pada saran menyisipkannya tanpa menjalankan. Baca/edit, lalu tekan Enter lagi setelah tampil untuk menjalankan.
+
+Dalam Perintah, Up memanggil riwayat diterima yang cocok; Down kembali menuju masukan awal. Dalam Tulis pesan, Up/Down menggerakkan kursor, juga saat ditahan; Enter mengirim.
+
+Delete menghapus baris Riwayat terbaru terpilih atau mengatur ulang hitungan Paling sering terpilih. Perintah katalog tetap tersedia.
+
+? pada perintah terpilih menjelaskannya dan menautkan bantuan layar perintah. Dalam semua editor teks, ? adalah teks biasa.
+
+Tinjauan memakai layar alternatif sementara; draf/pertanyaannya tidak masuk riwayat percakapan. Enter baru mengonfirmasi; Escape atau mengetik memulihkan editor/draf/kursor. Jelajahi dengan Up/Down, Page Up/Down dan Home/End.
+
+Dalam bantuan/respons, Up/Down menggulir; Page Up/Down berpindah halaman; Home/End ke awal/akhir.
+
+Dalam daftar pengguna, Enter kembali ke log; pembaca bantuan dan respons lain memakai Enter untuk menggulir satu baris.
+
+Dalam pembaca, / membuka Perintah dengan pelengkapan/riwayat biasa. Escape membatalkan masukan itu dan kembali ke pembaca.
+
+Dalam pembaca ringkasan, r menyegarkan cuplikan; ? menjelaskan respons dan pembacanya.
+
+Dalam bantuan konteks, Enter mengikuti tautan Tentang layar yang disorot. Escape kembali ke bantuan item, lalu ke layar asal yang tepat.
+
+Dalam penyiapan, Tab memilih judul pertanyaan; ? menjelaskan opsi/layarnya. Tab/Enter kembali mengedit jawaban.
+
+Menjalankan perintah mengganti respons sebelumnya. Konfirmasi singkat kembali ke log; kesalahan singkat membiarkan perintah dapat diedit.
+
+Escape membatalkan editor Tulis pesan/Perintah ke log. Dari Tinjauan, Escape kembali ke editor tanpa membuang draf. Escape pada log memindahkan klien ke latar belakang.
+
+Escape tunggal menunggu sekitar 500 ms; urutan yang berjalan mengizinkan 1000 ms antarbyte lanjutan. Jaringan tetap berjalan.
+
+Urutan tombol lengkap ditangani segera. Penanda awal tempel yang tertunda setelah Escape pertamanya melewati tenggang itu bisa memindahkan klien ke latar belakang.
+
+Setelah penangkapan tempel dimulai, penanda akhirnya tetap dikenali meski pembacaan terpisah dan tertunda selama apa pun.
+
+Penetapan tombol interupsi, keluar, dan tunda pada terminal tidak diubah; Use signals = no menonaktifkan efek sinyalnya selama klien aktif.
+
+[input] use_signals=false No (bawaan) menonaktifkan sinyal terminal selama aplikasi menguasai terminal; Ctrl-C/Ctrl-Z membatalkan draf. Yes mengaktifkan pemetaan sinyal yang sudah ada tanpa mengubah tombolnya. Sinyal proses eksternal tetap berlaku ([input] use_signals=true).
+
+Sinyal terminal aktif mengakhiri atau menunda setelah memulihkan terminal; fg melanjutkan pekerjaan tertunda.
+
+Ctrl-D tidak bekerja kecuali diikat dalam percakapan utama/Perintah. /quit keluar; /background melepas terminal sementara jaringan tetap berjalan.
+
+Layar rutin tidak mengulang petunjuk tombol; topik ini tetap menjadi referensi lengkap papan ketik.
+
+Tempelan berbingkai yang dikenali tetap literal. Tombol menunggu editor terlihat, masukan baru, dan jeda. Bingkai kecil/gagal tidak dapat menyetujuinya; ubah ukuran dan lepas tombol tertahan.
+
+Tempel pada log pantauan membuka Tulis pesan dengan garis miring literal. Tempel dalam Perintah tetap di sana; CR/LF/Tab menjadi spasi. Tinjau, lalu tekan Enter baru.
+
+Tempel tanpa bingkai tidak dapat dibedakan dari mengetik; gunakan dukungan tempel berbingkai.
+
+/help limits
+------------
+
+Batas IRC dihitung dalam byte, bukan jumlah karakter tampilan. Karakter UTF-8 dapat memakai lebih dari satu byte.
+
+Klien menghitung ruang pesan termasuk tujuan, perintah, dan overhead relai; ia tidak memotong karakter UTF-8.
+
+Pada batas satu pesan, teks tambahan ditahan sampai Enter mengonfirmasi lanjut mengedit; Enter itu tidak mengirim.
+
+Pesan yang terpecah tetap perlu izin terpisah sebelum antre, bahkan pada mode langsung. Obrolan dikirim satu baris tiap 1.2 detik.
+
+Sekali pengiriman maksimal 64 pesan dan 16384 byte teks. Singkat teks atau kirim terpisah secara sengaja.
+
+Maksimal ada 8 slot server dan 32 tampilan per server, termasuk tampilan cadangan.
+
+/help logging
+-------------
+
+Log persisten opsional dan mati secara bawaan. /set persistent_logging on mengaktifkan; /save output menyimpan pilihan.
+
+Setiap profil server tersimpan menambah CONFIG_PATH.log. Direktori induk terakhir harus milik pengguna, mode 0700; berkas milik pengguna, biasa, satu tautan, tepat 0600. Symlink dan lintasan naik direktori ditolak.
+
+Log berupa plaintext, bukan cadangan terenkripsi. Batasnya 16 MiB per berkas; kegagalan penulisan menghentikan log, bukan obrolan.
+
+Arsipkan log penuh di luar jalur aktif, lalu matikan/nyalakan log. Rotasi atau tulis ulang bisa membatalkan penanda /catchup; kirim pesan baru yang memenuhi syarat sebelum mengandalkannya.
+
+Kredensial yang dikenal dan draf belum terkirim dikecualikan, termasuk autentikasi ulang dengan nama lama. Obrolan biasa, layanan tak dikenal, dan rahasia yang diketik bisa tetap terekam. Retensi server dan bouncer terpisah.
+
+/catchup memakai log sehat hanya jika penanda lokal tepat dicatat selama proses ini berjalan. Tidak meminta arsip dari bouncer atau mengimpor log lama setelah mulai ulang.
+
+/clear hanya membersihkan RAM. Log tetap ada setelah keluar, --close-session, atau menyimpan. Mematikan log menghentikan catatan baru, bukan menghapus yang lama.
+
+I/O disk biasa bisa memperlambat proses pada penyimpanan lambat. Lihat /help catchup, /help history, dan SECURITY.md.
+
+/help messages
+--------------
+
+Gunakan /join #channel untuk bergabung dan memilih saluran, atau /query NICK untuk membuka percakapan pribadi.
+
+Pilih saluran tersimpan dengan /channel. /msg TARGET TEXT mengirim ke tujuan tertentu; /me TEXT mengirim aksi.
+
+/query membuka percakapan tanpa mengirim; /pm adalah alias. /ql memisahkan daftar percakapan pribadi dari saluran.
+
+Pengiriman langsung adalah baku; /set send_mode review menambah peninjauan. /set composer_mode line|fullscreen mengubah tampilan.
+
+Setelah batas satu pesan tercapai, akui dulu untuk lanjut mengedit; pemecahan pesan tetap memerlukan persetujuan terpisah.
+
+Bergabung dan autentikasi harus selesai sebelum pesan bisa diantrikan. /cancel membatalkan antrean, bukan pesan yang sudah terkirim.
+
+/help reconnect
+---------------
+
+--reconnect mengaktifkan percobaan ulang pada proses ini; tidak menyimpan pengaturan atau memulai koneksi.
+
+Tanpa opsi ini, koneksi gagal masih memerlukan /connect. /autoconnect hanya mengatur saat mulai.
+
+Gangguan DNS sementara, koneksi ditolak/putus, dan batas waktu server dicoba lagi setelah 5, 10, 20, 40, 80, 160, lalu 300 detik.
+
+Koneksi yang terdaftar selama sekurangnya 60 detik mengatur ulang jeda itu. Polling tanpa tidur yang memblokir.
+
+Galat verifikasi sertifikat, autentikasi, protokol rusak, dan konfigurasi tetap terputus sampai diperbaiki.
+
+ERROR server sebelum registrasi dipertahankan; setelah registrasi dapat memicu koneksi ulang.
+
+/disconnect secara eksplisit membatalkan percobaan tertunda. /connect kemudian memulai upaya baru.
+
+Percobaan ulang memakai pengaturan koneksi saat ini; edit tertunda tetap memerlukan /connect secara eksplisit.
+
+Pesan yang mengantre dibuang saat terputus dan tidak dikirim ulang otomatis.
+
+Autentikasi dan perintah awal yang aktif berjalan lagi. Profil langsung mengulang autojoin setelah autentikasi; bouncer memulihkan kanalnya sendiri.
+
+Mode uji offline tidak pernah menghubungkan ulang ke jaringan.
+
+/help security
+--------------
+
+Teks jarak jauh disaring sebelum tampil di terminal. Input ditafsirkan sebagai perintah IRC lokal, bukan perintah shell.
+
+Tidak ada /raw, pelarian shell, atau penerimaan berkas otomatis. Tempelan bracketed yang dikenali tidak pernah menjalankan perintah.
+
+TLS memverifikasi identitas server. SASL, PASS, dan perintah autentikasi pribadi yang dikenali wajib memakai TLS terverifikasi. Perbarui pustaka TLS sistem; lihat SECURITY.md.
+
+Bundel CA khusus harus berkas PEM biasa yang tidak kosong, maksimal 16 MiB, dan tidak meminta kata sandi.
+
+Kata sandi yang disetel disembunyikan dari bantuan/pengaturan. Perintah kredensial yang dikenali tidak masuk riwayat perintah; rahasia dalam teks biasa mungkin tetap tersimpan.
+
+Transkrip percakapan tidak disimpan ke disk secara baku. Perubahan konfigurasi harus disimpan secara eksplisit.
+
+Proses lain pada akun yang sama, server IRC atau bouncer, serta terminal atau sistem yang disusupi berada di luar perlindungan ini. TLS bukan enkripsi obrolan ujung-ke-ujung.
+
+Log opsional dan rahasia di berkas konfigurasi berupa teks biasa. Perintah sensitif yang dikenal disaring, tetapi rahasia bebas dalam obrolan tidak selalu dapat dideteksi.
+
+Lihat /help tls, /help authentication, /help logging, dan SECURITY.md untuk batas perlindungan dan riwayat audit.
+
+/help sessions
+--------------
+
+Satu job adalah proses klien yang memuat semua server, transfer, draf, dan riwayatnya. Nomor server di aplikasi bukan ID job pada shell.
+
+Dari shell jalankan --sessions. Gunakan ID pekerjaan yang terdaftar, bukan ID proses; periksa status terpasang atau terlepas.
+
+Jika terminal SSH lama masih menguasai sesi, jalankan --detach-session NUMBER lalu --resume NUMBER. IRC tetap berjalan.
+
+--resume tanpa nomor hanya memilih satu job terlepas yang terverifikasi. Banyak job memerlukan nomor; job terpasang sibuk sampai dilepas. Nomor dapat dipakai kembali setelah keluar.
+
+Gunakan --close-session NUMBER hanya untuk mengakhiri seluruh job. Semua sambungan IRC dan transfer ditutup; draf dan riwayat RAM hilang. Konfigurasi dan log tersimpan tetap ada.
+
+Penutupan baru berhasil setelah pembersihan terverifikasi. Bila batas waktu habis, cek --sessions lagi: proses mungkin selesai nanti. Kegagalan tidak menghapus endpoint aktif atau mengirim sinyal ke PID dugaan.
+
+Hanya job terkelola yang bertahan saat terminal hilang. Proses biasa di latar depan tidak dapat dipulihkan setelah SSH putus. Mulai dengan --background atau jalankan /background dahulu.
+
+Job milik akun Unix dan host yang sama, dengan satu terminal terpasang sekaligus. Program lain pada akun tersebut berada dalam batas kepercayaan yang sama.
+
+Memasang program baru tidak mengganti kode pekerja yang sedang berjalan. Simpan konfigurasi, hentikan pekerja lama, periksa --version, lalu mulai pekerja baru.
+
+Pekerja lama mungkin tidak punya kendali baru atau fitur ganti antarmuka. Simpan biner yang kompatibel sampai pekerja berhenti jika masih perlu tersambung.
+
+Klien tidak mengubah kebijakan batas waktu idle SSH. Lihat /help background, /help deployment, dan doc/SESSION-CONTROLS.txt.
+
+/help startup
+-------------
+
+Jalankan program, tutup sambutan, lalu ketik /connect irc.example.org dan /join #channel.
+
+Tak perlu membuat profil server, alias, atau nomor lebih dulu. /server HOST adalah alias sambungan langsung.
+
+Jika tidak diberi nama panggilan, dipakai nama login sistem yang valid, atau user jika tak cocok. Tidak ada permintaan nama panggilan.
+
+Gunakan /saveconf untuk menyimpan konfigurasi dan pilihan baku. Saat dijalankan lagi, /connect menggunakannya.
+
+Menyimpan tidak mengaktifkan sambungan otomatis; pilih itu secara terpisah. /quickstart dan /panel adalah panduan opsional.
+
+Opsi shell juga berlaku: --server HOST, --channel '#CHANNEL', dan --nick NICK. Beri tanda kutip pada #CHANNEL di shell.
+
+Saat mulai biasa, --nick, --port, --channel, --tls, --plain, dan --ca-file mengganti pilihan baku yang tersimpan.
+
+--server yang ditentukan memilih sambungan pertama. --init-config dan --check-config memakai berkas konfigurasi utama.
+
+Mengubah --server ke host lain menghapus kredensial host lama, CA khusus, identitas bouncer, saluran, dan perintah awal.
+
+Jika pilihan baku tersimpan tidak tersedia, tentukan --server atau perbaiki pilihannya sebelum mengubah sambungan.
+
+Autoconnect, autojoin, dan autoauth berlaku per profil server tersimpan. Lihat /help autoconnect untuk pengalihnya.
+
+--no-connect mencegah sambungan awal; --test-mode mensimulasikan aktivitas tanpa jaringan atau penulisan konfigurasi.
+
+--sessions mencantumkan job terpasang dan terlepas. --resume [NUMBER] memasang lagi; lihat /help background.
+
+--close-session NUMBER menutup seluruh job terpilih beserta sambungan IRC setelah selesai terverifikasi. NUMBER adalah ID job, bukan PID.
+
+Setelah terminal terputus, pakai --sessions, lalu --detach-session NUMBER dan --resume NUMBER. Worker memakai kode lama sampai dimulai ulang; lihat /help sessions.
+
+-h/--help dan -v/--version bekerja tanpa terminal.
+
+/help tls
+---------
+
+TLS terverifikasi adalah bawaan. Nama host atau alamat server serta rantai sertifikat harus valid; tidak ada jalan pintas atau fallback plaintext.
+
+Nomor port tidak mematikan TLS. --plain atau /connect -plain memilih IRC tanpa enkripsi dan tidak dapat memakai kredensial akun/server.
+
+Gunakan nama host dan port TLS tepat dari penyedia. Gagal bisa karena endpoint salah, sertifikat kedaluwarsa/tak dipercaya, atau trust lokal; lihat galat koneksi dahulu.
+
+Secara bawaan TLS memakai trust store sistem. --ca-file FILE atau ca_file= memilih bundel CA PEM khusus, bukan mematok sertifikat leaf.
+
+Bundel CA khusus harus berkas biasa tak kosong, maksimal 16 MiB. Symlink biasa ke berkas CA diizinkan; jalur rahasia/konfigurasi lebih ketat.
+
+Berkas CA dibuka sekali, dibatasi dan ukurannya dicek saat dibaca. FIFO, perangkat dan input nonberkas ditolak; PEM bersandi tak dapat meminta sandi.
+
+Batas ukuran berkas tidak membatasi latensi I/O berkas biasa atau sistem berkas jaringan. Pakai bundel CA tepercaya di penyimpanan sesuai.
+
+--check-config tidak menguji koneksi TLS atau memastikan berkas CA dan sumber kredensial berfungsi. --test-mode tidak menghubungi server.
+
+TLS hanya melindungi koneksi ini. TLS hulu dan riwayat plaintext pada bouncer diatur terpisah.
+
+/help troubleshooting
+---------------------
+
+Sibuk setelah SSH putus? Jalankan --sessions, periksa pekerjaan, lalu --detach-session NUMBER dan --resume NUMBER. Hindari --close-session. See /help sessions.
+
+Up tidak memanggil ulang teks: Compose menyunting pesan; Command memanggil perintah diterima. Buka Command dengan / dari log. Pesan terkirim dan perintah sensitif bukan riwayat pemanggilan.
+
+Jika pesan terbungkus tampak terpotong, tampilan input menyisakan baris untuk editor dan menampilkan baris terbaru. Keluar editor atau pilih ulang kanal; baris yang terlihat bukan bukti pesan tiba.
+
+Jika pindah kanal menampilkan teks lengkap, beda tampilan adalah penyebabnya. Jika gangguan berlanjut, catat antarmuka, mode, ukuran terminal, locale, dan langkah aman tanpa sandi atau transkrip pribadi.
+
+Kanal kosong? Periksa tampilan server dan autentikasi. Profil langsung memakai /autojoin list; bouncer memulihkan kanal; gunakan /join atau /part.
+
+Autentikasi gagal? Periksa akun, sumber kredensial, izin berkas, TLS, dan agen GPG. /autoauth status tidak membaca rahasia.
+
+Catch-up tidak tersedia: penanda mungkin terbuang, logging dimulai belakangan atau berhenti, atau log berubah. Lihat /help catchup dan /help logging; berkas log tidak menghidupkan pekerja mati.
+
+Perubahan belum berlaku? Ubah koneksi dengan /connect setelah terputus. Menyimpan berbeda dari autoconnect; preferensi awal perlu proses baru.
+
+Jika peluncuran helper gagal, perbaiki kebijakan SIGCHLD atau pengambilan child otomatis pada peluncur agar klien dapat menunggu proses anaknya.
+
+Gunakan --check-config dan doc/TROUBLESHOOTING.txt. --test-mode hanya menguji antarmuka, bukan DNS, TLS, kredensial, atau bouncer nyata.
+
+/help /autoauth
+---------------
+
+Periksa atau siapkan autentikasi SASL
+Penggunaan: /autoauth [status|off|sasl USER file PATH|sasl USER gpg PATH]
+
+Mengubah autentikasi server terpilih untuk koneksi berikutnya. TLS terverifikasi wajib.
+
+Tanpa argumen atau dengan status, tampilkan status koneksi/autentikasi dan jalur berkas kredensial, bukan isi sandi.
+
+Pengaturan aktif dan tertunda dibedakan. Jalur panjang ditampilkan lengkap pada baris lanjutan berlabel.
+
+PATH adalah seluruh teks tersisa, termasuk spasi; tidak ada ekspansi shell atau pengolahan tanda kutip.
+
+Perintah ini tidak membuka berkas. Kunci GPG harus dibuka di luar program.
+
+Sandi teks biasa hanya boleh dikonfigurasi secara eksplisit dalam berkas konfigurasi privat, bukan argumen perintah.
+
+Gunakan /panel untuk profil bouncer; /autoauth ditolak karena identitas masuk dan sumber kredensial dikelola bersama.
+
+Gunakan /save untuk menyimpan. Putuskan koneksi dahulu, lalu /connect untuk memakai perubahan; koneksi aktif tidak dialihkan.
+
+Contoh:
+/autoauth status
+/autoauth sasl myaccount gpg /home/me/irc-account.gpg
+/autoauth off
+/save
+
+/help /autocommands
+-------------------
+
+Siapkan perintah tertunda untuk koneksi berikutnya
+Penggunaan: /autocommands [list|add COMMAND|remove NUMBER|clear|on|off|delay SECONDS|interval SECONDS]
+
+Perintah milik server terpilih. Dijalankan sekali setelah registrasi dan SASL yang diperlukan berhasil.
+
+Jeda bawaan 15 detik, dan paling sedikit 2 detik antarselesainya perintah.
+
+Atur dengan delay 0..300 dan interval 2..60. Koneksi macet tidak memicu rentetan perintah susulan.
+
+Perintah yang didukung: /msg, /join, /nick, /away, /back, dan /whois beserta alias persis yang didokumentasikan.
+
+Maksimal 16 perintah, masing-masing 511 byte UTF-8. Satu perintah harus muat dalam satu pesan IRC; tidak dipecah diam-diam.
+
+Tidak ada shell, IRC mentah, atau perluasan percakapan saat ini. Gabung otomatis tidak mengganti tampilan.
+
+Perubahan berlaku pada koneksi berikutnya. /cancel menghentikan perintah awal yang belum terkirim.
+
+Daftar menyembunyikan teks pesan dan kunci kanal; perintah otomatis tidak masuk riwayat atau tampilan pesan lokal.
+
+Simpan dengan /save. Berkas harus privat (0600 atau 0400); daftar aktif yang berisi perintah memerlukan TLS terverifikasi.
+
+Mode uji tidak menjalankan perintah otomatis. Teksnya disimpan apa adanya di konfigurasi, tanpa enkripsi GPG.
+
+Contoh:
+/autocommands add /msg ChanServ op #chat mynick
+/autocommands delay 15
+/autocommands interval 2
+/autocommands list
+/save
+
+/help /autoconnect
+------------------
+
+Periksa atau ubah koneksi otomatis saat mulai
+Penggunaan: /autoconnect [on|off]
+
+Tanpa argumen, tampilkan pengaturan server terpilih. Perubahan berlaku saat program berikutnya dimulai.
+
+Gunakan /connect untuk langsung terhubung; gunakan /save untuk menyimpan pilihan sambungan saat mulai.
+
+Setiap server tersimpan memiliki pengaturan koneksi otomatis, gabung kanal otomatis, dan autentikasi sendiri.
+
+Contoh:
+/autoconnect
+/autoconnect on
+/save
+
+/help /autojoin
+---------------
+
+Periksa atau siapkan bergabung ke kanal saat mulai
+Penggunaan: /autojoin [list|add #CHANNEL|remove #CHANNEL|clear]
+
+Tanpa argumen atau dengan list, tampilkan server, status registrasi/autentikasi, serta daftar aktif dan tertunda.
+
+Ubah daftar gabung otomatis server untuk /connect berikutnya. add/remove menerima satu kanal tanpa kunci.
+
+Perubahan diperiksa sebelum diterapkan dan tidak menggabungkan atau meninggalkan kanal yang aktif.
+
+Percobaan ulang otomatis memakai daftar aktif. Putuskan koneksi lalu /connect untuk menerapkan daftar tertunda.
+
+Gunakan /join atau /part untuk koneksi aktif; gunakan /save untuk menyimpan perubahan saat mulai.
+
+Profil bouncer memulihkan keanggotaan sendiri; /autojoin ditolak. Gunakan /join dan /part.
+
+Contoh:
+/autojoin list
+/autojoin add #ircnow
+/autojoin remove #old
+/save
+
+/help /away
+-----------
+
+Atur status absen, atau hapus tanpa pesan
+Penggunaan: /away [MESSAGE]
+
+Harus sudah terdaftar di server. Server mengonfirmasi status pergi. MESSAGE adalah teks apa adanya.
+
+Contoh:
+/away Back after lunch
+/away
+
+/help /back
+-----------
+
+Hapus status absen
+Penggunaan: /back
+
+Sama dengan /away tanpa pesan. Memerlukan koneksi yang sudah terdaftar.
+
+Contoh:
+/back
+
+/help /background
+-----------------
+
+Pertahankan koneksi dan lepaskan terminal
+Penggunaan: /background
+
+Mengembalikan terminal lalu melepas sesi yang berjalan. Shell menampilkan perintah bernomor untuk melanjutkannya.
+
+Di shell, --sessions mencantumkan tugas privat yang terpasang dan terlepas; --resume melanjutkan satu-satunya tugas terlepas.
+
+Jika ada beberapa tugas, gunakan --resume NUMBER. NUMBER adalah ID tugas, bukan PID; tetap hingga tugas berakhir dan kemudian bisa dipakai ulang.
+
+--detach-session NUMBER melepas terminal terpasang namun mempertahankan proses, koneksi IRC, draf, dan riwayat untuk --resume NUMBER.
+
+--close-session NUMBER mengakhiri seluruh tugas, koneksi IRC, transfer, draf belum disimpan, dan riwayat RAM. Keberhasilan dilaporkan hanya setelah penutupan terverifikasi.
+
+Jika lanjut sesi sibuk setelah terminal SSH hilang, daftar tugas, lepas tugas itu, lalu lanjutkan. Lihat /help sessions.
+
+Pekerja yang tidak merespons atau versi lama tanpa kontrol itu bisa gagal. Memasang biner baru tidak memperbarui proses aktif; mulai ulang setelah pembaruan.
+
+Melanjutkan menampilkan riwayat RAM meski tak ada pesan baru. /set single_session on menolak tugas latar kedua agar --resume tidak rancu.
+
+Untuk mulai tanpa terminal, gunakan --background di shell. Lihat --help untuk opsinya.
+
+Jika background_away aktif dan profil mengizinkan, /background atau kehilangan terminal mengantre AWAY setelah terlepas. Lanjut sesi hanya menghapus status otomatis itu; /away manual tetap ada.
+
+Tambahkan --reconnect untuk mencoba ulang kegagalan sementara. Lihat /help deployment dan /help reconnect.
+
+Tidak perlu multiplexer terminal. Resolver atau pembantu kredensial yang belum selesai bisa memerlukan percobaan ulang.
+
+Menangguhkan proses latar depan biasa menghentikan jaringan. Sesi yang dilanjutkan dapat menangguhkan pengendali terminal sementara pekerjanya tetap terhubung.
+
+Contoh:
+/background
+
+/help /bind
+-----------
+
+Tetapkan tombol khusus ke fungsi lokal program
+Penggunaan: /bind KEY ACTION
+
+Secara bawaan tidak ada tombol khusus. Gunakan /bindings keys dan /bindings actions untuk melihat nama yang didukung.
+
+Ikatan baru mengganti aksi lama tombol itu pada semua server; ikatan lain tetap ada.
+
+Pintasan berlaku di obrolan dan perintah, bukan saat menempel, memasukkan sandi, mengatur, membaca, atau mengonfirmasi.
+
+Perubahan langsung berlaku tetapi belum tersimpan tanpa /save input. Navigasi normal berlaku bila pintasan khusus tidak aktif.
+
+Hanya fungsi lokal bernama yang diterima; tidak ada perintah bebas, makro, aksi kirim, atau perluasan shell.
+
+Tombol yang dikuasai terminal mungkin tidak sampai ke aplikasi; mengikatnya tidak mengubah sinyal terminal.
+
+Contoh:
+/bindings actions
+/bind F7 summary
+/bind Alt-c command
+/save input
+
+/help /bindings
+---------------
+
+Tampilkan pintasan khusus atau tindakan dan tombol yang tersedia
+Penggunaan: /bindings [actions|keys]
+
+Tanpa argumen, tampilkan pintasan khusus untuk seluruh aplikasi. Daftar kosong berarti belum ada.
+
+Gunakan /bind untuk memasang atau mengganti, /unbind KEY untuk melepas, dan /unbind all untuk menghapus semua.
+
+Mendukung F1..F12, Ctrl-A..Ctrl-Z, Alt-a..Alt-z, Alt-0..Alt-9, dan tombol navigasi bernama.
+
+Ctrl-H sama dengan Backspace, Ctrl-I dengan Tab, Ctrl-J dan Ctrl-M dengan Enter, Ctrl-[ dengan Escape; ikatannya sama.
+
+Huruf Alt memakai huruf kecil tanpa Shift. Tombol fungsi/Alt bergantung pada terminal dan multiplexer.
+
+Maksimal 64 ikatan KEY=action tersimpan pada [hotkeys] konfigurasi utama. /save input menyimpannya.
+
+Lihat /help hotkeys untuk cakupan, perlindungan draf, dan sinyal terminal.
+
+Contoh:
+/bindings
+/bindings keys
+/bindings actions
+/help hotkeys
+
+/help /cancel
+-------------
+
+Batalkan antrean percakapan dan perintah awal
+Penggunaan: /cancel
+
+Menghapus pesan obrolan yang menunggu antrean dan menghentikan perintah otomatis tertunda pada server terpilih.
+
+Bingkai yang sedang ditulis boleh diselesaikan.
+
+Pembatalan tidak menarik kembali pesan yang sudah diterima server.
+
+Contoh:
+/cancel
+
+/help /catchup
+--------------
+
+Baca percakapan ini mulai dari pesan terkirim terbaru Anda
+Penggunaan: /catchup
+
+Dimulai dari pesan atau aksi terakhir yang Anda kirim pada kanal atau percakapan terpilih. Tampilan server dan sebutan tidak punya penanda kiriman.
+
+Log privat yang sesuai dicoba dahulu. Log harus aktif ketika penanda dikirim dan tetap sehat; teks autentikasi sensitif bukan penanda disk. Jika tidak, pakai riwayat RAM bila penandanya masih ada.
+
+Pembaca disk menampilkan cuplikan tetap: Up/Down per baris; Page Up/Page Down per halaman; Home kembali ke penanda; End ke halaman terbaru; Escape ke tampilan langsung. Pesan baru tidak menggesernya.
+
+Cadangan RAM membuka riwayat dari penanda: Home ke halaman tertua; End atau Escape kembali langsung. Pesan lama yang masih tersimpan tetap dapat dilihat.
+
+Catatan penanda yang diganti atau berubah tidak lagi sah di disk. Proses baru tidak memulihkan penanda dari log lama. Lihat /help logging dan /help history.
+
+Contoh:
+/catchup
+
+/help /channel
+--------------
+
+Pilih kanal; nomor 0 memilih server
+Penggunaan: /channel NUMBER|#CHANNEL
+
+Nomor tersedia di /channels. Pilihan ini mengubah percakapan yang ditampilkan dan tujuan pesan biasa berikutnya.
+
+Perintah ini tidak bergabung ke kanal. Kanal yang sudah ditinggalkan harus dimasuki lagi sebelum mengirim.
+
+Contoh:
+/channels
+/channel 0
+/channel #ircnow
+
+/help /channels
+---------------
+
+Tampilkan kanal pada server terpilih
+Penggunaan: /channels
+
+Kanal 0 selalu menampilkan pesan server/MOTD. Percakapan pribadi memiliki daftar /ql sendiri.
+
+Baris menunjukkan status bergabung/keluar serta jumlah belum dibaca dan sebutan.
+
+Contoh:
+/channels
+/channel 1
+
+/help /cl
+---------
+
+Daftar kanal (alias /channels)
+Penggunaan: /cl
+
+Menampilkan kanal server ini, termasuk kanal 0 untuk pesan server dan status bergabung/keluar setiap kanal.
+
+Gunakan /channel NUMBER atau /channel #NAME untuk memilih kanal. Percakapan pribadi memiliki daftar /ql sendiri.
+
+Contoh:
+/cl
+/channel 1
+
+/help /clear
+------------
+
+Hapus riwayat tersimpan untuk tampilan terpilih
+Penggunaan: /clear
+
+Menghapus riwayat terbatas di RAM untuk tampilan ini. Tidak keluar kanal, memutus koneksi, menarik pesan, atau menghapus log di disk.
+
+Riwayat gulir terminal yang sudah tercetak dikendalikan oleh terminal.
+
+Di obrolan utama: Up satu baris lama, Page Up satu halaman, Home paling lama; Down/Page Down maju. Pesan baru tidak menggeser halaman yang dibaca. End/Escape kembali ke langsung; tombol navigasi tidak membuka penulis.
+
+Contoh:
+/clear
+
+/help /close
+------------
+
+Tutup tampilan kanal atau percakapan pribadi
+Penggunaan: /close [NAME|NUMBER]
+
+Tanpa argumen, tutup percakapan saat ini. Kanal ditinggalkan sebelum tampilannya dihapus.
+
+Tampilan server dan sebutan yang permanen tidak dapat ditutup. Nomor kanal ada di /channels.
+
+Contoh:
+/close alice
+/close #old
+
+/help /connect
+--------------
+
+Hubungkan langsung ke server atau gunakan koneksi tersimpan
+Penggunaan: /connect [-tls|-plain] [-nick NICK] HOST [PORT] | /connect
+
+Mulai dengan /connect irc.example.org. Tidak perlu membuat profil, alias, atau nomor server dahulu.
+
+Server baru memakai TLS terverifikasi pada port 6697 dan nama login sistem, atau user jika nama itu tidak sesuai.
+
+Server cocok yang sudah ada mempertahankan port, transport, nama panggilan, dan autentikasi yang dikonfigurasi.
+
+Gunakan -nick NICK untuk nama panggilan khusus, atau /nick NICK sebelum terhubung. Sandi bukan argumen posisi.
+
+Gunakan -plain untuk IRC tanpa enkripsi (port bawaan 6667). -tls dan -ssl memilih TLS terverifikasi.
+
++PORT juga memilih TLS. Port angka biasa tidak mematikan TLS. --tls, --plain, dan --nick juga diterima.
+
+Koneksi dipilih dan membuka tampilan server/MOTD. Koneksi cocok yang sudah aktif dipilih tanpa duplikasi.
+
+Endpoint berbeda mendapat pengaturan autentikasi baru; kredensial dan kanal server lain tidak disalin.
+
+/connect tanpa argumen memakai server terpilih dan pengaturan berikutnya. /saveconf mengingat server bawaan untuk awal berikutnya.
+
+Untuk profil bouncer di host yang sama, pilih profil dengan /server NUMBER, lalu jalankan /connect saja.
+
+Nomor server lama juga diterima demi kompatibilitas. Mode uji tetap offline; edit konfigurasi harus disimpan secara eksplisit.
+
+Contoh:
+/connect irc.example.org
+/join #chat
+/saveconf
+/connect
+/connect -nick mynick irc.example.org +6697
+/connect -plain localhost 6667
+
+/help /dcc
+----------
+
+Tawarkan, tinjau, dan kelola transfer berkas langsung
+Penggunaan: /dcc [list|NICK PATH|send [-address IPV4] [-port PORT] NICK PATH|accept NUMBER [DIRECTORY]|reject NUMBER|cancel NUMBER]
+
+Tanpa argumen, tampilkan transfer. /dcc NICK PATH menawarkan berkas pada server terpilih.
+
+PATH adalah seluruh teks tersisa, termasuk spasi; jalurnya relatif terhadap direktori saat proses dimulai.
+
+Klien tidak pernah mengubah direktori itu, termasuk saat menelusuri berkas atau berjalan di latar.
+
+Pengiriman singkat mengumumkan IPv4 lokal koneksi IRC. Di balik NAT, pakai -address berisi IPv4 yang dapat diakses dan -port port yang diteruskan.
+
+Tidak meminta alamat dari layanan luar. Koneksi IRC khusus IPv6 memerlukan IPv4 yang diisi secara eksplisit.
+
+DCC adalah koneksi langsung tanpa enkripsi. Rekan menerima IP yang diumumkan; menerima tawaran juga membuka IP kepada rekan.
+
+Tawaran masuk belum dibuka sampai /dcc accept NUMBER. DIRECTORY memakai direktori awal secara bawaan dan harus milik Anda serta privat.
+
+Berkas tujuan yang ada tidak ditimpa; symlink dan berkas khusus ditolak. Mode uji tidak membuka berkas atau soket.
+
+Gunakan /dcc reject NUMBER untuk menolak tawaran atau /dcc cancel NUMBER untuk membatalkan transfer aktif.
+
+Nomor transfer berlaku di semua server proses ini. Menutup server asal membatalkan transfernya; putus IRC tidak membatalkan transfer yang sudah diterima.
+
+Contoh:
+/dcc alice file.txt
+/dcc list
+/dcc accept 1 ./downloads
+/dcc send -address 203.0.113.20 -port 5000 alice file.txt
+/dcc cancel 2
+
+/help /disconnect
+-----------------
+
+Putuskan server tanpa menghapus profilnya
+Penggunaan: /disconnect [SERVER_NUMBER]
+
+Tanpa nomor, putuskan sambungan server yang dipilih. Riwayat dan konfigurasi tetap tersedia.
+
+Ini tidak mengubah pengaturan koneksi otomatis saat mulai berikutnya.
+
+Contoh:
+/disconnect
+/disconnect 1
+
+/help /help
+-----------
+
+Baca bantuan topik, sintaks, dan contoh penggunaan
+Penggunaan: /help [TOPIC|COMMAND]
+
+Gunakan /help ls untuk indeks topik, /help commands untuk perintah dan daftarnya, atau /help autoconnect untuk satu perintah.
+
+Minta satu topik atau nama perintah tanpa argumen. /help /ls menjelaskan daftar lokal; /help ls menampilkan topik. Garis miring awal boleh diabaikan.
+
+/help all membuka panduan lengkap dalam pembaca bantuan terpisah.
+
+Contoh:
+/help
+/help ls
+/help commands
+/help autoconnect
+/help /ls
+
+/help /ignore
+-------------
+
+Kelola pengirim yang diabaikan secara lokal
+Penggunaan: /ignore [list|clear|[add|remove] MASK]
+
+Menerima nama panggilan atau mask nick!user@host dengan wildcard * dan ?. Pesan/notifikasi pengguna yang cocok disembunyikan secara lokal.
+
+Teks yang diabaikan tidak membuat percakapan pribadi atau sebutan. Status protokol, notifikasi server, dan keanggotaan tetap berfungsi.
+
+Gunakan /save untuk menyimpan mask server ini.
+
+Contoh:
+/ignore list
+/ignore add noisy!*@*
+/ignore remove noisy!*@*
+
+/help /join
+-----------
+
+Bergabung ke kanal pada server terpilih
+Penggunaan: /join #CHANNEL [KEY]
+
+Harus sudah terdaftar. Kunci hanya satu token ASCII yang dapat dicetak; tidak disimpan di berkas atau riwayat perintah.
+
+Pada koneksi langsung, nama kanal masuk ke daftar gabung otomatis saat ini; perubahan /autojoin tertunda menang saat disimpan.
+
+Gunakan /autojoin untuk mengubah koneksi berikutnya dari profil langsung tanpa bergabung sekarang. Bouncer mengatur keanggotaannya sendiri.
+
+Contoh:
+/join #ircnow
+/join #private channel-key
+
+/help /list
+-----------
+
+Minta dan saring direktori kanal jaringan
+Penggunaan: /list [MASK] [--min-users N] [--max-users N] [--name TEXT] [--topic TEXT] [--sort channel|users|topic] [--asc|--desc] [--limit N] | /list show [--sort channel|users|topic] [--asc|--desc] [--limit N] | /list clear
+
+Meminta daftar kanal dari server IRC terpilih; harus sudah terdaftar. Hanya MASK yang dikirim sebagai filter ke server.
+
+Batas pengguna minimum/maksimum, nama, dan topik difilter secara lokal meski jaringan tidak mendukung filter LIST tambahan.
+
+--sort menerima nilai channel, users, atau topic; bawaan users menurun. --limit 0 berarti tanpa batas tampilan dalam cache terbatas.
+
+/list show menampilkan cache; --sort, --asc/--desc, dan --limit mengurutkan atau membatasi secara lokal tanpa permintaan IRC baru. /list clear menghapus cache.
+
+Jika koneksi putus atau server menolak LIST, cache parsial tetap ada, tetapi permintaan berakhir; coba /list setelah terdaftar atau gunakan /list clear.
+
+Klien layar penuh membuka penjelajah kanal yang dapat diurutkan; mode minimalis memakai opsi sama dan /list show.
+
+Gunakan /ls atau /cl untuk daftar kanal lokal; /list mencari di jaringan.
+
+Contoh:
+/list
+/list *linux* --min-users 5 --max-users 500
+/list --topic help --sort users --desc --limit 100
+/list show --sort channel --asc --limit 50
+/list clear
+
+/help /ls
+---------
+
+Daftar entri server, kanal, percakapan pribadi, atau belum dibaca
+Penggunaan: /ls [servers|channels|queries|unread]
+
+Tanpa argumen, tampilkan kanal pada server terpilih. Ini perintah daftar lokal, bukan perintah shell atau permintaan IRC LIST seluruh jaringan.
+
+Gunakan /server N, /channel N, dan /pm NICK untuk memilih entri yang sesuai.
+
+Contoh:
+/ls
+/ls servers
+/ls queries
+/ls unread
+
+/help /manual
+-------------
+
+Baca manual bawaan lengkap
+Penggunaan: /manual
+
+Bantuan topik dan perintah juga tersedia tanpa koneksi. /help TOPIC adalah cara singkatnya.
+
+Contoh:
+/manual
+
+/help /me
+---------
+
+Kirim pesan aksi ke percakapan terpilih
+Penggunaan: /me TEXT
+
+Memerlukan kanal yang telah dimasuki atau percakapan pribadi dan koneksi terdaftar. Batas pesan dan aturan pengiriman berlaku.
+
+Antarmuka meninjau pesan yang terpecah sebelum memasukkannya ke antrean.
+
+Contoh:
+/me waves
+
+/help /mentions
+---------------
+
+Lihat sebutan atau hapus sebutan tersimpan di semua server
+Penggunaan: /mentions [clear]
+
+Memilih tampilan sebutan server ini. Berisi baris sumber terbaru yang terbatas dan waktu aslinya.
+
+/mentions clear menghapus salinan sebutan tersimpan dari semua server aktif tanpa berpindah tampilan.
+
+Riwayat percakapan asal, jumlah belum dibaca, dan pekerjaan tertunda tetap disimpan.
+
+Gunakan /watch untuk teks tambahan; /channel atau /pm kembali ke percakapan yang bisa dikirimi pesan.
+
+Contoh:
+/mentions
+/mentions clear
+/channel #ircnow
+
+/help /msg
+----------
+
+Kirim teks ke nama panggilan atau kanal
+Penggunaan: /msg TARGET TEXT
+
+Memerlukan registrasi. Perintah ini menyusun rencana pengiriman; mode langsung/tinjau dan persetujuan pemecahan pesan tetap berlaku.
+
+Tidak diam-diam mengubah tujuan kirim saat ini. Pesan layanan/kredensial tidak masuk riwayat perintah.
+
+Contoh:
+/msg alice Hello
+/msg #ircnow Good evening
+
+/help /next
+-----------
+
+Pilih percakapan berikutnya pada server ini
+Penggunaan: /next
+
+Beralih bergiliran di antara tampilan server, sebutan, kanal, dan percakapan pribadi; buffer panduan internal dilewati.
+
+Contoh:
+/next
+
+/help /nick
+-----------
+
+Atur atau minta nama panggilan saat ini
+Penggunaan: /nick NICK
+
+Saat tersambung, meminta perubahan yang dikonfirmasi server. Saat terputus, memperbarui identitas koneksi berikutnya.
+
+Nama panggilan memakai sintaks IRC ASCII yang didukung dan dibatasi 63 byte.
+
+Contoh:
+/nick tutankh-aten
+
+/help /panel
+------------
+
+Buka panel konfigurasi interaktif
+Penggunaan: /panel
+
+Pilih 0 (bawaan) untuk preferensi aplikasi, atau panel profil 1..8; panel 1 mengedit profil utama. Ini pilihan panel, bukan ID pekerjaan shell.
+
+Preferensi aplikasi mencakup retensi riwayat, mode kirim, format keluaran, pemberitahuan antrean, dan saran perintah untuk semua server.
+
+Preferensi ini berfungsi tanpa server yang dikonfigurasi. Pilihan akhirnya 1 Simpan (bawaan) dan 2 Terapkan tanpa menyimpan; keduanya tidak menghubungkan.
+
+Panel server hanya berisi pengaturan koneksi, awal, autentikasi, sebutan, dan pengabaian server itu.
+
+Memilih panel apa pun tidak memindahkan percakapan Anda.
+
+Enter mempertahankan nilai yang tampil; '-' mengosongkan bidang opsional. Escape mundur satu pertanyaan; ulangi untuk keluar tanpa menerapkan perubahan.
+
+Tab memilih judul pertanyaan. Tekan ? di sana untuk bantuan opsi dan layarnya; Tab atau Enter melanjutkan jawaban.
+
+Dalam setiap jawaban yang dapat diedit, ? tetap teks literal, termasuk sebagai karakter pertama dan dalam pola wildcard.
+
+Masukkan istilah pantauan dan pola pengabaian satu per satu; entri baru kosong mengakhiri daftar itu.
+
+Masukan kredensial disembunyikan; jawaban penyiapan tidak pernah masuk riwayat perintah. Berkas kredensial yang ada tidak dibaca saat mengedit.
+
+Untuk sumber GPG, pilih Buat baru atau Gunakan yang ada. Pembuatan menawarkan jalur bawaan privat; Enter menerimanya dan menyiapkan direktorinya (0700).
+
+Tujuan lain harus berada di direktori yang sudah ada, milik Anda, dengan mode 0700. Jalur diperiksa sebelum pertanyaan kunci dan kata sandi.
+
+Pembuatan lalu meminta sidik jari lengkap kunci publik lokal dan kata sandi dua kali. Berkas dan tautan simbolis yang ada tidak pernah ditimpa.
+
+Jalur kredensial disimpan sebagai jalur absolut. /autoauth status menampilkan lokasi lengkap yang dikonfigurasi tanpa membaca isinya.
+
+Enkripsi baru dimulai setelah Selesai, menjaga IRC responsif, dan tidak pernah memakai berkas sementara teks polos. Escape membatalkan pekerjaan tertunda.
+
+Jika penyimpanan konfigurasi gagal, hasil enkripsi tetap tersedia untuk percobaan ulang yang disengaja; berkas yang dirujuk konfigurasi tersimpan dipertahankan.
+
+Mode uji tidak menjalankan GPG atau membuat berkas kredensial. Buka kunci privat yang sesuai di luar aplikasi sebelum autentikasi.
+
+Pilihan akhir panel server: 1 Simpan dan hubungkan, 2 Simpan saja (bawaan), 3 Hubungkan sekali, atau 4 Terapkan saja.
+
+Membuka panel atau menjawab pertanyaan awalnya saja tidak menerapkan, menyimpan, atau menghubungkan apa pun.
+
+Sambung sekali menerapkan tanpa simpan; Terapkan saja tidak menyimpan atau menyambung. Sambungan aktif tidak diam-diam mengganti tujuan atau menyambung ulang.
+
+Sambungan gagal tidak membatalkan perubahan yang telah diterapkan atau disimpan lewat tindakan akhir.
+
+Gunakan /quickstart untuk penyiapan server, transport, port, dan nama panggilan yang lebih singkat.
+
+Contoh:
+/panel
+
+/help /part
+-----------
+
+Tinggalkan kanal dengan alasan opsional dan simpan riwayatnya
+Penggunaan: /part [#CHANNEL] [MESSAGE]
+
+Tanpa nama kanal, keluar dari kanal yang dipilih. Teks setelah kanal menjadi alasan PART; tanpa kanal, teks adalah alasan bagi kanal terpilih.
+
+Jika alasan tidak diberikan, part_message dipakai bila disetel. Entri gabung otomatis aktif dihapus.
+
+Pesan tertunda kanal dibatalkan; satu bingkai yang sedang dikirim mungkin selesai. Gunakan /close untuk menutup tampilan.
+
+Contoh:
+/part
+/part Going offline
+/part #old Moving elsewhere
+
+/help /pm
+---------
+
+Pilih atau buka percakapan pribadi tanpa mengirim
+Penggunaan: /pm NICK|NUMBER
+
+Nama membuka atau memilih percakapan pribadi. Nomor memilih percakapan yang sudah ada dari daftar /ql server ini.
+
+Membuka percakapan pribadi tidak menghubungi pengguna sampai pesan dikirim. Nomor dapat berubah setelah menutup percakapan.
+
+Contoh:
+/pm alice
+/ql
+/pm 1
+
+/help /prev
+-----------
+
+Pilih percakapan sebelumnya pada server ini
+Penggunaan: /prev
+
+Kebalikan dari /next. Tidak menyambung, bergabung, atau mengirim.
+
+Contoh:
+/prev
+
+/help /ql
+---------
+
+Daftar percakapan pribadi pada server terpilih
+Penggunaan: /ql
+
+Nomor percakapan pribadi dimulai dari 1 dan terpisah dari nomor kanal. Gunakan /query NICK atau /query NUMBER.
+
+Gunakan /close NICK untuk menutup percakapan; jalankan /ql lagi karena nomor berikutnya mungkin berubah.
+
+Contoh:
+/ql
+/query 1
+/query alice
+
+/help /queries
+--------------
+
+Daftar percakapan pribadi (alias /ql)
+Penggunaan: /queries
+
+Menggunakan daftar percakapan pribadi yang sama dengan /ql. Penomoran kanal tetap terpisah.
+
+Contoh:
+/queries
+/pm alice
+
+/help /query
+------------
+
+Buka atau pilih percakapan pribadi
+Penggunaan: /query NICK|NUMBER
+
+Memilih percakapan pribadi tanpa mengirim pesan. Ketik seperti biasa untuk menulis kepada nama panggilan itu.
+
+Gunakan /ql untuk daftar percakapan bernomor dan /close NICK untuk menutupnya. /pm menerima nama dan nomor yang sama.
+
+Nomor harus merujuk ke percakapan yang ada pada server terpilih; 0 tidak pernah memilih atau membuat percakapan.
+
+Contoh:
+/query alice
+/ql
+/query 1
+/close alice
+
+/help /quickstart
+-----------------
+
+Buka pengaturan koneksi terpandu
+Penggunaan: /quickstart
+
+Ubah server, transport TLS, port, dan nama panggilan profil saat ini secara berurutan, lalu tinjau pengaturan.
+
+TLS terverifikasi adalah bawaan. Sambungan teks biasa harus dipilih secara jelas.
+
+Enter mempertahankan nilai. Escape mundur satu pertanyaan; ulangi untuk keluar tanpa menerapkan. Jawaban tidak masuk riwayat perintah.
+
+Pada pemeriksaan akhir, pilih 1 Simpan dan sambung, 2 Simpan saja, 3 Sambung sekali (bawaan), atau 4 Terapkan saja.
+
+Membuka panduan dan menjawab pertanyaan awal tidak menerapkan pengaturan, menyimpan berkas, atau menyambung.
+
+Sambung sekali menerapkan tanpa simpan; Terapkan saja tidak menyimpan atau menyambung. Sambungan aktif tidak diam-diam mengganti tujuan atau menyambung ulang.
+
+Sambungan gagal tidak membatalkan perubahan yang telah diterapkan atau disimpan lewat tindakan akhir.
+
+Gunakan /panel untuk profil bouncer dan pengaturan lain. Quickstart tidak mengubah login bouncer yang sudah ada.
+
+Contoh:
+/quickstart
+
+/help /quit
+-----------
+
+Keluar dari program dan tutup semua sesi
+Penggunaan: /quit [MESSAGE]
+
+Mengirim MESSAGE sebagai alasan IRC QUIT sebisanya di setiap server aktif, atau quit_message jika MESSAGE kosong; lalu mengembalikan terminal dan keluar.
+
+Gunakan /background agar koneksi tetap berjalan.
+
+Contoh:
+/quit
+/quit Client restart
+
+/help /save
+-----------
+
+Simpan server saat ini, preferensi aplikasi, atau semua profil
+Penggunaan: /save [input|output|all]
+
+/save tanpa argumen menyimpan pengaturan efektif server terpilih, termasuk perubahan sambungan yang disiapkan.
+
+/save input dan /save output sama-sama menyimpan profil utama lengkap, preferensi dan pengaturan sambungan tertunda. Keduanya bukan penyimpanan bagian tertentu saja.
+
+/save all menyimpan tiap profil sehat secara terpisah. Bila ada yang gagal, berkas sebelumnya tetap tersimpan dan kegagalan dilaporkan.
+
+Setiap penggantian berkas bersifat privat dan atomik, tetapi bukan satu transaksi untuk semua berkas. Mode uji tidak menulis konfigurasi.
+
+Contoh:
+/save
+/set send_mode review
+/save input
+/save all
+
+/help /saveconf
+---------------
+
+Simpan konfigurasi dan ingat koneksi terpilih
+Penggunaan: /saveconf
+
+Menyimpan preferensi aplikasi dan semua konfigurasi server yang sehat, lalu mengingat server terpilih sebagai bawaan.
+
+Saat program dijalankan lagi, /connect memakai bawaan tersimpan; tidak perlu nomor server atau pengaturan terpisah.
+
+Nama panggilan, kanal yang diikuti, autentikasi, dan opsi awal disertakan; edit koneksi tertunda yang eksplisit diutamakan.
+
+Ini tidak mengaktifkan koneksi otomatis saat mulai. Gunakan /autoconnect on terlebih dahulu bila diinginkan.
+
+Setiap berkas diganti secara privat dan atomik. Simpanan sukses tetap ada walau berkas lain gagal.
+
+Server bawaan diingat jika penyimpanannya sukses; kegagalan dilaporkan dan profil tak terbaca tidak ditimpa.
+
+Mode uji tidak menulis konfigurasi. /save tetap menyediakan cara yang lebih khusus untuk profil dan preferensi.
+
+Contoh:
+/connect irc.example.org
+/join #chat
+/saveconf
+/quit
+
+/help /server
+-------------
+
+Hubungkan ke server, atau pilih yang sudah ada
+Penggunaan: /server [-tls|-plain] [-nick NICK] HOST [PORT] | /server [NUMBER|add HOST [PORT] [NICK]|connect NUMBER|disconnect NUMBER|close NUMBER]
+
+Dengan nama host, ini sama dengan koneksi langsung /connect; tidak perlu membuat profil dahulu.
+
+Tanpa argumen, memilih tampilan pesan/MOTD server saat ini. NUMBER memilih slot server tanpa menghubungkannya.
+
+add membuat profil dengan kredensial baru, TLS terverifikasi dan autoconnect mati; tidak memilih, menghubungkan atau menyimpan.
+
+PORT bawaan adalah 6697. Port lain tidak menonaktifkan TLS; koneksi tanpa enkripsi harus dipilih secara eksplisit.
+
+connect/disconnect tidak mengganti pilihan. close membuang sesi/entri katalog sekunder, bukan berkas profil.
+
+Nomor server minimalis 1..8, utama 1. Server utama selalu ada; putuskan koneksinya, jangan tutup.
+
+Nomor tetap selama sesi berlangsung. Panel 0 disediakan untuk preferensi aplikasi.
+
+Contoh:
+/server irc.example.org
+/join #chat
+/saveconf
+/servers
+/server 1
+
+/help /servers
+--------------
+
+Tampilkan semua sesi server yang dikonfigurasi
+Penggunaan: /servers
+
+Menampilkan slot server minimalis 1..8 (utama 1), server terpilih, status koneksi, dan autoconnect tiap server.
+
+Profil yang sudah dimuat tetap tersedia meskipun tidak terhubung.
+
+Contoh:
+/servers
+/server 1
+
+/help /set
+----------
+
+Pilih preferensi masukan, keluaran, dan kehadiran untuk seluruh aplikasi
+Penggunaan: /set send_mode direct|review | /set composer_mode line|fullscreen | /set output_format compact|full | /set queue_notices on|off | /set program_messages on|off | /set persistent_logging on|off | /set single_session on|off | /set default_interface idle|ncurses | /set command_suggestions alphabetical|common|history|frequent|contextual | /set part_message [TEXT] | /set quit_message [TEXT] | /set background_away on|off | /set background_away_message TEXT | /set autoaway_minutes 0..1440 | /set autoaway_message TEXT
+
+direct adalah bawaan: Enter mengirim teks, dengan persetujuan wajib jika perlu beberapa pesan IRC.
+
+review menambahkan tahap pemeriksaan yang disengaja sebelum pesan biasa masuk antrean.
+
+output_format compact adalah bawaan: chat terpilih menampilkan [HH:MM:SS] <nick> teks.
+
+output_format full menampilkan server, tanggal, dan tujuan per baris. Mode compact tetap menunjukkan asal untuk sebutan dan diagnostik server lain.
+
+queue_notices off menyembunyikan konfirmasi antrean rutin. Di mode minimalis, pesan yang sudah ditinjau juga tidak mengulang konfirmasi antrean. Kesalahan dan konfirmasi multi-pesan tetap terlihat.
+
+program_messages off menyembunyikan pemberitahuan lokal ringan seperti draf dibatalkan, input dihapus, atau draf disimpan. Kesalahan dan konfirmasi keselamatan tetap terlihat.
+
+persistent_logging on menulis baris chat ke berkas .log pribadi (0600) di direktori konfigurasi (0700). Bawaan mati; batas 16 MiB: arsipkan lalu alihkan off/on. Berkas tidak aman/sibuk menghentikan log, bukan chat.
+
+single_session on membatasi satu pekerjaan latar dalam klien ini agar --resume tanpa nomor tidak ambigu. Beberapa server IRC tetap dapat dipakai dalam sesi itu.
+
+default_interface memilih antarmuka pada peluncuran baru yang mendukungnya, bukan pada sesi kini. /save input menyimpan preferensinya.
+
+command_suggestions memilih urutan alfabet, perintah umum, riwayat terbaru, paling sering, atau perintah sesuai layar asal.
+
+composer_mode line memberi satu baris input di bawah chat terbaru; fullscreen memberi editor multi-baris dan panel chat terbaru. Bawaan: line.
+
+part_message dan quit_message ialah alasan keluar IRC bawaan; pesan /part atau /quit eksplisit mengesampingkannya. Nilai kosong menonaktifkan teks bawaan.
+
+background_away mengirim background_away_message setelah /background berhasil atau terminal terlepas. autoaway_minutes mengatur away saat diam; 0 mematikannya.
+
+Hanya status away yang dibuat klien dihapus otomatis saat melanjutkan atau menerima input asli. /away manual tidak ditimpa atau dihapus.
+
+Common adalah bawaan. Contextual mengutamakan perintah kanal, query, server, atau klien tanpa menghilangkan kecocokan kelompok lain.
+
+Common mengurutkan daftar perintah yang dikurasi. Contextual mengingat layar asal, termasuk pembaca ringkasan seluruh klien.
+
+Ini preferensi aplikasi dan berlaku di semua server. Gunakan /save input atau /save output untuk menyimpannya.
+
+/panel lalu 0 mengedit preferensi ini sekaligus batas riwayat global.
+
+Contoh:
+/set send_mode review
+/set composer_mode line
+/set command_suggestions contextual
+/save input
+/set output_format full
+/set queue_notices off
+/set program_messages off
+/set persistent_logging on
+/set single_session on
+/save output
+
+/help /settings
+---------------
+
+Tampilkan pengaturan efektif dengan kredensial disembunyikan
+Penggunaan: /settings
+
+Menampilkan preferensi aplikasi terpisah dari pilihan koneksi server yang masih tertunda.
+
+Nilai autentikasi dilaporkan menurut jenis sumber; sandi dan jalur kredensial tidak pernah dicetak.
+
+Gunakan /autoconnect, /autojoin, /autoauth dan /set untuk mengubah pengaturannya masing-masing.
+
+Contoh:
+/settings
+/help configuration
+
+/help /sl
+---------
+
+Daftar server (alias /servers)
+Penggunaan: /sl
+
+Menggunakan daftar server terkonfigurasi dan nomor slot tetap yang sama dengan /servers.
+
+Gunakan /server NUMBER untuk memilih server.
+
+Contoh:
+/sl
+/server 1
+
+/help /soju
+-----------
+
+Kendalikan bouncer soju terpilih
+Penggunaan: /soju [COMMAND]
+
+Perlu profil soju tersambung yang diatur lewat /panel. Tanpa argumen, meminta bantuan BouncerServ.
+
+COMMAND dikirim sebagai satu pesan pribadi berjarak, tanpa gema lokal atau riwayat perintah.
+
+Koneksi IRC langsung tidak dapat memakai pintasan ini. Balasan muncul di tampilan server.
+
+Gunakan bantuan bouncer untuk perintah akun dan jaringan.
+
+Contoh:
+/soju
+/soju network status
+
+/help /summary
+--------------
+
+Ringkas semua sesi server dan aktivitas saat ini
+Penggunaan: /summary
+
+Menampilkan semua server, channel 0, tampilan kanal/kueri, aktivitas belum dibaca, sebutan, antrean keluar, perintah awal, dan transfer berkas.
+
+Ringkasan ini lokal dan tetap bekerja tanpa koneksi. Tekan r di pembacanya atau jalankan lagi untuk menyegarkan.
+
+Membukanya tidak mengganti percakapan atau menandai pesan dibaca. Salinan umpan sebutan tidak dihitung sebagai aktivitas.
+
+Sebutan juga bisa belum dibaca; jangan jumlahkan kedua angka. Tampilan kanal yang bergabung dan ditinggalkan dibedakan.
+
+Laporan punya pembaca yang dapat digulir dan menjaga draf. Garis miring membuka perintah; batal kembali ke ringkasan.
+
+Jika penyegaran gagal, ringkasan lama tetap ada. Membuka atau menyegarkannya tidak mengirim permintaan jaringan.
+
+Kredensial dan isi pesan antrean maupun perintah otomatis tidak pernah ditampilkan.
+
+Contoh:
+/summary
+
+/help /topic
+------------
+
+Minta atau ubah topik kanal saat ini
+Penggunaan: /topic [TEXT]
+
+Harus terdaftar dan bergabung di kanal. Tanpa teks, meminta topik; dengan teks, mengirim TEXT apa adanya.
+
+Server menentukan apakah hak Anda di kanal mengizinkan perubahan.
+
+Contoh:
+/topic
+/topic Welcome to our channel
+
+/help /transfers
+----------------
+
+Kelola transfer berkas (alias /dcc)
+Penggunaan: /transfers [ARGUMENTS]
+
+Perintah dan perlindungannya sama seperti /dcc. Lihat /help dcc untuk kirim, terima, dan batalkan.
+
+Contoh:
+/transfers
+/transfers alice file.txt
+
+/help /unbind
+-------------
+
+Hapus satu atau semua ikatan tombol khusus
+Penggunaan: /unbind KEY|all
+
+Melepas ikatan memulihkan perilaku biasa tombol itu. all hanya menghapus daftar pintasan khusus.
+
+Langsung berlaku di semua server. Gunakan /save input agar tetap ada setelah mulai ulang.
+
+Contoh:
+/unbind F7
+/unbind all
+/save input
+
+/help /unignore
+---------------
+
+Hapus satu pola pengabaian lokal
+Penggunaan: /unignore MASK
+
+Setara dengan /ignore remove MASK. Simpan profil terpilih agar perubahan bertahan.
+
+Contoh:
+/unignore noisy!*@*
+
+/help /unread
+-------------
+
+Daftar percakapan belum dibaca di semua server
+Penggunaan: /unread
+
+Baris berisi nomor server, nama percakapan, pesan belum dibaca, dan jumlah sebutan.
+
+Gunakan /server NUMBER lalu /channel atau /pm untuk memilih percakapan.
+
+Contoh:
+/unread
+/server 1
+/pm alice
+
+/help /users
+------------
+
+Cetak pengguna yang diketahui pada kanal saat ini atau kanal bernama
+Penggunaan: /users [#CHANNEL]
+
+Ini daftar pengguna berupa teks, bukan pengalih visibilitas. Awalan mode pengguna disertakan jika diketahui.
+
+Daftar terbuka di pembaca terpisah meski kosong. Enter, Escape atau q kembali ke log obrolan terpilih.
+
+Up/Down dan Page Up/Down menggulir daftar. Dalam Help, Enter melanjutkan guliran.
+
+Balasan NAMES yang belum lengkap atau melampaui kapasitas diberi label. Tidak ada permintaan WHOIS.
+
+Contoh:
+/users
+/users #ircnow
+
+/help /view
+-----------
+
+Pilih percakapan bernama atau kanal bernomor
+Penggunaan: /view NAME|NUMBER
+
+Nomor kanal ada di /channels; nama percakapan pribadi di /ql. Nama server dan sebutan juga diterima.
+
+Gunakan /help daripada memilih buffer panduan internal.
+
+Contoh:
+/view #ircnow
+/view alice
+/view 0
+
+/help /views
+------------
+
+Daftar kanal (alias /channels)
+Penggunaan: /views
+
+Alias ini memakai nomor kanal; percakapan pribadi tetap ada di /ql.
+
+Contoh:
+/views
+
+/help /watch
+------------
+
+Kelola teks sebutan literal tambahan
+Penggunaan: /watch [list|add TEXT|remove TEXT]
+
+Sebutan nama panggilan selalu aktif. Add/remove memperlakukan sisa teks secara harfiah, bukan ekspresi reguler.
+
+Tiap server mendukung hingga 32 teks tambahan sepanjang 1..127 byte UTF-8. Gunakan /save agar tetap tersimpan.
+
+Contoh:
+/watch list
+/watch add release day
+/watch remove release day
+/mentions
+
+/help /whois
+------------
+
+Minta informasi nama panggilan dari server
+Penggunaan: /whois NICK
+
+Harus terdaftar. Membuka tampilan server agar balasan terlihat. Tidak ada perintah lokal yang dijalankan.
+
+Contoh:
+/whois alice
+
+/help /znc
+----------
+
+Kendalikan bouncer ZNC terpilih
+Penggunaan: /znc [COMMAND]
+
+Perlu profil ZNC tersambung yang diatur lewat /panel. Tanpa argumen, meminta Help dari *status.
+
+COMMAND dikirim sebagai satu pesan pribadi berjarak, tanpa gema lokal atau riwayat perintah.
+
+Gunakan /msg *module COMMAND untuk modul ZNC aktif. Balasan modul muncul di tampilan server.
+
+Koneksi IRC langsung tidak dapat memakai pintasan ini. Lihat bantuan bouncer untuk perintahnya.
+
+Contoh:
+/znc
+/znc ListNetworks
+/znc Connect

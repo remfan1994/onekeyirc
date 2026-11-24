@@ -1,0 +1,11 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: SECURITY.md / Trust boundary
+English source SHA-256: 3a8de003f1fb27ecf4c0a8a05eaa1e384e3d8e756927b0645d3341cf27dd4f1f
+
+BATAS KEPERCAYAAN
+
+Server IRC, rekan, nama panggilan, topik, kolom protokol, nama berkas, dan teks yang ditempel adalah masukan tidak tepercaya. Sistem operasi, terminal, pustaka C/TLS, penyimpanan sertifikat tepercaya, dan akun pengguna tetap merupakan komponen yang dipercaya. Antarmuka vipirc penuh juga mempercayai curses. GPG menambah program, keyring, dan agennya. Profil server berbagi satu proses, bukan ruang keamanan terisolasi. Proses lain dengan hak akun yang sama umumnya dapat memeriksa berkas privat dan memori.
+
+Jalankan menggunakan akun biasa. Sebelum membaca konfigurasi, program menolak ID pengguna/grup asli dan efektif yang berbeda, menonaktifkan core dump, dan menetapkan umask 0077. Di Linux, kemampuan dump proses juga dinonaktifkan. Deskriptor standar yang hilang dicadangkan melalui /dev/null sebelum sumber daya aplikasi dibuka; aliran terbuka yang diwarisi beserta flag-nya tidak diubah. Kegagalan perlindungan startup yang diwajibkan menghentikan program. Langkah ini bukan pledge/unveil, seccomp, pemisahan hak istimewa, atau perlindungan terhadap sistem induk yang disusupi.
+
+configure memeriksa pengerasan compiler/linker yang didukung sistem, termasuk perlindungan stack, pemeriksaan libc yang diperkuat, diagnostik format, PIE, RELRO, pengikatan langsung, dan stack yang tidak dapat dieksekusi. Periksa flag hasil konfigurasi pada sistem tujuan; tidak semua platform mendukung setiap flag.

@@ -1,0 +1,9 @@
+client	source	kind	english	fields
+onekeyirc	src/idle.c	fixed	Command response reader	
+onekeyirc	src/idle.c	fixed	Up and Down scroll one line. Page Up, Page Down, Space, and b scroll a page.	
+onekeyirc	src/idle.c	fixed	Home or g goes to the beginning; End or G goes to the end.	
+onekeyirc	src/idle.c	fixed	Escape or q returns to the log or the command that opened this response.	
+onekeyirc	src/idle.c	fixed	Slash opens command entry from this reader; cancelling returns here.	
+onekeyirc	src/idle.c	fixed	The summary reader accepts r to refresh its snapshot. ? explains the response and this reader.	
+onekeyirc	src/idle.c	fixed	(none selected)	
+onekeyirc	src/idle.c	named-fields	{item} is selected in the watch log.	item

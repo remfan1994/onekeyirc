@@ -1,0 +1,12 @@
+DCC file transfers
+Source: SECURITY.md, section "DCC file transfers"
+English section SHA-256: f0f91b6753c085b41c9c9071eabf9585ddc404919fe56e0989bfafb733db2e3b
+Paragraphs: 3
+Status: Translation draft; fluent-speaker security review required
+English SECURITY.md remains authoritative. This is one source-linked section, not a security certification.
+
+DCC SEND klasik IPv4 aktif ialah teks biasa tanpa pengesahan identiti, tanpa bergantung pada TLS IRC. Nama samaran tidak mengesahkan pihak yang menyambung. Alamat hujung yang dipaparkan mungkin alamat peribadi atau loopback. Menghantar fail mengumumkan alamat; menerima tawaran menyambung kepada pihak yang ditunjukkan dan mendedahkan alamat hos proses. Tawaran sahaja tidak mencipta fail atau soket. Accept/send memerlukan tindakan nyata. Melalui SSH, fail dan soket berada pada hos jauh tempat proses berjalan.
+
+Sumber mestilah fail biasa tanpa komponen laluan symlink. Fail dihantar secara aliran, bukannya salinan snapshot, dan tidak dilindungi daripada perubahan kemudian; gunakan sumber yang stabil. Penerimaan mencipta fail baharu bermod 0600 dalam direktori peribadi milik pengguna serta menolak traversal, symlink dan destinasi sedia ada. Pembersihan fail separa hanya membuang fail dengan peranti dan inode sama yang dicipta oleh pemindahan itu. Fail tidak dibuka atau dilaksanakan secara automatik. Pengakuan kiraan bait bukan hash.
+
+Hadnya lapan tawaran menunggu, empat pemindahan aktif, dan dua belas rekod disimpan, dengan saiz fail maksimum 4294967295 bait. Tawaran luput selepas lima minit; pemindahan aktif gagal selepas dua minit tanpa kemajuan. Pengakuan sama yang berulang tidak memanjangkan tempoh tersebut. DCC CHAT, resume, pemindahan pasif/terbalik, fail tanpa saiz diketahui dan IPv6 tidak disokong. Tiada penemuan alamat awam atau konfigurasi NAT/firewall automatik. Pemutusan IRC membiarkan pemindahan terus yang diterima berjalan; menutup pelayannya atau keluar menghentikannya. /cancel tidak menggantikan pembatalan khusus pemindahan.

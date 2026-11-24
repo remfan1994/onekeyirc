@@ -1,0 +1,10 @@
+source	kind	fields	english
+src/idle.c	fixed-display		Command frequency is available this session; its file could not be saved.
+src/idle.c	fixed-display		Catch-up cannot guarantee the absence: persistent logging stopped after an error, and the sent-message anchor is no longer retained in memory.
+src/idle.c	fixed-display		The durable sent-message anchor is unavailable (for example, logging began after that message or the log was replaced). The retained-memory anchor is also gone.
+src/idle.c	fixed-display		Your most recent sent message is older than retained memory. Enable persistent_logging before the next absence for durable /catchup.
+src/idle.c	fixed-display		Usage: /catchup
+src/idle.c	fixed-display		The command's original conversation is no longer available.
+src/idle.c	fixed-display		Finish or cancel the current draft before changing its conversation or opening settings.
+src/idle.c	fixed-display		Return to the retained draft before opening another command.
+src/idle.c	fixed-display		Unsupported character or composition capacity reached; existing draft preserved.

@@ -1,0 +1,12 @@
+client	source	kind	english	fields
+onekeyirc	src/idle.c	fixed	The selected question edits a private configuration draft.	
+onekeyirc	src/idle.c	fixed	Type an answer and press Enter to continue. An empty answer keeps the displayed value unless the question requests confirmation.	
+onekeyirc	src/idle.c	fixed	Escape returns to the previous question; Escape from the first question cancels the draft.	
+onekeyirc	src/idle.c	fixed	Page Up and Page Down scroll long question details.	
+onekeyirc	src/idle.c	fixed	Tab selects the question heading; ? then opens its help. Tab or Enter returns to the answer.	
+onekeyirc	src/idle.c	fixed	Question marks in the answer field are ordinary text, including the first character.	
+onekeyirc	src/idle.c	fixed	Changes take effect only after the final Save or Apply action. Connection changes apply on the next connection.	
+onekeyirc	src/idle.c	fixed	Application preferences apply across the client; server settings belong to the selected server profile.	
+onekeyirc	src/idle.c	named-fields	About {screen}	screen
+onekeyirc	src/idle.c	named-fields	[About {screen}]	screen
+onekeyirc	src/idle.c	named-fields	Review rows {first}-{last} of {total} | Up/Down | PgUp/PgDn | Home/End	first,last,total

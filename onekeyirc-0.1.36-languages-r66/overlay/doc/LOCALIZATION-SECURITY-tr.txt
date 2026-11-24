@@ -1,0 +1,10 @@
+YERELLEŞTİRME VE ARAPÇA RTL: KISA GÜVENLİK KILAVUZU
+
+1. İngilizce özgün kaynak kodun ve isteğe bağlı dil+RTL yamasının SHA-256 değerlerini yamayı uygulamadan ÖNCE doğrulayın. Yama yalnızca çeviri değil, çalıştırılabilir C kodu da içerir.
+2. Yamayı configure veya make çalıştırmadan önce yalnızca değiştirilmemiş r1 kaynağına uygulayın. Yamaları üst üste uygulamayın; işlem reddedilirse temiz bir kopya kullanın.
+3. IRC mesajları, takma adlar, konular ve dosya adları güvenilmez girdilerdir. Ekran temizleme işlemi tehlikeli terminal, Unicode yön ve açıklama denetimlerini değiştirir; göndereni doğrulamaz ve benzer Unicode adlarını engellemez.
+4. Arapça görsel mod, Arapça biçimlendirme ve yön desteği olmayan UTF-8 terminaller içindir. FriBidi kütüphanesi gerekir; kullanılamıyorsa mantıksal metin gösterilir.
+5. RTL yalnızca görüntüyü değiştirir. IRC komutları, gönderilen mesajlar ve kaynak kayıtlar mantıksal UTF-8 sırasını korur. Görünen yön kimlik kanıtı değildir.
+6. Şifreleri sohbete yazmayın, hata raporlarında özel günlükleri paylaşmayın; komutlara veya URL adreslerine yalnızca RTL görünümüne bakarak güvenmeyin. Gerçek metni ve hedefi kontrol edin.
+7. --check-config uzak sunucuyu, TLS oturumunu veya şifreyi doğrulamaz. Tam tehdit modeli için SECURITY.md belgesine bakın; bu kısa kılavuz onun tam çevirisi değildir.
+8. Terminaliniz zaten çift yönlü metni destekliyorsa veya görüntü kaynak metinden farklıysa görsel RTL modunu kapatın.

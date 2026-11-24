@@ -1,0 +1,22 @@
+OPTIONAL DISPLAY LOCALIZATION r36
+
+Apply r36 only onto the matching clean English source r1. Do not layer
+r36 over r35 or any earlier language overlay. Base client versions are
+unchanged: onekeyirc 0.1.36 and vipirc 0.7.37.
+
+New in this pass: 58 vipirc display paths (settings, DCC, outgoing
+message budgeting, ncurses dialogs, prompt history and dynamic
+byte/queue limits) and nine onekeyirc catch-up/draft notices, all in ten
+existing languages. Source-to-translation key mapping and placeholder
+inventory appear in UI-LOCALIZATION-r36.tsv / .json.
+
+All user names, hostnames, file paths, command names, original IRC text
+and numeric values remain literal data. C code never treats a translated
+string as a printf format. Two new messages use the bounded named-field
+renderer from the r34 baseline, with exact field-set validation and
+English fallback if formatting fails.
+
+r36 preserves prior manuals and source files. Native-speaker review,
+real OpenBSD/Crostini terminals, wide-character ncurses build, small
+terminal clipping and real IRC/bouncer test coverage are still due.
+Run: make check-ui-localization-r36; make check-l10n-security.

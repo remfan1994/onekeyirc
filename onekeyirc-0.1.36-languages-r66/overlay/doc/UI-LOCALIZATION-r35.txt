@@ -1,0 +1,11 @@
+OPTIONAL DISPLAY LOCALIZATION r35 - ONEKEYIRC 0.1.36
+
+Optional patch onto pristine English source r1; no application version changes.
+Adds eight fixed notices in src/idle.c dealing with draft integrity,
+message-limit confirmation, terminal signals, selection and refresh.
+
+Only display notices change. IRC protocol data and persistent formats are
+untouched. English fallback remains. Run make check-l10n-security and
+make check-arabic-visual after applying the matching r35 patch.
+
+Native speaker review and OpenBSD/Crostini terminal tests remain due.

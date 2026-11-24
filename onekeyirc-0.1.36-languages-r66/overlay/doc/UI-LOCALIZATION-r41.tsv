@@ -1,0 +1,10 @@
+source	kind	fields	english
+src/idle.c	fixed		Command screen
+src/idle.c	fixed		Commands are edited separately from chat messages.
+src/idle.c	fixed		Down selects a suggestion; Up moves toward the input. Enter inserts the selected suggestion without executing it.
+src/idle.c	fixed		Read or edit the inserted command, then press Enter again to run it.
+src/idle.c	fixed		Tab completes command names. Up from the input recalls recent commands.
+src/idle.c	fixed		Delete removes a selected history entry, or resets a selected Frequent command's usage count.
+src/idle.c	fixed		Contextual ordering remembers the screen that opened command entry. Other matching commands remain available.
+src/idle.c	fixed		A question mark while typing is ordinary text. On a selected suggestion it opens this help.
+src/idle.c	fixed		Escape returns to the originating log or response.

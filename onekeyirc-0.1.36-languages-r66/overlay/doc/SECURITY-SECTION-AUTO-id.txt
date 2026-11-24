@@ -1,0 +1,12 @@
+Automatic commands and cancellation
+Source: SECURITY.md, section "Automatic commands and cancellation"
+English section SHA-256: d5949c21fd5a0dc4ef73af2c42931766637e3b4ba398ff7184e64a2ae9a0e305
+Paragraphs: 3
+Status: Translation draft; fluent-speaker security review required
+English SECURITY.md remains authoritative. This is only one section, not the full security document.
+
+Tiap profil memiliki paling banyak 16 perintah literal, masing-masing paling panjang 511 byte UTF-8. Hanya operasi mengirim pesan, bergabung ke satu kanal, mengganti nick, away/back, dan WHOIS yang diterima. Daftar dan pesan kesalahan menyembunyikan argumen karena teks mungkin mengandung rahasia. Koneksi memakai salinan tetap perintah startup. Perubahan disiapkan untuk koneksi eksplisit berikutnya; percobaan ulang otomatis tetap memakai pengaturan koneksi yang terputus. Perubahan identitas menghapus teks perintah privat yang diwariskan.
+
+Pelaksanaan dimulai setelah registrasi dan SASL yang diwajibkan. Jeda awal 0..300 detik; interval berikutnya 2..60 detik setelah penulisan selesai. Hanya satu bingkai otomatis boleh tertunda, sehingga kemacetan tidak menghasilkan ledakan perintah susulan. Pesan otomatis harus muat dalam satu bingkai dan tidak dipecah maupun ditampilkan sebagai echo lokal. Kesalahan menghentikan perintah berikutnya dengan diagnostik berindeks yang menyamarkan data sensitif.
+
+/cancel menghapus teks antrean yang belum dikirim dan pekerjaan otomatis mendatang. Bingkai yang sudah tertulis sebagian atau percobaan ulang TLS yang masih berlangsung harus mempertahankan byte-nya dan mungkin selesai, sekalipun percobaan ulang belum melaporkan byte yang diterima. Byte yang telah dikirim tidak dapat ditarik kembali. Pemutusan koneksi membersihkan transport dan antrean. Percobaan ulang away otomatis dijadwalkan dan mengalah kepada maksud manual, skrip, atau latar belakang yang lebih baru dan telah diterima.

@@ -1,0 +1,3 @@
+source	kind	fields	english
+src/idle.c	fixed-status		Cannot retain the file offer: out of memory.
+src/idle.c	named-fields	nick,error	File offer from {nick} rejected: {error}

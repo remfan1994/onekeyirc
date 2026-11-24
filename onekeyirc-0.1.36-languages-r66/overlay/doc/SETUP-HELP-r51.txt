@@ -1,0 +1,5 @@
+Language-pack r51 (app onekeyirc-0.1.36 unchanged).
+27 fixed setup help texts linked to real display paths (some previously in onekeyirc catalog).
+Added 16 new lookup keys in each of ten languages.
+Source tokens, validation and input remain English/canonical as required.
+Native speaker checks and real terminal tests still necessary.

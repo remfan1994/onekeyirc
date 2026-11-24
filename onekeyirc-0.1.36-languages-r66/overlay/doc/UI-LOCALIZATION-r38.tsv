@@ -1,0 +1,12 @@
+source	kind	fields	english
+src/idle_setup.c	setup-help		GPG is encrypting with the selected local key. Settings have not been applied.
+src/idle_setup.c	setup-help		Application preferences apply to every server. Server panels edit one connection profile.
+src/idle_setup.c	setup-help		Your nickname on IRC.
+src/idle_setup.c	setup-help		A public description; it need not be your legal name. '-' clears it.
+src/idle_setup.c	setup-help		Connect this profile automatically on future starts: yes or no.
+src/idle_setup.c	setup-help		Comma-separated channels, for example #chat,#friends. '-' clears saved joins.
+src/idle_setup.c	setup-help		none = no automatic account login; sasl = log in during connection. Verified TLS is required.
+src/idle_setup.c	setup-help		Stored directly in the private configuration file. Password input is hidden.
+src/idle_setup.c	setup-help		Password to encrypt. Input is hidden; no plaintext password file is created.
+src/idle_setup.c	setup-help		Type the same password again to confirm it.
+src/idle_setup.c	setup-help		Optional CA file. Empty uses the system trust store; '-' clears. Server identity is always verified.

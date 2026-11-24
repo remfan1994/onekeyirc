@@ -1,0 +1,506 @@
+[
+  {
+    "english": "The new credential file must differ from configuration files and their sidecars; choose the offered credentials directory.",
+    "source": "src/idle_setup.c",
+    "source_occurrences": 1,
+    "display": "fail(..., \"%s\", irc_tr(...))",
+    "translations": {
+      "id": "Berkas kredensial baru harus berbeda dari berkas konfigurasi dan berkas pendampingnya; gunakan direktori kredensial yang ditawarkan.",
+      "ms": "Fail kelayakan baharu mesti berbeza daripada fail konfigurasi dan fail sampingannya; guna direktori kelayakan yang ditawarkan.",
+      "tr": "Yeni kimlik bilgisi dosyası yapılandırma ve yan dosyalarından farklı olmalıdır; önerilen kimlik bilgisi dizinini kullanın.",
+      "es": "El archivo de credenciales nuevo debe diferir de los de configuración y sus auxiliares; usa el directorio de credenciales propuesto.",
+      "pt": "O novo arquivo de credenciais deve diferir dos arquivos de configuração e auxiliares; use a pasta privada de credenciais oferecida.",
+      "fr": "Le nouveau fichier d'identifiants doit différer des fichiers de configuration et annexes ; utilisez le répertoire privé proposé.",
+      "de": "Neue Zugangsdaten-Datei darf keine Konfigurations- oder Nebendatei sein; vorgeschlagenen Zugangsdatenordner wählen.",
+      "ru": "Новый файл учетных данных не должен совпадать с файлами конфигурации и их дополнениями; выберите предложенный каталог.",
+      "it": "Il nuovo file delle credenziali deve differire dai file di configurazione e accessori; usa la cartella privata proposta.",
+      "ar": "يجب أن يختلف ملف بيانات الاعتماد الجديد عن ملفات الإعدادات والملفات الملحقة بها؛ اختر المجلد الخاص المقترح."
+    }
+  },
+  {
+    "english": "The new credential file matches a server configuration file; choose a different destination.",
+    "source": "src/idle_setup.c",
+    "source_occurrences": 1,
+    "display": "fail(..., \"%s\", irc_tr(...))",
+    "translations": {
+      "id": "Berkas kredensial baru sama dengan berkas konfigurasi server; pilih tujuan lain.",
+      "ms": "Fail kelayakan baharu sepadan dengan fail konfigurasi pelayan; pilih destinasi lain.",
+      "tr": "Yeni kimlik bilgisi dosyası bir sunucu yapılandırma dosyasıyla aynı; başka bir hedef seçin.",
+      "es": "El archivo de credenciales coincide con un archivo de configuración de servidor; elige otro destino.",
+      "pt": "O novo arquivo de credenciais coincide com uma configuração de servidor; escolha outro destino.",
+      "fr": "Le nouveau fichier d'identifiants correspond à la configuration d'un serveur ; choisissez une autre destination.",
+      "de": "Die neue Zugangsdaten-Datei entspricht einer Serverkonfiguration; anderes Ziel wählen.",
+      "ru": "Новый файл учетных данных совпадает с конфигурацией сервера; выберите другой путь.",
+      "it": "Il nuovo file delle credenziali coincide con una configurazione del server; scegli un'altra destinazione.",
+      "ar": "ملف بيانات الاعتماد الجديد يطابق ملف إعدادات خادم؛ اختر وجهة مختلفة."
+    }
+  },
+  {
+    "english": "Choose different new files for the authentication and server passwords.",
+    "source": "src/idle_setup.c",
+    "source_occurrences": 2,
+    "display": "fail(..., \"%s\", irc_tr(...))",
+    "translations": {
+      "id": "Pilih berkas baru yang berbeda untuk kata sandi autentikasi dan server.",
+      "ms": "Pilih fail baharu berasingan untuk kata laluan pengesahan dan pelayan.",
+      "tr": "Kimlik doğrulama ve sunucu parolaları için ayrı yeni dosyalar seçin.",
+      "es": "Elige archivos nuevos distintos para las contraseñas de autenticación y servidor.",
+      "pt": "Escolha novos arquivos diferentes para as senhas de autenticação e de servidor.",
+      "fr": "Choisissez des fichiers nouveaux distincts pour les mots de passe d'authentification et de serveur.",
+      "de": "Wählen Sie verschiedene neue Dateien für Authentifizierungs- und Serverpasswörter.",
+      "ru": "Для паролей аутентификации и сервера нужны разные новые файлы.",
+      "it": "Scegli file nuovi distinti per le password di autenticazione e del server.",
+      "ar": "اختر ملفين جديدين مختلفين لكلمتي مرور المصادقة والخادم."
+    }
+  },
+  {
+    "english": "GPG file creation is disabled in --test-mode; no helper, keyring, or credential path was accessed.",
+    "source": "src/idle_setup.c",
+    "source_occurrences": 1,
+    "display": "fail(..., \"%s\", irc_tr(...))",
+    "translations": {
+      "id": "Pembuatan berkas GPG dinonaktifkan dalam --test-mode; tidak ada pembantu, keyring, atau jalur kredensial yang diakses.",
+      "ms": "Penciptaan fail GPG dimatikan dalam --test-mode; tiada pembantu, keyring atau laluan kelayakan diakses.",
+      "tr": "--test-mode içinde GPG dosyası oluşturma kapalıdır; yardımcı program, keyring veya kimlik bilgisi yolu erişilmedi.",
+      "es": "No se pueden crear archivos GPG en --test-mode; no se accedió a auxiliares, keyring ni rutas de credenciales.",
+      "pt": "A criação de arquivo GPG está desativada em --test-mode; nenhum auxiliar, keyring ou caminho de credenciais foi acessado.",
+      "fr": "La création de fichiers GPG est désactivée en --test-mode ; aucun auxiliaire, keyring ou chemin d'identifiants n'a été consulté.",
+      "de": "GPG-Dateierstellung ist in --test-mode deaktiviert; kein Hilfsprogramm, keyring oder Zugangsdatenpfad wurde aufgerufen.",
+      "ru": "Создание файла GPG запрещено в --test-mode; помощник, keyring и пути к данным не открывались.",
+      "it": "La creazione di file GPG è disattivata in --test-mode; non sono stati usati helper, keyring o percorsi credenziali.",
+      "ar": "تعطل إنشاء ملفات GPG في --test-mode؛ لم يُستخدم برنامج مساعد أو keyring ولم يُفتح مسار بيانات الاعتماد."
+    }
+  },
+  {
+    "english": "Enter the password, or go back to change its source.",
+    "source": "src/idle_setup.c",
+    "source_occurrences": 1,
+    "display": "fail(..., \"%s\", irc_tr(...))",
+    "translations": {
+      "id": "Masukkan kata sandi atau kembali untuk mengganti sumbernya.",
+      "ms": "Masukkan kata laluan atau kembali untuk mengubah sumbernya.",
+      "tr": "Parolayı girin veya kaynağını değiştirmek için geri dönün.",
+      "es": "Introduce la contraseña o retrocede para cambiar su origen.",
+      "pt": "Digite a senha ou volte para mudar sua origem.",
+      "fr": "Saisissez le mot de passe ou revenez en arrière pour changer sa source.",
+      "de": "Passwort eingeben oder zurückgehen, um die Quelle zu wechseln.",
+      "ru": "Введите пароль или вернитесь, чтобы сменить его источник.",
+      "it": "Inserisci la password o torna indietro per modificarne l'origine.",
+      "ar": "أدخل كلمة المرور أو ارجع لتغيير مصدرها."
+    }
+  },
+  {
+    "english": "Enter the credential file path, or go back and select Create new to offer a private default location.",
+    "source": "src/idle_setup.c",
+    "source_occurrences": 1,
+    "display": "fail(..., \"%s\", irc_tr(...))",
+    "translations": {
+      "id": "Masukkan jalur berkas kredensial atau kembali dan pilih Create new untuk menawarkan lokasi privat bawaan.",
+      "ms": "Masukkan laluan fail kelayakan atau kembali dan pilih Create new untuk lokasi peribadi lalai.",
+      "tr": "Kimlik bilgisi dosya yolunu girin veya geri dönüp özel varsayılan konum için Create new seçin.",
+      "es": "Introduce la ruta del archivo de credenciales o retrocede y elige Create new para proponer una ubicación privada predeterminada.",
+      "pt": "Digite o caminho do arquivo de credenciais ou volte e escolha Create new para um local privado padrão.",
+      "fr": "Saisissez le chemin du fichier d'identifiants ou revenez et choisissez Create new pour l'emplacement privé proposé.",
+      "de": "Zugangsdaten-Dateipfad eingeben oder zurückgehen und Create new für einen privaten Standardort wählen.",
+      "ru": "Введите путь к файлу учетных данных или вернитесь и выберите Create new для частного пути.",
+      "it": "Inserisci il percorso del file credenziali o torna e scegli Create new per una posizione privata predefinita.",
+      "ar": "أدخل مسار ملف بيانات الاعتماد أو ارجع واختر Create new لاقتراح مكان خاص افتراضي."
+    }
+  },
+  {
+    "english": "Cannot determine the current directory; enter an absolute credential path.",
+    "source": "src/idle_setup.c",
+    "source_occurrences": 1,
+    "display": "fail(..., \"%s\", irc_tr(...))",
+    "translations": {
+      "id": "Tidak dapat menentukan direktori saat ini; masukkan jalur kredensial absolut.",
+      "ms": "Tidak dapat mengenal pasti direktori semasa; masukkan laluan kelayakan mutlak.",
+      "tr": "Geçerli dizin belirlenemedi; mutlak kimlik bilgisi yolu girin.",
+      "es": "No se puede determinar el directorio actual; introduce una ruta absoluta de credenciales.",
+      "pt": "Não é possível determinar o diretório atual; digite um caminho absoluto de credenciais.",
+      "fr": "Impossible de déterminer le répertoire actuel ; saisissez un chemin absolu d'identifiants.",
+      "de": "Aktuelles Verzeichnis nicht ermittelbar; absoluten Zugangsdatenpfad eingeben.",
+      "ru": "Не удалось определить текущий каталог; введите абсолютный путь к данным.",
+      "it": "Impossibile determinare la directory corrente; inserisci un percorso assoluto delle credenziali.",
+      "ar": "تعذر معرفة المجلد الحالي؛ أدخل مسارا مطلقا لبيانات الاعتماد."
+    }
+  },
+  {
+    "english": "The absolute credential path is too long; use a shorter path.",
+    "source": "src/idle_setup.c",
+    "source_occurrences": 1,
+    "display": "fail(..., \"%s\", irc_tr(...))",
+    "translations": {
+      "id": "Jalur kredensial absolut terlalu panjang; gunakan jalur lebih pendek.",
+      "ms": "Laluan kelayakan mutlak terlalu panjang; guna laluan lebih pendek.",
+      "tr": "Mutlak kimlik bilgisi yolu çok uzun; daha kısa bir yol kullanın.",
+      "es": "La ruta absoluta de credenciales es demasiado larga; usa una más corta.",
+      "pt": "O caminho absoluto das credenciais é longo demais; use um menor.",
+      "fr": "Le chemin absolu d'identifiants est trop long ; utilisez un chemin plus court.",
+      "de": "Absoluter Zugangsdatenpfad ist zu lang; kürzeren Pfad verwenden.",
+      "ru": "Абсолютный путь к данным слишком длинный; используйте более короткий.",
+      "it": "Il percorso assoluto delle credenziali è troppo lungo; usane uno più breve.",
+      "ar": "مسار بيانات الاعتماد المطلق طويل جدا؛ استخدم مسارا أقصر."
+    }
+  },
+  {
+    "english": "Bouncer fields allow at most 63 ASCII letters, digits, '.', '_' or '-'; enter each component separately.",
+    "source": "src/idle_setup.c",
+    "source_occurrences": 1,
+    "display": "fail(..., \"%s\", irc_tr(...))",
+    "translations": {
+      "id": "Kolom bouncer menerima maksimal 63 huruf ASCII, angka, '.', '_' atau '-'; isi tiap bagian secara terpisah.",
+      "ms": "Medan bouncer menerima paling banyak 63 huruf ASCII, angka, '.', '_' atau '-'; masukkan setiap bahagian berasingan.",
+      "tr": "Bouncer alanları en çok 63 ASCII harfi, rakamı, '.', '_' veya '-' kabul eder; her bileşeni ayrı girin.",
+      "es": "Los campos del bouncer admiten hasta 63 letras ASCII, dígitos, '.', '_' o '-'; introduce cada parte por separado.",
+      "pt": "Campos do bouncer aceitam até 63 letras ASCII, números, '.', '_' ou '-'; informe cada parte separadamente.",
+      "fr": "Les champs du bouncer acceptent au plus 63 lettres ASCII, chiffres, '.', '_' ou '-' ; entrez chaque élément séparément.",
+      "de": "Bouncer-Felder erlauben höchstens 63 ASCII-Buchstaben, Ziffern, '.', '_' oder '-'; jedes Teil separat eingeben.",
+      "ru": "Поля bouncer допускают до 63 букв ASCII, цифр, '.', '_' или '-'; вводите части отдельно.",
+      "it": "I campi bouncer ammettono al massimo 63 lettere ASCII, cifre, '.', '_' o '-'; inserisci ogni parte separatamente.",
+      "ar": "تقبل حقول bouncer حتى 63 حرف ASCII أو رقما أو '.', '_' أو '-'؛ أدخل كل جزء على حدة."
+    }
+  },
+  {
+    "english": "GPG encryption is still running; wait or go back to cancel it.",
+    "source": "src/idle_setup.c",
+    "source_occurrences": 1,
+    "display": "fail(..., \"%s\", irc_tr(...))",
+    "translations": {
+      "id": "Enkripsi GPG masih berjalan; tunggu atau kembali untuk membatalkannya.",
+      "ms": "Penyulitan GPG masih berjalan; tunggu atau kembali untuk membatalkannya.",
+      "tr": "GPG şifrelemesi sürüyor; bekleyin veya iptal etmek için geri dönün.",
+      "es": "El cifrado GPG sigue en curso; espera o retrocede para cancelarlo.",
+      "pt": "A criptografia GPG continua em execução; aguarde ou volte para cancelar.",
+      "fr": "Le chiffrement GPG est en cours ; patientez ou revenez pour l'annuler.",
+      "de": "GPG-Verschlüsselung läuft noch; warten oder zurückgehen und abbrechen.",
+      "ru": "Шифрование GPG еще выполняется; ждите или вернитесь для отмены.",
+      "it": "La cifratura GPG è ancora in corso; attendi o torna indietro per annullarla.",
+      "ar": "لا يزال تشفير GPG جاريا؛ انتظر أو ارجع لإلغائه."
+    }
+  },
+  {
+    "english": "Invalid or oversized answer; existing settings are unchanged.",
+    "source": "src/idle_setup.c",
+    "source_occurrences": 1,
+    "display": "fail(..., \"%s\", irc_tr(...))",
+    "translations": {
+      "id": "Jawaban tidak valid atau terlalu panjang; pengaturan lama tidak berubah.",
+      "ms": "Jawapan tidak sah atau terlalu besar; tetapan sedia ada tidak berubah.",
+      "tr": "Geçersiz veya aşırı uzun yanıt; mevcut ayarlar değişmedi.",
+      "es": "Respuesta no válida o demasiado larga; la configuración existente no cambió.",
+      "pt": "Resposta inválida ou longa demais; as configurações anteriores não mudaram.",
+      "fr": "Réponse invalide ou trop longue ; les paramètres existants restent inchangés.",
+      "de": "Ungültige oder zu lange Antwort; bestehende Einstellungen bleiben unverändert.",
+      "ru": "Недопустимый или слишком длинный ответ; настройки не изменились.",
+      "it": "Risposta non valida o troppo lunga; le impostazioni esistenti restano invariate.",
+      "ar": "إجابة غير صالحة أو طويلة جدا؛ لم تتغير الإعدادات الحالية."
+    }
+  },
+  {
+    "english": "Enter one answer without control characters or line breaks.",
+    "source": "src/idle_setup.c",
+    "source_occurrences": 1,
+    "display": "fail(..., \"%s\", irc_tr(...))",
+    "translations": {
+      "id": "Masukkan satu jawaban tanpa karakter kontrol atau pemisah baris.",
+      "ms": "Masukkan satu jawapan tanpa aksara kawalan atau pemisah baris.",
+      "tr": "Kontrol karakteri veya satır sonu olmadan tek bir yanıt girin.",
+      "es": "Introduce una respuesta sin caracteres de control ni saltos de línea.",
+      "pt": "Digite uma resposta sem caracteres de controle nem quebras de linha.",
+      "fr": "Saisissez une seule réponse, sans caractère de contrôle ni saut de ligne.",
+      "de": "Eine Antwort ohne Steuerzeichen oder Zeilenumbrüche eingeben.",
+      "ru": "Введите один ответ без управляющих символов и переносов строк.",
+      "it": "Inserisci una sola risposta senza caratteri di controllo o interruzioni di riga.",
+      "ar": "أدخل إجابة واحدة دون رموز تحكم أو فواصل أسطر."
+    }
+  },
+  {
+    "english": "Choose create for a new encrypted file or existing for a file you already have.",
+    "source": "src/idle_setup.c",
+    "source_occurrences": 1,
+    "display": "fail(..., \"%s\", irc_tr(...))",
+    "translations": {
+      "id": "Pilih create untuk berkas terenkripsi baru atau existing untuk berkas yang sudah ada.",
+      "ms": "Pilih create untuk fail tersulit baharu atau existing untuk fail sedia ada.",
+      "tr": "Yeni şifreli dosya için create, mevcut dosya için existing seçin.",
+      "es": "Elige create para un archivo cifrado nuevo o existing para uno que ya tengas.",
+      "pt": "Escolha create para arquivo criptografado novo ou existing para um já existente.",
+      "fr": "Choisissez create pour un nouveau fichier chiffré ou existing pour un fichier existant.",
+      "de": "create für neue verschlüsselte Datei oder existing für vorhandene Datei wählen.",
+      "ru": "Для нового шифрованного файла выберите create; для готового файла — existing.",
+      "it": "Scegli create per un nuovo file cifrato o existing per un file già disponibile.",
+      "ar": "اختر create لملف مشفر جديد أو existing لملف موجود."
+    }
+  },
+  {
+    "english": "Use the full local GPG key fingerprint: 40 or 64 hexadecimal digits without spaces.",
+    "source": "src/idle_setup.c",
+    "source_occurrences": 1,
+    "display": "fail(..., \"%s\", irc_tr(...))",
+    "translations": {
+      "id": "Gunakan sidik jari lengkap kunci GPG lokal: 40 atau 64 digit heksadesimal tanpa spasi.",
+      "ms": "Guna cap jari penuh kunci GPG setempat: 40 atau 64 digit heksadesimal tanpa ruang.",
+      "tr": "Yerel GPG anahtarının boşluksuz 40 veya 64 onaltılık basamaklı tam parmak izini kullanın.",
+      "es": "Usa la huella completa de la clave GPG local: 40 o 64 dígitos hexadecimales sin espacios.",
+      "pt": "Use a impressão digital completa da chave GPG local: 40 ou 64 dígitos hexadecimais sem espaços.",
+      "fr": "Utilisez l'empreinte complète de la clé GPG locale : 40 ou 64 chiffres hexadécimaux sans espaces.",
+      "de": "Vollständigen lokalen GPG-Fingerabdruck eingeben: 40 oder 64 Hexadezimalziffern ohne Leerzeichen.",
+      "ru": "Введите полный отпечаток локального ключа GPG: 40 или 64 шестнадцатеричные цифры без пробелов.",
+      "it": "Usa l'impronta completa della chiave GPG locale: 40 o 64 cifre esadecimali senza spazi.",
+      "ar": "استخدم بصمة مفتاح GPG المحلي الكاملة: 40 أو 64 رقما ست عشريا دون فراغات."
+    }
+  },
+  {
+    "english": "Enter a password of 1 to 1024 UTF-8 bytes.",
+    "source": "src/idle_setup.c",
+    "source_occurrences": 1,
+    "display": "fail(..., \"%s\", irc_tr(...))",
+    "translations": {
+      "id": "Masukkan kata sandi sepanjang 1 hingga 1024 byte UTF-8.",
+      "ms": "Masukkan kata laluan sepanjang 1 hingga 1024 bait UTF-8.",
+      "tr": "1 ile 1024 UTF-8 bayt arasında bir parola girin.",
+      "es": "Introduce una contraseña de 1 a 1024 bytes UTF-8.",
+      "pt": "Digite uma senha de 1 a 1024 bytes UTF-8.",
+      "fr": "Saisissez un mot de passe de 1 à 1024 octets UTF-8.",
+      "de": "Passwort mit 1 bis 1024 UTF-8-Bytes eingeben.",
+      "ru": "Введите пароль длиной от 1 до 1024 байт UTF-8.",
+      "it": "Inserisci una password da 1 a 1024 byte UTF-8.",
+      "ar": "أدخل كلمة مرور طولها من 1 إلى 1024 بايت UTF-8."
+    }
+  },
+  {
+    "english": "The passwords do not match; type the same password again or go back to change it.",
+    "source": "src/idle_setup.c",
+    "source_occurrences": 1,
+    "display": "fail(..., \"%s\", irc_tr(...))",
+    "translations": {
+      "id": "Kata sandi tidak cocok; ketik ulang kata sandi yang sama atau kembali untuk menggantinya.",
+      "ms": "Kata laluan tidak sepadan; taip semula yang sama atau kembali untuk menukarnya.",
+      "tr": "Parolalar eşleşmiyor; aynısını yeniden girin veya değiştirmek için geri dönün.",
+      "es": "Las contraseñas no coinciden; vuelve a escribir la misma o retrocede para cambiarla.",
+      "pt": "As senhas não coincidem; digite a mesma novamente ou volte para alterá-la.",
+      "fr": "Les mots de passe diffèrent ; saisissez de nouveau le même ou revenez pour le modifier.",
+      "de": "Passwörter stimmen nicht überein; dasselbe erneut eingeben oder zurückgehen und ändern.",
+      "ru": "Пароли не совпадают; повторите тот же пароль или вернитесь для изменения.",
+      "it": "Le password non coincidono; ridigita la stessa o torna indietro per cambiarla.",
+      "ar": "كلمتا المرور غير متطابقتين؛ أعد كتابة الكلمة نفسها أو ارجع لتغييرها."
+    }
+  },
+  {
+    "english": "Complete and confirm each GPG password before Finish.",
+    "source": "src/idle_setup.c",
+    "source_occurrences": 1,
+    "display": "fail(..., \"%s\", irc_tr(...))",
+    "translations": {
+      "id": "Lengkapi dan konfirmasi setiap kata sandi GPG sebelum Finish.",
+      "ms": "Lengkapkan dan sahkan setiap kata laluan GPG sebelum Finish.",
+      "tr": "Finish öncesinde her GPG parolasını tamamlayıp onaylayın.",
+      "es": "Completa y confirma cada contraseña GPG antes de Finish.",
+      "pt": "Conclua e confirme cada senha GPG antes de Finish.",
+      "fr": "Terminez et confirmez chaque mot de passe GPG avant Finish.",
+      "de": "Jedes GPG-Passwort vor Finish vollständig eingeben und bestätigen.",
+      "ru": "Введите и подтвердите каждый пароль GPG перед Finish.",
+      "it": "Completa e conferma ogni password GPG prima di Finish.",
+      "ar": "أكمل تأكيد كل كلمة مرور GPG قبل Finish."
+    }
+  },
+  {
+    "english": "Enter yes for verified TLS or no for unencrypted IRC.",
+    "source": "src/idle_setup.c",
+    "source_occurrences": 1,
+    "display": "fail(..., \"%s\", irc_tr(...))",
+    "translations": {
+      "id": "Masukkan yes untuk TLS terverifikasi atau no untuk IRC tanpa enkripsi.",
+      "ms": "Masukkan yes untuk TLS disahkan atau no untuk IRC tanpa penyulitan.",
+      "tr": "Doğrulanmış TLS için yes, şifresiz IRC için no girin.",
+      "es": "Introduce yes para TLS verificado o no para IRC sin cifrar.",
+      "pt": "Digite yes para TLS verificado ou no para IRC sem criptografia.",
+      "fr": "Saisissez yes pour TLS vérifié ou no pour IRC non chiffré.",
+      "de": "yes für verifiziertes TLS, no für unverschlüsseltes IRC eingeben.",
+      "ru": "Введите yes для проверенного TLS или no для IRC без шифрования.",
+      "it": "Inserisci yes per TLS verificato o no per IRC non cifrato.",
+      "ar": "أدخل yes لاتصال TLS موثق أو no لاتصال IRC غير مشفر."
+    }
+  },
+  {
+    "english": "Bouncer connections require verified TLS. Change Connection type to direct before disabling TLS.",
+    "source": "src/idle_setup.c",
+    "source_occurrences": 1,
+    "display": "fail(..., \"%s\", irc_tr(...))",
+    "translations": {
+      "id": "Koneksi bouncer memerlukan TLS terverifikasi. Ubah Connection type menjadi direct sebelum menonaktifkan TLS.",
+      "ms": "Sambungan bouncer memerlukan TLS disahkan. Tukar Connection type kepada direct sebelum mematikan TLS.",
+      "tr": "Bouncer bağlantısı doğrulanmış TLS gerektirir. TLS kapatmadan önce Connection type değerini direct yapın.",
+      "es": "El bouncer requiere TLS verificado. Cambia Connection type a direct antes de desactivar TLS.",
+      "pt": "O bouncer exige TLS verificado. Mude Connection type para direct antes de desativar TLS.",
+      "fr": "Le bouncer exige TLS vérifié. Passez Connection type à direct avant de désactiver TLS.",
+      "de": "Bouncer-Verbindungen benötigen verifiziertes TLS. Connection type vor dem Deaktivieren von TLS auf direct ändern.",
+      "ru": "Для bouncer нужен проверенный TLS. Перед отключением TLS задайте Connection type = direct.",
+      "it": "Il bouncer richiede TLS verificato. Imposta Connection type su direct prima di disattivare TLS.",
+      "ar": "يتطلب bouncer اتصال TLS موثقا. غيّر Connection type إلى direct قبل تعطيل TLS."
+    }
+  },
+  {
+    "english": "Port must be a number from 1 to 65535.",
+    "source": "src/idle_setup.c",
+    "source_occurrences": 1,
+    "display": "fail(..., \"%s\", irc_tr(...))",
+    "translations": {
+      "id": "Port harus berupa angka 1 hingga 65535.",
+      "ms": "Port mesti nombor dari 1 hingga 65535.",
+      "tr": "Port 1 ile 65535 arasında bir sayı olmalıdır.",
+      "es": "El puerto debe ser un número del 1 al 65535.",
+      "pt": "A porta deve ser um número de 1 a 65535.",
+      "fr": "Le port doit être un nombre de 1 à 65535.",
+      "de": "Port muss eine Zahl von 1 bis 65535 sein.",
+      "ru": "Порт должен быть числом от 1 до 65535.",
+      "it": "La porta deve essere un numero da 1 a 65535.",
+      "ar": "يجب أن يكون المنفذ رقما من 1 إلى 65535."
+    }
+  },
+  {
+    "english": "Choose direct, znc, or soju.",
+    "source": "src/idle_setup.c",
+    "source_occurrences": 1,
+    "display": "fail(..., \"%s\", irc_tr(...))",
+    "translations": {
+      "id": "Pilih direct, znc, atau soju.",
+      "ms": "Pilih direct, znc atau soju.",
+      "tr": "direct, znc veya soju seçin.",
+      "es": "Elige direct, znc o soju.",
+      "pt": "Escolha direct, znc ou soju.",
+      "fr": "Choisissez direct, znc ou soju.",
+      "de": "direct, znc oder soju wählen.",
+      "ru": "Выберите direct, znc или soju.",
+      "it": "Scegli direct, znc o soju.",
+      "ar": "اختر direct أو znc أو soju."
+    }
+  },
+  {
+    "english": "Enter the bouncer account name.",
+    "source": "src/idle_setup.c",
+    "source_occurrences": 1,
+    "display": "fail(..., \"%s\", irc_tr(...))",
+    "translations": {
+      "id": "Masukkan nama akun bouncer.",
+      "ms": "Masukkan nama akaun bouncer.",
+      "tr": "Bouncer hesap adını girin.",
+      "es": "Introduce el nombre de cuenta del bouncer.",
+      "pt": "Digite o nome de conta do bouncer.",
+      "fr": "Saisissez le nom du compte bouncer.",
+      "de": "Bouncer-Kontonamen eingeben.",
+      "ru": "Введите имя аккаунта bouncer.",
+      "it": "Inserisci il nome dell'account bouncer.",
+      "ar": "أدخل اسم حساب bouncer."
+    }
+  },
+  {
+    "english": "Enter the network name configured on your bouncer.",
+    "source": "src/idle_setup.c",
+    "source_occurrences": 1,
+    "display": "fail(..., \"%s\", irc_tr(...))",
+    "translations": {
+      "id": "Masukkan nama jaringan yang dikonfigurasi pada bouncer Anda.",
+      "ms": "Masukkan nama rangkaian yang ditetapkan pada bouncer anda.",
+      "tr": "Bouncer üzerinde yapılandırılmış ağ adını girin.",
+      "es": "Introduce el nombre de red configurado en tu bouncer.",
+      "pt": "Digite o nome da rede configurada no seu bouncer.",
+      "fr": "Saisissez le nom du réseau configuré sur votre bouncer.",
+      "de": "Auf dem Bouncer eingerichteten Netzwerknamen eingeben.",
+      "ru": "Введите имя сети, заданное на bouncer.",
+      "it": "Inserisci il nome della rete configurata sul bouncer.",
+      "ar": "أدخل اسم الشبكة المضبوط على bouncer."
+    }
+  },
+  {
+    "english": "Enter yes or no for this profile's automatic-away rules.",
+    "source": "src/idle_setup.c",
+    "source_occurrences": 1,
+    "display": "fail(..., \"%s\", irc_tr(...))",
+    "translations": {
+      "id": "Masukkan yes atau no untuk aturan away otomatis profil ini.",
+      "ms": "Masukkan yes atau no untuk peraturan away automatik profil ini.",
+      "tr": "Bu profilin otomatik away kuralları için yes veya no girin.",
+      "es": "Introduce yes o no para las reglas automáticas de away de este perfil.",
+      "pt": "Digite yes ou no para as regras automáticas de away deste perfil.",
+      "fr": "Saisissez yes ou no pour les règles automatiques d'away de ce profil.",
+      "de": "yes oder no für automatische away-Regeln dieses Profils eingeben.",
+      "ru": "Введите yes или no для правил автоматического away этого профиля.",
+      "it": "Inserisci yes o no per le regole automatiche di away di questo profilo.",
+      "ar": "أدخل yes أو no لقواعد away التلقائية لهذا الملف الشخصي."
+    }
+  },
+  {
+    "english": "Enter the account name used for SASL authentication.",
+    "source": "src/idle_setup.c",
+    "source_occurrences": 1,
+    "display": "fail(..., \"%s\", irc_tr(...))",
+    "translations": {
+      "id": "Masukkan nama akun untuk autentikasi SASL.",
+      "ms": "Masukkan nama akaun bagi pengesahan SASL.",
+      "tr": "SASL kimlik doğrulaması için hesap adını girin.",
+      "es": "Introduce la cuenta usada para la autenticación SASL.",
+      "pt": "Digite o nome de conta usado na autenticação SASL.",
+      "fr": "Saisissez le nom du compte utilisé pour l'authentification SASL.",
+      "de": "Für SASL-Authentifizierung verwendeten Kontonamen eingeben.",
+      "ru": "Введите имя аккаунта для аутентификации SASL.",
+      "it": "Inserisci il nome dell'account usato per l'autenticazione SASL.",
+      "ar": "أدخل اسم الحساب المستخدم لمصادقة SASL."
+    }
+  },
+  {
+    "english": "Choose none, file, gpg, or plain.",
+    "source": "src/idle_setup.c",
+    "source_occurrences": 1,
+    "display": "fail(..., \"%s\", irc_tr(...))",
+    "translations": {
+      "id": "Pilih none, file, gpg, atau plain.",
+      "ms": "Pilih none, file, gpg atau plain.",
+      "tr": "none, file, gpg veya plain seçin.",
+      "es": "Elige none, file, gpg o plain.",
+      "pt": "Escolha none, file, gpg ou plain.",
+      "fr": "Choisissez none, file, gpg ou plain.",
+      "de": "none, file, gpg oder plain wählen.",
+      "ru": "Выберите none, file, gpg или plain.",
+      "it": "Scegli none, file, gpg o plain.",
+      "ar": "اختر none أو file أو gpg أو plain."
+    }
+  },
+  {
+    "english": "Choose a final action before applying settings.",
+    "source": "src/idle_setup.c",
+    "source_occurrences": 1,
+    "display": "fail(..., \"%s\", irc_tr(...))",
+    "translations": {
+      "id": "Pilih tindakan akhir sebelum menerapkan pengaturan.",
+      "ms": "Pilih tindakan akhir sebelum menggunakan tetapan.",
+      "tr": "Ayarları uygulamadan önce son eylemi seçin.",
+      "es": "Elige una acción final antes de aplicar los ajustes.",
+      "pt": "Escolha a ação final antes de aplicar as configurações.",
+      "fr": "Choisissez une action finale avant d'appliquer les paramètres.",
+      "de": "Vor dem Anwenden der Einstellungen eine abschließende Aktion wählen.",
+      "ru": "Выберите итоговое действие перед применением настроек.",
+      "it": "Scegli l'azione finale prima di applicare le impostazioni.",
+      "ar": "اختر الإجراء النهائي قبل تطبيق الإعدادات."
+    }
+  },
+  {
+    "english": "Already connecting or connected. Choose 2 or 4 to stage settings; /disconnect before a new /connect.",
+    "source": "src/idle_setup.c",
+    "source_occurrences": 1,
+    "display": "fail(..., \"%s\", irc_tr(...))",
+    "translations": {
+      "id": "Sudah menghubungkan atau terhubung. Pilih 2 atau 4 untuk menyiapkan pengaturan; jalankan /disconnect sebelum /connect baru.",
+      "ms": "Sedang menyambung atau sudah bersambung. Pilih 2 atau 4 untuk tetapan sementara; /disconnect sebelum /connect baharu.",
+      "tr": "Bağlanılıyor veya bağlantı kurulu. Ayarları hazırlamak için 2 veya 4 seçin; yeni /connect öncesinde /disconnect kullanın.",
+      "es": "Ya se está conectando o conectado. Elige 2 o 4 para preparar los ajustes; usa /disconnect antes de otro /connect.",
+      "pt": "Já está conectando ou conectado. Escolha 2 ou 4 para preparar configurações; use /disconnect antes de outro /connect.",
+      "fr": "Connexion en cours ou établie. Choisissez 2 ou 4 pour préparer les réglages ; /disconnect avant un nouveau /connect.",
+      "de": "Verbindung läuft oder besteht bereits. 2 oder 4 zum Vormerken wählen; /disconnect vor erneutem /connect.",
+      "ru": "Подключение уже идет или установлено. Для отложенных настроек выберите 2 или 4; /disconnect перед новым /connect.",
+      "it": "Connessione già attiva o in corso. Scegli 2 o 4 per preparare le impostazioni; /disconnect prima di un nuovo /connect.",
+      "ar": "الاتصال جار أو قائم بالفعل. اختر 2 أو 4 لتحضير الإعدادات؛ نفذ /disconnect قبل /connect جديد."
+    }
+  }
+]

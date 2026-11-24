@@ -1,0 +1,12 @@
+Offline checks and evidence
+Source: SECURITY.md, section "Offline checks and evidence"
+English section SHA-256: 9c67268cfad3c6bc3c5553f23c932c342c3f11231b325d758eeade66d790b4bd
+Paragraphs: 3
+Status: Translation draft; fluent-speaker security review required
+English SECURITY.md remains authoritative. This is one source-linked section, not a security certification.
+
+--help, --version, dan --manual tidak memuat konfigurasi atau kredensial. --check-config memvalidasi sintaks konfigurasi/katalog, nilai, serta perlindungan berkas; pemeriksaan ini tidak menguji akses/dekripsi kata sandi, DNS, TLS, ataupun login sesungguhnya. --test-mode memuat profil yang valid ke simulator dalam proses tanpa jaringan IRC/DCC, pembacaan kredensial/CA, GPG, ataupun penyimpanan konfigurasi. Nilai inline dapat diurai tetapi tidak pernah dikirim. Background eksplisit masih dapat membuat IPC sesi lokal. Keberhasilan simulasi tidak membuktikan kompatibilitas dengan server nyata.
+
+Tinjauan pemulihan saat itu mencakup vipirc 0.7.34 / onekeyirc 0.1.33 dalam doc/STABILITY-REVIEW-0.7.34-0.1.33.txt dan doc/STABILITY-PASS-RESULTS.json. Dokumen tersebut mencatat kegagalan yang dapat direproduksi, perbaikan, pengujian kegagalan sumber daya dan beban terbatas, serta keterbatasan platform. Tinjauan keamanan sebelumnya ada di doc/SECURITY-REVIEW-0.7.33-0.1.32.txt dan doc/SECURITY-PASS-RESULTS.json. Laporan sebelumnya yang mencantumkan nama/tanggal tetap merujuk pada versi sumber, beban uji, dan batasan platform aslinya; laporan itu bukan klaim bahwa pengujian telah dijalankan ulang.
+
+Perangkat uji protokol lokal tidak membuktikan operasi dengan daemon ZNC/soju sesungguhnya atau akun IRCNow. Runtime ncurses lengkap, siklus hidup AF_UNIX bernama pada sistem asli, OpenBSD/LibreSSL, dan perilaku host penerapan memerlukan pengujian pada target masing-masing. Uji stres singkat tidak membuktikan keandalan berbulan-bulan tanpa pengawasan. Saat melaporkan masalah, sertakan versi, platform, langkah reproduksi, dan diagnostik yang telah disamarkan; jangan sertakan kata sandi, kunci privat, atau transkrip obrolan privat.

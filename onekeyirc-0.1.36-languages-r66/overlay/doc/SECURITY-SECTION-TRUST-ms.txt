@@ -1,0 +1,12 @@
+Trust boundary
+Source: SECURITY.md, section "Trust boundary"
+English section SHA-256: b206f366472f34a9c25e1096f15d6fe813e99115c1e789ab4fa3d857e18f7595
+Paragraphs: 3
+Status: Translation draft; fluent-speaker security review required
+English SECURITY.md remains authoritative. This is only one section, not the full security document.
+
+Pelayan IRC, pihak lain, nama samaran, topik, medan protokol, nama fail dan teks yang ditampal ialah input yang tidak dipercayai. Sistem pengendalian, terminal, pustaka C/TLS, stor sijil dipercayai dan akaun pengguna kekal sebagai komponen yang dipercayai. Antara muka penuh vipirc juga mempercayai curses. GPG menambah fail boleh laksana, gelang kunci dan ejennya. Profil pelayan berkongsi satu proses dan bukan ruang keselamatan yang terasing. Proses lain dengan keistimewaan akaun yang sama lazimnya boleh memeriksa fail peribadi dan memori.
+
+Jalankan program menggunakan akaun biasa. Sebelum membaca konfigurasi, pelaksanaan operasi menolak ID pengguna atau kumpulan sebenar dan berkesan yang tidak sepadan, menyahaktifkan fail core dump dan menetapkan umask 0077. Linux juga menyahaktifkan kebolehan proses untuk di-dump. Deskriptor standard yang hilang diperuntukkan kepada /dev/null sebelum sumber aplikasi dibuka; aliran terbuka yang diwarisi dan benderanya kekal tidak berubah. Kegagalan perlindungan permulaan yang diwajibkan menghentikan pelaksanaan. Kawalan ini tidak menyediakan pledge/unveil, seccomp, pengasingan keistimewaan atau perlindungan daripada hos yang telah diceroboh.
+
+configure memeriksa pengerasan pengkompil dan pemaut yang disokong hos terpilih, termasuk perlindungan tindanan, semakan libc yang diperkuat, diagnostik format, PIE, RELRO, pengikatan segera dan tindanan yang tidak boleh dilaksanakan. Periksa bendera binaan pada hos penggunaan; bukan semua platform menyokong setiap pilihan.

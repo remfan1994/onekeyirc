@@ -1,0 +1,56 @@
+[
+  {
+    "source": "src/idle.c",
+    "kind": "fixed",
+    "english": "Command screen",
+    "fields": []
+  },
+  {
+    "source": "src/idle.c",
+    "kind": "fixed",
+    "english": "Commands are edited separately from chat messages.",
+    "fields": []
+  },
+  {
+    "source": "src/idle.c",
+    "kind": "fixed",
+    "english": "Down selects a suggestion; Up moves toward the input. Enter inserts the selected suggestion without executing it.",
+    "fields": []
+  },
+  {
+    "source": "src/idle.c",
+    "kind": "fixed",
+    "english": "Read or edit the inserted command, then press Enter again to run it.",
+    "fields": []
+  },
+  {
+    "source": "src/idle.c",
+    "kind": "fixed",
+    "english": "Tab completes command names. Up from the input recalls recent commands.",
+    "fields": []
+  },
+  {
+    "source": "src/idle.c",
+    "kind": "fixed",
+    "english": "Delete removes a selected history entry, or resets a selected Frequent command's usage count.",
+    "fields": []
+  },
+  {
+    "source": "src/idle.c",
+    "kind": "fixed",
+    "english": "Contextual ordering remembers the screen that opened command entry. Other matching commands remain available.",
+    "fields": []
+  },
+  {
+    "source": "src/idle.c",
+    "kind": "fixed",
+    "english": "A question mark while typing is ordinary text. On a selected suggestion it opens this help.",
+    "fields": []
+  },
+  {
+    "source": "src/idle.c",
+    "kind": "fixed",
+    "english": "Escape returns to the originating log or response.",
+    "fields": []
+  }
+]

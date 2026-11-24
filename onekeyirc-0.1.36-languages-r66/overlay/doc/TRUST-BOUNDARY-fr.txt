@@ -1,0 +1,11 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: SECURITY.md / Trust boundary
+English source SHA-256: 3a8de003f1fb27ecf4c0a8a05eaa1e384e3d8e756927b0645d3341cf27dd4f1f
+
+FRONTIÈRE DE CONFIANCE
+
+Les serveurs IRC, interlocuteurs, pseudonymes, sujets, champs du protocole, noms de fichiers et textes collés sont des entrées non fiables. Le système d'exploitation, le terminal, les bibliothèques C/TLS, le magasin de certificats de confiance et le compte utilisateur restent des composants auxquels le programme fait confiance. L'interface complète de vipirc dépend aussi de curses. GPG ajoute son exécutable, son trousseau de clés et son agent. Les profils de serveurs partagent un processus et ne sont pas isolés entre eux pour la sécurité. Un autre processus disposant des privilèges du même compte peut généralement examiner fichiers privés et mémoire.
+
+Utilisez un compte ordinaire. Avant de lire la configuration, les lancements opérationnels refusent les identifiants réels/effectifs d'utilisateur ou de groupe discordants, désactivent les core dumps et définissent umask 0077. Linux désactive aussi la possibilité de vider la mémoire du processus. Les descripteurs standard manquants sont réservés via /dev/null avant l'ouverture des ressources ; les flux hérités déjà ouverts et leurs attributs ne sont pas modifiés. Un échec de protection obligatoire au démarrage arrête le lancement. Cela ne fournit ni pledge/unveil, ni seccomp, ni séparation des privilèges, ni protection contre une machine compromise.
+
+configure teste les durcissements du compilateur/éditeur de liens pris en charge sur l'hôte : protection de pile, contrôles renforcés de libc, diagnostics de format, PIE, RELRO, liaison immédiate et pile non exécutable. Vérifiez les options configurées sur la machine de déploiement ; toutes les plateformes ne les prennent pas toutes en charge.

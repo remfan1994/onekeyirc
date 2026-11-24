@@ -1,0 +1,27 @@
+CLIENT PROFILE LOCALIZATION - onekeyirc 0.1.36 - PATCH r59
+
+Source-linked paths: src/client.c, 19 text messages.
+New catalog entries: 18 per locale in ten UTF-8 JSON catalogs.
+Already present in the catalogs: No application configuration is available.
+Catalog size: 1462 keys per locale.
+
+In client.c, failure() translates only when its complete English message
+exactly matches a catalog key. Unrecognized raw operating-system and
+configuration diagnostics are passed unchanged through fixed formats.
+Partial-save descriptions are translated independently from the raw detail
+and use explicit success/failure distinctions. Paths, user-controlled text,
+config keys, accepted command syntax and protocol bytes are never translated.
+The programmatic "Disconnected by user" QUIT reason is not localized.
+
+Checks:
+  python3 tools/generate_localizations.py --check
+  python3 tests/test_client_profile_localization.py
+  python3 tests/test_cli_log_r59.py
+  python3 tests/test_cli_option_localization.py
+  ./configure && make
+  ONEKEYIRC_LANG=fr ./onekeyirc --version
+
+Limitations: other C display paths still require source-wide inspection;
+full vipirc ncurses and OpenBSD tests and native-speaker review remain pending.
+The preexisting test_client.c fixture references a removed
+force_terminal_signals Config field and does not currently compile as-is.

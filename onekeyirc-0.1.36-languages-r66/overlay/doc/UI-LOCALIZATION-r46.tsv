@@ -1,0 +1,5 @@
+client	source	kind	english	fields
+onekeyirc	src/idle_commands.c	fixed	No such server number. Servers start at 1; /servers lists them. Panel 0 contains application preferences.	
+onekeyirc	src/idle_commands.c	fixed	No such server number. Use /servers to list available slots.	
+onekeyirc	src/idle_commands.c	fixed	No matching channels received yet.	
+onekeyirc	src/idle_commands.c	fixed	No cached channels match the current LIST filters.	

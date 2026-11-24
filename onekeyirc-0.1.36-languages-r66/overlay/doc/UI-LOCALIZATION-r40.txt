@@ -1,0 +1,7 @@
+OPTIONAL LANGUAGE + RTL PATCH r40 -- onekeyirc 0.1.36
+
+12 source-linked display paths, ten language catalogs.
+Applies only to unchanged fresh English r1 source, never over older overlays.
+User data is inserted literally; translations are never printf formats.
+Commands, network protocol and configuration keys remain English.
+Known limitations: full vipirc ncurses build and native-speaker testing remain outstanding.

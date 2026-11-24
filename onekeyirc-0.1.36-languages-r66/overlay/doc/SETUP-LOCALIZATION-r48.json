@@ -1,0 +1,146 @@
+[
+  {
+    "english": "yes = verified encrypted connection; no = unencrypted IRC.",
+    "locations": [
+      "src/idle_setup.c"
+    ],
+    "translations": {
+      "id": "yes = koneksi terenkripsi terverifikasi; no = IRC tanpa enkripsi.",
+      "ms": "yes = sambungan disulitkan dan disahkan; no = IRC tanpa penyulitan.",
+      "tr": "yes = doğrulanmış şifreli bağlantı; no = şifresiz IRC.",
+      "es": "yes = conexión cifrada y verificada; no = IRC sin cifrar.",
+      "pt": "yes = conexão criptografada verificada; no = IRC sem criptografia.",
+      "fr": "yes = connexion chiffrée et vérifiée ; no = IRC non chiffré.",
+      "de": "yes = verifizierte verschlüsselte Verbindung; no = unverschlüsseltes IRC.",
+      "ru": "yes = проверенное шифрованное соединение; no = IRC без шифрования.",
+      "it": "yes = connessione cifrata verificata; no = IRC non cifrato.",
+      "ar": "yes = اتصال مشفر موثق؛ no = IRC غير مشفر."
+    }
+  },
+  {
+    "english": "direct = ordinary IRC; znc or soju = one bounced network. Changing type clears this draft's previous credentials, startup commands and bouncer identity. Bouncers require verified TLS; the provider's port stays unchanged.",
+    "locations": [
+      "src/idle_setup.c"
+    ],
+    "translations": {
+      "id": "direct = IRC biasa; znc atau soju = jaringan lewat bouncer. Mengubah jenis menghapus kredensial, perintah awal, dan identitas bouncer dalam draf. Bouncer memerlukan TLS terverifikasi; port penyedia tetap.",
+      "ms": "direct = IRC biasa; znc atau soju = rangkaian melalui bouncer. Tukar jenis membuang kelayakan, arahan mula dan identiti bouncer dalam draf. Bouncer memerlukan TLS disahkan; port penyedia kekal.",
+      "tr": "direct = normal IRC; znc veya soju = tek bouncer ağı. Tür değişikliği taslaktaki kimlik bilgilerini, başlangıç komutlarını ve bouncer kimliğini siler. Doğrulanmış TLS gerekir; sağlayıcı portu değişmez.",
+      "es": "direct = IRC normal; znc o soju = red mediante bouncer. Cambiar tipo borra credenciales, órdenes iniciales e identidad del bouncer del borrador. Requiere TLS verificado; el puerto del proveedor no cambia.",
+      "pt": "direct = IRC comum; znc ou soju = rede via bouncer. Mudar o tipo apaga credenciais, comandos iniciais e identidade do bouncer no rascunho. Exige TLS verificado; porta do provedor não muda.",
+      "fr": "direct = IRC ordinaire ; znc ou soju = réseau via bouncer. Changer le type efface identifiants, commandes initiales et identité du bouncer de ce brouillon. TLS vérifié requis ; port du fournisseur inchangé.",
+      "de": "direct = normales IRC; znc oder soju = Netzwerk über Bouncer. Typwechsel löscht Zugangsdaten, Startbefehle und Bouncer-Identität im Entwurf. Verifiziertes TLS nötig; Anbieter-Port bleibt gleich.",
+      "ru": "direct = IRC; znc/soju = сеть через баунсер. Смена типа удалит логин, команды запуска и имя баунсера из черновика. Нужен проверенный TLS; порт прежний.",
+      "it": "direct = IRC normale; znc o soju = rete tramite bouncer. Cambiare tipo cancella credenziali, comandi iniziali e identità bouncer della bozza. Serve TLS verificato; la porta del provider resta uguale.",
+      "ar": "direct = IRC عادي؛ znc أو soju = شبكة عبر bouncer. تغيير النوع يمحو بيانات الاعتماد وأوامر البدء وهوية bouncer من المسودة. يلزم TLS موثق؛ يبقى المنفذ كما هو."
+    }
+  },
+  {
+    "english": "no lets the bouncer manage automatic away. yes applies this client's existing idle/background-away rules to this profile; other connected devices may still be active. Manual /away and /back always work.",
+    "locations": [
+      "src/idle_setup.c"
+    ],
+    "translations": {
+      "id": "no = bouncer mengelola away otomatis; yes = aturan idle/background-away klien ini. Perangkat lain mungkin aktif. /away dan /back tetap berlaku.",
+      "ms": "no = bouncer mengurus away automatik; yes = peraturan idle/background-away klien ini. Peranti lain mungkin masih aktif. /away dan /back sentiasa berfungsi.",
+      "tr": "no = otomatik away durumunu bouncer yönetir; yes = bu istemcinin idle/background-away kuralları uygulanır. Başka cihazlar etkin olabilir. /away ve /back her zaman çalışır.",
+      "es": "no = el bouncer controla la ausencia automática; yes = reglas idle/background-away del cliente. Otros dispositivos pueden seguir activos. /away y /back siempre funcionan.",
+      "pt": "no = bouncer controla ausência automática; yes = regras idle/background-away deste cliente. Outros dispositivos podem estar ativos. /away e /back sempre funcionam.",
+      "fr": "no = le bouncer gère l'absence automatique ; yes = règles idle/background-away de ce client. D'autres appareils peuvent rester actifs. /away et /back fonctionnent toujours.",
+      "de": "no = Bouncer steuert automatisches Away; yes = idle/background-away-Regeln dieses Clients. Andere Geräte können aktiv bleiben. /away und /back funktionieren immer.",
+      "ru": "no = баунсер сам управляет away; yes = правила idle/background-away клиента. Другие устройства могут быть активны. /away и /back всегда работают.",
+      "it": "no = il bouncer gestisce l'assenza automatica; yes = regole idle/background-away del client. Altri dispositivi potrebbero essere attivi. /away e /back funzionano sempre.",
+      "ar": "no = يدير bouncer الغياب تلقائيا؛ yes = قواعد idle/background-away لهذا العميل. قد تنشط أجهزة أخرى. يعلل /away و/back دائما."
+    }
+  },
+  {
+    "english": "file (private plaintext file), gpg (create or use an encrypted file), or plain (hidden entry saved in config). Supply the bouncer PASSWORD ONLY; the client adds the account and network. A source is required.",
+    "locations": [
+      "src/idle_setup.c"
+    ],
+    "translations": {
+      "id": "file = berkas teks privat; gpg = berkas terenkripsi; plain = entri tersembunyi di konfigurasi. Masukkan PASSWORD ONLY bouncer; klien menambah akun dan jaringan. Sumber wajib.",
+      "ms": "file = fail teks peribadi; gpg = fail tersulit; plain = nilai tersembunyi dalam konfigurasi. Bekalkan PASSWORD ONLY bouncer; klien menambah akaun dan rangkaian. Sumber wajib.",
+      "tr": "file = özel düz metin dosyası; gpg = şifreli dosya; plain = yapılandırmada gizli giriş. Bouncer için PASSWORD ONLY girin; istemci hesap ve ağı ekler. Kaynak zorunludur.",
+      "es": "file = archivo privado de texto; gpg = archivo cifrado; plain = entrada oculta en configuración. Indica PASSWORD ONLY del bouncer; el cliente añade cuenta y red. Se requiere origen.",
+      "pt": "file = arquivo privado de texto; gpg = arquivo criptografado; plain = entrada oculta na configuração. Forneça PASSWORD ONLY do bouncer; o cliente adiciona conta e rede. Origem obrigatória.",
+      "fr": "file = fichier texte privé ; gpg = fichier chiffré ; plain = saisie cachée dans la configuration. Donnez PASSWORD ONLY du bouncer ; le client ajoute compte et réseau. Source requise.",
+      "de": "file = private Textdatei; gpg = verschlüsselte Datei; plain = verdeckter Eintrag in der Konfiguration. Bouncer-PASSWORD ONLY angeben; Client ergänzt Konto und Netzwerk. Quelle nötig.",
+      "ru": "file = файл; gpg = шифрованный файл; plain = запись в конфигурации. Введите PASSWORD ONLY баунсера; клиент добавит аккаунт и сеть. Источник обязателен.",
+      "it": "file = file di testo privato; gpg = file cifrato; plain = valore nascosto in configurazione. Fornisci PASSWORD ONLY del bouncer; il client aggiunge account e rete. Fonte obbligatoria.",
+      "ar": "file = ملف نصي خاص؛ gpg = ملف مشفر؛ plain = قيمة مخفية بالإعدادات. أدخل PASSWORD ONLY لـ bouncer؛ يضيف العميل الحساب والشبكة. المصدر مطلوب."
+    }
+  },
+  {
+    "english": "create = encrypt a password into a new file; existing = use a file you already encrypted. Create offers a private file location beside this configuration and uses an existing local GPG key.",
+    "locations": [
+      "src/idle_setup.c"
+    ],
+    "translations": {
+      "id": "create = enkripsi kata sandi ke berkas baru; existing = gunakan berkas terenkripsi. Berkas privat di dekat konfigurasi menggunakan kunci GPG lokal.",
+      "ms": "create = sulitkan kata laluan ke fail baharu; existing = guna fail tersulit sedia ada. Lokasi fail peribadi berhampiran konfigurasi menggunakan kunci GPG setempat.",
+      "tr": "create = parolayı yeni dosyaya şifrele; existing = mevcut şifreli dosyayı kullan. Yapılandırmanın yanında özel konum ve yerel GPG anahtarı kullanılır.",
+      "es": "create = cifra la contraseña en archivo nuevo; existing = usa uno ya cifrado. Se ofrece ubicación privada junto a la configuración y una clave GPG local.",
+      "pt": "create = criptografar senha em novo arquivo; existing = usar arquivo já criptografado. Local privado junto à configuração com chave GPG local.",
+      "fr": "create = chiffrer le mot de passe dans un nouveau fichier ; existing = utiliser un fichier déjà chiffré. Emplacement privé près de la configuration, avec une clé GPG locale.",
+      "de": "create = Passwort in neuer Datei verschlüsseln; existing = vorhandene verschlüsselte Datei verwenden. Privater Speicherort neben der Konfiguration mit lokalem GPG-Schlüssel.",
+      "ru": "create = шифровать пароль в новый файл; existing = взять готовый зашифрованный файл. Закрытый путь рядом с конфигурацией, локальный ключ GPG.",
+      "it": "create = cifra la password in un nuovo file; existing = usa un file già cifrato. Posizione privata accanto alla configurazione e chiave GPG locale.",
+      "ar": "create = تشفير كلمة السر في ملف جديد؛ existing = استخدام ملف مشفر موجود. مسار خاص بجانب الإعدادات ومفتاح GPG محلي."
+    }
+  },
+  {
+    "english": "GPG credential creation is unavailable in --test-mode. Go back to choose an existing file; no credential path is inspected here.",
+    "locations": [
+      "src/idle_setup.c"
+    ],
+    "translations": {
+      "id": "Pembuatan kredensial GPG tidak tersedia dalam --test-mode. Pilih berkas yang sudah ada; jalur kredensial tidak diperiksa di sini.",
+      "ms": "Penciptaan kelayakan GPG tidak tersedia dalam --test-mode. Pilih fail sedia ada; laluan kelayakan tidak diperiksa di sini.",
+      "tr": "GPG kimlik bilgisi oluşturma --test-mode sırasında kullanılamaz. Mevcut dosyayı seçin; kimlik bilgisi yolu burada incelenmez.",
+      "es": "No se pueden crear credenciales GPG en --test-mode. Vuelve y selecciona un archivo existente; no se inspecciona aquí ninguna ruta de credenciales.",
+      "pt": "Criar credenciais GPG não é permitido em --test-mode. Volte e escolha arquivo existente; o caminho não é inspecionado aqui.",
+      "fr": "Création d'identifiants GPG impossible en --test-mode. Revenez et choisissez un fichier existant ; son chemin n'est pas inspecté ici.",
+      "de": "GPG-Zugangsdaten lassen sich in --test-mode nicht erzeugen. Vorhandene Datei wählen; der Zugangsdatenpfad wird hier nicht geprüft.",
+      "ru": "В --test-mode создание учетных данных GPG недоступно. Выберите готовый файл; путь к данным здесь не проверяется.",
+      "it": "Creazione di credenziali GPG non disponibile in --test-mode. Torna e scegli un file esistente; qui non viene esaminato alcun percorso delle credenziali.",
+      "ar": "لا يمكن إنشاء بيانات GPG في --test-mode. اختر ملفا موجوُا؛ لن يُفحص مسار بيانات الاعتماد هنا."
+    }
+  },
+  {
+    "english": "Full 40- or 64-digit hexadecimal fingerprint of your local encryption key, without spaces. Verify it with gpg --fingerprint. No key is downloaded.",
+    "locations": [
+      "src/idle_setup.c"
+    ],
+    "translations": {
+      "id": "Sidik jari kunci lokal: 40 atau 64 digit heksadesimal tanpa spasi. Periksa dengan gpg --fingerprint. Tidak ada kunci yang diunduh.",
+      "ms": "Cap jari kunci setempat: 40 atau 64 digit heksadesimal tanpa ruang. Semak dengan gpg --fingerprint. Tiada kunci dimuat turun.",
+      "tr": "Yerel anahtarın boşluksuz 40 veya 64 basamaklı onaltılık parmak izi. gpg --fingerprint ile denetleyin. Anahtar indirilmez.",
+      "es": "Huella hexadecimal de 40 o 64 dígitos de tu clave local, sin espacios. Compruébala con gpg --fingerprint. No se descarga ninguna clave.",
+      "pt": "Impressão digital hexadecimal de 40 ou 64 dígitos da chave local, sem espaços. Confira com gpg --fingerprint. Nenhuma chave é baixada.",
+      "fr": "Empreinte hexadécimale de 40 ou 64 chiffres de la clé locale, sans espaces. Vérifiez avec gpg --fingerprint. Aucune clé n'est téléchargée.",
+      "de": "40- oder 64-stelliger hexadezimaler Fingerabdruck des lokalen Schlüssels, ohne Leerzeichen. Mit gpg --fingerprint prüfen. Kein Schlüssel wird geladen.",
+      "ru": "Отпечаток локального ключа: 40 или 64 шестнадцатеричных цифры без пробелов. Проверьте через gpg --fingerprint. Ключ не скачивается.",
+      "it": "Impronta esadecimale di 40 o 64 cifre della chiave locale, senza spazi. Verifica con gpg --fingerprint. Nessuna chiave viene scaricata.",
+      "ar": "بصمة المفتاح المحلي: 40 أو 64 خانة سداسية عشرية بلا فراغات. تحقق عبر gpg --fingerprint. لا يُنزّل أي مفتاح."
+    }
+  },
+  {
+    "english": "Append chat to a private log in each saved configuration directory. Each log stops at 16 MiB; archive it and toggle off/on to resume. Off keeps history memory-only. Applies to all servers.",
+    "locations": [
+      "src/idle_setup.c"
+    ],
+    "translations": {
+      "id": "Catat chat di log privat per direktori konfigurasi. Batas tiap log 16 MiB; arsipkan dan matikan/nyalakan untuk lanjut. Off = hanya memori. Berlaku pada semua server.",
+      "ms": "Rekod sembang dalam log peribadi setiap direktori konfigurasi. Had 16 MiB setiap log; arkibkan dan tutup/buka untuk sambung. Off = memori sahaja. Untuk semua pelayan.",
+      "tr": "Her yapılandırma dizininde özel sohbet günlüğü. Her günlük 16 MiB ile sınırlıdır; arşivleyip kapatıp açarak sürdürün. Off = yalnızca bellek. Tüm sunuculara uygulanır.",
+      "es": "Guarda el chat en un registro privado por directorio de configuración. Límite de 16 MiB por registro; archívalo y apaga/enciende para seguir. Off = solo memoria. Todos los servidores.",
+      "pt": "Registre chat em log privado por diretório de configuração. Cada log para em 16 MiB; arquive e desligue/ligue para continuar. Off = só memória. Vale para todos os servidores.",
+      "fr": "Journal privé des discussions par dossier de configuration. Limite : 16 MiB par journal ; archivez-le puis désactivez/réactivez pour reprendre. Off = mémoire seule. Tous les serveurs.",
+      "de": "Chats in privater Logdatei je Konfigurationsordner speichern. Limit: 16 MiB je Log; archivieren und aus-/einschalten zum Fortsetzen. Off = nur Speicher. Für alle Server.",
+      "ru": "Вести лог чата в каталоге настроек. Предел лога 16 MiB; архивируйте и переключите для продолжения. Off = только память. Для всех серверов.",
+      "it": "Registra le chat in un log privato per directory di configurazione. Limite: 16 MiB per log; archivia e spegni/riaccendi per continuare. Off = solo memoria. Tutti i server.",
+      "ar": "احفظ الدردشة في سجل خاص لكل مجلد إعدادات. حد كل سجل 16 MiB؛ أرشفه وأوقفه ثم شغله للمتابعة. Off = الذاكرة فقط. لكل الخوادم."
+    }
+  }
+]

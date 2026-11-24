@@ -1,0 +1,614 @@
+[
+  {
+    "english": "Choose one of the displayed panel numbers.",
+    "source": "src/idle_setup.c",
+    "index": 0,
+    "display": "fixed_formatted_string",
+    "translations": {
+      "id": "Pilih salah satu nomor panel yang ditampilkan.",
+      "ms": "Pilih salah satu nombor panel yang dipaparkan.",
+      "tr": "Gösterilen panel numaralarından birini seçin.",
+      "es": "Elige uno de los números de panel mostrados.",
+      "pt": "Escolha um dos números de painel exibidos.",
+      "fr": "Choisissez un des numéros de panneau affichés.",
+      "de": "Wählen Sie eine der angezeigten Bereichsnummern.",
+      "ru": "Выберите один из показанных номеров панелей.",
+      "it": "Scegli uno dei numeri di pannello visualizzati.",
+      "ar": "اختر أحد أرقام اللوحات المعروضة."
+    }
+  },
+  {
+    "english": "That profile could not be loaded; correct its configuration file first.",
+    "source": "src/idle_setup.c",
+    "index": 1,
+    "display": "fixed_formatted_string",
+    "translations": {
+      "id": "Profil itu tidak dapat dimuat; perbaiki berkas konfigurasinya dahulu.",
+      "ms": "Profil itu tidak dapat dimuatkan; betulkan fail konfigurasinya dahulu.",
+      "tr": "Bu profil yüklenemedi; önce yapılandırma dosyasını düzeltin.",
+      "es": "No se pudo cargar ese perfil; corrige primero su archivo de configuración.",
+      "pt": "Não foi possível carregar esse perfil; corrija seu arquivo de configuração primeiro.",
+      "fr": "Ce profil n'a pas pu être chargé ; corrigez d'abord son fichier de configuration.",
+      "de": "Das Profil konnte nicht geladen werden; korrigieren Sie zuerst seine Konfigurationsdatei.",
+      "ru": "Не удалось загрузить профиль; сначала исправьте файл конфигурации.",
+      "it": "Impossibile caricare il profilo; correggi prima il relativo file di configurazione.",
+      "ar": "تعذر تحميل هذا الملف التعريفي؛ صحح ملف إعداداته أولا."
+    }
+  },
+  {
+    "english": "No configuration is available.",
+    "source": "src/idle_setup.c",
+    "index": 2,
+    "display": "fixed_formatted_string",
+    "translations": {
+      "id": "Konfigurasi tidak tersedia.",
+      "ms": "Tiada konfigurasi tersedia.",
+      "tr": "Yapılandırma kullanılamıyor.",
+      "es": "No hay configuración disponible.",
+      "pt": "Nenhuma configuração disponível.",
+      "fr": "Aucune configuration disponible.",
+      "de": "Keine Konfiguration verfügbar.",
+      "ru": "Конфигурация недоступна.",
+      "it": "Nessuna configurazione disponibile.",
+      "ar": "لا تتوفر إعدادات."
+    }
+  },
+  {
+    "english": "Cannot allocate the configuration draft; nothing changed.",
+    "source": "src/idle_setup.c",
+    "index": 3,
+    "display": "fixed_formatted_string",
+    "translations": {
+      "id": "Tidak dapat mengalokasikan draf konfigurasi; tidak ada perubahan.",
+      "ms": "Tidak dapat memperuntukkan draf konfigurasi; tiada perubahan.",
+      "tr": "Yapılandırma taslağı için bellek ayrılamadı; hiçbir şey değişmedi.",
+      "es": "No se pudo reservar memoria para el borrador de configuración; nada cambió.",
+      "pt": "Não foi possível alocar o rascunho da configuração; nada mudou.",
+      "fr": "Impossible d'allouer le brouillon de configuration ; rien n'a changé.",
+      "de": "Für den Konfigurationsentwurf konnte kein Speicher reserviert werden; nichts wurde geändert.",
+      "ru": "Не удалось выделить память для черновика настроек; ничего не изменено.",
+      "it": "Impossibile allocare la bozza di configurazione; nulla è cambiato.",
+      "ar": "تعذر تخصيص مسودة الإعدادات؛ لم يتغير شيء."
+    }
+  },
+  {
+    "english": "Use /panel to edit this bouncer profile, including its network and password source.",
+    "source": "src/idle_setup.c",
+    "index": 4,
+    "display": "fixed_formatted_string",
+    "translations": {
+      "id": "Gunakan /panel untuk menyunting profil bouncer ini, termasuk jaringan dan sumber kata sandi.",
+      "ms": "Gunakan /panel untuk menyunting profil bouncer ini, termasuk rangkaian dan sumber kata laluan.",
+      "tr": "Bu bouncer profilini, ağını ve parola kaynağını /panel ile düzenleyin.",
+      "es": "Usa /panel para editar este perfil de bouncer, incluida su red y origen de contraseña.",
+      "pt": "Use /panel para editar este perfil de bouncer, incluindo rede e origem da senha.",
+      "fr": "Utilisez /panel pour modifier ce profil bouncer, son réseau et sa source de mot de passe.",
+      "de": "Verwenden Sie /panel zum Bearbeiten dieses Bouncer-Profils, einschließlich Netzwerk und Passwortquelle.",
+      "ru": "Используйте /panel для настройки баунсера, включая сеть и источник пароля.",
+      "it": "Usa /panel per modificare questo profilo bouncer, inclusi rete e origine della password.",
+      "ar": "استخدم /panel لتعديل ملف bouncer هذا بما فيه الشبكة ومصدر كلمة المرور."
+    }
+  },
+  {
+    "english": "Choose 0 for application preferences or a displayed server panel number.",
+    "source": "src/idle_setup.c",
+    "index": 5,
+    "display": "fixed_formatted_string",
+    "translations": {
+      "id": "Pilih 0 untuk preferensi aplikasi atau nomor panel server yang ditampilkan.",
+      "ms": "Pilih 0 untuk keutamaan aplikasi atau nombor panel pelayan yang dipaparkan.",
+      "tr": "Uygulama tercihleri için 0 veya gösterilen sunucu panel numarasını seçin.",
+      "es": "Elige 0 para las preferencias de la aplicación o el número de panel de un servidor mostrado.",
+      "pt": "Escolha 0 para preferências do aplicativo ou o número de painel de servidor exibido.",
+      "fr": "Choisissez 0 pour les préférences de l'application ou le numéro de panneau serveur affiché.",
+      "de": "Wählen Sie 0 für Anwendungseinstellungen oder eine angezeigte Serverbereichsnummer.",
+      "ru": "Выберите 0 для настроек приложения или номер показанной панели сервера.",
+      "it": "Scegli 0 per le preferenze dell'applicazione o il numero di un pannello server visualizzato.",
+      "ar": "اختر 0 لتفضيلات التطبيق أو رقم لوحة خادم معروضة."
+    }
+  },
+  {
+    "english": "Server and nickname are required; Escape returns to the questions.",
+    "source": "src/idle_setup.c",
+    "index": 6,
+    "display": "fixed_formatted_string",
+    "translations": {
+      "id": "Server dan nama panggilan wajib diisi; Escape kembali ke pertanyaan.",
+      "ms": "Pelayan dan nama samaran diperlukan; Escape kembali ke soalan.",
+      "tr": "Sunucu ve takma ad gereklidir; Escape sorulara döner.",
+      "es": "Se requieren servidor y apodo; Escape vuelve a las preguntas.",
+      "pt": "Servidor e apelido são obrigatórios; Escape volta às perguntas.",
+      "fr": "Le serveur et le pseudonyme sont requis ; Escape revient aux questions.",
+      "de": "Server und Nickname sind erforderlich; Escape kehrt zu den Fragen zurück.",
+      "ru": "Сервер и ник обязательны; Escape возвращает к вопросам.",
+      "it": "Server e soprannome sono richiesti; Escape torna alle domande.",
+      "ar": "الخادم والاسم المستعار مطلوبان؛ يعيد Escape الأسئلة."
+    }
+  },
+  {
+    "english": "Enter an IRC server hostname or IP address.",
+    "source": "src/idle_setup.c",
+    "index": 7,
+    "display": "fixed_formatted_string",
+    "translations": {
+      "id": "Masukkan nama host atau alamat IP server IRC.",
+      "ms": "Masukkan nama hos atau alamat IP pelayan IRC.",
+      "tr": "IRC sunucusunun ana bilgisayar adını veya IP adresini girin.",
+      "es": "Introduce el nombre de host o la dirección IP de un servidor IRC.",
+      "pt": "Digite o host ou endereço IP de um servidor IRC.",
+      "fr": "Saisissez le nom d'hôte ou l'adresse IP du serveur IRC.",
+      "de": "Geben Sie einen IRC-Serverhostnamen oder eine IP-Adresse ein.",
+      "ru": "Введите имя хоста или IP-адрес IRC-сервера.",
+      "it": "Inserisci il nome host o l'indirizzo IP del server IRC.",
+      "ar": "أدخل اسم مضيف خادم IRC أو عنوان IP."
+    }
+  },
+  {
+    "english": "A nickname is required.",
+    "source": "src/idle_setup.c",
+    "index": 8,
+    "display": "fixed_formatted_string",
+    "translations": {
+      "id": "Nama panggilan wajib diisi.",
+      "ms": "Nama samaran diperlukan.",
+      "tr": "Takma ad gereklidir.",
+      "es": "Se requiere un apodo.",
+      "pt": "Um apelido é obrigatório.",
+      "fr": "Un pseudonyme est requis.",
+      "de": "Ein Nickname ist erforderlich.",
+      "ru": "Требуется ник.",
+      "it": "È richiesto un soprannome.",
+      "ar": "الاسم المستعار مطلوب."
+    }
+  },
+  {
+    "english": "An IRC username is required.",
+    "source": "src/idle_setup.c",
+    "index": 9,
+    "display": "fixed_formatted_string",
+    "translations": {
+      "id": "Nama pengguna IRC wajib diisi.",
+      "ms": "Nama pengguna IRC diperlukan.",
+      "tr": "IRC kullanıcı adı gereklidir.",
+      "es": "Se requiere un nombre de usuario IRC.",
+      "pt": "Um nome de usuário IRC é obrigatório.",
+      "fr": "Un nom d'utilisateur IRC est requis.",
+      "de": "Ein IRC-Benutzername ist erforderlich.",
+      "ru": "Требуется имя пользователя IRC.",
+      "it": "È richiesto un nome utente IRC.",
+      "ar": "اسم مستخدم IRC مطلوب."
+    }
+  },
+  {
+    "english": "Enter yes or no for automatic startup connection.",
+    "source": "src/idle_setup.c",
+    "index": 10,
+    "display": "fixed_formatted_string",
+    "translations": {
+      "id": "Masukkan yes atau no untuk koneksi otomatis saat mulai.",
+      "ms": "Masukkan yes atau no untuk sambungan automatik semasa mula.",
+      "tr": "Başlangıçta otomatik bağlantı için yes veya no girin.",
+      "es": "Introduce yes o no para conectar automáticamente al iniciar.",
+      "pt": "Digite yes ou no para conexão automática na inicialização.",
+      "fr": "Saisissez yes ou no pour la connexion automatique au démarrage.",
+      "de": "Geben Sie yes oder no für die automatische Verbindung beim Start ein.",
+      "ru": "Введите yes или no для автоматического подключения при запуске.",
+      "it": "Inserisci yes o no per la connessione automatica all'avvio.",
+      "ar": "أدخل yes أو no للاتصال تلقائيا عند البدء."
+    }
+  },
+  {
+    "english": "Enter none or sasl.",
+    "source": "src/idle_setup.c",
+    "index": 11,
+    "display": "fixed_formatted_string",
+    "translations": {
+      "id": "Masukkan none atau sasl.",
+      "ms": "Masukkan none atau sasl.",
+      "tr": "none veya sasl girin.",
+      "es": "Introduce none o sasl.",
+      "pt": "Digite none ou sasl.",
+      "fr": "Saisissez none ou sasl.",
+      "de": "Geben Sie none oder sasl ein.",
+      "ru": "Введите none или sasl.",
+      "it": "Inserisci none o sasl.",
+      "ar": "أدخل none أو sasl."
+    }
+  },
+  {
+    "english": "History lines must be a number from 50 to 5000.",
+    "source": "src/idle_setup.c",
+    "index": 12,
+    "display": "fixed_formatted_string",
+    "translations": {
+      "id": "Jumlah baris riwayat harus dari 50 hingga 5000.",
+      "ms": "Bilangan baris sejarah mestilah antara 50 hingga 5000.",
+      "tr": "Geçmiş satırı sayısı 50 ile 5000 arasında olmalıdır.",
+      "es": "El número de líneas de historial debe estar entre 50 y 5000.",
+      "pt": "O número de linhas de histórico deve estar entre 50 e 5000.",
+      "fr": "Le nombre de lignes d'historique doit être compris entre 50 et 5000.",
+      "de": "Die Anzahl der Verlaufzeilen muss zwischen 50 und 5000 liegen.",
+      "ru": "Число строк истории должно быть от 50 до 5000.",
+      "it": "Le righe di cronologia devono essere da 50 a 5000.",
+      "ar": "يجب أن يكون عدد أسطر السجل بين 50 و5000."
+    }
+  },
+  {
+    "english": "Enter direct (one Enter) or review (two Enters).",
+    "source": "src/idle_setup.c",
+    "index": 13,
+    "display": "fixed_formatted_string",
+    "translations": {
+      "id": "Masukkan direct (satu Enter) atau review (dua kali Enter).",
+      "ms": "Masukkan direct (satu Enter) atau review (dua Enter).",
+      "tr": "direct (bir Enter) veya review (iki Enter) girin.",
+      "es": "Introduce direct (un Enter) o review (dos Enter).",
+      "pt": "Digite direct (um Enter) ou review (dois Enter).",
+      "fr": "Saisissez direct (un Enter) ou review (deux Enter).",
+      "de": "Geben Sie direct (ein Enter) oder review (zwei Enter) ein.",
+      "ru": "Введите direct (один Enter) или review (два Enter).",
+      "it": "Inserisci direct (un Enter) o review (due Enter).",
+      "ar": "أدخل direct (ضغط Enter مرة) أو review (مرتين)."
+    }
+  },
+  {
+    "english": "Enter line or fullscreen.",
+    "source": "src/idle_setup.c",
+    "index": 14,
+    "display": "fixed_formatted_string",
+    "translations": {
+      "id": "Masukkan line atau fullscreen.",
+      "ms": "Masukkan line atau fullscreen.",
+      "tr": "line veya fullscreen girin.",
+      "es": "Introduce line o fullscreen.",
+      "pt": "Digite line ou fullscreen.",
+      "fr": "Saisissez line ou fullscreen.",
+      "de": "Geben Sie line oder fullscreen ein.",
+      "ru": "Введите line или fullscreen.",
+      "it": "Inserisci line o fullscreen.",
+      "ar": "أدخل line أو fullscreen."
+    }
+  },
+  {
+    "english": "Enter compact or full.",
+    "source": "src/idle_setup.c",
+    "index": 15,
+    "display": "fixed_formatted_string",
+    "translations": {
+      "id": "Masukkan compact atau full.",
+      "ms": "Masukkan compact atau full.",
+      "tr": "compact veya full girin.",
+      "es": "Introduce compact o full.",
+      "pt": "Digite compact ou full.",
+      "fr": "Saisissez compact ou full.",
+      "de": "Geben Sie compact oder full ein.",
+      "ru": "Введите compact или full.",
+      "it": "Inserisci compact o full.",
+      "ar": "أدخل compact أو full."
+    }
+  },
+  {
+    "english": "Enter yes or no for routine queue notifications.",
+    "source": "src/idle_setup.c",
+    "index": 16,
+    "display": "fixed_formatted_string",
+    "translations": {
+      "id": "Masukkan yes atau no untuk pemberitahuan antrean rutin.",
+      "ms": "Masukkan yes atau no untuk notis giliran rutin.",
+      "tr": "Rutin kuyruk bildirimleri için yes veya no girin.",
+      "es": "Introduce yes o no para avisos habituales de cola.",
+      "pt": "Digite yes ou no para avisos rotineiros de fila.",
+      "fr": "Saisissez yes ou no pour les avis ordinaires de file d'attente.",
+      "de": "Geben Sie yes oder no für normale Warteschlangenhinweise ein.",
+      "ru": "Введите yes или no для обычных уведомлений очереди.",
+      "it": "Inserisci yes o no per gli avvisi ordinari di coda.",
+      "ar": "أدخل yes أو no لإشعارات طابور الرسائل الاعتيادية."
+    }
+  },
+  {
+    "english": "Enter yes or no for program messages.",
+    "source": "src/idle_setup.c",
+    "index": 17,
+    "display": "fixed_formatted_string",
+    "translations": {
+      "id": "Masukkan yes atau no untuk pesan program.",
+      "ms": "Masukkan yes atau no untuk mesej program.",
+      "tr": "Program mesajları için yes veya no girin.",
+      "es": "Introduce yes o no para los mensajes del programa.",
+      "pt": "Digite yes ou no para mensagens do programa.",
+      "fr": "Saisissez yes ou no pour les messages du programme.",
+      "de": "Geben Sie yes oder no für Programmmeldungen ein.",
+      "ru": "Введите yes или no для сообщений программы.",
+      "it": "Inserisci yes o no per i messaggi del programma.",
+      "ar": "أدخل yes أو no لرسائل البرنامج."
+    }
+  },
+  {
+    "english": "Enter yes or no for persistent logging.",
+    "source": "src/idle_setup.c",
+    "index": 18,
+    "display": "fixed_formatted_string",
+    "translations": {
+      "id": "Masukkan yes atau no untuk pencatatan log permanen.",
+      "ms": "Masukkan yes atau no untuk pengelogan berterusan.",
+      "tr": "Kalıcı günlük kaydı için yes veya no girin.",
+      "es": "Introduce yes o no para el registro persistente.",
+      "pt": "Digite yes ou no para registro persistente.",
+      "fr": "Saisissez yes ou no pour la journalisation persistante.",
+      "de": "Geben Sie yes oder no für dauerhaftes Logging ein.",
+      "ru": "Введите yes или no для постоянного журнала.",
+      "it": "Inserisci yes o no per la registrazione persistente.",
+      "ar": "أدخل yes أو no للتسجيل المستمر."
+    }
+  },
+  {
+    "english": "Enter yes or no for single-session mode.",
+    "source": "src/idle_setup.c",
+    "index": 19,
+    "display": "fixed_formatted_string",
+    "translations": {
+      "id": "Masukkan yes atau no untuk mode sesi tunggal.",
+      "ms": "Masukkan yes atau no untuk mod sesi tunggal.",
+      "tr": "Tek oturum modu için yes veya no girin.",
+      "es": "Introduce yes o no para el modo de sesión única.",
+      "pt": "Digite yes ou no para modo de sessão única.",
+      "fr": "Saisissez yes ou no pour le mode à session unique.",
+      "de": "Geben Sie yes oder no für den Einzelsitzungsmodus ein.",
+      "ru": "Введите yes или no для режима одного сеанса.",
+      "it": "Inserisci yes o no per la modalità a sessione singola.",
+      "ar": "أدخل yes أو no لوضع الجلسة الواحدة."
+    }
+  },
+  {
+    "english": "Choose common, history, frequent, alphabetical, or contextual.",
+    "source": "src/idle_setup.c",
+    "index": 20,
+    "display": "fixed_formatted_string",
+    "translations": {
+      "id": "Pilih common, history, frequent, alphabetical, atau contextual.",
+      "ms": "Pilih common, history, frequent, alphabetical, atau contextual.",
+      "tr": "common, history, frequent, alphabetical veya contextual seçin.",
+      "es": "Elige common, history, frequent, alphabetical o contextual.",
+      "pt": "Escolha common, history, frequent, alphabetical ou contextual.",
+      "fr": "Choisissez common, history, frequent, alphabetical ou contextual.",
+      "de": "Wählen Sie common, history, frequent, alphabetical oder contextual.",
+      "ru": "Выберите common, history, frequent, alphabetical или contextual.",
+      "it": "Scegli common, history, frequent, alphabetical o contextual.",
+      "ar": "اختر common أو history أو frequent أو alphabetical أو contextual."
+    }
+  },
+  {
+    "english": "Enter yes or no for Use signals.",
+    "source": "src/idle_setup.c",
+    "index": 21,
+    "display": "fixed_formatted_string",
+    "translations": {
+      "id": "Masukkan yes atau no untuk Use signals.",
+      "ms": "Masukkan yes atau no untuk Use signals.",
+      "tr": "Use signals için yes veya no girin.",
+      "es": "Introduce yes o no para Use signals.",
+      "pt": "Digite yes ou no para Use signals.",
+      "fr": "Saisissez yes ou no pour Use signals.",
+      "de": "Geben Sie yes oder no für Use signals ein.",
+      "ru": "Введите yes или no для Use signals.",
+      "it": "Inserisci yes o no per Use signals.",
+      "ar": "أدخل yes أو no لخيار Use signals."
+    }
+  },
+  {
+    "english": "Enter idle or ncurses for the next launch interface.",
+    "source": "src/idle_setup.c",
+    "index": 22,
+    "display": "fixed_formatted_string",
+    "translations": {
+      "id": "Masukkan idle atau ncurses untuk antarmuka saat mulai berikutnya.",
+      "ms": "Masukkan idle atau ncurses untuk antara muka pelancaran seterusnya.",
+      "tr": "Bir sonraki açılış arayüzü için idle veya ncurses girin.",
+      "es": "Introduce idle o ncurses para la interfaz del próximo inicio.",
+      "pt": "Digite idle ou ncurses para a interface da próxima inicialização.",
+      "fr": "Saisissez idle ou ncurses pour l'interface du prochain lancement.",
+      "de": "Geben Sie idle oder ncurses für die Oberfläche beim nächsten Start ein.",
+      "ru": "Введите idle или ncurses для интерфейса следующего запуска.",
+      "it": "Inserisci idle o ncurses per l'interfaccia del prossimo avvio.",
+      "ar": "أدخل idle أو ncurses لواجهة التشغيل التالية."
+    }
+  },
+  {
+    "english": "Invalid configuration question; cancel and start again.",
+    "source": "src/idle_setup.c",
+    "index": 23,
+    "display": "fixed_formatted_string",
+    "translations": {
+      "id": "Pertanyaan konfigurasi tidak sah; batalkan dan mulai lagi.",
+      "ms": "Soalan konfigurasi tidak sah; batalkan dan mula semula.",
+      "tr": "Geçersiz yapılandırma sorusu; iptal edip yeniden başlayın.",
+      "es": "Pregunta de configuración no válida; cancela y vuelve a empezar.",
+      "pt": "Pergunta de configuração inválida; cancele e reinicie.",
+      "fr": "Question de configuration invalide ; annulez et recommencez.",
+      "de": "Ungültige Konfigurationsfrage; abbrechen und neu beginnen.",
+      "ru": "Недопустимый вопрос настроек; отмените и начните заново.",
+      "it": "Domanda di configurazione non valida; annulla e ricomincia.",
+      "ar": "سؤال إعدادات غير صالح؛ ألغ وأعد البدء."
+    }
+  },
+  {
+    "english": "Server, nickname, and IRC username are required; Escape returns to the questions.",
+    "source": "src/idle_setup.c",
+    "index": 24,
+    "display": "fixed_formatted_string",
+    "translations": {
+      "id": "Server, nama panggilan, dan nama pengguna IRC wajib diisi; Escape kembali ke pertanyaan.",
+      "ms": "Pelayan, nama samaran dan nama pengguna IRC diperlukan; Escape kembali ke soalan.",
+      "tr": "Sunucu, takma ad ve IRC kullanıcı adı gereklidir; Escape sorulara döner.",
+      "es": "Se requieren servidor, apodo y usuario IRC; Escape vuelve a las preguntas.",
+      "pt": "Servidor, apelido e nome de usuário IRC são obrigatórios; Escape volta às perguntas.",
+      "fr": "Le serveur, le pseudonyme et le nom d'utilisateur IRC sont requis ; Escape revient aux questions.",
+      "de": "Server, Nickname und IRC-Benutzername sind erforderlich; Escape kehrt zu den Fragen zurück.",
+      "ru": "Сервер, ник и имя пользователя IRC обязательны; Escape возвращает к вопросам.",
+      "it": "Server, soprannome e nome utente IRC sono richiesti; Escape torna alle domande.",
+      "ar": "الخادم والاسم المستعار واسم مستخدم IRC مطلوبة؛ يعيد Escape الأسئلة."
+    }
+  },
+  {
+    "english": "GPG file creation is disabled in --test-mode; no helper, keyring, or file was accessed.",
+    "source": "src/idle_setup.c",
+    "index": 25,
+    "display": "fixed_formatted_string",
+    "translations": {
+      "id": "Pembuatan berkas GPG dinonaktifkan dalam --test-mode; tidak ada pembantu, keyring, atau berkas yang diakses.",
+      "ms": "Penciptaan fail GPG dimatikan dalam --test-mode; tiada pembantu, keyring atau fail diakses.",
+      "tr": "GPG dosyası oluşturma --test-mode içinde devre dışıdır; yardımcı program, keyring veya dosyaya erişilmedi.",
+      "es": "La creación de archivos GPG está desactivada en --test-mode; no se accedió a procesos auxiliares, keyring ni archivos.",
+      "pt": "A criação de arquivos GPG está desabilitada em --test-mode; nenhum auxiliar, keyring ou arquivo foi acessado.",
+      "fr": "La création de fichiers GPG est désactivée en --test-mode ; aucun assistant, keyring ou fichier n'a été consulté.",
+      "de": "GPG-Dateierstellung ist im --test-mode deaktiviert; weder Hilfsprogramm noch keyring oder Datei wurden verwendet.",
+      "ru": "Создание файла GPG отключено в --test-mode; помощник, keyring и файлы не использовались.",
+      "it": "La creazione di file GPG è disabilitata in --test-mode; non sono stati usati processi ausiliari, keyring o file.",
+      "ar": "إنشاء ملفات GPG معطل في --test-mode؛ لم تتم الاستعانة بأي مساعد أو keyring أو ملف."
+    }
+  },
+  {
+    "english": "Cannot time the GPG operation; nothing changed.",
+    "source": "src/idle_setup.c",
+    "index": 26,
+    "display": "fixed_formatted_string",
+    "translations": {
+      "id": "Tidak dapat mengukur waktu operasi GPG; tidak ada perubahan.",
+      "ms": "Tidak dapat mengukur masa operasi GPG; tiada perubahan.",
+      "tr": "GPG işleminin süresi ölçülemedi; hiçbir şey değişmedi.",
+      "es": "No se pudo medir el tiempo de la operación GPG; nada cambió.",
+      "pt": "Não foi possível medir o tempo da operação GPG; nada mudou.",
+      "fr": "Impossible de mesurer la durée de l'opération GPG ; rien n'a changé.",
+      "de": "Zeitmessung der GPG-Operation fehlgeschlagen; nichts wurde geändert.",
+      "ru": "Нельзя измерить длительность операции GPG; ничего не изменено.",
+      "it": "Impossibile misurare l'operazione GPG; nulla è cambiato.",
+      "ar": "تعذر توقيت عملية GPG؛ لم يتغير شيء."
+    }
+  },
+  {
+    "english": "Creating encrypted credentials; settings have not been applied.",
+    "source": "src/idle_setup.c",
+    "index": 27,
+    "display": "fixed_formatted_string",
+    "translations": {
+      "id": "Membuat kredensial terenkripsi; pengaturan belum diterapkan.",
+      "ms": "Mencipta kelayakan tersulit; tetapan belum digunakan.",
+      "tr": "Şifreli kimlik bilgileri oluşturuluyor; ayarlar henüz uygulanmadı.",
+      "es": "Creando credenciales cifradas; todavía no se han aplicado los ajustes.",
+      "pt": "Criando credenciais criptografadas; configurações ainda não aplicadas.",
+      "fr": "Création des identifiants chiffrés ; les paramètres ne sont pas encore appliqués.",
+      "de": "Verschlüsselte Zugangsdaten werden erstellt; Einstellungen sind noch nicht angewendet.",
+      "ru": "Создаются шифрованные учетные данные; настройки еще не применены.",
+      "it": "Creazione delle credenziali cifrate; impostazioni non ancora applicate.",
+      "ar": "جار إنشاء بيانات اعتماد مشفرة؛ لم تُطبق الإعدادات بعد."
+    }
+  },
+  {
+    "english": " Completed encrypted files are retained for this setup; retry Finish or cancel.",
+    "source": "src/idle_setup.c",
+    "index": 28,
+    "display": "fixed_formatted_string",
+    "translations": {
+      "id": " Berkas terenkripsi yang sudah selesai disimpan untuk pengaturan ini; coba Finish lagi atau batalkan.",
+      "ms": " Fail tersulit yang sudah disiapkan disimpan untuk persediaan ini; cuba Finish semula atau batalkan.",
+      "tr": " Tamamlanan şifreli dosyalar bu kurulum için korunur; Finish işlemini tekrar deneyin veya iptal edin.",
+      "es": " Se conservan los archivos cifrados terminados para esta configuración; reintenta Finish o cancela.",
+      "pt": " Arquivos criptografados concluídos são mantidos para esta configuração; tente Finish de novo ou cancele.",
+      "fr": " Les fichiers chiffrés achevés sont conservés pour cette configuration ; réessayez Finish ou annulez.",
+      "de": " Fertige verschlüsselte Dateien bleiben für diese Einrichtung erhalten; Finish erneut versuchen oder abbrechen.",
+      "ru": " Готовые шифрованные файлы сохранены для этих настроек; повторите Finish или отмените.",
+      "it": " I file cifrati completati restano disponibili per questa configurazione; riprova Finish o annulla.",
+      "ar": " تبقى الملفات المشفرة المكتملة لهذا الإعداد؛ أعد محاولة Finish أو ألغ."
+    }
+  },
+  {
+    "english": "The selected server profile changed; encryption was cancelled without applying settings.",
+    "source": "src/idle_setup.c",
+    "index": 29,
+    "display": "fixed_formatted_string",
+    "translations": {
+      "id": "Profil server terpilih berubah; enkripsi dibatalkan tanpa menerapkan pengaturan.",
+      "ms": "Profil pelayan dipilih telah berubah; penyulitan dibatalkan tanpa menggunakan tetapan.",
+      "tr": "Seçili sunucu profili değişti; şifreleme, ayarlar uygulanmadan iptal edildi.",
+      "es": "El perfil de servidor seleccionado cambió; se canceló el cifrado sin aplicar ajustes.",
+      "pt": "O perfil de servidor selecionado mudou; criptografia cancelada sem aplicar configurações.",
+      "fr": "Le profil serveur sélectionné a changé ; chiffrement annulé sans appliquer les paramètres.",
+      "de": "Das gewählte Serverprofil hat sich geändert; Verschlüsselung ohne Anwenden der Einstellungen abgebrochen.",
+      "ru": "Выбранный профиль сервера изменился; шифрование отменено без применения настроек.",
+      "it": "Il profilo server scelto è cambiato; cifratura annullata senza applicare impostazioni.",
+      "ar": "تغير ملف الخادم المحدد؛ أُلغي التشفير دون تطبيق الإعدادات."
+    }
+  },
+  {
+    "english": "The application configuration changed; cancel and reopen the panel.",
+    "source": "src/idle_setup.c",
+    "index": 30,
+    "display": "ternary_operand",
+    "translations": {
+      "id": "Konfigurasi aplikasi berubah; batalkan dan buka kembali panel.",
+      "ms": "Konfigurasi aplikasi berubah; batalkan dan buka semula panel.",
+      "tr": "Uygulama yapılandırması değişti; iptal edip paneli yeniden açın.",
+      "es": "La configuración de la aplicación cambió; cancela y vuelve a abrir el panel.",
+      "pt": "A configuração do aplicativo mudou; cancele e reabra o painel.",
+      "fr": "La configuration de l'application a changé ; annulez et rouvrez le panneau.",
+      "de": "Die Anwendungskonfiguration hat sich geändert; abbrechen und den Bereich erneut öffnen.",
+      "ru": "Настройки приложения изменились; отмените и снова откройте панель.",
+      "it": "La configurazione dell'applicazione è cambiata; annulla e riapri il pannello.",
+      "ar": "تغيرت إعدادات التطبيق؛ ألغ وأعد فتح اللوحة."
+    }
+  },
+  {
+    "english": "The selected server profile changed; cancel and reopen the panel.",
+    "source": "src/idle_setup.c",
+    "index": 31,
+    "display": "ternary_operand",
+    "translations": {
+      "id": "Profil server terpilih berubah; batalkan dan buka kembali panel.",
+      "ms": "Profil pelayan dipilih berubah; batalkan dan buka semula panel.",
+      "tr": "Seçili sunucu profili değişti; iptal edip paneli yeniden açın.",
+      "es": "El perfil de servidor seleccionado cambió; cancela y vuelve a abrir el panel.",
+      "pt": "O perfil de servidor selecionado mudou; cancele e reabra o painel.",
+      "fr": "Le profil serveur sélectionné a changé ; annulez et rouvrez le panneau.",
+      "de": "Das gewählte Serverprofil hat sich geändert; abbrechen und den Bereich erneut öffnen.",
+      "ru": "Выбранный профиль сервера изменился; отмените и снова откройте панель.",
+      "it": "Il profilo server scelto è cambiato; annulla e riapri il pannello.",
+      "ar": "تغير ملف الخادم المحدد؛ ألغ وأعد فتح اللوحة."
+    }
+  },
+  {
+    "english": "Choose 1 (save) or 2 (apply without saving).",
+    "source": "src/idle_setup.c",
+    "index": 32,
+    "display": "ternary_operand",
+    "translations": {
+      "id": "Pilih 1 (simpan) atau 2 (terapkan tanpa menyimpan).",
+      "ms": "Pilih 1 (simpan) atau 2 (guna tanpa menyimpan).",
+      "tr": "1 (kaydet) veya 2 (kaydetmeden uygula) seçin.",
+      "es": "Elige 1 (guardar) o 2 (aplicar sin guardar).",
+      "pt": "Escolha 1 (salvar) ou 2 (aplicar sem salvar).",
+      "fr": "Choisissez 1 (enregistrer) ou 2 (appliquer sans enregistrer).",
+      "de": "Wählen Sie 1 (speichern) oder 2 (ohne Speichern anwenden).",
+      "ru": "Выберите 1 (сохранить) или 2 (применить без сохранения).",
+      "it": "Scegli 1 (salva) o 2 (applica senza salvare).",
+      "ar": "اختر 1 (حفظ) أو 2 (تطبيق دون حفظ)."
+    }
+  },
+  {
+    "english": "Choose 1 (save and connect), 2 (save only), 3 (connect once), or 4 (apply only).",
+    "source": "src/idle_setup.c",
+    "index": 33,
+    "display": "ternary_operand",
+    "translations": {
+      "id": "Pilih 1 (simpan dan hubungkan), 2 (hanya simpan), 3 (hubungkan sekali), atau 4 (hanya terapkan).",
+      "ms": "Pilih 1 (simpan dan sambung), 2 (simpan sahaja), 3 (sambung sekali), atau 4 (guna sahaja).",
+      "tr": "1 (kaydet ve bağlan), 2 (yalnızca kaydet), 3 (bir kez bağlan) veya 4 (yalnızca uygula) seçin.",
+      "es": "Elige 1 (guardar y conectar), 2 (solo guardar), 3 (conectar una vez) o 4 (solo aplicar).",
+      "pt": "Escolha 1 (salvar e conectar), 2 (só salvar), 3 (conectar uma vez) ou 4 (só aplicar).",
+      "fr": "Choisissez 1 (enregistrer et connecter), 2 (enregistrer seulement), 3 (connecter une fois) ou 4 (appliquer seulement).",
+      "de": "Wählen Sie 1 (speichern und verbinden), 2 (nur speichern), 3 (einmal verbinden) oder 4 (nur anwenden).",
+      "ru": "Выберите 1 (сохранить и подключить), 2 (только сохранить), 3 (подключить один раз) или 4 (только применить).",
+      "it": "Scegli 1 (salva e connetti), 2 (salva soltanto), 3 (connetti una volta) o 4 (applica soltanto).",
+      "ar": "اختر 1 (حفظ واتصال)، 2 (حفظ فقط)، 3 (اتصال مرة واحدة)، أو 4 (تطبيق فقط)."
+    }
+  }
+]

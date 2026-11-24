@@ -1,0 +1,52 @@
+[
+  {
+    "english": "Command response reader",
+    "source": "src/idle.c",
+    "kind": "fixed",
+    "fields": []
+  },
+  {
+    "english": "Up and Down scroll one line. Page Up, Page Down, Space, and b scroll a page.",
+    "source": "src/idle.c",
+    "kind": "fixed",
+    "fields": []
+  },
+  {
+    "english": "Home or g goes to the beginning; End or G goes to the end.",
+    "source": "src/idle.c",
+    "kind": "fixed",
+    "fields": []
+  },
+  {
+    "english": "Escape or q returns to the log or the command that opened this response.",
+    "source": "src/idle.c",
+    "kind": "fixed",
+    "fields": []
+  },
+  {
+    "english": "Slash opens command entry from this reader; cancelling returns here.",
+    "source": "src/idle.c",
+    "kind": "fixed",
+    "fields": []
+  },
+  {
+    "english": "The summary reader accepts r to refresh its snapshot. ? explains the response and this reader.",
+    "source": "src/idle.c",
+    "kind": "fixed",
+    "fields": []
+  },
+  {
+    "english": "(none selected)",
+    "source": "src/idle.c",
+    "kind": "fixed",
+    "fields": []
+  },
+  {
+    "english": "{item} is selected in the watch log.",
+    "source": "src/idle.c",
+    "kind": "named-fields",
+    "fields": [
+      "item"
+    ]
+  }
+]

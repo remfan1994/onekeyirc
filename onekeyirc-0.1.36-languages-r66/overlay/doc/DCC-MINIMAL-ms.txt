@@ -1,0 +1,27 @@
+onekeyirc 0.1.35 /dcc standalone reference (ms)
+Copied exactly from the previously translated minimalist manual.
+This document makes earlier translations easier to locate;
+it does not represent newly translated English prose.
+Source section SHA-256: a1e420cda36e19f1685dd090dd3f2c39c120972884997e4caa4b7622709ce4fa
+
+/dcc - Tawarkan, semak dan urus pemindahan fail langsung
+--------------------------------------------------------
+Penggunaan: /dcc [list|NICK PATH|send [-address IPV4] [-port PORT] NICK PATH|accept NUMBER [DIRECTORY]|reject NUMBER|cancel NUMBER]
+
+Tanpa argumen, senaraikan pemindahan. /dcc NICK PATH menawarkan fail pada pelayan terpilih.
+PATH ialah baki teks literal termasuk ruang; laluannya relatif kepada direktori ketika proses bermula.
+Klien tidak pernah menukar direktori itu, termasuk ketika menyemak fail atau berjalan di latar.
+Bentuk hantar ringkas mengumumkan IPv4 setempat IRC. Di belakang NAT, guna -address dengan IPv4 boleh dicapai dan -port port dimajukan.
+Tiada permintaan carian alamat luaran. Sambungan IRC IPv6 sahaja memerlukan IPv4 dinyatakan jelas.
+DCC ialah sambungan terus tanpa penyulitan. Rakan menerima IP yang diumumkan; menerima tawaran turut mendedahkan IP anda.
+Tawaran masuk kekal tertutup sehingga /dcc accept NUMBER. DIRECTORY lalai ke direktori mula dan mesti milik anda serta peribadi.
+Fail destinasi sedia ada tidak ditimpa; pautan simbolik dan fail khas ditolak. Mod ujian tidak membuka fail atau soket.
+Guna /dcc reject NUMBER untuk menolak tawaran atau /dcc cancel NUMBER bagi membatalkan pemindahan aktif.
+Nombor pemindahan dikongsi antara pelayan proses ini. Menutup pelayan asal membatalkan pemindahannya; putus IRC tidak membatalkan yang diterima.
+
+Contoh:
+/dcc alice file.txt
+/dcc list
+/dcc accept 1 ./downloads
+/dcc send -address 203.0.113.20 -port 5000 alice file.txt
+/dcc cancel 2

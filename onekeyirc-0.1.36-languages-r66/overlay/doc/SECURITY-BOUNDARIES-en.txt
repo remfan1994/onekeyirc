@@ -1,0 +1,37 @@
+SECURITY MODEL: TRANSLATED SELECTED PASSAGES
+Selected explanations of the trust boundary, TLS, credentials, logging, and display from SECURITY.md. This is not a complete translation of SECURITY.md.
+
+Trust boundary and startup
+--------------------------
+IRC servers, users, nicknames, topics, filenames, and pasted messages are untrusted input. The operating system, terminal, cryptographic libraries, certificate store and your user account remain trusted components. Running multiple server profiles in one process does not isolate them.
+
+Run the client as an ordinary user. It is not a security sandbox and cannot defend against a compromised host or another process running with your account privileges. Hardening measures reduce risk; they do not remove it.
+
+TLS and authentication
+----------------------
+TLS version 1.2 or later verifies the server certificate chain and selected hostname. There is no silent fallback to plaintext. Configured SASL, server PASS and enabled nonempty automatic-command lists require verified TLS. TLS protects the link to the server or bouncer, not end-to-end IRC messages.
+
+An empty ca_file uses the system certificate store. A custom ca_file selects a trusted PEM bundle instead and changes which issuers are trusted. The file must be a nonempty regular file no larger than 16 MiB. --check-config does not perform a real TLS handshake.
+
+Select exactly one credential source for each secret: private plaintext file, private GPG-encrypted file, or explicit inline value. The source selected for SASL is independent of the source for server PASS. Never assume that an encrypted password file makes an unencrypted network connection safe.
+
+Configuration and passwords
+---------------------------
+Existing plaintext and GPG credential files must be owned regular files of exact mode 0600 or 0400. Configuration is literal INI with no shell expansion; unsafe keys and values fail validation. A config containing inline credentials or automatic-command entries requires exact mode 0600 or 0400.
+
+GPG runs directly without a shell and after TLS verification, with bounded I/O and a deadline. It does not prompt for a key passphrase inside the client. Unlock protected keys outside the application; do not share decrypted secrets, screenshots, or private logs when reporting errors.
+
+Messages, logs and display
+--------------------------
+The client does not execute incoming IRC text, open URLs, or run shell commands from received messages. Incoming control characters are filtered for display. Sending multiple IRC messages requires separate confirmation; recognized bracketed paste does not count as fresh confirmation.
+
+Persistent transcript logs are disabled by default. When enabled, private log files and directories must pass strict checks; logs survive exit and are not automatically deleted. Unknown secrets typed as ordinary chat may be recorded. Terminal capture and server-side logs are separate.
+
+Arabic visual mode changes presentation, not the logical UTF-8 order of outgoing IRC commands or messages. Unicode look-alike letters and mixed-script names may still impersonate a trusted person. Inspect actual account identity and destination before trusting commands or links.
+
+File transfers over DCC require explicit acceptance and are not protected by the IRC TLS connection. Treat transferred filenames and data as untrusted. Never infer secure delivery from the presence of a TLS IRC connection.
+
+Always consult the original SECURITY.md for operational details and current limits. These translations are drafts and need review by fluent speakers, especially before relying on them for security decisions.
+
+SOURCE:  / SECURITY.md
+STATUS: Draft translation; English source takes precedence.

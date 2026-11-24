@@ -1,0 +1,10 @@
+LOCALIZATION AND ARABIC RTL: SECURITY QUICK GUIDE
+
+1. Verify the published SHA-256 sums for both the original English source and the optional language+RTL patch BEFORE applying the patch. A source patch contains executable C code, not just text translations.
+2. Apply the optional patch only to an untouched source r1 tree, before running configure or make. Do not layer patches. If the installer rejects the tree, start with a fresh copy.
+3. Untrusted IRC messages, nicknames, topics and filenames are display data. Display sanitation replaces unsafe terminal, Unicode direction and annotation controls; it does not authenticate the sender or stop look-alike Unicode names.
+4. Arabic visual mode is for UTF-8 terminals which do not shape or reorder Arabic. The FriBidi runtime must be installed. If FriBidi is unavailable or conversion fails, the program falls back to logical text.
+5. Arabic visual rendering changes only what is drawn. IRC commands, messages sent to the server, and saved records stay in their original logical UTF-8 order. A displayed direction is not proof of identity.
+6. Never type credentials into chat, paste private logs into bug reports, or trust a command or URL solely because of how it appears after right-to-left rendering. Inspect literal commands and destinations.
+7. --check-config does not verify the remote server, TLS session or password. Follow SECURITY.md for the complete threat model; this quick guide is not its translation.
+8. The RTL conversion is optional source code. Disable it when your terminal already supports bidirectional text or if its display differs from the source text.

@@ -1,0 +1,10 @@
+Child processes and synchronous work
+Source: SECURITY.md, section "Child processes and synchronous work"
+English section SHA-256: 79a87ca8215648f2d1f870067a2afe1fb4221757b00560b4b4191aac7832ba7f
+Paragraphs: 2
+Status: Translation draft; fluent-speaker security review required
+English SECURITY.md remains authoritative. This is only one section, not the full security document.
+
+Resolusi DNS dijalankan pada proses anak langsung yang diawasi dan dapat ditunggu, dengan tenggat waktu; pembersihannya hanya berlaku pada anak yang dimiliki langsung itu. Resolver tidak ditempatkan dalam grup proses pembantu. GPG memiliki grup proses terpisah dan menjaga identitas proses anak langsung yang dapat ditunggu sampai pipa keluaran selesai, sehingga pembatalan dapat menghentikan penulis pipa warisan dalam grup yang sama. GPG adalah program yang dipercaya, bukan sandbox: keturunan proses yang sengaja keluar dari grup tersebut berada di luar jaminan pembersihannya.
+
+Awal resolver/pembantu dan pembuatan sesi latar belakang pertama menolak SIGCHLD=SIG_IGN atau SA_NOCLDWAIT yang diwarisi. Pemisahan pertama memeriksa ulang setelah penyiapan; pemisahan ulang sesi yang dikelola tidak melakukan fork. Menanam modul dalam handler lain yang memanen proses anaknya tidak didukung. Operasi berkas reguler dan metadata tetap sinkron walaupun O_NONBLOCK mencegah penantian ketika membuka FIFO.

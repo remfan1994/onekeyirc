@@ -1,0 +1,30 @@
+OPTIONAL IRC LANGUAGE/RTL TRANSLATION COVERAGE - r18
+
+Application: onekeyirc 0.1.35; English r1 stays unchanged
+Patch: r18, ten languages; RTL logic unchanged from r17
+Localizations are drafts requiring fluent-speaker review.
+
+COMPLETED PREVIOUSLY
+- 844 catalog entries per locale; minimalist manuals and static help translated.
+- r17 source-linked session management and /background command sections.
+- Existing full-interface and security excerpts (not full manuals).
+
+NEW ACCESSIBLE STANDALONE DOCUMENT IN r18
+- doc/DCC-MINIMAL-{en,id,ms,tr,es,pt,fr,de,ru,it,ar}.txt
+- Reuses the already translated /dcc entry from minimalist manuals;
+  this is organization/readability work, not new translation coverage.
+
+REMAINING ENGLISH-PARITY GAPS
+- Complete full MANUAL.txt and SECURITY.md translations have NOT been
+  produced; many later full-mode chapters remain untranslated.
+- Top-level README.md, INSTALL, man pages, and contextual diagnostics
+  are not fully localized or audited.
+- Full ncurses help reader still uses the English original.
+- Review with fluent/native speakers is still needed for all languages,
+  especially DCC, identity, credentials, Unicode spoofing and RTL.
+- English source and existing safety documentation are authoritative.
+
+REVISION SAFETY
+- Only source code change from r17 is the [lang-rtl-r18] version text.
+- apply.sh verifies SHA-256 of overwritten English source files.
+- Apply to fresh matching English source r1; patches are not stackable.

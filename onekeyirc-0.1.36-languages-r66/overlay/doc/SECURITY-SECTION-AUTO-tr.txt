@@ -1,0 +1,12 @@
+Automatic commands and cancellation
+Source: SECURITY.md, section "Automatic commands and cancellation"
+English section SHA-256: d5949c21fd5a0dc4ef73af2c42931766637e3b4ba398ff7184e64a2ae9a0e305
+Paragraphs: 3
+Status: Translation draft; fluent-speaker security review required
+English SECURITY.md remains authoritative. This is only one section, not the full security document.
+
+Her profil, her biri en çok 511 UTF-8 bayt olan en fazla 16 değişmez komut içerebilir. Yalnızca mesaj, tek kanala katılma, nick değiştirme, away/back ve WHOIS işlemleri kabul edilir. Listeleme ve hatalar, gizli bilgi içerebildikleri için argümanları gizler. Bağlantı, başlangıç komutlarının sabit bir anlık görüntüsünü kullanır. Değişiklikler bir sonraki açık bağlantı için hazırlanır; otomatik yeniden deneme, kesilen bağlantının ayarlarını korur. Kimlik değişiklikleri devralınan özel komut metnini temizler.
+
+Yürütme, kayıt ve zorunlu SASL tamamlandıktan sonra başlar. İlk gecikme 0..300 saniyedir; sonraki aralıklar tamamlanan yazmadan sonra 2..60 saniyedir. Aynı anda yalnızca bir otomatik çerçeve bekler; dolayısıyla duraksama, sonradan toplu gönderime yol açmaz. Otomatik mesajlar tek çerçeveye sığmalı; bölünmemeli ve yerel olarak yankılanmamalıdır. Bir hata, duyarlı verileri gizleyen indeksli tanılama ile sonraki komutları durdurur.
+
+/cancel gönderilmemiş kuyruk metnini ve gelecekteki otomatik işleri kaldırır. Kısmen yazılmış bir çerçeve veya sürmekte olan TLS yeniden denemesi, henüz kabul edilen bayt bildirilmemiş olsa bile baytlarını korumalıdır ve tamamlanabilir. Gönderilmiş baytlar geri alınamaz. Bağlantı kopması aktarımı ve kuyrukları temizler. Otomatik away yeniden denemeleri zamanlanır ve sonradan kabul edilmiş manuel, betik veya arka plan isteğine öncelik verir.

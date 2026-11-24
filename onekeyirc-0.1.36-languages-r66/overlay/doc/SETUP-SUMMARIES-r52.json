@@ -1,0 +1,470 @@
+[
+  {
+    "index": 0,
+    "english": "Your bouncer account, not the upstream NickServ account.",
+    "source": "src/idle_setup.c",
+    "new_key": true,
+    "translations": {
+      "id": "Akun bouncer Anda, bukan akun NickServ jaringan IRC.",
+      "ms": "Akaun bouncer anda, bukan akaun NickServ pada rangkaian.",
+      "tr": "Bouncer hesabınız; ağdaki NickServ hesabı değil.",
+      "es": "Tu cuenta del bouncer, no la cuenta NickServ de la red.",
+      "pt": "Sua conta no bouncer, não a conta NickServ da rede.",
+      "fr": "Votre compte du bouncer, et non le compte NickServ du réseau.",
+      "de": "Dein Bouncer-Konto, nicht das NickServ-Konto im IRC-Netz.",
+      "ru": "Учетная запись баунсера, не аккаунт NickServ в сети.",
+      "it": "Il tuo account del bouncer, non quello NickServ della rete.",
+      "ar": "حسابك على bouncer، وليس حساب NickServ في الشبكة."
+    }
+  },
+  {
+    "index": 1,
+    "english": "The network name already configured on your bouncer. The bouncer restores its joined channels.",
+    "source": "src/idle_setup.c",
+    "new_key": true,
+    "translations": {
+      "id": "Nama jaringan yang sudah diatur di bouncer. Bouncer memulihkan kanal.",
+      "ms": "Nama rangkaian yang sudah ditetapkan dalam bouncer. Bouncer memulihkan saluran.",
+      "tr": "Bouncer üzerinde önceden tanımlanan ağ adı. Bouncer kanalları geri yükler.",
+      "es": "Nombre de la red ya configurada en el bouncer. Este recupera sus canales.",
+      "pt": "Nome da rede já configurada no bouncer. Ele recupera os canais.",
+      "fr": "Nom du réseau déjà configuré dans le bouncer. Celui-ci restaure ses canaux.",
+      "de": "Der bereits im Bouncer eingerichtete Netzwerkname. Der Bouncer stellt Kanäle wieder her.",
+      "ru": "Имя сети, заданной в баунсере. Баунсер восстанавливает каналы.",
+      "it": "Nome della rete già impostata sul bouncer. Il bouncer ripristina i canali.",
+      "ar": "اسم الشبكة المعدة سلفا على bouncer. يستعيد bouncer القنوات."
+    }
+  },
+  {
+    "index": 2,
+    "english": "Optional stable name for this device, such as laptop. '-' clears it.",
+    "source": "src/idle_setup.c",
+    "new_key": true,
+    "translations": {
+      "id": "Nama tetap opsional untuk perangkat ini, misalnya laptop. '-' menghapusnya.",
+      "ms": "Nama tetap pilihan untuk peranti ini, seperti laptop. '-' memadamkannya.",
+      "tr": "Bu cihaz için isteğe bağlı sabit ad, örneğin laptop. '-' siler.",
+      "es": "Nombre opcional y estable de este dispositivo, por ejemplo portátil. '-' lo borra.",
+      "pt": "Nome opcional e estável para este dispositivo, como laptop. '-' limpa.",
+      "fr": "Nom stable facultatif pour cet appareil, par exemple portable. '-' l'efface.",
+      "de": "Optionaler fester Name für dieses Gerät, z. B. Laptop. '-' löscht ihn.",
+      "ru": "Необязательное имя устройства, например laptop. '-' удаляет его.",
+      "it": "Nome facoltativo e stabile del dispositivo, per esempio portatile. '-' lo cancella.",
+      "ar": "اسم ثابت اختياري للجهاز مثل laptop. الرمز '-' يمحوه."
+    }
+  },
+  {
+    "index": 3,
+    "english": "Up to 63 ASCII letters, digits, '.', '_' or '-'; do not include '/' or '@'. Changing identity clears this draft's password source and startup commands.",
+    "source": "src/idle_setup.c",
+    "new_key": true,
+    "translations": {
+      "id": "Maksimal 63 karakter ASCII: huruf, angka, '.', '_' atau '-'. Jangan pakai '/' atau '@'. Mengubah identitas menghapus kredensial dan perintah awal draf.",
+      "ms": "Maksimum 63 aksara ASCII: huruf, angka, '.', '_' atau '-'. Jangan guna '/' atau '@'. Menukar identiti membuang kelayakan dan arahan mula dalam draf.",
+      "tr": "En çok 63 ASCII karakter: harf, sayı, '.', '_' veya '-'. '/' ve '@' kullanmayın. Kimlik değişimi taslak kimlik bilgilerini ve başlangıç komutlarını siler.",
+      "es": "Hasta 63 caracteres ASCII: letras, cifras, '.', '_' o '-'. No uses '/' ni '@'. Cambiar la identidad borra las credenciales y comandos iniciales del borrador.",
+      "pt": "Até 63 caracteres ASCII: letras, dígitos, '.', '_' ou '-'. Não use '/' nem '@'. Mudar a identidade limpa credenciais e comandos iniciais do rascunho.",
+      "fr": "63 caractères ASCII maximum : lettres, chiffres, '.', '_' ou '-'. N'utilisez ni '/' ni '@'. Changer l'identité efface les identifiants et commandes initiales du brouillon.",
+      "de": "Höchstens 63 ASCII-Zeichen: Buchstaben, Ziffern, '.', '_' oder '-'. Kein '/' oder '@'. Eine neue Identität löscht Zugangsdaten und Startbefehle im Entwurf.",
+      "ru": "Не более 63 символов ASCII: буквы, цифры, '.', '_' или '-'. Нельзя '/' и '@'. Смена имени сбросит пароль и команды запуска черновика.",
+      "it": "Massimo 63 caratteri ASCII: lettere, cifre, '.', '_' o '-'. Non usare '/' né '@'. Cambiare identità elimina credenziali e comandi iniziali della bozza.",
+      "ar": "بحد أقصى 63 محرف ASCII: حروف وأرقام و'.' أو '_' أو '-'. لا تستخدم '/' ولا '@'. تغيير الهوية يمحو بيانات الاعتماد وأوامر بدء المسودة."
+    }
+  },
+  {
+    "index": 4,
+    "english": "Enter accepts this offered absolute path and prepares its private directory (0700). You may enter a different path in an existing private directory.",
+    "source": "src/idle_setup.c",
+    "new_key": true,
+    "translations": {
+      "id": "Enter menerima jalur absolut yang ditawarkan dan membuat direktori privat (0700). Jalur lain dalam direktori privat yang ada juga boleh.",
+      "ms": "Enter menerima laluan mutlak yang ditawarkan dan menyediakan direktori peribadi (0700). Anda boleh guna laluan lain dalam direktori peribadi sedia ada.",
+      "tr": "Enter önerilen mutlak yolu kabul eder ve özel dizini (0700) hazırlar. Mevcut özel dizinde başka bir yol da seçebilirsiniz.",
+      "es": "Enter acepta la ruta absoluta ofrecida y prepara una carpeta privada (0700). También puedes elegir otra ruta en una carpeta privada existente.",
+      "pt": "Enter aceita o caminho absoluto sugerido e prepara pasta privada (0700). Você pode escolher outro caminho em pasta privada já existente.",
+      "fr": "Enter accepte le chemin absolu proposé et prépare un dossier privé (0700). Vous pouvez choisir un autre chemin dans un dossier privé existant.",
+      "de": "Enter akzeptiert den vorgeschlagenen absoluten Pfad und erstellt einen privaten Ordner (0700). Ein anderer Pfad in einem privaten Ordner ist möglich.",
+      "ru": "Enter принимает предложенный путь и готовит закрытый каталог (0700). Можно выбрать другой путь в закрытом каталоге.",
+      "it": "Enter accetta il percorso assoluto proposto e prepara una cartella privata (0700). Puoi usare un altro percorso in una cartella privata esistente.",
+      "ar": "يقبل Enter المسار المطلق المقترح ويجهز دليلا خاصا (0700). يمكنك اختيار مسار آخر في دليل خاص موجود."
+    }
+  },
+  {
+    "index": 5,
+    "english": "Enter a new file in a directory you own with mode 0700.",
+    "source": "src/idle_setup.c",
+    "new_key": true,
+    "translations": {
+      "id": "Masukkan nama berkas baru di direktori milik Anda dengan mode 0700.",
+      "ms": "Masukkan fail baharu dalam direktori milik anda dengan mod 0700.",
+      "tr": "0700 kipindeki kendi dizininize yeni bir dosya yazın.",
+      "es": "Indica un archivo nuevo en una carpeta propia con permisos 0700.",
+      "pt": "Digite um arquivo novo em pasta própria com modo 0700.",
+      "fr": "Indiquez un nouveau fichier dans un dossier personnel en mode 0700.",
+      "de": "Gib eine neue Datei in einem eigenen Ordner mit Modus 0700 an.",
+      "ru": "Укажите новый файл в своем каталоге с правами 0700.",
+      "it": "Indica un nuovo file in una cartella personale con modalità 0700.",
+      "ar": "أدخل ملفا جديدا في دليلك بصلاحية 0700."
+    }
+  },
+  {
+    "index": 6,
+    "english": "The destination is checked before the key and password questions. The encrypted file is created only at Finish; existing files are never replaced. Paths are literal, with no shell expansion.",
+    "source": "src/idle_setup.c",
+    "new_key": true,
+    "translations": {
+      "id": "Jalur diperiksa sebelum kunci dan kata sandi. Berkas terenkripsi baru dibuat saat Finish; berkas yang ada tidak diganti. Jalur bersifat literal.",
+      "ms": "Laluan disemak sebelum kunci dan kata laluan. Fail tersulit hanya dibuat pada Finish; fail sedia ada tidak diganti. Laluan digunakan secara literal.",
+      "tr": "Yol, anahtar ve paroladan önce denetlenir. Şifreli dosya yalnızca Finish sırasında oluşturulur; eski dosyalar değiştirilmez. Yol tam metin olarak kullanılır.",
+      "es": "Se comprueba la ruta antes de solicitar la clave y la contraseña. El archivo cifrado solo se crea al finalizar con Finish; nunca se sustituyen archivos. No se expande la ruta.",
+      "pt": "O caminho é verificado antes da chave e senha. O arquivo criptografado só é criado em Finish; arquivos existentes nunca são substituídos. O caminho é literal.",
+      "fr": "Le chemin est vérifié avant la clé et le mot de passe. Le fichier chiffré n'est créé qu'à Finish ; aucun fichier existant n'est remplacé. Le chemin n'est pas développé.",
+      "de": "Der Pfad wird vor Schlüssel und Passwort geprüft. Erst Finish erzeugt die verschlüsselte Datei. Bestehende Dateien bleiben erhalten; keine Shell-Erweiterung.",
+      "ru": "Путь проверяется до запроса ключа и пароля. Файл создается лишь при Finish; старые файлы не заменяются. Путь не расширяется оболочкой.",
+      "it": "Il percorso viene verificato prima di chiave e password. Il file cifrato viene creato solo a Finish; i file esistenti non sono sovrascritti. Percorso letterale.",
+      "ar": "يُفحص المسار قبل المفتاح وكلمة المرور. لا يُنشأ الملف المشفر إلا عند Finish؛ ولا يُستبدل ملف موجود. المسار حرفي."
+    }
+  },
+  {
+    "index": 7,
+    "english": "GPG-encrypted",
+    "source": "src/idle_setup.c",
+    "new_key": true,
+    "translations": {
+      "id": "Terenkripsi GPG",
+      "ms": "Disulitkan GPG",
+      "tr": "GPG ile şifreli",
+      "es": "Cifrado con GPG",
+      "pt": "Criptografado com GPG",
+      "fr": "Chiffré avec GPG",
+      "de": "GPG-verschlüsselt",
+      "ru": "Шифровано GPG",
+      "it": "Cifrato con GPG",
+      "ar": "مشفر باستخدام GPG"
+    }
+  },
+  {
+    "index": 8,
+    "english": "Private plaintext",
+    "source": "src/idle_setup.c",
+    "new_key": true,
+    "translations": {
+      "id": "Teks privat tanpa enkripsi",
+      "ms": "Teks peribadi tanpa sulitan",
+      "tr": "Şifresiz özel metin",
+      "es": "Texto privado sin cifrar",
+      "pt": "Texto privado sem criptografia",
+      "fr": "Texte privé non chiffré",
+      "de": "Privater Klartext",
+      "ru": "Закрытый текст без шифрования",
+      "it": "Testo privato non cifrato",
+      "ar": "نص خاص غير مشفر"
+    }
+  },
+  {
+    "index": 9,
+    "english": "path; no shell expansion. The file is read only when connecting.",
+    "source": "src/idle_setup.c",
+    "new_key": true,
+    "translations": {
+      "id": "jalur tanpa ekspansi shell. Berkas dibaca hanya saat terhubung.",
+      "ms": "laluan tanpa pengembangan shell. Fail hanya dibaca ketika menyambung.",
+      "tr": "shell genişletmesi yapılmayan yol. Dosya yalnız bağlanırken okunur.",
+      "es": "ruta sin expansión de comandos. El archivo solo se lee al conectar.",
+      "pt": "caminho sem expansão de shell. O arquivo só é lido ao conectar.",
+      "fr": "chemin sans développement de commande. Le fichier n'est lu qu'à la connexion.",
+      "de": "Pfad ohne Shell-Erweiterung. Die Datei wird erst beim Verbinden gelesen.",
+      "ru": "путь без подстановок оболочки. Файл читается только при соединении.",
+      "it": "percorso senza espansione della shell. Il file viene letto solo al collegamento.",
+      "ar": "مسار بلا توسيع shell. لا يُقرأ الملف إلا عند الاتصال."
+    }
+  },
+  {
+    "index": 10,
+    "english": " (unavailable)",
+    "source": "src/idle_setup.c",
+    "new_key": true,
+    "translations": {
+      "id": " (tidak tersedia)",
+      "ms": " (tidak tersedia)",
+      "tr": " (kullanılamıyor)",
+      "es": " (no disponible)",
+      "pt": " (indisponível)",
+      "fr": " (indisponible)",
+      "de": " (nicht verfügbar)",
+      "ru": " (недоступно)",
+      "it": " (non disponibile)",
+      "ar": " (غير متاح)"
+    }
+  },
+  {
+    "index": 11,
+    "english": "Proposed (not created)",
+    "source": "src/idle_setup.c",
+    "new_key": true,
+    "translations": {
+      "id": "Diusulkan (belum dibuat)",
+      "ms": "Dicadangkan (belum dibuat)",
+      "tr": "Önerildi (oluşturulmadı)",
+      "es": "Propuesto (aún no creado)",
+      "pt": "Proposto (não criado)",
+      "fr": "Proposé (non créé)",
+      "de": "Vorgeschlagen (nicht erstellt)",
+      "ru": "Предложено (не создано)",
+      "it": "Proposto (non creato)",
+      "ar": "مقترح (لم يُنشأ)"
+    }
+  },
+  {
+    "index": 12,
+    "english": "Configured",
+    "source": "src/idle_setup.c",
+    "new_key": true,
+    "translations": {
+      "id": "Dikonfigurasi",
+      "ms": "Dikonfigurasi",
+      "tr": "Yapılandırıldı",
+      "es": "Configurado",
+      "pt": "Configurado",
+      "fr": "Configuré",
+      "de": "Konfiguriert",
+      "ru": "Настроено",
+      "it": "Configurato",
+      "ar": "مُعد"
+    }
+  },
+  {
+    "index": 13,
+    "english": "credential file:",
+    "source": "src/idle_setup.c",
+    "new_key": true,
+    "translations": {
+      "id": "berkas kredensial:",
+      "ms": "fail kelayakan:",
+      "tr": "kimlik bilgisi dosyası:",
+      "es": "archivo de credenciales:",
+      "pt": "arquivo de credenciais:",
+      "fr": "fichier d'identifiants :",
+      "de": "Zugangsdaten-Datei:",
+      "ru": "файл учетных данных:",
+      "it": "file delle credenziali:",
+      "ar": "ملف بيانات الاعتماد:"
+    }
+  },
+  {
+    "index": 14,
+    "english": "Application preferences saved.",
+    "source": "src/idle_setup.c",
+    "new_key": true,
+    "translations": {
+      "id": "Preferensi aplikasi disimpan.",
+      "ms": "Keutamaan aplikasi disimpan.",
+      "tr": "Uygulama tercihleri kaydedildi.",
+      "es": "Preferencias de la aplicación guardadas.",
+      "pt": "Preferências do aplicativo salvas.",
+      "fr": "Préférences de l'application enregistrées.",
+      "de": "Anwendungseinstellungen gespeichert.",
+      "ru": "Настройки приложения сохранены.",
+      "it": "Preferenze dell'applicazione salvate.",
+      "ar": "حُفظت تفضيلات التطبيق."
+    }
+  },
+  {
+    "index": 15,
+    "english": "Application preferences applied without saving.",
+    "source": "src/idle_setup.c",
+    "new_key": true,
+    "translations": {
+      "id": "Preferencial aplikasi diterapkan tanpa disimpan.",
+      "ms": "Keutamaan aplikasi digunakan tanpa disimpan.",
+      "tr": "Uygulama tercihleri kaydedilmeden uygulandı.",
+      "es": "Preferencias de la aplicación aplicadas sin guardar.",
+      "pt": "Preferências do aplicativo aplicadas sem salvar.",
+      "fr": "Préférences de l'application appliquées sans enregistrement.",
+      "de": "Anwendungseinstellungen ohne Speichern angewendet.",
+      "ru": "Настройки приложения применены без сохранения.",
+      "it": "Preferenze dell'applicazione applicate senza salvare.",
+      "ar": "طُبقت تفضيلات التطبيق دون حفظ."
+    }
+  },
+  {
+    "index": 16,
+    "english": "Server {number}: settings saved.",
+    "source": "src/idle_setup.c",
+    "new_key": true,
+    "translations": {
+      "id": "Server {number}: pengaturan disimpan.",
+      "ms": "Pelayan {number}: tetapan disimpan.",
+      "tr": "Sunucu {number}: ayarlar kaydedildi.",
+      "es": "Servidor {number}: configuración guardada.",
+      "pt": "Servidor {number}: configurações salvas.",
+      "fr": "Serveur {number} : paramètres enregistrés.",
+      "de": "Server {number}: Einstellungen gespeichert.",
+      "ru": "Сервер {number}: настройки сохранены.",
+      "it": "Server {number}: impostazioni salvate.",
+      "ar": "الخادم {number}: حُفظت الإعدادات."
+    }
+  },
+  {
+    "index": 17,
+    "english": "Server {number}: settings applied without saving.",
+    "source": "src/idle_setup.c",
+    "new_key": true,
+    "translations": {
+      "id": "Server {number}: pengaturan diterapkan tanpa disimpan.",
+      "ms": "Pelayan {number}: tetapan digunakan tanpa disimpan.",
+      "tr": "Sunucu {number}: ayarlar kaydedilmeden uygulandı.",
+      "es": "Servidor {number}: configuración aplicada sin guardar.",
+      "pt": "Servidor {number}: configurações aplicadas sem salvar.",
+      "fr": "Serveur {number} : paramètres appliqués sans enregistrement.",
+      "de": "Server {number}: Einstellungen ohne Speichern angewendet.",
+      "ru": "Сервер {number}: настройки применены без сохранения.",
+      "it": "Server {number}: impostazioni applicate senza salvare.",
+      "ar": "الخادم {number}: طُبقت الإعدادات دون حفظ."
+    }
+  },
+  {
+    "index": 18,
+    "english": "Server {number}: settings saved; connecting.",
+    "source": "src/idle_setup.c",
+    "new_key": true,
+    "translations": {
+      "id": "Server {number}: pengaturan disimpan; menghabungkan.",
+      "ms": "Pelayan {number}: tetapan disimpan; menyambung.",
+      "tr": "Sunucu {number}: ayarlar kaydedildi; bağlanıyor.",
+      "es": "Servidor {number}: configuración guardada; conectando.",
+      "pt": "Servidor {number}: configurações salvas; conectando.",
+      "fr": "Serveur {number} : paramètres enregistrés ; connexion en cours.",
+      "de": "Server {number}: Einstellungen gespeichert; Verbindung läuft.",
+      "ru": "Сервер {number}: настройки сохранены; подключение.",
+      "it": "Server {number}: impostazioni salvate; connessione in corso.",
+      "ar": "الخادم {number}: حُفظت الإعدادات؛ جار الاتصال."
+    }
+  },
+  {
+    "index": 19,
+    "english": "Server {number}: settings applied without saving; connecting.",
+    "source": "src/idle_setup.c",
+    "new_key": true,
+    "translations": {
+      "id": "Server {number}: pengaturan diterapkan tanpa disimpan; menghabungkan.",
+      "ms": "Pelayan {number}: tetapan digunakan tanpa disimpan; menyambung.",
+      "tr": "Sunucu {number}: ayarlar kaydedilmeden uygulandı; başlanıyor.",
+      "es": "Servidor {number}: configuración aplicada sin guardar; conectando.",
+      "pt": "Servidor {number}: configurações aplicadas sem salvar; conectando.",
+      "fr": "Serveur {number} : paramètres appliqués sans enregistrement ; connexion en cours.",
+      "de": "Server {number}: Einstellungen ohne Speichern angewendet; Verbindung läuft.",
+      "ru": "Сервер {number}: настройки применены без сохранения; подключение.",
+      "it": "Server {number}: impostazioni applicate senza salvare; connessione in corso.",
+      "ar": "الخادم {number}: طُبقت الإعدادات دون حفظ؛ جار الاتصال."
+    }
+  },
+  {
+    "index": 20,
+    "english": "Settings saved, but connection failed: {error}",
+    "source": "src/idle_setup.c",
+    "new_key": true,
+    "translations": {
+      "id": "Pengaturan disimpan, tetapi koneksi gagal: {error}",
+      "ms": "Tetapan disimpan tetapi sambungan gagal: {error}",
+      "tr": "Ayarlar kaydedildi ancak bağlantı başarısız: {error}",
+      "es": "Configuración guardada, pero falló la conexión: {error}",
+      "pt": "Configurações salvas, mas a conexão falhou: {error}",
+      "fr": "Paramètres enregistrés, mais échec de connexion : {error}",
+      "de": "Einstellungen gespeichert, aber Verbindung fehlgeschlagen: {error}",
+      "ru": "Настройки сохранены, но соединение не удалось: {error}",
+      "it": "Impostazioni salvate, ma connessione non riuscita: {error}",
+      "ar": "حُفظت الإعدادات لكن فشل الاتصال: {error}"
+    }
+  },
+  {
+    "index": 21,
+    "english": "Settings applied, but connection failed: {error}",
+    "source": "src/idle_setup.c",
+    "new_key": true,
+    "translations": {
+      "id": "Pengaturan diterapkan, tetapi koneksi gagal: {error}",
+      "ms": "Tetapan digunakan tetapi sambungan gagal: {error}",
+      "tr": "Ayarlar uygulandı ancak bağlantı başarısız: {error}",
+      "es": "Configuración aplicada, pero falló la conexión: {error}",
+      "pt": "Configurações aplicadas, mas a conexão falhou: {error}",
+      "fr": "Paramètres appliqués, mais échec de connexion : {error}",
+      "de": "Einstellungen angewendet, aber Verbindung fehlgeschlagen: {error}",
+      "ru": "Настройки применены, но соединение не удалось: {error}",
+      "it": "Impostazioni applicate, ma connessione non riuscita: {error}",
+      "ar": "طُبقت الإعدادات لكن فشل الاتصال: {error}"
+    }
+  },
+  {
+    "index": 22,
+    "english": "Encrypted files were kept because the saved configuration may reference them. {error}",
+    "source": "src/idle_setup.c",
+    "new_key": true,
+    "translations": {
+      "id": "Berkas terenkripsi dipertahankan karena konfigurasi tersimpan mungkin merujuknya. {error}",
+      "ms": "Fail tersulit dikekalkan kerana konfigurasi disimpan mungkin merujuknya. {error}",
+      "tr": "Şifreli dosyalar saklandı; kayıtlı yapılandırma bunları kullanıyor olabilir. {error}",
+      "es": "Se conservaron los archivos cifrados porque la configuración guardada puede necesitarlos. {error}",
+      "pt": "Arquivos criptografados foram mantidos porque a configuração salva pode referenciá-los. {error}",
+      "fr": "Les fichiers chiffrés ont été conservés car la configuration enregistrée peut y faire référence. {error}",
+      "de": "Verschlüsselte Dateien blieben erhalten, da die gespeicherte Konfiguration sie benötigen kann. {error}",
+      "ru": "Шифрованные файлы сохранены: конфигурация может на них ссылаться. {error}",
+      "it": "I file cifrati sono stati conservati perché la configurazione salvata potrebbe richiederli. {error}",
+      "ar": "احتُفظ بالملفات المشفرة لأن الإعدادات المحفوظة قد تشير إليها. {error}"
+    }
+  },
+  {
+    "index": 23,
+    "english": "Bouncer password file",
+    "source": "src/idle_setup.c",
+    "new_key": true,
+    "translations": {
+      "id": "Berkas kata sandi bouncer",
+      "ms": "Fail kata laluan bouncer",
+      "tr": "Bouncer parola dosyası",
+      "es": "Archivo de contraseña del bouncer",
+      "pt": "Arquivo de senha do bouncer",
+      "fr": "Fichier de mot de passe du bouncer",
+      "de": "Bouncer-Passwortdatei",
+      "ru": "Файл пароля баунсера",
+      "it": "File password del bouncer",
+      "ar": "ملف كلمة مرور bouncer"
+    }
+  },
+  {
+    "index": 24,
+    "english": "Server password file",
+    "source": "src/idle_setup.c",
+    "new_key": false,
+    "translations": {
+      "id": "Berkas kata sandi server",
+      "ms": "Fail kata laluan pelayan",
+      "tr": "Sunucu parola dosyası",
+      "es": "Archivo de contraseña del servidor",
+      "pt": "Arquivo de senha do servidor",
+      "fr": "Fichier de mot de passe du serveur",
+      "de": "Server-Passwortdatei",
+      "ru": "Файл пароля сервера",
+      "it": "File password del server",
+      "ar": "ملف كلمة مرور الخادم"
+    }
+  },
+  {
+    "index": 25,
+    "english": "Authentication password file",
+    "source": "src/idle_setup.c",
+    "new_key": true,
+    "translations": {
+      "id": "Berkas kata sandi autentikasi",
+      "ms": "Fail kata laluan pengesahan",
+      "tr": "Kimlik doğrulama parola dosyası",
+      "es": "Archivo de contraseña de autenticación",
+      "pt": "Arquivo de senha da autenticação",
+      "fr": "Fichier de mot de passe d'authentification",
+      "de": "Authentifizierungs-Passwortdatei",
+      "ru": "Файл пароля аутентификации",
+      "it": "File password di autenticazione",
+      "ar": "ملف كلمة مرور المصادقة"
+    }
+  }
+]

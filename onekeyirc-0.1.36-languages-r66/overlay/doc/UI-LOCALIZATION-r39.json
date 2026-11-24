@@ -1,0 +1,8 @@
+[
+  {
+    "source": "src/idle.c",
+    "kind": "fixed",
+    "english": "Response reached its 512 KiB limit; request a narrower topic.",
+    "fields": []
+  }
+]

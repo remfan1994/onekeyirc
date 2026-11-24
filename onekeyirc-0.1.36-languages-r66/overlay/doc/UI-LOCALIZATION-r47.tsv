@@ -1,0 +1,9 @@
+client	source	english
+onekeyirc	src/idle_commands.c	Servers:
+onekeyirc	src/idle_commands.c	Unread conversations:
+onekeyirc	src/idle_commands.c	Authentication: bypassed in offline test mode.
+onekeyirc	src/idle_commands.c	Required SASL: off
+onekeyirc	src/idle_commands.c	File paths are shown only by this explicit inquiry. No credential file was read and no password content is displayed.
+onekeyirc	src/idle_commands.c	Automatic retries keep current authentication. /disconnect then /connect applies pending settings; /save persists them.
+onekeyirc	src/idle_commands.c	Bouncer profiles restore their own channel memberships; saved auto-join lists are not replayed.
+onekeyirc	src/idle_commands.c	Use /join and /part while connected, or /channels to inspect restored channels.
