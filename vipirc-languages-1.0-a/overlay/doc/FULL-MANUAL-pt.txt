@@ -1,0 +1,1035 @@
+POLÍTICA ATUAL DE SINAIS (vipirc-1.0-a):
+Usar sinais começa em no. Ctrl-C e Ctrl-Z cancelam uma mensagem ou comando por enviar, sem terminar nem suspender a aplicação. Selecione yes no painel 0 ou nas definições Interface do vipirc para ativar os sinais do terminal. Aplicar aplica imediatamente; Salvar também guarda [input] use_signals=true|false. As definições originais do terminal são repostas ao sair ou suspender.
+
+vipirc 1.0-a - Versão preliminar do manual completo (pt)
+Este rascunho traduzido aparece no leitor de ajuda ncurses e em --manual quando o ficheiro está disponível. Requer revisão por falantes nativos; o MANUAL.txt em inglês continua a ser a referência.
+Baseado no MANUAL.txt em inglês r1 usado neste rascunho e nos capítulos vinculados ao original.
+Os comandos IRC, as chaves de configuração e os argumentos de rede são mantidos literalmente.
+
+ÍNDICE
+
+    01. COMO LER OS EXEMPLOS
+    02. INÍCIO RÁPIDO
+    03. LEMBRETE LOCAL DA SESSÃO
+    04. OBTER AJUDA
+    05. INTERFACE MINIMALISTA
+    06. INTERFACE PREDEFINIDA
+    07. QUEBRA DE LINHAS E HISTÓRICO DE ENTRADA NO MODO MINIMALISTA
+    08. RECUPERAÇÃO DE MENSAGENS APÓS RETOMAR NO MODO MINIMALISTA
+    09. OPÇÕES DA LINHA DE COMANDOS
+    10. MODO DE TESTE SEM LIGAÇÃO
+    11. CABEÇALHO GLOBAL E CONTROLOS DE CONVERSA
+    12. COMPLETAR ALCUNHAS
+    13. LINHA DE COMANDOS INTERATIVA
+    14. ÍNDICE DE REFERÊNCIA DE COMANDOS
+    15. COMANDOS DE LIGAÇÃO E ARRANQUE
+    16. RESUMO DA SESSÃO
+    17. CONFIGURAÇÕES
+    18. ASSOCIAÇÕES PERSONALIZADAS DE TECLAS
+    19. SINAIS DO TERMINAL
+    20. GESTÃO DE SESSÕES E EXECUÇÃO EM SEGUNDO PLANO
+    21. SERVIDORES E ATIVIDADE POR LER
+    22. VISTAS E UTILIZADORES
+    23. SELETOR DE CANAIS E FECHO DE CONVERSAS
+    24. LISTA DE CONVERSAS PRIVADAS
+    25. MENÇÕES E EXPRESSÕES VIGIADAS
+    26. COMANDOS DE CONVERSAÇÃO
+    27. FILTROS LOCAIS PARA IGNORAR
+    28. COMANDOS DE ARRANQUE DIFERIDOS
+    29. AVISOS DO PROGRAMA E DA FILA, NÚMEROS DE CONVERSAS E ALIASES
+    30. TRANSFERÊNCIAS DE FICHEIROS
+    31. EDIÇÃO DA ENTRADA
+    32. COMPRIMENTO DAS MENSAGENS E PREVENÇÃO DE EXCESSO
+    33. CONFIGURAÇÃO
+    34. HISTÓRICO, REGISTROS E PRIVACIDADE
+    35. PERFIS DE SERVIDOR SALVOS
+    36. LIGAÇÃO AUTOMÁTICA, ENTRADA EM CANAIS E AUTENTICAÇÃO
+    37. LIGAÇÕES A BOUNCERS
+    38. TLS E CONFIANÇA PERSONALIZADA
+    39. SEGURANÇA E LIMITES DE RECURSOS
+    40. CRIAÇÃO DE FICHEIROS DE PALAVRA-PASSE CIFRADOS
+    41. RESOLUÇÃO DE PROBLEMAS
+    42. ARQUIVOS E AMBIENTE
+    43. ESTADOS DE SAÍDA
+    44. PLATAFORMAS, COMPILAÇÃO E LICENÇA
+    45. DOCUMENTAÇÃO E VALIDAÇÃO
+    46. REFERÊNCIAS DE PROTOCOLOS
+
+No modo completo, /help TEXT ou / no leitor pesquisa títulos e expressões. Se a primeira correspondência estiver no índice, continue com n/Próximo. Para caracteres não ASCII, escreva as letras e os acentos tal como aparecem no título.
+
+COMO LER OS EXEMPLOS
+
+Os exemplos que começam por vipirc devem ser executados numa shell; os /comandos devem ser introduzidos em Command. Execute um comando de cada vez. Nos resumos de sintaxe, as palavras em MAIÚSCULAS são marcadores a substituir, [items] são opcionais e | separa alternativas.
+Ao abrir Command, a barra / já aparece. Antes de colar um /comando completo, remova essa barra inicial, confira o resultado e prima Enter. Um bloco de comandos colado não é um script: as quebras de linha tornam-se espaços. O texto colado em chat ou watch continua a ser texto de conversa.
+
+INÍCIO RÁPIDO
+
+Exemplos de comandos e controlos (literais):
+vipirc -h
+vipirc -v
+vipirc --test-mode
+vipirc --server irc.ircnow.org --channel '#ircnow' --nick tutankh-aten
+
+Os três primeiros exemplos mostram a ajuda, a versão e uma simulação offline. O último estabelece uma ligação real: no shell, coloque '#ircnow' entre aspas e utilize o endpoint TLS real do fornecedor. O TLS verificado na porta 6697 é a opção padrão; texto sem cifragem requer --plain.
+
+No arranque interativo, surge a mensagem "Not vegetarian? www.bloodguiltcurse.net will change your mind". Uma tecla imprimível, Enter, Tab ou uma tecla de navegação fecha-a. Os sinais configurados do terminal mantêm a função herdada; outros controlos não fecham a mensagem. Sem servidor, abre-se um espaço de trabalho desligado. Configure-o em Settings, com /connect HOST ou com --server.
+
+No modo completo, se o nome principal não estiver configurado, surge um pedido com o nome de login do sistema como valor inicial. Enter aceita-o; escrever substitui-o. Perfis secundários guardados e arranques sem intervenção usam um login ou nome de utilizador válido sem perguntar. --nick substitui esse valor, mas o servidor pode recusá-lo.
+
+A vista inicial do servidor apresenta o registo e o MOTD. Perfis diretos entram nos canais configurados depois do registo e da autenticação obrigatória; bouncers restauram os seus próprios canais. O chat fica pronto a receber texto. Enter envia para o canal ou conversa privada selecionados; as vistas de servidor e menções não têm destinatário implícito. / com o cursor na posição zero abre Command. Para começar com uma barra literal, use //; barras coladas entre parênteses retos continuam literais.
+
+Teclas comuns: F1 abre vipirc, F2 Servidores, F3 Canais, F4 Mensagens privadas, F5 Menções/não lidas e F6 Transferências. Escape numa conversa privada abre Mensagens privadas; noutro chat abre vipirc; num painel normal regressa ao chat e em Configurações regressa a vipirc. As cores do terminal são preservadas; parênteses retos a negrito indicam o foco. Veja CABEÇALHO GLOBAL E CONTROLOS DE CONVERSA para navegar nas listas.
+
+LEMBRETE LOCAL DA SESSÃO
+
+O processo de trabalho mostra este lembrete local uma única vez, na primeira vista associada a um terminal:
+
+    Cow killing is the bloodshed of the innocent. www.bloodguiltcurse.net - ban beef.
+
+É uma entrada comum no histórico local: não apresenta pedido de resposta, não reserva linha de entrada e não é enviada por IRC. A indicação de já ter sido mostrada mantém-se após novas ligações, mudanças de servidor, reconexão do terminal e troca de interface. Se ainda estiver no histórico retido, pode voltar a ser consultada. Não é o ecrã de boas-vindas do arranque.
+
+OBTER AJUDA
+
+Exemplos de comandos e controlos (literais):
+vipirc -h
+vipirc -v
+vipirc --manual
+vipirc -i --manual
+man vipirc
+/help
+/manual
+/help TEXT
+
+vipirc -h (ou --help) mostra o resumo CLI; vipirc -v (ou --version) mostra a versão; vipirc --manual imprime o manual completo na saída padrão; vipirc -i --manual imprime a referência minimalista de tópicos e comandos. man vipirc abre a página de manual instalada. Na interface completa, /help ou /manual abre este manual e /help TEXT procura TEXT nele.
+
+No modo completo, /help TEXT procura neste manual, não abre tópicos minimalistas. /help commands e /help ls localizam LINHA DE COMANDOS INTERATIVA; /help all abre o manual todo; /view help também funciona. As expressões não precisam de aspas. O leitor funciona sem ligação e preserva vista, rascunho e cursor. Aqui, / inicia a pesquisa; no leitor minimalista de ajuda/respostas, / abre Command. Para diagnóstico por sintoma, veja doc/TROUBLESHOOTING.txt.
+
+Durante a navegação, ? explica o item e o ecrã selecionados. A ajuda de contexto oferece uma ligação a About; Left/Right ou Tab escolhe uma ação, Enter executa-a e Escape regressa exatamente ao local e à seleção de origem. Num campo editável, ? é texto literal. Selecione uma sugestão de Command antes de pedir ajuda para ela.
+
+As ações do manual são Voltar, Buscar, Anterior e Próximo. Left/Right ou h/l escolhe e Enter executa. Up/Down ou k/j desloca uma linha, Page Up/Down uma página e Home/End ou g/G vai aos extremos. Escape/q/Voltar regressa ao painel vipirc ou ao chat anterior. F1..F6 abre as categorias disponíveis; a circulação entre vistas ignora o manual. / ou Buscar edita uma consulta UTF-8 literal de até 256 bytes. Enter pesquisa; Escape cancela a edição. n/Próximo e N/Anterior percorrem correspondências circularmente. Ignoram-se diferenças ASCII de maiúsculas; outros caracteres são literais. Não há regex, sintaxe de shell ou histórico de pesquisas. Colar texto é ignorado no leitor e na pesquisa.
+
+F1 contém Servidor, Alcunha, Configurações, Atalhos de teclado, Manual, Comando, Segundo plano, Sobre e o acordo de licença Insha-Allah. Servidor/Alcunha abre as definições do perfil atual; Alcunha foca o respetivo campo. Sobre mostra versão, créditos e uma captura local solicitada na altura: PID, duração, totais de CPU, pico de memória suportado e contagens de servidores/vistas. Pico de memória não é uso atual; totais de CPU não são uma percentagem em tempo real. O leitor da licença mostra LICENSE.md integralmente. Escape/Enter/q/Voltar regressa de Sobre/licença a vipirc.
+
+INTERFACE MINIMALISTA
+
+    vipirc -i
+    vipirc --idle --test-mode
+    /connect irc.ircnow.org
+    /join #ircnow
+    /saveconf
+
+-i utiliza a mesma configuração e o mesmo catálogo de servidores do vipirc. O nome de utilizador (nick) predefinido provém de um nome de início de sessão ou de utilizador válido. /saveconf guarda as preferências e os perfis em bom estado, recordando a ligação selecionada, incluindo uma secundária, para o próximo /connect sem argumentos. Guardar não ativa a ligação automática. /quickstart e /panel são assistentes opcionais.
+
+O ecrã habitual é o registo. / abre Command, ? abre a ajuda contextual e os restantes caracteres imprimíveis iniciam Compose e são preservados. Enter ou Insert abre Compose vazio. No registo em direto, Up recua uma linha retida, Page Up uma página e Home vai para a página retida mais antiga; Down/Page Down/End mantêm a visualização no fim em direto. Left/Right/Delete/Backspace não têm efeito aí. Num leitor de histórico, End ou Escape volta ao direto.
+
+As setas no Compose editam texto, não recuperam mensagens de conversa enviadas. Tab/Shift-Tab completam nicks no Compose e nomes de comandos no Command. Em Command, Down seleciona sugestões; Up/Down percorrem-nas e Up na primeira regressa à entrada. Enter insere a sugestão escolhida; é necessário um Enter separado, após a apresentação, para a executar. Up na entrada de Command recupera comandos aceites que correspondam; Down regressa em direção ao rascunho original. Consulte /help keys e /help commands para todos os controlos.
+
+O modo de composição line mantém uma linha de entrada sob o fim do registo em direto; fullscreen mantém um editor de várias linhas com uma área de registo mais pequena. A atualização do ecrã provocada pelo tráfego preserva o rascunho e o cursor. Escape sai do editor para o registo; Escape no registo coloca a aplicação em segundo plano. Em Review, Escape ou começar a escrever restaura o editor, rascunho e cursor anteriores; um novo Enter confirma. Ctrl-D não tem efeito sem associação explícita; os sinais do terminal obedecem às definições herdadas. Uma colagem reconhecida permanece literal e não consegue enviar mensagens.
+
+    /set send_mode direct|review
+    /set composer_mode line|fullscreen
+    /set output_format compact|full
+    /save input
+    /save output
+
+Os valores predefinidos são envio direto, composição numa linha e saída compacta [HH:MM:SS] <nick> text. A saída full inclui data/servidor/destinatário; as menções e diagnósticos entre servidores mantêm o contexto necessário nos dois formatos. Estas preferências pertencem ao perfil principal e aplicam-se a todos os servidores. Continuam a ser necessários o reconhecimento independente do orçamento de bytes e o consentimento para várias mensagens.
+
+/help ls lista os tópicos; /help /ls explica o comando de listagem local. Utilize /help COMMAND para sintaxe e exemplos, um único tópico ou nome de comando de cada vez. /manual e vipirc -i --manual fornecem a referência minimalista completa, também em doc/vipirc-idle-manual.txt. Os comandos/controlos diferem dos do ncurses completo. A ajuda e os resultados de comandos longos utilizam um leitor separado e limitado. Setas/Page Up/Page Down/Home/End deslocam-se; Escape regressa. Enter desloca a ajuda, mas fecha uma lista /users obtida com êxito. / abre Command a partir de um leitor; cancelar regressa ao leitor. A saída de um novo comando substitui a resposta anterior. r em Summary atualiza o resumo. A rede continua ativa durante a leitura.
+
+/panel começa em 0 Application preferences, abrangendo histórico, modos de envio/composição, saída, avisos, registos, modo de sessão única, sugestões de comandos e interface predefinida. No fim oferece Save ou Apply without saving; não liga nem troca de conversa. As duas interfaces numeram os painéis de perfis de 1..8: o painel 1 edita o perfil principal, identificado como server 0 no modo completo e 1 no minimalista. Estes painéis editam as opções de cada servidor, incluindo a identidade do bouncer. No fim oferecem Save and connect, Save only (predefinido), Connect once ou Apply only. /quickstart pede servidor/TLS/porta/nick e propõe Connect once; não altera credenciais de bouncer existentes.
+
+Enter mantém a resposta apresentada; '-' limpa os campos opcionais. Escape recua ou sai da primeira pergunta. Tab escolhe um título para obter ajuda com ?; depois Tab/Enter retoma a edição. As palavras-passe e respostas ocultas nunca entram no histórico de comandos. Só a escolha final aplica/guarda/liga; uma ligação ativa não é redirecionada e uma falha posterior de ligação não anula alterações explícitas. O vipirc completo também oferece estes assistentes; /settings abre aí o formulário gráfico.
+
+No modo minimalista, /servers usa 1..8; no modo completo, 0..7. Channel 0 representa o servidor/MOTD nas duas interfaces. A definição principal de histórico limita a retenção interna em todas as conversas, conforme os limites rígidos descritos em /help history. O registo opcional em texto simples está desativado por predefinição. DCC utiliza os comandos /dcc explícitos e partilhados, sem formulários gráficos.
+
+INTERFACE PREDEFINIDA
+
+Para guardar a preferência pela interface minimalista, execute em qualquer das interfaces:
+
+    /set default_interface idle
+    /save input
+
+Também pode utilizar Configurações > Interface > Interface padrão ou /panel > 0. Em alternativa, coloque default_interface=idle na secção [session] da configuração principal existente, mantendo as outras chaves. Sem essa preferência, usa-se ncurses. Ela determina a interface de novas execuções, incluindo --background; não muda a interface atual nem restabelece a ligação IRC.
+
+-i/--idle ou -N/--ncurses seleciona explicitamente a interface para esta execução; prevalece a última opção e guardar uma definição não relacionada não a torna permanente. -n/--nick, em minúsculas, continua a definir o nome de utilizador IRC. Para repor o modo completo predefinido, execute /set default_interface ncurses e /save input. Os perfis secundários não controlam esta preferência.
+
+--resume sem opção de interface mantém a interface do processo existente. -i --resume NUMBER solicita a minimalista; -N --resume NUMBER solicita ncurses, sem voltar a ligar nem substituir o processo de trabalho. Processos antigos sem mudança de interface mantêm a sua. A mudança descarta rascunhos e histórico de comandos locais à interface; consulte GESTÃO DE SESSÕES E EXECUÇÃO EM SEGUNDO PLANO. onekeyirc utiliza sempre a interface minimalista e recusa -N/--ncurses. antes de mudar.
+
+QUEBRA DE LINHAS E HISTÓRICO DE ENTRADA NO MODO MINIMALISTA
+
+Compose reserva linhas para entrada e deixa acima as linhas visuais mais recentes já quebradas; as linhas anteriores podem sair dessa área menor. O texto guardado e os planos de envio não são encurtados. Saia da entrada ou volte a selecionar a conversa para consultar as mensagens retidas; o eco local não comprova entrega. Redimensionar recalcula a disposição sem perder o rascunho ou a posição do cursor.
+
+Em Compose, Cima/Baixo desloca o cursor, mesmo quando mantido premido. Apenas Cima em Command recupera comandos aceites; mensagens enviadas, linhas confidenciais de serviços e entradas em canais com chave não são recuperadas. O ficheiro .commands guarda apenas nomes e contagens. Consulte LINHA DE COMANDOS INTERATIVA, EDIÇÃO DA ENTRADA e RESOLUÇÃO DE PROBLEMAS.
+
+RECUPERAÇÃO DE MENSAGENS APÓS RETOMAR NO MODO MINIMALISTA
+
+Em vipirc -i, /catchup abre o canal ou a conversa privada selecionada na primeira linha IRC da composição enviada localmente mais recente. Cada servidor e cada canal ou conversa privada têm uma referência independente; as vistas de estado do servidor e de menções não têm referências. Depois de retomar a sessão, selecione cada conversa e execute /catchup separadamente.
+
+O leitor tenta primeiro um registo privado elegível. O registo persistente tem de ter estado ativo quando a mensagem de referência foi enviada, continuar operacional e ainda conter exatamente esse registo no mesmo ficheiro. Ative-o deliberadamente antes da ausência:
+
+    /set persistent_logging on
+    /save output
+
+O leitor do disco fixa uma imagem do fim atual do ficheiro, sem importar toda a ausência para a memória permanente da conversa. Up/Down desloca uma linha visual, PageUp/PageDown uma página, Home regressa à referência enviada, End chega à página mais recente dessa imagem e Escape regressa à conversa em direto. O novo tráfego de rede continua sem deslocar a imagem consultada.
+
+Se a referência em disco não estiver disponível mas a mensagem enviada ainda existir na memória, abre-se o histórico normal conservado nesse ponto. Neste modo alternativo, Home vai à página conservada mais antiga, End ou Escape regressam à conversa em direto, e também é possível consultar mensagens anteriores conservadas. Trata-se do leitor normal de memória, sujeito aos limites habituais de eliminação, e não de um arquivo recuperado do disco.
+
+Um ficheiro de registo rodado ou substituído, ou uma referência alterada, não serve como referência original em disco. A verificação deteta alterações acidentais, mas não autentica dados perante outro processo da mesma conta. O tráfego sensível de autenticação nunca serve de referência persistente. Se nem o disco nem a memória conservarem uma referência elegível, o comando informa que falta histórico, em vez de afirmar uma recuperação completa.
+
+A referência pertence ao processo em execução. Separar e retomar a sessão preserva-a; um processo novo não reconstrói referências nem recarrega automaticamente transcrições antigas. O /catchup com suporte em disco pertence à interface minimalista. O ncurses completo mantém o seu histórico limitado em memória, consultado com PageUp/PageDown.
+
+OPÇÕES DA LINHA DE COMANDOS
+
+-i, --idle: Seleciona a interface minimalista nesta execução; --help e --manual descrevem-na.
+-N, --ncurses: Seleciona a interface completa nesta execução. Vale a última opção explícita de interface, sem mudar a preferência guardada; -n continua a indicar alcunha.
+-s, --server HOST: Seleciona o servidor principal por nome de host ou endereço IPv4/IPv6 numérico, nunca por URL.
+-p, --port PORT: Porta de 1..65535. Padrões: 6697 com TLS ou 6667 se for escolhido IRC em texto simples.
+-c, --channel LIST: Canais a juntar depois do registo num perfil direto. Aceita listas separadas por vírgulas ou opções repetidas. Coloque '#channel' entre aspas na shell; bouncers restauram as suas adesões.
+-n, --nick NICK: Substitui a alcunha do perfil efetivo no arranque.
+-C, --config FILE: Seleciona a configuração principal, catálogo .servers e diretório de perfis .d. O ficheiro tem de existir, exceto quando --init-config o cria; os caminhos são literais.
+--tls: Exige TLS verificado, a opção padrão. Indicar apenas uma porta não desativa TLS.
+--plain: Pede explicitamente texto não cifrado; a autenticação por credenciais guardadas é recusada.
+--ca-file FILE: Usa autoridades PEM personalizadas em vez da confiança do sistema. Ficheiro regular, não vazio, até 16 MiB; ligação simbólica normal permitida. Não pede palavras-passe.
+--no-connect: Impede todas as ligações ou simuladores de arranque. Ligue explicitamente depois.
+--background: Inicia um processo de trabalho destacado, sem tty, TERM nem tecla de boas-vindas. A preferência guardada escolhe a interface, salvo substituição por -i/-N. Guarde perfis de ligação automática ou forneça --server; --no-connect prevalece. Êxito indica preparação local, não autenticação IRC concluída.
+--reconnect: Repete tentativas após falhas transitórias de rede só neste processo, sem iniciar ligações ou guardar opções. Esperas: 5,10,20,40,80,160,300 segundos; 60 segundos registado reiniciam a sequência. /disconnect cancela e /connect reinicia. Erros de certificado, autenticação, configuração e protocolo não são repetidos. Conversas pendentes são descartadas. Em ligações novas repetem-se autenticação e comandos de arranque; perfis diretos repetem autojoin, bouncers restauram adesões. Alterações preparadas exigem /connect explícito depois de desligar.
+--test-mode: Simulação interativa offline, sem rede, DNS ou leitura/gravação de credenciais.
+--resume [JOB]: Anexa o único trabalho destacado e verificado ou escolhe o seu número; aceita --resume=JOB. Caminhos absolutos explícitos para sockets suportam processos antigos compatíveis. Sem número mantém a interface; -i/-N pede outra. stdin, stdout e stderr devem usar o mesmo tty interativo. Vários trabalhos ou trabalhos não verificados impedem escolha automática; anexados estão ocupados.
+--sessions: Lista trabalhos anexados e destacados desta conta, sem tty nem carregar configuração.
+--detach-session NUMBER: Liberta o controlador verificado mantendo o processo e o seu estado; use depois --resume NUMBER. Aceita --detach-session=NUMBER.
+--close-session NUMBER: Encerra todo o processo, ligações IRC, transferências, rascunhos e histórico em memória. Mantém ficheiros de configuração e registo. A limpeza verificada é necessária para êxito; um limite de tempo pode anteceder a conclusão, por isso consulte --sessions. Aceita --close-session=NUMBER.
+--init-config: Cria configuração privada sem substituir ficheiros existentes ou criações simultâneas. Um erro reportado de sincronização/limpeza pode deixar o ficheiro completo no disco.
+--check-config: Valida configuração, substituições, catálogo e perfis guardados e termina. Não abre segredos, executa GPG, testa CA/TLS, nem prova acesso ou autenticação.
+--manual: Imprime o manual completo da interface selecionada sem terminal.
+-h, --help: Imprime ajuda de CLI sem terminal.
+-v, -V, --version: Imprime versão, atribuição e licença sem terminal.
+
+Opções longas aceitam --name=value; podem agrupar-se opções curtas. -- termina opções; não há operandos posicionais. CLI prevalece sobre configuração e padrões. No arranque normal, substituições não relacionadas com host afetam o perfil padrão memorizado; --server explícito escolhe o principal. --init-config/--check-config aplicam-se ao principal. Se o perfil memorizado estiver indisponível, repare-o ou forneça --server antes de outras substituições.
+
+Um --server diferente, ignorando maiúsculas, elimina fontes herdadas de credenciais, autenticação, CA personalizada, identidade/opção de ausência automática do bouncer, canais e comandos de arranque. Configure o novo host explicitamente. Substituições para o mesmo host ou apenas --nick conservam o perfil. Outro --config seleciona espaço de trabalho separado.
+
+--resume, --sessions, --detach-session e --close-session são operações de gestão independentes: não as combine umas com as outras nem com opções de configuração/ligação/arranque. Indicadores de interface suportados podem permanecer num alias. --background não se combina com essas operações, --init-config ou --check-config. --test-mode também não se combina com --init-config/--check-config (estado de utilização 2).
+
+MODO DE TESTE SEM LIGAÇÃO
+
+Exemplos de comandos e controlos (literais):
+vipirc --test-mode
+vipirc --test-mode --config /absolute/config.ini --no-connect
+
+A simulação utiliza a interface, editor, filtros e tratamento aplicável de protocolo/filas reais, sem sockets de rede, DNS, leitura de senhas ou ficheiros CA, GPG nem gravações. Os nomes de servidor configurados são apenas etiquetas. Cada perfil tem simulador independente; New server acrescenta outro. Servidor e nome em falta não provocam perguntas; os canais de demonstração padrão são #test-one e #test-two quando nenhum está configurado.
+
+A simulação inicia depois da mensagem de boas-vindas independentemente do autoconnect guardado; --no-connect impede-a. /disconnect e /connect param/iniciam o simulador selecionado. Para usar uma rede verdadeira, saia e reinicie sem --test-mode. O simulador local em C dispensa daemon externo e Python.
+
+De dois em dois segundos surgem eventos de chat, menções, palavras observadas, conversa privada e alterações de participantes. Palavras watch personalizadas alternam uma por ciclo de 16 segundos. /msg recebe resposta simulada identificada; JOIN/PART/NICK/WHOIS/TOPIC/AWAY também têm respostas simuladas. Não reproduz todas as regras do servidor, entrada em canais com chave, SASL ou entrega efetiva.
+
+Experimente quebra de linhas, edição entre linhas, redimensionamento, colagem, avisos/confirmações, menções e listas. A oferta DCC de exemplo só existe em memória: rever/rejeitar/cancelar funciona, mas Send/Accept é recusado antes do acesso a ficheiros ou sockets. Fechar um servidor secundário altera apenas o estado da execução. A escrita de configuração e ficheiros de contagem está desativada; edite externamente e reinicie para alterações permanentes.
+
+--check-config verifica separadamente a sintaxe e os valores guardados. Nenhum destes modos comprova DNS, TLS, credenciais ou interoperabilidade real com bouncer.
+
+CABEÇALHO GLOBAL E CONTROLOS DE CONVERSA
+
+    F1 vipirc                Aplicação, definições, ajuda, About e licença.
+    F2 Servers (N)           Sessões de servidor configuradas ou retidas.
+    F3 Channels (N)          Canais retidos do servidor selecionado.
+    F4 Queries (N)           Conversas privadas do servidor selecionado.
+    F5 Mentions/unread (M/U) Menções retidas / conversas de origem não lidas.
+    F6 File transfers (N)    Transferências retidas em todos os servidores.
+
+Só aparecem categorias com conteúdo; vipirc está sempre disponível. Canais abandonados com histórico e registos de transferências concluídas continuam a contar. Os números fixos das teclas de função não mudam quando as categorias desaparecem. O atalho de uma categoria oculta não a cria; comandos explícitos de listagem ainda podem abrir listas vazias. TERM determina a interpretação das teclas; as teclas reservadas pelo terminal têm de chegar ao cliente. Sequências coladas nunca ativam atalhos.
+
+A conversa dispõe da sua própria linha abaixo do cabeçalho; o nick de uma conversa privada não substitui Queries. Cabeçalhos estreitos mantêm visível a categoria selecionada. Configurações > Interface > Rótulos de atalhos oculta os rótulos comuns F1..F6; as teclas não associadas continuam funcionais. Hints controla separadamente a orientação opcional. As duas preferências pertencem ao perfil principal e exigem Save para persistirem.
+
+As setas operam o conteúdo/editor e nunca a barra superior. Escape numa conversa privada abre Queries com essa conversa selecionada; noutras conversas abre vipirc; em painéis comuns restaura conversa/rascunho/cursor; Settings e a licença regressam a vipirc. F1 abre vipirc diretamente. Os diálogos de segurança e a captura de colagem tratam a entrada primeiro.
+
+No painel vipirc, b/Back regressa à conversa; Escape pergunta Really quit? [Y/N]. Apenas um novo y/Y confirma. As outras teclas normais cancelam; colagens, cliques e mudanças de tamanho não podem confirmar. Os sinais de interrupção/suspensão do terminal seguem SINAIS DO TERMINAL.
+
+As listas partilham controlos: Up/Down ou k/j selecionam linhas, Left/Right ou h/l selecionam ações e Enter executa. Home/End ou g/G selecionam os extremos. Open é a ação inicialmente selecionada; mudar de linha mantém a ação escolhida. A seleção pára nos extremos. Linha e ação permanecem realçadas. Clique num item para o abrir ou na sua linha de ações para agir sobre a seleção. Delete invoca Close nas linhas de servidor/canal/conversa privada, com as proteções/confirmações habituais; nos editores apaga texto.
+
+As setas na conversa editam texto, hjkl são texto literal, Tab/Shift-Tab completam nicks, Page Up/Page Down percorrem o histórico e / na posição zero do cursor abre Command. Enter envia; /clearinput limpa todo o rascunho. O modo de rato também mostra Clear/Send por baixo do campo fixo. Ambos os caminhos de envio usam as mesmas verificações de mensagens. A colagem delimitada na conversa (bracketed paste) é literal: os tabuladores tornam-se espaços e colar nunca envia. Depois de terminar a colagem, teclas/cliques aguardam um ecrã completo visível, um lote posterior de entrada e um intervalo de inatividade. Manter as teclas premidas prolonga a espera. Quadros demasiado pequenos ou falhados não contam; redimensione, solte as teclas e só depois aja. Listas/leitores/diálogos de segurança ignoram a colagem. Os editores ativos de Command/Settings/transferências aceitam dados segundo as suas regras.
+
+COMPLETAR ALCUNHAS
+
+Tab completa o nome IRC junto do cursor no chat. Premir Tab novamente percorre os nomes correspondentes por ordem alfabética segundo as regras de maiúsculas/minúsculas; Shift-Tab percorre-os ao contrário. A correspondência segue as regras de nomes ASCII, strict RFC1459 ou RFC1459 anunciadas pelo servidor. Não é necessária consulta à rede nem envio de mensagem. A edição normal encerra o ciclo atual.
+
+No início de um rascunho, acrescenta ': '; no fim de uma palavra posterior, acrescenta um espaço. Ao completar dentro do rascunho, a pontuação e as palavras seguintes ficam intactas. Canais e URL não são tratados como prefixos de alcunhas. Se um candidato ultrapassar o limite de bytes ou caracteres, todo o rascunho fica intacto. Se exceder o limite menor da mensagem IRC, surge o aviso habitual; completar nunca envia.
+
+Num canal usa-se a lista atual de membros; numa conversa privada, o interlocutor e o seu próprio nome. As vistas do servidor e de menções usam interlocutores conhecidos dos canais e conversas privadas desse servidor. Utilizadores de outros servidores nunca são candidatos. As alterações à lista de membros afetam a próxima conclusão, sem guardar uma lista adicional.
+
+LINHA DE COMANDOS INTERATIVA
+
+Abra Command em F1 > Command, com /, ou escrevendo / na posição zero do cursor da conversa. O rascunho e cursor da conversa são preservados separadamente. Uma barra noutro local, ou numa colagem protegida de chat, é texto literal. Enter/Run envia; Escape/Cancel regressa ao ecrã de origem, incluindo Summary. Entrada vazia não faz nada. Comandos aceites regressam à conversa salvo quando abrem outro ecrã; comandos inválidos/recusados continuam editáveis.
+
+Configurações > Interface > Command suggestions oferece cinco ordens: Commonly used (seleção padrão adaptada à ligação/vista), Recent history (linhas completas aceites, recentes primeiro), Most used (contagens de comandos canónicos do perfil guardado), Alphabetical (nomes implementados) e Contextual (prioriza o ecrã de origem mantendo outras correspondências).
+
+Escreva um prefixo de nome de comando sem distinguir maiúsculas para filtrar; os argumentos não são previstos. Down seleciona sugestões; Up/Down percorre-as e Up desde a primeira regressa à entrada. Enter numa sugestão apenas a insere, não a executa: uma linha do catálogo conserva argumentos já escritos; uma de histórico insere a linha completa. Reveja/edite e prima Enter separadamente depois de aparecer. Bytes Enter adicionais no mesmo lote de entrada não a executam. ? numa linha selecionada abre ajuda e restaura a seleção; ? na entrada é literal.
+
+Delete remove a entrada Recent selecionada ou reinicia a contagem Most used, nunca o comando suportado. Page Up/Page Down ou a roda percorrem sugestões. Linhas invisíveis em terminais muito pequenos não podem ser selecionadas. Right no fim do prefixo completa/alterna o nome; um clique numa sugestão insere-a. Tab não navega pelo cabeçalho nem executa. Completar alcunhas só ocorre na conversa.
+
+Up desde a entrada recupera comandos aceites com o prefixo original; Down volta a entradas recentes e ao rascunho inicial. Argumentos correspondem byte-for-byte. Comandos falhados não são guardados. O histórico tem no máximo 64 entradas/64 KiB por servidor, elimina duplicados consecutivos e descarta os mais antigos. A recuperação dura apenas enquanto o frontend e o servidor estiverem abertos; trocar a interface ou terminar o worker descarta-a.
+
+As contagens persistentes são separadas: CONFIG_PATH.commands contém até 96 nomes canónicos e contagens limitadas, nunca argumentos, destinos ou conversas. Perfis guardados atualizam o ficheiro privada e atomicamente ao aceitar comandos/reiniciar contagens; em perfis não guardados ficam na memória até Save. Falhas ou ausência desse ficheiro não impedem o arranque. Test mode não lê/escreve contagens; a configuração principal não as contém.
+
+Joins com chave e mensagens reconhecidas de serviço/autenticação são excluídos por completo. Mensagens inofensivas a serviços sensíveis conhecidos também. O filtro não identifica qualquer segredo arbitrário; não inclua segredos em conversas normais. Os controlos do bouncer estão em LIGAÇÕES A BOUNCERS.
+
+Colar em Command é apenas introduzir dados: CR/LF/Tab viram espaços, controlos ou tamanhos proibidos são reportados e continua a ser exigido um novo Enter/Run. Não existem citações/substituições de shell, encadeamento ou execução de shell. TEXT/PATH consome literalmente o resto; coloque #channel entre aspas apenas na shell real. /msg, /me e // mantêm limites de mensagem, espaçamento de envio e aprovação obrigatória de divisão com opção padrão No. // é conversa literal e não entra no histórico de Command. Join/New preenche /join ou /pm.
+
+ÍNDICE DE REFERÊNCIA DE COMANDOS
+
+Segue-se a sintaxe canónica do modo completo. Efeitos e exemplos estão nas secções temáticas, onde os aliases também são documentados. /help COMMAND pesquisa este manual. O catálogo minimalista está disponível separadamente com vipirc -i --manual. Os comandos abaixo são literais.
+
+    /autoauth [status|off|sasl USER file PATH|sasl USER gpg PATH]
+    /autocommands [list|add COMMAND|remove NUMBER|clear|on|off|delay
+      SECONDS|interval SECONDS]
+    /autoconnect [on|off]
+    /autojoin [list|add #CHANNEL|remove #CHANNEL|clear]
+    /away [MESSAGE]
+    /back
+    /background
+    /bind KEY ACTION
+    /bindings [actions|keys]
+    /cancel
+    /channel NUMBER|#CHANNEL
+    /channels
+    /cl
+    /clear
+    /clearinput
+    /close [NAME|NUMBER]
+    /connect [-tls|-plain] [-nick NICK] HOST [PORT] | /connect
+    /dcc [NICK PATH|list|send|accept|reject|cancel ...]
+    /disconnect [SERVER_NUMBER]
+    /help [TEXT]
+    /ignore [list|clear|[add|remove] MASK]
+    /join #CHANNEL [KEY]
+    /keymap [original|vim]
+    /list [MASK] [--min-users N] [--max-users N] [--name TEXT] [--topic
+      TEXT] [--sort channel|users|topic] [--asc|--desc] [--limit N] | /list
+      show [--sort channel|users|topic] [--asc|--desc] [--limit N] | /list
+      clear
+    /ls [servers|channels|queries|unread]
+    /manual
+    /me TEXT
+    /mentions [clear]
+    /mouse [on|off]
+    /msg TARGET TEXT
+    /next
+    /nick NICK
+    /panel
+    /part [#CHANNEL] [MESSAGE]
+    /pm NICK|NUMBER
+    /prev
+    /ql
+    /queries
+    /query NICK|NUMBER
+    /quickstart
+    /quit [MESSAGE]
+    /save [input|output|all]
+    /saveconf
+    /server [-tls|-plain] [-nick NICK] HOST [PORT] | /server [NUMBER|add
+      HOST [PORT] [NICK]|connect NUMBER|disconnect NUMBER|close NUMBER]
+    /servers
+    /set send_mode direct|review | composer_mode line|fullscreen |
+      output_format compact|full | queue_notices on|off | program_messages
+      on|off | persistent_logging on|off | single_session on|off |
+      default_interface idle|ncurses | command_suggestions
+      common|history|frequent|alphabetical|contextual | part_message [TEXT]
+      | quit_message [TEXT] | background_away on|off |
+      background_away_message TEXT | autoaway_minutes 0..1440 |
+      autoaway_message TEXT
+    /settings
+    /sl
+    /soju [COMMAND]
+    /summary
+    /topic [TEXT]
+    /transfers
+    /unbind KEY|all
+    /unignore MASK
+    /unread
+    /users [on|off|toggle|up|down]
+    /view NAME|NUMBER
+    /views
+    /watch [list|add TEXT|remove TEXT]
+    /whois NICK
+    /znc [COMMAND]
+
+COMANDOS DE LIGAÇÃO E ARRANQUE
+
+/connect com opções liga diretamente a HOST; /connect sem argumentos reutiliza o perfil selecionado guardado/aplicado. /server HOST [PORT] segue a mesma ligação direta. /server NUMBER seleciona um perfil sem ligar, /server sozinho abre a vista servidor/MOTD; /server add HOST [PORT] [NICK] cria um perfil desligado não guardado. /server connect NUMBER, /server disconnect NUMBER e /disconnect [NUMBER] controlam ligações numeradas. /server close NUMBER fecha um perfil secundário, deixando o ficheiro no disco.
+
+Destinos novos utilizam TLS verificado na porta 6697 e alcunha/utilizador de entrada válidos; não herdam credenciais nem canais. Destinos coincidentes mantêm transporte, porta, alcunha e autenticação e escolhem uma ligação ativa em vez de duplicá-la. Para perfis bouncer no mesmo host, selecione o NUMBER correto e execute /connect sem opções. Comandos de ligação não guardam automaticamente. Os espaços de servidor no modo completo são 0..7 (principal 0) e no minimalista 1..8 (principal 1). Ligar/desligar não altera a seleção. Use os números de /servers da interface, não os diferentes números do seletor /panel.
+
+Opções de /connect precedem HOST. -ssl é alias de -tls; +PORT exige TLS, um número comum nunca o desliga. --tls, --plain e --nick são aceites; texto não cifrado novo usa 6667. Palavras-passe não são argumentos posicionais. Close secundário retira referências do catálogo, rascunhos/histórico e transferências, mantendo o ficheiro físico.
+
+/autoconnect altera o próximo arranque e não a ligação atual. /autojoin prepara canais de perfil direto para o próximo /connect explícito, sem entrar/sair agora. A consulta mostra registo e adesões atuais/pendentes. Novas tentativas automáticas conservam definições em execução; /connect após desligar usa mudanças já aplicadas. /join age imediatamente após registo. Bouncers restauram adesões e recusam mudanças em autojoin; também recusam /autoauth, que deve ser alterado em Settings ou /panel.
+
+/autoauth prepara SASL apenas com TLS verificado. Status mostra localmente os caminhos completos de credenciais atuais/pendentes sem ler os ficheiros; Settings normal oculta-os. No modo completo, as consultas têm Refresh/Back e preservam rascunhos. PATH é o resto literal do texto, com espaços. Segredos em linha devem ficar na configuração privada ou Settings, nunca nos comandos.
+
+/save sem opções escreve o perfil efetivo selecionado com alterações pendentes. /save input e /save output escrevem ambos o perfil principal que contém preferências da aplicação: são aliases, não gravações parciais. Incluem também alterações pendentes da ligação principal. /save all grava perfis saudáveis; /saveconf memoriza ainda o perfil padrão selecionado para o próximo /connect. Gravar não ativa autoconnect. Cada ficheiro é privado e escrito atomicamente, mas o espaço de trabalho não é uma transação única: êxitos anteriores sobrevivem a falhas posteriores. Perfis ilegíveis não são substituídos. Test mode nunca grava.
+
+/set autoconnect on|off é um alias de compatibilidade do modo completo. /set altera preferências em ambos os modos; opções de envio, compositor e saída afetam o minimalista. /panel abre ajustes guiados nos dois, /quickstart pergunta quatro elementos essenciais da ligação. /settings abre formulários no modo completo e um relatório no minimalista.
+
+/list [MASK] [OPTIONS] pede o diretório de canais da rede depois do registo. Só MASK é enviado ao servidor; --min-users/--max-users, --name e --topic filtram localmente. --sort channel|users|topic, --asc/--desc e --limit N controlam a visualização; por padrão, utilizadores por ordem decrescente, --limit 0 remove o limite de exibição dentro da cache de 8192 entradas. /list show muda ordem/limite sem repetir pedido; /list clear limpa a cache. /ls e /cl listam vistas locais.
+
+Após desconexão ou rejeição explícita de LIST pelo servidor, os resultados parciais ficam em cache mas o pedido é libertado. Repita /list após o registo ou limpe com /list clear; resultados incompletos não são o diretório da rede inteira.
+
+O navegador completo usa Up/Down ou j/k para linhas, Left/Right ou h/l para coluna de ordenação, s para inverter, Page Up/Page Down e g/G para navegar, Enter para entrar, r para repetir pedido, / para Command e Escape para voltar. Clicar numa coluna ordena. No minimalista, /list show imprime a cache; /summary fornece um resumo local separado.
+
+Sintaxe dos comandos (literal):
+
+    /connect [-tls|-plain] [-nick NICK] HOST [PORT]
+    /connect
+    /server HOST [PORT]
+    /server NUMBER
+    /server
+    /server add HOST [PORT] [NICK]
+    /server connect NUMBER
+    /server disconnect NUMBER
+    /disconnect [NUMBER]
+    /server close NUMBER
+
+    /autoconnect [on|off]
+    /autojoin [list|add #CHANNEL|remove #CHANNEL|clear]
+    /autoauth [status|off|sasl USER file PATH|sasl USER gpg PATH]
+    /save [input|output|all]
+    /saveconf
+    /set autoconnect on|off
+    /panel
+    /quickstart
+    /settings
+
+    /list [MASK] [OPTIONS]
+    /list show
+    /list clear
+    /ls
+    /cl
+    /summary
+
+    -ssl   -tls   +PORT   --tls   --plain   --nick
+    --min-users   --max-users   --name   --topic
+    --sort channel|users|topic   --asc   --desc   --limit N
+
+RESUMO DA SESSÃO
+
+/summary abre uma captura local de todo o cliente em execução num leitor independente com deslocação. Funciona desligado e agrupa por servidor. Inclui estado da ligação e nome, canal 0, vistas de canais em que se entrou ou de que se saiu, conversas privadas, contagens de não lidas e menções, filas de saída, comandos de arranque pendentes e transferências com estado atual. Os totais excluem a cópia do fluxo de menções para não duplicar mensagens de origem. Uma menção pode estar não lida; estes totais não são somados.
+
+Abrir ou atualizar o resumo não muda de conversa, não marca mensagens lidas, não envia pedidos de rede nem substitui o rascunho. Mostra contagens de fila sem divulgar texto de mensagens pendentes, comandos automáticos ou credenciais. É o estado atual, não uma interpretação do chat.
+
+Na interface completa, use Up/Down ou k/j, Page Up/Page Down, Home/End ou g/G. Prima r ou R, escolha Refresh pelo teclado ou clique Refresh para nova captura. Escape/Back regressa à origem. Em vipirc -i, r atualiza o leitor de resposta. Se falhar, mantém-se a captura anterior. A rede continua ativa durante a leitura. / abre Command; ao cancelar volta à captura. ? abre a ajuda do resumo e do leitor.
+
+CONFIGURAÇÕES
+
+F1 > Configurações ou /settings abre as opções de interface, todos os perfis de servidor e New server sem mudar a conversa atual. As linhas mostram o estado de conexão automática e de salvamento. Os campos de servidor incluem transporte, identidade, entrada automática em canais, conexão automática, fontes de senha da conta e do servidor (PASS), CA personalizada, tipo/usuário/rede/cliente/ausência automática do bouncer, histórico, menções e filtros de ignorar. A área Interface inclui User list, Mouse, Hints, Shortcut labels, avisos, registro em log, modo de sessão única, sugestões de comandos e interface padrão.
+
+    Edit    Apply    Save    Back    Cancel
+
+Up/Down ou k/j seleciona campos; Left/Right ou h/l seleciona a ação; Enter a executa. Home/End ou g/G vai até as extremidades. Edit alterna um booleano, abre uma escolha ou edita texto/números. Enter no editor apenas prepara aquele valor; Tab/Shift-Tab o valida e prepara antes de avançar. Uma entrada inválida continua editável. Letras digitadas no editor são texto. Esvaziar um campo watch/ignore existente o remove; Add cria outro, dentro dos limites.
+
+Apply valida e atualiza as preferências em uso, watch/ignore e conexão automática; permanece em Settings com Edit selecionado. Os campos de conexão, inclusive a identidade do bouncer, ficam pendentes até um Connect explícito após a desconexão. Apply nunca salva, reconecta ou redireciona uma sessão ativa. /nick, /join e /part afetam a conexão em execução. Save grava o perfil efetivo de forma privada e atômica e depois o aplica; /save também preserva as escolhas pendentes. O primeiro Save de um servidor secundário cria um perfil isolado e a entrada correspondente no catálogo.
+
+Interface Apply atualiza todas as posições de servidor presentes e futuras. Interface Save grava a configuração principal antes de aplicar as alterações. Se Interface Save falhar ou for bloqueado, todas as sessões permanecem inalteradas. Chaves de interface de perfis secundários não podem substituir as principais na inicialização. No modo completo, o histórico permanece separado por servidor. A interface padrão afeta apenas uma nova inicialização.
+
+Hints oculta orientacoes opcionais, mas preserva títulos, controles, erros e confirmacoes de segurança. Shortcut labels oculta os prefixos comuns F1..F6. Ambas as opções ficam ativadas por padrão e são salvas em [interface]. Sao independentes das cores normais do terminal e do negrito usado para indicar foco.
+
+Alterar Server para um valor diferente, ignorando maiúsculas/minúsculas, limpa do formulário preparado a autenticação herdada, auth user, todas as fontes de senha de conta/PASS e o autojoin. Alterar o tipo de bouncer limpa credenciais/comandos herdados; informe em seguida os valores desejados. A sessão ativa não muda. Os arquivos não são lidos nem descriptografados durante a edição; senhas inseridas diretamente são mascaradas, mas seus espaços são preservados. Transport escolhe TLS verificado ou texto simples explicitamente, independentemente do armazenamento criptografado de senhas.
+
+Back retorna a pagina inicial de Settings. Cancel/Escape fecha todo o formulário, mesmo dentro de um campo ou janela suspensa, descarta alterações ainda não aplicadas e volta ao vipirc. Preferencias já aplicadas, opções pendentes e rascunhos de conversa são preservados. O modo de teste permite Apply somente na memória, mas recusa Save. Criar ou conectar um servidor pelo Settings preserva a conversa selecionada.
+
+A colagem delimitada (bracketed paste) funciona apenas em um campo ativo, insere texto sem confirmar e converte tabulacoes em espaços; CR/LF/Escape e controles não suportados são recusados. A colagem em listas ou janelas de escolha e ignorada. Confira o texto e pressione Enter para prepara-lo. O fluxo guiado /panel e um questionario separado, descrito em INTERFACE MINIMALISTA.
+
+ASSOCIAÇÕES PERSONALIZADAS DE TECLAS
+
+Por predefinição não existem teclas personalizadas atribuídas. App > Key bindings ou /bindings abre a tabela no vipirc completo. Add/Edit escolhe uma tecla e uma ação local; Remove apaga uma linha. Apply altera a tabela em memória e Save grava também a configuração primária. Escape/Cancel descarta edições ainda não aplicadas. Os rascunhos de conversa são preservados. A tabela tem controlos próprios, não afetados pelas associações personalizadas.
+
+Em qualquer interface, /bindings keys e /bindings actions apresentam os nomes disponíveis. Exemplos escolhidos pelo utilizador: /bind F7 summary e /bind Alt-c command; introduza-os como comandos separados. /unbind F7 remove uma associação e /unbind all limpa a tabela personalizada. /save input guarda as alterações para todos os perfis de servidor. No modo -i, /bindings mostra a tabela e /bind e /unbind editam-na através de comandos.
+
+Teclas: F1..F12, Ctrl-A..Z, Alt-a..z/0..9, Up, Down, Left, Right, Home, End, PageUp, PageDown, Insert, Delete, Backspace, Tab, Shift-Tab, Enter, Escape. São equivalentes Ctrl-H/Backspace, Ctrl-I/Tab, Ctrl-J/Ctrl-M/Enter e Ctrl-[/Escape. Alt com letras utiliza bytes minúsculos do terminal. A interceção pelo terminal ou multiplexador e o mapeamento de sinais prevalecem; nenhuma tecla de sinal é reatribuída.
+
+Ações: compose, command, bindings, help, manual, summary, servers, channels, queries, unread, mentions, transfers, settings, quickstart, next, prev, clearinput, cancel, background, quit. Não há macros para enviar mensagens ou executar comandos arbitrários. No modo completo, comandos restaurados exigem um Enter novo para confirmação e, depois de uma pausa, outro Enter para execução. Se o destino original tiver sido fechado, Run é impedido.
+
+As ações personalizadas só funcionam na conversa principal e na introdução de comandos, nunca durante colagem, em campos de palavra-passe, configuração inicial, leitores ou confirmações. Uma colagem sem delimitadores continua a ser interpretada como escrita normal. Os leitores de atalhos minimalistas mantêm o rascunho e a posição do cursor; mudanças de destino/editor recusam um rascunho não vazio. clearinput elimina deliberadamente o rascunho atual.
+
+A secção primária [hotkeys] guarda linhas KEY=action, sem valores predefinidos. Entradas desconhecidas, repetidas ou excessivas fazem rejeitar a carga inteira, de forma atómica. São suportadas até 64 entradas. Consulte doc/HOTKEYS.txt para gravação, limites do terminal e exemplos.
+
+SINAIS DO TERMINAL
+
+Ctrl-D literal é ignorado, exceto quando foi associado explicitamente à entrada principal de conversa/comandos; também pode cancelar a pergunta de saída de F1. Um Ctrl-D colado não pode responder a essa pergunta. Para sair normalmente, use /quit em Command. As atribuições personalizadas de sinais do terminal têm prioridade sobre as teclas comuns.
+
+Usar sinais começa em no. Ctrl-C e Ctrl-Z cancelam uma mensagem ou comando por enviar, sem terminar nem suspender a aplicação. Selecione yes no painel 0 ou nas definições Interface do vipirc para ativar os sinais do terminal. Aplicar aplica imediatamente; Salvar também guarda [input] use_signals=true|false. As definições originais do terminal são repostas ao sair ou suspender.
+
+    [input]
+    use_signals=true
+
+Com sinais ativos, a interrupção encerra o programa sem guardar rascunhos. Suspender um processo comum em primeiro plano interrompe a rede e pode causar uma expiração; fg retoma-o. Numa sessão já gerida e retomada, suspende-se apenas o controlador em primeiro plano, enquanto o processo de trabalho mantém a rede; consulte GESTÃO DE SESSÕES E EXECUÇÃO EM SEGUNDO PLANO.
+
+GESTÃO DE SESSÕES E EXECUÇÃO EM SEGUNDO PLANO
+
+Tradução integral das secções de MANUAL.txt, desde GESTÃO DE SESSÕES E EXECUÇÃO EM SEGUNDO PLANO até UPGRADING A RUNNING WORKER.
+Estado: rascunho; em caso de divergência, prevalece o MANUAL.txt em inglês.
+
+EXECUÇÃO EM SEGUNDO PLANO
+
+/background ou F1 > Background mantém as ligações IRC, transferências aceites, rascunhos e histórico em memória enquanto restaura o terminal. Apresenta o comando numerado para retomar, por exemplo vipirc --resume 1. A primeira separação cria um processo de trabalho e um ponto de comunicação privado; as separações seguintes conservam o número, o estado e esse ponto. Uma execução normal em primeiro plano não tem esse ponto nem um auxiliar adicional.
+
+Ao retomar, as capacidades, dimensões e definições de idioma do terminal são novamente detetadas no mesmo anfitrião e na mesma conta Unix. stdin/stdout/stderr têm de partilhar um único tty interativo. Um controlador em primeiro plano gere sinais e alterações de tamanho; apenas um terminal pode estar ligado de cada vez. SESSION RECOVERY AND UPGRADES explica a seleção de tarefas e as ligações ocupadas.
+
+Para iniciar sem supervisão, guarde primeiro os perfis que pretende ligar automaticamente e execute vipirc --background --reconnect --config /absolute/config.ini. --background não ativa a ligação automática; --no-connect impede-a. O êxito confirma apenas a preparação local. Não são necessários tty nem TERM até à ligação de um terminal. O ponto privado é preparado antes dos auxiliares de resolução DNS e credenciais. Um --resume simples conserva a interface do processo; -i/-N muda-a explicitamente sem voltar a ligar nem substituir o processo de trabalho. A mudança mantém o histórico das conversas e as transferências aceites, mas elimina rascunhos, revisões de envio pendentes, histórico de comandos e formulários por aplicar. Termine ou copie os rascunhos antes de mudar. Separar e retomar a mesma interface conserva esse estado local. Processos antigos podem permitir apenas a sua interface original.
+
+Os sinais configurados no terminal mantêm as suas funções. Suspender um controlador retomado interrompe esse controlador, mas o processo de trabalho continua ligado à rede; fg repõe a interação. Suspender um processo normal em primeiro plano suspende a atividade de rede. Consulte SINAIS DO TERMINAL para as atribuições herdadas e SESSION RECOVERY para a perda do terminal.
+
+A primeira separação pode exigir uma nova tentativa enquanto terminam os auxiliares DNS ou de credenciais. SIGCHLD ignorado ou a recolha automática de processos filhos impede o primeiro arranque em segundo plano e a criação de auxiliares; o lançador deve deixar os filhos disponíveis para espera. Uma nova separação de uma tarefa já gerida não cria outro processo.
+
+O diretório e o socket são privados do proprietário. A descoberta verifica no máximo 64 posições dentro de um prazo global de 1500 ms, remove apenas entradas antigas verificadas sem bloqueio de vida ativo e não envia sinais a PID presumidos. As tarefas que não respondem continuam por verificar. As verificações de identidade e instância impedem que um número reutilizado redirecione uma ligação durante a passagem de controlo. Outro processo com os privilégios da mesma conta continua a ser considerado de confiança. single_session=true recusa um segundo processo de trabalho no espaço de nomes vipirc sem limitar os servidores dentro dele.
+
+O estado do processo de trabalho não é guardado de forma persistente: reiniciar, sair ou terminar apaga rascunhos, âncoras e histórico em memória. Os registos opcionais guardam apenas a transcrição. O modo de teste pode funcionar em segundo plano através do ponto local sem ativar comunicação IRC/DCC. Não é necessário um multiplexador de terminal.
+
+RECUPERAÇÃO DE SESSÕES E ATUALIZAÇÕES
+
+Uma tarefa da shell é um processo de trabalho do cliente e todas as suas ligações IRC, transferências, rascunhos e histórico conservado. O identificador da tarefa não é nem o PID do sistema operativo nem o número de servidor apresentado pelo cliente.
+
+Para recuperar uma tarefa cujo terminal SSH antigo ainda está ligado:
+
+    vipirc --sessions
+    vipirc --detach-session 1
+    vipirc --resume 1
+
+Escolha NUMBER da lista atual. --detach-session liberta o controlador verificado, espera pelo estado separado e mantém o processo e o estado IRC. --resume sem número seleciona apenas uma única tarefa separada e verificada; vários candidatos ou candidatos não verificados exigem seleção explícita. Nunca assume o controlo de um terminal que ainda esteja ligado. Os números das tarefas permanecem estáveis até à saída e podem ser reutilizados depois.
+
+FECHAR UMA SESSÃO A PARTIR DA SHELL
+
+Use apenas quando pretender terminar a tarefa inteira:
+
+    vipirc --sessions
+    vipirc --close-session 1
+
+Fechar termina todas as ligações IRC e transferências desse processo e elimina os rascunhos não guardados e o histórico em memória. A configuração guardada e os ficheiros existentes de registo em texto simples permanecem. --close-session=1 e --detach-session=1 também são aceites. Estes comandos de gestão não precisam de terminal interativo nem carregam a configuração. Não os combine com --resume, --sessions, entre si, --config ou opções de ligação. Opções de interface suportadas podem permanecer num alias sem alterar a tarefa escolhida.
+
+O cliente usa o ponto privado do proprietário, verificações de propriedade do par e o identificador de identidade do processo selecionado. Êxito significa que a limpeza da aplicação e a libertação do bloqueio original da tarefa foram confirmadas; não significa apenas que um pedido foi aceite nem que foi observada independentemente a saída do processo do sistema operativo. Os pedidos têm um prazo limitado. Falha ou expiração do prazo não elimina o ponto de uma tarefa ativa nem envia sinais a um PID presumido. Se um pedido tiver sido aceite antes do prazo, poderá terminar mais tarde; volte a consultar --sessions.
+
+Um processo bloqueado ao escrever num terminal aberto que já ninguém lê poderá só atender pedidos de controlo quando a saída for desbloqueada ou o terminal fechar. Um processo completamente bloqueado pode exigir intervenção do sistema operativo depois de identificar o processo correto. Um estado de fecho diferente de zero significa que a conclusão não foi confirmada.
+
+RECUPERAÇÃO APÓS PERDA DE SSH
+
+A perda do terminal ou do controlador de uma tarefa já gerida separa o respetivo processo de trabalho. Hangup/erro, stdin EOF/EIO, falha de stdout, EOF do controlador e SIGHUP preservam as ligações e o estado. Na interface completa, a limpeza após perda do terminal ou pedido externo de fecho redireciona a saída obsoleta do processo antes de limpar curses; o controlador em primeiro plano restaura o seu tty.
+
+Um processo normal em primeiro plano que nunca foi gerido mantém o comportamento habitual de terminar com SIGHUP. Comece com --background ou use primeiro /background quando precisar de uma tarefa recuperável. O cliente não altera a política de tempo limite por inatividade do SSH. A escrita síncrona no terminal ainda pode bloquear se o terminal permanecer aberto mas deixar de ser lido.
+
+ATUALIZAR UM PROCESSO DE TRABALHO EM EXECUÇÃO
+
+Instalar ou recompilar não substitui o código de um processo já em execução. Guarde a configuração pretendida, saia ou feche deliberadamente a tarefa, confirme a versão instalada com --version e inicie uma nova tarefa. Faça o mesmo para atualizações de segurança. Os registos permanecem; os rascunhos, histórico de comandos e âncoras de recuperação não.
+
+Um processo antigo pode não dispor dos novos controlos de separação/fecho nem da mudança de interface. Conserve o executável compatível enquanto for necessário para ligar e sair pelos controlos existentes. Uma operação antiga falhada nunca é declarada bem-sucedida apenas porque um ponto de comunicação desapareceu. Os ficheiros de configuração existentes continuam utilizáveis pela versão atual; um executável antigo pode rejeitar chaves guardadas explicitamente por uma versão mais recente.
+
+Consulte doc/SESSION-CONTROLS.txt para o mesmo procedimento e doc/OPENBSD-VPS.txt para configurar execução sem supervisão no anfitrião. Instalar este arquivo de código-fonte não para nem instala automaticamente nada num anfitrião remoto.
+
+SERVIDORES E ATIVIDADE POR LER
+
+O ncurses completo lista posições de servidor 0..7, sendo 0 a primária. Partilham um ciclo de eventos, mas cada uma tem credenciais, identidade, canais, conversas privadas, menções, listas de utilizadores, histórico e rascunhos independentes. F2 ou /servers apresenta:
+
+    Abrir    Novo    Conectar    Desconectar    Fechar    Ausente    Voltar
+
+A navegação comum está em CABEÇALHO GLOBAL E CONTROLOS DE CONVERSA. Open mostra o MOTD desse servidor (canal 0) sem alterar rascunhos ou cursores. Connect/Disconnect atua na linha selecionada. Away alterna o estado de ausência confirmado pelo servidor registado, usando a mensagem predefinida Away. New (também n) abre um formulário; Back/Escape regressa à conversa.
+
+O servidor primário 0 não pode ser fechado. Disconnect mantém vistas, rascunhos e transferências DCC aceites. Close de um servidor secundário pede sempre confirmação, com No por predefinição; descarta a memória desse servidor, cancela ofertas/transferências, remove a referência do catálogo e mantém o ficheiro de perfil. Fechar o secundário selecionado faz regressar ao primário. No modo de teste, Close só altera o estado em execução.
+
+New contém Server, Port, Transport, Nickname, Autojoin e Autoconnect, com ações Edit, Add, Connect, Advanced e Cancel. Advanced expõe identidade, fontes de autenticação e opções de CA antes da primeira ligação. Enter valida provisoriamente um campo; Escape cancela o formulário. Perfis novos usam TLS6697, identidade login/default e autoconnect desligado; não herdam segredos, CA, canais ou listas watch/ignore. Apenas as preferências da aplicação são partilhadas. Add cria uma posição desligada, independentemente da caixa autoconnect; Connect cria e liga imediatamente. Ambas selecionam o novo servidor e exigem Save explícito para persistir.
+
+As linhas apresentam new N !M para atividade e menções por ler; o ecrã limita-se a 999+ sem alterar os contadores internos. Mostrar uma conversa limpa apenas os contadores dessa origem; uma lista sobreposta não marca texto novo como lido. Os totais não incluem cópias de Mentions nem Help. Mensagens enviadas ecoadas não somam atividade por ler. Ler Mentions marca o respetivo feed separadamente, mantendo os contadores das conversas de origem.
+
+F5 ou /unread agrupa primeiro as menções conservadas e depois conversas por ler, por servidor. As menções mostram texto integral com linhas ajustadas e datas/horas; as origens indicam Server/Channel/Query. As ações são Open, Clear mentions e Back. Open seleciona a origem; uma conversa privada fechada pode reabrir pelo nome registado, sem enviar nada nem restaurar histórico descartado. Canais fechados não são reingressados e servidores indisponíveis são indicados. A identidade estável da origem, não a linha ou o texto, determina o destino.
+
+Clear mentions ou /mentions clear remove cópias de menções de todos os servidores, sem alterar históricos, contadores, rascunhos ou filas. Podem chegar menções novas imediatamente. As teclas de página percorrem uma menção longa selecionada antes de mudar de entrada. /mentions sem argumentos seleciona só o feed do servidor atual.
+
+VISTAS E UTILIZADORES
+
+Cada servidor tem vista de servidor/MOTD número 0, canais, conversas privadas numeradas separadamente, menções e listas de membros. Os cabeçalhos identificam o servidor; a sua vista contém registo/MOTD/erros. As menções guardam origem, remetente e texto completo dentro dos limites de protocolo. Linhas compridas quebram no ecrã sem truncar texto guardado.
+
+/sl ou /servers abre servidores; /cl ou /channels abre canais; /ql ou /queries abre conversas privadas. /server seleciona MOTD, /channel NUMBER ou #NAME um canal e /pm NICK|NUMBER uma conversa. /next e /prev percorrem vistas. /summary resume o espaço de trabalho, /unread reúne origens/menções e /list pede o diretório à rede. A sintaxe exata encontra-se em COMMAND REFERENCE INDEX.
+
+/users alterna a lista de membros do canal; on/off/up/down controla visibilidade e deslocação. Settings > Interface utiliza a mesma preferência principal. Num terminal pequeno a barra lateral pode ficar oculta até voltar a haver espaço. Membros e prefixos de privilégios seguem JOIN/PART/QUIT/NICK/KICK/NAMES do servidor, não suposições locais. Vistas de servidor ou conversas privadas não têm lista de membros do canal.
+
+Mensagens privadas não solicitadas só criam vistas novas enquanto houver menos de oito; mensagens posteriores continuam visíveis com contexto em servidor/menções. /pm ou /msg pode criar mais até ao limite de 32 vistas. /clear apaga a memória retida da vista sem eliminar transcrições do disco; /clearinput limpa o rascunho independente.
+
+SELETOR DE CANAIS E FECHO DE CONVERSAS
+
+Exemplos de comandos e controlos (literais):
+Abrir    Entrar    Sair do canal    Fechar    Voltar
+
+F3 ou /channels (/cl, /views) apresenta a entrada 0 do servidor/MOTD e as vistas de canais retidas, incluindo canais abandonados. Aplica-se a navegação normal nas listas. As ações são Open, Join, Part, Close e Back.
+
+Join abre Command com /join preparado, mantendo rascunhos. Part abandona o canal mas conserva o histórico; Close elimina a vista. p executa Part, c executa Close e o abre Join. /channel NUMBER ou #NAME seleciona uma vista; /view NUMBER utiliza a numeração dos canais e /view NAME seleciona uma vista pelo nome. Os números podem mudar depois de fechar; use a lista atual.
+
+Close primeiro abandona um canal ainda ativo, elimina histórico/rascunho e cancela mensagens na fila para esse destino; uma mensagem em trânsito pode terminar. Um rascunho não vazio exige confirmação, sendo No a resposta padrão. Vistas de servidor e menções não podem ser fechadas; /disconnect interrompe a rede do servidor. /close [NAME|NUMBER] fecha o canal/conversa indicado ou a conversa atual. O canal 0 não pode ser abandonado. Back/Escape regressa ao chat.
+
+LISTA DE CONVERSAS PRIVADAS
+
+F4 ou /ql (/queries) mostra apenas as conversas privadas deste servidor, numeradas a partir de 1 independentemente dos canais. Utilizam-se os controlos habituais da lista e as ações:
+
+    Abrir    Novo    Fechar    Voltar
+
+New abre Command com /pm preparado; numa lista vazia, Open em New query... faz o mesmo. c fecha e o/n abre New. Fechar um rascunho não vazio pede confirmação, sendo No a opção predefinida. /pm NICK|NUMBER ou /query NICK|NUMBER abre ou seleciona sem enviar mensagem, mesmo desligado. /msg NICK TEXT envia explicitamente; /close NICK fecha pelo nome.
+
+Escape numa conversa privada abre Queries com essa conversa selecionada, independentemente de como foi aberta; Escape/Back da lista volta à conversa e ao rascunho. O nome da conversa fica na linha da conversa, em vez de substituir uma categoria do cabeçalho.
+
+MENÇÕES E EXPRESSÕES VIGIADAS
+
+A sua alcunha atual é vigiada automaticamente. A correspondência segue as regras de equivalência de letras e os limites de alcunhas anunciados pelo servidor IRC. Mudar de alcunha atualiza essa correspondência.
+
+    /watch add project name
+    /watch remove project name
+    /watch list
+
+Os valores personalizados são substrings literais, não expressões regulares nem padrões de shell. Aplicam-se as regras de maiúsculas/minúsculas de letras e símbolos IRC/ASCII; os caracteres não ASCII têm de corresponder exatamente. São aceites até 32 expressões personalizadas de 127 bytes UTF-8 cada. Use /save em funcionamento normal para guardar as alterações na configuração selecionada; em modo de teste, ficam apenas na memória. As menções ficam na memória sujeitas aos limites do histórico; não são um arquivo permanente de notificações nem um registo em disco. Os carimbos de data/hora usam a hora local de receção no formato YYYY-MM-DD HH:MM:SS.
+
+COMANDOS DE CONVERSAÇÃO
+
+/join CHANNEL [KEY] pede entrada num canal, opcionalmente com chave. /part [CHANNEL] [MESSAGE] sai de um canal com motivo PART; /close [NAME|NUMBER] fecha uma vista de canal ou conversa privada, com NUMBER como número do canal. /pm NICK|NUMBER abre/troca para vista privada sem enviar texto. /msg TARGET TEXT envia texto a uma alcunha ou canal; /me TEXT envia ação IRC à conversa atual. /nick NICK pede outra alcunha; /away [MESSAGE] define ausência e /back limpa-a; /whois NICK pede informação da alcunha. /topic sozinho consulta o tópico atual, /topic TEXT propõe outro. /connect e /disconnect gerem ligações; /dcc ou /transfers abre o ecrã partilhado de transferências. /cancel interrompe mensagens ainda por enviar, /background mantém o programa a correr regressando à shell, /quit [MESSAGE] encerra todos os servidores. /settings, /save, /saveconf e /set autoconnect on/off tratam preferências, gravação e arranque.
+
+/away MESSAGE envia uma única mensagem AWAY padrão. O limite é o limite atual de bytes da linha menos 8: geralmente 504 bytes quando o limite é 512. Texto longo ou controlos são rejeitados, nunca divididos. /away sem texto e /back limpam a ausência. É necessário estar registado. O indicador só muda após confirmação do servidor e é reiniciado ao desligar/religar. A ação Away na lista de servidores envia Away como mensagem ou limpa ausência confirmada, mantendo vista e rascunho. O servidor desligado deve ligar primeiro. Altere remetentes ignorados nos campos Ignore de Settings ou com os comandos locais /ignore e /unignore.
+
+/join aceita um canal e no máximo um token KEY. A chave tem de ser ASCII imprimível, sem espaços, dois-pontos ou vírgulas; todo o JOIN deve caber no limite da linha. A chave não é registada nem guardada; só o canal entra em autojoin. Reintroduza a chave ao religar/reiniciar se for necessária. O simulador offline confirma mudanças de away e aceita chaves temporárias, mas não testa a chave verdadeira do canal ou a política de entrada.
+
+O servidor determina permissões, disponibilidade de alcunhas, admissão aos canais e autorização para mudar tópicos. Aceitação local de comando não prova aceitação pelo servidor nem entrega a participantes. Mensagens de chat esperam brevemente; as linhas são enviadas com pelo menos 1.2 segundos de intervalo. /cancel remove mensagens ainda pendentes no servidor selecionado, em todos os canais e conversas, sem apagar rascunho ou mensagens já enviadas. Uma mensagem em trânsito pode concluir. Em perfis diretos /join e /part atualizam autojoin; /save guarda essa escolha para arranques futuros salvo escolhas pendentes de Settings que a substituam. Bouncers restauram adesões por si. /part também descarta mensagens em fila para esse canal mas mantém vista e histórico; uma transmissão em curso pode concluir antes de PART. Texto depois do canal é motivo PART; se o canal faltar, o texto é motivo para o canal selecionado. Sem motivo explícito utiliza-se [presence] part_message, incluindo ao fechar um canal em que se está presente.
+
+/quit MESSAGE usa esse texto, quando possível, como motivo IRC QUIT nas sessões ativas. Sem texto usa [presence] quit_message; se o valor for vazio, envia QUIT simples. O encerramento é limitado no tempo e nunca espera indefinidamente por uma rede morta.
+
+A ausência automática é separada de /away manual. Com background_away ativo, uma ação Background bem-sucedida ou perda gerida do terminal só agenda o AWAY configurado depois de o terminal se separar. Resume limpa apenas esse estado automático. autoaway_minutes faz o mesmo após inatividade de entrada local; 0 desativa o temporizador. Perfis bouncer suprimem alterações automáticas salvo ativar [bouncer] automatic_away=true. A ausência /away manual persiste até /back ou /away sem mensagem. Tráfego IRC recebido não conta como atividade local do utilizador.
+
+Sintaxe dos comandos IRC (literal):
+
+    /join CHANNEL [KEY]
+    /part [CHANNEL] [MESSAGE]
+    /close [NAME|NUMBER]
+    /pm NICK|NUMBER
+    /msg TARGET TEXT
+    /me TEXT
+    /nick NICK
+    /away [MESSAGE]
+    /back
+    /whois NICK
+    /topic
+    /topic TEXT
+    /connect [HOST [PORT]]
+    /disconnect [NUMBER]
+    /dcc
+    /transfers
+    /cancel
+    /background
+    /quit [MESSAGE]
+    /settings
+    /save [input|output|all]
+    /saveconf
+    /set autoconnect on
+    /set autoconnect off
+    /ignore
+    /unignore
+
+FILTROS LOCAIS PARA IGNORAR
+
+Exemplos de comandos e controlos (literais):
+/ignore
+/ignore list
+/ignore MASK
+/ignore add MASK
+/unignore MASK
+/ignore remove MASK
+/ignore clear
+/ignore add NICK
+*!*@*.example
+
+Estes comandos locais funcionam desligados. /ignore ou /ignore list mostra máscaras; /ignore MASK ou /ignore add MASK acrescenta; /unignore MASK ou /ignore remove MASK remove; /ignore clear elimina todas. Para alcunhas literalmente chamadas list, add, remove ou clear, use /ignore add NICK.
+
+São aceites até 32 máscaras de 127 bytes ASCII cada. Uma máscara simples deve ser exatamente um nome válido. Os caracteres curinga exigem nick!user@host completo, com três componentes não vazios, por exemplo *!*@*.example. Em cada componente, * corresponde a zero ou mais bytes e ? a um. Os restantes bytes permitidos são literais; não existem classes de regex, escapes ou expansão de shell. Nick usa as regras de maiúsculas/minúsculas IRC; user e host ignoram a diferença de caixa ASCII. Espaços em branco, controlos e não ASCII são inválidos. A remoção compara padrões guardados segundo estas regras, sem expandir curingas para remover outras máscaras.
+
+Filtram-se apenas PRIVMSG/NOTICE recebidos de utilizadores, antes de criar menções ou conversas privadas. A origem precisa de prefixo explícito de utilizador. Máscaras só com alcunha podem corresponder quando faltam dados user/host; as completas exigem os três componentes. Avisos puros do servidor e todo o estado de protocolo/participação continuam visíveis. O histórico existente é conservado. É um filtro local, não um banimento no servidor. Settings edita a mesma lista e Apply aplica de imediato. /save ou Settings Save grava-a em modo normal; --test-mode mantém alterações apenas na memória. A configuração repete mask= em [ignore].
+
+COMANDOS DE ARRANQUE DIFERIDOS
+
+Exemplos de comandos e controlos (literais):
+/autocommands [list|add COMMAND|remove NUMBER|clear|on|off]
+/autocommands delay SECONDS       0..300
+/autocommands interval SECONDS    2..60
+/autocommands add /msg ChanServ OP #room mynick
+/save
+
+Cada perfil pode executar até 16 comandos literais depois de completar registo e SASL obrigatório. O atraso padrão é 15 segundos e há pelo menos 2 segundos entre comandos concluídos. Uma ligação bloqueada não provoca um envio em rajada de comandos atrasados.
+
+Use /autocommands [list|add COMMAND|remove NUMBER|clear|on|off], /autocommands delay SECONDS (0..300), /autocommands interval SECONDS (2..60) e /save para gravar. Por exemplo: /autocommands add /msg ChanServ OP #room mynick.
+
+São aceites /msg, /join, /nick, /away, /back, /whois e os alias exatos documentados. Cada comando tem até 511 bytes UTF-8 e deve caber numa linha IRC; não há divisão silenciosa, shell, IRC bruto, ciclos ou substituição da conversa atual. /join usa um canal e chave transitória opcional. As listas ocultam texto de mensagens/chaves; executar não acrescenta histórico de comandos, eco local nem cria conversa privada. As respostas chegam normalmente; as entradas automáticas em canais não mudam o chat selecionado.
+
+As alterações só entram em vigor na ligação seguinte. /cancel para os comandos restantes e mensagens na fila sem retirar bytes enviados ou em trânsito. Fechar/abandonar um alvo cancela a sequência restante dirigida a ele. Uma falha cancela comandos posteriores e comunica a posição sem texto secreto. Nova ligação inicia nova sequência; perfis bouncer também executam comandos explícitos de arranque. Modo offline não executa nenhum.
+
+[autocommands] contém enabled, delay_seconds, interval_seconds e linhas command= repetidas. Bytes após = são literais, incluindo espaços, #, ; e =. Qualquer lista não vazia, mesmo desativada, exige configuração num ficheiro regular do proprietário com modo 0600/0400; listas ativas e não vazias exigem TLS verificado. Perfis novos começam vazios; ao mudar o destino, uma lista herdada e não editada é limpa. Guarde conscientemente: o armazenamento GPG de credenciais não cifra estes comandos na configuração.
+
+AVISOS DO PROGRAMA E DA FILA, NÚMEROS DE CONVERSAS E ALIASES
+
+/set queue_notices off oculta avisos rotineiros de mensagens em fila ou enviadas com intervalos, em todas as interfaces e servidores; /set queue_notices on volta a mostrá-los. Na interface minimalista, um envio explicitamente revisto omite o aviso redundante de fila mesmo com notificações ativadas. Separadamente, /set program_messages off oculta comentários locais pouco prioritários, como rascunho cancelado, entrada limpa ou rascunho conservado e avisos semelhantes de êxito/cancelamento. Erros, avisos de limite de bytes e confirmações de envio continuam visíveis. Ambas as opções são true por defeito. /save output ou /saveconf grava as preferências globais [output]; as mesmas aparecem em /panel Application preferences e nas definições gráficas Interface.
+
+/ql numera as conversas privadas separadamente, começando em 1. /query 2 ou /pm 2 seleciona a segunda; o argumento também pode ser um nome. Fechar uma conversa renumera as posteriores. Abri-la não envia mensagens. O canal 0 continua a abrir mensagens e MOTD do servidor.
+
+Os aliases exatos comuns são /j, /leave, /message, /privmsg, /nickname, /names, /nicks, /conn, /disc, /unaway, /detach, /saveconfig, /configure e /preferences. Partilham validação, preenchimento e regras de privacidade dos comandos originais. Grafias desconhecidas produzem erro, não uma ação adivinhada.
+
+Mudanças de membros, MOTD, WHOIS, convites e erros comuns surgem como mensagens legíveis com detalhes úteis do servidor. Respostas internas de identidade/capacidade não duplicam contabilidade do protocolo no chat. Respostas desconhecidas preservam o texto do servidor sem tratar o código numérico como explicação.
+
+TRANSFERÊNCIAS DE FICHEIROS
+
+F6, /dcc ou /transfers abre a lista de transferências de todo o espaço de trabalho e identifica o servidor de origem de cada uma. Utilizam-se os controlos habituais das listas. As ações disponíveis são:
+
+    Aceitar    Rejeitar    Enviar...    Cancelar transferência    Voltar
+
+A revisão exige pelo menos 12 linhas e 20 colunas. Escape sai do navegador ou campo para o formulário e do formulário ou lista para a conversa, preservando rascunhos e transferências aceites. Só é suportado o DCC SEND IPv4 clássico e ativo: sem CHAT, retoma, transferências passivas/inversas, aceitação automática, descoberta de endereços ou encaminhamento de portas. O tamanho máximo de ficheiro é 4,294,967,295 bytes. Os ficheiros recebidos nunca são abertos ou executados automaticamente.
+
+DCC é uma ligação direta não cifrada, independente do TLS do IRC e sem autenticação criptográfica do outro participante. As ofertas revelam o IPv4 anunciado; aceitá-las revela o IP do destinatário ao outro participante. Verifique o remetente, o destino da ligação, o ficheiro pretendido e o tamanho em bytes antes de aceitar cada oferta.
+
+Uma oferta recebida não abre ficheiros ou sockets antes da aceitação explícita. Accept na lista abre uma revisão com Directory/Save as e Edit/Accept/Cancel. Enter num campo apenas prepara o valor; só Accept no formulário inicia a transferência. Colar texto só insere dados num editor ativo e não pode aceitar a oferta. Reject não cria qualquer ficheiro.
+
+Na interface completa, o diretório sugerido para receção é $XDG_DATA_HOME/vipirc/downloads se o caminho for absoluto; caso contrário, $HOME/.local/share/vipirc/downloads se HOME for absoluto. Sem nenhum dos dois, introduza um caminho explícito. Diretórios superiores em falta são criados com permissões 0700 apenas ao selecionar Accept. O diretório pai final deve pertencer ao utilizador e ser privado; o novo ficheiro tem permissões 0600. Ficheiros existentes, ligações simbólicas e '..' são recusados. O nome base deve ser visível, não oculto e não conter separadores de caminho, caracteres de controlo ou de formatação bidirecional, nem aspas. Os nomes entre aspas no protocolo podem conter espaços. Os ficheiros parciais falhados ou cancelados só são removidos enquanto continuarem a ser o ficheiro originalmente criado, nunca um substituto.
+
+Send... abre Nickname, Source file, Advertised IPv4 e Listen port, juntamente com Edit/Browse, Offer e Cancel. Uma conversa privada fornece o destinatário predefinido; o formulário identifica o servidor IRC. Só Offer inicia a escuta e coloca uma oferta de envio controlado na fila desse servidor registado. A origem deve ser um ficheiro regular existente, sem ligações simbólicas nem '..'. A porta 0 escolhe uma disponível; portas explícitas ficam entre 1..65535. O NAT pode exigir um IPv4 anunciado alcançável e encaminhamento de portas; não é chamado qualquer serviço UPnP ou de descoberta de endereço público.
+
+Browse começa no diretório de arranque: as setas selecionam; Enter abre uma pasta ou escolhe um ficheiro; parent/Backspace sobe; Type path aceita um nome de ficheiro absoluto; Escape cancela sem mudar a origem. A seleção preenche o formulário sem oferecer o ficheiro nem alterar o cwd do processo. Cada ciclo examina no máximo 64 entradas; a lista guarda 512 e termina após examinar 4096. Utilize Type path para as entradas omitidas. Ligações simbólicas e nomes inseguros são omitidos; os metadados voltam a ser verificados na seleção ou oferta.
+
+    /dcc alice file.txt
+    /dcc send -address 203.0.113.10 -port 5000 alice file with spaces.txt
+    /dcc list
+    /dcc accept 1 /home/me/private-downloads
+    /dcc reject 2
+    /dcc cancel 3
+
+Substitua o IP de exemplo por um endereço alcançável. PATH é literalmente o resto do texto do comando, incluindo espaços, sem aspas de shell. Caminhos relativos usam o cwd de arranque, mesmo depois de colocar o processo em segundo plano ou navegar. O IP anunciado por omissão é o IPv4 local do socket IRC; ligações IRC apenas IPv6 precisam de um IPv4 explícito e o NAT também pode exigir um. O comando accept sem DIRECTORY usa o cwd de arranque e as mesmas verificações de diretório privado. /dcc sem argumentos apresenta a lista em modo minimalista. As duas interfaces partilham o gestor, os limites e o cancelamento.
+
+Com SSH, todos os caminhos, endereços e ligações pertencem ao host que executa vipirc, não ao computador local do terminal. As transferências aceites continuam após mudanças de conversa/vista e IRC Disconnect. Fechar o servidor de origem cancela as suas transferências; sair do programa termina todas. Falha, cancelamento ou expiração removem uma oferta em fila, mas não permitem recuperar uma já enviada ou em trânsito.
+
+Os limites do espaço de trabalho são 8 ofertas pendentes, 4 transferências ativas/em escuta/em ligação e 12 registos guardados. Só quando os registos estão cheios se reutilizam primeiro os concluídos ou falhados mais antigos; os ID não são reutilizados durante uma execução. As ofertas expiram após 5 minutos; as transferências param após 2 minutos sem progresso. O fluxo usa buffers limitados e confirmações cumulativas de 32 bits. O modo de teste permite rever/rejeitar/cancelar uma amostra em memória; Send/Accept é recusado antes de qualquer operação com ficheiros ou sockets.
+
+EDIÇÃO DA ENTRADA
+
+    Enter                 Enviar ou rever a composição.
+    Left/Right            Grupo de caracteres anterior/seguinte.
+    Up/Down               Mover entre linhas ajustadas, não recuperar mensagens do chat.
+    Home/End              Início/fim de toda a composição.
+    Backspace/Delete      Apagar grupo de caracteres anterior/atual.
+    Tab/Shift-Tab         Completar alcunha seguinte/anterior.
+    Escape                Abrir Queries numa conversa privada, senão vipirc.
+    /clearinput           Limpar o rascunho inteiro, incluindo texto fora do ecrã.
+
+F1..F6 abre os painéis disponíveis. As letras digitadas no chat, incluindo hjkl, são texto literal. Enter premido envia; as mudanças de linha explícitas entram por bracketed paste e os tabuladores colados tornam-se espaços. Escrever / com o cursor na posição zero abre um campo Command separado, preservando o rascunho; barras seguintes ou coladas permanecem texto.
+
+O rascunho é um único buffer lógico: a quebra visual de linha não acrescenta caracteres, Backspace atravessa linhas apresentadas e a mudança de tamanho preserva texto e cursor. O campo fixo reserva floor(B/W)+1 linhas para o orçamento de carga B e colunas utilizáveis W, limitado pelo espaço do terminal. Digitar ou apagar não altera o tamanho; rascunhos longos deslocam-se dentro dele. Alterações de vista, orçamento do protocolo ou tamanho do terminal recalculam a altura. Command tem o seu próprio campo; /msg ou /me não substitui o rascunho da conversa.
+
+Um Escape isolado aguarda cerca de 500 ms; uma sequência parcial permite 1000 ms entre bytes de continuação enquanto a rede continua a funcionar. Teclas totalmente descodificadas atuam imediatamente. Um marcador inicial de colagem que chegue após a tolerância do primeiro Escape pode ser interpretado como Escape; no registo minimalista pode colocar o cliente em segundo plano. Depois de começar a captura, os marcadores de fecho são reconhecidos mesmo entre leituras divididas muito atrasadas. As teclas finais não podem cancelar o rascunho nem mudar de modo antes do limite visível de revisão ou entrada tranquila.
+
+A entrada precisa de UTF-8 válido ou de modo locale ASCII escolhido explicitamente; consulte ARQUIVOS E AMBIENTE. Um carácter-base e marcas subsequentes de largura zero movem-se/apagam-se juntos; a segmentação Unicode completa de grafemas não está implementada. Glifos não suportados recebem um substituto visível. Os limites do rascunho são 8192 valores escalares Unicode ou 16384 bytes UTF-8, consoante o que for atingido primeiro. Codificação e controlos inválidos são rejeitados. Mudanças de linha coladas continuam visíveis e afetam o plano de envio; o orçamento IRC menor determina avisos e divisão.
+
+CONTROLOS DO RATO
+
+O rato está ativo por omissão se curses, TERM e o terminal o suportarem. /mouse alterna o estado, /mouse on|off define-o, e Configurações > Interface edita/guarda a preferência mouse em [interface] da configuração principal. Tudo funciona também por teclado; o terminal ou multiplexador SSH tem de encaminhar eventos do rato.
+
+Clique numa categoria do cabeçalho para a abrir, na conversa para posicionar o cursor, em Clear para apagar o rascunho inteiro ou em Send para enviar após as verificações habituais. Clear/Send desaparecem quando indisponíveis. Alcunhas na conversa/lista de utilizadores oferecem Whois/Query; clicar em #channel seleciona ou entra no canal. A identidade do elemento mostrado no momento do clique, e não um substituto que apareça depois nas mesmas coordenadas, determina a ação. URLs e conteúdo da área de transferência não são abertos.
+
+Cliques nas linhas abrem servidores/canais/conversas privadas; cliques nas ações aplicam-se à seleção. A roda muda a seleção sem mudar a ação. Sobre o histórico/lista de utilizadores desloca três linhas visuais ou utilizadores. Settings e transfers mantêm os seus controlos de campos/ações. A conversa requer pelo menos 9 linhas e 20 colunas; cabeçalhos estreitos conservam o foco visível.
+
+O rato não confirma avisos antecipados de comprimento ou de envio dividido; use as opções do teclado. Command Run/Cancel exige uma nova ação após colar. Sequências de clique ou mudanças de linha coladas não o ativam, e cliques de um esquema antigo não são reutilizados num ecrã acabado de abrir.
+
+COMPRIMENTO DAS MENSAGENS E PREVENÇÃO DE EXCESSO
+
+O limite normal de uma linha IRC é de 512 bytes, incluindo CR/LF, e não de 512 caracteres visíveis. Um valor escalar UTF-8 ocupa 1..4 bytes; um glifo pode combinar vários valores escalares. Comando, destino e identidade do remetente retransmitida também ocupam espaço. Para :nick!user@host PRIVMSG target :text, a capacidade útil é:
+
+    B = L - (len(nick) + len(user) + len(host)
+             + len(target) + len("PRIVMSG") + 9)
+
+Os comprimentos são medidos em bytes. L vale 512 ou um LINELEN menor reconhecido. Mensagens de ação também descontam o seu invólucro. Até a identidade ser conhecida, aplicam-se margens prudentes. Alterar a identidade ou o destino pode alterar B; vipirc não presume que linhas maiores sejam aceitas.
+
+No editor ncurses completo, há um aviso quando uma linha lógica atinge B ou quando o rascunho exige várias mensagens. Enter/Escape apenas reconhece o aviso e permite continuar editando; nada é enviado. Outras teclas não o dispensam e há proteção contra repetição de teclas. O aviso é reativado quando o texto volta abaixo do limite.
+
+No editor minimalista, novas inserções são bloqueadas no limite até que Enter autorize explicitamente a continuação da edição; esse Enter não envia nada. Backspace/Delete podem reduzir o texto e Escape cancela. /msg, /me e // são medidos pelo conteúdo realmente transmitido; comandos locais não relacionados não são. O texto colado permanece íntegro dentro dos limites de armazenamento e é verificado após a captura.
+
+O ncurses completo pede confirmação separada antes de enviar um rascunho que precisa ser dividido em várias mensagens:
+
+    This text needs N IRC messages. Send all to TARGET? [y/N]
+
+Apenas y confirma o envio; Enter/n recusa e mantém o texto. O modo minimalista mostra Review: um novo Enter confirma, Escape retorna à edição. Ambos exigem consentimento explícito para dividir mensagens, mesmo no modo direct. A divisão preserva valores escalares UTF-8 completos e trechos não vazios; quebras de linha explícitas separam mensagens e linhas vazias são ignoradas. Comandos permanecem em uma única linha; redija conversas com várias linhas no editor de conversa.
+
+As mensagens de chat são espaçadas em pelo menos 1.2 segundos por meio de uma fila de 64 mensagens. /cancel remove o trabalho ainda não enviado, mas não recolhe mensagens em trânsito ou já entregues. Controles de protocolo, como PONG, são separados. Uma rede pode impor limites mais rigorosos ou rejeitar texto; aceitação ou eco local não comprovam entrega remota.
+
+CONFIGURAÇÃO
+
+Crie uma configuração privada editável com estes exemplos, edite-a e valide:
+
+    vipirc --init-config --server irc.ircnow.org --channel '#ircnow'
+    vipirc --check-config
+
+Um ficheiro descreve um perfil; --config escolhe o principal e o catálogo de servidores guardados adjacente. Até oito perfis partilham um processo. Caminhos principais distintos criam espaços de trabalho separados. Os exemplos fornecidos e --init-config mostram a sintaxe completa. O mapa de chaves abaixo é referência, não bloco a colar: cada key=value real ocupa a sua linha.
+
+Os padrões são send_mode=direct, composer_mode=line, command_suggestions=common, format=compact e default_interface=ncurses. Preferências da aplicação pertencem à configuração principal e aplicam-se a todos os servidores; connection/auth/bouncer e listas de watch, ignore e comandos de arranque pertencem a cada perfil. [hotkeys] está vazio por padrão e permite até 64 linhas KEY=action.
+
+O nickname difere de username IRC. Uma alcunha principal interativa vazia pede valor com a conta de login como padrão. username vem da conta por padrão; realname descreve o campo USER, não sendo necessariamente nome legal. channel é uma lista autojoin do perfil direto separada por vírgulas sem espaços; vazia significa vista do servidor. Bouncers restauram as suas adesões.
+
+Para SASL direto, auth=sasl exige auth_user e exatamente uma fonte password. O PASS do servidor escolhe independentemente uma fonte server_password. Mais de uma fonte por credencial é erro sem fallback; ambas exigem TLS verificado. Bouncers exigem auth_user vazio e derivam o seu login. Segredos inline permanecem texto claro; regras de ficheiros/GPG estão em AUTHENTICATION.
+
+history_lines aceita 50..5000 linhas por vista, padrão 500, com limite de 8 MiB de texto por servidor que pode expulsar entradas mais cedo. A retenção minimalista tem ainda limites globais de 2048 registos/512 KiB. Booleanos aceitam minúsculas true/false, yes/no, 1/0. Secções/chaves desconhecidas ou valores inválidos/excessivos são rejeitados com número de linha quando possível. A maioria dos duplicados usa o último valor; entradas repetidas watch/ignore/autocommand acumulam até ao limite.
+
+Linhas começadas por # ou ; após espaços iniciais são comentários; não há comentários dentro de linhas de dados. Espaços nas margens de valores normais são removidos. Não existe sintaxe de aspas, escapes, expansão de variáveis/tilde ou avaliação de shell. Prefira caminhos absolutos literais. Apply/Save recusa espaços ASCII exteriores em campos comuns para evitar mudanças ao reler; espaços interiores são permitidos quando válidos.
+
+password=, server_password= e [autocommands] command= preservam todos os bytes após = exceto quebras de linha, incluindo espaços, =, # e ;. Não adicione aspas nem comentários inline. Password vazio significa nenhuma fonte; só espaços conta como não vazio. Controlos ou novas linhas em passwords são inválidos.
+
+/save regenera definições suportadas, incluindo escolhas pendentes, substituindo comentários/formatação; guarde notas à parte. Edições manuais carregam num processo novo, não em --resume. Save é proibido em test mode. Ficheiros criados têm modo 0600 num diretório final 0700 pertencente ao utilizador; configurações existentes devem pertencer-lhe e não permitir escrita por outros. Symlinks (incluindo componentes dos caminhos) e '..' são rejeitados. Password inline não vazio ou lista de comandos de arranque, mesmo desativada, exige ficheiro regular do utilizador com modo 0600/0400. Cada ficheiro é trocado atomicamente, não o conjunto como uma só transação.
+
+single_session=true impede segundo worker gerido, não servidores adicionais dentro do mesmo. Os padrões de presence constam do mapa; autoaway_minutes=0 desativa o temporizador. Regresso automático limpa apenas a ausência gerada pelo cliente, nunca /away manual. Away automático do bouncer também fica desligado por padrão.
+
+As chaves antigas [interface] keymap=original|vim e focus_style=reverse|brackets são aceites mas ignoradas e não gravadas em Save; outros valores são inválidos. Navegação normal e foco de parênteses a negrito permanecem. /keymap explica esta compatibilidade, sem escolher mapa. Notificações queue/program podem ocultar-se independentemente; erros e confirmações de segurança continuam visíveis.
+
+Chaves de configuração (apenas referência; não colar como bloco):
+
+    [connection]
+    server, port, tls, nick, username, realname, channel, autoconnect,
+    auth, auth_user, password_file, password_gpg_file, password,
+    server_password_file, server_password_gpg_file, server_password, ca_file
+    [bouncer]
+    type=none|znc|soju, username, network, client, automatic_away=false
+    [interface]
+    user_list=true, mouse=true, hints=true, shortcut_labels=true,
+    history_lines=500
+    [input]
+    send_mode=direct|review, composer_mode=line|fullscreen,
+    command_suggestions=common|history|frequent|alphabetical|contextual,
+    use_signals=false
+    [hotkeys]
+    optional KEY=action rows; empty by default, at most 64
+    [output]
+    format=compact|full, queue_notices=true, program_messages=true,
+    persistent_logging=false
+    [session]
+    single_session=false, default_interface=ncurses|idle
+    [presence]
+    part_message=, quit_message=Client quit, background_away=true,
+    background_away_message=Detached from terminal,
+    autoaway_minutes=15, autoaway_message=Idle
+    [autocommands]
+    enabled=true, delay_seconds=15, interval_seconds=2, repeated command=
+    [mentions]
+    repeated word=literal phrase
+    [ignore]
+    repeated mask=nick!user@host
+
+    [interface] keymap=original|vim; focus_style=reverse|brackets
+
+HISTÓRICO, REGISTROS E PRIVACIDADE
+
+Há diferentes tipos de histórico:
+
+    Conversas/menções retidas: memória limitada para exibição.
+    Recuperação de comandos: linhas aceitas em memória, com filtragem de segredos.
+    Frequência de comandos: nomes canônicos e contagens em CONFIG_PATH.commands.
+    Transcrição opcional: registros em texto simples no arquivo .log de cada perfil salvo.
+    Reprodução pelo bouncer: mensagens fornecidas conforme a política do próprio bouncer.
+
+Detach/resume preserva a memória da sessão ativa. /quit, --close-session, falha do processo ou reinicialização a encerram. Um novo processo carrega as configurações salvas e, quando houver, as contagens de comandos; não importa transcrições antigas como histórico de conversa em tempo real nem recria o marcador anterior de catch-up. /clear limpa a memória da visualização atual, sem apagar a transcrição em disco ou retirar uma mensagem IRC.
+
+Ative a transcrição com /set persistent_logging on e salve com /save output, ou escolha Configurações > Interface > Registro persistente. Ela vem desativada, vale para todos os servidores e usa um arquivo separado para cada perfil salvo. As verificações de privacidade de caminhos e arquivos descritas em CONFIGURAÇÃO continuam aplicáveis.
+
+Cada log para em 16 MiB; não há rotação ou exclusão automática. Caminho inseguro, bloqueio ocupado ou erro de escrita desativa o registro para o perfil afetado com uma mensagem de erro, mas o chat continua. Arquive o arquivo antigo e desligue/ligue o registro para retomar. A rotação pode invalidar o antigo marcador de catch-up; envie uma nova mensagem elegível antes de confiar na recuperação durável de uma ausência posterior.
+
+Mensagens reconhecidas de credenciais/serviços e cópias sensíveis usando apelidos atuais ou antigos são excluídas, inclusive destinos de serviços qualificados. Conversas comuns, sintaxe desconhecida de serviços e segredos colados manualmente ainda podem entrar em um log; o serviço remoto também pode reter uma cópia. Desativar o registro impede novos dados sem apagar os anteriores. Permissões privadas de arquivo não são criptografia e não protegem contra outro programa executado na mesma conta Unix. Arquivos comuns em armazenamento lento ou de rede também podem atrasar a E/S de disco.
+
+Uma transcrição salva é CONFIG_PATH.log, dentro de um diretório pertencente ao usuário com modo exato 0700. Cada componente do caminho deve passar nas verificações contra symlinks e travessia de diretórios superiores. O arquivo aberto deve pertencer ao usuário, ser regular, ter um único vínculo e modo exato 0600. A manipulação não bloqueante de arquivo/bloqueio rejeita FIFO ou log ocupado; o limite de 16 MiB vale por perfil salvo.
+
+PERFIS DE SERVIDOR SALVOS
+
+Para o caminho principal P, o catálogo adjacente P.servers lista até sete perfis secundários no diretório privado P.d. No caminho padrão, são config.ini.servers e config.ini.d ao lado de config.ini. A sintaxe é [servers] seguida de entradas repetidas profile=ID. Nomes gerados usam server-<24 caracteres hexadecimais minúsculos>.ini. IDs manuais podem ter de 1 a 63 letras ASCII, dígitos, sublinhados, hifens ou pontos; o primeiro caractere deve ser letra ou dígito e pontos consecutivos são proibidos. Componentes de diretório ou caminhos arbitrários não servem como IDs de perfil.
+
+Servidores > Novo não cria arquivo. O primeiro /save explícito ou Settings Save cria um perfil separado com modo 0600 no diretório de modo 0700 e o registra no catálogo. Salvamentos seguintes atualizam esse perfil de servidor. Salvar um perfil secundário nunca substitui a configuração principal. Atualizações do catálogo na inicialização usam bloqueio. Entradas inválidas do catálogo ou de perfis geram erros visíveis; perfis válidos continuam disponíveis.
+
+Close remove a referência do perfil secundário do catálogo, mas mantém seu arquivo. O perfil principal não pode ser fechado. --check-config examina o principal, o catálogo e os perfis referenciados sem conectar. Na inicialização normal, opções de conexão que não mudam o host aplicam-se ao servidor padrão lembrado; --server seleciona explicitamente o principal. --init-config e --check-config também aplicam suas substituições ao principal. --no-connect impede a conexão inicial de todos os perfis. No modo de teste, Save é desativado e Close muda apenas o estado em execução.
+
+LIGAÇÃO AUTOMÁTICA, ENTRADA EM CANAIS E AUTENTICAÇÃO
+
+Cada perfil guardado tem ligação automática, entrada direta em canais e credenciais independentes. Guarde as opções de arranque pretendidas em Settings ou pelos comandos. --server explícito no perfil principal inicia a ligação; os perfis guardados com autoconnect iniciam-se separadamente. --no-connect suprime todas as ligações iniciais. /connect ou Servers > Connect inicia uma explicitamente. Nenhum perfil novo herda os segredos de outro.
+
+Para uma conta de rede direta, configure:
+
+    [connection]
+    tls=true
+    auth=sasl
+    auth_user=your_registered_account
+    password_gpg_file=/home/yourname/.config/vipirc/sasl.gpg
+
+Escolha exatamente uma fonte por credencial independente:
+
+    Conta SASL                     PASS do servidor
+    password_gpg_file              server_password_gpg_file
+    password_file                  server_password_file
+    password                       server_password
+
+A fonte *_gpg_file é cifrada; *_file contém texto simples privado; valores em linha são texto simples literal no ficheiro de configuração. Não há deteção pela extensão nem alternativa automática. Os espaços iniciais/finais e os caracteres #, ; e = dos valores em linha são preservados; não acrescente aspas nem comentários. A configuração com segredos em linha tem de ser um ficheiro regular, pertencente ao utilizador, com modo 0600/0400; Save gera modo 0600. Os valores permanecem na configuração da sessão quando necessários para reconectar ou guardar.
+
+As palavras-passe simples/decifradas devem ocupar uma linha não vazia, terminada opcionalmente em LF/CRLF, sem bytes de controlo: SASL aceita até 1024 bytes e PASS normal até 503. Ambos os tipos de ficheiro devem ser regulares, pertencentes ao utilizador, com modo 0600/0400, sem ligações simbólicas nem componentes '..' no caminho. Uma palavra-passe nunca é aceite como opção CLI. Para identidades e fontes dos bouncers, consulte LIGAÇÕES A BOUNCERS.
+
+Os ficheiros cifrados contêm uma mensagem OpenPGP protegida por integridade, com no máximo 65536 bytes. O gpg opcional encontrado em PATH tem de suportar as opções fixas (GnuPG 2.2.20 ou posterior). Inicia-se diretamente depois da verificação TLS, sem shell, com saída limitada e prazo de cinco segundos. Não é criado ficheiro temporário simples nem se pede uma frase-passe dentro da aplicação; as outras sessões continuam. Uma credencial falhada, bloqueada, inválida, excessiva ou com prazo esgotado interrompe a autenticação.
+
+O auxiliar usa --no-options, --batch, --no-tty, --pinentry-mode error e --no-autostart; a procura/importação de chaves e o dirmngr ficam desativados. Prepare ou desbloqueie fora do vipirc:
+
+    gpg --output /dev/null --decrypt /absolute/password.gpg
+
+Depois tente novamente /connect. Este comando contém um caminho, não uma palavra-passe. O agente existente tem de decifrar sem interação; uma sessão/máquina SSH pode ter ficheiros, PATH, diretório GnuPG e cache do agente diferentes.
+
+--check-config valida seleção da fonte e privacidade da configuração sem abrir segredos ou GPG. --test-mode nunca lê nem decifra credenciais; interpreta valores em linha, mas não os utiliza. Nenhum destes testes prova que uma credencial funcione.
+
+SASL PLAIN obrigatório só é enviado depois de verificar TLS e o suporte do servidor. Uma falha interrompe a ligação antes da entrada direta em canais, em vez de prosseguir sem autenticação. O cliente não regista contas. A sintaxe dos serviços de nickname depende da rede; a autenticação automática de conta direta usa SASL. O PASS do servidor é distinto de uma conta de nickname; a autenticação ascendente do bouncer é configurada separadamente nele.
+
+LIGAÇÕES A BOUNCERS
+
+Em Settings ou /panel, escolha ZNC/soju e depois o nome do anfitrião e a porta TLS do fornecedor, o utilizador do bouncer, uma rede upstream já existente e, opcionalmente, um nome de cliente estável. Guarde um perfil por rede. Se vários perfis partilharem o anfitrião, selecione o número do servidor antes de /connect sem argumentos.
+
+A secção [bouncer] admite type=none|znc|soju, username, network, client e automatic_away. username e network são obrigatórios; client é opcional. Cada componente permite no máximo 63 caracteres ASCII: letras, algarismos, pontos, sublinhados e hífenes. Introduza as componentes de identidade separadamente; coloque apenas a palavra-passe na respetiva fonte.
+
+ZNC exige auth=none, auth_user vazio, nenhuma fonte SASL e exatamente uma fonte de palavra-passe do servidor. Constrói username/network ou username@client/network e acrescenta a palavra-passe para PASS. Identidade, separadores e palavra-passe têm de caber nos 503 bytes do payload, diminuindo o espaço para a palavra-passe. soju exige auth=sasl, auth_user vazio, uma fonte de palavra-passe de autenticação e nenhuma fonte PASS. Deriva a identidade SASL como username/network ou username/network@client. Ambos exigem TLS verificado. Configure separadamente a rede upstream e a autenticação NickServ no próprio bouncer.
+
+Os bouncers restauram a pertença a canais: o autojoin local não é repetido e alterações com /autojoin são recusadas. /join e /part alteram a pertença. Alterações com /autoauth também são recusadas: utilize Settings ou /panel para alterar identidade e fontes de forma consistente. Comandos explícitos de arranque continuam a executar-se; reveja comandos herdados de um perfil direto antes de o reutilizar. A ausência automática por inatividade/segundo plano fica desligada salvo se automatic_away=true; /away e /back manuais continuam disponíveis.
+
+    /znc
+    /znc ListNetworks
+    /soju
+    /soju network status
+
+Os atalhos exigem o tipo de bouncer correspondente. Os argumentos são texto literal do serviço, cabendo numa mensagem IRC e respeitando o ritmo normal de envio. /msg *status e /msg *module dirigem-se ao ZNC; /msg BouncerServ ao soju. Os comandos remotos disponíveis dependem do bouncer; comece pela ajuda dele.
+
+O texto de controlo é excluído do eco local, da recuperação de comandos e dos registos persistentes. Cópias reconhecidas de repetição de serviços de saída também são suprimidas, mesmo usando nomes antigos. As respostas surgem na vista do servidor sem registo persistente. O texto introduzido no editor continua visível; o registo remoto é independente.
+
+O histórico reenviado reconhecido preserva os carimbos UTC originais e encaminha mensagens privadas enviadas aos destinatários. A reprodução não aciona CTCP/DCC, novas menções ou mutações do estado em direto. O armazenamento é limitado; tipos de lote desconhecidos são apresentados de forma conservadora, sem efeitos de estado. Não existe explorador de arquivo a pedido, descoberta automática de redes ou criação automática de perfis por rede.
+
+TLS protege apenas a ligação cliente-bouncer. TLS, autenticação, acesso e retenção upstream requerem configuração independente. Consulte doc/BOUNCERS.txt, examples/bouncer-znc.ini e examples/bouncer-soju.ini. Os testes controlados não comprovam todas as versões e fornecedores reais.
+
+TLS E CONFIANÇA PERSONALIZADA
+
+O TLS verificado confere o nome de host ou endereço numérico solicitado e a cadeia de certificados. Não existe desvio de verificação nem retorno silencioso a texto sem criptografia; o número da porta, por si só, nunca desativa TLS. Use o endpoint exato do provedor. --ca-file FILE ou [connection] ca_file=FILE seleciona autoridades PEM em vez da loja de confiança padrão da biblioteca TLS; isso é confiança personalizada, não fixação do certificado final.
+
+Um pacote de CA personalizado deve ser um arquivo regular, não vazio, de tamanho <=16 MiB. Symlinks comuns para arquivos CA regulares são permitidos, diferentemente dos caminhos de configuração/credenciais. O carregador abre uma vez com sinalizadores não bloqueantes, lê por um descritor fixado dentro do limite de tamanho e rejeita alterações detectadas de tamanho. FIFO, dispositivos e entradas não regulares são rejeitados. O analisador PEM com memória limitada preserva metadados de confiança de certificados/CRL suportados e não pode pedir senha.
+
+Essas verificações não limitam a latência de E/S de arquivos regulares ou sistemas de arquivos de rede. Use armazenamento adequado e confiável. --check-config não testa carregamento de CA ou negociação TLS, e a simulação offline não executa TLS. Investigue erros de certificado antes de alterar a confiança; credenciais em texto simples são recusadas. TLS protege esta conexão, não o chat de ponta a ponta nem a conexão do bouncer com o servidor upstream. DCC permanece sem criptografia.
+
+SEGURANÇA E LIMITES DE RECURSOS
+
+O TLS verifica a cadeia de certificados e o nome de host ou endereço numérico solicitado. Não há como ignorar a verificação ou reduzir silenciosamente a proteção. IRC sem TLS só está disponível com uma configuração explícita; expõe o tráfego IRC a observadores no trajeto e não permite usar segredos salvos. TLS protege a conexão cliente-servidor, não a privacidade de ponta a ponta do chat.
+
+Na inicialização operacional, IDs reais e efetivos de usuário ou grupo que não coincidam são rejeitados, e core dumps são desativados antes da leitura da configuração. O Linux também desativa a possibilidade de despejar a memória do processo. O cliente é um processo comum, sem sandbox do sistema operacional; outro processo da mesma conta está dentro da fronteira de confiança.
+
+Comandos reconhecidos de autenticação privada exigem TLS verificado mesmo quando inseridos como mensagens comuns, divididos em um plano de envio ou enfileirados. A detecção não reconhece com segurança qualquer nova sintaxe secreta; mantenha credenciais fora do chat e dos argumentos do shell.
+
+Dados IRC recebidos não são confiáveis. Sequências de controle e formatações inseguras são saneadas antes da exibição. Buffers de entrada e de rede têm limites. O cliente não executa texto recebido, abre URLs, executa comandos do shell, carrega scripts/plugins nem responde automaticamente a CTCP. Mensagens de ação são exibidas como texto. Ofertas DCC SEND exigem análise e aceitação explícitas por arquivo; suas conexões diretas não são criptografadas pelo TLS.
+
+Limites desta versão:
+
+    Sessões de servidor por processo              8
+    Visualizações por servidor, inclusas internas 32
+    Usuários armazenados por canal             4096
+    Menções personalizadas por servidor          32
+    Máscaras de ignorar por servidor             32
+    Mensagens de chat em fila por servidor        64
+    Entradas de histórico de comandos            64
+    Texto de histórico de comandos           64 KiB
+    Texto de histórico retido por servidor      8 MiB
+    Escalares Unicode de entrada por rascunho   8192
+    Bytes UTF-8 de entrada por rascunho        16384
+    Ofertas DCC pendentes no espaço de trabalho   8
+    Transferências DCC ativas no espaço          4
+    Registros DCC retidos no espaço             12
+
+O limite de histórico é por servidor, não um limite de memória de todo o processo. Com oito sessões, o texto de histórico retido pode chegar a 64 MiB. O estado do servidor é alocado conforme a necessidade; menos sessões não reservam oito históricos completos. Bibliotecas, metadados das visualizações, listas de usuários, entrada e transporte consomem mais memória. O histórico de conversas fica apenas na memória, salvo quando o registro persistente opcional está ativado. A visualização separada de menções não é arquivo permanente; conversas de origem elegíveis podem ser registradas. Configurações, credenciais e logs opcionais em texto simples são arquivos locais que programas com privilégios da mesma conta podem ler. Nenhum cliente garante segurança contra todo servidor hostil ou terminal, sistema operacional ou biblioteca comprometidos.
+
+CRIAÇÃO DE FICHEIROS DE PALAVRA-PASSE CIFRADOS
+
+Para criar uma credencial GPG, utilize /panel em qualquer das interfaces. Escolha o servidor, selecione gpg como fonte de autenticação ou de palavra-passe do servidor e depois create. É proposto um destino absoluto num diretório de credenciais junto da configuração selecionada. Para a configuração principal predefinida:
+
+    ~/.config/vipirc/credentials/account-password.gpg
+
+A palavra-passe PASS do servidor utiliza server-password.gpg. Os nomes existentes são ignorados, sendo oferecidas alternativas numeradas. O painel apresenta o caminho absoluto real; o til do exemplo é explicativo, não é sintaxe literal de configuração. Enter aceita o destino e pode preparar os diretórios privados com modo 0700. Apenas ver a proposta não cria ficheiros. Um destino personalizado exige um diretório superior privado existente e pertencente ao utilizador; os diretórios existentes nunca têm permissões alteradas. O destino e a disponibilidade local de gpg são verificados antes de pedir chave e palavra-passe. Introduza a impressão digital hexadecimal completa de 40 ou 64 dígitos de uma chave de cifragem já existente no chaveiro GPG local; depois introduza e repita a palavra-passe oculta. Ficheiros cifrados existentes continuam selecionáveis. Os caminhos introduzidos no painel são guardados como absolutos, pelo que mudar o diretório de arranque não altera o seu significado. Não se descarrega nem gera nenhuma chave, nem se cria ficheiro de palavra-passe simples.
+
+Só a decisão final Save, Apply ou Connect inicia a cifragem e publica o novo texto cifrado explicitamente pedido com modo 0600. Apply only e Connect once podem criar o ficheiro cifrado sem guardar a configuração. Ficheiros existentes e ligações simbólicas são recusados. Cada auxiliar tem prazo de cinco segundos; a interface continua a processar eventos de rede. Uma falha de cifragem mantém as opções por aplicar e informa o caminho e a razão sem mostrar segredo ou saída do auxiliar. Finish distingue destinos propostos de ficheiros já criados. O sucesso indica /autoauth status para consultar caminhos completos; uma falha ao guardar ou uma publicação parcial mantém os locais na revisão deslocável. É possível repetir a gravação da configuração sem cifrar novamente. O cancelamento remove apenas ficheiros novos e inalterados desta tentativa; conserva os já referidos por uma configuração guardada. Escape recua uma pergunta e cancela a criação pendente; fechar a configuração apaga os dados ocultos. O modo offline recusa a criação antes de qualquer acesso ao GPG, chaveiro ou ficheiros. Para decifrar mais tarde, desbloqueie a chave privada fora da aplicação, se necessário.
+
+RESOLUÇÃO DE PROBLEMAS
+
+Siga as verificações por ordem em doc/TROUBLESHOOTING.txt. Não partilhe registos privados ou segredos.
+
+Ligação: leia o erro do servidor e verifique host, porta e TLS. /connect volta a tentar manualmente; --reconnect repete falhas temporárias. Consulte TLS E CONFIANÇA PERSONALIZADA. Não contorne a verificação enviando credenciais por IRC em claro.
+
+Autenticação: /autoauth status mostra caminhos atuais/pendentes, nunca segredos. Verifique regras de conta e origem em LIGAÇÃO AUTOMÁTICA, ENTRADA EM CANAIS E AUTENTICAÇÃO.
+
+GPG: veja CRIAÇÃO DE FICHEIROS DE PALAVRA-PASSE CIFRADOS para verificação prévia do destino e AUTHENTICATION para limites de descifragem, permissões e desbloqueio externo.
+
+Canais: conclua registo/autenticação. /autojoin mostra entradas pendentes de perfis diretos; os bouncers restauram canais. Veja COMANDOS DE LIGAÇÃO E ARRANQUE.
+
+Retoma ocupada: consulte --sessions, depois --detach-session NUMBER e --resume NUMBER. --close-session termina o processo persistente. Veja SESSION RECOVERY AND UPGRADES.
+
+Teclas/ecrã: setas de Compose editam; Command recorda comandos seguros aceites. Para linhas quebradas ocultas, examine o texto retido. Veja QUEBRA DE LINHAS E HISTÓRICO DE ENTRADA NO MODO MINIMALISTA.
+
+Larguras: use locale UTF-8, TERM e fonte compatíveis; redimensionar conserva rascunho/cursor. Terminais pequenos limitam painéis. Veja ARQUIVOS E AMBIENTE.
+
+Guardar: modo de teste recusa escrita. Reveja caminhos privados e permissões em CONFIGURAÇÃO; Save, Apply e autoconnect no arranque são ações diferentes.
+
+Registos/recuperação: examine o erro exato; o chat continua. Limites, rotação, novos pontos de referência de envio e alternativas estão em HISTÓRICO, REGISTROS E PRIVACIDADE.
+
+Processos filhos: filhos SIGCHLD devem continuar disponíveis para wait. Ignorar esse sinal ou recolhê-los automaticamente impede o primeiro arranque de processos em segundo plano/auxiliares; corrija o lançador.
+
+ARQUIVOS E AMBIENTE
+
+Caminhos padrão da configuração principal:
+
+    $XDG_CONFIG_HOME/vipirc/config.ini
+    $HOME/.config/vipirc/config.ini
+
+XDG_CONFIG_HOME tem prioridade quando não está vazio e precisa ser um caminho absoluto. HOME serve de alternativa; o banco de dados de contas e consultado quando não se consegue uma pasta pessoal absoluta em HOME. --config FILE seleciona outra configuração principal e o espaço de perfis de servidor ao lado dela. Caminhos escritos na configuração são interpretados literalmente, sem expansão de variáveis, til ou shell. As variáveis acima apenas descrevem a escolha dos padroes. O shell ainda faz as citações e expansoes normais antes de passar os argumentos de linha de comando.
+
+Para o caminho principal P, P.servers guarda IDs de perfis e a escolha opcional [servers] default=PROFILE_ID, gerenciada por /saveconf. P.d/ contem os arquivos de perfis secundários. Cada configuração salva pode ter um arquivo .commands com contagens de comandos canônicos e um registro .log opcional. Configurações geradas e perfis secundários exigem Save explícito; contagens de comandos aceitos são atualizadas automaticamente no espaço de trabalho salvo existente. Um perfil padrão lembrado que não exista ou não possa ser lido gera um aviso, em vez de redirecionar a conexão silenciosamente.
+
+A interface completa oferece $XDG_DATA_HOME/vipirc/downloads como diretório padrão para receber DCC quando XDG_DATA_HOME e absoluto; caso contrario, oferece $HOME/.local/share/vipirc/downloads se HOME e absoluto. O diretório oferecido só e criado após aceitação explicita. O comando /dcc accept NUMBER sem DIRECTORY usa o diretório em que o processo foi iniciado e exige que ele pertença ao usuário e seja privado. Escolher ou explorar um caminho não altera esse diretório inicial.
+
+PATH localiza o executável opcional gpg. Nenhum shell e executado; esse programa faz parte do ambiente local que deve ser confiável. GNUPGHOME e interpretado pelo GnuPG para o ambiente de chaves e agente. O cliente não expande GNUPGHOME em caminhos de credenciais. Em uma conexão SSH remota, são usados o ambiente e os arquivos do host que executa o vipirc.
+
+TERM descreve as capacidades do terminal para ncurses, não sua codificação de texto. LANG, LC_CTYPE e LC_ALL selecionam a configuração regional (locale). Use uma locale UTF-8 instalada e compativel com o terminal para editar Unicode e calcular a largura dos caracteres. locale, locale charmap e locale -a ajudam a inspecionar o host; os nomes de locale variam entre sistemas.
+
+Traducao da interface: ao iniciar vipirc, defina VIPIRC_LANG como id (indonésio), ms (malaio), tr (turco), es (espanhol), pt (português), fr (francês), de (alemao), ru (russo), it (italiano) ou ar (árabe). Valores como id_ID.UTF-8 também são aceitos. ncurses e -i usam o mesmo catálogo. Ingles e o idioma de reserva. Um worker desconectado do terminal conserva o idioma selecionado quando foi iniciado. Comandos IRC com barra, chaves de configuração e valores de controle continuam em inglês. Esta versao traduz alguns controles da interface, não todas as paginas de ajuda, alertas de segurança ou erros. Veja doc/LOCALIZATION.md.
+
+O LC_CTYPE ativo e respeitado. Uma locale inválida ou não UTF-8 seleciona o modo terminal ASCII explícito, exibido na tela de boas-vindas. Entrada não ASCII e recusada com mensagem de status; pontos de codigo não ASCII recebidos são exibidos como '?' sem alterar o texto de rede armazenado. O cliente não adivinha nem converte codificações antigas e não força uma locale. Selecione uma locale UTF-8 instalada e reinicie para usar Unicode. ASCII continua sendo o subconjunto de um byte do UTF-8; SSH não altera os limites de bytes codificados do IRC.
+
+ESTADOS DE SAÍDA
+
+0     Conclusão normal ou saída interativa.
+1     Falha operacional, como inicialização, gravação ou controlo de sessão.
+2     Opções/configuração inválidas ou falta de terminal para uso interativo.
+130   SIGINT interrompeu as boas-vindas após a limpeza do terminal.
+131   SIGQUIT interrompeu as boas-vindas após a limpeza do terminal.
+
+O sucesso de --background confirma apenas a preparação local do processo de trabalho, não a autenticação IRC remota. Falhar ao fechar uma sessão significa que o fim não foi verificado; volte a consultar --sessions, pois uma solicitação aceite pode terminar mais tarde.
+
+PLATAFORMAS, COMPILAÇÃO E LICENÇA
+
+Os alvos incluem Linux, o ambiente Linux do ChromeOS e os sistemas BSD. Compilar requer C11, interfaces POSIX, GNU/BSD getopt_long, curses de caracteres largos e ficheiros de desenvolvimento TLS compatíveis. O cliente dispensa um ambiente de execução de linguagem. Python 3 é utilizado nos testes e na geração de documentação; as exportações incluídas permitem compilar e conversar normalmente sem Python. Consulte INSTALL para as dependências.
+
+    ./configure
+    make
+    make check-offline
+    make check
+    make install PREFIX="$HOME/.local"
+
+Consulte INSTALL para compilar, SECURITY.md para o modelo de segurança e os limites, e o relatório de validação da versão para as plataformas efetivamente testadas. A execução nativa em BSD exige validação própria: a intenção de portabilidade não prova testes em todos os sistemas Unix. make check-offline executa testes CLI/PTY sem socket de rede; make check inclui servidores simulados na interface local.
+
+Esta é uma aplicação de ThatIAm.vip (www.thatiam.vip), concebida por remfan1994. O código-fonte está disponível sob a IALA (Insha-Allah License Agreement) incluída; o texto integral encontra-se em LICENSE.md. As bibliotecas ligadas mantêm as suas licenças; consulte NOTICE. A implementação foi escrita para esta especificação, sem copiar código ou linguagem de configuração de outro cliente IRC.
+
+DOCUMENTAÇÃO E VALIDAÇÃO
+
+O MANUAL.txt da raiz é a referência canónica do vipirc completo; doc/manual.txt reproduz o texto e src/manual.c incorpora-o. vipirc --manual e vipirc(1) apresentam-no. vipirc -i --manual e doc/vipirc-idle-manual.txt fornecem a referência minimalista. Ambas as interfaces também têm /help e /manual.
+
+README.md organiza instalação e documentos; INSTALL explica a compilação; SECURITY.md descreve os limites de segurança. CONTRIBUTING.md explica o processo de edição/revisão, doc/SOURCE-MAP.txt localiza o código, tests/README.md descreve os testes e DESIGN.md explica as invariantes. doc/TROUBLESHOOTING.txt associa sintomas a verificações; doc/BOUNCERS.txt, doc/SESSION-CONTROLS.txt e doc/OPENBSD-VPS.txt cobrem operações. Substitua exemplos de servidores, contas e caminhos absolutos antes de os usar.
+
+Os responsáveis editam o texto e a ajuda oficiais e depois executam make docs e make check-docs. A tarefa docs incorpora o manual antes de o reconstruir/exportar. As auditorias e ficheiros JSON só se aplicam às versões e ambientes indicados, não a plataformas ou serviços não testados. A documentação não acrescenta proteção em execução; testes não demonstram a inexistência de falhas.
+
+REFERÊNCIAS DE PROTOCOLOS
+
+https://www.rfc-editor.org/rfc/rfc2812
+https://modern.ircdocs.horse/
+https://ircv3.net/specs/extensions/capability-negotiation
+https://ircv3.net/specs/extensions/sasl-3.1
+https://www.irchelp.org/protocol/ctcpspec.html
+https://www.irchelp.org/protocol/dccspec.html
+
+A sintaxe IRC e os requisitos de interoperabilidade vêm dos documentos dos protocolos. A interface e o âmbito do programa seguem os requisitos do projeto.

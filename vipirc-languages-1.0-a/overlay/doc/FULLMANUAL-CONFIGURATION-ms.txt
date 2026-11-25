@@ -1,0 +1,69 @@
+CURRENT SIGNAL POLICY (vipirc-1.0-a):
+Use signals = no secara lalai. Ctrl-C dan Ctrl-Z membatalkan mesej atau arahan yang belum dihantar, bukan menamatkan aplikasi. Pilih yes dalam panel 0 (atau tetapan Interface vipirc) untuk mengaktifkan isyarat terminal. Apply berkuat kuasa serta-merta; Save turut menyimpan [input] use_signals=true|false. Tetapan terminal asal dipulihkan apabila keluar atau digantung.
+
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / CONFIGURATION
+English source SHA-256: e2956cfce20ea9e24f3a157c4edcdf403e26c851eb40004ecc77db98f83874de
+Source lines: 1452-1555
+
+KONFIGURASI
+
+Gunakan arahan berikut untuk membuat konfigurasi peribadi boleh sunting, sunting isinya, kemudian sahkan:
+
+    vipirc --init-config --server irc.ircnow.org --channel '#ircnow'
+    vipirc --check-config
+
+Satu fail mewakili satu profil; --config memilih konfigurasi utama serta katalog pelayan tersimpan di sebelahnya. Sehingga lapan profil berkongsi satu proses. Laluan utama berbeza membentuk ruang kerja berasingan. Contoh dibekalkan dan --init-config memberi sintaks lengkap. Peta kunci di bawah sekadar rujukan, bukan blok untuk ditampal: setiap key=value sebenar mesti mempunyai barisnya sendiri.
+
+Pilihan lalai ialah send_mode=direct, composer_mode=line, command_suggestions=common, format=compact dan default_interface=ncurses. Keutamaan aplikasi disimpan dalam konfigurasi utama untuk semua pelayan; senarai connection/auth/bouncer, watch, ignore dan perintah permulaan milik profil masing-masing. [hotkeys] kosong secara lalai dan menerima maksimum 64 baris KEY=action.
+
+Nickname berbeza daripada username IRC. Nama samaran utama interaktif kosong menyebabkan gesaan dengan nama akaun log masuk sebagai lalai. username lazimnya diambil daripada akaun; realname ialah keterangan USER, bukan semestinya nama sah. channel ialah senarai autojoin profil langsung dipisahkan koma tanpa ruang; kosong bermakna paparan pelayan. Bouncer memulihkan keahlian sendiri.
+
+Bagi SASL langsung, auth=sasl memerlukan auth_user dan tepat satu sumber password. PASS pelayan memilih satu sumber server_password secara bebas. Lebih daripada satu sumber bagi kelayakan sama ialah ralat tanpa pilihan sandaran; kedua-duanya mensyaratkan TLS disahkan. Bouncer memerlukan auth_user kosong dan membina log masuknya sendiri. Rahsia dalam baris kekal teks biasa; peraturan fail/GPG dijelaskan dalam AUTHENTICATION.
+
+history_lines menerima 50..5000 baris setiap paparan, lalai 500, dengan had teks 8 MiB setiap pelayan yang boleh mengusir lebih awal. Pengekalan minimalis mempunyai had global 2048 rekod/512 KiB. Nilai boolean menerima huruf kecil true/false, yes/no, 1/0. Bahagian/kunci tidak dikenali serta nilai tidak sah/terlampau besar gagal bersama nombor baris jika berkaitan. Kebanyakan pendua menggunakan nilai akhir; entri watch/ignore/autocommand berulang ditambah sehingga had.
+
+Baris bermula dengan # atau ; selepas ruang awal ialah komen; tiada komen sebaris selepas nilai. Tepi nilai biasa dibuang ruang. Tiada sintaks petikan, escape, pengembangan pemboleh ubah/tilde atau penilaian shell. Utamakan laluan mutlak literal. Apply/Save menolak ruang ASCII di hujung medan biasa supaya muat semula tidak mengubah nilainya; ruang di tengah dibolehkan jika nilai itu sah.
+
+password=, server_password= dan [autocommands] command= mengekalkan setiap bait selepas = kecuali hujung baris, termasuk ruang, =, # dan ;. Jangan tambah tanda petik atau komen inline. Password kosong bermakna tiada sumber; ruang semata-mata dianggap tidak kosong. Kawalan dan baris baharu password tidak sah.
+
+/save menjana semula tetapan yang disokong, termasuk pilihan tertunda, menggantikan komen dan format; simpan nota di tempat lain. Suntingan fail dibaca oleh proses baharu, bukan --resume. Save dilarang dalam test mode. Fail baharu bermod 0600 dalam direktori akhir 0700 milik pengguna; konfigurasi sedia ada mesti dimiliki pengguna dan tidak boleh ditulis orang lain. Symlink termasuk komponen laluan serta '..' ditolak. Password inline tidak kosong atau senarai arahan permulaan, walaupun dimatikan, mewajibkan fail biasa milik pengguna dengan mod 0600/0400. Satu fail diganti secara atomik; seluruh ruang kerja bukan satu transaksi.
+
+single_session=true melarang worker vipirc terurus kedua, bukan pelayan tambahan dalam worker yang sama. Pilihan presence lalai disenaraikan dalam peta; autoaway_minutes=0 mematikan pemasa. Pulang automatik hanya memadam away yang dicipta klien, tidak memadam /away manual. Away automatik bouncer dimatikan secara lalai.
+
+Kunci lama [interface] keymap=original|vim dan focus_style=reverse|brackets diterima tetapi diabaikan serta tidak disimpan semula dengan Save; nilai lain tidak sah. Navigasi biasa dan fokus kurungan tebal kekal. /keymap menerangkan keserasian ini, bukan memilih pemetaan. Pemberitahuan queue/program boleh disembunyikan berasingan; ralat dan pengesahan keselamatan tetap kelihatan.
+
+EXACT CONFIGURATION KEYS (reference only; not a block to paste):
+
+    [connection]
+    server, port, tls, nick, username, realname, channel, autoconnect,
+    auth, auth_user, password_file, password_gpg_file, password,
+    server_password_file, server_password_gpg_file, server_password, ca_file
+    [bouncer]
+    type=none|znc|soju, username, network, client, automatic_away=false
+    [interface]
+    user_list=true, mouse=true, hints=true, shortcut_labels=true,
+    history_lines=500
+    [input]
+    send_mode=direct|review, composer_mode=line|fullscreen,
+    command_suggestions=common|history|frequent|alphabetical|contextual,
+    use_signals=false
+    [hotkeys]
+    optional KEY=action rows; empty by default, at most 64
+    [output]
+    format=compact|full, queue_notices=true, program_messages=true,
+    persistent_logging=false
+    [session]
+    single_session=false, default_interface=ncurses|idle
+    [presence]
+    part_message=, quit_message=Client quit, background_away=true,
+    background_away_message=Detached from terminal,
+    autoaway_minutes=15, autoaway_message=Idle
+    [autocommands]
+    enabled=true, delay_seconds=15, interval_seconds=2, repeated command=
+    [mentions]
+    repeated word=literal phrase
+    [ignore]
+    repeated mask=nick!user@host
+
+    [interface] keymap=original|vim; focus_style=reverse|brackets

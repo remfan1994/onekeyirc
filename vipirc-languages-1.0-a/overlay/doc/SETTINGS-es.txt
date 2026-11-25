@@ -1,0 +1,44 @@
+Guía práctica de vipirc / onekeyirc - Ajustes
+=======================================================
+
+TRADUCCIÓN PRELIMINAR. Escriba comandos y opciones exactamente como aparecen.
+Para los detalles de seguridad, consulte MANUAL.txt y SECURITY.md en inglés.
+
+/help set
+---------
+
+direct es el valor predeterminado: Enter envía el texto; si requiere varios mensajes IRC, hay que confirmar.
+
+review añade una revisión deliberada antes de poner los mensajes normales en cola.
+
+output_format compact es el predeterminado: el chat seleccionado muestra [HH:MM:SS] <nick> texto.
+
+output_format full incluye servidor, fecha y destino en cada línea. compact conserva el origen necesario de menciones y diagnósticos de otros servidores.
+
+queue_notices off oculta avisos rutinarios de cola. En modo mínimo, un envío ya revisado omite el aviso repetido. Los errores y la confirmación de mensajes múltiples siempre aparecen.
+
+program_messages off oculta mensajes locales secundarios como borrador cancelado, entrada vaciada o borrador conservado. Los errores y confirmaciones de seguridad siguen visibles.
+
+persistent_logging on añade chat a un .log privado (0600) en directorio de configuración privado (0700). Desactivado por defecto; tope 16 MiB: archive y cambie off/on. Un archivo inseguro/ocupado detiene el registro, no el chat.
+
+single_session on permite solo un trabajo en segundo plano del cliente, para que --resume sin número no sea ambiguo. Admite varios servidores IRC en esa sesión.
+
+default_interface selecciona la interfaz del próximo inicio nuevo, si es compatible. No cambia la actual. /save input guarda esta preferencia.
+
+command_suggestions ofrece orden alfabético, comandos comunes, recientes, más usados o relevantes para la pantalla de origen.
+
+composer_mode line reserva una fila de entrada bajo el chat en vivo; fullscreen usa editor multilínea y panel de chat. Por defecto: line.
+
+part_message y quit_message son motivos de salida IRC predeterminados; /part o /quit explícitos los sustituyen. El valor vacío desactiva ese texto.
+
+background_away envía background_away_message tras /background correcto o pérdida de terminal. autoaway_minutes fija away por inactividad; 0 lo desactiva.
+
+Solo el estado away creado por el cliente se borra al reanudar o recibir entrada real. Un /away manual nunca se cambia ni borra.
+
+«De uso frecuente» es el predeterminado. «Contextual» prioriza comandos de canal, consulta, servidor o cliente sin ocultar otras coincidencias.
+
+«De uso frecuente» usa un orden útil seleccionado. «Contextual» recuerda la pantalla que abrió el comando, incluido el lector de resumen general.
+
+Son preferencias globales del cliente. Use /save input o /save output para conservarlas.
+
+/panel seguido de 0 modifica esas preferencias y el límite global del historial.

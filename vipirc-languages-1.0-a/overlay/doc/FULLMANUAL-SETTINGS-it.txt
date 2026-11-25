@@ -1,0 +1,24 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / SETTINGS
+English source SHA-256: 9c87d089b996a2f8af0ff0340f97da2bd4c3650e5fbc7816868f35b0df91ee05
+Source lines: 724-781
+
+IMPOSTAZIONI
+
+F1 > Impostazioni oppure /settings apre le impostazioni dell'interfaccia, tutti i profili server e New server, senza cambiare conversazione. Le righe mostrano lo stato della connessione automatica e del salvataggio. I campi del server includono trasporto, identità, ingresso automatico nei canali, connessione automatica, fonti delle password dell'account e del server (PASS), CA personalizzata, tipo/nome utente/rete/client/assenza automatica del bouncer, cronologia, menzioni e filtri di esclusione. Interface comprende User list, Mouse, Hints, Shortcut labels, avvisi, registrazione dei log, modalità a sessione singola, suggerimenti dei comandi e interfaccia predefinita.
+
+    Edit    Apply    Save    Back    Cancel
+
+Up/Down oppure k/j seleziona i campi; Left/Right oppure h/l seleziona un'azione; Enter la esegue. Home/End oppure g/G raggiunge gli estremi. Edit cambia un valore booleano, apre una scelta oppure modifica testo/numeri. Enter nell'editor prepara soltanto quel valore; Tab/Shift-Tab lo convalida e lo prepara prima di passare oltre. Gli input non validi restano modificabili. Le lettere nell'editor vengono inserite come testo. Svuotare un campo watch/ignore già esistente lo elimina; Add ne crea un altro entro i limiti.
+
+Apply convalida e aggiorna le preferenze attive, watch/ignore e la connessione automatica, poi rimane in Settings con Edit selezionato. I campi della connessione, inclusa l'identità del bouncer, restano in attesa di un Connect esplicito dopo la disconnessione. Apply non salva mai, non riconnette e non reindirizza una sessione attiva. /nick, /join e /part modificano la connessione in corso. Save scrive il profilo effettivo in modo privato e atomico, quindi lo applica; /save preserva anche le scelte in attesa. Il primo Save di un server secondario crea il relativo profilo isolato e la voce di catalogo.
+
+Interface Apply aggiorna tutte le posizioni server presenti e future. Interface Save scrive la configurazione primaria prima di applicarla. Se Interface Save non riesce o viene bloccato, tutte le sessioni restano invariate. Le chiavi dell'interfaccia nei profili secondari non possono sovrascrivere quelle principali all'avvio. In modalità completa la cronologia resta separata per server. L'interfaccia predefinita riguarda soltanto i nuovi avvii.
+
+Hints nasconde le indicazioni facoltative ma mantiene titoli, controlli, errori e conferme di sicurezza. Shortcut labels nasconde i comuni prefissi F1..F6. Entrambe le opzioni sono attive per impostazione predefinita e vengono salvate in [interface]. Sono indipendenti dai colori normali del terminale e dal grassetto usato per segnalare il focus.
+
+Cambiare Server con un valore diverso, ignorando maiuscole e minuscole, elimina dal modulo preparato l'autenticazione ereditata, auth user, tutte le fonti di password account/PASS e autojoin. Cambiare tipo di bouncer elimina credenziali e comandi ereditati: inserire poi i valori desiderati. La sessione attiva non cambia. Durante la modifica i file non vengono letti né decifrati; le password in chiaro inserite direttamente sono mascherate, ma gli spazi sono conservati. Transport sceglie TLS verificato oppure testo non cifrato in modo esplicito, indipendentemente dall'archiviazione cifrata delle password.
+
+Back torna alla schermata principale di Settings. Cancel/Escape chiude l'intero modulo anche da un campo o da un popup, scarta le modifiche non applicate e torna a vipirc. Le preferenze e le scelte in attesa già applicate, così come le bozze di chat, restano. La modalità test consente Apply in memoria ma rifiuta Save. Creare o collegare un server da Settings conserva la conversazione attiva selezionata.
+
+L'incolla delimitato (bracketed paste) funziona solo in un campo attivo, inserisce testo senza confermarlo e converte i tab in spazi; CR/LF/Escape e i controlli non supportati vengono rifiutati. L'incolla su elenchi o popup di scelta viene ignorato. Controllare il testo e poi premere Enter per prepararlo. La procedura guidata /panel è un flusso separato di domande e risposte, descritto in MINIMALIST INTERFACE.

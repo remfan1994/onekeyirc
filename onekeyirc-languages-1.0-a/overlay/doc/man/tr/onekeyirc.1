@@ -1,0 +1,2078 @@
+.TH ONEKEYIRC 1 "" "onekeyirc 1.0-a"
+.nh
+.ad l
+.SH NAME
+onekeyirc \- komut odaklı terminal IRC istemcisi
+.SH SYNOPSIS
+.B onekeyirc
+[OPTION]...
+.br
+\&onekeyirc \- komut odaklı terminal IRC istemcisi
+.br
+\&Vejetaryen değil misiniz? www.bloodguiltcurse.net fikrinizi değiştirecek
+.br
+\&onekeyirc komut yardımı
+.br
+\&Yardım konularını gör: /help ls.
+.br
+\&Komut listesi: /help commands. Ayrıntılar: /help COMMAND.
+.br
+\&İlk bağlantı: /connect irc.example.org, ardından /join #channel.
+.br
+\&Özel sohbet: /query NICK veya /msg NICK TEXT.
+.br
+\&Rehberli kurulum: /quickstart veya /panel.
+.br
+\&Ayarları kaydet: /saveconf. Kaydetmek autoconnect işlevini açmaz.
+.br
+\&Görünümleri değiştir: /servers, /channels, /ql.
+.br
+\&Başlangıç seçenekleri: /help autoconnect, /help autojoin, /help autoauth.
+.br
+\&SSH oturumlarını kurtar: /help sessions.
+.br
+\&Bouncer yönergeleri: /help bouncers.
+.br
+\&Ayarlar ve kısayollar: /help configuration, /help hotkeys.
+.br
+\&Sorunlar ve TLS güvenliği: /help troubleshooting, /help security, /help tls.
+.br
+\&Geçmiş ve günlükler: /help history, /help logging.
+.br
+\&Dil seç: /help language.
+.br
+\&Tam başvuru: /help all veya /manual.
+.br
+\&Escape okuyucuyu kapatır; / Komut ekranını açar.
+.PP
+.SH "about"
+.br
+\&ThatIAm.vip (www.thatiam.vip) uygulaması; tasarım: remfan1994.
+.br
+\&Lisans: IALA (Insha\-Allah License Agreement); birlikte verilen lisans metnine bakın.
+.br
+\&Karşılama uyarısı: Vejetaryen değil misiniz? www.bloodguiltcurse.net fikrinizi değiştirecek
+.br
+\&Çalışan oturum, arayüz bağlandığında şu yerel hatırlatmayı da bir kez gösterir:
+.br
+\&İnek öldürmek masumların kanını dökmektir. www.bloodguiltcurse.net \- sığır etini yasaklayın.
+.br
+\&Hatırlatma ek onay istemez ve IRC'ye gönderilmez. Yeniden bağlanma veya arayüzü yeniden bağlama, işçi başına bir kez bayrağını sıfırlamaz.
+.PP
+.SH "aliases"
+.br
+\&Alternatif adlar tam eşleşmelidir; belirsiz veya yaklaşık komut çalıştırılmaz.
+.br
+\&/conn = /connect; /disc = /disconnect; /detach = /background; /exit = /quit
+.br
+\&/j = /join; /leave = /part; /message ve /privmsg = /msg
+.br
+\&/nickname = /nick; /names ve /nicks = /users; /unaway = /back
+.br
+\&/channellist = /cl; /querylist = /ql; /serverlist = /servers
+.br
+\&/configure ve /preferences = /panel; /saveconfig = /saveconf
+.br
+\&/autocommand = /autocommands
+.br
+\&Tamamlama resmi komut adlarını önerir; argümanlar aynen korunur, gizli geçmiş filtresi değişmez.
+.PP
+.SH "authentication"
+.br
+\&Doğrulanmış TLS ile /autoauth sasl USER file PATH veya /autoauth sasl USER gpg PATH kullanın.
+.br
+\&Parola dosyası veya çözülmüş GPG içeriği kimlik bilgisini sağlar; yollar oldugu gibi kullanilir.
+.br
+\&Yerel açık anahtar parmak izi için GPG ile şifreli yeni kimlik bilgisi oluşturmak üzere /panel kullanın.
+.br
+\&Kilidi açılmış bir GPG anahtari kullanın. Sohbet düzenleyicisinde pinentry çalıştırılmaz.
+.br
+\&Özel yapılandırma dosyalarinda düz metin password= ve server_password= da desteklenir.
+.br
+\&Her kimlik bilgisi için yalnizca bir kaynak seçin. /settings ve /summary dosya konumlarini gizler.
+.br
+\&/autoauth status dosyalari okumadan veya parolalari gostermeden etkin ve bekleyen kimlik dosyası yollarini gösterir.
+.br
+\&Kimlik doğrulama ayarları, bağlantı kesildikten sonraki /connect ile etkinleşir; /save kaydeder.
+.br
+\&Bouncer profilinde giriş ve kaynagi birlikte /panel ile yonetin; /autoauth değişiklikleri reddedilir.
+.br
+\&Kimlik dosyalari sahibine ait normal dosyalar olmali, kip 0600 veya 0400 olmali; sembolik bağlar ve üst dizin geçişi reddedilir.
+.br
+\&SASL kimlik sınırı 1024 bayt; normal sunucu PASS sınırı 503 bayt. Birlesik ZNC girişi de tek IRC satirina sığmalıdır.
+.br
+\&\-\-check\-config kimlik dosyalarini okumadan ve girişi denemeden yapılandırmayı ve kaynak secimini denetler. Bkz. /help tls ve /help bouncers.
+.PP
+.SH "bouncers"
+.br
+\&/panel acin, sunucu seçin, sonra znc veya soju bağlantı turunu seçin.
+.br
+\&Saglayicinin bouncer sunucu adı ve TLS portunu, bouncer kullanıcı adini, mevcut üst agi ve istege bağlı sabit istemci adini girin.
+.br
+\&Her üst ağ icin ayri profil kaydedin. Ayni ana makineyi kullanan profillerde /connect oncesi dogru profili seçin.
+.br
+\&Istemci giriş kimligini oluşturur. ZNC sunucu parola kaynagini, soju kimlik dogrulama parola kaynagini kullanir. Birlesik kimlik ya da NickServ parolası değil, sadece bouncer parolası girin.
+.br
+\&Bouncer kanallari geri getirir. Yerel /autojoin çalıştırılmaz ve değiştirilemez; /join ve /part kullanın.
+.br
+\&Acik baslangic komutlari yine çalışır. Istenmeyen tekrar /join veya servis komutlarini önlemek için profili açmadan once denetleyin.
+.br
+\&Bouncer profilinde otomatik bosta/arka planda away, özellikle açılmadıkça kapalıdır. Elle /away ve /back çalışır.
+.br
+\&Gonderilen gecmis ozgun UTC zamanlarini korur, özel iletileri aliciya yoneltir ve yeni mention, CTCP/DCC ya da canli durum degisikligi oluşturmaz.
+.br
+\&Geçmiş sinirlidir. Istek uzerine arşiv arama, otomatik ağ kesfi ya da ağ basina otomatik profil olusturma yoktur.
+.br
+\&Hizmet yardimi icin /znc veya /soju komutunu argumansiz kullanin. Kontrol metni gecmise ve yerel yansimaya girmez; yanitlar sunucu gorunumunde kalici günlük olmadan gorunur.
+.br
+\&Taninmis giden kontrol kopyalari eski takma adla oynatilirken de gizlenir. Yazilan metin yine gorunebilir; bouncer kendi günlük politikasina sahiptir.
+.br
+\&Istemci yalniz bouncer'a baglanir. Ust bağlantının TLS, kimlik doğrulama ve saklama ayarlarini ayrica yapin.
+.br
+\&Kurulum ve doğrulanmış kapsam sınırları için doc/BOUNCERS.txt ile examples/ icindeki bouncer örneklerine bakın.
+.PP
+.SH "configuration"
+.br
+\&Varsayılan yapılandırma dosyası: $XDG_CONFIG_HOME/onekeyirc/config.ini; XDG_CONFIG_HOME mutlak yol olmalıdır.
+.br
+\&XDG_CONFIG_HOME ayarlanmamış veya boşsa: $HOME/.config/onekeyirc/config.ini. \-\-config FILE başka dosya seçer.
+.br
+\&Yeni varsayılan dosya yoksa aynı yapılandırma temel dizini altındaki mevcut 1keyirc/config.ini yerinde kullanılır.
+.br
+\&Mevcut ayarlar, sunucu katalogları ve kimlik bilgisi yolları taşınmaz. İkisi de varsa onekeyirc varsayılanı önceliklidir.
+.br
+\&Güvensiz veya okunamayan varsayılan dosya bildirilir; sessizce başka dosya seçilmez. \-\-config FILE bu seçimi geçersiz kılar.
+.br
+\&[history] lines= saklanan sohbetin sınırını belirler. Yapılandırma [interface] seçeneklerini içermez.
+.br
+\&[connection] server, port, tls, nick, username, realname, channel, autoconnect, auth ve kimlik bilgisi kaynaklarını tutar.
+.br
+\&[bouncer] type=none|znc|soju, username, network, client ve automatic_away her ağ için bouncer profilini belirler; bkz. /help bouncers.
+.br
+\&[input] send_mode=direct|review ve [output] format=compact|full, queue_notices=true|false, program_messages=true|false, persistent_logging=true|false ana dosyadaki tercihlerdir.
+.br
+\&[input] command_suggestions=common|history|frequent|alphabetical|contextual komut sırasını seçer; varsayılan common.
+.br
+\&[input] composer_mode=line|fullscreen sade düzenleyici/komut görünümünü seçer; varsayılan line. İkisi de son iletileri gösterir.
+.br
+\&[input] use_signals=false, istemci tty denetimini elinde tutarken terminalin ürettiği sinyalleri devre dışı bırakır. true, mevcut terminal sinyal eşlemelerini etkinleştirir. «Uygula» hemen uygular; «Kaydet» ana yapılandırmaya kaydeder.
+.br
+\&[hotkeys], varsayılanı olmayan en çok 64 isteğe bağlı KEY=action içerir. Ana yapılandırmaya aittir; bkz. /help hotkeys.
+.br
+\&[session] single_session=true|false birden fazla arka plan işine izin verilip verilmediğini belirler; varsayılan false.
+.br
+\&[session] default_interface=ncurses|idle ana uygulama tercihidir. Açılış seçenekleri aşağıda açıklanır.
+.br
+\&Varsayılan çıktı compact biçimindedir. Ana history_lines tüm sunuculardaki yerel geçmiş kapasitesini belirler.
+.br
+\&[mentions] word= ve [ignore] mask= tekrarlanabilir.
+.br
+\&[autocommands], sunucu için enabled, delay_seconds, interval_seconds ve yinelenen command= satırlarını içerir.
+.br
+\&Bu komutlar özel yapılandırmada düz metindir. /autocommands liste ve geçmişte gizli metni göstermez.
+.br
+\&Kaydedilen ek sunucular bitişik .servers kataloğunu ve .d dizinini kullanır.
+.br
+\&/connect HOST ile bağlanın; sonra /join #channel ve /saveconf ile çalışan ayarları kaydedin.
+.br
+\&/saveconf tercihleri ve sağlam sunucu profillerini kaydeder; sonraki yalın /connect için seçili sunucuyu hatırlar.
+.br
+\&/quickstart dört bağlantı sorusu sorar. /panel: tercihler için 0, profiller için 1..8; panel 1 birincili düzenler.
+.br
+\&Panel değişiklikleri «Bitir» öncesinde özeldir. GPG hedefini kabul etmek 0700 dizinini hazırlayabilir; şifreleme, yazma ve bağlantı son seçimi bekler.
+.br
+\&Yeniden başlatmada korumak için: seçili sunucuda /save; birincilde /save input veya /save output; sağlam profiller ve varsayılan için /saveconf.
+.br
+\&Kaydedilen yapılandırma komut sayılarını okumak/yazmak için <config_path>.commands kullanır; ana dosya sayıları tutmaz.
+.br
+\&Bu sınırlı özel dosyada yalnızca standart komut adları ve sayılar bulunur; argümanlar ve mesaj geçmişi yoktur. Test modu onu kullanmaz.
+.br
+\&/autojoin veya /autoauth ile bekletilen [connection] değişiklikleri sonraki bağlı olmayan /connect sırasında geçer; canlı bağlantı etkilenmez.
+.br
+\&Yapılandırma dosyaları özeldir; her dosya atomik değiştirilir, tüm çalışma alanı tek işlem değildir. İçe/dışa aktarım yoktur.
+.br
+\&Bilinmeyen bölüm/anahtar veya geçersiz değer hatadır. Yapılandırma düz değer alır; kabuk alıntısı, kaçış, değişken veya ~ işlemez.
+.br
+\&Normal değerlerin uç boşlukları silinir. password= ve server_password=, = sonrasını satır sonuna dek saklar; yorum/tırnak eklemeyin.
+.br
+\&Kaydetme desteklenen ayarları yeniden yazar, el yazısı biçim ve yorumları siler. Notları üretilmiş yapılandırma dışında saklayın.
+.br
+\&Sırlar: /help authentication; CA: /help tls; disk kayıtları: /help logging; çalışan işler: /help sessions.
+.br
+\&onekeyirc her zaman idle kullanır. Uygulama panelinde arayüz seçimi yoktur; /set default_interface yalnızca idle kabul eder.
+.br
+\&Ortak yapılandırma ayrıştırıcısı tanınan kayıtlı değerlerin her ikisini de korur. Kayıtlı ncurses değeri bu bağımsız istemcinin arayüzünü değiştirmez.
+.PP
+.SH "deployment"
+.br
+\&Terminal veya karşılama tuşu olmadan oturum başlatmak için \-\-background kullanın.
+.br
+\&Başlatılacak her sunucuda /autoconnect on ayarını yapıp kaydedin.
+.br
+\&\-\-background tek başına autoconnect açmaz; \-\-no\-connect başlangıç bağlantılarını yine engeller.
+.br
+\&Normal uyarı ayrılmadan önce bir kez yazılır. Başarı, IRC oturum açma değil yerel arka plan işi demektir.
+.br
+\&Aynı kullanıcı hesabıyla sonraki terminalden \-\-sessions ve \-\-resume [NUMBER] kullanın.
+.br
+\&\-\-sessions bağlı işleri de içerir. \-\-detach\-session NUMBER bağlı terminali işi sonlandırmadan ayırır; başka yerde sürdürülebilir. \-\-close\-session NUMBER seçilen işi ve tüm IRC bağlantılarını sonlandırır.
+.br
+\&PID yerine listelenen iş kimliğini kullanın. Yanıtsız işçiler veya istenen denetimi desteklemeyen eski işçiler başarısız olabilir. Kurtarma ve yükseltme adımları: /help sessions.
+.br
+\&VPS yeniden başlatılırsa eski işler, taslaklar ve RAM geçmişi kaybolur. OS başlangıç görevi yeni istemci açabilir.
+.br
+\&OpenBSD yönergeleri ve isteğe bağlı rc.d örneği doc/OPENBSD\-VPS.txt dosyasındadır.
+.br
+\&İstemciyi normal kullanıcıyla, mutlak yapılandırma ve kimlik bilgisi yollarıyla çalıştırın. Kilitli GPG anahtarı açılışta parola soramaz.
+.br
+\&\-\-check\-config ayarları denetler; kimlik bilgisi erişimini, DNS, TLS veya IRC girişini değil.
+.br
+\&Geçici ağ kesintileri için \-\-reconnect kullanın; çökme sonrası işlem gözetimi ayrı OS görevidir.
+.br
+\&Başlatıcılar çocuk süreçleri beklenebilir bırakmalıdır: SIGCHLD yok sayılır veya çocuklar otomatik toplanırsa ilk arka plan başlangıcı, çözümleyici ya da kimlik yardımcısı oluşturma başarısız olur. Yönetilen yeniden ayırma yeni işçi oluşturmaz.
+.PP
+.SH "documentation"
+.br
+\&/help ls ile konu arayin; /help commands komut girisini aciklar ve komutlari listeler. Her seferinde tek konu veya komut adi girin.
+.br
+\&/help COMMAND soz dizimini, etkileri ve örnekleri gösterir. /help /ls yerel listeyi, /help ls konulari aciklar.
+.br
+\&/help all veya /manual bu kilavuzu acar. \-\-help başlangıç seceneklerini gösterir; yalın kipte \-\-manual ciktisi dosyaya yonlendirilebilir.
+.br
+\&README.md belgeleri gösterir; MANUAL.txt ana arayuzu, INSTALL derlemeyi anlatir. Kurulu man sayfasi kabuktan kullanimi aciklar.
+.br
+\&CONTRIBUTING.md degisiklikleri, doc/SOURCE\-MAP.txt kod yerlerini, tests/README.md testleri anlatir. DESIGN.md sorumluluk ve sirayi kaydeder.
+.br
+\&doc/TROUBLESHOOTING.txt belirtiye göre denetim sunar. SECURITY.md tehditleri; doc/BOUNCERS.txt ve doc/SESSION\-CONTROLS.txt islemleri aciklar. Denetimler yalniz belirtilen surum ve ortamlari kapsar.
+.PP
+.SH "history"
+.br
+\&Görüntülenen kayıt ve komut geçmişi RAM'de sınırlıdır. Kalıcı günlük isteğe bağlıdır ve varsayılan kapalıdır.
+.br
+\&Görünüm değişince saklanan son kayıtlar gösterilir; /mentions eşleşen kaynak satırlarını gösterir.
+.br
+\&Uygulamanın geçmiş ayarı tüm sunucu/görünümlerdeki toplam kayıtları sınırlar; /panel, ardından 0 ile düzenleyin.
+.br
+\&Saklama sınırı bu ayar ile 2048 kayıttan küçük olanıdır; ayrıca 512 KiB kesin bayt sınırı vardır.
+.br
+\&Kanal veya özel sohbette /catchup, yerel olarak gönderdiğiniz en son yazılmış iletiden başlar. Önce uygun özel günlüğü, sonra saklanan belleği dener; /help catchup iki okuyucuyu açıklar.
+.br
+\&Kalıcı geçmişe yetişme sunucu ve sohbet başınadır. Dayanak iletisini gönderirken kalıcı günlük zaten açık olmalıdır; kayıtlı profil başına 16 MiB ile sınırlı özel düz metin dökümüdür, şifreli depolama değildir.
+.br
+\&Komut geçmişi en fazla 64 giriş ve 64 KiB tutar, en eskileri çıkarır. /clear sohbet geçmişini temizler, komut geçmişini değil.
+.br
+\&Son geçmiş önerileri bu tam satırları kullanır. Delete seçili geçmiş satırını siler.
+.br
+\&En sık kullanılan önerileri ise <config_path>.commands içinde en fazla 96 standart komut adı ve sınırlı sayaçlar kullanır.
+.br
+\&Kaydedilmiş yapılandırmalarda kabul edilen komutlar ve sıklık sıfırlamaları bu özel dosyayı otomatik günceller. Argümanlar, hedefler ve iletiler burada kalıcı kaydedilmez.
+.br
+\&Kaydedilmemiş profiller ilk başarılı Kaydet'e kadar sayaçları bellekte tutar. Eksik veya kullanılamaz sayaç dosyaları başlatmayı engellemez.
+.br
+\&Yardım ve çok satırlı komut yanıtları, 512 KiB ile sınırlı tamponu olan ayrı okuyucuyu kullanır. Sohbet geçmişine eklenmezler.
+.br
+\&Kabul edilmiş komutlar komut düzenleyicisinde geri çağrılabilir. Kimlik doğrulama değişiklikleri, anahtarlı katılımlar ve hassas hizmet iletileri dışlanır.
+.br
+\&Compose içinde Up/Down imleci taşır, gönderilen sohbeti çağırmaz. Command yalnız kabul edilmiş komutları geri çağırır.
+.br
+\&Aynı arayüzde ayır/sürdür taslakları ve komut geçmişini korur. Desteklenen arayüz geçişleri bunları ve kurulum formlarını siler; çıkış veya yeniden başlatma bellekteki sohbeti ve geçmişe yetişme dayanaklarını da sonlandırır.
+.br
+\&Kaydedilen sıklık sayaçları yalnızca ad içerir. Eski düz metin günlükler çıkıştan sonra kalır, ancak yeni oturuma veya düzenleyiciye otomatik aktarılmaz.
+.br
+\&/clear bir görünümün RAM geçmişini siler, eski disk dökümünü değil. Bouncer tekrarını bouncer sağlar.
+.br
+\&Varsayılan uygulama geçmişi sınırı 100 kayıttır.
+.PP
+.SH "hotkeys"
+.br
+\&Bu istemci tuş atamalarını komutlarla düzenler; /bindings geçerli tabloyu listeler.
+.br
+\&Özel tuş atamaları isteğe bağlıdır; başlangıçta boştur. Mevcut gezinme ve düzenleme tuşları çalışır.
+.br
+\&Liste için /bindings, tuşlar için /bindings keys, işlevler için /bindings actions kullanın.
+.br
+\&Atamak için /bind KEY ACTION; değiştirmek için tekrar atayın. Silmek için /unbind KEY veya /unbind all.
+.br
+\&Değişiklikler bütün sunucularda hemen geçerlidir; /save input ana yapılandırmaya kaydeder. Ek profiller bu tabloyu geçersiz kılamaz.
+.br
+\&Biçim: [hotkeys] altında satır başına bir KEY=action, en çok 64. Terminal takma adları dahil çift tuşlar hatadır.
+.br
+\&Özel eylemler yalnız ana sohbet ve komut isteminde çalışır; parola, kurulum, yapıştırma, okuyucu veya onayda değil.
+.br
+\&Minimal arayüzde okuyucular taslağı/imleci korur. Görünüm veya düzenleyici değiştiren kısayol dolu taslağı reddeder; bitirin veya silin.
+.br
+\&Gönderme eylemi, keyfi komut, kabuk kodu veya metin makrosu yoktur. Arka plan ve çıkış normal etkilerini korur.
+.br
+\&F1..F12, Ctrl\-A..Z, Alt\-a..z/0..9 ve gezinme tuşları vardır; yazdırılabilir karakterler metin kalır.
+.br
+\&Ctrl\-H/Backspace, Ctrl\-I/Tab, Ctrl\-J/Ctrl\-M/Enter ve Ctrl\-[/Escape aynı baytları paylaşır; ayrı atanamaz.
+.br
+\&Terminal sinyalleri ve çoklayıcı kısayolları önceliklidir. Ctrl\-C veya Ctrl\-Z ancak baytı uygulamaya ulaşırsa çalışır; tuşlar yeniden atanmaz.
+.br
+\&Tanınan köşeli yapıştırma kısayol çalıştırmaz. Çerçevesiz yapıştırma yazıdan ayırt edilmez; bkz. /help keys.
+.PP
+.SH "keys"
+.br
+\&Günlük: / Komut'u açar; ? seçili sohbet/izleme günlüğünü açıklar. Diğer yazdırılabilir tuşlar, karakteri koruyarak Mesaj yaz'ı açar.
+.br
+\&Özel tuş atamaları ana sohbet/Komut'ta bu denetimleri geçersiz kılabilir; varsayılan atama yoktur. Bkz. /help hotkeys.
+.br
+\&Canlı günlük: Up bir satır, Page Up bir sayfa geriye; Home saklanan en eski sayfaya gider. Down/Page Down/End canlı kalır; Left/Right/Delete/Backspace Mesaj yaz'ı açmaz.
+.br
+\&Insert veya Enter boş Mesaj yaz'ı açar. Oklar, Home/End, Delete ve Backspace metni düzenler. Tab/Shift\-Tab, Mesaj yaz'da takma adları, Komut'ta komut adlarını tamamlar.
+.br
+\&Satır yazma kipi canlı akışın altında tek giriş satırı tutar; tam ekran kipi daha küçük canlı akış bölmeli çok satırlı düzenleyici kullanır.
+.br
+\&Komut'ta Down önerileri seçer. Up/Down aralarında ilerler; ilk öneride Up girişe döner.
+.br
+\&Öneride Enter çalıştırmadan ekler. Okuyun/düzenleyin; gösterildikten sonra çalıştırmak için Enter'a ayrıca basın.
+.br
+\&Komut'ta Up eşleşen kabul edilmiş geçmişi çağırır; Down ilk girişe doğru döner. Mesaj yaz'da Up/Down basılıyken de imleci hareket ettirir; Enter gönderir.
+.br
+\&Delete seçili Son geçmiş satırını siler veya seçili En sık kullanılan sayacını sıfırlar. Katalog komutları kullanılabilir kalır.
+.br
+\&Seçili komutta ? açıklamasını ve komut ekranı yardım bağlantısını gösterir. Tüm metin düzenleyicilerinde ? sıradan metindir.
+.br
+\&Gözden geçirme geçici alternatif ekran kullanır; taslak/istemi sohbet geçmişine girmez. Yeni Enter onaylar; Escape veya yazı yazmak düzenleyici/taslak/imleci geri getirir. Up/Down, Page Up/Down ve Home/End ile gezinilir.
+.br
+\&Yardım/yanıtta Up/Down kaydırır; Page Up/Down sayfa değiştirir; Home/End başlangıç/sona gider.
+.br
+\&Kullanıcı listesinde Enter günlüğe döner; yardım ve diğer yanıt okuyucularında Enter bir satır kaydırır.
+.br
+\&Okuyucuda /, normal tamamlama/geçmiş ile Komut'u açar. Escape bu istemi iptal edip okuyucuya döner.
+.br
+\&Özet okuyucuda r anlık görünümü yeniler; ? yanıtı ve okuyucusunu açıklar.
+.br
+\&Bağlam yardımında Enter vurgulu Ekran hakkında bağlantısını izler. Escape önce öğe yardımına, sonra tam olarak geldiğiniz ekrana döner.
+.br
+\&Kurulumda Tab soru başlığını seçer; ? seçenek/ekranı açıklar. Tab/Enter yanıt düzenlemeye döner.
+.br
+\&Komut çalıştırmak önceki yanıtı değiştirir. Kısa onaylar günlüğe döner; kısa hatalar komutu düzenlenebilir bırakır.
+.br
+\&Escape, Mesaj yaz/Komut düzenleyicisini iptal edip günlüğe döner. Gözden geçirmede Escape taslağı atmadan düzenleyiciye döner. Günlükte Escape istemciyi arka plana alır.
+.br
+\&Tek Escape yaklaşık 500 ms bekler; başlamış dizide devam baytları arasında 1000 ms tanınır. Ağ çalışmayı sürdürür.
+.br
+\&Tam tuş dizileri hemen işlenir. İlk Escape'ten sonra bu süreyi aşacak kadar geciken yapıştırma başlangıç işareti istemciyi arka plana alabilir.
+.br
+\&Yapıştırma yakalama başladıktan sonra, okumalar ne kadar gecikmiş veya bölünmüş olursa olsun kapanış işareti tanınır.
+.br
+\&Terminalin kesme, çıkma ve askıya alma tuş atamaları değiştirilmez; «Sinyalleri kullan» = no istemci etkinken bunların sinyal üretmesini engeller.
+.br
+\&[input] use_signals=false No (varsayılan), uygulama terminali kullanırken terminal sinyallerini kapatır; Ctrl\-C/Ctrl\-Z taslağı iptal eder. Yes var olan terminal sinyal eşlemelerini değiştirmeden etkinleştirir. Dışarıdan gönderilen süreç sinyalleri engellenmez ([input] use_signals=true).
+.br
+\&Etkin terminal sinyalleri terminali geri yükledikten sonra sonlandırır veya askıya alır; fg askıdaki işi sürdürür.
+.br
+\&Ctrl\-D ana sohbet/Komut'ta atanmadıkça etkisizdir. /quit çıkar; /background terminali ayırır, ağ çalışmayı sürdürür.
+.br
+\&Rutin ekranlar tekrar eden tuş ipuçlarını göstermez; bu konu eksiksiz klavye başvurusu olarak kalır.
+.br
+\&Tanınan çerçeveli yapıştırma düz metin kalır. Tuşlar görünür düzenleyici, yeni giriş ve duraklama bekler. Küçük/başarısız kareler onaylayamaz; boyutlandırın, basılı tuşları bırakın.
+.br
+\&İzleme günlüğüne yapıştırma, eğik çizgileri düz metin tutarak Mesaj yaz'ı açar. Komut içinde yapıştırma orada kalır; CR/LF/Tab boşluğa dönüşür. İnceleyip Enter'a yeniden basın.
+.br
+\&Çerçevesiz yapıştırma, yazı yazmaktan ayırt edilemez; çerçeveli yapıştırma desteği kullanın.
+.PP
+.SH "limits"
+.br
+\&IRC sınırları ekrandaki harf sayısına değil bayta dayanır. UTF\-8 karakterleri birden çok bayt kullanabilir.
+.br
+\&İstemci hedef, komut ve aktarma yükünü hesaba katar; hiçbir UTF\-8 karakterini ortasından bölmez.
+.br
+\&Tek mesaj sınırında yeni metin, Enter ile düzenlemeye devam onayına kadar engellenir; bu Enter mesaj göndermez.
+.br
+\&Çok parçalı mesaj doğrudan modda bile ayrı onay gerektirir. Sohbet her 1.2 saniyede bir satır gönderilir.
+.br
+\&Bir gönderim planında en çok 64 mesaj ve 16384 bayt metin bulunur. Fazlasını kısaltın veya ayrı gönderin.
+.br
+\&Ayrılmış görünümler dahil en çok 8 sunucu yuvası ve sunucu başına 32 görünüm vardır.
+.PP
+.SH "logging"
+.br
+\&Kalici günlük istege bagli ve varsayilan olarak kapalidir. /set persistent_logging on acar; /save output kaydeder.
+.br
+\&Kaydedilmiş her sunucu profili CONFIG_PATH.log dosyasına ekler. Son üst dizin size ait ve 0700 olmalı; dosya normal, size ait, tek bağlantılı, tam 0600 olmalı. Simgesel bağ ve üst dizin aşımı reddedilir.
+.br
+\&Gunlukler plaintext'tir, şifreli yedek degildir. Dosya basi sinir 16 MiB; yazma hatasi gunlugu durdurur, sohbet surer.
+.br
+\&Dolu günlüğü etkin yol dışına arşivleyip günlüğü kapatıp açın. Döndürme/yazma /catchup çıpasını bozabilir; daha sonraki disk yakalamaya güvenmeden yeni uygun mesaj gönderin.
+.br
+\&Bilinen kimlik bilgileri ve gönderilmemiş taslaklar, eski takma adlarla tekrarlanan kimlik doğrulama dâhil, dışlanır. Normal sohbet, tanınmayan hizmetler ve elle yazılan sırlar kaydedilebilir. Sunucu/bouncer saklama ayrı.
+.br
+\&/catchup sağlam günlüğü yalnız tam yerel çıpası bu çalışan süreçte kaydedildiyse kullanır. Bouncer arşivi istemez, yeniden başlatılınca eski günlükleri içe almaz.
+.br
+\&/clear yalnız RAM'i temizler. Loglar çıkış, \-\-close\-session ve kayıttan sonra kalır. Günlüğü kapatmak yeni kayıtları durdurur; eskileri silmez.
+.br
+\&Yavaş depolamadaki normal disk G/Ç süreci geciktirebilir. Bkz. /help catchup, /help history ve SECURITY.md.
+.PP
+.SH "messages"
+.br
+\&Kanala girip seçmek için /join #channel, özel konuşma açmak için /query NICK kullanın.
+.br
+\&Kayıtlı bir kanalı /channel ile seçin. /msg TARGET TEXT hedefe mesaj, /me TEXT eylem gönderir.
+.br
+\&/query mesaj göndermeden konuşma açar; /pm eş addır. /ql özel konuşmaları kanallardan ayrı tutar.
+.br
+\&Varsayılan doğrudan göndermedir; /set send_mode review onay aşaması ekler. /set composer_mode line|fullscreen görünümü değiştirir.
+.br
+\&Tek mesaj sınırına gelince düzenlemeyi sürdürmek için onay gerekir; bölerek gönderme ayrıca onay ister.
+.br
+\&Mesaj sıraya alınmadan önce kanala katılma ve kimlik doğrulama bitmelidir. /cancel yalnızca sıradakileri iptal eder.
+.PP
+.SH "reconnect"
+.br
+\&\-\-reconnect bu surec icin tekrar denemeyi acar; ayar kaydetmez veya bağlantı baslatmaz.
+.br
+\&Bu seçenek olmadan başarısız bağlantı için /connect gerekir. /autoconnect yalnızca başlangıcı yönetir.
+.br
+\&Geçici DNS, reddedilen/kopan bağlantı ve zaman aşımları 5, 10, 20, 40, 80, 160 ve sonra 300 saniyede yeniden denenir.
+.br
+\&En az 60 saniye kayıtlı kalan bağlantı gecikmeyi sıfırlar. Yoklama engelleyici uyku kullanmaz.
+.br
+\&Sertifika doğrulama, kimlik doğrulama, bozuk protokol ve yapılandırma hataları düzeltilene kadar bağlı kalmaz.
+.br
+\&Kayıt öncesi sunucu ERROR sonucu bekletilir; kayıt sonrasındaki yeniden bağlanmayı tetikleyebilir.
+.br
+\&Açık /disconnect bekleyen denemeyi iptal eder. Sonraki /connect yeni girişim başlatır.
+.br
+\&Yeniden deneme mevcut bağlantı ayarlarını kullanır; bekleyen değişiklikler için yine açık /connect gerekir.
+.br
+\&Kuyruktaki mesajlar bağlantı kopunca atilir, otomatik tekrar gönderilmez.
+.br
+\&Kimlik doğrulama ve etkin başlangıç komutları yeniden çalışır. Doğrudan profiller autojoin uygular; bouncer kanalları kendisi geri getirir.
+.br
+\&Çevrimdışı test modu ağa yeniden bağlanmaz.
+.PP
+.SH "security"
+.br
+\&Uzak metin terminale yazılmadan temizlenir. Girişler kabuk komutu değil, yerel IRC komutu olarak yorumlanır.
+.br
+\&/raw, kabuk çıkışı veya otomatik dosya kabulü yoktur. Tanınan bracketed paste bir komutu asla göndermez.
+.br
+\&TLS sunucu kimligini dogrular. SASL, PASS ve taninan özel kimlik dogrulama komutlari dogrulanmis TLS gerektirir. Sistem TLS kitapligini da güncel tutun; SECURITY.md dosyasina bakin.
+.br
+\&Özel CA paketi boş olmayan normal PEM dosyası olmalı, en fazla 16 MiB olmalı ve parola istemez.
+.br
+\&Ayarlanan parolalar yardimda ve ayarlarda gizlenir. Taninan kimlik bilgisi komutlari gecmisten cagirilmaz; normal metin olarak yazilan sirlar kalabilir.
+.br
+\&Diskte konuşma dökümü varsayılan olarak kapalıdır. Yapılandırma değişiklikleri açıkça kaydedilmelidir.
+.br
+\&Ayni hesaptaki başka surecler, IRC sunucusu veya bouncer ve ele gecirilmis terminal ya da sistem bu korumalarin disindadir. TLS uctan uca sohbet sifrelemesi degildir.
+.br
+\&Istege bağlı gunlukler ve yapilandirmadaki sirlar düz metindir. Bilinen hassas komutlar filtrelenir; sohbet icindeki rastgele sirlar guvenilir bicimde taninamaz.
+.br
+\&Kesin sınırlar ve önceki incelemeler için /help tls, /help authentication, /help logging ve SECURITY.md dosyasına bakın.
+.PP
+.SH "sessions"
+.br
+\&Bir is, tum sunuculari, aktarimlari, taslaklari ve gecmisiyle bir istemci surecidir. Uygulamadaki sunucu numarasi kabuktaki is kimligi degildir.
+.br
+\&Kabukta \-\-sessions çalıştırın. Bagli/ayrik durumunu kontrol edin; iş kimligini kullanın, surec kimligini değil.
+.br
+\&Eski SSH terminali işi tutuyorsa \-\-detach\-session NUMBER, ardindan \-\-resume NUMBER kullanın. IRC etkin kalir.
+.br
+\&Numarasiz \-\-resume yalniz tek dogrulanmis ayrik isi secer. Birden cok is icin numara gerekir; bağlı is ayrilana kadar mesguldur. Numaralar cikistan sonra tekrar kullanilabilir.
+.br
+\&\-\-close\-session NUMBER yalniz tum işi bitirir. Tum IRC baglantilari ve aktarimlar kapanir, taslak ve RAM gecmisi silinir; kayitli ayarlar ve gunlukler kalir.
+.br
+\&Kapatma yalniz dogrulanmis temizlikten sonra basarili sayilir. Zaman asiminda \-\-sessions ile yeniden bakın: daha sonra bitebilir. Hata etkin ucu silmez veya tahmini PID'ye sinyal gondermez.
+.br
+\&Yalniz yönetilen is terminal kaybina dayanir. Normal onde çalışan süreç SSH kopunca devam ettirilebilir olmaz. \-\-background ile baslatin veya önce /background kullanin.
+.br
+\&Is ayni Unix hesabina ve ana makineye aittir; tek terminal bağlı olabilir. O hesaptaki diger programlar ayni guven siniri icindedir.
+.br
+\&Yeni program kurmak çalışan sürecin kodunu değiştirmez. Ayarlari kaydedin, eski süreci kapatin, \-\-version ile denetleyin, yeni süreci baslatin.
+.br
+\&Eski is yeni denetimleri veya arayuz degisimini desteklemeyebilir. Baglanmak gerekiyorsa durana kadar uyumlu programi saklayin.
+.br
+\&Istemci SSH boşta kalma zaman asimi politikasini değiştirmez. /help background, /help deployment ve doc/SESSION\-CONTROLS.txt dosyasina bakin.
+.PP
+.SH "startup"
+.br
+\&Programı başlatın, karşılama ekranını kapatın; ardından /connect irc.example.org ve /join #channel yazın.
+.br
+\&Önceden sunucu profili, takma ad veya numara oluşturmanız gerekmez. /server HOST doğrudan bağlantı için eş addır.
+.br
+\&Takma ad verilmezse geçerli sistem kullanıcı adı, uygun değilse user kullanılır. Takma ad sorulmaz.
+.br
+\&Yapılandırmayı ve seçili varsayılanı /saveconf ile kaydedin. Sonraki açılışta /connect bunları kullanır.
+.br
+\&Kaydetmek otomatik bağlanmayı açmaz; ayrıca seçilmelidir. /quickstart ve /panel isteğe bağlı rehberlerdir.
+.br
+\&Komut satırı seçenekleri de çalışır: \-\-server HOST, \-\-channel '#CHANNEL' ve \-\-nick NICK. Kabukta #CHANNEL değerini tırnaklayın.
+.br
+\&Normal açılışta \-\-nick, \-\-port, \-\-channel, \-\-tls, \-\-plain ve \-\-ca\-file kayıtlı varsayılanı geçersiz kılar.
+.br
+\&Açıkça belirtilen \-\-server ilk bağlantıyı seçer. \-\-init\-config ve \-\-check\-config ana yapılandırma dosyasını kullanır.
+.br
+\&\-\-server başka bir ana bilgisayara çevrilirse eski kimlik bilgileri, CA seçimi, bouncer kimliği, kanallar ve başlangıç komutları silinir.
+.br
+\&Kayıtlı varsayılan kullanılamıyorsa bağlantı seçeneklerini geçersiz kılmadan önce \-\-server belirtin veya varsayılanı düzeltin.
+.br
+\&Autoconnect, autojoin ve autoauth her kayıtlı sunucu profiline özeldir. Açıp kapatmak için /help autoconnect yazın.
+.br
+\&\-\-no\-connect başlangıç bağlantılarını engeller; \-\-test\-mode ağ ve yapılandırma yazımı olmadan etkinliği simüle eder.
+.br
+\&\-\-sessions bağlı ve ayrılmış işleri listeler. \-\-resume [NUMBER] yeniden bağlar; seçim için /help background yazın.
+.br
+\&\-\-close\-session NUMBER seçili işi ve tüm IRC bağlantılarını doğrulanmış kapanıştan sonra sonlandırır. NUMBER iş kimliğidir, PID değildir.
+.br
+\&Terminal kaybolursa \-\-sessions, sonra \-\-detach\-session NUMBER ve \-\-resume NUMBER kullanın. Çalışan süreç yeniden başlatılana dek eski kodu kullanır; bkz. /help sessions.
+.br
+\&\-h/\-\-help ve \-v/\-\-version terminal olmadan çalışır.
+.br
+\&onekeyirc her zaman idle kullanır. Uygulama panelinde arayüz seçimi yoktur; /set default_interface yalnızca idle kabul eder.
+.br
+\&Ortak yapılandırma ayrıştırıcısı tanınan kayıtlı değerlerin her ikisini de korur. Kayıtlı ncurses değeri bu bağımsız istemcinin arayüzünü değiştirmez.
+.br
+\&Kabuktan: onekeyirc \-\-sessions; onekeyirc \-\-detach\-session NUMBER; onekeyirc \-\-resume NUMBER; onekeyirc \-\-close\-session NUMBER.
+.br
+\&onekeyirc \-\-manual bu kılavuzun tamamını yazdırır.
+.PP
+.SH "tls"
+.br
+\&Doğrulanmış TLS varsayılandır. Sunucu adi/adresi ve sertifika zinciri dogrulanir; guvensiz gecis veya plaintext yedegi yoktur.
+.br
+\&Port numarasi TLS'yi kapatmaz. \-\-plain veya /connect \-plain şifresiz IRC seçer; hesap/sunucu kimlik bilgilerini kullanamaz.
+.br
+\&Sağlayıcının tam TLS ana makine adını ve portunu kullanın. Yanlış uç, süresi dolmuş/güvensiz sertifika veya yerel güven ayarı olabilir; önce hatayı inceleyin.
+.br
+\&TLS varsayılan olarak sistem güven deposunu kullanır. \-\-ca\-file FILE ya da ca_file= özel PEM CA demeti seçer; uç sertifikayı sabitlemez.
+.br
+\&Özel CA paketi boş olmayan, en cok 16 MiB boyunda normal dosya olmalıdır. CA dosyasına sembolik bağ serbesttir; gizli/yapılandırma yollari daha katidir.
+.br
+\&CA dosyası bir kez acilir, sinirlanir ve okunurken boyutu izlenir. FIFO, aygit ve normal olmayan girdi reddedilir; şifreli PEM parola soramaz.
+.br
+\&Dosya boyutu sınırı normal dosya veya ağ dosya sistemi I/O gecikmesini sinirlamaz. Uygun depoda güvenilir bir CA paketi kullanın.
+.br
+\&\-\-check\-config TLS el sıkışmasını veya CA ve kimlik bilgisi kaynağının çalışacağını doğrulamaz. \-\-test\-mode sunucuya bağlanmaz.
+.br
+\&TLS yalniz bu bağlantıyı korur. Bouncer'in üst TLS baglantisi ve plaintext gecmisi ayri yönetilir.
+.PP
+.SH "troubleshooting"
+.br
+\&SSH sonrasinda meşgul mu? \-\-sessions, ardindan \-\-detach\-session NUMBER ve \-\-resume NUMBER kullanın. \-\-close\-session yikicidir. See /help sessions.
+.br
+\&Up metin cagirmiyor: Compose ileti duzenler; Command kabul edilen komutlari cagirir. Gunlukten / ile Command acin. Gonderilen sohbet ve hassas komutlar gecmiste yoktur.
+.br
+\&Satira sigdirilan mesaj kesik gorunuyorsa, giriş ekrani editore satir ayirip son satirlari gösterir. Editoru kapatin veya kanali yeniden secin; gorunum teslim kaniti degildir.
+.br
+\&Kanal degisince tam metin gorunuyorsa fark gorunume aittir. Sorun surerse arayuz, kip, terminal boyutu, locale ve sirlar temizlenmis adımları kaydedin; parola veya özel kayit paylasmayin.
+.br
+\&Kanal yok mu? Sunucu görünümünü ve dogrulamayi denetleyin. Dogrudan profilde /autojoin list; bouncer'da /join veya /part.
+.br
+\&Doğrulama başarısız mi? Hesap, kaynak, dosya izinleri, TLS ve GPG aracisini denetleyin. /autoauth status sirri okumaz.
+.br
+\&Gecmis yakalama yoksa isaret gecmis disina cikmis, günlük gec baslamis/durmus veya dosya degismis olabilir. /help catchup ve /help logging; eski gunlukler olen isi geri getirmez.
+.br
+\&Ayar etkisiz mi? Baglanti degisikligi icin kopukken /connect gerekir. Kayit autoconnect degildir; acilis tercihi yeni surec ister.
+.br
+\&Yardimci süreç baslatilamiyorsa baslaticinin SIGCHLD veya otomatik cocuk toplama ayarini düzeltin ki istemci cocuklarini bekleyebilsin.
+.br
+\&\-\-check\-config ve doc/TROUBLESHOOTING.txt kullanın. \-\-test\-mode DNS, TLS, kimlik bilgileri veya gercek bouncer'i sınamaz.
+.PP
+.SH "Komut sistemi"
+.br
+\&Günlükte / tuşuyla Komut'u açın; başlangıçtaki eğik çizgi zaten eklenmiştir. Giriş odaktayken Enter düzenlenen komutu çalıştırır; Escape iptal eder.
+.br
+\&Sözdizimi: /COMMAND ARGUMENTS. Adlar büyük/küçük harfe duyarsızdır; gösterilen seçenek sözcüklerini kullanın. BÜYÜK HARFLİ (UPPERCASE) sözcükler yer tutucudur, [items] isteğe bağlıdır, | ise bir alternatif seçmek demektir.
+.br
+\&Bir defada tek komut girin. Boşluklar argümanları ayırır; kabuk alıntılaması, genişletmesi veya komut zinciri yoktur. Kabuk başlatma seçenekleri bu düzenleyicinin dışında kullanılır.
+.br
+\&TEXT ve kimlik bilgisi PATH değeri, boşluklar dahil satırın kalanını aynen kullanır. Tam bir /command yapıştırırken önce hazır eğik çizgiyi silin; yapıştırılan yeni satırlar ayrı komutlara değil, boşluklara dönüşür.
+.br
+\&Home/End/Delete/Backspace düzenler. Tab/Shift\-Tab komut adlarını tamamlar; girişte Up kabul edilmiş geçmişi geri çağırır.
+.br
+\&Down önerileri seçer; Enter seçili komutu düzenlemek için ekler. Gösterildikten sonra ayrı bir Enter komutu çalıştırır.
+.br
+\&Uygulama Ayarlar'ında Yaygın, Son geçmiş, Bu yapılandırmada en sık kullanılan, Alfabetik veya Bağlamsal seçin.
+.br
+\&Yaygın, özenle seçilmiş kullanışlı bir sıralamadır. Bağlamsal, komut girişini açan gerçek ekranı hatırlar. Diğer önek eşleşmeleri kullanılabilir kalır.
+.br
+\&Seçili öneride ? öğe ve ekran yardımını açar. Girişte ise sıradan metin olarak kalır.
+.br
+\&Delete seçili yakın geçmiş girişini siler veya kişisel sıklık sayacını sıfırlar; katalog komutunu asla silmez.
+.br
+\&Yalnızca kabul edilmiş güvenli komutlar sınırlı bellek içi geçmişe girer. Parola/hizmet komutları ve anahtarlı katılımlar dışlanır.
+.br
+\&Beklenmeyen argümanlı komut, istenen işlemi yapmadan başarısız olur. Yardım sözdizimini, etkileri ve örnekleri gösterir.
+.br
+\&Mesaj komutları gönderim planı oluşturur. Kuyruğa almadan önce gönderme kipi ve zorunlu çoklu mesaj onayı uygulanır.
+.br
+\&Çoğu komut seçili sunucuda çalışır. /server NUMBER başka sunucuyu seçer; tek başına /server onun MOTD görünümünü seçer.
+.br
+\&Normal bağlantı ve sohbet akışı için /connect HOST, /join #channel, /query NICK ve /saveconf kullanın.
+.br
+\&Yeniden başlatmadan sonra korumak için kabul edilen ayarları kaydedin. Kayıtlı profiller özel .commands dosyasını yalnızca kullanım sayıları için otomatik günceller; dosyada argüman veya sohbet bulunmaz.
+.br
+\&/summary mevcut tüm istemci durumunu yerel okur; /list [MASK] ağ kanallarını ister, /ls ve /cl ise yerel görünümleri listeler.
+.br
+\&/help ls tüm yardım konularını listeler.
+.SH "Komutlar (/help COMMAND ile sözdizimi ve örnekler)"
+.PP
+.br
+\&  /autoauth     SASL kimlik doğrulamasını inceleyin veya hazırlayın
+.PP
+.br
+\&  /autocommands Sonraki bağlantı için gecikmeli komutları hazırlayın
+.PP
+.br
+\&  /autoconnect  Otomatik başlangıç bağlantısını inceleyin veya değiştirin
+.PP
+.br
+\&  /autojoin     Başlangıçta kanal katılımlarını inceleyin veya hazırlayın
+.PP
+.br
+\&  /away         Uzakta durumunu ayarlayın veya mesaj vermeden temizleyin
+.PP
+.br
+\&  /back         Uzakta durumunu temizleyin
+.PP
+.br
+\&  /background   Bağlantıları açık tut ve terminali serbest bırak
+.PP
+.br
+\&  /bind         Özel tuşu yerel program işlevine atayın
+.PP
+.br
+\&  /bindings     Özel tuş atamalarını veya mevcut eylem ve tuşları listele
+.PP
+.br
+\&  /cancel       Kuyruktaki sohbeti ve başlangıç komutlarını iptal edin
+.PP
+.br
+\&  /catchup      Bu sohbeti gönderdiğiniz son mesajdan itibaren okuyun
+.PP
+.br
+\&  /channel      Kanal seçin; 0 numarası sunucuyu seçer
+.PP
+.br
+\&  /channels     Seçili sunucudaki kanalları listele
+.PP
+.br
+\&  /cl           Kanalları listeleyin (/channels takma adı)
+.PP
+.br
+\&  /clear        Seçili görünümün saklanan geçmişini temizleyin
+.PP
+.br
+\&  /close        Kanal veya özel sohbet görünümünü kapatın
+.PP
+.br
+\&  /connect      Sunucuya bağlan veya kayıtlı bağlantıyı kullan
+.PP
+.br
+\&  /dcc          Doğrudan dosya aktarımlarını önerin, inceleyin ve yönetin
+.PP
+.br
+\&  /disconnect   Profili koruyarak sunucu bağlantısını kes
+.PP
+.br
+\&  /help         Konu yardımını, sözdizimini ve örnekleri oku
+.PP
+.br
+\&  /ignore       Yerel olarak yok sayılan gönderenleri yönetin
+.PP
+.br
+\&  /join         Seçili sunucudaki bir kanala katıl
+.PP
+.br
+\&  /list         Ağ kanal dizinini isteyin ve süzün
+.PP
+.br
+\&  /ls           Sunucu, kanal, özel sohbet veya okunmamış girişleri listeleyin
+.PP
+.br
+\&  /manual       Yerleşik kılavuzun tamamını okuyun
+.PP
+.br
+\&  /me           Seçili sohbete eylem mesajı gönderin
+.PP
+.br
+\&  /mentions     Anılmaları görün veya sunuculardaki saklanan anılmaları temizleyin
+.PP
+.br
+\&  /msg          Bir kullanıcıya veya kanala metin gönder
+.PP
+.br
+\&  /next         Bu sunucudaki sonraki sohbeti seçin
+.PP
+.br
+\&  /nick         Geçerli takma adı ayarlayın veya sorgulayın
+.PP
+.br
+\&  /panel        Etkileşimli yapılandırma panelini aç
+.PP
+.br
+\&  /part         İsteğe bağlı gerekçeyle kanaldan ayrıl; geçmişini koru
+.PP
+.br
+\&  /pm           Göndermeden özel sohbet seçin veya açın
+.PP
+.br
+\&  /prev         Bu sunucudaki önceki sohbeti seçin
+.PP
+.br
+\&  /ql           Seçili sunucudaki özel sohbetleri listeleyin
+.PP
+.br
+\&  /queries      Özel sohbetleri listeleyin (/ql takma adı)
+.PP
+.br
+\&  /query        Özel görüşmeyi aç veya seç
+.PP
+.br
+\&  /quickstart   Rehberli bağlantı kurulumunu aç
+.PP
+.br
+\&  /quit         Programdan çık ve tüm oturumları kapat
+.PP
+.br
+\&  /save         Geçerli sunucuyu, uygulama tercihlerini veya tüm profilleri kaydedin
+.PP
+.br
+\&  /saveconf     Yapılandırmayı kaydet ve seçili bağlantıyı hatırla
+.PP
+.br
+\&  /server       Sunucuya bağlanın veya mevcut olanı seçin
+.PP
+.br
+\&  /servers      Yapılandırılmış tüm sunucu oturumlarını listele
+.PP
+.br
+\&  /set          Uygulama genelinde giriş, çıktı ve çevrimiçi durum tercihlerini seçin
+.PP
+.br
+\&  /settings     Etkin ayarları kimlik bilgileri gizlenmiş olarak gösterin
+.PP
+.br
+\&  /sl           Sunucuları listeleyin (/servers takma adı)
+.PP
+.br
+\&  /soju         Seçili soju bouncer'ını yönetin
+.PP
+.br
+\&  /summary      Geçerli tüm sunucu oturumlarını ve etkinliği özetleyin
+.PP
+.br
+\&  /topic        Geçerli kanal konusunu isteyin veya değiştirin
+.PP
+.br
+\&  /transfers    Dosya aktarımlarını yönetin (/dcc takma adı)
+.PP
+.br
+\&  /unbind       Bir veya tüm özel tuş atamalarını kaldırın
+.PP
+.br
+\&  /unignore     Bir yerel yok sayma kalıbını kaldırın
+.PP
+.br
+\&  /unread       Sunuculardaki okunmamış sohbetleri listeleyin
+.PP
+.br
+\&  /users        Geçerli veya adı verilen kanalın bilinen kullanıcılarını yazdırın
+.PP
+.br
+\&  /view         Adı verilen sohbeti veya numaralı kanalı seçin
+.PP
+.br
+\&  /views        Kanalları listeleyin (/channels takma adı)
+.PP
+.br
+\&  /watch        Ek düz metin anılma dizelerini yönetin
+.PP
+.br
+\&  /whois        Sunucudan takma ad bilgilerini isteyin
+.PP
+.br
+\&  /znc          Seçili ZNC bouncer'ını yönetin
+.PP
+.SH "/autoauth \- SASL kimlik doğrulamasını inceleyin veya hazırlayın"
+.br
+\&Kullanım: /autoauth [status|off|sasl USER file PATH|sasl USER gpg PATH]
+.PP
+.br
+\&Seçili sunucunun sonraki bağlantı için kimlik doğrulamasını değiştirir. Doğrulanmış TLS gerekir.
+.br
+\&Argümansız veya status ile bağlantı/doğrulama durumunu ve kimlik bilgisi dosya yollarını gösterir; parolaları göstermez.
+.br
+\&Etkin ve bekleyen ayarlar ayrıdır. Uzun yollar etiketli devam satırlarında eksiksiz gösterilir.
+.br
+\&PATH, boşluklar dahil kalan metnin aynısıdır; kabuk genişletmesi veya tırnak işleme yoktur.
+.br
+\&Bu komut dosya açmaz. GPG anahtarları program dışında açılmış olmalıdır.
+.br
+\&Düz metin parolalar komut argümanı olarak değil, yalnızca özel yapılandırma dosyasında açıkça ayarlanabilir.
+.br
+\&Bouncer profili için /panel kullanın; giriş kimliği ve kimlik bilgisi kaynağı birlikte yönetildiğinden /autoauth reddedilir.
+.br
+\&Kalıcı kılmak için /save kullanın. Önce bağlantıyı kesin, sonra değişiklikler için /connect; etkin bağlantı yönlendirilmez.
+.PP
+.br
+\&Örnekler:
+.br
+\&/autoauth status
+.br
+\&/autoauth sasl myaccount gpg /home/me/irc\-account.gpg
+.br
+\&/autoauth off
+.br
+\&/save
+.PP
+.SH "/autocommands \- Sonraki bağlantı için gecikmeli komutları hazırlayın"
+.br
+\&Kullanım: /autocommands [list|add COMMAND|remove NUMBER|clear|on|off|delay SECONDS|interval SECONDS]
+.PP
+.br
+\&Komutlar seçili sunucuya aittir. Kayıt ve gerekli SASL başarılı olunca bir kez çalışırlar.
+.br
+\&Varsayılan gecikme 15 saniyedir; tamamlanan komutlar arasında en az 2 saniye vardır.
+.br
+\&Zamanları delay 0..300 ve interval 2..60 ile ayarlayın. Takılan bağlantıda birikmiş komutlar topluca çalışmaz.
+.br
+\&Desteklenenler: /msg, /join, /nick, /away, /back ve /whois ile belgelenen tam takma adları.
+.br
+\&En çok 16 komut; her biri 511 UTF\-8 bayt. Bir komut tek IRC iletisine sığmalı; kendiliğinden bölünmez.
+.br
+\&Kabuk, ham IRC veya geçerli sohbetten genişletme yoktur. Otomatik kanala giriş seçili görünümü değiştirmez.
+.br
+\&Değişiklikler sonraki bağlantıda geçerlidir. /cancel henüz gönderilmemiş başlangıç komutlarını durdurur.
+.br
+\&Listeler ileti metnini ve kanal anahtarlarını gizler; otomatik komutlar geçmişe veya yerel yankıya girmez.
+.br
+\&/save ile kaydedin. Dosya özel olmalı (0600 veya 0400); etkin ve boş olmayan liste doğrulanmış TLS gerektirir.
+.br
+\&Test modu otomatik komut çalıştırmaz. Başlangıç metni yapılandırmada aynen saklanır, GPG ile şifrelenmez.
+.PP
+.br
+\&Örnekler:
+.br
+\&/autocommands add /msg ChanServ op #chat mynick
+.br
+\&/autocommands delay 15
+.br
+\&/autocommands interval 2
+.br
+\&/autocommands list
+.br
+\&/save
+.PP
+.SH "/autoconnect \- Otomatik başlangıç bağlantısını inceleyin veya değiştirin"
+.br
+\&Kullanım: /autoconnect [on|off]
+.PP
+.br
+\&Argüman olmadan seçili sunucunun ayarını gösterir. Değişiklikler sonraki program açılışında geçerli olur.
+.br
+\&Hemen bağlanmak için /connect, başlangıç seçimini kaydetmek için /save kullanın.
+.br
+\&Her kayıtlı sunucunun kendi otomatik bağlantı, otomatik kanala katılım ve kimlik doğrulama ayarları vardır.
+.PP
+.br
+\&Örnekler:
+.br
+\&/autoconnect
+.br
+\&/autoconnect on
+.br
+\&/save
+.PP
+.SH "/autojoin \- Başlangıçta kanal katılımlarını inceleyin veya hazırlayın"
+.br
+\&Kullanım: /autojoin [list|add #CHANNEL|remove #CHANNEL|clear]
+.PP
+.br
+\&Argümansız veya list ile seçili sunucuyu, kayıt/doğrulama durumunu, etkin ve bekleyen listeleri gösterir.
+.br
+\&Sonraki /connect için otomatik katılım listesini değiştirir. add/remove anahtarsız tek bir kanal alır.
+.br
+\&Değişiklikler uygulanmadan önce doğrulanır; canlı kanala katılma veya ayrılma yapılmaz.
+.br
+\&Otomatik yeniden denemeler etkin listeyi korur. Bekleyen liste için önce bağlantıyı kesip /connect kullanın.
+.br
+\&Mevcut bağlantı için /join veya /part; başlangıç değişikliklerini saklamak için /save kullanın.
+.br
+\&Bouncer profilleri üyelikleri kendileri geri yükler; /autojoin reddedilir. /join ve /part kullanın.
+.PP
+.br
+\&Örnekler:
+.br
+\&/autojoin list
+.br
+\&/autojoin add #ircnow
+.br
+\&/autojoin remove #old
+.br
+\&/save
+.PP
+.SH "/away \- Uzakta durumunu ayarlayın veya mesaj vermeden temizleyin"
+.br
+\&Kullanım: /away [MESSAGE]
+.PP
+.br
+\&Sunucuya kayıtlı olmanız gerekir. Sunucu uzakta durumunu onaylar. MESSAGE düz metindir.
+.PP
+.br
+\&Örnekler:
+.br
+\&/away Back after lunch
+.br
+\&/away
+.PP
+.SH "/back \- Uzakta durumunu temizleyin"
+.br
+\&Kullanım: /back
+.PP
+.br
+\&Mesajsız /away ile aynıdır. Sunucuya kayıtlı bağlantı gerektirir.
+.PP
+.br
+\&Örnekler:
+.br
+\&/back
+.PP
+.SH "/background \- Bağlantıları açık tut ve terminali serbest bırak"
+.br
+\&Kullanım: /background
+.PP
+.br
+\&Terminali eski hâline getirip çalışan oturumu ayırır. Kabuk, yeniden bağlanmak için numaralı komutu gösterir.
+.br
+\&Kabukta \-\-sessions bağlı ve ayrılmış özel işleri listeler; \-\-resume kullanılabilir tek ayrılmış işi sürdürür.
+.br
+\&Birden çok iş varsa \-\-resume NUMBER kullanın. NUMBER süreç kimliği (PID) değil iş kimliğidir; iş bitene dek sabit kalır, sonra yeniden kullanılabilir.
+.br
+\&\-\-detach\-session NUMBER bağlı terminali ayırır ancak çalışan işi, IRC bağlantılarını, taslakları ve geçmişi \-\-resume NUMBER için korur.
+.br
+\&\-\-close\-session NUMBER işi, tüm IRC bağlantılarını, aktarımları, kaydedilmemiş taslakları ve RAM geçmişini bitirir. Başarı yalnız doğrulanmış tamamlanmadan sonra bildirilir.
+.br
+\&SSH terminali kopunca sürdürme meşgulse işleri listeleyin, ilgili işi ayırın ve sürdürün. Kurtarma için /help sessions.
+.br
+\&Yanıt vermeyen veya istenen denetimi bilmeyen eski çalışan başarısız olabilir. Yeni ikili yüklemek çalışanı güncellemez; yükseltmeden sonra bilinçli yeniden başlatın.
+.br
+\&Sürdürme, yeni mesaj olmasa da RAM geçmişini gösterir. /set single_session on ikinci arka plan işini engeller; \-\-resume belirsiz kalmaz.
+.br
+\&Terminalsiz başlatmak için kabukta \-\-background kullanın; seçenekler için \-\-help.
+.br
+\&background_away etkin ve profil izinliyse /background veya terminal kaybı ayrılınca AWAY yollar. Dönüş yalnız bu otomatik durumu kaldırır; elle verilen /away korunur.
+.br
+\&Geçici bağlantı sorunlarında yeniden denemek için \-\-reconnect ekleyin. Bkz. /help deployment ve /help reconnect.
+.br
+\&Terminal çoklayıcısı gerekmez. Bekleyen DNS çözümü veya kimlik bilgisi yardımcısı yeniden deneme gerektirebilir.
+.br
+\&Normal ön plan sürecini askıya almak ağını durdurur. Sürdürülen işin terminal denetleyicisi askıya alınsa da yönetilen çalışan ağda kalabilir.
+.br
+\&Kabuktan: onekeyirc \-\-sessions; onekeyirc \-\-detach\-session NUMBER; onekeyirc \-\-resume NUMBER; onekeyirc \-\-close\-session NUMBER.
+.PP
+.br
+\&Örnekler:
+.br
+\&/background
+.PP
+.SH "/bind \- Özel tuşu yerel program işlevine atayın"
+.br
+\&Kullanım: /bind KEY ACTION
+.PP
+.br
+\&Varsayılan özel tuş ataması yoktur. Desteklenen adlar için /bindings keys ve /bindings actions kullanın.
+.br
+\&Yeni atama bu tuşun önceki özel eylemini tüm sunucularda değiştirir; diğerleri korunur.
+.br
+\&Atamalar sohbet ve komut isteminde çalışır; yapıştırmada, parola/kurulum alanında, okuyucuda veya onayda değil.
+.br
+\&Anında uygulanır ama /save input olmadan saklanmaz. Etkin özel atama yoksa normal gezinme sürer.
+.br
+\&Yalnız adlandırılmış yerel işlevler kabul edilir; keyfi komut, makro, gönderme eylemi veya kabuk genişletmesi yoktur.
+.br
+\&Terminalin ayırdığı tuşlar uygulamaya ulaşmayabilir; tuş atamak terminal sinyal eşlemelerini değiştirmez.
+.PP
+.br
+\&Örnekler:
+.br
+\&/bindings actions
+.br
+\&/bind F7 summary
+.br
+\&/bind Alt\-c command
+.br
+\&/save input
+.PP
+.SH "/bindings \- Özel tuş atamalarını veya mevcut eylem ve tuşları listele"
+.br
+\&Kullanım: /bindings [actions|keys]
+.PP
+.br
+\&Argümansız, uygulama genelindeki özel tuş atamalarını listeler. Boş liste hiç atanmadığı anlamına gelir.
+.br
+\&Atamak veya değiştirmek için /bind, kaldırmak için /unbind KEY, hepsini silmek için /unbind all kullanın.
+.br
+\&F1..F12, Ctrl\-A..Ctrl\-Z, Alt\-a..Alt\-z, Alt\-0..Alt\-9 ve adlı gezinme tuşları desteklenir.
+.br
+\&Ctrl\-H = Backspace, Ctrl\-I = Tab, Ctrl\-J ve Ctrl\-M = Enter, Ctrl\-[ = Escape; aynı atama sayılır.
+.br
+\&Alt harfleri Shift olmadan küçük harf kullanır. İşlev/Alt tuşlarının iletimi terminale ve çoklayıcıya bağlıdır.
+.br
+\&Ana yapılandırmadaki [hotkeys] altında en çok 64 KEY=action atanır. /save input değişiklikleri saklar.
+.br
+\&Kapsam, taslak koruması ve terminal sinyalleri için /help hotkeys bölümüne bakın.
+.br
+\&Bu istemci tuş atamalarını komutlarla düzenler; /bindings geçerli tabloyu listeler.
+.PP
+.br
+\&Örnekler:
+.br
+\&/bindings
+.br
+\&/bindings keys
+.br
+\&/bindings actions
+.br
+\&/help hotkeys
+.PP
+.SH "/cancel \- Kuyruktaki sohbeti ve başlangıç komutlarını iptal edin"
+.br
+\&Kullanım: /cancel
+.PP
+.br
+\&Sırada bekleyen sohbet mesajlarını siler ve seçili sunucudaki bekleyen otomatik komutları durdurur.
+.br
+\&Yazılmakta olan bir çerçevenin tamamlanmasına izin verilir.
+.br
+\&İptal, sunucunun aldığı mesajları geri çekmez.
+.PP
+.br
+\&Örnekler:
+.br
+\&/cancel
+.PP
+.SH "/catchup \- Bu sohbeti gönderdiğiniz son mesajdan itibaren okuyun"
+.br
+\&Kullanım: /catchup
+.PP
+.br
+\&Seçilen kanal veya özel sohbette yerel olarak gönderilen son mesaj/eylemden başlar. Sunucu ve anılma görünümlerinin gönderim çıpası yoktur.
+.br
+\&Önce uygun özel günlük denenir: çıpa gönderilirken açık ve hâlâ sağlam olmalıdır; hassas kimlik doğrulama metni disk çıpası değildir. Olmazsa RAM'deki çıpa kullanılır.
+.br
+\&Disk okuyucu sabit görüntüdür: Up/Down satır, Page Up/Page Down sayfa ilerler; Home çıpaya döner, End son sayfaya, Escape canlıya geçer. Yeni trafik görüntüyü kaydırmaz.
+.br
+\&RAM yedeği saklanan geçmişi çıpadan açar: Home en eski sayfaya, End veya Escape canlıya döner. Daha eski saklı mesajlara bakılabilir.
+.br
+\&Değişmiş veya yenilenmiş çıpa kaydı diskte geçerli değildir. Yeni süreç eski günlükten çıpa getirmez. Bkz. /help logging ve /help history.
+.PP
+.br
+\&Örnekler:
+.br
+\&/catchup
+.PP
+.SH "/channel \- Kanal seçin; 0 numarası sunucuyu seçer"
+.br
+\&Kullanım: /channel NUMBER|#CHANNEL
+.PP
+.br
+\&Numaralar /channels ile listelenir. Seçim, görüntülenen sohbeti ve sonraki düz metin mesajının hedefini değiştirir.
+.br
+\&Bu komut kanala katılmaz. Ayrıldığınız kanala mesaj göndermeden önce yeniden katılmanız gerekir.
+.PP
+.br
+\&Örnekler:
+.br
+\&/channels
+.br
+\&/channel 0
+.br
+\&/channel #ircnow
+.PP
+.SH "/channels \- Seçili sunucudaki kanalları listele"
+.br
+\&Kullanım: /channels
+.PP
+.br
+\&Kanal 0 her zaman sunucu iletileri/MOTD görünümüdür. Özel sohbetlerin ayrı bir /ql listesi vardır.
+.br
+\&Satırlar katılma/ayrılma durumunu ve okunmamış ileti/bahsetme sayılarını gösterir.
+.PP
+.br
+\&Örnekler:
+.br
+\&/channels
+.br
+\&/channel 1
+.PP
+.SH "/cl \- Kanalları listeleyin (/channels takma adı)"
+.br
+\&Kullanım: /cl
+.PP
+.br
+\&Sunucu iletileri için kanal 0 ve her kanalın katılma/ayrılma durumu dahil, bu sunucunun kanal görünümlerini listeler.
+.br
+\&Seçmek için /channel NUMBER veya /channel #NAME kullanın. Özel sohbetlerin ayrı bir /ql listesi vardır.
+.PP
+.br
+\&Örnekler:
+.br
+\&/cl
+.br
+\&/channel 1
+.PP
+.SH "/clear \- Seçili görünümün saklanan geçmişini temizleyin"
+.br
+\&Kullanım: /clear
+.PP
+.br
+\&Bu görünümün sınırlı bellek geçmişini temizler. Kanaldan çıkmaz, bağlantıyı kesmez, gönderilen yazıyı geri almaz ve mevcut disk günlüğünü silmez.
+.br
+\&Programın önceden yazdırdığı terminal kaydırma geçmişini terminal yönetir.
+.br
+\&Ana sohbette Up bir satır, Page Up bir sayfa geriye; Home en eskiye gider. Down/Page Down ileri gider. Yeni trafik okunan sayfayı kaydırmaz. End/Escape canlı akışa döner; gezinme tuşları yazma alanını açmaz.
+.PP
+.br
+\&Örnekler:
+.br
+\&/clear
+.PP
+.SH "/close \- Kanal veya özel sohbet görünümünü kapatın"
+.br
+\&Kullanım: /close [NAME|NUMBER]
+.PP
+.br
+\&Bağımsız değişken olmadan mevcut sohbeti kapatır. Kanal görünümü kaldırılmadan önce kanaldan ayrılınır.
+.br
+\&Kalıcı sunucu ve bahsetme görünümleri kapatılamaz. Kanal numaraları /channels ile bulunur.
+.PP
+.br
+\&Örnekler:
+.br
+\&/close alice
+.br
+\&/close #old
+.PP
+.SH "/connect \- Sunucuya bağlan veya kayıtlı bağlantıyı kullan"
+.br
+\&Kullanım: /connect [\-tls|\-plain] [\-nick NICK] HOST [PORT] | /connect
+.PP
+.br
+\&/connect irc.example.org ile başlayın. Önceden profil, takma ad veya sunucu numarası gerekmez.
+.br
+\&Yeni sunucu 6697 portunda doğrulanmış TLS ve sistem oturum adını (uygun değilse user) kullanır.
+.br
+\&Eşleşen mevcut sunucu, ayarlı portunu, aktarım türünü, takma adını ve kimlik doğrulamasını korur.
+.br
+\&Özel takma ad için \-nick NICK veya bağlanmadan önce /nick NICK kullanın. Parolalar konumsal argüman değildir.
+.br
+\&Şifrelenmemiş IRC için \-plain kullanın (yeni sunucuda 6667). \-tls ve \-ssl doğrulanmış TLS seçer.
+.br
+\&+PORT da TLS seçer. Normal sayısal port TLS'yi kapatmaz. \-\-tls, \-\-plain ve \-\-nick de kabul edilir.
+.br
+\&Bağlantı seçilir ve sunucu/MOTD görünümü açılır. Etkin eşleşen bağlantı yeniden oluşturulmaz.
+.br
+\&Farklı uç nokta yeni doğrulama ayarları alır; diğer sunucunun bilgileri ve kanalları kopyalanmaz.
+.br
+\&Yalın /connect seçili sunucuyu ve uygulanmış ayarları kullanır. /saveconf sonraki başlangıç için varsayılanı saklar.
+.br
+\&Aynı ana makinedeki bouncer profilleri için /server NUMBER ile profili seçin, sonra /connect yazın.
+.br
+\&Uyumluluk için mevcut sunucu numaraları da kabul edilir. Test modu çevrimdışıdır; ayarlar ayrıca kaydedilmelidir.
+.PP
+.br
+\&Örnekler:
+.br
+\&/connect irc.example.org
+.br
+\&/join #chat
+.br
+\&/saveconf
+.br
+\&/connect
+.br
+\&/connect \-nick mynick irc.example.org +6697
+.br
+\&/connect \-plain localhost 6667
+.PP
+.SH "/dcc \- Doğrudan dosya aktarımlarını önerin, inceleyin ve yönetin"
+.br
+\&Kullanım: /dcc [list|NICK PATH|send [\-address IPV4] [\-port PORT] NICK PATH|accept NUMBER [DIRECTORY]|reject NUMBER|cancel NUMBER]
+.PP
+.br
+\&Argümansız aktarım listesini gösterir. /dcc NICK PATH seçili sunucuda dosya teklif eder.
+.br
+\&PATH boşluklarla birlikte kalan metnin aynısıdır; süreç başlatma dizinine göre görecelidir.
+.br
+\&İstemci dosya gezerken veya arka planda bile o dizini değiştirmez.
+.br
+\&Kısa gönderim, IRC bağlantısının yerel IPv4 adresini duyurur. NAT arkasında erişilen IPv4 için \-address, yönlendirilen port için \-port kullanın.
+.br
+\&Harici adres bulma isteği yapılmaz. Yalnız IPv6 IRC bağlantısı için açık IPv4 belirtmek gerekir.
+.br
+\&DCC şifrelenmemiş doğrudan bağlantıdır. Karşı taraf duyurulan IP'nizi alır; teklifi kabul etmek de IP'nizi açığa çıkarır.
+.br
+\&Gelen teklif /dcc accept NUMBER olana kadar açılmaz. DIRECTORY varsayılan olarak başlangıç dizinidir; size ait ve özel olmalıdır.
+.br
+\&Mevcut hedef üzerine yazılmaz; sembolik bağlantı ve özel dosyalar reddedilir. Çevrimdışı test dosya/soket açmaz.
+.br
+\&Gelen teklifi /dcc reject NUMBER ile, etkin aktarımı /dcc cancel NUMBER ile iptal edin.
+.br
+\&Aktarım numaraları süreçteki sunucular arasında ortaktır. Kaynak sunucuyu kapatmak aktarımlarını iptal eder; IRC kesilmesi kabul edileni durdurmaz.
+.PP
+.br
+\&Örnekler:
+.br
+\&/dcc alice file.txt
+.br
+\&/dcc list
+.br
+\&/dcc accept 1 ./downloads
+.br
+\&/dcc send \-address 203.0.113.20 \-port 5000 alice file.txt
+.br
+\&/dcc cancel 2
+.PP
+.SH "/disconnect \- Profili koruyarak sunucu bağlantısını kes"
+.br
+\&Kullanım: /disconnect [SERVER_NUMBER]
+.PP
+.br
+\&Numara verilmezse seçili sunucunun bağlantısını keser. Geçmiş ve yapılandırma korunur.
+.br
+\&Bu işlem sonraki başlangıçta otomatik bağlanma ayarını değiştirmez.
+.PP
+.br
+\&Örnekler:
+.br
+\&/disconnect
+.br
+\&/disconnect 1
+.PP
+.SH "/help \- Konu yardımını, sözdizimini ve örnekleri oku"
+.br
+\&Kullanım: /help [TOPIC|COMMAND]
+.PP
+.br
+\&Konu dizini için /help ls, komut açıklamaları ve listesi için /help commands, tek komut için /help autoconnect kullanın.
+.br
+\&Bağımsız değişken olmadan bir konu veya komut adı girin. /help /ls yerel listeyi açıklar; /help ls konuları listeler. İlk eğik çizgi isteğe bağlıdır.
+.br
+\&/help all, tam kılavuzu ayrı yardım okuyucusunda açar.
+.PP
+.br
+\&Örnekler:
+.br
+\&/help
+.br
+\&/help ls
+.br
+\&/help commands
+.br
+\&/help autoconnect
+.br
+\&/help /ls
+.PP
+.SH "/ignore \- Yerel olarak yok sayılan gönderenleri yönetin"
+.br
+\&Kullanım: /ignore [list|clear|[add|remove] MASK]
+.PP
+.br
+\&* ve ? jokerleriyle bir takma ad veya nick!user@host maskesi kabul eder. Eşleşen kullanıcı mesajları/bildirimleri yerel olarak gizlenir.
+.br
+\&Yoksayılan metin özel sohbet veya bahsetme oluşturmaz. Protokol durumu, sunucu bildirimleri ve üyelik işlemeye devam eder.
+.br
+\&Bu sunucunun maskelerini kaydetmek için /save kullanın.
+.PP
+.br
+\&Örnekler:
+.br
+\&/ignore list
+.br
+\&/ignore add noisy!*@*
+.br
+\&/ignore remove noisy!*@*
+.PP
+.SH "/join \- Seçili sunucudaki bir kanala katıl"
+.br
+\&Kullanım: /join #CHANNEL [KEY]
+.PP
+.br
+\&Kayıtlı bağlantı gerekir. Anahtar tek bir yazdırılabilir ASCII sözcüğüdür; kaydedilmez ve komut geçmişinde tutulmaz.
+.br
+\&Doğrudan bağlantıda kanal adı etkin otomatik katılma listesine eklenir; kaydedilirken bekleyen /autojoin değişiklikleri önceliklidir.
+.br
+\&Şimdi katılmadan doğrudan profilin sonraki açık bağlantısını düzenlemek için /autojoin kullanın. Bouncer üyeliklerini kendi yönetir.
+.PP
+.br
+\&Örnekler:
+.br
+\&/join #ircnow
+.br
+\&/join #private channel\-key
+.PP
+.SH "/list \- Ağ kanal dizinini isteyin ve süzün"
+.br
+\&Kullanım: /list [MASK] [\-\-min\-users N] [\-\-max\-users N] [\-\-name TEXT] [\-\-topic TEXT] [\-\-sort channel|users|topic] [\-\-asc|\-\-desc] [\-\-limit N] | /list show [\-\-sort channel|users|topic] [\-\-asc|\-\-desc] [\-\-limit N] | /list clear
+.PP
+.br
+\&Seçili IRC sunucusundan kanal listesi ister; kayıt tamamlanmış olmalıdır. Sunucuya yalnız MASK filtresi gönderilir.
+.br
+\&En az/en çok kullanıcı, ad ve konu filtreleri yerel uygulanır; ağ gelişmiş LIST filtrelerini desteklemese de çalışır.
+.br
+\&\-\-sort değerleri channel, users veya topic olabilir; varsayılan users azalan sıralanır. \-\-limit 0 sınırlı önbellekte gösterim sınırı koymaz.
+.br
+\&/list show önbelleği gösterir; \-\-sort, \-\-asc/\-\-desc ve \-\-limit yeni IRC isteği olmadan yerel sıralar/sınırlar. /list clear önbelleği siler.
+.br
+\&Bağlantı kesilirse veya sunucu LIST isteğini reddederse kısmi önbellek kalır, istek sona erer; kayıt sonrası /list deneyin ya da /list clear kullanın.
+.br
+\&Tam ekran istemci sıralanabilen kanal tarayıcısını açar; sade mod aynı seçenekleri ve /list show komutunu kullanır.
+.br
+\&Yerel kanallar için /ls veya /cl; ağ araması için /list kullanın.
+.PP
+.br
+\&Örnekler:
+.br
+\&/list
+.br
+\&/list *linux* \-\-min\-users 5 \-\-max\-users 500
+.br
+\&/list \-\-topic help \-\-sort users \-\-desc \-\-limit 100
+.br
+\&/list show \-\-sort channel \-\-asc \-\-limit 50
+.br
+\&/list clear
+.PP
+.SH "/ls \- Sunucu, kanal, özel sohbet veya okunmamış girişleri listeleyin"
+.br
+\&Kullanım: /ls [servers|channels|queries|unread]
+.PP
+.br
+\&Argümansız, seçili sunucudaki kanalları listeler. Bu yerel istemci komutudur; kabuk komutu veya ağ genelinde IRC LIST isteği değildir.
+.br
+\&İlgili girdileri seçmek için /server N, /channel N ve /pm NICK kullanın.
+.PP
+.br
+\&Örnekler:
+.br
+\&/ls
+.br
+\&/ls servers
+.br
+\&/ls queries
+.br
+\&/ls unread
+.PP
+.SH "/manual \- Yerleşik kılavuzun tamamını okuyun"
+.br
+\&Kullanım: /manual
+.PP
+.br
+\&Aynı konu ve komut yardımı bağlantısız da kullanılabilir. /help TOPIC kısa yoldur.
+.PP
+.br
+\&Örnekler:
+.br
+\&/manual
+.PP
+.SH "/me \- Seçili sohbete eylem mesajı gönderin"
+.br
+\&Kullanım: /me TEXT
+.PP
+.br
+\&Katılınmış bir kanal veya özel sohbet ve kayıtlı bağlantı gerektirir. İleti sınırı ve gönderim modu kuralları geçerlidir.
+.br
+\&Arayüz, bölünen iletiyi sıraya almadan önce incelemeye sunar.
+.PP
+.br
+\&Örnekler:
+.br
+\&/me waves
+.PP
+.SH "/mentions \- Anılmaları görün veya sunuculardaki saklanan anılmaları temizleyin"
+.br
+\&Kullanım: /mentions [clear]
+.PP
+.br
+\&Bu sunucunun bahsetme görünümünü seçer. Sınırlı sayıda yeni kaynak satırı ve özgün zaman damgalarını içerir.
+.br
+\&/mentions clear, görünümü değiştirmeden tüm açık sunuculardaki saklanan bahsetme kopyalarını siler.
+.br
+\&Özgün sohbet geçmişi, okunmamış sayıları ve bekleyen işler korunur.
+.br
+\&Ek düz metinler için /watch kullanın; /channel veya /pm mesaj gönderilebilen sohbete döner.
+.PP
+.br
+\&Örnekler:
+.br
+\&/mentions
+.br
+\&/mentions clear
+.br
+\&/channel #ircnow
+.PP
+.SH "/msg \- Bir kullanıcıya veya kanala metin gönder"
+.br
+\&Kullanım: /msg TARGET TEXT
+.PP
+.br
+\&Kayıt gerektirir. Bu komut gönderim planı oluşturur; doğrudan/inceleme modu ve bölünmüş ileti onayı geçerlidir.
+.br
+\&Geçerli gönderim hedefini sessizce değiştirmez. Servis/kimlik bilgisi iletileri komut geçmişine alınmaz.
+.PP
+.br
+\&Örnekler:
+.br
+\&/msg alice Hello
+.br
+\&/msg #ircnow Good evening
+.PP
+.SH "/next \- Bu sunucudaki sonraki sohbeti seçin"
+.br
+\&Kullanım: /next
+.PP
+.br
+\&Sunucu, bahsetme, kanal ve özel sohbet görünümleri arasında geçer; dahili kılavuz arabelleğini atlar.
+.PP
+.br
+\&Örnekler:
+.br
+\&/next
+.PP
+.SH "/nick \- Geçerli takma adı ayarlayın veya sorgulayın"
+.br
+\&Kullanım: /nick NICK
+.PP
+.br
+\&Bağlıyken sunucu onaylı ad değişikliği ister. Bağlı değilken sonraki bağlantı kimliğini günceller.
+.br
+\&Takma adlar desteklenen IRC ASCII sözdizimini kullanır ve 63 bayt ile sınırlıdır.
+.PP
+.br
+\&Örnekler:
+.br
+\&/nick tutankh\-aten
+.PP
+.SH "/panel \- Etkileşimli yapılandırma panelini aç"
+.br
+\&Kullanım: /panel
+.PP
+.br
+\&Uygulama tercihleri için 0 (varsayılan), profil panelleri için 1..8 seçin; panel 1 birincil profili düzenler. Bunlar panel seçenekleridir, kabuk iş kimlikleri değildir.
+.br
+\&Uygulama tercihleri tüm sunucular için geçmiş saklama sınırını, gönderme kipini, çıktı biçimini, kuyruk bildirimlerini ve komut önerilerini içerir.
+.br
+\&Yapılandırılmış sunucu olmadan da çalışırlar. Son seçenekler 1 Kaydet (varsayılan) ve 2 Kaydetmeden uygula'dır; ikisi de bağlantı kurmaz.
+.br
+\&Sunucu paneli yalnızca o sunucunun bağlantı, başlangıç, kimlik doğrulama, anılma ve yok sayma ayarlarını içerir.
+.br
+\&Herhangi bir paneli seçmek sohbetinizi değiştirmez.
+.br
+\&Enter gösterilen değeri korur; '\-' isteğe bağlı alanı temizler. Escape bir önceki soruya döner; değişiklikleri uygulamadan çıkmak için tekrarlayın.
+.br
+\&Tab soru başlığını seçer. Seçenek ve ekranı hakkında yardım için orada ? basın; Tab veya Enter yanıta döner.
+.br
+\&Düzenlenebilir her yanıtta ? düz metin olarak kalır; ilk karakterde ve joker karakter kalıplarında da böyledir.
+.br
+\&İzleme terimlerini ve yok sayma kalıplarını tek tek girin; boş yeni giriş o listeyi bitirir.
+.br
+\&Kimlik bilgisi girişi gizlidir; kurulum yanıtları komut geçmişine asla girmez. Düzenleme sırasında mevcut kimlik bilgisi dosyaları okunmaz.
+.br
+\&GPG kaynağı için Yeni oluştur veya Mevcut olanı kullan'ı seçin. Oluşturma özel bir varsayılan yol önerir; Enter kabul eder ve dizini hazırlar (0700).
+.br
+\&Başka bir hedef, sahibi olduğunuz, 0700 kipinde mevcut bir dizinde olmalıdır. Yol, anahtar ve parola sorularından önce denetlenir.
+.br
+\&Ardından yerel açık anahtarın tam parmak izi ve iki kez parola istenir. Mevcut dosyalar ve sembolik bağlantılar asla değiştirilmez.
+.br
+\&Kimlik bilgisi yolları mutlak kaydedilir. /autoauth status içerikleri okumadan yapılandırılmış konumları tam olarak gösterir.
+.br
+\&Şifreleme ancak Bitir'den sonra başlar, IRC yanıt vermeyi sürdürür; düz metin geçici dosya asla kullanılmaz. Escape bekleyen işi iptal eder.
+.br
+\&Yapılandırma kaydı başarısız olursa tamamlanan şifreli metin bilinçli bir yeniden deneme için kalır; kaydedilmiş yapılandırmanın başvurduğu dosyalar korunur.
+.br
+\&Test kipi GPG başlatmaz ve kimlik bilgisi dosyası oluşturmaz. Doğrulamadan önce eşleşen özel anahtarın kilidini uygulama dışında açın.
+.br
+\&Sunucu panelinin son seçenekleri: 1 Kaydet ve bağlan, 2 Yalnızca kaydet (varsayılan), 3 Bir kez bağlan veya 4 Yalnızca uygula.
+.br
+\&Yalnızca paneli açmak veya önceki sorularını yanıtlamak hiçbir şeyi uygulamaz, kaydetmez veya bağlantı kurmaz.
+.br
+\&Bir kez baglan kaydetmeden uygular; Yalniz uygula ne kaydeder ne baglanir. Etkin bağlantı gizlice hedef değiştirmez veya yeniden baglanmaz.
+.br
+\&Baglanti başarısız olursa son islemde uygulanmış ya da kaydedilmiş değişiklikler geri alinmaz.
+.br
+\&Daha kısa sunucu, taşıma, bağlantı noktası ve takma ad kurulumu için /quickstart kullanın.
+.PP
+.br
+\&Örnekler:
+.br
+\&/panel
+.PP
+.SH "/part \- İsteğe bağlı gerekçeyle kanaldan ayrıl; geçmişini koru"
+.br
+\&Kullanım: /part [#CHANNEL] [MESSAGE]
+.PP
+.br
+\&Kanal verilmezse seçili katılınmış kanaldan çıkılır. Kanal sonrası metin PART nedenidir; kanalsız metin seçili kanalın nedenidir.
+.br
+\&Açık neden yoksa ayarlanmış part_message kullanılır. Etkin otomatik katılma girdisi kaldırılır.
+.br
+\&Bu kanala kuyruklanmış iletiler iptal edilir; gönderimi başlayan tek bir çerçeve bitebilir. Görünümü kaldırmak için /close kullanın.
+.PP
+.br
+\&Örnekler:
+.br
+\&/part
+.br
+\&/part Going offline
+.br
+\&/part #old Moving elsewhere
+.PP
+.SH "/pm \- Göndermeden özel sohbet seçin veya açın"
+.br
+\&Kullanım: /pm NICK|NUMBER
+.PP
+.br
+\&İsimler özel sohbeti açar veya seçer. Numaralar bu sunucunun /ql listesindeki mevcut sohbeti seçer.
+.br
+\&Özel sohbet açmak, ileti gönderilene kadar kullanıcıya ulaşmaz. Sohbet kapatılınca numaralar değişebilir.
+.PP
+.br
+\&Örnekler:
+.br
+\&/pm alice
+.br
+\&/ql
+.br
+\&/pm 1
+.PP
+.SH "/prev \- Bu sunucudaki önceki sohbeti seçin"
+.br
+\&Kullanım: /prev
+.PP
+.br
+\&/next komutunun tersidir. Bağlanmaz, kanala katılmaz veya ileti göndermez.
+.PP
+.br
+\&Örnekler:
+.br
+\&/prev
+.PP
+.SH "/ql \- Seçili sunucudaki özel sohbetleri listeleyin"
+.br
+\&Kullanım: /ql
+.PP
+.br
+\&Özel sohbet numaraları 1 ile başlar ve kanal numaralarından ayrıdır. /query NICK veya /query NUMBER kullanın.
+.br
+\&Özel sohbeti kapatmak için /close NICK kullanın; sonraki numaralar değişebileceğinden /ql komutunu yineleyin.
+.PP
+.br
+\&Örnekler:
+.br
+\&/ql
+.br
+\&/query 1
+.br
+\&/query alice
+.PP
+.SH "/queries \- Özel sohbetleri listeleyin (/ql takma adı)"
+.br
+\&Kullanım: /queries
+.PP
+.br
+\&/ql ile aynı özel sohbet listesini kullanır. Kanal numaraları ayrıdır.
+.PP
+.br
+\&Örnekler:
+.br
+\&/queries
+.br
+\&/pm alice
+.PP
+.SH "/query \- Özel görüşmeyi aç veya seç"
+.br
+\&Kullanım: /query NICK|NUMBER
+.PP
+.br
+\&Mesaj göndermeden özel konuşma seçer. Bu takma ada yazmak için normal şekilde yazın.
+.br
+\&Numaralı özel konuşmalar için /ql, birini kapatmak için /close NICK kullanın. /pm aynı adları ve numaraları kabul eder.
+.br
+\&Numara seçili sunucudaki mevcut bir özel konuşmayı göstermelidir; 0 konuşma seçmez veya oluşturmaz.
+.PP
+.br
+\&Örnekler:
+.br
+\&/query alice
+.br
+\&/ql
+.br
+\&/query 1
+.br
+\&/close alice
+.PP
+.SH "/quickstart \- Rehberli bağlantı kurulumunu aç"
+.br
+\&Kullanım: /quickstart
+.PP
+.br
+\&Gecerli profilin sunucusunu, TLS aktarimini, portunu ve takma adini sirayla duzenleyip ayarlari gozden gecirin.
+.br
+\&Dogrulanmis TLS varsayilandir. Duz metin baglantisini acikca secmelisiniz.
+.br
+\&Enter gorunen degeri korur. Escape bir soru geri doner; değişiklik uygulamadan cikmak icin yineleyin. Yanitlar komut gecmisine girmez.
+.br
+\&Son incelemede 1 Kaydet ve baglan, 2 Yalniz kaydet, 3 Bir kez baglan (varsayilan), 4 Yalniz uygula secin.
+.br
+\&Kurulumu acmak ve onceki sorulari yanitlamak ayarlari uygulamaz, dosya kaydetmez veya baglanmaz.
+.br
+\&Bir kez baglan kaydetmeden uygular; Yalniz uygula ne kaydeder ne baglanir. Etkin bağlantı gizlice hedef değiştirmez veya yeniden baglanmaz.
+.br
+\&Baglanti başarısız olursa son islemde uygulanmış ya da kaydedilmiş değişiklikler geri alinmaz.
+.br
+\&Bouncer profilleri ve diger secenekler icin /panel kullanin. Quickstart mevcut bouncer girisini değiştirmez.
+.PP
+.br
+\&Örnekler:
+.br
+\&/quickstart
+.PP
+.SH "/quit \- Programdan çık ve tüm oturumları kapat"
+.br
+\&Kullanım: /quit [MESSAGE]
+.PP
+.br
+\&Her etkin sunucuya olabildiğince IRC QUIT nedeni olarak MESSAGE yollar; MESSAGE yoksa quit_message kullanır; terminali geri yükleyip çıkar.
+.br
+\&Bağlantılar açık kalsın diye /background kullanın.
+.PP
+.br
+\&Örnekler:
+.br
+\&/quit
+.br
+\&/quit Client restart
+.PP
+.SH "/save \- Geçerli sunucuyu, uygulama tercihlerini veya tüm profilleri kaydedin"
+.br
+\&Kullanım: /save [input|output|all]
+.PP
+.br
+\&Yalin /save secili sunucunun hazirlanmis bağlantı degisiklikleri dahil gecerli ayarlarini yazar.
+.br
+\&/save input ve /save output ikisi de uygulama tercihleri ve hazir birincil bağlantı dahil ana profili kaydeder. Yalniz adlandirilan bolumu kaydetmezler.
+.br
+\&/save all her sağlam profili ayri kaydeder. Biri başarısız olsa oncekiler korunur ve hatalar bildirilir.
+.br
+\&Her dosya degisimi özel ve atomiktir, ancak tum dosyalar tek islem degildir. Test kipi yapılandırma yazmaz.
+.PP
+.br
+\&Örnekler:
+.br
+\&/save
+.br
+\&/set send_mode review
+.br
+\&/save input
+.br
+\&/save all
+.PP
+.SH "/saveconf \- Yapılandırmayı kaydet ve seçili bağlantıyı hatırla"
+.br
+\&Kullanım: /saveconf
+.PP
+.br
+\&Uygulama tercihlerini ve sağlam tüm sunucu yapılandırmalarını kaydeder, seçili sunucuyu varsayılan yapar.
+.br
+\&Bir sonraki açılışta /connect kayıtlı varsayılanı kullanır; sunucu numarası veya ek kurulum gerekmez.
+.br
+\&Takma ad, katılınan kanallar, kimlik doğrulama ve başlangıç seçenekleri dahildir; bekleyen açık değişiklikler önceliklidir.
+.br
+\&Bu, başlangıçta otomatik bağlanmayı açmaz. İstiyorsanız önce /autoconnect on kullanın.
+.br
+\&Her dosya özel ve atomik biçimde değiştirilir. Başka dosya başarısız olsa da başarılı kayıtlar kalır.
+.br
+\&Seçili sunucu ancak kendi kaydı başarılıysa varsayılan olur; hatalar bildirilir, okunamayan profillerin üstüne yazılmaz.
+.br
+\&Test modu yapılandırma yazmaz. /save profil ve tercihler için daha dar kapsamlı seçenekler sunar.
+.PP
+.br
+\&Örnekler:
+.br
+\&/connect irc.example.org
+.br
+\&/join #chat
+.br
+\&/saveconf
+.br
+\&/quit
+.PP
+.SH "/server \- Sunucuya bağlanın veya mevcut olanı seçin"
+.br
+\&Kullanım: /server [\-tls|\-plain] [\-nick NICK] HOST [PORT] | /server [NUMBER|add HOST [PORT] [NICK]|connect NUMBER|disconnect NUMBER|close NUMBER]
+.PP
+.br
+\&Ana makine adı verilirse doğrudan /connect gibidir; önceden profil oluşturmak gerekmez.
+.br
+\&Argümansız mevcut sunucunun mesaj/MOTD görünümünü seçer. NUMBER bağlanmadan sunucu yuvası seçer.
+.br
+\&add yeni kimlik bilgili, doğrulanmış TLS ve kapalı autoconnect içeren profil ekler; seçmez, bağlanmaz, kaydetmez.
+.br
+\&Varsayılan PORT 6697'dir. Başka port TLS'yi kapatmaz; şifresiz bağlantı açıkça seçilmelidir.
+.br
+\&connect/disconnect seçimi değiştirmez. close ikincil oturumu/liste girdisini kaldırır, profil dosyasını değil.
+.br
+\&Sade sunucu numaraları 1..8, birincil 1. Birincil kalır; kapatmak yerine bağlantısını kesin.
+.br
+\&Numaralar oturum boyunca değişmez. Panel 0 uygulama tercihleri içindir.
+.PP
+.br
+\&Örnekler:
+.br
+\&/server irc.example.org
+.br
+\&/join #chat
+.br
+\&/saveconf
+.br
+\&/servers
+.br
+\&/server 1
+.PP
+.SH "/servers \- Yapılandırılmış tüm sunucu oturumlarını listele"
+.br
+\&Kullanım: /servers
+.PP
+.br
+\&Sade sunucu yuvalarını 1..8 (birincil 1), seçili sunucuyu, bağlantı durumunu ve sunucu başına autoconnect seçimini gösterir.
+.br
+\&Yüklenmiş profil bağlı olmasa da kullanılabilir.
+.PP
+.br
+\&Örnekler:
+.br
+\&/servers
+.br
+\&/server 1
+.PP
+.SH "/set \- Uygulama genelinde giriş, çıktı ve çevrimiçi durum tercihlerini seçin"
+.br
+\&Kullanım: /set send_mode direct|review | /set composer_mode line|fullscreen | /set output_format compact|full | /set queue_notices on|off | /set program_messages on|off | /set persistent_logging on|off | /set single_session on|off | /set default_interface idle|ncurses | /set command_suggestions alphabetical|common|history|frequent|contextual | /set part_message [TEXT] | /set quit_message [TEXT] | /set background_away on|off | /set background_away_message TEXT | /set autoaway_minutes 0..1440 | /set autoaway_message TEXT
+.PP
+.br
+\&direct varsayılandır: Enter mesajı gönderir; birden çok IRC mesajı gerekirse onay zorunludur.
+.br
+\&review sıradan mesajlar kuyruğa alınmadan önce bilinçli bir inceleme adımı ekler.
+.br
+\&output_format compact varsayılandır: seçili sohbet [HH:MM:SS] <nick> metin gösterir.
+.br
+\&output_format full her satırda sunucu, tarih ve hedefi gösterir. compact modunda anılmalar ve diğer sunucu tanıları kaynak bilgisini korur.
+.br
+\&queue_notices off normal kuyruk bildirimlerini gizler. Sade arayüzde önceden incelenen gönderim yinelenen bildirimi atlar. Hatalar ve çoklu mesaj onayı görünür.
+.br
+\&program_messages off taslak iptali, giriş temizliği ve korunan taslak gibi düşük öncelikli geri bildirimi gizler. Hatalar ve güvenlik onayları görünür.
+.br
+\&persistent_logging on sohbeti özel .log (0600) dosyasına, özel yapılandırma dizinine (0700) yazar. Varsayılan kapalı; sınır 16 MiB: arşivleyip off/on yapın. Güvensiz/meşgul dosya kaydı durdurur, sohbet sürer.
+.br
+\&single_session on bu istemcide tek arka plan işi sağlar; numarasız \-\-resume açıktır. Aynı oturumda birden çok IRC sunucusu kullanılabilir.
+.br
+\&default_interface desteklenen yeni başlangıçta arayüzü belirler; mevcut olanı değiştirmez. /save input tercihi kaydeder.
+.br
+\&command_suggestions alfabetik, yaygın, son kullanılan, en çok kullanılan veya açıldığı ekrana uygun komutları seçer.
+.br
+\&composer_mode line canlı kuyruğun altında tek giriş satırı tutar; fullscreen çok satırlı düzenleyici ve canlı sohbet alanı kullanır. Varsayılan: line.
+.br
+\&part_message ve quit_message varsayılan IRC ayrılış nedenleridir; açık /part veya /quit mesajı bunların yerine geçer. Boş değer varsayılanı kaldırır.
+.br
+\&background_away, başarılı /background veya terminal kaybından sonra background_away_message gönderir. autoaway_minutes yerel hareketsizlikte away ayarlar; 0 kapatır.
+.br
+\&Yalnız istemcinin oluşturduğu away durumu devamda veya gerçek yerel girişte otomatik silinir. Elle /away asla değiştirilmez veya silinmez.
+.br
+\&«Sık kullanılan» varsayılandır. «Bağlamsal» kanal, özel sohbet, sunucu veya istemci komutlarına öncelik verir; diğer eşleşmeleri de tutar.
+.br
+\&«Sık kullanılan» seçilmiş yararlı sırayı kullanır. «Bağlamsal», genel özet okuyucu dahil komutun açıldığı ekranı hatırlar.
+.br
+\&Bunlar bütün sunuculara uygulanan istemci tercihleridir. Kaydetmek için /save input veya /save output kullanın.
+.br
+\&/panel ardından 0, bu tercihleri ve genel geçmiş sınırını düzenler.
+.br
+\&onekeyirc her zaman idle kullanır. Uygulama panelinde arayüz seçimi yoktur; /set default_interface yalnızca idle kabul eder.
+.br
+\&Ortak yapılandırma ayrıştırıcısı tanınan kayıtlı değerlerin her ikisini de korur. Kayıtlı ncurses değeri bu bağımsız istemcinin arayüzünü değiştirmez.
+.PP
+.br
+\&Örnekler:
+.br
+\&/set send_mode review
+.br
+\&/set composer_mode line
+.br
+\&/set command_suggestions contextual
+.br
+\&/save input
+.br
+\&/set output_format full
+.br
+\&/set queue_notices off
+.br
+\&/set program_messages off
+.br
+\&/set persistent_logging on
+.br
+\&/set single_session on
+.br
+\&/save output
+.PP
+.SH "/settings \- Etkin ayarları kimlik bilgileri gizlenmiş olarak gösterin"
+.br
+\&Kullanım: /settings
+.PP
+.br
+\&Uygulama tercihlerini seçili sunucunun bekleyen bağlantı seçeneklerinden ayrı gösterir.
+.br
+\&Kimlik doğrulama değerleri kaynak türüne göre gösterilir; parolalar ve kimlik dosyası yolları yazdırılmaz.
+.br
+\&İlgili ayarları değiştirmek için /autoconnect, /autojoin, /autoauth ve /set kullanın.
+.PP
+.br
+\&Örnekler:
+.br
+\&/settings
+.br
+\&/help configuration
+.PP
+.SH "/sl \- Sunucuları listeleyin (/servers takma adı)"
+.br
+\&Kullanım: /sl
+.PP
+.br
+\&/servers ile aynı yapılandırılmış sunucu listesini ve sabit yuva numaralarını kullanır.
+.br
+\&Birini seçmek için /server NUMBER kullanın.
+.PP
+.br
+\&Örnekler:
+.br
+\&/sl
+.br
+\&/server 1
+.PP
+.SH "/soju \- Seçili soju bouncer'ını yönetin"
+.br
+\&Kullanım: /soju [COMMAND]
+.PP
+.br
+\&/panel ile ayarlanmış bağlı bir soju profili gerekir. Parametre verilmezse BouncerServ'den yardım istenir.
+.br
+\&COMMAND tek, aralıklı bir özel mesaj olarak gönderilir; yerel yankiya veya komut geçmişine eklenmez.
+.br
+\&Doğrudan IRC bağlantısı bu kısayolu kullanamaz. Yanıtlar sunucu görünümünde belirir.
+.br
+\&Hesap ve ağ komutlari için bouncer'in kendi yardimini kullanın.
+.PP
+.br
+\&Örnekler:
+.br
+\&/soju
+.br
+\&/soju network status
+.PP
+.SH "/summary \- Geçerli tüm sunucu oturumlarını ve etkinliği özetleyin"
+.br
+\&Kullanım: /summary
+.PP
+.br
+\&Tüm sunucuları, channel 0, kanal/özel görüşmeleri, okunmamışları, anmaları, giden kuyrukları, başlangıç komutlarını ve dosya aktarımlarını gösterir.
+.br
+\&Bu yerel bir özettir; bağlantı olmadan da çalışır. Yenilemek için okuyucuda r tuşuna basın veya tekrar çalıştırın.
+.br
+\&Açmak görüşmeyi değiştirmez, okundu işareti koymaz. Kopya anma akışı etkinlik toplamına katılmaz.
+.br
+\&Anmalar okunmamış ileti de olabilir; toplamları toplamayın. Katılmış ve ayrılmış kanal görünümleri ayrı belirtilir.
+.br
+\&Raporun kaydırmalı okuyucusu taslakları korur. Eğik çizgi komut girişini açar; iptal özet sayfasına döner.
+.br
+\&Yenileme başarısızsa önceki özet kalır. Açmak veya yenilemek ağa istek göndermez.
+.br
+\&Kimlik bilgileri, kuyruktaki iletilerin ve otomatik komutların içerikleri asla yazdırılmaz.
+.PP
+.br
+\&Örnekler:
+.br
+\&/summary
+.PP
+.SH "/topic \- Geçerli kanal konusunu isteyin veya değiştirin"
+.br
+\&Kullanım: /topic [TEXT]
+.PP
+.br
+\&Kayıtlı ve kanala katılmış olmalısınız. Metin yoksa konu istenir; varsa TEXT aynen gönderilir.
+.br
+\&Sunucu, kanaldaki yetkinizin değiştirmeye izin verip vermediğine karar verir.
+.PP
+.br
+\&Örnekler:
+.br
+\&/topic
+.br
+\&/topic Welcome to our channel
+.PP
+.SH "/transfers \- Dosya aktarımlarını yönetin (/dcc takma adı)"
+.br
+\&Kullanım: /transfers [ARGUMENTS]
+.PP
+.br
+\&/dcc ile aynı komutlar ve korumalar. Gönderme, alma ve iptal için /help dcc bölümüne bakın.
+.PP
+.br
+\&Örnekler:
+.br
+\&/transfers
+.br
+\&/transfers alice file.txt
+.PP
+.SH "/unbind \- Bir veya tüm özel tuş atamalarını kaldırın"
+.br
+\&Kullanım: /unbind KEY|all
+.PP
+.br
+\&Atamayı kaldırmak tuşun olağan davranışını geri getirir. all yalnız özel atama listesini siler.
+.br
+\&Değişiklik tüm sunucularda hemen geçerlidir. Yeniden başlatma sonrası saklamak için /save input kullanın.
+.PP
+.br
+\&Örnekler:
+.br
+\&/unbind F7
+.br
+\&/unbind all
+.br
+\&/save input
+.PP
+.SH "/unignore \- Bir yerel yok sayma kalıbını kaldırın"
+.br
+\&Kullanım: /unignore MASK
+.PP
+.br
+\&/ignore remove MASK ile eşdeğerdir. Değişikliği kalıcı kılmak için seçili profili kaydedin.
+.PP
+.br
+\&Örnekler:
+.br
+\&/unignore noisy!*@*
+.PP
+.SH "/unread \- Sunuculardaki okunmamış sohbetleri listeleyin"
+.br
+\&Kullanım: /unread
+.PP
+.br
+\&Satırlarda sunucu numarası, sohbet adı, okunmamış iletiler ve bahsetme sayısı bulunur.
+.br
+\&Sohbet seçmek için /server NUMBER, ardından /channel veya /pm kullanın.
+.PP
+.br
+\&Örnekler:
+.br
+\&/unread
+.br
+\&/server 1
+.br
+\&/pm alice
+.PP
+.SH "/users \- Geçerli veya adı verilen kanalın bilinen kullanıcılarını yazdırın"
+.br
+\&Kullanım: /users [#CHANNEL]
+.PP
+.br
+\&Bu metin kullanıcı listesidir, görünürlük düğmesi değildir. Bilinen kullanıcı modu önekleri gösterilir.
+.br
+\&Liste boşken de ayrı okuyucuda açılır. Enter, Escape veya q seçili sohbet günlüğüne döner.
+.br
+\&Up/Down ve Page Up/Down listeyi kaydırır. Help içinde Enter kaydırmaya devam eder.
+.br
+\&Eksik veya kapasite sınırına takılan NAMES yanıtı işaretlenir. WHOIS isteği gönderilmez.
+.PP
+.br
+\&Örnekler:
+.br
+\&/users
+.br
+\&/users #ircnow
+.PP
+.SH "/view \- Adı verilen sohbeti veya numaralı kanalı seçin"
+.br
+\&Kullanım: /view NAME|NUMBER
+.PP
+.br
+\&Kanal numaraları /channels, özel sohbet adları /ql ile listelenir. Sunucu ve bahsetme adları da kabul edilir.
+.br
+\&Dahili kılavuz arabelleğini seçmek yerine /help kullanın.
+.PP
+.br
+\&Örnekler:
+.br
+\&/view #ircnow
+.br
+\&/view alice
+.br
+\&/view 0
+.PP
+.SH "/views \- Kanalları listeleyin (/channels takma adı)"
+.br
+\&Kullanım: /views
+.PP
+.br
+\&Bu takma komut kanal numaralarını kullanır; özel sohbetler /ql içinde kalır.
+.PP
+.br
+\&Örnekler:
+.br
+\&/views
+.PP
+.SH "/watch \- Ek düz metin anılma dizelerini yönetin"
+.br
+\&Kullanım: /watch [list|add TEXT|remove TEXT]
+.PP
+.br
+\&Takma ad anmaları her zaman açıktır. Add/remove kalan kısmı düz metin sayar, düzenli ifade değil.
+.br
+\&Sunucu başına 1..127 UTF\-8 baytlık en çok 32 ek dize vardır. /save ile saklayın.
+.PP
+.br
+\&Örnekler:
+.br
+\&/watch list
+.br
+\&/watch add release day
+.br
+\&/watch remove release day
+.br
+\&/mentions
+.PP
+.SH "/whois \- Sunucudan takma ad bilgilerini isteyin"
+.br
+\&Kullanım: /whois NICK
+.PP
+.br
+\&Sunucuya kayıt gerektirir. Yanıtı görmek için sunucu görünümünü seçer. Yerel komut çalıştırılmaz.
+.PP
+.br
+\&Örnekler:
+.br
+\&/whois alice
+.PP
+.SH "/znc \- Seçili ZNC bouncer'ını yönetin"
+.br
+\&Kullanım: /znc [COMMAND]
+.PP
+.br
+\&/panel ile ayarlanmış bağlı bir ZNC profili gerekir. Parametre verilmezse *status'a Help sorulur.
+.br
+\&COMMAND tek, aralıklı bir özel mesaj olarak gönderilir; yerel yankiya veya komut geçmişine eklenmez.
+.br
+\&Etkin ZNC modülü için /msg *module COMMAND kullanın. Modul yanitlari sunucu görünümünde belirir.
+.br
+\&Doğrudan IRC bağlantısı bu kısayolu kullanamaz. Komutlar için bouncer yardimina bakın.
+.PP
+.br
+\&Örnekler:
+.br
+\&/znc
+.br
+\&/znc ListNetworks
+.br
+\&/znc Connect

@@ -1,0 +1,14 @@
+RELEASE CANDIDATE 1.0rc4 - NOT FINAL 1.0
+
+Verification and correction pass. No new IRC features or wire changes.
+- Check language-pack inventory, every packaged file hash and replacement source hashes before extraction.
+- Reject symlinks, hard links, special files and new overlay destination collisions.
+- Check tar creation and extraction independently; on failure re-extract a fresh source tree.
+- Translate startup nickname prompt (shared source) and missing TERM diagnostic (vipirc).
+- Add catalog-wide checks for literal known IRC commands and long CLI options.
+- Repair onekeyirc version assertion and English manual synchronization.
+
+The integrity checks do not authenticate an untrusted package or prevent concurrent
+modification. Verify the external archive SHA256 against a trusted publication.
+Use a private extraction directory. Full vipirc ncurses, actual OpenBSD and
+Crostini, native-speaker review and remaining end-to-end verification are pending.

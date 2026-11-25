@@ -1,0 +1,7 @@
+OPTIONAL LANGUAGE + ARABIC RTL PACK VERSION: 1.0-a
+BASE APPLICATION VERSION: 1.0-a
+BASE SOURCE: English 1.0-a r1
+PATCHED --version: vipirc 1.0-a [lang-rtl-1.0-a]
+2676 keys per locale in ten languages.
+RELEASE STATUS: public alpha; native-speaker and platform validation pending.
+Promotes RC4: startup localization, command/option token guard, installer integrity verification. No catalog content changes.

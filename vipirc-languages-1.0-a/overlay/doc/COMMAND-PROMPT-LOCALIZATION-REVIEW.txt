@@ -1,0 +1,17 @@
+vipirc r101 command-entry review
+
+The full-screen Command prompt previously drew its title, target, byte
+counter, message budget, suggestion counts, suggestion order, Run/Cancel
+buttons and hints partly in English. The paste status notices and the two
+settings credential-reset notices also lacked translated keys.
+
+The new display helper uses named fields for literal targets and counts;
+button drawing and mouse dispatch use the same terminal-cell geometry.
+The command text, protocol limits, paste behavior and confirmation rules
+remain unchanged. Optional suffixes are fitted by terminal cells as well
+as buffer capacity. The source retains its English fallback.
+
+Targeted helper tests exercise eleven language selections, narrow widths,
+UTF-8 widths, range rendering, literal fields, buffer limits and hit tests.
+They do not replace a live ncurses test. Full ncurses execution and native
+speaker proofreading remain outstanding.

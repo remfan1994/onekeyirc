@@ -1,0 +1,23 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / GETTING HELP
+English source SHA-256: 3be6bd8e2513deace7dbc089f74905843298167e9259b20a4a0495570b4c691f
+
+EXACT COMMAND/CONTROL EXAMPLES (not translated):
+vipirc -h
+vipirc -v
+vipirc --manual
+vipirc -i --manual
+man vipirc
+/help
+/manual
+/help TEXT
+
+vipirc -h (ou --help) mostra o resumo CLI; vipirc -v (ou --version) mostra a versão; vipirc --manual imprime o manual completo na saída padrão; vipirc -i --manual imprime a referência minimalista de tópicos e comandos. man vipirc abre a página de manual instalada. Na interface completa, /help ou /manual abre este manual e /help TEXT procura TEXT nele.
+
+No modo completo, /help TEXT procura neste manual, não abre tópicos minimalistas. /help commands e /help ls localizam COMMAND PROMPT; /help all abre o manual todo; /view help também funciona. As expressões não precisam de aspas. O leitor funciona sem ligação e preserva vista, rascunho e cursor. Aqui, / inicia a pesquisa; no leitor minimalista de ajuda/respostas, / abre Command. Para diagnóstico por sintoma, veja doc/TROUBLESHOOTING.txt.
+
+Durante a navegação, ? explica o item e o ecrã selecionados. A ajuda de contexto oferece uma ligação a About; Left/Right ou Tab escolhe uma ação, Enter executa-a e Escape regressa exatamente ao local e à seleção de origem. Num campo editável, ? é texto literal. Selecione uma sugestão de Command antes de pedir ajuda para ela.
+
+As ações do manual são Voltar, Buscar, Anterior e Próximo. Left/Right ou h/l escolhe e Enter executa. Up/Down ou k/j desloca uma linha, Page Up/Down uma página e Home/End ou g/G vai aos extremos. Escape/q/Voltar regressa ao painel vipirc ou ao chat anterior. F1..F6 abre as categorias disponíveis; a circulação entre vistas ignora o manual. / ou Buscar edita uma consulta UTF-8 literal de até 256 bytes. Enter pesquisa; Escape cancela a edição. n/Próximo e N/Anterior percorrem correspondências circularmente. Ignoram-se diferenças ASCII de maiúsculas; outros caracteres são literais. Não há regex, sintaxe de shell ou histórico de pesquisas. Colar texto é ignorado no leitor e na pesquisa.
+
+F1 contém Servidor, Alcunha, Configurações, Atalhos de teclado, Manual, Comando, Segundo plano, Sobre e o acordo de licença Insha-Allah. Servidor/Alcunha abre as definições do perfil atual; Alcunha foca o respetivo campo. Sobre mostra versão, créditos e uma captura local solicitada na altura: PID, duração, totais de CPU, pico de memória suportado e contagens de servidores/vistas. Pico de memória não é uso atual; totais de CPU não são uma percentagem em tempo real. O leitor da licença mostra LICENSE.md integralmente. Escape/Enter/q/Voltar regressa de Sobre/licença a vipirc.

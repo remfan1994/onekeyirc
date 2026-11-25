@@ -1,0 +1,19 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / QUICK START
+English source SHA-256: 26668ea76d9592744bbb94ab60eda38bff8d31bea2791e6b4577390cbbcd2948
+
+EXACT COMMAND/CONTROL EXAMPLES (not translated):
+vipirc -h
+vipirc -v
+vipirc --test-mode
+vipirc --server irc.ircnow.org --channel '#ircnow' --nick tutankh-aten
+
+Os três primeiros exemplos mostram a ajuda, a versão e uma simulação offline. O último estabelece uma ligação real: no shell, coloque '#ircnow' entre aspas e utilize o endpoint TLS real do fornecedor. O TLS verificado na porta 6697 é a opção padrão; texto sem cifragem requer --plain.
+
+No arranque interativo, surge a mensagem "Not vegetarian? www.bloodguiltcurse.net will change your mind". Uma tecla imprimível, Enter, Tab ou uma tecla de navegação fecha-a. Os sinais configurados do terminal mantêm a função herdada; outros controlos não fecham a mensagem. Sem servidor, abre-se um espaço de trabalho desligado. Configure-o em Settings, com /connect HOST ou com --server.
+
+No modo completo, se o nome principal não estiver configurado, surge um pedido com o nome de login do sistema como valor inicial. Enter aceita-o; escrever substitui-o. Perfis secundários guardados e arranques sem intervenção usam um login ou nome de utilizador válido sem perguntar. --nick substitui esse valor, mas o servidor pode recusá-lo.
+
+A vista inicial do servidor apresenta o registo e o MOTD. Perfis diretos entram nos canais configurados depois do registo e da autenticação obrigatória; bouncers restauram os seus próprios canais. O chat fica pronto a receber texto. Enter envia para o canal ou conversa privada selecionados; as vistas de servidor e menções não têm destinatário implícito. / com o cursor na posição zero abre Command. Para começar com uma barra literal, use //; barras coladas entre parênteses retos continuam literais.
+
+Teclas comuns: F1 abre vipirc, F2 Servidores, F3 Canais, F4 Mensagens privadas, F5 Menções/não lidas e F6 Transferências. Escape numa conversa privada abre Mensagens privadas; noutro chat abre vipirc; num painel normal regressa ao chat e em Configurações regressa a vipirc. As cores do terminal são preservadas; parênteses retos a negrito indicam o foco. Veja GLOBAL HEADER AND CHAT CONTROLS para navegar nas listas.

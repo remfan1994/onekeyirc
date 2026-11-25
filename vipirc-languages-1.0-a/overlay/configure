@@ -1,0 +1,395 @@
+#!/bin/sh
+# Original small dependency probe; no Autoconf or generated client code.
+set -eu
+build_lang=${VIPIRC_LANG:-${LC_ALL:-${LC_MESSAGES:-${LANG:-en}}}}
+case "$build_lang" in
+    id|id[_@.-]*)
+        msg_usage=Penggunaan
+        msg_build='Membangun dan memasang vipirc beserta antarmuka --idle.'
+        msg_env='Variabel lingkungan'
+        msg_creates='Membuat Makefile untuk make POSIX tanpa memasang program.'
+        msg_unknown='opsi tidak dikenal'
+        msg_prefix='--prefix harus berupa jalur absolut untuk manual terjemahan.'
+        msg_newline='variabel build tidak boleh memuat baris baru'
+        msg_compiler='dibutuhkan kompiler C11, getopt_long, terminal POSIX, dan poll.'
+        msg_curses='dibutuhkan kompiler C11, getopt_long, serta header dan pustaka curses yang mendukung karakter lebar.'
+        msg_cursesfix='Pasang paket pengembangan curses atau atur CPPFLAGS/CURSES_LIBS. Lihat config.log.'
+        msg_tls='dibutuhkan header dan pustaka TLS yang kompatibel dengan OpenSSL dan mendukung verifikasi nama host.'
+        msg_tlsfix='Pasang berkas pengembangan OpenSSL/LibreSSL atau atur CPPFLAGS/TLS_LIBS. Lihat config.log.'
+        msg_arabic='tampilan visual Arab opsional tidak tersedia karena dlopen tidak didukung'
+        msg_hardening='perlindungan build yang didukung'
+        msg_none='tidak terdeteksi'
+        msg_configured='Konfigurasi selesai untuk'
+        msg_finish='Jalankan make, lalu make check. Untuk memasang, gunakan make install PREFIX=... DESTDIR=...'
+        ;;
+    ms|ms[_@.-]*)
+        msg_usage=Penggunaan
+        msg_build='Membina dan memasang vipirc termasuk antara muka --idle.'
+        msg_env='Pemboleh ubah persekitaran'
+        msg_creates='Menghasilkan Makefile untuk make POSIX tanpa memasang program.'
+        msg_unknown='pilihan tidak dikenali'
+        msg_prefix='--prefix mestilah laluan mutlak untuk manual terjemahan.'
+        msg_newline='baris baharu tidak dibenarkan dalam pemboleh ubah binaan'
+        msg_compiler='pengkompil C11, getopt_long, terminal POSIX dan poll diperlukan.'
+        msg_curses='pengkompil C11, getopt_long serta fail pengepala dan pustaka curses yang menyokong aksara lebar diperlukan.'
+        msg_cursesfix='Pasang pakej pembangunan curses atau tetapkan CPPFLAGS/CURSES_LIBS. Lihat config.log.'
+        msg_tls='fail pengepala dan pustaka TLS yang serasi dengan OpenSSL serta menyokong pengesahan nama hos diperlukan.'
+        msg_tlsfix='Pasang fail pembangunan OpenSSL/LibreSSL atau tetapkan CPPFLAGS/TLS_LIBS. Lihat config.log.'
+        msg_arabic='paparan visual Arab pilihan tidak tersedia kerana dlopen tidak disokong'
+        msg_hardening='perlindungan binaan yang disokong'
+        msg_none='tiada yang dikesan'
+        msg_configured='Konfigurasi selesai untuk'
+        msg_finish='Jalankan make, kemudian make check. Untuk memasang, gunakan make install PREFIX=... DESTDIR=...'
+        ;;
+    fr|fr[_@.-]*)
+        msg_usage=Utilisation
+        msg_build='Compile et installe vipirc avec son interface --idle.'
+        msg_env=Environnement
+        msg_creates='Crée un Makefile pour make POSIX sans installer de programme.'
+        msg_unknown='option inconnue'
+        msg_prefix='--prefix doit être un chemin absolu pour les manuels traduits.'
+        msg_newline='les variables de compilation ne peuvent pas contenir de saut de ligne'
+        msg_compiler='un compilateur C11, getopt_long, des terminaux POSIX et poll sont requis.'
+        msg_curses='un compilateur C11, getopt_long et les en-têtes et la bibliothèque curses avec prise en charge des caractères larges sont requis.'
+        msg_cursesfix='Installez le paquet de développement curses ou définissez CPPFLAGS/CURSES_LIBS. Consultez config.log.'
+        msg_tls='les en-têtes et une bibliothèque TLS compatible avec OpenSSL et prenant en charge la vérification du nom d’hôte sont requis.'
+        msg_tlsfix='Installez les fichiers de développement OpenSSL/LibreSSL ou définissez CPPFLAGS/TLS_LIBS. Consultez config.log.'
+        msg_arabic='affichage visuel arabe facultatif indisponible car dlopen n’est pas pris en charge'
+        msg_hardening='protections de compilation disponibles'
+        msg_none='aucune détectée'
+        msg_configured='Configuration terminée pour'
+        msg_finish='Exécutez make puis make check. Pour installer, utilisez make install PREFIX=... DESTDIR=...'
+        ;;
+    es|es[_@.-]*)
+        msg_usage=Uso
+        msg_build='Compila e instala vipirc con su interfaz --idle.'
+        msg_env=Entorno
+        msg_creates='Crea un Makefile para make de POSIX sin instalar programas.'
+        msg_unknown='opción desconocida'
+        msg_prefix='--prefix debe ser una ruta absoluta para los manuales traducidos.'
+        msg_newline='las variables de compilación no admiten saltos de línea'
+        msg_compiler='se necesitan un compilador C11, getopt_long, terminales POSIX y poll.'
+        msg_curses='se necesitan un compilador C11, getopt_long y las cabeceras y la biblioteca curses con soporte para caracteres anchos.'
+        msg_cursesfix='Instale el paquete de desarrollo de curses o defina CPPFLAGS/CURSES_LIBS. Consulte config.log.'
+        msg_tls='se necesitan las cabeceras y una biblioteca TLS compatible con OpenSSL que permita verificar el nombre del servidor.'
+        msg_tlsfix='Instale los archivos de desarrollo de OpenSSL/LibreSSL o defina CPPFLAGS/TLS_LIBS. Consulte config.log.'
+        msg_arabic='la presentación visual opcional del árabe no está disponible porque no se admite dlopen'
+        msg_hardening='protecciones de compilación disponibles'
+        msg_none='ninguna detectada'
+        msg_configured='Configuración completada para'
+        msg_finish='Ejecute make y después make check. Para instalar, use make install PREFIX=... DESTDIR=...'
+        ;;
+    pt|pt[_@.-]*)
+        msg_usage=Uso
+        msg_build='Compila e instala o vipirc com a interface --idle.'
+        msg_env=Ambiente
+        msg_creates='Cria um Makefile para o make POSIX sem instalar programas.'
+        msg_unknown='opção desconhecida'
+        msg_prefix='--prefix deve ser um caminho absoluto para os manuais traduzidos.'
+        msg_newline='as variáveis de compilação não aceitam quebras de linha'
+        msg_compiler='são necessários um compilador C11, getopt_long, terminais POSIX e poll.'
+        msg_curses='são necessários um compilador C11, getopt_long e os cabeçalhos e a biblioteca curses com suporte a caracteres largos.'
+        msg_cursesfix='Instale o pacote de desenvolvimento curses ou defina CPPFLAGS/CURSES_LIBS. Consulte config.log.'
+        msg_tls='são necessários os cabeçalhos e uma biblioteca TLS compatível com OpenSSL que valide o nome do servidor.'
+        msg_tlsfix='Instale os arquivos de desenvolvimento OpenSSL/LibreSSL ou defina CPPFLAGS/TLS_LIBS. Consulte config.log.'
+        msg_arabic='a exibição visual opcional do árabe está indisponível porque não há suporte a dlopen'
+        msg_hardening='proteções de compilação disponíveis'
+        msg_none='nenhuma detectada'
+        msg_configured='Configuração concluída para'
+        msg_finish='Execute make e depois make check. Para instalar, use make install PREFIX=... DESTDIR=...'
+        ;;
+    de|de[_@.-]*)
+        msg_usage=Aufruf
+        msg_build='Baut und installiert vipirc einschließlich der Oberfläche --idle.'
+        msg_env=Umgebung
+        msg_creates='Erstellt ein Makefile für POSIX-make, ohne Programme zu installieren.'
+        msg_unknown='unbekannte Option'
+        msg_prefix='--prefix muss für übersetzte Handbücher ein absoluter Pfad sein.'
+        msg_newline='Zeilenumbrüche in Build-Variablen werden nicht unterstützt'
+        msg_compiler='ein C11-Compiler, getopt_long, POSIX-Terminals und poll werden benötigt.'
+        msg_curses='ein C11-Compiler, getopt_long sowie curses-Header und -Bibliothek mit Unterstützung für breite Zeichen werden benötigt.'
+        msg_cursesfix='Installieren Sie das curses-Entwicklungspaket oder setzen Sie CPPFLAGS/CURSES_LIBS. Siehe config.log.'
+        msg_tls='TLS-Header und eine OpenSSL-kompatible Bibliothek mit Hostnamenprüfung werden benötigt.'
+        msg_tlsfix='Installieren Sie die OpenSSL/LibreSSL-Entwicklungsdateien oder setzen Sie CPPFLAGS/TLS_LIBS. Siehe config.log.'
+        msg_arabic='die optionale visuelle Darstellung für Arabisch ist nicht verfügbar, da dlopen nicht unterstützt wird'
+        msg_hardening='unterstützte Härtungsoptionen'
+        msg_none='keine erkannt'
+        msg_configured='Konfiguration abgeschlossen für'
+        msg_finish='Führen Sie make und danach make check aus. Zur Installation verwenden Sie make install PREFIX=... DESTDIR=...'
+        ;;
+    it|it[_@.-]*)
+        msg_usage=Uso
+        msg_build='Compila e installa vipirc con la sua interfaccia --idle.'
+        msg_env=Ambiente
+        msg_creates='Crea un Makefile per make POSIX senza installare programmi.'
+        msg_unknown='opzione sconosciuta'
+        msg_prefix='--prefix deve essere un percorso assoluto per i manuali tradotti.'
+        msg_newline='le variabili di compilazione non ammettono caratteri di fine riga'
+        msg_compiler='sono necessari un compilatore C11, getopt_long, terminali POSIX e poll.'
+        msg_curses='sono necessari un compilatore C11, getopt_long e le intestazioni e la libreria curses con supporto ai caratteri larghi.'
+        msg_cursesfix='Installare il pacchetto di sviluppo curses o impostare CPPFLAGS/CURSES_LIBS. Consultare config.log.'
+        msg_tls='sono necessarie le intestazioni e una libreria TLS compatibile con OpenSSL che verifichi il nome host.'
+        msg_tlsfix='Installare i file di sviluppo OpenSSL/LibreSSL o impostare CPPFLAGS/TLS_LIBS. Consultare config.log.'
+        msg_arabic='la visualizzazione opzionale del testo arabo non è disponibile perché dlopen non è supportato'
+        msg_hardening='protezioni di compilazione supportate'
+        msg_none='nessuna rilevata'
+        msg_configured='Configurazione completata per'
+        msg_finish='Eseguire make e poi make check. Per installare, usare make install PREFIX=... DESTDIR=...'
+        ;;
+    tr|tr[_@.-]*)
+        msg_usage='Kullanım'
+        msg_build='vipirc programını --idle arayüzüyle birlikte derler ve kurar.'
+        msg_env=Ortam
+        msg_creates='POSIX make için Makefile oluşturur. Program kurulmaz.'
+        msg_unknown='bilinmeyen seçenek'
+        msg_prefix='çevrilmiş kılavuzlar için --prefix mutlak bir yol olmalıdır.'
+        msg_newline='derleme değişkenlerinde satır sonu kullanılamaz'
+        msg_compiler='C11 derleyicisi, getopt_long, POSIX terminalleri ve poll gerekir.'
+        msg_curses='C11 derleyicisi, getopt_long ve geniş karakter destekli curses başlık dosyaları ve kitaplığı gerekir.'
+        msg_cursesfix='curses geliştirme paketini kurun veya CPPFLAGS/CURSES_LIBS değerlerini ayarlayın. config.log dosyasına bakın.'
+        msg_tls='sunucu adını doğrulayabilen OpenSSL uyumlu TLS kitaplığı ve başlık dosyaları gerekir.'
+        msg_tlsfix='OpenSSL/LibreSSL geliştirme dosyalarını kurun veya CPPFLAGS/TLS_LIBS değerlerini ayarlayın. config.log dosyasına bakın.'
+        msg_arabic='dlopen desteklenmediğinden isteğe bağlı Arapça görsel gösterim kullanılamıyor'
+        msg_hardening='desteklenen derleme korumaları'
+        msg_none='algılanmadı'
+        msg_configured='Yapılandırma tamamlandı'
+        msg_finish='Önce make, ardından make check çalıştırın. Kurmak için make install PREFIX=... DESTDIR=... kullanın.'
+        ;;
+    ru|ru[_@.-]*)
+        msg_usage='Использование'
+        msg_build='Сборка и установка vipirc, включая интерфейс --idle.'
+        msg_env='Переменные окружения'
+        msg_creates='Создаёт Makefile для POSIX make без установки программ.'
+        msg_unknown='неизвестный параметр'
+        msg_prefix='для переведённых руководств --prefix должен быть абсолютным путём.'
+        msg_newline='переводы строки в переменных сборки не поддерживаются'
+        msg_compiler='требуются компилятор C11, getopt_long, терминалы POSIX и poll.'
+        msg_curses='требуются компилятор C11, getopt_long, заголовочные файлы и библиотека curses с поддержкой широких символов.'
+        msg_cursesfix='Установите пакет разработки curses или задайте CPPFLAGS/CURSES_LIBS. См. config.log.'
+        msg_tls='требуются заголовочные файлы и совместимая с OpenSSL библиотека TLS с проверкой имени узла.'
+        msg_tlsfix='Установите файлы разработки OpenSSL/LibreSSL или задайте CPPFLAGS/TLS_LIBS. См. config.log.'
+        msg_arabic='дополнительный режим отображения арабского текста недоступен без поддержки dlopen'
+        msg_hardening='поддерживаемые параметры защиты при сборке'
+        msg_none='не обнаружены'
+        msg_configured='Завершена настройка'
+        msg_finish='Выполните make, затем make check. Для установки используйте make install PREFIX=... DESTDIR=...'
+        ;;
+    ar|ar[_@.-]*)
+        msg_usage='طريقة الاستخدام'
+        msg_build='يبني vipirc ويثبّته مع واجهة --idle.'
+        msg_env='متغيرات البيئة'
+        msg_creates='ينشئ ملف Makefile لأداة make المتوافقة مع POSIX دون تثبيت أي برنامج.'
+        msg_unknown='خيار غير معروف'
+        msg_prefix='يجب أن تكون قيمة --prefix مسارًا مطلقًا للأدلة المترجمة.'
+        msg_newline='لا يمكن استخدام فواصل الأسطر في متغيرات البناء'
+        msg_compiler='يلزم مترجم C11 والدالتان getopt_long وpoll ودعم طرفيات POSIX.'
+        msg_curses='يلزم مترجم C11 والدالة getopt_long وملفات ترويسة curses ومكتبتها مع دعم المحارف العريضة.'
+        msg_cursesfix='ثبّت حزمة تطوير curses أو اضبط CPPFLAGS/CURSES_LIBS. راجع config.log.'
+        msg_tls='يلزم توفر ملفات الترويسة ومكتبة TLS متوافقة مع OpenSSL تدعم التحقق من اسم المضيف.'
+        msg_tlsfix='ثبّت ملفات تطوير OpenSSL/LibreSSL أو اضبط CPPFLAGS/TLS_LIBS. راجع config.log.'
+        msg_arabic='العرض المرئي الاختياري للعربية غير متاح لعدم دعم dlopen'
+        msg_hardening='خيارات الحماية المتاحة عند البناء'
+        msg_none='لم يُعثر على أي منها'
+        msg_configured='اكتملت تهيئة'
+        msg_finish='شغّل make ثم make check. للتثبيت استخدم make install PREFIX=... DESTDIR=...'
+        ;;
+    *)
+        msg_usage=Usage
+        msg_build='Builds and installs vipirc, including its --idle interface.'
+        msg_env=Environment
+        msg_creates='Creates a Makefile for POSIX make. No programs are installed.'
+        msg_unknown='unknown option'
+        msg_prefix='--prefix must be an absolute path for localized manuals.'
+        msg_newline='newlines are not supported in build variables'
+        msg_compiler='a C11 compiler, getopt_long, POSIX terminals and poll are required.'
+        msg_curses='a C11 compiler, getopt_long, and wide-character curses headers/library are required.'
+        msg_cursesfix='Install your curses development package or set CPPFLAGS/CURSES_LIBS; see config.log.'
+        msg_tls='OpenSSL-compatible TLS headers/library with hostname verification are required.'
+        msg_tlsfix='Install OpenSSL/LibreSSL development files or set CPPFLAGS/TLS_LIBS; see config.log.'
+        msg_arabic='optional Arabic visual display unavailable (dlopen not supported)'
+        msg_hardening='supported hardening'
+        msg_none='none detected'
+        msg_configured=Configured
+        msg_finish='Run make, then make check. Use make install PREFIX=... DESTDIR=... for installation.'
+        ;;
+esac
+prefix=/usr/local
+for arg do
+    case "$arg" in
+        --prefix=*) prefix=${arg#--prefix=} ;;
+        --help|-h)
+            printf '%s\n' "$msg_usage: ./configure [--prefix=DIR]" \
+                "$msg_build" \
+                "$msg_env: CC CPPFLAGS CFLAGS LDFLAGS CURSES_LIBS TLS_LIBS" \
+                "$msg_creates"
+            exit 0 ;;
+        *) printf 'configure: %s: %s\n' "$msg_unknown" "$arg" >&2; exit 2 ;;
+    esac
+done
+case "$prefix" in
+    /*) ;;
+    *) printf '%s\n' "configure: $msg_prefix" >&2; exit 2 ;;
+esac
+CC=${CC:-cc}
+CPPFLAGS=${CPPFLAGS:-}
+CFLAGS=${CFLAGS:--O2}
+LDFLAGS=${LDFLAGS:-}
+TLS_LIBS=${TLS_LIBS:--lssl -lcrypto}
+DL_LIBS=
+CPPFLAGS="$CPPFLAGS -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700 -D_XOPEN_SOURCE_EXTENDED=1"
+CFLAGS="$CFLAGS -std=c11 -Wall -Wextra -Wpedantic"
+for value in "$prefix" "$CC" "$CPPFLAGS" "$CFLAGS" "$LDFLAGS" "${CURSES_LIBS:-}" "$TLS_LIBS"; do
+    case "$value" in
+        *'
+'*) printf '%s\n' "configure: $msg_newline" >&2; exit 2 ;;
+    esac
+done
+work=$(mktemp -d "${TMPDIR:-/tmp}/vipirc-config.XXXXXXXX")
+trap 'rm -rf "$work"' 0 HUP INT TERM
+: >config.log
+cat >"$work/check.c" <<'EOF'
+#include <getopt.h>
+#include <poll.h>
+#include <termios.h>
+#include <wchar.h>
+int main(int argc, char **argv) {
+    struct termios t;
+    static const struct option options[] = {{0,0,0,0}};
+    (void)getopt_long(argc, argv, "", options, 0);
+    (void)tcgetattr(0, &t); (void)wcwidth(L'a');
+    return poll(0, 0, 0);
+}
+EOF
+if ! $CC $CPPFLAGS $CFLAGS $LDFLAGS "$work/check.c" -o "$work/check" >>config.log 2>&1; then
+    printf '%s\n' "configure: $msg_compiler" >&2
+    exit 1
+fi
+cat >"$work/check.c" <<'EOF'
+#include <curses.h>
+#include <getopt.h>
+#include <wchar.h>
+int main(int argc, char **argv) {
+    wint_t key = 0;
+    static const struct option options[] = {{0,0,0,0}};
+    (void)getopt_long(argc, argv, "", options, 0);
+    initscr(); (void)get_wch(&key); (void)addnwstr(L"ok", 2); endwin();
+    return 0;
+}
+EOF
+found=no
+for candidate in "${CURSES_LIBS:-}" '-lncursesw' '-lcursesw' '-lncurses' '-lcurses'; do
+    test -n "$candidate" || continue
+    if $CC $CPPFLAGS $CFLAGS $LDFLAGS "$work/check.c" -o "$work/check" $candidate >>config.log 2>&1; then
+        CURSES_LIBS=$candidate; found=yes; break
+    fi
+    test -z "${CURSES_LIBS:-}" || break
+done
+if test "$found" != yes; then
+    printf '%s\n' "configure: $msg_curses" \
+        "$msg_cursesfix" >&2
+    exit 1
+fi
+
+cat >"$work/check.c" <<'EOF'
+#include <openssl/ssl.h>
+#include <openssl/x509v3.h>
+int main(void) {
+    SSL_CTX *ctx = SSL_CTX_new(TLS_client_method());
+    SSL *ssl = SSL_new(ctx);
+    SSL_CTX_set_verify(ctx, SSL_VERIFY_PEER, 0);
+    (void)SSL_CTX_set_min_proto_version(ctx, TLS1_2_VERSION);
+    (void)X509_VERIFY_PARAM_set1_host(SSL_get0_param(ssl), "example.invalid", 0);
+    SSL_free(ssl); SSL_CTX_free(ctx);
+    return 0;
+}
+EOF
+if ! $CC $CPPFLAGS $CFLAGS $LDFLAGS "$work/check.c" -o "$work/check" $TLS_LIBS >>config.log 2>&1; then
+    printf '%s\n' "configure: $msg_tls" \
+        "$msg_tlsfix" >&2
+    exit 1
+fi
+# Optional right-to-left display needs the dynamic loader, but not a
+# mandatory FriBidi dependency. If neither libc nor libdl exposes dlopen,
+# retain normal logical UTF-8 rendering without failing the regular build.
+cat >"$work/check.c" <<'EOF'
+#include <dlfcn.h>
+int main(void) {
+    void *p = dlopen("libfribidi.so", RTLD_NOW | RTLD_LOCAL);
+    if (p) (void)dlclose(p);
+    return 0;
+}
+EOF
+if $CC $CPPFLAGS $CFLAGS $LDFLAGS "$work/check.c" -o "$work/check" >>config.log 2>&1; then
+    :
+elif $CC $CPPFLAGS $CFLAGS $LDFLAGS "$work/check.c" -o "$work/check" -ldl >>config.log 2>&1; then
+    DL_LIBS=-ldl
+else
+    CPPFLAGS="$CPPFLAGS -DIRC_NO_ARABIC_VISUAL"
+    printf '%s\n' "configure: $msg_arabic"
+fi
+# Probe defensive compiler/linker flags rather than assuming an ELF toolchain.
+# The configured Makefile records the exact flags supported on this host.
+cat >"$work/hardening.c" <<'EOF'
+#include <stdio.h>
+int main(int argc, char **argv) {
+    char text[32];
+    return snprintf(text, sizeof text, "%s", argc ? argv[0] : "");
+}
+EOF
+hardening=
+for flag in -fstack-protector-strong -Wformat=2 -Werror=format-security; do
+    if $CC $CPPFLAGS $CFLAGS $flag -Werror $LDFLAGS "$work/hardening.c" -o "$work/check" >>config.log 2>&1; then
+        CFLAGS="$CFLAGS $flag"
+        hardening="$hardening $flag"
+    fi
+done
+case "$CPPFLAGS $CFLAGS" in
+    *_FORTIFY_SOURCE*) ;;
+    *)
+        if $CC $CPPFLAGS -D_FORTIFY_SOURCE=2 $CFLAGS -Werror $LDFLAGS "$work/hardening.c" -o "$work/check" >>config.log 2>&1; then
+            CPPFLAGS="$CPPFLAGS -D_FORTIFY_SOURCE=2"
+            hardening="$hardening -D_FORTIFY_SOURCE=2"
+        fi ;;
+esac
+case "$CFLAGS $LDFLAGS" in
+    *-nopie*|*-no-pie*|*-fno-pie*|*-fno-PIE*) ;;
+    *)
+        if $CC $CPPFLAGS $CFLAGS -fPIE -Werror $LDFLAGS -pie "$work/hardening.c" -o "$work/check" >>config.log 2>&1; then
+            CFLAGS="$CFLAGS -fPIE"
+            LDFLAGS="$LDFLAGS -pie"
+            hardening="$hardening PIE"
+        fi ;;
+esac
+for flag in -Wl,-z,relro -Wl,-z,now -Wl,-z,noexecstack; do
+    if $CC $CPPFLAGS $CFLAGS -Werror $LDFLAGS $flag "$work/hardening.c" -o "$work/check" >>config.log 2>&1; then
+        LDFLAGS="$LDFLAGS $flag"
+        hardening="$hardening $flag"
+    fi
+done
+printf 'configure: %s:%s\n' "$msg_hardening" "${hardening:- $msg_none}"
+
+escape() { printf '%s' "$1" | sed 's/[\\&|]/\\&/g'; }
+sed -e "s|@PREFIX@|$(escape "$prefix")|g" \
+    -e "s|@CC@|$(escape "$CC")|g" \
+    -e "s|@CPPFLAGS@|$(escape "$CPPFLAGS")|g" \
+    -e "s|@CFLAGS@|$(escape "$CFLAGS")|g" \
+    -e "s|@LDFLAGS@|$(escape "$LDFLAGS")|g" \
+    -e "s|@DL_LIBS@|$(escape "$DL_LIBS")|g" \
+    -e "s|@CURSES_LIBS@|$(escape "$CURSES_LIBS")|g" \
+    -e "s|@TLS_LIBS@|$(escape "$TLS_LIBS")|g" \
+    Makefile.in >"$work/Makefile"
+cp "$work/Makefile" Makefile
+# The full-mode manual loader reads installed translated data files. Derive
+# the path from the configured prefix, not the caller's working directory.
+# Source-tree runs use a document directory alongside the resolved executable.
+escaped_doc=$(printf '%s' "$prefix/share/doc/vipirc/doc" | sed 's/\\/\\\\/g; s/"/\\"/g')
+{
+    printf '%s\n' '/* Configured vipirc manual data directory. */' \
+        '#ifndef VIPIRC_MANUAL_PATH_H' \
+        '#define VIPIRC_MANUAL_PATH_H'
+    printf '#define VIPIRC_MANUAL_INSTALL_DIR "%s"\n' "$escaped_doc"
+    printf '%s\n' '#endif'
+} > "$work/manual_path.h"
+cp "$work/manual_path.h" src/manual_path.h
+printf '%s vipirc: CC=%s, curses=%s, TLS=%s\n' "$msg_configured" "$CC" "$CURSES_LIBS" "$TLS_LIBS"
+printf '%s\n' "$msg_finish"

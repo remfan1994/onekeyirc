@@ -1,5 +1,0 @@
-USE SIGNALS - vipirc-0.7.37
-
-Use signals varsayılan olarak no değerindedir. Ctrl-C ve Ctrl-Z, gönderilmemiş ileti veya komutu iptal eder; uygulamayı kapatmaz ya da askıya almaz. Terminal sinyallerini açmak için panel 0 veya vipirc Interface ayarlarında yes seçin. Apply hemen uygulanır; Save ayrıca [input] use_signals=true|false değerini kaydeder. Çıkışta veya askıya almada eski terminal ayarları geri yüklenir.
-
-No (varsayılan), uygulama terminali kullanırken terminal sinyallerini kapatır; Ctrl-C/Ctrl-Z taslağı iptal eder. Yes var olan terminal sinyal eşlemelerini değiştirmeden etkinleştirir. Dışarıdan gönderilen süreç sinyalleri engellenmez.

@@ -1,0 +1,44 @@
+Guide pratique vipirc / onekeyirc - Paramètres
+=======================================================
+
+TRADUCTION PROVISOIRE. Tapez les commandes et options exactement comme indiqué.
+Pour la sécurité, consultez MANUAL.txt et SECURITY.md en anglais.
+
+/help set
+---------
+
+direct est le mode par défaut : Enter envoie le texte ; plusieurs messages IRC imposent une confirmation.
+
+review ajoute une étape de vérification volontaire avant de mettre les messages habituels en file.
+
+output_format compact est le défaut : le chat choisi affiche [HH:MM:SS] <nick> texte.
+
+output_format full inclut serveur, date et cible par ligne. compact conserve l'origine utile des mentions et diagnostics d'autres serveurs.
+
+queue_notices off masque les avis ordinaires de file. En mode minimal, un envoi déjà vérifié évite l'avis redondant. Erreurs et confirmation multi-messages restent visibles.
+
+program_messages off masque les avis locaux secondaires : brouillon annulé, saisie effacée ou brouillon conservé. Erreurs et confirmations de sécurité restent visibles.
+
+persistent_logging on écrit le chat dans un .log privé (0600) sous le dossier privé (0700) de configuration. Désactivé par défaut ; limite 16 MiB : archiver puis basculer off/on. Fichier dangereux/occupé arrête le journal, pas le chat.
+
+single_session on limite à un seul travail en arrière-plan du client : --resume sans numéro est clair. Plusieurs serveurs IRC restent possibles dans la même session.
+
+default_interface choisit l'interface du prochain lancement neuf, si pris en charge, sans changer l'actuelle. /save input enregistre ce choix.
+
+command_suggestions choisit l'ordre alphabétique, les commandes communes, récentes, fréquentes ou liées à l'écran d'origine.
+
+composer_mode line garde une ligne de saisie sous le chat en direct ; fullscreen offre un éditeur multiligne et un volet chat. Défaut : line.
+
+part_message et quit_message sont les motifs IRC par défaut ; un texte explicite /part ou /quit prime. Une valeur vide désactive le motif.
+
+background_away envoie background_away_message après /background réussi ou perte du terminal. autoaway_minutes règle away après inactivité ; 0 désactive.
+
+Seul l'état away créé par le client est effacé à la reprise ou à une vraie saisie locale. Un /away manuel n'est ni modifié ni effacé.
+
+«Fréquemment utilisé» est le défaut. «Contextuel» favorise les commandes de canal, dialogue, serveur ou client tout en gardant les autres correspondances.
+
+«Fréquemment utilisé» suit un ordre utile prédéfini. «Contextuel» retient l'écran d'origine, y compris le lecteur de résumé général.
+
+Ces préférences s'appliquent à tous les serveurs. Utilisez /save input ou /save output pour les conserver.
+
+/panel puis 0 modifie ces préférences et la limite globale d'historique.

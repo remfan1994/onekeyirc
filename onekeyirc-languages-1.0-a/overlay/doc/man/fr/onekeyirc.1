@@ -1,0 +1,2078 @@
+.TH ONEKEYIRC 1 "" "onekeyirc 1.0-a"
+.nh
+.ad l
+.SH NAME
+onekeyirc \- IRC en terminal orienté commandes
+.SH SYNOPSIS
+.B onekeyirc
+[OPTION]...
+.br
+\&onekeyirc \- IRC en terminal orienté commandes
+.br
+\&Vous n'êtes pas végétarien ? www.bloodguiltcurse.net vous fera changer d'avis
+.br
+\&onekeyirc aide aux commandes
+.br
+\&Afficher les rubriques : /help ls.
+.br
+\&Liste des commandes : /help commands. Détails : /help COMMAND.
+.br
+\&Première connexion : /connect irc.example.org, puis /join #channel.
+.br
+\&Discussion privée : /query NICK ou /msg NICK TEXT.
+.br
+\&Configuration guidée : /quickstart ou /panel.
+.br
+\&Enregistrer : /saveconf. Cela n'active pas autoconnect.
+.br
+\&Changer de vue : /servers, /channels, /ql.
+.br
+\&Options de démarrage : /help autoconnect, /help autojoin, /help autoauth.
+.br
+\&Récupérer une session SSH : /help sessions.
+.br
+\&Aide pour bouncers : /help bouncers.
+.br
+\&Réglages et raccourcis : /help configuration, /help hotkeys.
+.br
+\&Dépannage et sécurité TLS : /help troubleshooting, /help security, /help tls.
+.br
+\&Historique et journaux : /help history, /help logging.
+.br
+\&Choisir la langue : /help language.
+.br
+\&Référence complète : /help all ou /manual.
+.br
+\&Escape ferme la lecture ; / ouvre Commande.
+.PP
+.SH "about"
+.br
+\&Une application de ThatIAm.vip (www.thatiam.vip), conçue par remfan1994.
+.br
+\&Licence : IALA (Insha\-Allah License Agreement) ; consultez le texte de licence fourni.
+.br
+\&Avertissement de bienvenue : Vous n'êtes pas végétarien ? www.bloodguiltcurse.net vous fera changer d'avis
+.br
+\&Une session en cours affiche aussi ce rappel local une seule fois lors du rattachement d'une interface :
+.br
+\&Tuer des vaches, c'est verser le sang d'innocents. www.bloodguiltcurse.net \- interdisons la viande bovine.
+.br
+\&Ce rappel ne demande aucune réponse supplémentaire et n'est pas envoyé à IRC. Reconnecter ou rattacher l'interface ne réinitialise pas son indicateur d'affichage unique par processus de travail.
+.PP
+.SH "aliases"
+.br
+\&Les alias exigent une correspondance exacte ; aucune exécution ambiguë ou approximative.
+.br
+\&/conn = /connect; /disc = /disconnect; /detach = /background; /exit = /quit
+.br
+\&/j = /join; /leave = /part; /message et /privmsg = /msg
+.br
+\&/nickname = /nick; /names et /nicks = /users; /unaway = /back
+.br
+\&/channellist = /cl; /querylist = /ql; /serverlist = /servers
+.br
+\&/configure et /preferences = /panel; /saveconfig = /saveconf
+.br
+\&/autocommand = /autocommands
+.br
+\&La complétion propose les noms canoniques ; les arguments restent intacts et le filtrage d'historique sensible est identique.
+.PP
+.SH "authentication"
+.br
+\&Utilisez TLS vérifié avec /autoauth sasl USER file PATH ou /autoauth sasl USER gpg PATH.
+.br
+\&Le fichier de mot de passe ou le contenu GPG déchiffré fournit l'identifiant ; les chemins sont littéraux.
+.br
+\&Utilisez /panel pour créer un secret chiffré GPG avec une empreinte de clé publique locale déjà présente.
+.br
+\&Utilisez une clé GPG déjà déverrouillée. Aucun pinentry ne s'ouvre dans l'éditeur de discussion.
+.br
+\&Les valeurs en clair password= et server_password= sont aussi acceptées dans les fichiers de config privés.
+.br
+\&Choisissez une seule source par secret. /settings et /summary masquent les chemins des fichiers.
+.br
+\&/autoauth status affiche les chemins actuels et en attente sans lire les fichiers ni révéler les mots de passe.
+.br
+\&Les réglages d'authentification prennent effet au prochain /connect après déconnexion ; /save les enregistre.
+.br
+\&Sur un profil bouncer, gérez connexion et source ensemble via /panel ; /autoauth refuse les changements.
+.br
+\&Les fichiers secrets doivent être ordinaires, appartenir à l'utilisateur, mode 0600 ou 0400 ; liens symboliques et traversée des parents sont refusés.
+.br
+\&Limite SASL : 1024 octets ; PASS ordinaire : 503 octets. L'identité ZNC assemblée doit tenir sur une ligne IRC.
+.br
+\&\-\-check\-config vérifie config et source sans lire les secrets ni tester la connexion. Voir /help tls et /help bouncers.
+.PP
+.SH "bouncers"
+.br
+\&Ouvrez /panel, choisissez un serveur, puis le type znc ou soju.
+.br
+\&Saisissez hôte et port TLS du bouncer, son identifiant, le réseau amont existant et, si souhaité, un nom client stable.
+.br
+\&Enregistrez un profil par réseau en amont. Si plusieurs profils utilisent le même hôte, sélectionnez le profil voulu avant /connect sans argument.
+.br
+\&Le client construit l'identité de connexion. ZNC utilise la source du mot de passe serveur ; soju utilise celle du mot de passe d'authentification. Saisissez uniquement le mot de passe du bouncer, ni identifiant combiné ni mot de passe NickServ.
+.br
+\&Les bouncers rétablissent les canaux rejoints. Les listes de connexion automatique aux canaux ne sont pas rejouées et les modifications via /autojoin sont refusées ; utilisez /join et /part pour modifier les canaux rejoints.
+.br
+\&Les commandes de démarrage explicites s'exécutent encore. Vérifiez\-les avant d'activer le profil pour éviter des jointures ou commandes de service répétées.
+.br
+\&L'absence automatique en veille/arrière\-plan est désactivée par profil bouncer sauf activation. /away et /back manuels fonctionnent toujours.
+.br
+\&L'historique transmis reconnu conserve les horodatages UTC d'origine du serveur et achemine les messages privés sortants vers leurs destinataires. Il ne crée aucune nouvelle mention, n'exécute aucune commande CTCP/DCC et ne modifie pas l'état actif.
+.br
+\&L'historique est limité. Pas de recherche d'archives à la demande, de découverte de réseaux ni de profil automatique par réseau.
+.br
+\&Utilisez /znc ou /soju sans argument pour consulter l'aide du service. Les commandes de contrôle et les messages destinés au service sont exclus de l'historique de saisie et de l'écho local ; les réponses apparaissent dans la vue serveur sans journalisation persistante.
+.br
+\&Les copies reconnues des commandes de contrôle sortantes sont masquées, même lors d'une relecture sous un ancien pseudonyme. Le texte saisi peut rester visible pendant l'édition, et le bouncer applique sa propre politique de journalisation.
+.br
+\&Le client se connecte uniquement au bouncer. Configurez séparément le TLS en amont du bouncer, l'authentification au réseau et la conservation des messages.
+.br
+\&Voir doc/BOUNCERS.txt et les exemples bouncer dans examples/ pour la configuration et les limites des tests réalisés.
+.PP
+.SH "configuration"
+.br
+\&Fichier de configuration par défaut : $XDG_CONFIG_HOME/onekeyirc/config.ini ; XDG_CONFIG_HOME doit être un chemin absolu.
+.br
+\&Si XDG_CONFIG_HOME n'est pas défini ou est vide : $HOME/.config/onekeyirc/config.ini. \-\-config FILE sélectionne un autre fichier.
+.br
+\&Si le nouveau fichier par défaut est absent, un fichier 1keyirc/config.ini existant sous la même base de configuration est utilisé à son emplacement actuel.
+.br
+\&Les réglages existants, catalogues de serveurs et chemins d'identifiants ne sont pas déplacés. Le fichier par défaut de onekeyirc a priorité si les deux existent.
+.br
+\&Un fichier par défaut non sûr ou illisible est signalé au lieu de choisir silencieusement un autre fichier. \-\-config FILE remplace cette sélection.
+.br
+\&[history] lines= définit la limite de l'historique de conversation conservé. La configuration ne contient pas d'options [interface].
+.br
+\&[connection] contient server, port, tls, nick, username, realname, channel, autoconnect, auth et les sources des identifiants.
+.br
+\&[bouncer] type=none|znc|soju, username, network, client et automatic_away définissent le profil bouncer par réseau; voir /help bouncers.
+.br
+\&[input] send_mode=direct|review et [output] format=compact|full, queue_notices=true|false, program_messages=true|false, persistent_logging=true|false sont des préférences du fichier principal.
+.br
+\&[input] command_suggestions=common|history|frequent|alphabetical|contextual définit le classement; common est le défaut.
+.br
+\&[input] composer_mode=line|fullscreen choisit la saisie et les commandes minimalistes; line est le défaut. Les deux montrent les messages récents.
+.br
+\&[input] use_signals=false désactive les signaux émis par le terminal tant que le client contrôle le tty. true active les affectations de signaux existantes. «Appliquer» prend effet immédiatement ; «Enregistrer» conserve ce réglage dans la configuration principale.
+.br
+\&[hotkeys] contient jusqu'à 64 raccourcis KEY=action facultatifs, sans défaut. Propriété du fichier principal ; voir /help hotkeys.
+.br
+\&[session] single_session=true|false permet ou non plusieurs tâches en arrière\-plan; false par défaut.
+.br
+\&[session] default_interface=ncurses|idle est une préférence principale. Les options au démarrage sont expliquées plus bas.
+.br
+\&Le format compact est le défaut. history_lines dans le fichier principal règle la rétention sur tous les serveurs.
+.br
+\&[mentions] word= et [ignore] mask= peuvent être répétés.
+.br
+\&[autocommands] contient enabled, delay_seconds, interval_seconds et des lignes command= répétées pour un serveur.
+.br
+\&Ces commandes sont en clair dans le fichier privé. /autocommands les gère sans divulguer les secrets dans les listes ni l'historique.
+.br
+\&Les serveurs supplémentaires enregistrés utilisent le catalogue .servers et le répertoire .d voisins.
+.br
+\&Connectez\-vous avec /connect HOST, puis /join #channel et /saveconf pour enregistrer votre configuration.
+.br
+\&/saveconf conserve préférences et profils sains et mémorise le serveur choisi pour un prochain /connect sans argument.
+.br
+\&/quickstart pose quatre questions de connexion. /panel utilise 0 pour les préférences, 1..8 pour les profils; 1 modifie le principal.
+.br
+\&Les changements du panneau restent privés avant «Terminer». Un chemin GPG accepté peut préparer un dossier 0700; chiffrement, sauvegarde et connexion attendent le choix final.
+.br
+\&Pour garder les changements : /save pour le serveur choisi, /save input ou /save output pour le principal, ou /saveconf pour les profils sains et le défaut.
+.br
+\&La configuration enregistrée utilise <config_path>.commands pour lire/écrire les compteurs de commandes; le fichier principal ne les stocke pas.
+.br
+\&Ce fichier privé borné ne stocke que noms canoniques et compteurs, sans arguments ni historique. Le mode test ne le lit ni ne l’écrit.
+.br
+\&Les changements [connection] préparés par /autojoin ou /autoauth s’appliquent au prochain /connect déconnecté, sans modifier la connexion active.
+.br
+\&Les fichiers de configuration sont privés; chaque fichier est remplacé atomiquement, pas tout l’espace en une transaction. Pas d’import/export.
+.br
+\&Sections, clés ou valeurs inconnues sont refusées. La configuration utilise des valeurs littérales, sans guillemets shell, échappements, variables ou ~.
+.br
+\&Les valeurs ordinaires sont élaguées aux extrémités. password= et server_password= gardent tout après = sauf la fin de ligne ; sans commentaires ni guillemets.
+.br
+\&Enregistrer réécrit les réglages pris en charge et remplace formatage/commentaires manuels. Gardez les notes ailleurs.
+.br
+\&Voir /help authentication pour secrets, /help tls pour CA, /help logging pour journaux et /help sessions pour tâches actives.
+.br
+\&onekeyirc utilise toujours idle. Son panneau d'application omet le choix de l'interface ; /set default_interface accepte uniquement idle.
+.br
+\&L'analyseur de configuration commun conserve l'une ou l'autre des valeurs enregistrées reconnues. Une valeur ncurses enregistrée ne change pas l'interface de ce client autonome.
+.PP
+.SH "deployment"
+.br
+\&Utilisez \-\-background pour lancer une session sans terminal ni touche d'accueil.
+.br
+\&Configurez puis enregistrez /autoconnect on pour chaque serveur à démarrer.
+.br
+\&\-\-background n'active pas autoconnect seul; \-\-no\-connect interdit toujours les connexions au lancement.
+.br
+\&L'avertissement usuel s'affiche une fois avant le détachement. Le succès confirme une tâche locale, pas la connexion IRC.
+.br
+\&Depuis un autre terminal du même compte, utilisez \-\-sessions et \-\-resume [NUMBER].
+.br
+\&\-\-sessions inclut les tâches rattachées. \-\-detach\-session NUMBER libère le terminal rattaché sans détruire la tâche, pour la reprendre ailleurs. \-\-close\-session NUMBER termine la tâche sélectionnée et toutes ses connexions IRC.
+.br
+\&Utilisez l'ID de tâche affiché, pas un PID. Les processus bloqués ou anciens sans le contrôle demandé peuvent échouer. Voir /help sessions pour la récupération et la mise à niveau.
+.br
+\&Redémarrer le VPS termine les tâches, brouillons et historique RAM. Une tâche système peut lancer un nouveau client.
+.br
+\&Instructions OpenBSD et exemple rc.d facultatif : doc/OPENBSD\-VPS.txt.
+.br
+\&Exécutez sous un compte normal avec des chemins absolus pour configuration et secrets. Une clé GPG verrouillée ne peut pas demander de saisie au démarrage.
+.br
+\&\-\-check\-config vérifie les réglages, pas l'accès aux secrets, DNS, TLS ou la connexion IRC.
+.br
+\&Utilisez \-\-reconnect lors des coupures réseau temporaires; surveiller les plantages relève du système d'exploitation.
+.br
+\&Les lanceurs doivent permettre d'attendre les processus fils : ignorer SIGCHLD ou les récupérer automatiquement fait échouer le premier démarrage en arrière\-plan, la création du résolveur ou de l'auxiliaire d'identifiants. Détacher à nouveau une tâche gérée ne crée aucun nouveau processus.
+.PP
+.SH "documentation"
+.br
+\&Cherchez une tâche avec /help ls; /help commands explique la saisie et liste les commandes. Consultez un sujet ou une commande a la fois.
+.br
+\&/help COMMAND donne la syntaxe, les effets et les exemples. /help /ls explique la liste locale; /help ls enumere les sujets.
+.br
+\&/help all ou /manual ouvre cette référence. \-\-help explique les options de lancement; la sortie de \-\-manual en mode minimal peut aller dans un fichier.
+.br
+\&README.md guide la documentation; MANUAL.txt décrit l'interface et INSTALL la compilation. La page man installee explique l'emploi depuis le shell.
+.br
+\&CONTRIBUTING.md explique les modifications; doc/SOURCE\-MAP.txt repere le code; tests/README.md repertorie les tests. DESIGN.md explique la propriété et l'ordre.
+.br
+\&doc/TROUBLESHOOTING.txt guide par symptome. SECURITY.md definit les menaces; doc/BOUNCERS.txt et doc/SESSION\-CONTROLS.txt décrivent les operations. Les audits ne valent que pour leurs versions et environnements.
+.PP
+.SH "history"
+.br
+\&L'historique affiché et des commandes est borné en RAM. Les journaux persistants sont facultatifs et désactivés par défaut.
+.br
+\&Changer de vue réaffiche ses enregistrements récents; /mentions réaffiche les lignes sources correspondantes.
+.br
+\&Le réglage d'historique limite l'ensemble des entrées de tous les serveurs et vues ; modifiez\-le avec /panel, puis 0.
+.br
+\&La conservation est limitée au plus petit de ce réglage et de 2048 entrées, avec une limite stricte distincte de 512 KiB.
+.br
+\&Dans un canal ou une conversation privée, /catchup commence à votre dernière composition envoyée localement. Il essaie un journal privé admissible, puis la mémoire conservée ; /help catchup décrit les deux lecteurs.
+.br
+\&Le rattrapage persistant est propre au serveur et à la conversation. La journalisation doit déjà être active à l'envoi du point de repère ; c'est une transcription privée en clair, limitée à 16 MiB par profil enregistré, et non un stockage chiffré.
+.br
+\&Le rappel des commandes conserve au plus 64 entrées et 64 KiB, supprimant les plus anciennes. /clear efface l'historique de conversation, pas celui des commandes.
+.br
+\&Les suggestions d'historique récent utilisent ces lignes complètes. Delete supprime la ligne d'historique sélectionnée.
+.br
+\&Les suggestions les plus utilisées emploient au plus 96 noms canoniques de commandes et des compteurs bornés dans <config_path>.commands.
+.br
+\&Pour les configurations enregistrées, les commandes acceptées et remises à zéro des fréquences actualisent automatiquement ce fichier privé. Arguments, destinataires et messages n'y sont pas conservés.
+.br
+\&Les profils non enregistrés gardent les compteurs en mémoire jusqu'au premier Enregistrer réussi. Des fichiers de compteurs absents ou inutilisables n'empêchent pas le démarrage.
+.br
+\&L'aide et les réponses de commandes sur plusieurs lignes utilisent un lecteur distinct avec un tampon limité à 512 KiB. Elles n'entrent pas dans l'historique de conversation.
+.br
+\&Les commandes acceptées peuvent être rappelées dans l'éditeur de commandes. Les changements d'authentification, entrées dans un canal avec clé et messages sensibles aux services sont omis.
+.br
+\&Dans Rédiger, Up/Down déplace le curseur sans rappeler les messages envoyés. Seule Commande rappelle les commandes acceptées.
+.br
+\&Détacher puis reprendre dans la même interface conserve brouillons et rappel des commandes. Changer d'interface, lorsque permis, les supprime ainsi que les formulaires de configuration ; quitter ou redémarrer le système supprime aussi les conversations en mémoire et leurs points de rattrapage.
+.br
+\&Les compteurs de fréquence enregistrés ne contiennent que des noms. Les anciens journaux en clair subsistent après la fermeture, mais ne sont pas importés automatiquement dans une nouvelle session ou l'éditeur.
+.br
+\&/clear efface l'historique RAM de la vue, pas l'ancien journal disque. Le bouncer fournit son propre rejeu.
+.br
+\&La limite d'historique par défaut de l'application est de 100 entrées.
+.PP
+.SH "hotkeys"
+.br
+\&Ce client modifie les raccourcis par des commandes ; /bindings affiche le tableau actuel.
+.br
+\&Les raccourcis personnalisés sont facultatifs et vides par défaut. Navigation et édition d'origine restent disponibles.
+.br
+\&Utilisez /bindings pour la liste, /bindings keys pour les touches et /bindings actions pour les fonctions locales.
+.br
+\&Assignez par /bind KEY ACTION; répétez pour remplacer. Retirez avec /unbind KEY ou /unbind all.
+.br
+\&Effet immédiat sur tous les serveurs ; /save input les enregistre dans la configuration principale. Les autres profils ne remplacent pas cette liste.
+.br
+\&Format : [hotkeys] puis une ligne KEY=action par touche, 64 au maximum. Doublons et alias du terminal sont des erreurs.
+.br
+\&Les actions agissent dans le chat principal et l'invite de commande, pas dans les mots de passe, réglages, collages, lecteurs ou confirmations.
+.br
+\&En mode minimal, les lecteurs gardent le brouillon et le curseur. Changer de vue ou d'éditeur exige de finir ou vider le brouillon.
+.br
+\&Ni action d'envoi, ni commande arbitraire, shell ou macro. Arrière\-plan et quitter gardent leurs effets habituels.
+.br
+\&Touches : F1..F12, Ctrl\-A..Z, Alt\-a..z/0..9 et navigation ; les caractères imprimables restent du texte.
+.br
+\&Ctrl\-H/Backspace, Ctrl\-I/Tab, Ctrl\-J/Ctrl\-M/Enter et Ctrl\-[/Escape partagent des octets ; pas de raccourcis distincts.
+.br
+\&Les signaux et raccourcis du terminal/multiplexeur priment. Ctrl\-C ou Ctrl\-Z n'agit que si l'octet arrive ; aucune touche n'est réattribuée.
+.br
+\&Le collage balisé reconnu n'exécute pas de raccourcis. Sans balises, il ressemble à la frappe ; voir /help keys.
+.PP
+.SH "keys"
+.br
+\&Journal : / ouvre Commande ; ? explique le journal de conversation ou de surveillance sélectionné. Les autres touches imprimables ouvrent Rédiger en conservant le caractère saisi.
+.br
+\&Des raccourcis personnalisés peuvent remplacer ces commandes dans la conversation principale ou Commande ; aucun n'est affecté par défaut. Voir /help hotkeys.
+.br
+\&Journal en direct : Up recule d'une ligne, Page Up d'une page, Home atteint la plus ancienne page conservée. Down/Page Down/End restent en direct ; Left/Right/Delete/Backspace n'ouvrent pas Rédiger.
+.br
+\&Insert ou Enter ouvre Rédiger vide. Les flèches, Home/End, Delete et Backspace modifient le texte. Tab/Shift\-Tab complète les pseudonymes dans Rédiger et les noms de commandes dans Commande.
+.br
+\&Le mode de rédaction en ligne garde une ligne de saisie sous la fin du journal en direct ; le plein écran garde un éditeur multiligne avec un panneau de journal en direct plus petit.
+.br
+\&Dans Commande, Down sélectionne les suggestions. Up/Down les parcourt ; Up depuis la première revient à la saisie.
+.br
+\&Enter sur une suggestion l'insère sans l'exécuter. Lisez ou modifiez\-la, puis, après son affichage, appuyez de nouveau sur Enter pour l'exécuter.
+.br
+\&Dans Commande, Up rappelle les commandes acceptées correspondantes ; Down revient vers la saisie d'origine. Dans Rédiger, Up/Down déplace le curseur, même maintenu ; Enter envoie.
+.br
+\&Delete supprime la ligne sélectionnée d'Historique récent ou remet à zéro le compteur sélectionné de Plus utilisé. Les commandes du catalogue restent disponibles.
+.br
+\&? sur une commande sélectionnée l'explique et donne accès à l'aide de son écran. Dans tous les éditeurs de texte, ? reste du texte ordinaire.
+.br
+\&Révision utilise un écran alternatif temporaire ; brouillon et invite n'entrent jamais dans l'historique. Un nouvel Enter confirme ; Escape ou la saisie restaure éditeur, brouillon et curseur. Up/Down, Page Up/Down et Home/End permettent de parcourir l'écran.
+.br
+\&Dans l'aide ou une réponse, Up/Down fait défiler ; Page Up/Down change de page ; Home/End atteint le début ou la fin.
+.br
+\&Dans la liste des utilisateurs, Enter revient au journal ; dans l'aide et les autres lecteurs de réponses, Enter avance d'une ligne.
+.br
+\&Dans le lecteur, / ouvre Commande avec la complétion et l'historique habituels. Escape annule cette invite et revient au lecteur.
+.br
+\&Dans un lecteur de résumé, r actualise l'instantané ; ? explique la réponse et son lecteur.
+.br
+\&Dans l'aide contextuelle, Enter suit le lien surligné À propos de l'écran. Escape revient à l'aide de l'élément, puis à l'écran d'origine exact.
+.br
+\&Dans la configuration, Tab sélectionne l'en\-tête de la question ; ? explique son option ou écran. Tab/Enter revient à la modification de la réponse.
+.br
+\&Exécuter une commande remplace la réponse précédente. Les confirmations courtes reviennent au journal ; les erreurs courtes laissent la commande modifiable.
+.br
+\&Escape annule Rédiger ou Commande et revient au journal. Depuis Révision, Escape revient à l'éditeur sans supprimer le brouillon. Escape dans le journal met le client en arrière\-plan.
+.br
+\&Escape seul attend environ 500 ms ; une séquence en cours autorise 1000 ms entre octets de continuation. L'activité réseau continue.
+.br
+\&Les séquences de touches complètes sont traitées immédiatement. Un marqueur de début de collage retardé au\-delà de ce délai après son premier Escape peut mettre le client en arrière\-plan.
+.br
+\&Une fois la capture du collage commencée, son marqueur de fin reste reconnu malgré des lectures fractionnées ou des délais arbitraires.
+.br
+\&Les touches d'interruption, de sortie et de suspension conservent leurs affectations ; «Utiliser les signaux» = no désactive leurs signaux tant que le client est actif.
+.br
+\&[input] use_signals=false No (par défaut) désactive les signaux du terminal pendant que le programme le contrôle ; Ctrl\-C/Ctrl\-Z annulent le brouillon. Yes active les associations de touches existantes sans les modifier. Les signaux externes du processus restent actifs ([input] use_signals=true).
+.br
+\&Les signaux de terminal activés terminent ou suspendent après restauration du terminal ; fg reprend une tâche suspendue.
+.br
+\&Ctrl\-D est inactif sauf s'il est affecté dans la conversation principale ou Commande. /quit quitte ; /background libère le terminal pendant que l'activité réseau continue.
+.br
+\&Les écrans usuels omettent les rappels de touches répétés ; ce sujet reste la référence complète du clavier.
+.br
+\&Le collage délimité reconnu reste littéral. Les touches attendent un éditeur visible, une saisie nouvelle et une pause. Un affichage trop petit ou échoué ne peut l'approuver ; redimensionnez et relâchez les touches maintenues.
+.br
+\&Coller dans le journal de surveillance ouvre Rédiger avec des barres obliques littérales. Coller dans Commande y reste ; CR/LF/Tab deviennent des espaces. Vérifiez, puis appuyez de nouveau sur Enter.
+.br
+\&Le collage sans délimiteurs ne se distingue pas de la frappe ; utilisez la prise en charge du collage délimité.
+.PP
+.SH "limits"
+.br
+\&Les limites IRC portent sur les octets, non sur les caractères affichés. Un caractère UTF\-8 peut occuper plusieurs octets.
+.br
+\&Le client calcule l'espace en comptant cible, commande et relais ; il ne coupe jamais un caractère UTF\-8.
+.br
+\&À la limite d'un message, tout ajout attend la confirmation par Enter de poursuivre l'édition ; cet Enter n'envoie rien.
+.br
+\&Un message fractionné exige un accord distinct, même en mode direct. Le chat envoie une ligne toutes les 1.2 secondes.
+.br
+\&Un envoi contient au plus 64 messages et 16384 octets de texte. Raccourcissez ou envoyez séparément.
+.br
+\&Il y a au plus 8 emplacements de serveur et 32 vues par serveur, y compris les vues réservées.
+.PP
+.SH "logging"
+.br
+\&Les logs persistants sont facultatifs et desactives par défaut. /set persistent_logging on active; /save output conserve le choix.
+.br
+\&Chaque profil sauvé ajoute à CONFIG_PATH.log. Le dernier dossier parent doit appartenir à l'utilisateur avec le mode 0700; fichier régulier, possédé, lien unique, mode exact 0600. Liens symboliques et traversée des parents interdits.
+.br
+\&Les logs sont plaintext, pas des sauvegardes chiffrées. Limite 16 MiB/fichier; une erreur arrête le log, pas la discussion.
+.br
+\&Archivez le journal plein ailleurs, puis désactivez/réactivez les journaux. Rotation ou réécriture peut invalider le repère de /catchup; envoyez un nouveau message admissible avant de vous y fier.
+.br
+\&Identifiants connus et brouillons non envoyés sont exclus, y compris l'authentification rejouée sous d'anciens pseudos. Discussions ordinaires et secrets saisis peuvent être enregistrés. La rétention serveur/bouncer est indépendante.
+.br
+\&/catchup n'utilise un journal sain que si son repère local exact a été écrit dans cette session. Il ne demande pas d'archives au bouncer et n'importe pas les anciens journaux après redémarrage.
+.br
+\&/clear efface seulement la RAM. Les logs restent après sortie, \-\-close\-session et sauvegarde. Désactiver les logs arrête les nouvelles entrées sans effacer les anciennes.
+.br
+\&Les E/S sur disque lent peuvent retarder le processus. Voir /help catchup, /help history et SECURITY.md.
+.PP
+.SH "messages"
+.br
+\&Utilisez /join #channel pour rejoindre et choisir un canal, ou /query NICK pour ouvrir une conversation privée.
+.br
+\&Choisissez un canal conservé avec /channel. /msg TARGET TEXT envoie à une cible ; /me TEXT envoie une action.
+.br
+\&/query ouvre une conversation sans envoyer ; /pm est un alias. /ql sépare les conversations privées des canaux.
+.br
+\&L'envoi direct est le mode par défaut ; /set send_mode review ajoute une révision. /set composer_mode line|fullscreen modifie l'affichage.
+.br
+\&À la limite d'un message, confirmez la poursuite de l'édition ; la division exige encore un accord distinct.
+.br
+\&Il faut avoir rejoint et être authentifié avant la mise en file de messages. /cancel annule la file, pas les envois déjà faits.
+.PP
+.SH "reconnect"
+.br
+\&\-\-reconnect active les tentatives de reconnexion pour ce processus; il ne sauve rien et n'ouvre pas la connexion.
+.br
+\&Sans cette option, une connexion échouée exige /connect. /autoconnect gère seulement le démarrage.
+.br
+\&Les pannes DNS temporaires, refus/coupures et délais expirés réessaient après 5, 10, 20, 40, 80, 160 puis 300 secondes.
+.br
+\&Une connexion inscrite pendant au moins 60 secondes réinitialise l'attente. La boucle ne dort pas en bloquant.
+.br
+\&Les erreurs de certificat, authentification, protocole invalide et configuration restent déconnectées jusqu'à correction.
+.br
+\&Un ERROR serveur avant inscription est retenu; après inscription il peut déclencher une reconnexion.
+.br
+\&Un /disconnect explicite annule la tentative en attente. /connect ultérieur démarre une nouvelle tentative.
+.br
+\&Les reprises utilisent les réglages actifs; les modifications en attente exigent encore /connect explicite.
+.br
+\&Les messages en attente sont perdus a la déconnexion et jamais renvoyes automatiquement.
+.br
+\&L'authentification et les commandes de départ actives sont répétées. Les profils directs rejouent autojoin; les bouncers restaurent leurs canaux.
+.br
+\&Le mode test hors ligne ne se reconnecte jamais au réseau.
+.PP
+.SH "security"
+.br
+\&Le texte distant est assaini avant affichage. L'entrée est interprétée comme commande IRC locale, jamais comme shell.
+.br
+\&Pas de /raw, d'échappement shell ni d'acceptation automatique de fichiers. Un collage balisé reconnu n'exécute jamais de commande.
+.br
+\&TLS vérifié l'identité du serveur. SASL, PASS et les commandes privees d'authentification exigent TLS vérifié. Maintenez a jour la bibliotheque TLS du systeme; voir SECURITY.md.
+.br
+\&Un bundle CA personnalisé doit être un fichier PEM ordinaire non vide, de 16 MiB au maximum, sans demande de mot de passe.
+.br
+\&Les mots de passe configures sont masques dans l'aide et les réglages. Les commandes de secrets connues sont exclues du rappel; les secrets saisis comme texte peuvent rester en mémoire.
+.br
+\&Aucune transcription sur disque par défaut. Les modifications de configuration nécessitent un enregistrement explicite.
+.br
+\&Un processus exécuté sous le même compte, le serveur IRC ou le bouncer, ainsi qu'un terminal ou un système d'exploitation compromis, restent en dehors de ces protections. TLS ne chiffre pas les discussions de bout en bout.
+.br
+\&Les journaux facultatifs et secrets dans la configuration sont en clair. Les commandes sensibles connues sont filtrees, mais les secrets dans les messages ne sont pas toujours reconnaissables.
+.br
+\&Voir /help tls, /help authentication, /help logging et SECURITY.md pour les limites et anciens audits.
+.PP
+.SH "sessions"
+.br
+\&Une tâche est un processus client avec ses serveurs, transferts, brouillons et historique. Un numéro de serveur dans l'application n'est pas un ID de tâche du shell.
+.br
+\&Depuis le shell, lancez \-\-sessions. Consultez l'etat attache/detache et utilisez l'ID du travail, pas le PID.
+.br
+\&Si l'ancien terminal SSH garde le travail, faites \-\-detach\-session NUMBER puis \-\-resume NUMBER. IRC reste actif.
+.br
+\&\-\-resume seul ne reprend qu'une tâche detachee verifiee. Plusieurs taches exigent un numéro; une tâche attachee est occupee jusqu'au detachement. Les numéros peuvent être reutilises.
+.br
+\&N'utilisez \-\-close\-session NUMBER que pour terminer tout le travail. Il ferme IRC et les transferts; brouillons et historique RAM sont perdus, fichiers et journaux conservés.
+.br
+\&La fermeture reussit seulement après nettoyage vérifié. En cas d'expiration, verifiez \-\-sessions: elle peut finir plus tard. Un échec ne supprime pas la connexion active ni n'envoie un signal a un PID suppose.
+.br
+\&Seule une tâche geree survit a la perte du terminal. Un processus normal au premier plan n'est pas récupérable après perte de SSH. Demarrez avec \-\-background ou utilisez /background avant.
+.br
+\&Une tâche appartient au meme compte Unix et au meme hote; un seul terminal peut être attache. Un autre programme de ce compte est dans le meme perimetre de confiance.
+.br
+\&Installer un executable ne remplace pas le code du processus actif. Enregistrez la configuration, arretez l'ancien, verifiez \-\-version et demarrez un nouveau processus.
+.br
+\&Une ancienne tâche peut manquer de contrôles recents ou du changement d'interface. Gardez l'executable compatible jusqu'a son arret si necessaire.
+.br
+\&Le client ne change pas la politique d'inactivite SSH. Voir /help background, /help deployment et doc/SESSION\-CONTROLS.txt.
+.PP
+.SH "startup"
+.br
+\&Lancez le programme, fermez l'accueil, puis tapez /connect irc.example.org et /join #channel.
+.br
+\&Il n'est pas nécessaire de créer un profil, un alias ou un numéro au préalable. /server HOST est un alias de connexion directe.
+.br
+\&Sans pseudo fourni, le nom de connexion système valide est utilisé, sinon user. Aucune saisie de pseudo n'est demandée.
+.br
+\&Enregistrez la configuration et le choix par défaut avec /saveconf. Au prochain lancement, /connect les réutilise.
+.br
+\&L'enregistrement n'active pas la connexion automatique : c'est un choix distinct. /quickstart et /panel sont facultatifs.
+.br
+\&Les options shell fonctionnent aussi : \-\-server HOST, \-\-channel '#CHANNEL' et \-\-nick NICK. Mettez #CHANNEL entre guillemets.
+.br
+\&Au démarrage normal, \-\-nick, \-\-port, \-\-channel, \-\-tls, \-\-plain et \-\-ca\-file remplacent les valeurs par défaut mémorisées.
+.br
+\&Un \-\-server explicite choisit la première connexion. \-\-init\-config et \-\-check\-config utilisent le fichier principal de configuration.
+.br
+\&Changer \-\-server vers un autre hôte efface les anciens identifiants, la CA personnalisée, l'identité du bouncer, les canaux et les commandes de démarrage.
+.br
+\&Si le défaut mémorisé manque, indiquez \-\-server ou corrigez\-le avant de remplacer les paramètres de connexion.
+.br
+\&Autoconnect, autojoin et autoauth sont propres à chaque profil de serveur enregistré. Voir /help autoconnect.
+.br
+\&\-\-no\-connect empêche les connexions au démarrage ; \-\-test\-mode simule sans réseau ni écriture de configuration.
+.br
+\&\-\-sessions répertorie les tâches attachées et détachées. \-\-resume [NUMBER] les rattache ; voir /help background.
+.br
+\&\-\-close\-session NUMBER ferme toute la tâche choisie et ses connexions IRC après confirmation. NUMBER est un ID de tâche, pas un PID.
+.br
+\&Après perte du terminal, utilisez \-\-sessions, puis \-\-detach\-session NUMBER et \-\-resume NUMBER. Le processus garde son ancien code jusqu'au redémarrage ; voir /help sessions.
+.br
+\&\-h/\-\-help et \-v/\-\-version fonctionnent sans terminal.
+.br
+\&onekeyirc utilise toujours idle. Son panneau d'application omet le choix de l'interface ; /set default_interface accepte uniquement idle.
+.br
+\&L'analyseur de configuration commun conserve l'une ou l'autre des valeurs enregistrées reconnues. Une valeur ncurses enregistrée ne change pas l'interface de ce client autonome.
+.br
+\&Depuis le shell : onekeyirc \-\-sessions; onekeyirc \-\-detach\-session NUMBER; onekeyirc \-\-resume NUMBER; onekeyirc \-\-close\-session NUMBER.
+.br
+\&onekeyirc \-\-manual affiche ce manuel complet.
+.PP
+.SH "tls"
+.br
+\&TLS vérifié est le défaut. Nom/adresse du serveur et chaine de certificats doivent etre valides; aucun contournement ni repli plaintext.
+.br
+\&Un port ne desactive pas TLS. \-\-plain ou /connect \-plain choisit IRC non chiffre et interdit les identifiants compte/serveur.
+.br
+\&Utilisez le nom d'hôte et port TLS exacts du fournisseur. Échec possible: mauvais serveur, certificat expiré/non fiable ou confiance locale; lire l'erreur d'abord.
+.br
+\&TLS utilise la liste de confiance du système. \-\-ca\-file FILE ou ca_file= choisit un ensemble PEM CA, sans épingler le certificat final.
+.br
+\&Un paquet CA personnalisé doit être un fichier ordinaire non vide de 16 MiB max. Lien symbolique vers CA permis ; chemins secrets/config plus stricts.
+.br
+\&Le fichier CA est ouvert une fois, borné et sa taille revérifiée. FIFO, périphériques et autres types sont refusés ; un PEM protégé ne peut pas demander de mot de passe.
+.br
+\&Limiter la taille du fichier ne limite pas la latence I/O du disque ou du réseau. Utilisez un paquet CA fiable sur un stockage adapté.
+.br
+\&\-\-check\-config ne teste pas la connexion TLS ni le bon fonctionnement du CA ou des identifiants. \-\-test\-mode ne contacte aucun serveur.
+.br
+\&TLS ne protège que cette connexion. Avec un bouncer, la connexion en amont et l'historique conservé en clair sont gérés séparément par le bouncer.
+.PP
+.SH "troubleshooting"
+.br
+\&Occupe apres coupure SSH ? Faites \-\-sessions, vérifiez le travail, puis \-\-detach\-session NUMBER et \-\-resume NUMBER. Évitez \-\-close\-session. See /help sessions.
+.br
+\&Up ne rappelle pas le texte : Rédiger modifie le message ; Commande rappelle les commandes acceptées. Depuis le journal, / ouvre Commande. Les messages envoyés et les commandes sensibles ne sont pas rappelés.
+.br
+\&Si un message renvoye a la ligne semble coupe: l'editeur reserve des lignes et affiche les plus recentes. Quittez l'editeur ou reselctionnez le salon; l'affichage ne prouve pas la livraison distante.
+.br
+\&Si changer de salon montre tout, c'est une difference de fenetre. Si le probleme dure, notez interface, mode, taille du terminal, locale et etapes expurgees sans mots de passe ni conversations privees.
+.br
+\&Aucun canal après connexion : consultez la vue serveur et terminez l'enregistrement et l'authentification. Pour un profil direct, utilisez /autojoin list ; les bouncers rétablissent les canaux rejoints, modifiables via /join ou /part.
+.br
+\&Echec d'authentification ? Vérifiez compte, source, droits, TLS et agent GPG. /autoauth status ne lit aucun secret.
+.br
+\&Rattrapage indisponible: l'ancre a pu disparaitre, la journalisation demarrer plus tard ou s'arreter, ou le fichier changer. Voir /help catchup et /help logging; les journaux ne recreent pas le processus termine.
+.br
+\&Un réglage appliqué semble ignoré : les changements de connexion nécessitent /connect après déconnexion ; l'enregistrement et la connexion automatique au démarrage sont deux choix distincts. Les préférences de lancement relatives à l'interface et aux signaux du terminal exigent un nouveau lancement.
+.br
+\&Si le lancement d'un auxiliaire échoue, corrigez la politique SIGCHLD ou de collecte automatique des enfants du lanceur pour permettre leur attente.
+.br
+\&Utilisez \-\-check\-config et doc/TROUBLESHOOTING.txt. \-\-test\-mode teste l'interface, pas DNS, TLS, identifiants ou bouncer réel.
+.PP
+.SH "Système de commandes"
+.br
+\&Appuyez sur / dans le journal pour ouvrir Commande ; la barre initiale est déjà insérée. Enter avec le focus dans la saisie exécute la commande modifiée ; Escape l'annule.
+.br
+\&Syntaxe : /COMMAND ARGUMENTS. Les noms ne distinguent pas majuscules et minuscules ; utilisez les options indiquées. Les mots en majuscules (UPPERCASE) sont des paramètres fictifs, [items] est facultatif et | indique une alternative.
+.br
+\&Saisissez une commande à la fois. Les espaces séparent les arguments ; il n'y a pas d'interprétation des guillemets, d'expansion ni d'enchaînement de shell. Les options de lancement du shell s'utilisent hors de cet éditeur.
+.br
+\&TEXT et le chemin d'identifiants PATH utilisent littéralement le reste de la ligne, espaces compris. Avant de coller un /command complet, supprimez la barre déjà insérée ; les retours à la ligne collés deviennent des espaces, pas des commandes distinctes.
+.br
+\&Home/End/Delete/Backspace modifient le texte. Tab/Shift\-Tab complète les noms de commandes ; Up depuis la saisie rappelle l'historique des commandes acceptées.
+.br
+\&Down sélectionne les suggestions ; Enter insère la commande sélectionnée pour la modifier. Une autre pression sur Enter après son affichage l'exécute.
+.br
+\&Choisissez Courant, Historique récent, Le plus utilisé avec cette configuration, Alphabétique ou Contextuel dans les Paramètres de l'application.
+.br
+\&Courant propose un ordre utile présélectionné. Contextuel mémorise l'écran qui a ouvert la saisie de commandes. Les autres correspondances de préfixe restent disponibles.
+.br
+\&? sur une suggestion sélectionnée ouvre l'aide de l'élément et de son écran. Dans la saisie, il reste du texte ordinaire.
+.br
+\&Delete supprime une entrée récente sélectionnée ou remet à zéro un compteur personnel de fréquence ; il ne supprime jamais de commande du catalogue.
+.br
+\&Seules les commandes sûres acceptées entrent dans l'historique borné en mémoire. Les commandes de mot de passe ou de services et les entrées dans un canal avec clé sont exclues.
+.br
+\&Une commande avec des arguments inattendus échoue sans effectuer l'action demandée. L'aide présente la syntaxe, les effets et des exemples.
+.br
+\&Les commandes de messages créent un plan d'envoi. Le mode d'envoi et la confirmation obligatoire des messages multiples s'appliquent avant la mise en file.
+.br
+\&La plupart des commandes agissent sur le serveur sélectionné. /server NUMBER en choisit un autre ; /server seul sélectionne sa vue MOTD.
+.br
+\&Utilisez /connect HOST, /join #channel, /query NICK et /saveconf pour le déroulement habituel de connexion et de conversation.
+.br
+\&Enregistrez les réglages acceptés pour les conserver après redémarrage. Les profils enregistrés actualisent automatiquement un fichier privé .commands uniquement pour les compteurs d'usage ; il ne contient ni arguments ni conversations.
+.br
+\&/summary lit localement tout l'état actuel du client ; /list [MASK] demande les canaux du réseau, tandis que /ls et /cl affichent les vues locales.
+.br
+\&/help ls affiche tous les sujets d'aide.
+.SH "Commandes (utilisez /help COMMAND pour la syntaxe et les exemples)"
+.PP
+.br
+\&  /autoauth     Examiner ou préparer l'authentification SASL
+.PP
+.br
+\&  /autocommands Préparer des commandes différées pour la prochaine connexion
+.PP
+.br
+\&  /autoconnect  Examiner ou modifier la connexion automatique au démarrage
+.PP
+.br
+\&  /autojoin     Examiner ou préparer l'entrée dans les canaux au démarrage
+.PP
+.br
+\&  /away         Définir l'absence ou la désactiver si aucun message n'est indiqué
+.PP
+.br
+\&  /back         Désactiver l'état d'absence
+.PP
+.br
+\&  /background   Garder les connexions et libérer le terminal
+.PP
+.br
+\&  /bind         Affecter une touche personnalisée à une fonction locale du programme
+.PP
+.br
+\&  /bindings     Lister les raccourcis personnalisés ou les actions et touches disponibles
+.PP
+.br
+\&  /cancel       Annuler les messages et commandes de démarrage en attente
+.PP
+.br
+\&  /catchup      Lire cette conversation depuis votre dernier message envoyé
+.PP
+.br
+\&  /channel      Sélectionner un canal ; le numéro 0 sélectionne le serveur
+.PP
+.br
+\&  /channels     Lister les salons du serveur sélectionné
+.PP
+.br
+\&  /cl           Lister les canaux (alias de /channels)
+.PP
+.br
+\&  /clear        Effacer l'historique conservé de la vue sélectionnée
+.PP
+.br
+\&  /close        Fermer une vue de canal ou de conversation privée
+.PP
+.br
+\&  /connect      Se connecter au serveur ou réutiliser la connexion enregistrée
+.PP
+.br
+\&  /dcc          Proposer, examiner et gérer les transferts directs de fichiers
+.PP
+.br
+\&  /disconnect   Déconnecter le serveur en conservant son profil
+.PP
+.br
+\&  /help         Lire l'aide, la syntaxe et des exemples pratiques
+.PP
+.br
+\&  /ignore       Gérer les expéditeurs ignorés localement
+.PP
+.br
+\&  /join         Rejoindre un salon du serveur sélectionné
+.PP
+.br
+\&  /list         Demander et filtrer l'annuaire des canaux du réseau
+.PP
+.br
+\&  /ls           Lister les entrées de serveurs, canaux, conversations privées ou non lues
+.PP
+.br
+\&  /manual       Lire le manuel intégré complet
+.PP
+.br
+\&  /me           Envoyer une action à la conversation sélectionnée
+.PP
+.br
+\&  /mentions     Voir les mentions ou effacer celles conservées sur tous les serveurs
+.PP
+.br
+\&  /msg          Envoyer du texte à un pseudo ou à un salon
+.PP
+.br
+\&  /next         Sélectionner la conversation suivante sur ce serveur
+.PP
+.br
+\&  /nick         Définir ou demander le pseudonyme actuel
+.PP
+.br
+\&  /panel        Ouvrir le panneau de configuration interactif
+.PP
+.br
+\&  /part         Quitter un salon avec un motif facultatif et garder son historique
+.PP
+.br
+\&  /pm           Sélectionner ou ouvrir une conversation privée sans envoyer
+.PP
+.br
+\&  /prev         Sélectionner la conversation précédente sur ce serveur
+.PP
+.br
+\&  /ql           Lister les conversations privées du serveur sélectionné
+.PP
+.br
+\&  /queries      Lister les conversations privées (alias de /ql)
+.PP
+.br
+\&  /query        Ouvrir ou sélectionner une conversation privée
+.PP
+.br
+\&  /quickstart   Ouvrir l'assistant de connexion
+.PP
+.br
+\&  /quit         Quitter le programme et fermer toutes les sessions
+.PP
+.br
+\&  /save         Enregistrer le serveur actuel, les préférences de l'application ou tous les profils
+.PP
+.br
+\&  /saveconf     Enregistrer la configuration et retenir la connexion sélectionnée
+.PP
+.br
+\&  /server       Se connecter à un serveur ou en sélectionner un existant
+.PP
+.br
+\&  /servers      Lister toutes les sessions serveur configurées
+.PP
+.br
+\&  /set          Choisir les préférences de saisie, de sortie et de présence pour toute l'application
+.PP
+.br
+\&  /settings     Afficher les réglages effectifs avec les identifiants masqués
+.PP
+.br
+\&  /sl           Lister les serveurs (alias de /servers)
+.PP
+.br
+\&  /soju         Contrôler le bouncer soju sélectionné
+.PP
+.br
+\&  /summary      Résumer toutes les sessions de serveur actuelles et leur activité
+.PP
+.br
+\&  /topic        Demander ou modifier le sujet du canal actuel
+.PP
+.br
+\&  /transfers    Gérer les transferts de fichiers (alias de /dcc)
+.PP
+.br
+\&  /unbind       Supprimer un ou tous les raccourcis personnalisés
+.PP
+.br
+\&  /unignore     Supprimer un masque d'exclusion local
+.PP
+.br
+\&  /unread       Lister les conversations non lues sur tous les serveurs
+.PP
+.br
+\&  /users        Afficher les utilisateurs connus du canal actuel ou d'un canal nommé
+.PP
+.br
+\&  /view         Sélectionner une conversation par nom ou un canal par numéro
+.PP
+.br
+\&  /views        Lister les canaux (alias de /channels)
+.PP
+.br
+\&  /watch        Gérer des chaînes littérales supplémentaires de mention
+.PP
+.br
+\&  /whois        Demander au serveur des informations sur un pseudonyme
+.PP
+.br
+\&  /znc          Contrôler le bouncer ZNC sélectionné
+.PP
+.SH "/autoauth \- Examiner ou préparer l'authentification SASL"
+.br
+\&Utilisation : /autoauth [status|off|sasl USER file PATH|sasl USER gpg PATH]
+.PP
+.br
+\&Modifie l'authentification du serveur choisi pour sa prochaine connexion. Un TLS vérifié est requis.
+.br
+\&Sans argument ou avec status, affiche l'etat connexion/authentification et les chemins des identifiants, jamais les mots de passe.
+.br
+\&Les réglages actifs et en attente sont distingues. Les chemins longs figurent en entier sur des lignes de suite étiquetées.
+.br
+\&PATH reprend littéralement tout le texte restant, espaces compris; aucune expansion du shell ni interpretation des guillemets.
+.br
+\&Cette commande n'ouvre aucun fichier. Les clés GPG doivent etre déverrouillées hors du programme.
+.br
+\&Les mots de passe en clair ne peuvent etre configures qu'explicitement dans un fichier privé, jamais en arguments.
+.br
+\&Utilisez /panel pour un profil bouncer; /autoauth y est refusé car identite et source d'identifiants sont gérées ensemble.
+.br
+\&Utilisez /save pour enregistrer. Déconnectez\-vous puis lancez /connect ; la connexion active n'est jamais redirigée.
+.PP
+.br
+\&Exemples :
+.br
+\&/autoauth status
+.br
+\&/autoauth sasl myaccount gpg /home/me/irc\-account.gpg
+.br
+\&/autoauth off
+.br
+\&/save
+.PP
+.SH "/autocommands \- Préparer des commandes différées pour la prochaine connexion"
+.br
+\&Utilisation : /autocommands [list|add COMMAND|remove NUMBER|clear|on|off|delay SECONDS|interval SECONDS]
+.PP
+.br
+\&Les commandes concernent le serveur sélectionné. Elles s'exécutent une fois après l'inscription et le SASL requis.
+.br
+\&Le délai par défaut est de 15 secondes, avec au moins 2 secondes entre deux commandes terminées.
+.br
+\&Réglez avec delay 0..300 et interval 2..60. Une connexion bloquée ne déclenche pas de rafale de rattrapage.
+.br
+\&Commandes autorisées : /msg, /join, /nick, /away, /back et /whois, ainsi que leurs alias exacts documentés.
+.br
+\&Au plus 16 commandes de 511 octets UTF\-8 chacune. Chaque commande tient dans un message IRC ; aucune coupure automatique.
+.br
+\&Ni shell, ni IRC brut, ni expansion de la conversation actuelle. Les jonctions automatiques ne changent pas de vue.
+.br
+\&Les modifications valent à la prochaine connexion. /cancel arrête les commandes de démarrage non envoyées.
+.br
+\&Les listes masquent les messages et clés de salon ; les commandes automatiques restent hors historique et échos locaux.
+.br
+\&Enregistrez avec /save. Le fichier doit rester privé (0600 ou 0400) ; une liste active non vide exige un TLS vérifié.
+.br
+\&Le mode test n'exécute jamais ces commandes. Le texte est stocké tel quel dans la configuration, sans chiffrement GPG.
+.PP
+.br
+\&Exemples :
+.br
+\&/autocommands add /msg ChanServ op #chat mynick
+.br
+\&/autocommands delay 15
+.br
+\&/autocommands interval 2
+.br
+\&/autocommands list
+.br
+\&/save
+.PP
+.SH "/autoconnect \- Examiner ou modifier la connexion automatique au démarrage"
+.br
+\&Utilisation : /autoconnect [on|off]
+.PP
+.br
+\&Sans argument, affiche le réglage du serveur choisi. Les modifications prennent effet au prochain démarrage.
+.br
+\&Utilisez /connect pour vous connecter immédiatement et /save pour enregistrer le choix de démarrage.
+.br
+\&Chaque serveur enregistré possède ses propres réglages de connexion automatique, de canaux et d'authentification.
+.PP
+.br
+\&Exemples :
+.br
+\&/autoconnect
+.br
+\&/autoconnect on
+.br
+\&/save
+.PP
+.SH "/autojoin \- Examiner ou préparer l'entrée dans les canaux au démarrage"
+.br
+\&Utilisation : /autojoin [list|add #CHANNEL|remove #CHANNEL|clear]
+.PP
+.br
+\&Sans argument ou avec list, affiche serveur, etat d'inscription/authentification et listes active et en attente.
+.br
+\&Modifie la liste d'entrée automatique du prochain /connect. add/remove accepte un canal sans cle.
+.br
+\&Les modifications sont vérifiées avant application et ne rejoignent ni ne quittent un canal actif.
+.br
+\&Les nouvelles tentatives automatiques gardent la liste active. Deconnectez puis lancez /connect pour appliquer l'attente.
+.br
+\&Utilisez /join ou /part pour la connexion active et /save pour garder les changements au démarrage.
+.br
+\&Les profils bouncer rétablissent leurs canaux; /autojoin y est refusé. Utilisez /join et /part.
+.PP
+.br
+\&Exemples :
+.br
+\&/autojoin list
+.br
+\&/autojoin add #ircnow
+.br
+\&/autojoin remove #old
+.br
+\&/save
+.PP
+.SH "/away \- Définir l'absence ou la désactiver si aucun message n'est indiqué"
+.br
+\&Utilisation : /away [MESSAGE]
+.PP
+.br
+\&Une inscription au serveur est nécessaire. Le serveur confirme l'absence. MESSAGE est du texte littéral.
+.PP
+.br
+\&Exemples :
+.br
+\&/away Back after lunch
+.br
+\&/away
+.PP
+.SH "/back \- Désactiver l'état d'absence"
+.br
+\&Utilisation : /back
+.PP
+.br
+\&Équivaut à /away sans message. Une connexion enregistrée est nécessaire.
+.PP
+.br
+\&Exemples :
+.br
+\&/back
+.PP
+.SH "/background \- Garder les connexions et libérer le terminal"
+.br
+\&Utilisation : /background
+.PP
+.br
+\&Restaure le terminal et détache la session active. Le shell reçoit la commande numérotée permettant de la reprendre.
+.br
+\&Dans le shell, \-\-sessions liste les tâches privées attachées et détachées; \-\-resume reprend l'unique tâche détachée disponible.
+.br
+\&S'il existe plusieurs tâches, utilisez \-\-resume NUMBER. NUMBER est l'identifiant de tâche, pas un PID; il reste stable jusqu'à la fin, puis peut être réutilisé.
+.br
+\&\-\-detach\-session NUMBER libère le terminal attaché mais conserve le processus, les connexions IRC, brouillons et historique pour \-\-resume NUMBER.
+.br
+\&\-\-close\-session NUMBER termine toute la tâche, ses connexions IRC et transferts, les brouillons non sauvés et l'historique en mémoire. Le succès n'est annoncé qu'après vérification.
+.br
+\&Si la reprise est occupée après une perte SSH, listez les tâches, détachez celle\-ci puis reprenez\-la. Voir /help sessions.
+.br
+\&Une tâche bloquée ou ancienne sans la commande de contrôle demandée peut échouer. Installer un binaire ne met pas à jour la tâche en cours; redémarrez\-la après mise à niveau.
+.br
+\&Reprendre réaffiche l'historique en mémoire même sans nouveau message. /set single_session on interdit une seconde tâche en arrière\-plan; \-\-resume reste sans ambiguïté.
+.br
+\&Pour démarrer sans terminal, utilisez \-\-background dans le shell. Voir \-\-help pour les options.
+.br
+\&Si background_away est actif et autorisé, /background ou la perte du terminal envoie AWAY après détachement. La reprise efface seulement cette absence automatique; un /away manuel reste.
+.br
+\&Ajoutez \-\-reconnect pour réessayer les connexions après des échecs passagers. Voir /help deployment et /help reconnect.
+.br
+\&Aucun multiplexeur de terminal n'est requis. Une résolution DNS ou un assistant d'identifiants en attente peut nécessiter un nouvel essai.
+.br
+\&Suspendre un processus classique au premier plan arrête son réseau. Une tâche reprise peut suspendre son contrôleur de terminal tout en gardant son processus géré connecté.
+.br
+\&Depuis le shell : onekeyirc \-\-sessions; onekeyirc \-\-detach\-session NUMBER; onekeyirc \-\-resume NUMBER; onekeyirc \-\-close\-session NUMBER.
+.PP
+.br
+\&Exemples :
+.br
+\&/background
+.PP
+.SH "/bind \- Affecter une touche personnalisée à une fonction locale du programme"
+.br
+\&Utilisation : /bind KEY ACTION
+.PP
+.br
+\&Aucun raccourci personnalisé par défaut. Consultez /bindings keys et /bindings actions pour les noms acceptés.
+.br
+\&Une nouvelle attribution remplace l'action de cette touche sur tous les serveurs ; les autres restent intactes.
+.br
+\&Les raccourcis agissent dans le chat et les commandes, pas dans le collage, les mots de passe, les réglages, les lecteurs ni les confirmations.
+.br
+\&Effet immédiat, mais /save input est requis pour conserver le changement. Sans raccourci actif, la navigation normale fonctionne.
+.br
+\&Seules les fonctions locales nommées sont permises : aucune commande arbitraire, macro, action d'envoi ou expansion shell.
+.br
+\&Une touche réservée au terminal peut ne jamais parvenir au programme ; l'attribution ne modifie pas les signaux du terminal.
+.PP
+.br
+\&Exemples :
+.br
+\&/bindings actions
+.br
+\&/bind F7 summary
+.br
+\&/bind Alt\-c command
+.br
+\&/save input
+.PP
+.SH "/bindings \- Lister les raccourcis personnalisés ou les actions et touches disponibles"
+.br
+\&Utilisation : /bindings [actions|keys]
+.PP
+.br
+\&Sans argument, affiche les raccourcis personnalisés de toute l'application. Une liste vide signifie aucun raccourci.
+.br
+\&Utilisez /bind pour attribuer ou remplacer, /unbind KEY pour retirer et /unbind all pour tout effacer.
+.br
+\&Touches disponibles : F1..F12, Ctrl\-A..Ctrl\-Z, Alt\-a..Alt\-z, Alt\-0..Alt\-9 et touches de navigation nommées.
+.br
+\&Ctrl\-H vaut Backspace, Ctrl\-I vaut Tab, Ctrl\-J et Ctrl\-M valent Enter et Ctrl\-[ vaut Escape : un même raccourci.
+.br
+\&Alt utilise les minuscules sans Shift. Les touches de fonction/Alt dépendent du terminal et du multiplexeur.
+.br
+\&Jusqu'à 64 raccourcis KEY=action dans [hotkeys] du fichier principal. /save input les enregistre.
+.br
+\&Voir /help hotkeys pour la portée, la protection des brouillons et les signaux du terminal.
+.br
+\&Ce client modifie les raccourcis par des commandes ; /bindings affiche le tableau actuel.
+.PP
+.br
+\&Exemples :
+.br
+\&/bindings
+.br
+\&/bindings keys
+.br
+\&/bindings actions
+.br
+\&/help hotkeys
+.PP
+.SH "/cancel \- Annuler les messages et commandes de démarrage en attente"
+.br
+\&Utilisation : /cancel
+.PP
+.br
+\&Supprime les messages en attente et arrête les commandes automatiques en attente du serveur choisi.
+.br
+\&Une trame déjà en cours d'écriture peut se terminer.
+.br
+\&L'annulation ne retire pas les messages déjà reçus par le serveur.
+.PP
+.br
+\&Exemples :
+.br
+\&/cancel
+.PP
+.SH "/catchup \- Lire cette conversation depuis votre dernier message envoyé"
+.br
+\&Utilisation : /catchup
+.PP
+.br
+\&Repart du dernier message ou acte envoyé localement dans le canal ou la conversation choisie. Les vues serveur et mentions n'ont pas ce repère.
+.br
+\&Essaie d'abord un journal privé valable, actif lors de l'envoi du repère et toujours sain. Les identifiants sensibles ne servent pas de repère sur disque. Sinon, le repère encore présent en mémoire est utilisé.
+.br
+\&Le lecteur disque affiche un instantané fixe: Up/Down déplace d'une ligne, Page Up/Page Down d'une page, Home revient au repère, End va à la fin et Escape revient au direct. Le trafic nouveau ne le déplace pas.
+.br
+\&Le repli mémoire ouvre l'historique conservé au repère. Home atteint la page la plus ancienne; End ou Escape revient au direct. Les messages antérieurs restent consultables.
+.br
+\&Un repère modifié ou remplacé n'est plus utilisable sur disque. Un nouveau processus ne restaure pas les anciens repères. Voir /help logging et /help history.
+.PP
+.br
+\&Exemples :
+.br
+\&/catchup
+.PP
+.SH "/channel \- Sélectionner un canal ; le numéro 0 sélectionne le serveur"
+.br
+\&Utilisation : /channel NUMBER|#CHANNEL
+.PP
+.br
+\&Les numéros sont listés par /channels. La sélection change la conversation affichée et la cible du prochain texte ordinaire.
+.br
+\&Cela ne rejoint pas un canal. Un canal quitté doit être rejoint à nouveau avant d'y envoyer un message.
+.PP
+.br
+\&Exemples :
+.br
+\&/channels
+.br
+\&/channel 0
+.br
+\&/channel #ircnow
+.PP
+.SH "/channels \- Lister les salons du serveur sélectionné"
+.br
+\&Utilisation : /channels
+.PP
+.br
+\&Le canal 0 affiche toujours les messages du serveur/MOTD. Les conversations privées ont leur propre liste /ql.
+.br
+\&Les lignes indiquent l'état rejoint/quitté et les nombres de non\-lus et de mentions.
+.PP
+.br
+\&Exemples :
+.br
+\&/channels
+.br
+\&/channel 1
+.PP
+.SH "/cl \- Lister les canaux (alias de /channels)"
+.br
+\&Utilisation : /cl
+.PP
+.br
+\&Liste les vues des canaux de ce serveur, y compris le canal 0 pour ses messages et l'état rejoint/quitté des canaux.
+.br
+\&Utilisez /channel NUMBER ou /channel #NAME pour en choisir un. Les conversations privées ont leur propre liste /ql.
+.PP
+.br
+\&Exemples :
+.br
+\&/cl
+.br
+\&/channel 1
+.PP
+.SH "/clear \- Effacer l'historique conservé de la vue sélectionnée"
+.br
+\&Utilisation : /clear
+.PP
+.br
+\&Efface l'historique limité en mémoire de cette vue. Ne quitte pas le canal, ne déconnecte pas, ne retire pas les messages envoyés et n'efface aucun journal existant.
+.br
+\&L'historique de défilement déjà écrit est géré par le terminal.
+.br
+\&Dans le chat : Up recule d'une ligne, Page Up d'une page, Home va au début; Down/Page Down avancent. Le trafic nouveau ne déplace pas la page lue. End/Escape reviennent au direct; naviguer n'ouvre pas l'éditeur.
+.PP
+.br
+\&Exemples :
+.br
+\&/clear
+.PP
+.SH "/close \- Fermer une vue de canal ou de conversation privée"
+.br
+\&Utilisation : /close [NAME|NUMBER]
+.PP
+.br
+\&Sans argument, ferme la conversation actuelle. Le canal est quitté avant la suppression de sa vue.
+.br
+\&Les vues permanentes du serveur et des mentions ne peuvent pas être fermées. Les numéros figurent dans /channels.
+.PP
+.br
+\&Exemples :
+.br
+\&/close alice
+.br
+\&/close #old
+.PP
+.SH "/connect \- Se connecter au serveur ou réutiliser la connexion enregistrée"
+.br
+\&Utilisation : /connect [\-tls|\-plain] [\-nick NICK] HOST [PORT] | /connect
+.PP
+.br
+\&Commencez par /connect irc.example.org. Aucun profil, alias ni numéro de serveur n'est requis auparavant.
+.br
+\&Un nouveau serveur utilise TLS vérifié sur le port 6697 et votre login systeme, ou user si celui\-ci ne convient pas.
+.br
+\&Un serveur correspondant conserve son port, son transport, son pseudonyme et son authentification configurés.
+.br
+\&Utilisez \-nick NICK pour un pseudo précis ou /nick NICK avant connexion. Les mots de passe ne sont pas des arguments positionnels.
+.br
+\&Utilisez \-plain pour IRC non chiffre (port initial 6667). \-tls et \-ssl choisissent TLS vérifié.
+.br
+\&+PORT choisit aussi TLS. Un port numerique ordinaire ne désactive pas TLS. \-\-tls, \-\-plain et \-\-nick sont acceptes.
+.br
+\&La connexion est sélectionnée et la vue serveur/MOTD s'ouvre. Une connexion active identique n'est pas dupliquee.
+.br
+\&Une destination différente obtient de nouveaux réglages d'authentification; identifiants et canaux ne sont pas copies.
+.br
+\&/connect seul utilise le serveur choisi et ses réglages appliques. /saveconf mémorise le serveur par defaut pour le prochain lancement.
+.br
+\&Si des profils bouncer partagent un hôte, choisissez avec /server NUMBER puis lancez /connect seul.
+.br
+\&Les numéros de serveur existants restent acceptes. Le mode test est hors ligne; les changements demandent une sauvegarde explicite.
+.PP
+.br
+\&Exemples :
+.br
+\&/connect irc.example.org
+.br
+\&/join #chat
+.br
+\&/saveconf
+.br
+\&/connect
+.br
+\&/connect \-nick mynick irc.example.org +6697
+.br
+\&/connect \-plain localhost 6667
+.PP
+.SH "/dcc \- Proposer, examiner et gérer les transferts directs de fichiers"
+.br
+\&Utilisation : /dcc [list|NICK PATH|send [\-address IPV4] [\-port PORT] NICK PATH|accept NUMBER [DIRECTORY]|reject NUMBER|cancel NUMBER]
+.PP
+.br
+\&Sans argument, liste les transferts. /dcc NICK PATH propose un fichier sur le serveur sélectionné.
+.br
+\&PATH est le texte littéral restant, espaces compris ; il est relatif au répertoire initial du processus.
+.br
+\&Le client ne change jamais ce répertoire, même pendant la navigation ou en arrière\-plan.
+.br
+\&L'envoi court annonce l'IPv4 locale du lien IRC. Derrière NAT, utilisez \-address avec votre IPv4 joignable et \-port avec le port redirigé.
+.br
+\&Aucune recherche d'adresse externe. Un lien IRC uniquement IPv6 nécessite une IPv4 explicitement indiquée.
+.br
+\&DCC est une connexion directe non chiffrée. Le pair reçoit votre IP annoncée ; accepter une offre lui révèle aussi votre IP.
+.br
+\&Les offres entrantes restent fermées jusqu'à /dcc accept NUMBER. DIRECTORY vise le répertoire initial et doit être privé et vous appartenir.
+.br
+\&Les destinations existantes ne sont pas écrasées ; liens symboliques et fichiers spéciaux sont refusés. Le mode test n'ouvre ni fichier ni socket.
+.br
+\&Utilisez /dcc reject NUMBER pour refuser ou /dcc cancel NUMBER pour annuler un transfert en cours.
+.br
+\&Les numéros de transfert sont communs aux serveurs du processus. Fermer le serveur d'origine annule ses transferts ; couper IRC n'annule pas un transfert accepté.
+.PP
+.br
+\&Exemples :
+.br
+\&/dcc alice file.txt
+.br
+\&/dcc list
+.br
+\&/dcc accept 1 ./downloads
+.br
+\&/dcc send \-address 203.0.113.20 \-port 5000 alice file.txt
+.br
+\&/dcc cancel 2
+.PP
+.SH "/disconnect \- Déconnecter le serveur en conservant son profil"
+.br
+\&Utilisation : /disconnect [SERVER_NUMBER]
+.PP
+.br
+\&Sans numéro, déconnecte le serveur sélectionné. L'historique et la configuration restent disponibles.
+.br
+\&Cela ne modifie pas le réglage de connexion automatique au prochain démarrage.
+.PP
+.br
+\&Exemples :
+.br
+\&/disconnect
+.br
+\&/disconnect 1
+.PP
+.SH "/help \- Lire l'aide, la syntaxe et des exemples pratiques"
+.br
+\&Utilisation : /help [TOPIC|COMMAND]
+.PP
+.br
+\&Utilisez /help ls pour l'index, /help commands pour les commandes et leur liste, ou /help autoconnect pour une commande.
+.br
+\&Indiquez un sujet ou un nom de commande sans argument. /help /ls décrit la liste locale; /help ls liste les sujets. La barre initiale est facultative.
+.br
+\&/help all ouvre le manuel complet dans un lecteur d'aide séparé.
+.PP
+.br
+\&Exemples :
+.br
+\&/help
+.br
+\&/help ls
+.br
+\&/help commands
+.br
+\&/help autoconnect
+.br
+\&/help /ls
+.PP
+.SH "/ignore \- Gérer les expéditeurs ignorés localement"
+.br
+\&Utilisation : /ignore [list|clear|[add|remove] MASK]
+.PP
+.br
+\&Accepte un pseudo ou masque nick!user@host avec jokers * et ?. Masque localement les messages et avis correspondants.
+.br
+\&Le texte ignoré ne crée ni conversation privée ni mention. État du protocole, avis du serveur et appartenance restent actifs.
+.br
+\&Utilisez /save pour conserver les masques de ce serveur.
+.PP
+.br
+\&Exemples :
+.br
+\&/ignore list
+.br
+\&/ignore add noisy!*@*
+.br
+\&/ignore remove noisy!*@*
+.PP
+.SH "/join \- Rejoindre un salon du serveur sélectionné"
+.br
+\&Utilisation : /join #CHANNEL [KEY]
+.PP
+.br
+\&Nécessite l'enregistrement. La clé est un seul jeton ASCII imprimable; elle n'est ni sauvegardée ni gardée dans l'historique des commandes.
+.br
+\&En connexion directe, le canal rejoint la liste d'auto\-adhésion active; les changements /autojoin en attente prévalent à la sauvegarde.
+.br
+\&Utilisez /autojoin pour préparer la prochaine connexion explicite d'un profil direct sans rejoindre maintenant. Le bouncer gère ses adhésions.
+.PP
+.br
+\&Exemples :
+.br
+\&/join #ircnow
+.br
+\&/join #private channel\-key
+.PP
+.SH "/list \- Demander et filtrer l'annuaire des canaux du réseau"
+.br
+\&Utilisation : /list [MASK] [\-\-min\-users N] [\-\-max\-users N] [\-\-name TEXT] [\-\-topic TEXT] [\-\-sort channel|users|topic] [\-\-asc|\-\-desc] [\-\-limit N] | /list show [\-\-sort channel|users|topic] [\-\-asc|\-\-desc] [\-\-limit N] | /list clear
+.PP
+.br
+\&Demande les canaux au serveur IRC choisi ; la connexion doit être enregistrée. Seul MASK est envoyé comme filtre au serveur.
+.br
+\&Les filtres sur le minimum/maximum d'utilisateurs, le nom et le sujet sont locaux, même sans filtres LIST avancés sur le réseau.
+.br
+\&\-\-sort accepte channel, users ou topic ; par défaut users décroissant. \-\-limit 0 ne limite pas l'affichage du cache borné.
+.br
+\&/list show affiche le cache ; \-\-sort, \-\-asc/\-\-desc et \-\-limit le trient ou le limitent localement sans nouvelle requête IRC. /list clear vide le cache.
+.br
+\&Une déconnexion ou un refus de LIST conserve le cache partiel mais clôt la requête ; réessayez /list après inscription ou utilisez /list clear.
+.br
+\&L'interface plein écran ouvre un navigateur de canaux triable ; le mode minimal utilise les mêmes options et /list show.
+.br
+\&Utilisez /ls ou /cl pour les canaux locaux ; /list interroge le réseau.
+.PP
+.br
+\&Exemples :
+.br
+\&/list
+.br
+\&/list *linux* \-\-min\-users 5 \-\-max\-users 500
+.br
+\&/list \-\-topic help \-\-sort users \-\-desc \-\-limit 100
+.br
+\&/list show \-\-sort channel \-\-asc \-\-limit 50
+.br
+\&/list clear
+.PP
+.SH "/ls \- Lister les entrées de serveurs, canaux, conversations privées ou non lues"
+.br
+\&Utilisation : /ls [servers|channels|queries|unread]
+.PP
+.br
+\&Sans argument, liste les canaux du serveur choisi. C'est une commande locale, ni commande shell ni requête IRC LIST pour tout le réseau.
+.br
+\&Utilisez /server N, /channel N et /pm NICK pour choisir les entrées correspondantes.
+.PP
+.br
+\&Exemples :
+.br
+\&/ls
+.br
+\&/ls servers
+.br
+\&/ls queries
+.br
+\&/ls unread
+.PP
+.SH "/manual \- Lire le manuel intégré complet"
+.br
+\&Utilisation : /manual
+.PP
+.br
+\&L'aide sur les thèmes et commandes fonctionne hors connexion. /help TOPIC est le raccourci.
+.PP
+.br
+\&Exemples :
+.br
+\&/manual
+.PP
+.SH "/me \- Envoyer une action à la conversation sélectionnée"
+.br
+\&Utilisation : /me TEXT
+.PP
+.br
+\&Nécessite un canal rejoint ou une conversation privée et une connexion enregistrée. Les limites et règles d'envoi s'appliquent.
+.br
+\&L'interface vérifie un message scindé avant de le mettre en file d'attente.
+.PP
+.br
+\&Exemples :
+.br
+\&/me waves
+.PP
+.SH "/mentions \- Voir les mentions ou effacer celles conservées sur tous les serveurs"
+.br
+\&Utilisation : /mentions [clear]
+.PP
+.br
+\&Sélectionne les mentions de ce serveur. Contient un nombre limité de lignes récentes et leurs horodatages d'origine.
+.br
+\&/mentions clear supprime les copies de mentions conservées sur tous les serveurs actifs sans changer de vue.
+.br
+\&L'historique d'origine, les nombres de non\-lus et les tâches en attente sont conservés.
+.br
+\&Utilisez /watch pour du texte littéral supplémentaire; /channel ou /pm revient à une conversation où envoyer.
+.PP
+.br
+\&Exemples :
+.br
+\&/mentions
+.br
+\&/mentions clear
+.br
+\&/channel #ircnow
+.PP
+.SH "/msg \- Envoyer du texte à un pseudo ou à un salon"
+.br
+\&Utilisation : /msg TARGET TEXT
+.PP
+.br
+\&Nécessite l'enregistrement. Crée un plan d'envoi; mode direct/relecture et accord pour scinder restent applicables.
+.br
+\&Ne change pas silencieusement la cible d'envoi. Les messages de services/identifiants sont exclus de l'historique.
+.PP
+.br
+\&Exemples :
+.br
+\&/msg alice Hello
+.br
+\&/msg #ircnow Good evening
+.PP
+.SH "/next \- Sélectionner la conversation suivante sur ce serveur"
+.br
+\&Utilisation : /next
+.PP
+.br
+\&Parcourt les vues serveur, mentions, canaux et privés; ignore le tampon du manuel interne.
+.PP
+.br
+\&Exemples :
+.br
+\&/next
+.PP
+.SH "/nick \- Définir ou demander le pseudonyme actuel"
+.br
+\&Utilisation : /nick NICK
+.PP
+.br
+\&Connecté, demande un changement confirmé par le serveur. Déconnecté, modifie l'identité de la prochaine connexion.
+.br
+\&Les pseudonymes suivent la syntaxe IRC ASCII reconnue et sont limités à 63 octets.
+.PP
+.br
+\&Exemples :
+.br
+\&/nick tutankh\-aten
+.PP
+.SH "/panel \- Ouvrir le panneau de configuration interactif"
+.br
+\&Utilisation : /panel
+.PP
+.br
+\&Choisissez 0 (par défaut) pour les préférences de l'application, ou un panneau de profil 1..8 ; le panneau 1 modifie le profil principal. Ce sont des choix de panneau, pas des ID de tâches du shell.
+.br
+\&Les préférences de l'application regroupent la conservation de l'historique, le mode d'envoi, le format de sortie, les avis de file d'attente et les suggestions de commandes pour tous les serveurs.
+.br
+\&Elles fonctionnent sans serveur configuré. Les choix finaux sont 1 Enregistrer (par défaut) et 2 Appliquer sans enregistrer ; aucun n'établit de connexion.
+.br
+\&Un panneau de serveur contient uniquement ses réglages de connexion, démarrage, authentification, mentions et exclusions.
+.br
+\&Choisir un panneau ne change pas votre conversation.
+.br
+\&Enter conserve la valeur affichée ; '\-' vide un champ facultatif. Escape revient d'une question à la fois ; répétez pour quitter sans appliquer les modifications.
+.br
+\&Tab sélectionne l'en\-tête de la question. Appuyez sur ? à cet endroit pour l'aide sur l'option et son écran ; Tab ou Enter reprend la réponse.
+.br
+\&Toute réponse modifiable conserve ? comme texte littéral, y compris en premier caractère et dans les masques à caractères génériques.
+.br
+\&Les termes surveillés et masques d'exclusion se saisissent un par un ; une nouvelle entrée vide termine la liste.
+.br
+\&La saisie des identifiants est masquée et les réponses de configuration n'entrent jamais dans l'historique des commandes. Les fichiers d'identifiants existants ne sont pas lus pendant la modification.
+.br
+\&Pour une source GPG, choisissez Créer ou Utiliser un fichier existant. La création propose un chemin privé par défaut ; Enter l'accepte et prépare son répertoire (0700).
+.br
+\&Toute autre destination doit se trouver dans un répertoire existant vous appartenant, de mode 0700. Le chemin est vérifié avant les questions sur la clé et le mot de passe.
+.br
+\&La création demande ensuite l'empreinte complète d'une clé publique locale et le mot de passe deux fois. Aucun fichier ni lien symbolique existant n'est remplacé.
+.br
+\&Les chemins d'identifiants sont enregistrés sous forme absolue. /autoauth status montre leurs emplacements configurés complets sans lire leur contenu.
+.br
+\&Le chiffrement commence seulement après Terminer, laisse IRC réactif et n'utilise jamais de fichier temporaire en clair. Escape annule le travail en attente.
+.br
+\&Si l'enregistrement de la configuration échoue, le résultat déjà chiffré reste disponible pour une nouvelle tentative explicite ; les fichiers référencés par une configuration enregistrée sont conservés.
+.br
+\&Le mode test ne lance pas GPG et ne crée pas de fichiers d'identifiants. Déverrouillez la clé privée correspondante à l'extérieur du programme avant l'authentification.
+.br
+\&Les choix finaux du panneau de serveur sont 1 Enregistrer et connecter, 2 Enregistrer seulement (par défaut), 3 Connecter une fois et 4 Appliquer seulement.
+.br
+\&Ouvrir le panneau ou répondre aux questions précédentes n'applique rien, n'enregistre rien et ne connecte pas.
+.br
+\&Connecter une fois applique sans enregistrer; Appliquer seul n'enregistré ni ne connecte. Une liaison active ne change jamais de cible ni ne se reconnecte implicitement.
+.br
+\&Un échec de connexion n'annule pas les changements déjà appliques ou enregistrés par l'action finale.
+.br
+\&Utilisez /quickstart pour une configuration abrégée du serveur, du transport, du port et du pseudonyme.
+.PP
+.br
+\&Exemples :
+.br
+\&/panel
+.PP
+.SH "/part \- Quitter un salon avec un motif facultatif et garder son historique"
+.br
+\&Utilisation : /part [#CHANNEL] [MESSAGE]
+.PP
+.br
+\&Sans canal, quitte le canal rejoint sélectionné. Le texte après un canal est la raison PART; sans canal, le texte est la raison du canal sélectionné.
+.br
+\&Sans raison explicite, part_message est utilisé s'il est configuré. L'entrée d'auto\-adhésion active est supprimée.
+.br
+\&Les messages en attente pour ce canal sont annulés; un envoi en cours peut finir. Utilisez /close pour retirer la vue.
+.PP
+.br
+\&Exemples :
+.br
+\&/part
+.br
+\&/part Going offline
+.br
+\&/part #old Moving elsewhere
+.PP
+.SH "/pm \- Sélectionner ou ouvrir une conversation privée sans envoyer"
+.br
+\&Utilisation : /pm NICK|NUMBER
+.PP
+.br
+\&Les noms ouvrent ou choisissent un privé. Les numéros choisissent un privé existant dans la liste /ql de ce serveur.
+.br
+\&Ouvrir un privé ne contacte pas le pseudo avant l'envoi d'un message. Les numéros peuvent changer après fermeture.
+.PP
+.br
+\&Exemples :
+.br
+\&/pm alice
+.br
+\&/ql
+.br
+\&/pm 1
+.PP
+.SH "/prev \- Sélectionner la conversation précédente sur ce serveur"
+.br
+\&Utilisation : /prev
+.PP
+.br
+\&C'est l'inverse de /next. Ne connecte pas, ne rejoint pas de canal et n'envoie rien.
+.PP
+.br
+\&Exemples :
+.br
+\&/prev
+.PP
+.SH "/ql \- Lister les conversations privées du serveur sélectionné"
+.br
+\&Utilisation : /ql
+.PP
+.br
+\&Les privés commencent au numéro 1, distinct des canaux. Utilisez /query NICK ou /query NUMBER.
+.br
+\&Utilisez /close NICK pour fermer un privé; relancez /ql car les numéros suivants peuvent changer.
+.PP
+.br
+\&Exemples :
+.br
+\&/ql
+.br
+\&/query 1
+.br
+\&/query alice
+.PP
+.SH "/queries \- Lister les conversations privées (alias de /ql)"
+.br
+\&Utilisation : /queries
+.PP
+.br
+\&Utilise la même liste de privés que /ql. La numérotation des canaux reste distincte.
+.PP
+.br
+\&Exemples :
+.br
+\&/queries
+.br
+\&/pm alice
+.PP
+.SH "/query \- Ouvrir ou sélectionner une conversation privée"
+.br
+\&Utilisation : /query NICK|NUMBER
+.PP
+.br
+\&Sélectionne une conversation privée sans envoyer de message. Tapez normalement pour écrire à ce pseudonyme.
+.br
+\&Utilisez /ql pour lister les conversations numérotées et /close NICK pour en fermer une. /pm accepte les mêmes noms et numéros.
+.br
+\&Le numéro doit désigner une conversation existante sur le serveur choisi ; 0 ne sélectionne ni ne crée de conversation.
+.PP
+.br
+\&Exemples :
+.br
+\&/query alice
+.br
+\&/ql
+.br
+\&/query 1
+.br
+\&/close alice
+.PP
+.SH "/quickstart \- Ouvrir l'assistant de connexion"
+.br
+\&Utilisation : /quickstart
+.PP
+.br
+\&Modifiez dans l'ordre le serveur, le transport TLS, le port et le pseudo du profil courant, puis verifiez les réglages.
+.br
+\&TLS vérifié est la valeur par defaut. Une liaison en clair doit être choisie explicitement.
+.br
+\&Enter conserve la valeur affichée. Escape remonte d'une question; repetez pour sortir sans appliquer. Les réponses n'entrent pas dans l'historique des commandes.
+.br
+\&A la verification finale: 1 Enregistrer et connecter, 2 Enregistrer seul, 3 Connecter une fois (defaut), 4 Appliquer seul.
+.br
+\&Ouvrir l'assistant et repondre aux questions ne change rien, n'enregistré aucun fichier et ne connecte pas.
+.br
+\&Connecter une fois applique sans enregistrer; Appliquer seul n'enregistré ni ne connecte. Une liaison active ne change jamais de cible ni ne se reconnecte implicitement.
+.br
+\&Un échec de connexion n'annule pas les changements déjà appliques ou enregistrés par l'action finale.
+.br
+\&Utilisez /panel pour les profils de bouncer et les choix avances. Quickstart ne modifie pas un identifiant de bouncer existant.
+.PP
+.br
+\&Exemples :
+.br
+\&/quickstart
+.PP
+.SH "/quit \- Quitter le programme et fermer toutes les sessions"
+.br
+\&Utilisation : /quit [MESSAGE]
+.PP
+.br
+\&Envoie MESSAGE comme raison IRC QUIT au mieux sur chaque serveur actif, sinon quit_message; puis restaure le terminal et quitte.
+.br
+\&Utilisez /background pour garder les connexions actives.
+.PP
+.br
+\&Exemples :
+.br
+\&/quit
+.br
+\&/quit Client restart
+.PP
+.SH "/save \- Enregistrer le serveur actuel, les préférences de l'application ou tous les profils"
+.br
+\&Utilisation : /save [input|output|all]
+.PP
+.br
+\&/save seul enregistré les réglages effectifs du serveur choisi, y compris les modifications de connexion en attente.
+.br
+\&/save input et /save output enregistrent tous deux le profil principal complet: preferences et connexion preparee. Ils ne limitent pas la sauvegarde au sous\-ensemble nomme.
+.br
+\&/save all enregistré chaque profil sain séparément. Si l'un échoue, les precedents restent sauves et les erreurs sont indiquees.
+.br
+\&Chaque remplacement de fichier est prive et atomique, mais l'ensemble n'est pas une transaction unique. Le mode test n'ecrit jamais de configuration.
+.PP
+.br
+\&Exemples :
+.br
+\&/save
+.br
+\&/set send_mode review
+.br
+\&/save input
+.br
+\&/save all
+.PP
+.SH "/saveconf \- Enregistrer la configuration et retenir la connexion sélectionnée"
+.br
+\&Utilisation : /saveconf
+.PP
+.br
+\&Enregistre les préférences et tous les serveurs sains, puis retient le serveur choisi comme défaut.
+.br
+\&Au prochain lancement, /connect réutilise ce défaut; aucun numéro de serveur ni assistant distinct n'est nécessaire.
+.br
+\&Inclut pseudo, canaux, authentification et options de départ; les modifications explicites en attente priment.
+.br
+\&Cela n'active pas la connexion automatique au démarrage. Utilisez d'abord /autoconnect on si souhaité.
+.br
+\&Chaque fichier est remplacé de manière privée et atomique. Les écritures réussies restent même si une autre échoue.
+.br
+\&Le défaut est retenu si sa propre sauvegarde réussit; les erreurs sont signalées et les profils illisibles préservés.
+.br
+\&Le mode test n'écrit jamais de configuration. /save conserve des options ciblées pour profils et préférences.
+.PP
+.br
+\&Exemples :
+.br
+\&/connect irc.example.org
+.br
+\&/join #chat
+.br
+\&/saveconf
+.br
+\&/quit
+.PP
+.SH "/server \- Se connecter à un serveur ou en sélectionner un existant"
+.br
+\&Utilisation : /server [\-tls|\-plain] [\-nick NICK] HOST [PORT] | /server [NUMBER|add HOST [PORT] [NICK]|connect NUMBER|disconnect NUMBER|close NUMBER]
+.PP
+.br
+\&Avec un nom d’hôte, équivaut à /connect direct. Inutile de créer un profil au préalable.
+.br
+\&Sans argument, ouvre les messages/MOTD du serveur actuel. NUMBER choisit un emplacement sans connecter.
+.br
+\&add crée un profil avec nouveaux identifiants, TLS vérifié et autoconnect désactivé ; ne choisit, connecte ou sauvegarde rien.
+.br
+\&PORT vaut 6697 par défaut. Un autre port ne désactive pas TLS ; une connexion non chiffrée doit être choisie explicitement.
+.br
+\&connect/disconnect ne changent pas la sélection. close retire une session/entrée secondaire, pas son fichier de profil.
+.br
+\&Numéros de serveur minimalistes : 1..8, principal 1. Le principal reste ; déconnectez\-le plutôt que le fermer.
+.br
+\&Les numéros restent fixes durant la session. Panel 0 est réservé aux préférences de l’application.
+.PP
+.br
+\&Exemples :
+.br
+\&/server irc.example.org
+.br
+\&/join #chat
+.br
+\&/saveconf
+.br
+\&/servers
+.br
+\&/server 1
+.PP
+.SH "/servers \- Lister toutes les sessions serveur configurées"
+.br
+\&Utilisation : /servers
+.PP
+.br
+\&Affiche les emplacements serveur 1..8 (principal 1) du mode minimal, le serveur choisi, son état et autoconnect par serveur.
+.br
+\&Un profil chargé reste disponible même sans connexion.
+.PP
+.br
+\&Exemples :
+.br
+\&/servers
+.br
+\&/server 1
+.PP
+.SH "/set \- Choisir les préférences de saisie, de sortie et de présence pour toute l'application"
+.br
+\&Utilisation : /set send_mode direct|review | /set composer_mode line|fullscreen | /set output_format compact|full | /set queue_notices on|off | /set program_messages on|off | /set persistent_logging on|off | /set single_session on|off | /set default_interface idle|ncurses | /set command_suggestions alphabetical|common|history|frequent|contextual | /set part_message [TEXT] | /set quit_message [TEXT] | /set background_away on|off | /set background_away_message TEXT | /set autoaway_minutes 0..1440 | /set autoaway_message TEXT
+.PP
+.br
+\&direct est le mode par défaut : Enter envoie le texte ; plusieurs messages IRC imposent une confirmation.
+.br
+\&review ajoute une étape de vérification volontaire avant de mettre les messages habituels en file.
+.br
+\&output_format compact est le défaut : le chat choisi affiche [HH:MM:SS] <nick> texte.
+.br
+\&output_format full inclut serveur, date et cible par ligne. compact conserve l'origine utile des mentions et diagnostics d'autres serveurs.
+.br
+\&queue_notices off masque les avis ordinaires de file. En mode minimal, un envoi déjà vérifié évite l'avis redondant. Erreurs et confirmation multi\-messages restent visibles.
+.br
+\&program_messages off masque les avis locaux secondaires : brouillon annulé, saisie effacée ou brouillon conservé. Erreurs et confirmations de sécurité restent visibles.
+.br
+\&persistent_logging on écrit le chat dans un .log privé (0600) sous le dossier privé (0700) de configuration. Désactivé par défaut ; limite 16 MiB : archiver puis basculer off/on. Fichier dangereux/occupé arrête le journal, pas le chat.
+.br
+\&single_session on limite à un seul travail en arrière\-plan du client : \-\-resume sans numéro est clair. Plusieurs serveurs IRC restent possibles dans la même session.
+.br
+\&default_interface choisit l'interface du prochain lancement neuf, si pris en charge, sans changer l'actuelle. /save input enregistre ce choix.
+.br
+\&command_suggestions choisit l'ordre alphabétique, les commandes communes, récentes, fréquentes ou liées à l'écran d'origine.
+.br
+\&composer_mode line garde une ligne de saisie sous le chat en direct ; fullscreen offre un éditeur multiligne et un volet chat. Défaut : line.
+.br
+\&part_message et quit_message sont les motifs IRC par défaut ; un texte explicite /part ou /quit prime. Une valeur vide désactive le motif.
+.br
+\&background_away envoie background_away_message après /background réussi ou perte du terminal. autoaway_minutes règle away après inactivité ; 0 désactive.
+.br
+\&Seul l'état away créé par le client est effacé à la reprise ou à une vraie saisie locale. Un /away manuel n'est ni modifié ni effacé.
+.br
+\&«Fréquemment utilisé» est le défaut. «Contextuel» favorise les commandes de canal, dialogue, serveur ou client tout en gardant les autres correspondances.
+.br
+\&«Fréquemment utilisé» suit un ordre utile prédéfini. «Contextuel» retient l'écran d'origine, y compris le lecteur de résumé général.
+.br
+\&Ces préférences s'appliquent à tous les serveurs. Utilisez /save input ou /save output pour les conserver.
+.br
+\&/panel puis 0 modifie ces préférences et la limite globale d'historique.
+.br
+\&onekeyirc utilise toujours idle. Son panneau d'application omet le choix de l'interface ; /set default_interface accepte uniquement idle.
+.br
+\&L'analyseur de configuration commun conserve l'une ou l'autre des valeurs enregistrées reconnues. Une valeur ncurses enregistrée ne change pas l'interface de ce client autonome.
+.PP
+.br
+\&Exemples :
+.br
+\&/set send_mode review
+.br
+\&/set composer_mode line
+.br
+\&/set command_suggestions contextual
+.br
+\&/save input
+.br
+\&/set output_format full
+.br
+\&/set queue_notices off
+.br
+\&/set program_messages off
+.br
+\&/set persistent_logging on
+.br
+\&/set single_session on
+.br
+\&/save output
+.PP
+.SH "/settings \- Afficher les réglages effectifs avec les identifiants masqués"
+.br
+\&Utilisation : /settings
+.PP
+.br
+\&Affiche les préférences de l'application séparément des options de connexion en attente du serveur choisi.
+.br
+\&Les valeurs d'authentification sont indiquées par type de source; mots de passe et chemins secrets ne sont jamais affichés.
+.br
+\&Utilisez /autoconnect, /autojoin, /autoauth et /set pour modifier leurs réglages respectifs.
+.PP
+.br
+\&Exemples :
+.br
+\&/settings
+.br
+\&/help configuration
+.PP
+.SH "/sl \- Lister les serveurs (alias de /servers)"
+.br
+\&Utilisation : /sl
+.PP
+.br
+\&Utilise la même liste de serveurs configurés et les mêmes numéros d'emplacement stables que /servers.
+.br
+\&Utilisez /server NUMBER pour en choisir un.
+.PP
+.br
+\&Exemples :
+.br
+\&/sl
+.br
+\&/server 1
+.PP
+.SH "/soju \- Contrôler le bouncer soju sélectionné"
+.br
+\&Utilisation : /soju [COMMAND]
+.PP
+.br
+\&Un profil soju connecté, configuré dans /panel, est requis. Sans argument, demande l'aide de BouncerServ.
+.br
+\&COMMAND est envoyé en un message privé cadencé, sans écho local ni historique des commandes.
+.br
+\&Une connexion IRC directe ne peut pas utiliser ce raccourci. Les réponses sont dans la vue serveur.
+.br
+\&Consultez l'aide du bouncer pour les commandes de compte et de réseau.
+.PP
+.br
+\&Exemples :
+.br
+\&/soju
+.br
+\&/soju network status
+.PP
+.SH "/summary \- Résumer toutes les sessions de serveur actuelles et leur activité"
+.br
+\&Utilisation : /summary
+.PP
+.br
+\&Affiche tous les serveurs, channel 0, vues des canaux/discussions, activité non lue, mentions, files sortantes, commandes de démarrage et transferts.
+.br
+\&C’est un résumé local disponible hors connexion. Pressez r dans son lecteur ou relancez\-le pour actualiser.
+.br
+\&L’ouvrir ne change pas la discussion ni les états de lecture. Les mentions copiées ne comptent pas dans l’activité totale.
+.br
+\&Une mention peut aussi être non lue : n’additionnez pas les totaux. Les canaux rejoints et quittés sont distingués.
+.br
+\&Le rapport possède un lecteur défilant et garde les brouillons. La barre oblique ouvre les commandes ; annuler revient au résumé.
+.br
+\&Si l’actualisation échoue, l’ancien résumé reste. L’ouvrir ou l’actualiser ne demande rien au réseau.
+.br
+\&Ni les identifiants ni le contenu des messages en file ou commandes automatiques ne sont affichés.
+.PP
+.br
+\&Exemples :
+.br
+\&/summary
+.PP
+.SH "/topic \- Demander ou modifier le sujet du canal actuel"
+.br
+\&Utilisation : /topic [TEXT]
+.PP
+.br
+\&Exige l'enregistrement et l'adhésion au canal. Sans texte, consulte le sujet; sinon envoie TEXT tel quel.
+.br
+\&Le serveur décide si vos droits sur le canal permettent le changement.
+.PP
+.br
+\&Exemples :
+.br
+\&/topic
+.br
+\&/topic Welcome to our channel
+.PP
+.SH "/transfers \- Gérer les transferts de fichiers (alias de /dcc)"
+.br
+\&Utilisation : /transfers [ARGUMENTS]
+.PP
+.br
+\&Mêmes commandes et protections que /dcc. Voir /help dcc pour envoyer, recevoir et annuler.
+.PP
+.br
+\&Exemples :
+.br
+\&/transfers
+.br
+\&/transfers alice file.txt
+.PP
+.SH "/unbind \- Supprimer un ou tous les raccourcis personnalisés"
+.br
+\&Utilisation : /unbind KEY|all
+.PP
+.br
+\&Retirer une touche restaure son comportement normal là où elle était personnalisée. all efface seulement la liste des raccourcis.
+.br
+\&Effet immédiat sur tous les serveurs. Utilisez /save input pour conserver ce changement au redémarrage.
+.PP
+.br
+\&Exemples :
+.br
+\&/unbind F7
+.br
+\&/unbind all
+.br
+\&/save input
+.PP
+.SH "/unignore \- Supprimer un masque d'exclusion local"
+.br
+\&Utilisation : /unignore MASK
+.PP
+.br
+\&Équivaut à /ignore remove MASK. Enregistrez le profil choisi pour conserver le changement.
+.PP
+.br
+\&Exemples :
+.br
+\&/unignore noisy!*@*
+.PP
+.SH "/unread \- Lister les conversations non lues sur tous les serveurs"
+.br
+\&Utilisation : /unread
+.PP
+.br
+\&Les lignes affichent le numéro du serveur, le nom du dialogue, les messages non lus et les mentions.
+.br
+\&Utilisez /server NUMBER puis /channel ou /pm pour choisir une conversation.
+.PP
+.br
+\&Exemples :
+.br
+\&/unread
+.br
+\&/server 1
+.br
+\&/pm alice
+.PP
+.SH "/users \- Afficher les utilisateurs connus du canal actuel ou d'un canal nommé"
+.br
+\&Utilisation : /users [#CHANNEL]
+.PP
+.br
+\&C’est une liste textuelle d’utilisateurs, pas un réglage de visibilité. Les préfixes de mode connus y figurent.
+.br
+\&La liste s’ouvre dans un lecteur distinct même vide. Enter, Escape ou q ramène au chat choisi.
+.br
+\&Up/Down et Page Up/Down font défiler la liste. Dans Help, Enter poursuit le défilement.
+.br
+\&Une réponse NAMES incomplète ou limitée est signalée. Aucune demande WHOIS n’est envoyée.
+.PP
+.br
+\&Exemples :
+.br
+\&/users
+.br
+\&/users #ircnow
+.PP
+.SH "/view \- Sélectionner une conversation par nom ou un canal par numéro"
+.br
+\&Utilisation : /view NAME|NUMBER
+.PP
+.br
+\&Les canaux sont numérotés par /channels, les privés nommés par /ql. Serveur et mentions sont aussi acceptés.
+.br
+\&Utilisez /help plutôt que de choisir le tampon du manuel interne.
+.PP
+.br
+\&Exemples :
+.br
+\&/view #ircnow
+.br
+\&/view alice
+.br
+\&/view 0
+.PP
+.SH "/views \- Lister les canaux (alias de /channels)"
+.br
+\&Utilisation : /views
+.PP
+.br
+\&Cet alias utilise les numéros de canaux; les privés restent dans /ql.
+.PP
+.br
+\&Exemples :
+.br
+\&/views
+.PP
+.SH "/watch \- Gérer des chaînes littérales supplémentaires de mention"
+.br
+\&Utilisation : /watch [list|add TEXT|remove TEXT]
+.PP
+.br
+\&Les mentions du pseudonyme restent actives. Add/remove traite la suite en texte littéral, pas en expression régulière.
+.br
+\&Jusqu’à 32 chaînes en plus, de 1..127 octets UTF\-8 par serveur. Utilisez /save pour les garder.
+.PP
+.br
+\&Exemples :
+.br
+\&/watch list
+.br
+\&/watch add release day
+.br
+\&/watch remove release day
+.br
+\&/mentions
+.PP
+.SH "/whois \- Demander au serveur des informations sur un pseudonyme"
+.br
+\&Utilisation : /whois NICK
+.PP
+.br
+\&Nécessite une inscription. Ouvre la vue du serveur pour afficher sa réponse. Aucune commande locale n'est exécutée.
+.PP
+.br
+\&Exemples :
+.br
+\&/whois alice
+.PP
+.SH "/znc \- Contrôler le bouncer ZNC sélectionné"
+.br
+\&Utilisation : /znc [COMMAND]
+.PP
+.br
+\&Un profil ZNC connecté, configuré dans /panel, est requis. Sans argument, demande Help à *status.
+.br
+\&COMMAND est envoyé en un message privé cadencé, sans écho local ni historique des commandes.
+.br
+\&Utilisez /msg *module COMMAND pour un module ZNC actif. Ses réponses sont dans la vue serveur.
+.br
+\&Une connexion IRC directe ne peut pas utiliser ce raccourci. Consultez l'aide du bouncer pour ses commandes.
+.PP
+.br
+\&Exemples :
+.br
+\&/znc
+.br
+\&/znc ListNetworks
+.br
+\&/znc Connect

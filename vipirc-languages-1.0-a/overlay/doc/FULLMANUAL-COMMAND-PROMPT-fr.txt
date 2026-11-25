@@ -1,0 +1,22 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / COMMAND PROMPT
+English source SHA-256: 26d0386cf8c86773f04d44700c574befc084cde6939832553f44b1d52e3b3b6f
+Source lines: 479-539
+
+SAISIE DES COMMANDES
+
+Ouvrez Command avec F1 > Command, avec /, ou en tapant / à la position zéro du curseur de discussion. Le brouillon et le curseur du chat sont préservés indépendamment. Une barre oblique ailleurs, ou dans un collage protégé du chat, reste du texte. Enter/Run envoie la commande ; Escape/Cancel revient à l'écran d'origine, y compris Summary. Une saisie vide ne fait rien. Une commande acceptée revient au chat sauf si elle ouvre un autre écran ; une commande invalide/refusée reste modifiable.
+
+Paramètres > Interface > Command suggestions propose cinq classements : Commonly used (sélection par défaut adaptée à la connexion/vue), Recent history (lignes complètes acceptées, récentes d'abord), Most used (compteurs de commandes canoniques du profil enregistré), Alphabetical (noms implémentés) et Contextual (priorité à l'écran ayant ouvert Command, autres correspondances conservées).
+
+Tapez un préfixe de nom sans tenir compte de la casse pour filtrer ; les arguments ne sont pas prédits. Down sélectionne, Up/Down parcourt les propositions et Up depuis la première retourne à la saisie. Enter sur une suggestion ne fait que l'insérer, sans exécution : le catalogue garde les arguments déjà saisis, tandis que l'historique insère toute la ligne. Relisez/modifiez, puis pressez Enter séparément après affichage. Les octets Enter supplémentaires du même lot ne peuvent l'exécuter. ? sur une suggestion sélectionnée ouvre l'aide puis restaure la sélection ; ? dans le champ de saisie est littéral.
+
+Delete enlève une entrée Recent sélectionnée ou remet un compteur Most used à zéro, jamais la commande prise en charge. Page Up/Page Down ou la molette fait défiler les propositions. Les lignes invisibles dans un terminal minuscule ne peuvent être sélectionnées. Right à la fin du préfixe complète/parcourt les noms ; cliquer sur une proposition l'insère. Tab ne navigue pas dans l'en-tête et n'exécute rien. La complétion des pseudos reste dans le chat.
+
+Up depuis la saisie rappelle les commandes acceptées correspondant au préfixe initial ; Down revient vers les plus récentes puis au brouillon d'origine. Les arguments correspondent byte-for-byte. Les commandes échouées ne sont pas enregistrées. L'historique contient au maximum 64 entrées/64 KiB par serveur ; doublons consécutifs supprimés et entrées les plus anciennes évincées. Le rappel dure tant que cette interface et ce serveur restent ouverts ; changer d'interface ou arrêter le worker l'efface.
+
+Les compteurs persistants sont distincts : CONFIG_PATH.commands conserve au plus 96 noms canoniques et des compteurs bornés, sans arguments, cibles ni chat. Un profil enregistré permet des mises à jour atomiques et privées à chaque commande acceptée ou remise à zéro ; les profils non enregistrés les gardent en mémoire jusqu'à Save. Un fichier de compteurs absent/corrompu ne bloque pas le démarrage. Test mode ne les lit ni ne les écrit ; la configuration principale ne les stocke pas.
+
+Les joins avec clé et les messages de service/authentification reconnus sont totalement exclus du rappel ; même les messages anodins à des services sensibles connus le sont. Ce filtrage ne repère pas tous les secrets arbitraires : ne les saisissez pas dans le chat ordinaire. Voir BOUNCER CONNECTIONS pour les contrôles du bouncer.
+
+Coller dans Command n'est qu'une donnée : CR/LF/Tab deviennent des espaces, les contrôles/taille interdits sont signalés et un nouvel Enter/Run reste nécessaire. Aucune syntaxe de citation, substitution, chaîne de commandes ni exécution de shell. TEXT/PATH consomme littéralement le reste ; protégez #channel seulement dans un véritable shell. /msg, /me et // conservent les limites, la temporisation et l'accord obligatoire pour scinder un message, avec No comme réponse par défaut. // est du chat littéral et ne rejoint pas l'historique des commandes. Join/New préremplit /join ou /pm.

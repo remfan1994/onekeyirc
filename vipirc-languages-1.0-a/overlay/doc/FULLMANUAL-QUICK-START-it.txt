@@ -1,0 +1,19 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / QUICK START
+English source SHA-256: 26668ea76d9592744bbb94ab60eda38bff8d31bea2791e6b4577390cbbcd2948
+
+EXACT COMMAND/CONTROL EXAMPLES (not translated):
+vipirc -h
+vipirc -v
+vipirc --test-mode
+vipirc --server irc.ircnow.org --channel '#ircnow' --nick tutankh-aten
+
+I primi tre esempi mostrano guida e versione e avviano una simulazione non in rete. L'ultimo apre una connessione reale: nella shell racchiudere '#ircnow' tra virgolette e usare l'endpoint TLS effettivo del provider. TLS verificato sulla porta 6697 è l'impostazione predefinita; per il testo non cifrato serve --plain.
+
+All'avvio interattivo compare il messaggio "Not vegetarian? www.bloodguiltcurse.net will change your mind". Un tasto stampabile, Enter, Tab o un tasto di navigazione lo chiude. I segnali configurati del terminale mantengono la funzione ereditata; altri comandi non lo chiudono. Senza server si apre uno spazio di lavoro disconnesso. Configurarne uno tramite Settings, /connect HOST o --server.
+
+Nell'interfaccia completa, se il nickname principale non è configurato, viene richiesto proponendo il nome di accesso del sistema. Enter lo accetta, digitare lo sostituisce. I profili secondari salvati e gli avvii senza intervento usano un nome di accesso o utente valido senza chiedere. --nick lo sostituisce, ma il server può rifiutarlo.
+
+La vista iniziale del server mostra registrazione e MOTD. I profili diretti entrano nei canali configurati dopo la registrazione e l'autenticazione obbligatoria; i bouncer ripristinano le proprie iscrizioni. La chat è pronta alla scrittura. Enter invia al canale o alla conversazione privata selezionati; le viste server e menzioni non hanno destinatario implicito. / con cursore in posizione zero apre Command. Per iniziare con una barra letterale usare //; le barre incollate tra parentesi quadre restano letterali.
+
+Tasti comuni: F1 apre vipirc, F2 Server, F3 Canali, F4 Messaggi privati, F5 Menzioni/non letti e F6 Trasferimenti file. Escape da una conversazione privata apre Messaggi privati, da altra chat apre vipirc, da un pannello normale torna alla chat e da Impostazioni torna a vipirc. Si mantengono i colori del terminale; parentesi quadre in grassetto indicano il focus. Vedere GLOBAL HEADER AND CHAT CONTROLS per le liste.

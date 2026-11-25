@@ -1,0 +1,23 @@
+{
+  " Completed encrypted files are retained for this setup; retry Finish or cancel.": [
+    "Finish"
+  ],
+  "Complete and confirm each GPG password before Finish.": [
+    "Finish"
+  ],
+  "Full file paths are in the Finish review; settings may not be applied.": [
+    "Finish"
+  ],
+  "Panel edits remain private until Finish. Accepting an offered GPG destination can prepare its 0700 directory; encryption, configuration writes and connection actions wait for the final choice.": [
+    "Finish"
+  ],
+  "The destination is checked before the key and password questions. The encrypted file is created only at Finish; existing files are never replaced. Paths are literal, with no shell expansion.": [
+    "Finish"
+  ],
+  "The encrypted credential exists, but its directory could not be synchronized; retry Finish.": [
+    "Finish"
+  ],
+  "not created; created at Finish": [
+    "Finish"
+  ]
+}

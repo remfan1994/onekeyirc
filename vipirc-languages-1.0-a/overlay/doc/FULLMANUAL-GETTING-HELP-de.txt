@@ -1,0 +1,23 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / GETTING HELP
+English source SHA-256: 3be6bd8e2513deace7dbc089f74905843298167e9259b20a4a0495570b4c691f
+
+EXACT COMMAND/CONTROL EXAMPLES (not translated):
+vipirc -h
+vipirc -v
+vipirc --manual
+vipirc -i --manual
+man vipirc
+/help
+/manual
+/help TEXT
+
+vipirc -h bzw. --help zeigt die CLI-Kurzhilfe, vipirc -v bzw. --version die Version. vipirc --manual gibt das ganze Handbuch auf der Standardausgabe aus; vipirc -i --manual die separate Minimalreferenz für Themen und Befehle. man vipirc öffnet die installierte Handbuchseite. Im vollständigen Modus öffnen /help oder /manual dieses Handbuch, /help TEXT durchsucht es nach TEXT.
+
+Im vollständigen Modus sucht /help TEXT im Handbuch, nicht in den Minimalthemen. /help commands und /help ls finden COMMAND PROMPT; /help all öffnet das gesamte Handbuch; /view help funktioniert ebenfalls. Suchphrasen brauchen keine Anführungszeichen. Der Leser läuft auch offline und erhält Ansicht, Entwurf und Cursorposition. Hier startet / die Suche; im minimalistischen Hilfe-/Antwortleser öffnet / Command. Hilfe nach Symptomen steht in doc/TROUBLESHOOTING.txt.
+
+Mit ? während der Navigation erhalten Sie Erklärungen zum ausgewählten Element und Bildschirm. Die Kontexthilfe enthält einen About-Link: Left/Right oder Tab wählt eine Aktion, Enter führt sie aus, Escape kehrt zur genauen Ausgangsansicht und Auswahl zurück. In editierbaren Feldern bleibt ? ein Zeichen. Wählen Sie zuerst einen Command-Vorschlag, bevor Sie dessen Hilfe aufrufen.
+
+Handbuchaktionen sind Zurück, Suchen, Zurück und Weiter. Left/Right oder h/l wählen; Enter führt aus. Up/Down oder k/j scrollen eine Zeile, Page Up/Down eine Seite, Home/End oder g/G zu den Enden. Escape/q/Zurück führt zum ursprünglichen vipirc-Panel oder Chat. F1..F6 öffnet verfügbare Kategorien; der Ansichtswechsel überspringt das Handbuch. / oder Suchen bearbeitet eine wörtliche UTF-8-Suche mit höchstens 256 Byte. Enter sucht, Escape bricht die Eingabe ab. n/Weiter und N/Zurück durchlaufen Treffer zyklisch. ASCII-Groß-/Kleinschreibung wird ignoriert, andere Zeichen gelten wörtlich. Keine Regex, Shell-Syntax oder Suchhistorie. Einfügen wird im Leser und in der Suche ignoriert.
+
+F1 enthält Server, Nick, Einstellungen, Tastenbelegung, Handbuch, Befehl, Hintergrund, Über und die Insha-Allah-Lizenzvereinbarung. Server/Nick öffnet Einstellungen des aktuellen Profils; Nick fokussiert das Feld. Über zeigt Version, Mitwirkende sowie auf Anfrage eine lokale Momentaufnahme von PID, Laufzeit, kumulierten CPU-Werten, unterstütztem Spitzenarbeitsspeicher und Server-/Ansichtszahlen. Spitzenarbeitsspeicher ist nicht der aktuelle Verbrauch; CPU-Summen sind kein momentaner Prozentsatz. Der Lizenzleser zeigt LICENSE.md vollständig. Escape/Enter/q/Zurück führt von Über/Lizenz zu vipirc zurück.

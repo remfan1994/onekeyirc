@@ -1,0 +1,36 @@
+vipirc r100 indirect settings-hint audit
+
+Localized all 27 remaining settings-table hints, including bouncer identities, log limits, away behavior, signals and interface preferences; added a source-derived regression inventory for all 51 settings hints.
+
+New source-linked keys: 27
+  Next connection: an ASCII IRC username, at most 32 bytes.
+  Next connection: UTF-8 descriptive text, at most 127 bytes.
+  Next connection: comma-separated channel names; empty means server view.
+  Connect automatically at future startup; does not connect this session.
+  Direct IRC, ZNC, or soju. Changing type clears old credentials, startup commands and bouncer identity, requires TLS for bouncers, and keeps the provider's port.
+  Bouncer account only, not NickServ. Up to 63 ASCII letters, digits, '.', '_' or '-'; changing it clears old credentials.
+  One network name configured on your bouncer. Up to 63 ASCII letters, digits, '.', '_' or '-'; changing it clears old credentials.
+  Optional stable device name, such as laptop. Up to 63 ASCII letters, digits, '.', '_' or '-'; changing it clears old credentials.
+  Off lets the bouncer manage automatic away. On applies this client's idle/background-away rules to this profile. Manual /away and /back always work.
+  Apply now: show the current channel's user list when width permits.
+  Apply now: enable supported terminal mouse events.
+  Apply now: show optional tips; errors and safety warnings stay visible.
+  Apply now: show ordinary F1..F6 labels in the top bar. User bindings can override those keys in chat and Command.
+  Apply now: show routine queued/paced acknowledgements; errors and confirmation remain visible.
+  Apply now: show low-priority local feedback such as draft cancellation and input-cleared notices; errors and confirmations remain visible.
+  Apply now: private logs stop at 16 MiB each. Archive the log and toggle off/on to resume. Off leaves history memory-only.
+  Apply now: allow only one background job for this client namespace so bare --resume is unambiguous.
+  Apply now: default reason for /part and channel Close. Empty sends no default PART reason.
+  Apply now: default reason when quitting without an explicit message. Empty sends a bare QUIT.
+  Apply now: after /background or managed terminal loss, mark live IRC sessions away without delaying detach.
+  Apply now: AWAY text used for client-generated background/terminal-loss away status.
+  Apply now: minutes without local input before automatic AWAY. 0 disables idle auto-away.
+  Apply now: AWAY text used by the local-idle timer. Manual /away is never cleared automatically.
+  Choose common tasks, recent history, personal usage, alphabetical order, or commands for the invoking screen.
+  Next launch: ncurses is the full interface; idle is minimalist. Explicit -i or -N overrides this choice for that launch.
+  Apply now: yes makes terminal Ctrl-C interrupt and Ctrl-Z suspend; no (default) makes those keys cancel an unsent compose. External signals still work.
+  Apply now: 50..5000 lines per conversation, subject to global limits.
+
+Coverage: all 40 base-field hints and all 11 conditional and dynamic settings hints have entries in each of ten locale catalogs. No missing hints in this inventory. Literal protocol and configuration choices remain unchanged.
+
+This is a settings-hint inventory, not a source-wide translation completeness claim. Native-speaker and full ncurses validation remain outstanding.

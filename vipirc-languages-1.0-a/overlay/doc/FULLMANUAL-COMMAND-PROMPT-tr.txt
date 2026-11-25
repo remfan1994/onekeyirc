@@ -1,0 +1,22 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / COMMAND PROMPT
+English source SHA-256: 26d0386cf8c86773f04d44700c574befc084cde6939832553f44b1d52e3b3b6f
+Source lines: 479-539
+
+KOMUT İSTEMİ
+
+Command ekranını F1 > Command ile, / ile veya sohbet imleci sıfır konumundayken / yazarak açın. Bağımsız sohbet taslağı ve imleci korunur. Başka konumdaki / ya da sohbetin bracketed paste verisindeki / düz metindir. Enter/Run komutu gönderir; Escape/Cancel, Summary dahil açan ekrana döner. Boş girdi işlem yapmaz. Kabul edilen komutlar başka ekran açmıyorsa sohbete döner; geçersiz veya reddedilenler düzenlenebilir kalır.
+
+Ayarlar > Arayüz > Command suggestions beş düzen sunar: Commonly used (bağlantı/görünüme uyarlanmış varsayılan seçilmiş liste), Recent history (kabul edilmiş tam komut satırları, yenisi önce), Most used (kaydedilmiş profilin kanonik komut sayımları), Alphabetical (uygulanan komut adları), Contextual (açan ekrana öncelik verip diğer eşleşmeleri de tutar).
+
+Önerileri süzmek için büyük/küçük harfe duyarsız komut adı öneki yazın; argüman tahmin edilmez. Down öneri seçer, Up/Down listede gezer; ilk satırdan Up girdiye döner. Öneride Enter yalnızca girdiye ekler, çalıştırmaz: katalog seçimi mevcut argümanları korur, geçmiş seçimi bütün satırı ekler. Gözden geçirip düzenleyin ve ekranda göründükten sonra ayrıca Enter basın. Aynı giriş topluluğundaki ek Enter baytları komutu çalıştıramaz. Seçili satırdaki ? yardımı açıp seçimi geri yükler; girdi alanındaki ? düz metindir.
+
+Delete seçili Recent girişini siler veya Most used sayacını sıfırlar; desteklenen komutu kaldırmaz. Page Up/Page Down ya da fare tekerleği önerileri kaydırır. Dar terminalde görünmeyen satır seçilemez. Komut önekinin sonunda Right tamamlar/sıradakine geçer; öneriye tıklama onu ekler. Tab üst bölümde gezmez ve komut çalıştırmaz. Takma ad tamamlama sohbettedir.
+
+Girdi alanındaki Up, özgün önekle eşleşen kabul edilmiş komutları getirir; Down daha yenilere ve özgün taslağa döner. Argümanlar byte-for-byte eşleşir. Başarısız komutlar kaydedilmez. Geçmiş sunucu başına en fazla 64 giriş/64 KiB tutar; ardışık aynı girişleri tekilleştirir ve eskileri atar. Geri çağırma yalnızca bu arayüz ve sunucu açıkken sürer; arayüz değişikliği veya worker sonu siler.
+
+Kalıcı kullanım sayımları ayrıdır: CONFIG_PATH.commands en fazla 96 kanonik adı ve sınırlı sayacı tutar; argüman, hedef veya sohbet içeriği tutmaz. Kaydedilmiş profil, kabul edilen komut/sıfırlamadan sonra otomatik özel atomik güncelleme yapar; kaydedilmemiş sayımlar Save edilene kadar bellektedir. Eksik/bozuk sayım dosyası başlangıcı engellemez. Test mode sayımları okumaz/yazmaz; ana yapılandırmada bulunmazlar.
+
+Anahtarlı join komutları ve bilinen servis/kimlik doğrulama mesajları geri çağırmadan tamamen çıkarılır. Bilinen hassas servislere zararsız mesajlar da çıkarılır. Bu süzgeç her olası gizli bilgiyi tanıyamaz; sırları sıradan sohbete yazmayın. Bouncer denetimleri BOUNCER CONNECTIONS bölümündedir.
+
+Command alanına yapıştırma sadece veridir: CR/LF/Tab boşluğa dönüşür; desteklenmeyen kontrol ve boyut aşımları raporlanır; yeni Enter/Run yine gerekir. Kabuk tırnaklama, yer değiştirme, komut zincirleme veya kabuk çalıştırma yoktur. TEXT/PATH argümanları kalan metni aynen alır; #channel ifadesini yalnız gerçek kabukta tırnaklayın. /msg, /me ve // mesaj sınırlarını, gönderim aralıklarını ve varsayılanı No olan zorunlu bölme onayını korur. // düz sohbettir, komut geçmişine girmez. Join/New eylemleri /join veya /pm öndoldurur.

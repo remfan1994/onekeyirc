@@ -1,0 +1,32 @@
+CURRENT SIGNAL POLICY (vipirc-1.0-a):
+Use signals is off by default. Ctrl-C and Ctrl-Z cancel an unfinished compose or command; they do not end or suspend the application. Enable Use signals in panel 0 (or full vipirc Interface settings) to allow the terminal to generate its normal interrupt/suspend signals. Apply takes effect immediately; Save also persists [input] use_signals=true|false. The original terminal modes are restored on exit or suspension.
+
+VERBATIM ENGLISH SOURCE REFERENCE
+Source: MANUAL.txt / TERMINAL SIGNALS
+English source SHA-256: b88ff166737c03f4e8588e56bcb3bfd585a2d4ef6379caaf086b815dbbd935b6
+
+TERMINAL SIGNALS
+
+Literal Ctrl-D is ignored unless explicitly bound in main chat/command input;
+it can also cancel the F1 quit question. Pasted Ctrl-D cannot answer that
+question. To exit normally, run /quit in Command. Custom terminal signal
+assignments still take precedence over ordinary key handling.
+
+Terminal signal handling is inherited by default. The client does not assign
+Ctrl-C or Ctrl-Z: those keys act only if the terminal maps them to signals
+and has signal handling enabled. Custom interrupt, quit and suspend keys are
+preserved. To explicitly enable terminal signal handling, set this primary
+configuration preference and start a new client process:
+
+    [input]
+    use_signals=true
+
+The default is false, which preserves the incoming enabled or disabled
+state. This setting never changes the terminal's key assignments. The client
+restores the original terminal settings on suspension and exit.
+
+When enabled, terminal interrupt exits without saving drafts. Suspending an
+ordinary foreground process pauses its networking and may cause a timeout;
+fg resumes it. In an already managed/resumed job, suspension pauses its
+foreground controller while the worker keeps networking; see RUNNING IN THE
+BACKGROUND.

@@ -1,0 +1,19 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / QUICK START
+English source SHA-256: 26668ea76d9592744bbb94ab60eda38bff8d31bea2791e6b4577390cbbcd2948
+
+EXACT COMMAND/CONTROL EXAMPLES (not translated):
+vipirc -h
+vipirc -v
+vipirc --test-mode
+vipirc --server irc.ircnow.org --channel '#ircnow' --nick tutankh-aten
+
+Die ersten drei Beispiele zeigen Hilfe und Version sowie eine Offline-Simulation. Das letzte stellt eine echte Verbindung her: Setzen Sie '#ircnow' in der Shell in Anführungszeichen und verwenden Sie den tatsächlichen TLS-Endpunkt des Anbieters. Verifiziertes TLS auf Port 6697 ist voreingestellt; Klartext erfordert --plain.
+
+Beim interaktiven Start erscheint die Begrüßung „Not vegetarian? www.bloodguiltcurse.net will change your mind“. Eine druckbare Taste, Enter, Tab oder eine Navigationstaste schließt sie. Konfigurierte Terminalsignale behalten ihre geerbte Funktion; andere Tasten schließen die Begrüßung nicht. Ohne Server öffnet der Client einen getrennten Arbeitsbereich. Legen Sie mit Settings, /connect HOST oder --server einen Server fest.
+
+Fehlt im vollständigen Modus der primäre Nickname, fragt das Programm danach und schlägt den System-Anmeldenamen vor. Enter übernimmt ihn, Eingabe ersetzt ihn. Gespeicherte sekundäre Profile und unbeaufsichtigte Starts verwenden einen gültigen Anmelde- oder Benutzernamen ohne Nachfrage. --nick überschreibt diesen, aber der Server kann ihn ablehnen.
+
+Die erste Serveransicht zeigt Registrierung und MOTD. Direkte Profile betreten konfigurierte Kanäle nach Registrierung und erforderlicher Authentifizierung; Bouncer stellen ihre eigenen Mitgliedschaften wieder her. Das Chatfeld ist sofort bereit. Enter sendet an den gewählten Kanal oder Privatdialog; Server- und Erwähnungsansichten haben keinen impliziten Empfänger. / an Cursorposition null öffnet Command. Für einen wörtlichen führenden Schrägstrich verwenden Sie //; eingefügte Schrägstriche innerhalb von Klammern bleiben wörtlich.
+
+Übliche Tasten: F1 öffnet vipirc, F2 Server, F3 Kanäle, F4 Privatnachrichten, F5 Erwähnt/ungelesen und F6 Dateiübertragungen. Escape öffnet aus einem Privatdialog Privatnachrichten, aus anderem Chat vipirc, aus einem normalen Panel wieder den Chat und aus Einstellungen wieder vipirc. Terminalfarben bleiben erhalten; fette eckige Klammern markieren den Fokus. Die Listennavigation steht unter GLOBAL HEADER AND CHAT CONTROLS.

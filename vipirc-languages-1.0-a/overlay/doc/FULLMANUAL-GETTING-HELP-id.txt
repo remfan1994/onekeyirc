@@ -1,0 +1,23 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / GETTING HELP
+English source SHA-256: 3be6bd8e2513deace7dbc089f74905843298167e9259b20a4a0495570b4c691f
+
+EXACT COMMAND/CONTROL EXAMPLES (not translated):
+vipirc -h
+vipirc -v
+vipirc --manual
+vipirc -i --manual
+man vipirc
+/help
+/manual
+/help TEXT
+
+vipirc -h atau --help menampilkan ringkasan CLI; vipirc -v atau --version menampilkan versi. vipirc --manual mencetak manual lengkap ke keluaran standar, sedangkan vipirc -i --manual mencetak referensi topik dan perintah minimalis. man vipirc membuka halaman manual terpasang. Dalam antarmuka lengkap, /help atau /manual membuka manual ini; /help TEXT mencari TEXT di dalamnya.
+
+Dalam mode lengkap, /help TEXT mencari manual, bukan membuka topik bantuan minimalis. /help commands dan /help ls menemukan COMMAND PROMPT; /help all membuka seluruh manual, dan /view help juga dapat digunakan. Frasa pencarian tidak memerlukan tanda kutip. Pembaca bekerja saat terputus dan mempertahankan tampilan, draf, serta posisi kursor. Di sini / memulai pencarian; dalam pembaca bantuan atau respons minimalis, / membuka Command. Lihat doc/TROUBLESHOOTING.txt untuk pemeriksaan menurut gejala.
+
+Tekan ? saat bernavigasi untuk menjelaskan item dan layar yang dipilih. Bantuan kontekstual memuat tautan ke About; Left/Right atau Tab memilih tindakan, Enter menjalankannya, dan Escape kembali ke asal serta pilihan yang tepat. Dalam bidang yang dapat diedit, ? tetap karakter harfiah. Pilih dulu saran Command sebelum meminta bantuannya.
+
+Tindakan manual ialah Kembali, Cari, Sebelumnya, dan Berikutnya. Left/Right atau h/l memilih, Enter menjalankan. Up/Down atau k/j menggulir satu baris; Page Up/Down satu halaman; Home/End atau g/G mencapai ujung. Escape/q/Kembali kembali ke panel vipirc atau obrolan sebelumnya. F1..F6 membuka kategori yang tersedia; perpindahan tampilan melewati manual. / atau Cari menyunting kueri UTF-8 harfiah, maksimum 256 byte. Enter mencari; Escape membatalkan penyuntingan. n/Berikutnya dan N/Sebelumnya berputar melalui kecocokan. Perbedaan huruf besar-kecil ASCII diabaikan, karakter lain dicocokkan apa adanya. Tidak ada ekspresi reguler, sintaks shell, atau riwayat kueri. Tempel diabaikan di pembaca maupun pencarian.
+
+F1 memuat Server, Nama panggilan, Pengaturan, Pintasan tombol, Panduan, Perintah, Latar belakang, Tentang, dan perjanjian lisensi Insha-Allah. Server/Nama panggilan membuka pengaturan profil aktif; Nama panggilan memfokuskan bidangnya. Tentang memperlihatkan versi, kredit, dan cuplikan lokal berdasarkan permintaan: PID, lama berjalan, total CPU, memori puncak yang didukung, serta jumlah server dan tampilan. Memori puncak bukan pemakaian saat ini; total CPU bukan persentase langsung. Pembaca lisensi menampilkan LICENSE.md seluruhnya. Escape/Enter/q/Kembali kembali dari Tentang atau lisensi ke vipirc.

@@ -1,0 +1,12 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / CHANNEL CHOOSER AND CLOSING CONVERSATIONS
+English source SHA-256: da114abc3568be30c5d0cc9c66a970f8f23b79ab9555afca690c56aa25e37060
+
+EXACT COMMAND/CONTROL EXAMPLES (not translated):
+Buka    Sertai    Tinggalkan saluran    Tutup    Kembali
+
+F3 atau /channels (/cl, /views) memaparkan entri pelayan/MOTD nombor 0 dan paparan saluran tersimpan, termasuk yang sudah ditinggalkan. Navigasi senarai biasa terpakai; tindakannya Open, Join, Part, Close dan Back.
+
+Join membuka Command dengan /join disediakan tanpa kehilangan draf. Part meninggalkan saluran tetapi menyimpan sejarah; Close membuang paparan. p melakukan Part, c melakukan Close dan o membuka Join. /channel NUMBER atau #NAME memilih paparan tersimpan; /view NUMBER menggunakan penomboran saluran dan /view NAME memilih paparan bernama. Nombor boleh berubah selepas ditutup; rujuk senarai semasa.
+
+Close mula-mula meninggalkan saluran yang masih disertai, membuang sejarah/drafnya dan membatalkan mesej tertangguh untuk sasaran itu; mesej sedang dihantar mungkin selesai. Draf tidak kosong perlu disahkan dengan No sebagai lalai. Paparan pelayan dan sebutan tidak boleh ditutup; /disconnect menghentikan rangkaian pelayan. /close [NAME|NUMBER] menutup saluran/perbualan ditentukan atau perbualan semasa. Saluran 0 tidak boleh ditinggalkan. Back/Escape kembali ke sembang.

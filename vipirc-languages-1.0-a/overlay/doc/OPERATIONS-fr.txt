@@ -1,0 +1,62 @@
+vipirc / onekeyirc - selected operations help (fr)
+====================================================
+
+DRAFT - selected help excerpts only; not a complete security manual.
+Commands, numeric limits and file names must be entered literally.
+Authoritative reference: English MANUAL.txt and SECURITY.md.
+
+/help deployment
+----------------
+Utilisez --background pour lancer une session sans terminal ni touche d'accueil.
+
+Configurez puis enregistrez /autoconnect on pour chaque serveur à démarrer.
+
+--background n'active pas autoconnect seul; --no-connect interdit toujours les connexions au lancement.
+
+L'avertissement usuel s'affiche une fois avant le détachement. Le succès confirme une tâche locale, pas la connexion IRC.
+
+Depuis un autre terminal du même compte, utilisez --sessions et --resume [NUMBER].
+
+Redémarrer le VPS termine les tâches, brouillons et historique RAM. Une tâche système peut lancer un nouveau client.
+
+Instructions OpenBSD et exemple rc.d facultatif : doc/OPENBSD-VPS.txt.
+
+Exécutez sous un compte normal avec des chemins absolus pour configuration et secrets. Une clé GPG verrouillée ne peut pas demander de saisie au démarrage.
+
+--check-config vérifie les réglages, pas l'accès aux secrets, DNS, TLS ou la connexion IRC.
+
+Utilisez --reconnect lors des coupures réseau temporaires; surveiller les plantages relève du système d'exploitation.
+
+/help security
+--------------
+Le texte distant est assaini avant affichage. L'entrée est interprétée comme commande IRC locale, jamais comme shell.
+
+Pas de /raw, d'échappement shell ni d'acceptation automatique de fichiers. Un collage balisé reconnu n'exécute jamais de commande.
+
+Un bundle CA personnalisé doit être un fichier PEM ordinaire non vide, de 16 MiB au maximum, sans demande de mot de passe.
+
+Aucune transcription sur disque par défaut. Les modifications de configuration nécessitent un enregistrement explicite.
+
+Voir /help tls, /help authentication, /help logging et SECURITY.md pour les limites et anciens audits.
+
+/help history
+-------------
+L'historique affiché et des commandes est borné en RAM. Les journaux persistants sont facultatifs et désactivés par défaut.
+
+Changer de vue réaffiche ses enregistrements récents; /mentions réaffiche les lignes sources correspondantes.
+
+/clear efface l'historique RAM de la vue, pas l'ancien journal disque. Le bouncer fournit son propre rejeu.
+
+Dans Rédiger, Up/Down déplace le curseur sans rappeler les messages envoyés. Seule Commande rappelle les commandes acceptées.
+
+/help hotkeys
+-------------
+Les raccourcis personnalisés sont facultatifs et vides par défaut. Navigation et édition d'origine restent disponibles.
+
+Utilisez /bindings pour la liste, /bindings keys pour les touches et /bindings actions pour les fonctions locales.
+
+Assignez par /bind KEY ACTION; répétez pour remplacer. Retirez avec /unbind KEY ou /unbind all.
+
+/help logging
+-------------
+/clear efface seulement la RAM. Les logs restent après sortie, --close-session et sauvegarde. Désactiver les logs arrête les nouvelles entrées sans effacer les anciennes.

@@ -1,0 +1,353 @@
+Setup and contextual help label review. Physical key names, commands, configuration tokens, and protocol fields unchanged.
+117 edited catalog entries; no new keys.
+id:  Completed encrypted files are retained for this setup; retry Finish or cancel.
+  OLD:  Berkas terenkripsi yang sudah selesai disimpan untuk pengaturan ini; coba Finish lagi atau batalkan.
+  NEW:  Berkas terenkripsi yang sudah selesai disimpan untuk pengaturan ini; coba «Selesai» lagi atau batalkan.
+id: Add creates a disconnected server. Connect also starts the connection. Basic or Advanced changes which connection fields are shown. Cancel discards the form.
+  OLD: Add membuat server tanpa koneksi. Connect juga mulai menghubungkan. Basic atau Advanced mengubah kolom koneksi yang terlihat. Cancel membatalkan formulir.
+  NEW: «Tambah» membuat server tanpa koneksi. «Hubungkan» juga mulai menghubungkan. «Dasar» atau «Lanjutan» mengubah kolom koneksi yang terlihat. «Batal» membatalkan formulir.
+id: Apply uses staged preferences now. Save also writes them to the configuration file. Back returns to the settings groups. Cancel closes the form and discards unapplied edits.
+  OLD: Apply memakai preferensi yang disiapkan sekarang. Save juga menulisnya ke berkas konfigurasi. Back kembali ke grup pengaturan. Cancel menutup formulir dan membuang perubahan yang belum diterapkan.
+  NEW: «Terapkan» memakai preferensi yang disiapkan sekarang. «Simpan» juga menulisnya ke berkas konfigurasi. «Kembali» kembali ke grup pengaturan. «Batal» menutup formulir dan membuang perubahan yang belum diterapkan.
+id: Complete and confirm each GPG password before Finish.
+  OLD: Lengkapi dan konfirmasi setiap kata sandi GPG sebelum Finish.
+  NEW: Lengkapi dan konfirmasi setiap kata sandi GPG sebelum «Selesai».
+id: Full file paths are in the Finish review; settings may not be applied.
+  OLD: Jalur berkas lengkap ada di tinjauan Finish; pengaturan mungkin belum diterapkan.
+  NEW: Jalur berkas lengkap ada di tinjauan «Selesai»; pengaturan mungkin belum diterapkan.
+id: Panel edits remain private until Finish. Accepting an offered GPG destination can prepare its 0700 directory; encryption, configuration writes and connection actions wait for the final choice.
+  OLD: Perubahan panel tetap privat sampai Finish. Menerima tujuan GPG dapat menyiapkan direktori 0700; enkripsi, penulisan konfigurasi, dan koneksi menunggu pilihan akhir.
+  NEW: Perubahan panel tetap privat sampai «Selesai». Menerima tujuan GPG dapat menyiapkan direktori 0700; enkripsi, penulisan konfigurasi, dan koneksi menunggu pilihan akhir.
+id: Peer {address}
+  OLD: Pengguna {address}
+  NEW: Rekan {address}
+id: The destination is checked before the key and password questions. The encrypted file is created only at Finish; existing files are never replaced. Paths are literal, with no shell expansion.
+  OLD: Jalur diperiksa sebelum kunci dan kata sandi. Berkas terenkripsi baru dibuat saat Finish; berkas yang ada tidak diganti. Jalur bersifat literal.
+  NEW: Jalur diperiksa sebelum kunci dan kata sandi. Berkas terenkripsi baru dibuat saat «Selesai»; berkas yang ada tidak diganti. Jalur bersifat literal.
+id: The encrypted credential exists, but its directory could not be synchronized; retry Finish.
+  OLD: Kredensial terenkripsi ada, tetapi direktori gagal disinkronkan; ulangi Finish.
+  NEW: Kredensial terenkripsi ada, tetapi direktori gagal disinkronkan; ulangi «Selesai».
+id: This configuration panel collects answers in a separate draft. Tab selects the answer field or Next, Back and Cancel controls. Enter validates the answer or activates a selected control. The final review applies only the choices you approve. Closing help preserves the answer and draft.
+  OLD: Panel ini mengumpulkan jawaban dalam draf terpisah. Tab memilih kolom jawaban atau tombol Next, Back, Cancel. Enter memeriksa jawaban atau mengaktifkan tombol. Tinjauan akhir hanya menerapkan pilihan yang disetujui. Menutup bantuan mempertahankan jawaban dan draf.
+  NEW: Panel ini mengumpulkan jawaban dalam draf terpisah. Tab memilih kolom jawaban atau tombol «Berikutnya», «Kembali», «Batal». Enter memeriksa jawaban atau mengaktifkan tombol. Tinjauan akhir hanya menerapkan pilihan yang disetujui. Menutup bantuan mempertahankan jawaban dan draf.
+id: Transfer #{number}: {filename}
+  OLD: Transfer #{number}: {filename}
+  NEW: Transfer berkas #{number}: {filename}
+id: Transport
+  OLD: Transport
+  NEW: Jenis koneksi
+id: not created; created at Finish
+  OLD: belum dibuat; dibuat saat Finish
+  NEW: belum dibuat; dibuat saat «Selesai»
+ms:  Completed encrypted files are retained for this setup; retry Finish or cancel.
+  OLD:  Fail tersulit yang sudah disiapkan disimpan untuk persediaan ini; cuba Finish semula atau batalkan.
+  NEW:  Fail tersulit yang sudah disiapkan disimpan untuk persediaan ini; cuba «Selesai» semula atau batalkan.
+ms: Add creates a disconnected server. Connect also starts the connection. Basic or Advanced changes which connection fields are shown. Cancel discards the form.
+  OLD: Add membuat pelayan tanpa sambungan. Connect juga memulakan sambungan. Basic atau Advanced mengubah medan sambungan yang dipaparkan. Cancel membatalkan borang.
+  NEW: «Tambah» membuat pelayan tanpa sambungan. «Sambung» juga memulakan sambungan. «Asas» atau «Lanjutan» mengubah medan sambungan yang dipaparkan. «Batal» membatalkan borang.
+ms: Apply uses staged preferences now. Save also writes them to the configuration file. Back returns to the settings groups. Cancel closes the form and discards unapplied edits.
+  OLD: Apply menggunakan keutamaan yang disediakan sekarang. Save juga menulisnya ke fail konfigurasi. Back kembali ke kumpulan tetapan. Cancel menutup borang dan membuang perubahan yang belum digunakan.
+  NEW: «Guna» menggunakan keutamaan yang disediakan sekarang. «Simpan» juga menulisnya ke fail konfigurasi. «Kembali» kembali ke kumpulan tetapan. «Batal» menutup borang dan membuang perubahan yang belum digunakan.
+ms: Complete and confirm each GPG password before Finish.
+  OLD: Lengkapkan dan sahkan setiap kata laluan GPG sebelum Finish.
+  NEW: Lengkapkan dan sahkan setiap kata laluan GPG sebelum «Selesai».
+ms: Full file paths are in the Finish review; settings may not be applied.
+  OLD: Laluan fail penuh ada dalam semakan Finish; tetapan mungkin belum digunakan.
+  NEW: Laluan fail penuh ada dalam semakan «Selesai»; tetapan mungkin belum digunakan.
+ms: Panel edits remain private until Finish. Accepting an offered GPG destination can prepare its 0700 directory; encryption, configuration writes and connection actions wait for the final choice.
+  OLD: Suntingan panel kekal peribadi hingga Finish. Menerima destinasi GPG boleh menyediakan direktori 0700; penyulitan, simpanan dan sambungan tunggu pilihan akhir.
+  NEW: Suntingan panel kekal peribadi hingga «Selesai». Menerima destinasi GPG boleh menyediakan direktori 0700; penyulitan, simpanan dan sambungan tunggu pilihan akhir.
+ms: The destination is checked before the key and password questions. The encrypted file is created only at Finish; existing files are never replaced. Paths are literal, with no shell expansion.
+  OLD: Laluan disemak sebelum kunci dan kata laluan. Fail tersulit hanya dibuat pada Finish; fail sedia ada tidak diganti. Laluan digunakan secara literal.
+  NEW: Laluan disemak sebelum kunci dan kata laluan. Fail tersulit hanya dibuat pada «Selesai»; fail sedia ada tidak diganti. Laluan digunakan secara literal.
+ms: The encrypted credential exists, but its directory could not be synchronized; retry Finish.
+  OLD: Kelayakan tersulit wujud, tetapi direktori tidak dapat disegerakkan; cuba Finish semula.
+  NEW: Kelayakan tersulit wujud, tetapi direktori tidak dapat disegerakkan; cuba «Selesai» semula.
+ms: This configuration panel collects answers in a separate draft. Tab selects the answer field or Next, Back and Cancel controls. Enter validates the answer or activates a selected control. The final review applies only the choices you approve. Closing help preserves the answer and draft.
+  OLD: Panel ini mengumpulkan jawapan dalam draf berasingan. Tab memilih medan jawapan atau kawalan Next, Back dan Cancel. Enter mengesahkan jawapan atau mengaktifkan kawalan. Semakan akhir hanya menggunakan pilihan diluluskan. Menutup bantuan mengekalkan jawapan dan draf.
+  NEW: Panel ini mengumpulkan jawapan dalam draf berasingan. Tab memilih medan jawapan atau kawalan «Seterusnya», «Kembali» dan «Batal». Enter mengesahkan jawapan atau mengaktifkan kawalan. Semakan akhir hanya menggunakan pilihan diluluskan. Menutup bantuan mengekalkan jawapan dan draf.
+ms: not created; created at Finish
+  OLD: belum dicipta; dicipta pada Finish
+  NEW: belum dicipta; dicipta pada «Selesai»
+tr:  Completed encrypted files are retained for this setup; retry Finish or cancel.
+  OLD:  Tamamlanan şifreli dosyalar bu kurulum için korunur; Finish işlemini tekrar deneyin veya iptal edin.
+  NEW:  Tamamlanan şifreli dosyalar bu kurulum için korunur; «Bitir» işlemini tekrar deneyin veya iptal edin.
+tr: Add creates a disconnected server. Connect also starts the connection. Basic or Advanced changes which connection fields are shown. Cancel discards the form.
+  OLD: Add bağlantısız bir sunucu oluşturur. Connect bağlantıyı da başlatır. Basic veya Advanced görünen bağlantı alanlarını değiştirir. Cancel formu iptal eder.
+  NEW: «Ekle» bağlantısız bir sunucu oluşturur. «Bağlan» bağlantıyı da başlatır. «Temel» veya «Gelişmiş» görünen bağlantı alanlarını değiştirir. «İptal» formu iptal eder.
+tr: Apply uses staged preferences now. Save also writes them to the configuration file. Back returns to the settings groups. Cancel closes the form and discards unapplied edits.
+  OLD: Apply hazırlanan tercihleri hemen uygular. Save bunları yapılandırma dosyasına da yazar. Back ayar gruplarına döner. Cancel formu kapatır ve uygulanmamış değişiklikleri atar.
+  NEW: «Uygula» hazırlanan tercihleri hemen uygular. «Kaydet» bunları yapılandırma dosyasına da yazar. «Geri» ayar gruplarına döner. «İptal» formu kapatır ve uygulanmamış değişiklikleri atar.
+tr: Complete and confirm each GPG password before Finish.
+  OLD: Finish öncesinde her GPG parolasını tamamlayıp onaylayın.
+  NEW: «Bitir» öncesinde her GPG parolasını tamamlayıp onaylayın.
+tr: Full file paths are in the Finish review; settings may not be applied.
+  OLD: Tam yollar Finish incelemesinde; ayarlar henüz uygulanmamış olabilir.
+  NEW: Tam yollar «Bitir» incelemesinde; ayarlar henüz uygulanmamış olabilir.
+tr: Panel edits remain private until Finish. Accepting an offered GPG destination can prepare its 0700 directory; encryption, configuration writes and connection actions wait for the final choice.
+  OLD: Panel değişiklikleri Finish öncesinde özeldir. GPG hedefini kabul etmek 0700 dizinini hazırlayabilir; şifreleme, yazma ve bağlantı son seçimi bekler.
+  NEW: Panel değişiklikleri «Bitir» öncesinde özeldir. GPG hedefini kabul etmek 0700 dizinini hazırlayabilir; şifreleme, yazma ve bağlantı son seçimi bekler.
+tr: The destination is checked before the key and password questions. The encrypted file is created only at Finish; existing files are never replaced. Paths are literal, with no shell expansion.
+  OLD: Yol, anahtar ve paroladan önce denetlenir. Şifreli dosya yalnızca Finish sırasında oluşturulur; eski dosyalar değiştirilmez. Yol tam metin olarak kullanılır.
+  NEW: Yol, anahtar ve paroladan önce denetlenir. Şifreli dosya yalnızca «Bitir» sırasında oluşturulur; eski dosyalar değiştirilmez. Yol tam metin olarak kullanılır.
+tr: The encrypted credential exists, but its directory could not be synchronized; retry Finish.
+  OLD: Şifreli kimlik bilgisi var ancak dizin eşitlenemedi; Finish işlemini yeniden deneyin.
+  NEW: Şifreli kimlik bilgisi var ancak dizin eşitlenemedi; «Bitir» işlemini yeniden deneyin.
+tr: This configuration panel collects answers in a separate draft. Tab selects the answer field or Next, Back and Cancel controls. Enter validates the answer or activates a selected control. The final review applies only the choices you approve. Closing help preserves the answer and draft.
+  OLD: Bu panel yanıtları ayrı bir taslakta toplar. Tab yanıt alanını veya Next, Back, Cancel kontrollerini seçer. Enter yanıtı doğrular ya da seçimi çalıştırır. Son inceleme yalnızca onayladığınız seçimleri uygular. Yardımı kapatmak taslağı korur.
+  NEW: Bu panel yanıtları ayrı bir taslakta toplar. Tab yanıt alanını veya «Sonraki», «Geri», «İptal» kontrollerini seçer. Enter yanıtı doğrular ya da seçimi çalıştırır. Son inceleme yalnızca onayladığınız seçimleri uygular. Yardımı kapatmak taslağı korur.
+tr: not created; created at Finish
+  OLD: henüz oluşturulmadı; Finish sırasında oluşturulur
+  NEW: henüz oluşturulmadı; «Bitir» sırasında oluşturulur
+es:  Completed encrypted files are retained for this setup; retry Finish or cancel.
+  OLD:  Se conservan los archivos cifrados terminados para esta configuración; reintenta Finish o cancela.
+  NEW:  Se conservan los archivos cifrados terminados para esta configuración; reintenta «Finalizar» o cancela.
+es: Add creates a disconnected server. Connect also starts the connection. Basic or Advanced changes which connection fields are shown. Cancel discards the form.
+  OLD: Add crea un servidor desconectado. Connect inicia también la conexión. Basic o Advanced cambia los campos de conexión visibles. Cancel descarta el formulario.
+  NEW: «Añadir» crea un servidor desconectado. «Conectar» inicia también la conexión. «Básico» o «Avanzado» cambia los campos de conexión visibles. «Cancelar» descarta el formulario.
+es: Apply uses staged preferences now. Save also writes them to the configuration file. Back returns to the settings groups. Cancel closes the form and discards unapplied edits.
+  OLD: Apply aplica ahora las preferencias preparadas. Save también las escribe en el archivo de configuración. Back vuelve a los grupos de ajustes. Cancel cierra el formulario y descarta los cambios pendientes.
+  NEW: «Aplicar» aplica ahora las preferencias preparadas. «Guardar» también las escribe en el archivo de configuración. «Volver» vuelve a los grupos de ajustes. «Cancelar» cierra el formulario y descarta los cambios pendientes.
+es: Complete and confirm each GPG password before Finish.
+  OLD: Completa y confirma cada contraseña GPG antes de Finish.
+  NEW: Completa y confirma cada contraseña GPG antes de «Finalizar».
+es: Full file paths are in the Finish review; settings may not be applied.
+  OLD: Las rutas completas figuran en la revisión de Finish; puede que los ajustes no se hayan aplicado.
+  NEW: Las rutas completas figuran en la revisión de «Finalizar»; puede que los ajustes no se hayan aplicado.
+es: In full ncurses, App -> Key bindings or /bindings opens an editable table with Apply, Save and Escape/Cancel; -i uses the commands.
+  OLD: En la interfaz completa ncurses, App -> Key bindings o /bindings abre una tabla editable con Apply, Save y Escape/Cancel; -i usa los comandos.
+  NEW: En la interfaz completa ncurses, App -> Atajos de teclado o /bindings abre una tabla editable con Aplicar, Guardar y Escape/Cancelar; -i usa los comandos.
+es: Panel edits remain private until Finish. Accepting an offered GPG destination can prepare its 0700 directory; encryption, configuration writes and connection actions wait for the final choice.
+  OLD: Los cambios del panel son privados hasta Finish. Aceptar una ruta GPG puede preparar el directorio 0700; cifrado, escritura y conexión esperan la opción final.
+  NEW: Los cambios del panel son privados hasta «Finalizar». Aceptar una ruta GPG puede preparar el directorio 0700; cifrado, escritura y conexión esperan la opción final.
+es: The destination is checked before the key and password questions. The encrypted file is created only at Finish; existing files are never replaced. Paths are literal, with no shell expansion.
+  OLD: Se comprueba la ruta antes de solicitar la clave y la contraseña. El archivo cifrado solo se crea al finalizar con Finish; nunca se sustituyen archivos. No se expande la ruta.
+  NEW: Se comprueba la ruta antes de solicitar la clave y la contraseña. El archivo cifrado solo se crea al finalizar con «Finalizar»; nunca se sustituyen archivos. No se expande la ruta.
+es: The encrypted credential exists, but its directory could not be synchronized; retry Finish.
+  OLD: El archivo cifrado existe, pero no se pudo sincronizar el directorio; reintente Finish.
+  NEW: El archivo cifrado existe, pero no se pudo sincronizar el directorio; reintente «Finalizar».
+es: This configuration panel collects answers in a separate draft. Tab selects the answer field or Next, Back and Cancel controls. Enter validates the answer or activates a selected control. The final review applies only the choices you approve. Closing help preserves the answer and draft.
+  OLD: Este panel reúne respuestas en un borrador aparte. Tab elige el campo de respuesta o Next, Back y Cancel. Enter valida la respuesta o activa el control. La revisión final solo aplica lo aprobado. Cerrar la ayuda conserva respuestas y borrador.
+  NEW: Este panel reúne respuestas en un borrador aparte. Tab elige el campo de respuesta o «Siguiente», «Volver» y «Cancelar». Enter valida la respuesta o activa el control. La revisión final solo aplica lo aprobado. Cerrar la ayuda conserva respuestas y borrador.
+es: not created; created at Finish
+  OLD: aún no creado; se creará en Finish
+  NEW: aún no creado; se creará en «Finalizar»
+pt:  Completed encrypted files are retained for this setup; retry Finish or cancel.
+  OLD:  Arquivos criptografados concluídos são mantidos para esta configuração; tente Finish de novo ou cancele.
+  NEW:  Arquivos criptografados concluídos são mantidos para esta configuração; tente «Concluir» de novo ou cancele.
+pt: Add creates a disconnected server. Connect also starts the connection. Basic or Advanced changes which connection fields are shown. Cancel discards the form.
+  OLD: Add cria um servidor desconectado. Connect também inicia a conexão. Basic ou Advanced altera os campos exibidos. Cancel descarta o formulario.
+  NEW: «Adicionar» cria um servidor desconectado. «Conectar» também inicia a conexão. «Básico» ou «Avançado» altera os campos exibidos. «Cancelar» descarta o formulario.
+pt: Apply uses staged preferences now. Save also writes them to the configuration file. Back returns to the settings groups. Cancel closes the form and discards unapplied edits.
+  OLD: Apply aplica agora as preferencias preparadas. Save também as grava no arquivo de configuração. Back retorna aos grupos de ajustes. Cancel fecha o formulario e descarta alteracoes não aplicadas.
+  NEW: «Aplicar» aplica agora as preferencias preparadas. «Salvar» também as grava no arquivo de configuração. «Voltar» retorna aos grupos de ajustes. «Cancelar» fecha o formulario e descarta alteracoes não aplicadas.
+pt: Complete and confirm each GPG password before Finish.
+  OLD: Conclua e confirme cada senha GPG antes de Finish.
+  NEW: Conclua e confirme cada senha GPG antes de «Concluir».
+pt: Full file paths are in the Finish review; settings may not be applied.
+  OLD: Os caminhos completos estão na revisão de Finish; as configurações talvez não tenham sido aplicadas.
+  NEW: Os caminhos completos estão na revisão de «Concluir»; as configurações talvez não tenham sido aplicadas.
+pt: In full ncurses, App -> Key bindings or /bindings opens an editable table with Apply, Save and Escape/Cancel; -i uses the commands.
+  OLD: Na interface completa ncurses, App -> Key bindings ou /bindings abre uma tabela editável com Apply, Save e Escape/Cancel; -i usa os comandos.
+  NEW: Na interface completa ncurses, App -> Atalhos de teclado ou /bindings abre uma tabela editável com Aplicar, Salvar e Escape/Cancelar; -i usa os comandos.
+pt: Panel edits remain private until Finish. Accepting an offered GPG destination can prepare its 0700 directory; encryption, configuration writes and connection actions wait for the final choice.
+  OLD: As edições do painel ficam privadas até Finish. Aceitar destino GPG pode criar pasta 0700; criptografia, gravação e conexão aguardam a escolha final.
+  NEW: As edições do painel ficam privadas até «Concluir». Aceitar destino GPG pode criar pasta 0700; criptografia, gravação e conexão aguardam a escolha final.
+pt: The destination is checked before the key and password questions. The encrypted file is created only at Finish; existing files are never replaced. Paths are literal, with no shell expansion.
+  OLD: O caminho é verificado antes da chave e senha. O arquivo criptografado só é criado em Finish; arquivos existentes nunca são substituídos. O caminho é literal.
+  NEW: O caminho é verificado antes da chave e senha. O arquivo criptografado só é criado em «Concluir»; arquivos existentes nunca são substituídos. O caminho é literal.
+pt: The encrypted credential exists, but its directory could not be synchronized; retry Finish.
+  OLD: A credencial encriptada existe, mas o diretório não foi sincronizado; tente Finish novamente.
+  NEW: A credencial encriptada existe, mas o diretório não foi sincronizado; tente «Concluir» novamente.
+pt: This configuration panel collects answers in a separate draft. Tab selects the answer field or Next, Back and Cancel controls. Enter validates the answer or activates a selected control. The final review applies only the choices you approve. Closing help preserves the answer and draft.
+  OLD: Este painel reúne respostas num rascunho separado. Tab escolhe o campo ou Next, Back e Cancel. Enter valida a resposta ou ativa um controle. A revisão final só aplica escolhas aprovadas. Fechar a ajuda preserva a resposta e o rascunho.
+  NEW: Este painel reúne respostas num rascunho separado. Tab escolhe o campo ou «Próximo», «Voltar» e «Cancelar». Enter valida a resposta ou ativa um controle. A revisão final só aplica escolhas aprovadas. Fechar a ajuda preserva a resposta e o rascunho.
+pt: not created; created at Finish
+  OLD: não criado; será criado em Finish
+  NEW: não criado; será criado em «Concluir»
+fr:  (roster limit reached)
+  OLD:  (limite de la liste d'utilisateurs atteint)
+  NEW:  (limite de la liste d'utilisateurs atteinte)
+fr:  Completed encrypted files are retained for this setup; retry Finish or cancel.
+  OLD:  Les fichiers chiffrés achevés sont conservés pour cette configuration ; réessayez Finish ou annulez.
+  NEW:  Les fichiers chiffrés achevés sont conservés pour cette configuration ; réessayez «Terminer» ou annulez.
+fr: Add creates a disconnected server. Connect also starts the connection. Basic or Advanced changes which connection fields are shown. Cancel discards the form.
+  OLD: Add crée un serveur déconnecté. Connect lance aussi la connexion. Basic ou Advanced modifie les champs affichés. Cancel abandonne le formulaire.
+  NEW: «Ajouter» crée un serveur déconnecté. «Connecter» lance aussi la connexion. «Basique» ou «Avancé» modifie les champs affichés. «Annuler» abandonne le formulaire.
+fr: Apply uses staged preferences now. Save also writes them to the configuration file. Back returns to the settings groups. Cancel closes the form and discards unapplied edits.
+  OLD: Apply utilise immédiatement les préférences préparées. Save les écrit aussi dans le fichier de configuration. Back revient aux groupes de paramètres. Cancel ferme le formulaire et annule les modifications non appliquées.
+  NEW: «Appliquer» utilise immédiatement les préférences préparées. «Enregistrer» les écrit aussi dans le fichier de configuration. «Retour» revient aux groupes de paramètres. «Annuler» ferme le formulaire et annule les modifications non appliquées.
+fr: Complete and confirm each GPG password before Finish.
+  OLD: Terminez et confirmez chaque mot de passe GPG avant Finish.
+  NEW: Saisissez et confirmez chaque mot de passe GPG avant de choisir «Terminer».
+fr: Full file paths are in the Finish review; settings may not be applied.
+  OLD: Les chemins complets figurent dans la vérification Finish ; les réglages peuvent ne pas être appliqués.
+  NEW: Les chemins de fichiers complets figurent dans la vérification finale accessible par «Terminer» ; les réglages peuvent ne pas encore avoir été appliqués.
+fr: In full ncurses, App -> Key bindings or /bindings opens an editable table with Apply, Save and Escape/Cancel; -i uses the commands.
+  OLD: Dans l'interface complète ncurses, App -> Key bindings ou /bindings ouvre un tableau modifiable avec Apply, Save et Escape/Cancel ; -i utilise les commandes.
+  NEW: Dans l'interface complète ncurses, App -> Raccourcis clavier ou /bindings ouvre un tableau modifiable avec Appliquer, Enregistrer et Escape/Annuler ; -i utilise les commandes.
+fr: Panel edits remain private until Finish. Accepting an offered GPG destination can prepare its 0700 directory; encryption, configuration writes and connection actions wait for the final choice.
+  OLD: Les changements du panneau restent privés avant Finish. Un chemin GPG accepté peut préparer un dossier 0700; chiffrement, sauvegarde et connexion attendent le choix final.
+  NEW: Les changements du panneau restent privés avant «Terminer». Un chemin GPG accepté peut préparer un dossier 0700; chiffrement, sauvegarde et connexion attendent le choix final.
+fr: The destination is checked before the key and password questions. The encrypted file is created only at Finish; existing files are never replaced. Paths are literal, with no shell expansion.
+  OLD: Le chemin est vérifié avant la clé et le mot de passe. Le fichier chiffré n'est créé qu'à Finish ; aucun fichier existant n'est remplacé. Le chemin n'est pas développé.
+  NEW: Le chemin est vérifié avant la clé et le mot de passe. Le fichier chiffré n'est créé qu'à «Terminer» ; aucun fichier existant n'est remplacé. Le chemin n'est pas développé.
+fr: The encrypted credential exists, but its directory could not be synchronized; retry Finish.
+  OLD: Le fichier chiffré existe, mais son répertoire n'a pu être synchronisé ; réessayez Finish.
+  NEW: Le fichier chiffré existe, mais son répertoire n'a pu être synchronisé ; réessayez «Terminer».
+fr: This configuration panel collects answers in a separate draft. Tab selects the answer field or Next, Back and Cancel controls. Enter validates the answer or activates a selected control. The final review applies only the choices you approve. Closing help preserves the answer and draft.
+  OLD: Ce panneau recueille les réponses dans un brouillon séparé. Tab choisit le champ ou Next, Back, Cancel. Enter valide ou active un contrôle. La vérification finale applique uniquement les choix acceptés. Fermer l'aide préserve le brouillon.
+  NEW: Ce panneau recueille les réponses dans un brouillon séparé. Tab choisit le champ ou «Suivant», «Retour», «Annuler». Enter valide ou active un contrôle. La vérification finale applique uniquement les choix acceptés. Fermer l'aide préserve le brouillon.
+fr: not created; created at Finish
+  OLD: non créé ; créé à Finish
+  NEW: non créé ; créé à «Terminer»
+de:  Completed encrypted files are retained for this setup; retry Finish or cancel.
+  OLD:  Fertige verschlüsselte Dateien bleiben für diese Einrichtung erhalten; Finish erneut versuchen oder abbrechen.
+  NEW:  Fertige verschlüsselte Dateien bleiben für diese Einrichtung erhalten; «Fertig» erneut versuchen oder abbrechen.
+de: Add creates a disconnected server. Connect also starts the connection. Basic or Advanced changes which connection fields are shown. Cancel discards the form.
+  OLD: Add legt einen getrennten Server an. Connect startet auch die Verbindung. Basic oder Advanced ändert die angezeigten Verbindungsfelder. Cancel verwirft das Formular.
+  NEW: «Hinzufügen» legt einen getrennten Server an. «Verbinden» startet auch die Verbindung. «Einfach» oder «Erweitert» ändert die angezeigten Verbindungsfelder. «Abbrechen» verwirft das Formular.
+de: Apply uses staged preferences now. Save also writes them to the configuration file. Back returns to the settings groups. Cancel closes the form and discards unapplied edits.
+  OLD: Apply übernimmt vorbereitete Einstellungen sofort. Save schreibt sie zusätzlich in die Konfigurationsdatei. Back kehrt zu den Einstellungsgruppen zurück. Cancel schließt das Formular und verwirft nicht übernommene Änderungen.
+  NEW: «Anwenden» übernimmt vorbereitete Einstellungen sofort. «Speichern» schreibt sie zusätzlich in die Konfigurationsdatei. «Zurück» kehrt zu den Einstellungsgruppen zurück. «Abbrechen» schließt das Formular und verwirft nicht übernommene Änderungen.
+de: Complete and confirm each GPG password before Finish.
+  OLD: Jedes GPG-Passwort vor Finish vollständig eingeben und bestätigen.
+  NEW: Jedes GPG-Passwort vor «Fertig» vollständig eingeben und bestätigen.
+de: Full file paths are in the Finish review; settings may not be applied.
+  OLD: Vollständige Dateipfade stehen in der Finish-Übersicht; Einstellungen sind eventuell nicht angewendet.
+  NEW: Vollständige Dateipfade stehen in der «Fertig»-Übersicht; Einstellungen sind eventuell nicht angewendet.
+de: Nick: {nick}
+  OLD: Nick: {nick}
+  NEW: Spitzname: {nick}
+de: Nickname: {nick}
+  OLD: Nickname: {nick}
+  NEW: Spitzname: {nick}
+de: Panel edits remain private until Finish. Accepting an offered GPG destination can prepare its 0700 directory; encryption, configuration writes and connection actions wait for the final choice.
+  OLD: Paneländerungen bleiben bis Finish privat. Ein GPG-Ziel kann ein 0700-Verzeichnis vorbereiten; Verschlüsselung, Speichern und Verbinden warten bis zum Schluss.
+  NEW: Paneländerungen bleiben bis «Fertig» privat. Ein GPG-Ziel kann ein 0700-Verzeichnis vorbereiten; Verschlüsselung, Speichern und Verbinden warten bis zum Schluss.
+de: The destination is checked before the key and password questions. The encrypted file is created only at Finish; existing files are never replaced. Paths are literal, with no shell expansion.
+  OLD: Der Pfad wird vor Schlüssel und Passwort geprüft. Erst Finish erzeugt die verschlüsselte Datei. Bestehende Dateien bleiben erhalten; keine Shell-Erweiterung.
+  NEW: Der Pfad wird vor Schlüssel und Passwort geprüft. Erst «Fertig» erzeugt die verschlüsselte Datei. Bestehende Dateien bleiben erhalten; keine Shell-Erweiterung.
+de: The encrypted credential exists, but its directory could not be synchronized; retry Finish.
+  OLD: Verschlüsselte Zugangsdaten existieren, aber Verzeichnissynchronisierung schlug fehl; Finish erneut versuchen.
+  NEW: Verschlüsselte Zugangsdaten existieren, aber Verzeichnissynchronisierung schlug fehl; «Fertig» erneut versuchen.
+de: This configuration panel collects answers in a separate draft. Tab selects the answer field or Next, Back and Cancel controls. Enter validates the answer or activates a selected control. The final review applies only the choices you approve. Closing help preserves the answer and draft.
+  OLD: Dieses Formular sammelt Antworten in einem separaten Entwurf. Tab wählt das Feld oder Next, Back, Cancel. Enter prüft die Antwort oder aktiviert die Wahl. Die Schlussprüfung übernimmt nur bestätigte Optionen. Hilfe schließen bewahrt den Entwurf.
+  NEW: Dieses Formular sammelt Antworten in einem separaten Entwurf. Tab wählt das Feld oder «Weiter», «Zurück», «Abbrechen». Enter prüft die Antwort oder aktiviert die Wahl. Die Schlussprüfung übernimmt nur bestätigte Optionen. Hilfe schließen bewahrt den Entwurf.
+de: not created; created at Finish
+  OLD: noch nicht erstellt; bei Finish erstellt
+  NEW: noch nicht erstellt; bei «Fertig» erstellt
+ru:  Completed encrypted files are retained for this setup; retry Finish or cancel.
+  OLD:  Готовые шифрованные файлы сохранены для этих настроек; повторите Finish или отмените.
+  NEW:  Готовые шифрованные файлы сохранены для этих настроек; повторите «Готово» или отмените.
+ru: Add creates a disconnected server. Connect also starts the connection. Basic or Advanced changes which connection fields are shown. Cancel discards the form.
+  OLD: Add добавляет сервер без подключения. Connect также начинает подключение. Basic или Advanced меняет набор видимых полей. Cancel отменяет форму.
+  NEW: «Добавить» добавляет сервер без подключения. «Подключиться» также начинает подключение. «Основные» или «Дополнительно» меняет набор видимых полей. «Отмена» отменяет форму.
+ru: Apply uses staged preferences now. Save also writes them to the configuration file. Back returns to the settings groups. Cancel closes the form and discards unapplied edits.
+  OLD: Apply сразу применяет подготовленные настройки. Save также записывает их в файл конфигурации. Back возвращает к группам настроек. Cancel закрывает форму и отменяет неприменённые изменения.
+  NEW: «Применить» сразу применяет подготовленные настройки. «Сохранить» также записывает их в файл конфигурации. «Назад» возвращает к группам настроек. «Отмена» закрывает форму и отменяет неприменённые изменения.
+ru: Complete and confirm each GPG password before Finish.
+  OLD: Введите и подтвердите каждый пароль GPG перед Finish.
+  NEW: Введите и подтвердите каждый пароль GPG перед «Готово».
+ru: Full file paths are in the Finish review; settings may not be applied.
+  OLD: Полные пути находятся в обзоре Finish; настройки могут быть не применены.
+  NEW: Полные пути находятся в обзоре «Готово»; настройки могут быть не применены.
+ru: Panel edits remain private until Finish. Accepting an offered GPG destination can prepare its 0700 directory; encryption, configuration writes and connection actions wait for the final choice.
+  OLD: Правки панели скрыты до Finish. Путь GPG может создать каталог 0700; шифрование, запись и подключение ждут последнего выбора.
+  NEW: Правки панели скрыты до «Готово». Путь GPG может создать каталог 0700; шифрование, запись и подключение ждут последнего выбора.
+ru: The destination is checked before the key and password questions. The encrypted file is created only at Finish; existing files are never replaced. Paths are literal, with no shell expansion.
+  OLD: Путь проверяется до запроса ключа и пароля. Файл создается лишь при Finish; старые файлы не заменяются. Путь не расширяется оболочкой.
+  NEW: Путь проверяется до запроса ключа и пароля. Файл создается лишь при «Готово»; старые файлы не заменяются. Путь не расширяется оболочкой.
+ru: The encrypted credential exists, but its directory could not be synchronized; retry Finish.
+  OLD: Зашифрованные данные существуют, но каталог не синхронизирован; повторите Finish.
+  NEW: Зашифрованные данные существуют, но каталог не синхронизирован; повторите «Готово».
+ru: This configuration panel collects answers in a separate draft. Tab selects the answer field or Next, Back and Cancel controls. Enter validates the answer or activates a selected control. The final review applies only the choices you approve. Closing help preserves the answer and draft.
+  OLD: Эта панель собирает ответы в отдельный черновик. Tab выбирает поле или Next, Back, Cancel. Enter проверяет ответ или активирует кнопку. Итоговая проверка применяет только одобренные варианты. Закрытие справки сохраняет черновик.
+  NEW: Эта панель собирает ответы в отдельный черновик. Tab выбирает поле или «Далее», «Назад», «Отмена». Enter проверяет ответ или активирует кнопку. Итоговая проверка применяет только одобренные варианты. Закрытие справки сохраняет черновик.
+ru: not created; created at Finish
+  OLD: не создан; будет создан при Finish
+  NEW: не создан; будет создан при «Готово»
+it:  Completed encrypted files are retained for this setup; retry Finish or cancel.
+  OLD:  I file cifrati completati restano disponibili per questa configurazione; riprova Finish o annulla.
+  NEW:  I file cifrati completati restano disponibili per questa configurazione; riprova «Fine» o annulla.
+it: Add creates a disconnected server. Connect also starts the connection. Basic or Advanced changes which connection fields are shown. Cancel discards the form.
+  OLD: Add crea un server disconnesso. Connect avvia anche la connessione. Basic o Advanced cambia i campi mostrati. Cancel annulla il modulo.
+  NEW: «Aggiungi» crea un server disconnesso. «Connetti» avvia anche la connessione. «Base» o «Avanzate» cambia i campi mostrati. «Annulla» annulla il modulo.
+it: Apply uses staged preferences now. Save also writes them to the configuration file. Back returns to the settings groups. Cancel closes the form and discards unapplied edits.
+  OLD: Apply applica subito le preferenze preparate. Save le scrive anche nel file di configurazione. Back torna ai gruppi di impostazioni. Cancel chiude il modulo e annulla le modifiche non applicate.
+  NEW: «Applica» applica subito le preferenze preparate. «Salva» le scrive anche nel file di configurazione. «Indietro» torna ai gruppi di impostazioni. «Annulla» chiude il modulo e annulla le modifiche non applicate.
+it: Background
+  OLD: Background
+  NEW: Secondo piano
+it: Complete and confirm each GPG password before Finish.
+  OLD: Completa e conferma ogni password GPG prima di Finish.
+  NEW: Completa e conferma ogni password GPG prima di «Fine».
+it: Full file paths are in the Finish review; settings may not be applied.
+  OLD: I percorsi completi sono nella revisione Finish; le impostazioni potrebbero non essere applicate.
+  NEW: I percorsi completi sono nella revisione «Fine»; le impostazioni potrebbero non essere applicate.
+it: In full ncurses, App -> Key bindings or /bindings opens an editable table with Apply, Save and Escape/Cancel; -i uses the commands.
+  OLD: Nell'interfaccia completa ncurses, App -> Key bindings o /bindings apre una tabella modificabile con Apply, Save ed Escape/Cancel; -i usa i comandi.
+  NEW: Nell'interfaccia completa ncurses, App -> Scorciatoie o /bindings apre una tabella modificabile con Applica, Salva ed Escape/Annulla; -i usa i comandi.
+it: Nick: {nick}
+  OLD: Nick: {nick}
+  NEW: Soprannome: {nick}
+it: Nickname
+  OLD: Nickname
+  NEW: Soprannome
+it: Nickname:
+  OLD: Nickname:
+  NEW: Soprannome:
+it: Panel edits remain private until Finish. Accepting an offered GPG destination can prepare its 0700 directory; encryption, configuration writes and connection actions wait for the final choice.
+  OLD: Le modifiche del pannello restano private fino a Finish. Un percorso GPG accettato può preparare la cartella 0700; cifratura, scrittura e connessione attendono la scelta finale.
+  NEW: Le modifiche del pannello restano private fino a «Fine». Un percorso GPG accettato può preparare la cartella 0700; cifratura, scrittura e connessione attendono la scelta finale.
+it: Peer {address}
+  OLD: Peer {address}
+  NEW: Interlocutore {address}
+it: Peer {address}:{port}. /dcc list shows details; acceptance is explicit.
+  OLD: Peer {address}:{port}. /dcc list mostra i dettagli; è necessaria un’accettazione esplicita.
+  NEW: Interlocutore {address}:{port}. /dcc list mostra i dettagli; occorre confermare esplicitamente l’accettazione.
+it: The destination is checked before the key and password questions. The encrypted file is created only at Finish; existing files are never replaced. Paths are literal, with no shell expansion.
+  OLD: Il percorso viene verificato prima di chiave e password. Il file cifrato viene creato solo a Finish; i file esistenti non sono sovrascritti. Percorso letterale.
+  NEW: Il percorso viene verificato prima di chiave e password. Il file cifrato viene creato solo a «Fine»; i file esistenti non sono sovrascritti. Percorso letterale.
+it: The encrypted credential exists, but its directory could not be synchronized; retry Finish.
+  OLD: Il file cifrato esiste ma la directory non è sincronizzata; riprovare Finish.
+  NEW: Il file cifrato esiste ma la directory non è sincronizzata; riprovare «Fine».
+it: This configuration panel collects answers in a separate draft. Tab selects the answer field or Next, Back and Cancel controls. Enter validates the answer or activates a selected control. The final review applies only the choices you approve. Closing help preserves the answer and draft.
+  OLD: Questo pannello raccoglie risposte in una bozza separata. Tab sceglie il campo o Next, Back, Cancel. Enter verifica la risposta o attiva il controllo. La revisione finale applica solo le scelte approvate. Chiudere la guida conserva la bozza.
+  NEW: Questo pannello raccoglie risposte in una bozza separata. Tab sceglie il campo o «Successivo», «Indietro», «Annulla». Enter verifica la risposta o attiva il controllo. La revisione finale applica solo le scelte approvate. Chiudere la guida conserva la bozza.
+it: not created; created at Finish
+  OLD: non creato; verrà creato a Finish
+  NEW: non creato; verrà creato a «Fine»
+ar:  Completed encrypted files are retained for this setup; retry Finish or cancel.
+  OLD:  تبقى الملفات المشفرة المكتملة لهذا الإعداد؛ أعد محاولة Finish أو ألغ.
+  NEW:  تبقى الملفات المشفرة المكتملة لهذا الإعداد؛ أعد محاولة «إنهاء» أو ألغ.
+ar: Add creates a disconnected server. Connect also starts the connection. Basic or Advanced changes which connection fields are shown. Cancel discards the form.
+  OLD: ينشئ Add خادماً غير متصل. ويبدأ Connect الاتصال أيضاً. يغيّر Basic أو Advanced حقول الاتصال الظاهرة. ويلغي Cancel النموذج.
+  NEW: ينشئ «إضافة» خادماً غير متصل. ويبدأ «اتصال» الاتصال أيضاً. يغيّر «أساسي» أو «متقدم» حقول الاتصال الظاهرة. ويلغي «إلغاء» النموذج.
+ar: Apply uses staged preferences now. Save also writes them to the configuration file. Back returns to the settings groups. Cancel closes the form and discards unapplied edits.
+  OLD: يطبّق Apply التفضيلات المحضّرة الآن. ويحفظها Save أيضاً في ملف التكوين. يعيد Back إلى مجموعات الإعدادات. ويغلق Cancel النموذج ويلغي التعديلات غير المطبقة.
+  NEW: يطبّق «تطبيق» التفضيلات المحضّرة الآن. ويحفظها «حفظ» أيضاً في ملف التكوين. يعيد «رجوع» إلى مجموعات الإعدادات. ويغلق «إلغاء» النموذج ويلغي التعديلات غير المطبقة.
+ar: Complete and confirm each GPG password before Finish.
+  OLD: أكمل تأكيد كل كلمة مرور GPG قبل Finish.
+  NEW: أكمل تأكيد كل كلمة مرور GPG قبل «إنهاء».
+ar: Full file paths are in the Finish review; settings may not be applied.
+  OLD: المسارات الكاملة في مراجعة Finish؛ قد لا تكون الإعدادات مطبقة.
+  NEW: المسارات الكاملة في مراجعة «إنهاء»؛ قد لا تكون الإعدادات مطبقة.
+ar: In full ncurses, App -> Key bindings or /bindings opens an editable table with Apply, Save and Escape/Cancel; -i uses the commands.
+  OLD: في واجهة ncurses الكاملة، يفتح App -> Key bindings (اختصارات المفاتيح) أو /bindings جدولا قابلا للتحرير مع Apply (تطبيق) وSave (حفظ) وEscape/Cancel (إلغاء)؛ ويستخدم -i الأوامر.
+  NEW: في واجهة ncurses الكاملة، يفتح App -> «اختصارات المفاتيح» أو /bindings جدولا قابلا للتحرير مع «تطبيق» و«حفظ» وEscape/«إلغاء»؛ ويستخدم -i الأوامر.
+ar: Panel edits remain private until Finish. Accepting an offered GPG destination can prepare its 0700 directory; encryption, configuration writes and connection actions wait for the final choice.
+  OLD: تبقى تعديلات اللوحة خاصة حتى Finish. قد يُنشئ قبول مسار GPG مجلد 0700؛ التشفير والحفظ والاتصال تنتظر القرار النهائي.
+  NEW: تبقى تعديلات اللوحة خاصة حتى «إنهاء». قد يُنشئ قبول مسار GPG مجلد 0700؛ التشفير والحفظ والاتصال تنتظر القرار النهائي.
+ar: The destination is checked before the key and password questions. The encrypted file is created only at Finish; existing files are never replaced. Paths are literal, with no shell expansion.
+  OLD: يُفحص المسار قبل المفتاح وكلمة المرور. لا يُنشأ الملف المشفر إلا عند Finish؛ ولا يُستبدل ملف موجود. المسار حرفي.
+  NEW: يُفحص المسار قبل المفتاح وكلمة المرور. لا يُنشأ الملف المشفر إلا عند «إنهاء»؛ ولا يُستبدل ملف موجود. المسار حرفي.
+ar: The encrypted credential exists, but its directory could not be synchronized; retry Finish.
+  OLD: ملف الاعتماد المشفر موجود، لكن تعذرت مزامنة الدليل؛ أعد محاولة Finish.
+  NEW: ملف الاعتماد المشفر موجود، لكن تعذرت مزامنة الدليل؛ أعد محاولة «إنهاء».
+ar: This configuration panel collects answers in a separate draft. Tab selects the answer field or Next, Back and Cancel controls. Enter validates the answer or activates a selected control. The final review applies only the choices you approve. Closing help preserves the answer and draft.
+  OLD: تجمع هذه اللوحة الإجابات في مسودة منفصلة. يحدد Tab الحقل أو Next وBack وCancel. يتحقق Enter من الإجابة أو ينفذ الاختيار. لا تطبق المراجعة النهائية إلا ما توافق عليه. إغلاق المساعدة يحفظ المسودة.
+  NEW: تجمع هذه اللوحة الإجابات في مسودة منفصلة. يحدد Tab الحقل أو «التالي» و«رجوع» و«إلغاء». يتحقق Enter من الإجابة أو ينفذ الاختيار. لا تطبق المراجعة النهائية إلا ما توافق عليه. إغلاق المساعدة يحفظ المسودة.
+ar: not created; created at Finish
+  OLD: لم يُنشأ؛ يُنشأ عند Finish
+  NEW: لم يُنشأ؛ يُنشأ عند «إنهاء»

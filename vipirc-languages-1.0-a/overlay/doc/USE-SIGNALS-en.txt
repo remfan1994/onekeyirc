@@ -1,0 +1,5 @@
+USE SIGNALS - vipirc-1.0-a
+
+Use signals is off by default. Ctrl-C and Ctrl-Z cancel an unfinished compose or command; they do not end or suspend the application. Enable Use signals in panel 0 (or full vipirc Interface settings) to allow the terminal to generate its normal interrupt/suspend signals. Apply takes effect immediately; Save also persists [input] use_signals=true|false. The original terminal modes are restored on exit or suspension.
+
+No (default) disables terminal-generated signals while this application has the terminal. Ctrl-C/Ctrl-Z cancel unsent text. Yes enables the terminal's existing signal mappings; it does not change VINTR or VSUSP. External process signals are not blocked.

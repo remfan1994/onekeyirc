@@ -1,0 +1,22 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / SERVERS AND UNREAD ACTIVITY
+English source SHA-256: e89196872f4f16927c865eeaf264a62e69ede5bb5ef6c213ab82511b5c61bd34
+Source lines: 969-1018
+
+SUNUCULAR VE OKUNMAMIŞ ETKİNLİK
+
+Tam ncurses arayüzünde sunucu yuvaları 0..7 olarak listelenir; birincil sunucu 0'dır. Tek olay döngüsünü paylaşırlar ancak kimlik bilgileri, kimlik, kanallar/özel konuşmalar, bahsetmeler, kullanıcı listeleri, geçmiş ve taslaklar her sunucuda bağımsızdır. F2 veya /servers şu eylemleri açar:
+
+    Aç    Yeni    Bağlan    Bağlantıyı kes    Kapat    Uzakta    Geri
+
+Ortak liste gezinmesi GLOBAL HEADER AND CHAT CONTROLS bölümündedir. Open, taslakları ve imleç konumlarını koruyarak sunucunun MOTD mesajını (kanal 0) gösterir. Connect/Disconnect seçili satırı etkiler. Away, kayıtlı sunucunun onayladığı uzakta durumunu varsayılan Away iletisiyle değiştirir. New (ayrıca n) form açar; Back/Escape sohbete döner.
+
+Birincil sunucu 0 kapatılamaz. Disconnect görünümleri, taslakları ve kabul edilmiş DCC aktarımlarını korur. İkincil sunucuda Close her zaman onay ister; varsayılan yanıt No'dur. Bu işlem sunucunun belleğini siler, teklifleri ve aktarımları iptal eder, katalog başvurusunu kaldırır ama profil dosyasını bırakır. Seçili ikincil sunucu kapanırsa birincile dönülür. Test modunda Close yalnızca çalışırken tutulan durumu değiştirir.
+
+New formunda Server, Port, Transport, Nickname, Autojoin, Autoconnect alanları ve Edit, Add, Connect, Advanced, Cancel eylemleri bulunur. Advanced, ilk bağlantıdan önce kimlik, doğrulama kaynakları ve CA seçeneklerini gösterir. Enter alanı hazırlayıp bekletir; Escape formu iptal eder. Yeni profiller TLS6697, login/default kimliği ve kapalı autoconnect kullanır; gizli bilgiler, CA, kanallar veya watch/ignore listeleri devralınmaz. Yalnızca uygulama tercihleri ortaktır. Add, autoconnect kutusu işaretli olsa bile bağlantısız durum oluşturur; Connect hemen oluşturup bağlar. Her ikisi yeni sunucuyu seçer ve kalıcı kayıt için ayrıca Save gerektirir.
+
+Satırlar okunmamış etkinlik ve bahsetmeler için new N !M gösterir; ekran sayıyı 999+ ile sınırlar, iç sayaçlar değişmez. Bir konuşmayı açmak yalnızca o kaynağın sayaçlarını sıfırlar; üstüne açılmış liste yeni metni okundu saymaz. Toplamlara Mentions ve Help kopyaları dahil edilmez. Gönderilen iletilerin yerel yankıları okunmamış sayısını artırmaz. Mentions okumak kendi akışını ayrı olarak okunmuş işaretler; kaynak konuşma sayaçlarını etkilemez.
+
+F5 veya /unread, sunucuya göre önce saklanan bahsetmeleri, sonra okunmamış konuşmaları gruplar. Bahsetmeler tam satır kaydırmalı metin ve zaman damgalarıyla görünür; kaynak girdiler Server/Channel/Query belirtir. Eylemler Open, Clear mentions, Back'tir. Open kaynağı seçer; kapanmış özel konuşma kaydedilmiş takma adla yeniden açılabilir, ancak ileti gönderilmez ve atılmış geçmiş geri getirilmez. Kapatılmış kanallara yeniden katılınmaz; erişilemeyen sunucular bildirilir. Gezinmeyi satır yeri veya metni değil, kararlı kaynak kimliği belirler.
+
+Clear mentions veya /mentions clear, tüm sunuculardaki bahsetme kopyalarını kaldırır; konuşma geçmişlerini, okunmamış sayaçlarını, taslakları veya kuyrukları değiştirmez. Yeni bahsetmeler hemen gelebilir. Sayfa tuşları, başka girdiye geçmeden önce seçilmiş uzun bir bahsetmede kaydırır. Argümansız /mentions yalnızca geçerli sunucunun akışını seçer.

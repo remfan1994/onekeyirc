@@ -1,5 +1,0 @@
-USE SIGNALS - onekeyirc-0.1.36
-
-Use signals = no secara lalai. Ctrl-C dan Ctrl-Z membatalkan mesej atau arahan yang belum dihantar, bukan menamatkan aplikasi. Pilih yes dalam panel 0 (atau tetapan Interface vipirc) untuk mengaktifkan isyarat terminal. Apply berkuat kuasa serta-merta; Save turut menyimpan [input] use_signals=true|false. Tetapan terminal asal dipulihkan apabila keluar atau digantung.
-
-No (lalai) menyahaktifkan isyarat terminal semasa aplikasi mengawal terminal; Ctrl-C/Ctrl-Z membatalkan draf. Yes menggunakan pemetaan isyarat terminal sedia ada tanpa mengubah kekunci. Isyarat proses luaran masih berfungsi.

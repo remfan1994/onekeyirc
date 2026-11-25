@@ -1,0 +1,62 @@
+Panduan praktikal vipirc / onekeyirc - Konfigurasi
+======================================================
+
+DRAF TERJEMAHAN. Taip arahan dan pilihan tepat seperti yang ditunjukkan.
+Untuk syarat keselamatan penuh, rujuk MANUAL.txt dan SECURITY.md dalam bahasa Inggeris.
+
+/help configuration
+-------------------
+
+[connection] mengandungi server, port, tls, nick, username, realname, channel, autoconnect, auth dan sumber kelayakan.
+
+[bouncer] type=none|znc|soju, username, network, client dan automatic_away menetapkan profil bouncer setiap rangkaian; lihat /help bouncers.
+
+[input] send_mode=direct|review dan [output] format=compact|full, queue_notices=true|false, program_messages=true|false, persistent_logging=true|false ialah keutamaan konfigurasi utama.
+
+[input] command_suggestions=common|history|frequent|alphabetical|contextual menentukan susunan arahan; lalai common.
+
+[input] composer_mode=line|fullscreen memilih susun atur editor/arahan minimalis; lalai line. Kedua-duanya memaparkan mesej terkini.
+
+[input] use_signals=false mematikan isyarat yang dijana terminal semasa klien menguasai tty. true membolehkan pemetaan isyarat terminal sedia ada. «Guna» berkuat kuasa serta-merta; «Simpan» menyimpan keutamaan milik konfigurasi utama ini.
+
+[hotkeys] mengandungi hingga 64 ikatan pilihan KEY=action tanpa tetapan lalai. Milik konfigurasi utama; lihat /help hotkeys.
+
+[session] single_session=true|false mengawal sama ada beberapa kerja latar dibenarkan; lalai false.
+
+[session] default_interface=ncurses|idle ialah keutamaan aplikasi utama. Pilihan permulaan diterangkan di bawah.
+
+Paparan compact ialah lalai. history_lines dalam konfigurasi utama mengawal sejarah yang disimpan merentas semua pelayan.
+
+[mentions] word= dan [ignore] mask= boleh diulang.
+
+[autocommands] mengandungi enabled, delay_seconds, interval_seconds dan baris command= berulang bagi satu pelayan.
+
+Arahan ini ialah teks biasa dalam konfigurasi peribadi. /autocommands menguruskannya tanpa membocor rahsia dalam senarai/sejarah.
+
+Pelayan tambahan yang disimpan menggunakan katalog .servers dan direktori .d bersebelahan.
+
+Sambung dengan /connect HOST, kemudian /join #channel dan /saveconf untuk menyimpan konfigurasi yang berfungsi.
+
+/saveconf menyimpan keutamaan dan profil pelayan yang sihat, serta mengingati pelayan dipilih untuk /connect tanpa argumen kelak.
+
+/quickstart bertanya empat soalan sambungan. /panel guna 0 untuk keutamaan dan 1..8 untuk profil; panel 1 mengubah profil utama.
+
+Suntingan panel kekal peribadi hingga «Selesai». Menerima destinasi GPG boleh menyediakan direktori 0700; penyulitan, simpanan dan sambungan tunggu pilihan akhir.
+
+Untuk kekal selepas mula semula: /save untuk pelayan dipilih, /save input atau /save output untuk profil utama, atau /saveconf untuk profil sihat serta lalai.
+
+Konfigurasi tersimpan menggunakan <config_path>.commands untuk bacaan/tulisan kiraan arahan sendiri; konfigurasi utama tidak menyimpan kiraan.
+
+Fail peribadi terhad ini hanya ada nama arahan kanonik dan kiraan, bukan argumen atau sejarah mesej. Mod ujian tidak membaca/menulisnya.
+
+Perubahan [connection] melalui /autojoin atau /autoauth berkuat kuasa pada /connect seterusnya ketika terputus; sambungan aktif tidak berubah.
+
+Fail konfigurasi adalah peribadi; setiap fail diganti secara atomik, bukan seluruh ruang kerja sebagai satu transaksi. Tiada import/eksport.
+
+Seksyen, kunci atau nilai tidak dikenali adalah ralat. Konfigurasi menggunakan nilai literal, bukan petikan shell, escape, pemboleh ubah atau ~.
+
+Nilai biasa dipangkas pada hujungnya. password= dan server_password= mengekalkan segala selepas = kecuali hujung baris; jangan tambah komen atau petikan.
+
+Simpan menulis semula tetapan disokong dan menggantikan format/komen tulisan tangan. Simpan nota di luar konfigurasi terjana.
+
+Lihat /help authentication untuk rahsia, /help tls untuk CA, /help logging untuk log cakera dan /help sessions untuk kawalan pekerja aktif.

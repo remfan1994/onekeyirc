@@ -1,0 +1,19 @@
+CURRENT SIGNAL POLICY (vipirc-1.0-a):
+Secara bawaan Use signals = no. Ctrl-C dan Ctrl-Z membatalkan pesan atau perintah yang belum dikirim, bukan menghentikan aplikasi. Pilih yes pada panel 0 (atau pengaturan Interface vipirc) untuk mengaktifkan sinyal terminal. Apply berlaku segera; Save juga menyimpan [input] use_signals=true|false. Pengaturan terminal asal dipulihkan saat keluar atau ditangguhkan.
+
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / TERMINAL SIGNALS
+English source SHA-256: b88ff166737c03f4e8588e56bcb3bfd585a2d4ef6379caaf086b815dbbd935b6
+
+SINYAL TERMINAL
+
+Ctrl-D yang benar-benar diketik diabaikan kecuali telah diikat secara khusus dalam masukan utama chat/perintah; tombol itu juga dapat membatalkan pertanyaan keluar dari F1. Ctrl-D hasil tempelan tidak dapat menjawab pertanyaan itu. Untuk keluar secara normal gunakan /quit dalam Command. Penetapan sinyal terminal khusus tetap didahulukan atas penanganan tombol biasa.
+
+Secara bawaan, penanganan sinyal mengikuti pengaturan terminal yang diwarisi. Klien tidak menetapkan Ctrl-C atau Ctrl-Z: tombol itu hanya bekerja jika terminal memetakannya ke sinyal dan penanganan sinyal aktif. Tombol interupsi, keluar, dan penangguhan khusus tetap dipertahankan. Untuk mengaktifkan sinyal terminal secara eksplisit, atur preferensi konfigurasi utama ini dan mulai proses klien baru:
+
+    [input]
+    use_signals=true
+
+Nilai bawaan false mempertahankan keadaan aktif atau nonaktif yang diwarisi. Pengaturan ini tidak pernah mengubah pemetaan tombol terminal. Saat ditangguhkan atau keluar, klien mengembalikan pengaturan terminal semula.
+
+Bila aktif, interupsi terminal mengakhiri klien tanpa menyimpan draf. Menangguhkan proses biasa di latar depan menghentikan lalu lintas jaringannya dan dapat menyebabkan batas waktu terlampaui; fg melanjutkannya. Dalam pekerjaan terkelola/yang dilanjutkan, penangguhan menghentikan pengendali latar depan, tetapi proses pekerja tetap terhubung ke jaringan; lihat RUNNING IN THE BACKGROUND.

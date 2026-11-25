@@ -1,0 +1,44 @@
+Guia prático de vipirc / onekeyirc - Configurações
+=======================================================
+
+TRADUÇÃO PRELIMINAR. Escreva os comandos e opções exatamente como aparecem.
+Para os detalhes de segurança, consulte MANUAL.txt e SECURITY.md em inglês.
+
+/help set
+---------
+
+direct é o padrão: Enter envia o texto; vários envios IRC exigem confirmação obrigatória.
+
+review adiciona uma etapa de revisão antes de colocar mensagens normais na fila.
+
+output_format compact é o padrão: o chat escolhido mostra [HH:MM:SS] <nick> texto.
+
+output_format full inclui servidor, data e destino por linha. compact preserva origem necessária de menções e diagnósticos de outros servidores.
+
+queue_notices off oculta avisos rotineiros da fila. No modo mínimo, envios revisados omitem avisos repetidos. Erros e confirmação de várias mensagens permanecem visíveis.
+
+program_messages off oculta avisos locais secundários, como rascunho cancelado, entrada limpa e rascunho preservado. Erros e confirmações de segurança permanecem.
+
+persistent_logging on grava chat em .log privado (0600), no diretório privado (0700) da configuração. Padrão desligado; limite 16 MiB: arquive e alterne off/on. Arquivo inseguro/ocupado para o log, não o chat.
+
+single_session on permite apenas uma tarefa em segundo plano neste cliente: --resume sem número não é ambíguo. Vários servidores IRC continuam possíveis na sessão.
+
+default_interface define a interface na próxima inicialização, quando disponível. Não muda a atual. /save input salva essa preferência.
+
+command_suggestions escolhe ordem alfabética, comandos comuns, recentes, mais usados ou pertinentes à tela de origem.
+
+composer_mode line mantém uma linha de entrada abaixo do chat; fullscreen dá editor multilinha e painel de chat. Padrão: line.
+
+part_message e quit_message são motivos de saída IRC padrão; mensagem explícita de /part ou /quit prevalece. Valor vazio desativa o texto padrão.
+
+background_away envia background_away_message após /background bem-sucedido ou perda do terminal. autoaway_minutes define away por inatividade; 0 desativa.
+
+Só o estado away criado pelo cliente é limpo automaticamente ao retomar ou digitar de verdade. /away manual nunca é alterado ou limpo.
+
+«Usado com frequência» é o padrão. «Contextual» prioriza comandos de canal, conversa, servidor ou cliente, sem excluir outras correspondências.
+
+«Usado com frequência» usa ordem útil pré-selecionada. «Contextual» lembra a tela de origem, inclusive o leitor de resumo geral.
+
+São preferências do aplicativo em todos os servidores. Use /save input ou /save output para persistir.
+
+/panel e depois 0 edita essas preferências e o limite global do histórico.

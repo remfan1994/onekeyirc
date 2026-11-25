@@ -1,0 +1,24 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / SETTINGS
+English source SHA-256: 9c87d089b996a2f8af0ff0340f97da2bd4c3650e5fbc7816868f35b0df91ee05
+Source lines: 724-781
+
+EINSTELLUNGEN
+
+F1 > Einstellungen oder /settings öffnet die Oberflächeneinstellungen, alle Serverprofile und New server, ohne den aktuellen Chat zu wechseln. Die Zeilen zeigen den Status von automatischer Verbindung und Speicherung. Serverfelder umfassen Transport, Identität, automatischen Kanalbeitritt, automatische Verbindung, Quellen für Konto- und Serverpasswort (PASS), eigene CA, Bouncer-Typ/Benutzername/Netzwerk/Client/automatische Abwesenheit, Verlauf, Erwähnungen und Ignorierregeln. Unter Interface stehen User list, Mouse, Hints, Shortcut labels, Hinweise, Protokollierung, Einzelsitzungsmodus, Befehlsvorschläge und Standardschnittstelle.
+
+    Edit    Apply    Save    Back    Cancel
+
+Up/Down oder k/j wählt Felder, Left/Right oder h/l eine Aktion; Enter führt sie aus. Home/End oder g/G springt an die Enden. Edit schaltet einen Wahrheitswert um, öffnet eine Auswahl oder bearbeitet Text/Zahlen. Enter im Editor bereitet nur diesen Wert vor; Tab/Shift-Tab überprüft und übernimmt ihn vor dem Wechsel zum nächsten Feld. Ungültige Eingaben bleiben bearbeitbar. Buchstaben sind im Editor normale Texteingaben. Ein leeres vorhandenes watch/ignore-Feld entfernt seinen Eintrag; Add fügt innerhalb der Grenzwerte einen neuen hinzu.
+
+Apply prüft und aktualisiert aktive Einstellungen, watch/ignore und automatische Verbindung; danach bleibt Settings geöffnet und Edit ausgewählt. Verbindungsfelder einschließlich Bouncer-Identität bleiben bis zu einem ausdrücklichen Connect nach dem Trennen vorgemerkt. Apply speichert nie, verbindet nicht erneut und lenkt keine bestehende Sitzung um. /nick, /join und /part wirken dagegen auf die laufende Verbindung. Save schreibt das wirksame Profil privat und atomar und wendet es anschließend an; /save erhält auch vorgemerkte Änderungen. Das erste Save eines sekundären Servers erzeugt ein isoliertes Profil und einen Katalogeintrag.
+
+Interface Apply aktualisiert alle aktuellen und künftigen Serverplätze. Interface Save schreibt erst die primäre Konfiguration und wendet sie dann an. Schlägt Interface Save fehl oder wird es blockiert, bleiben sämtliche Sitzungen unverändert. Oberflächenschlüssel sekundärer Profile dürfen beim Start die primären nicht überschreiben. Im Vollmodus bleibt der Verlauf je Server getrennt. Die Standardschnittstelle wirkt nur beim nächsten Programmstart.
+
+Hints blendet optionale Erläuterungen aus, erhält aber Titel, Bedienelemente, Fehler und Sicherheitsbestätigungen. Shortcut labels blendet gewöhnliche F1..F6-Vorsätze aus. Beides ist standardmäßig aktiviert und wird unter [interface] gespeichert. Die Optionen sind unabhängig von normalen Terminalfarben und fetter Fokusmarkierung.
+
+Wird Server auf einen anderen Wert geändert (Groß-/Kleinschreibung unbeachtlich), entfernt das vorbereitete Formular übernommene Authentifizierung, auth user, sämtliche Konto-/PASS-Passwortquellen und autojoin. Ein anderer Bouncer-Typ entfernt übernommene Zugangsdaten/Befehle; danach müssen die beabsichtigten Werte neu eingegeben werden. Die aktive Sitzung bleibt unberührt. Dateien werden beim Bearbeiten weder gelesen noch entschlüsselt; direkt eingegebene Klartextpasswörter sind verdeckt, ihre Leerzeichen bleiben erhalten. Transport wählt unabhängig von der verschlüsselten Passwortspeicherung zwischen geprüftem TLS und ausdrücklich gewähltem Klartext.
+
+Back kehrt zur Settings-Startseite zurück. Cancel/Escape schließt das gesamte Formular auch aus einem Feld oder Popup, verwirft noch nicht angewendete Änderungen und führt zu vipirc zurück. Bereits angewendete Einstellungen, vorgemerkte Entscheidungen und Chatentwürfe bleiben bestehen. Im Testmodus ist Apply im Speicher erlaubt, Save jedoch untersagt. Server über Settings anzulegen oder zu verbinden ändert nicht den ausgewählten Chat.
+
+Bracketed Paste funktioniert nur in einem aktiven Feld, fügt ohne Bestätigung ein und wandelt Tabulatoren in Leerzeichen um. CR/LF/Escape und nicht unterstützte Steuerzeichen werden abgewiesen. Einfügen in Listen oder Auswahl-Popups wird ignoriert. Prüfen Sie den Text und drücken Sie zum Vormerken Enter. Die geführte Abfrage /panel ist ein gesonderter Fragen-Antworten-Ablauf, beschrieben unter MINIMALIST INTERFACE.

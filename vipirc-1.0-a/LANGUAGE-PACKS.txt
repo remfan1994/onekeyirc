@@ -1,0 +1,14 @@
+LANGUAGE PACK 1.0-a FOR vipirc 1.0-a / ENGLISH SOURCE r1
+
+Language pack 1.0-a is optional; apply it to a clean English 1.0-a source tree before configuring or building. Do not layer packs.
+
+    tar -xzf vipirc-1.0-a.tar.gz
+    tar -xzf vipirc-languages-1.0-a.tar.gz
+    VIPIRC_LANG=fr sh vipirc-languages-1.0-a/apply.sh vipirc-1.0-a
+    cd vipirc-1.0-a
+    VIPIRC_LANG=fr ./configure && make
+    VIPIRC_LANG=fr ./vipirc --version
+
+Expected translated build marker: `vipirc 1.0-a [lang-rtl-1.0-a]`. Without the optional pack, `--version` reports `vipirc 1.0-a` and interface text is English. Use a UTF-8 terminal; VIPIRC_LANG selects the interface language. Restart detached workers to change their language. Supported locales: id, ms, tr, es, pt, fr, de, ru, it, ar. Command names, configuration keys and IRC protocol remain literal.
+
+This is the public alpha 1.0-a, based on RC4. Community translation review and platform testing are invited; this is not a final stable release. See `doc/ALPHA-STATUS.txt`, `doc/LOCALIZATION.md` and `CHANGELOG.md`.

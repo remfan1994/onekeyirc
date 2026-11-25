@@ -1,0 +1,69 @@
+CURRENT SIGNAL POLICY (vipirc-1.0-a):
+Use signals começa em no. Ctrl-C e Ctrl-Z cancelam uma mensagem ou comando por enviar, sem terminar nem suspender a aplicação. Selecione yes no painel 0 ou nas definições Interface do vipirc para ativar os sinais do terminal. Apply aplica imediatamente; Save também guarda [input] use_signals=true|false. As definições originais do terminal são repostas ao sair ou suspender.
+
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / CONFIGURATION
+English source SHA-256: e2956cfce20ea9e24f3a157c4edcdf403e26c851eb40004ecc77db98f83874de
+Source lines: 1452-1555
+
+CONFIGURAÇÃO
+
+Crie uma configuração privada editável com estes exemplos, edite-a e valide:
+
+    vipirc --init-config --server irc.ircnow.org --channel '#ircnow'
+    vipirc --check-config
+
+Um ficheiro descreve um perfil; --config escolhe o principal e o catálogo de servidores guardados adjacente. Até oito perfis partilham um processo. Caminhos principais distintos criam espaços de trabalho separados. Os exemplos fornecidos e --init-config mostram a sintaxe completa. O mapa de chaves abaixo é referência, não bloco a colar: cada key=value real ocupa a sua linha.
+
+Os padrões são send_mode=direct, composer_mode=line, command_suggestions=common, format=compact e default_interface=ncurses. Preferências da aplicação pertencem à configuração principal e aplicam-se a todos os servidores; connection/auth/bouncer e listas de watch, ignore e comandos de arranque pertencem a cada perfil. [hotkeys] está vazio por padrão e permite até 64 linhas KEY=action.
+
+O nickname difere de username IRC. Uma alcunha principal interativa vazia pede valor com a conta de login como padrão. username vem da conta por padrão; realname descreve o campo USER, não sendo necessariamente nome legal. channel é uma lista autojoin do perfil direto separada por vírgulas sem espaços; vazia significa vista do servidor. Bouncers restauram as suas adesões.
+
+Para SASL direto, auth=sasl exige auth_user e exatamente uma fonte password. O PASS do servidor escolhe independentemente uma fonte server_password. Mais de uma fonte por credencial é erro sem fallback; ambas exigem TLS verificado. Bouncers exigem auth_user vazio e derivam o seu login. Segredos inline permanecem texto claro; regras de ficheiros/GPG estão em AUTHENTICATION.
+
+history_lines aceita 50..5000 linhas por vista, padrão 500, com limite de 8 MiB de texto por servidor que pode expulsar entradas mais cedo. A retenção minimalista tem ainda limites globais de 2048 registos/512 KiB. Booleanos aceitam minúsculas true/false, yes/no, 1/0. Secções/chaves desconhecidas ou valores inválidos/excessivos são rejeitados com número de linha quando possível. A maioria dos duplicados usa o último valor; entradas repetidas watch/ignore/autocommand acumulam até ao limite.
+
+Linhas começadas por # ou ; após espaços iniciais são comentários; não há comentários dentro de linhas de dados. Espaços nas margens de valores normais são removidos. Não existe sintaxe de aspas, escapes, expansão de variáveis/tilde ou avaliação de shell. Prefira caminhos absolutos literais. Apply/Save recusa espaços ASCII exteriores em campos comuns para evitar mudanças ao reler; espaços interiores são permitidos quando válidos.
+
+password=, server_password= e [autocommands] command= preservam todos os bytes após = exceto quebras de linha, incluindo espaços, =, # e ;. Não adicione aspas nem comentários inline. Password vazio significa nenhuma fonte; só espaços conta como não vazio. Controlos ou novas linhas em passwords são inválidos.
+
+/save regenera definições suportadas, incluindo escolhas pendentes, substituindo comentários/formatação; guarde notas à parte. Edições manuais carregam num processo novo, não em --resume. Save é proibido em test mode. Ficheiros criados têm modo 0600 num diretório final 0700 pertencente ao utilizador; configurações existentes devem pertencer-lhe e não permitir escrita por outros. Symlinks (incluindo componentes dos caminhos) e '..' são rejeitados. Password inline não vazio ou lista de comandos de arranque, mesmo desativada, exige ficheiro regular do utilizador com modo 0600/0400. Cada ficheiro é trocado atomicamente, não o conjunto como uma só transação.
+
+single_session=true impede segundo worker gerido, não servidores adicionais dentro do mesmo. Os padrões de presence constam do mapa; autoaway_minutes=0 desativa o temporizador. Regresso automático limpa apenas a ausência gerada pelo cliente, nunca /away manual. Away automático do bouncer também fica desligado por padrão.
+
+As chaves antigas [interface] keymap=original|vim e focus_style=reverse|brackets são aceites mas ignoradas e não gravadas em Save; outros valores são inválidos. Navegação normal e foco de parênteses a negrito permanecem. /keymap explica esta compatibilidade, sem escolher mapa. Notificações queue/program podem ocultar-se independentemente; erros e confirmações de segurança continuam visíveis.
+
+EXACT CONFIGURATION KEYS (reference only; not a block to paste):
+
+    [connection]
+    server, port, tls, nick, username, realname, channel, autoconnect,
+    auth, auth_user, password_file, password_gpg_file, password,
+    server_password_file, server_password_gpg_file, server_password, ca_file
+    [bouncer]
+    type=none|znc|soju, username, network, client, automatic_away=false
+    [interface]
+    user_list=true, mouse=true, hints=true, shortcut_labels=true,
+    history_lines=500
+    [input]
+    send_mode=direct|review, composer_mode=line|fullscreen,
+    command_suggestions=common|history|frequent|alphabetical|contextual,
+    use_signals=false
+    [hotkeys]
+    optional KEY=action rows; empty by default, at most 64
+    [output]
+    format=compact|full, queue_notices=true, program_messages=true,
+    persistent_logging=false
+    [session]
+    single_session=false, default_interface=ncurses|idle
+    [presence]
+    part_message=, quit_message=Client quit, background_away=true,
+    background_away_message=Detached from terminal,
+    autoaway_minutes=15, autoaway_message=Idle
+    [autocommands]
+    enabled=true, delay_seconds=15, interval_seconds=2, repeated command=
+    [mentions]
+    repeated word=literal phrase
+    [ignore]
+    repeated mask=nick!user@host
+
+    [interface] keymap=original|vim; focus_style=reverse|brackets

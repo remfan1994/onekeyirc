@@ -1,0 +1,674 @@
+Dynamic setup and contextual help label review. Protocol commands and configuration values are unchanged.
+4 new keys and 170 revised locale entries.
+id: Common is the default. Contextual prioritizes channel, query, server or client commands while retaining matching commands from other groups.
+  OLD: Common adalah bawaan. Contextual mengutamakan perintah kanal, query, server, atau klien tanpa menghilangkan kecocokan kelompok lain.
+  NEW: «Sering digunakan» adalah bawaan. «Sesuai konteks» mengutamakan perintah kanal, query, server, atau klien tanpa menghilangkan kecocokan kelompok lain.
+id: Common uses a curated useful order. Contextual remembers the actual screen that opened command entry, including a client-wide summary reader.
+  OLD: Common mengurutkan daftar perintah yang dikurasi. Contextual mengingat layar asal, termasuk pembaca ringkasan seluruh klien.
+  NEW: «Sering digunakan» mengurutkan daftar perintah yang dikurasi. «Sesuai konteks» mengingat layar asal, termasuk pembaca ringkasan seluruh klien.
+id: Commonly used prioritizes common tasks for the live connection. Recent history lists retained commands. Most used ranks this configuration's saved command-name counts. Alphabetical sorts names. Contextual uses the screen that opened command entry. Down selects; Enter inserts for review. Delete forgets a history entry or resets a personal count. Apply uses the mode now; Save keeps the choice.
+  OLD: Commonly used mengutamakan tugas umum untuk koneksi aktif. Recent history menampilkan perintah tersimpan. Most used mengurutkan menurut pemakaian dalam konfigurasi ini. Alphabetical mengurutkan menurut abjad. Contextual memakai layar asal perintah. Down memilih; Enter menyisipkan untuk diperiksa. Delete menghapus riwayat atau mengatur ulang hitungan. Apply berlaku sekarang; Save menyimpannya.
+  NEW: «Sering digunakan» mengutamakan tugas umum untuk koneksi aktif. «Riwayat terbaru» menampilkan perintah tersimpan. «Paling sering dengan konfigurasi ini» mengurutkan menurut pemakaian dalam konfigurasi ini. «Menurut abjad» mengurutkan menurut abjad. «Sesuai konteks» memakai layar asal perintah. Down memilih; Enter menyisipkan untuk diperiksa. Delete menghapus riwayat atau mengatur ulang hitungan. «Terapkan» berlaku sekarang; «Simpan» menyimpannya.
+id: Connection: {state}. Open visits channel 0 for this server. Connect starts its connection; Disconnect ends it while retaining its views. Close removes a secondary session and its drafts after confirmation. Away changes this server's away state.
+
+Selecting this entry or reading help does not switch servers or connect.
+  OLD: Koneksi: {state}. Open membuka kanal 0 server ini. Connect menghubungkan; Disconnect memutus sambil menyimpan tampilan. Close menghapus sesi tambahan dan draf setelah konfirmasi. Away mengubah status tidak hadir. Memilih atau membaca bantuan tidak mengganti server maupun menghubungkan.
+  NEW: Koneksi: {state}. «Buka» membuka kanal 0 server ini. «Hubungkan» menghubungkan; «Putuskan» memutus sambil menyimpan tampilan. «Tutup» menghapus sesi tambahan dan draf setelah konfirmasi. «Absen» mengubah status tidak hadir. Memilih atau membaca bantuan tidak mengganti server maupun menghubungkan.
+id: Enter yes or no for Use signals.
+  OLD: Masukkan yes atau no untuk Use signals.
+  NEW: Masukkan yes atau no untuk «Gunakan sinyal».
+id: Query opens a private conversation without sending. Whois asks the server for public nickname information. Ignore changes local filtering. Back returns to the conversation. Up/Down chooses an action; Enter activates it.
+  OLD: Query membuka percakapan privat tanpa mengirim pesan. Whois meminta informasi nama panggilan publik dari server. Ignore mengubah penyaringan lokal. Back kembali ke percakapan. Up/Down memilih tindakan; Enter menjalankannya.
+  NEW: «Pesan pribadi» membuka percakapan privat tanpa mengirim pesan. «Info pengguna» meminta informasi nama panggilan publik dari server. «Abaikan» mengubah penyaringan lokal. «Kembali» kembali ke percakapan. Up/Down memilih tindakan; Enter menjalankannya.
+id: R refreshes; Up/Down, Page Up/Page Down, Home/End scroll. Left/Right selects Refresh or Back. / opens a command prompt; cancelling it restores this snapshot. Escape returns to the originating screen.
+  OLD: R memperbarui; Up/Down, Page Up/Page Down, Home/End menggulir. Left/Right memilih Refresh atau Back. / membuka masukan perintah; pembatalan mengembalikan ringkasan ini. Escape kembali ke layar asal.
+  NEW: R memperbarui; Up/Down, Page Up/Page Down, Home/End menggulir. Left/Right memilih «Muat ulang» atau «Kembali». / membuka masukan perintah; pembatalan mengembalikan ringkasan ini. Escape kembali ke layar asal.
+id: Servers lists every current server session. Up/Down chooses a server; Left/Right chooses an action; Enter activates that action. Open selects its channel 0, which shows server notices, /list results and connection replies. The server list and /list are different: /list requests channel names from the selected network.
+  OLD: Servers menampilkan setiap sesi server saat ini. Up/Down memilih server; Left/Right memilih tindakan; Enter menjalankannya. Open membuka kanal 0 untuk pemberitahuan server, hasil /list, dan balasan koneksi. Daftar server berbeda dari /list: /list meminta daftar kanal dari jaringan terpilih.
+  NEW: «Server» menampilkan setiap sesi server saat ini. Up/Down memilih server; Left/Right memilih tindakan; Enter menjalankannya. «Buka» membuka kanal 0 untuk pemberitahuan server, hasil /list, dan balasan koneksi. Daftar server berbeda dari /list: /list meminta daftar kanal dari jaringan terpilih.
+id: The inherited terminal interrupt, quit, and suspend key assignments remain unchanged; Use signals = no disables their signal effects while the client is active.
+  OLD: Penetapan tombol interupsi, keluar, dan tunda pada terminal tidak diubah; Use signals = no menonaktifkan efek sinyalnya selama klien aktif.
+  NEW: Penetapan tombol interupsi, keluar, dan tunda pada terminal tidak diubah; «Gunakan sinyal» = no menonaktifkan efek sinyalnya selama klien aktif.
+id: These lists show views already open in the selected server session. Up/Down selects a view; Left/Right selects Open, New, Part or Close as appropriate; Enter performs the selected action. Channel 0 is the server. /cl and /channels show local channel views; /list [MASK] [OPTIONS] opens the sortable network channel directory. /ql shows private conversations.
+  OLD: Daftar ini berisi tampilan yang sudah terbuka di server terpilih. Up/Down memilih; Left/Right memilih Open, New, Part, atau Close; Enter menjalankan. Kanal 0 adalah server. /cl dan /channels menampilkan kanal lokal; /list [MASK] [OPTIONS] membuka direktori jaringan; /ql menampilkan percakapan privat.
+  NEW: Daftar ini berisi tampilan yang sudah terbuka di server terpilih. Up/Down memilih; Left/Right memilih «Buka», «Baru», «Keluar kanal», atau «Tutup»; Enter menjalankan. Kanal 0 adalah server. /cl dan /channels menampilkan kanal lokal; /list [MASK] [OPTIONS] membuka direktori jaringan; /ql menampilkan percakapan privat.
+id: This is a private conversation. Open selects it without sending. Close discards its retained view and draft after any required confirmation.
+  OLD: Ini percakapan privat. Open memilih tanpa mengirim. Close menghapus tampilan dan drafnya setelah konfirmasi bila perlu.
+  NEW: Ini percakapan privat. «Buka» memilih tanpa mengirim. «Tutup» menghapus tampilan dan drafnya setelah konfirmasi bila perlu.
+id: Use signals is off by default; Ctrl-C/Ctrl-Z cancel unsent text. Use /quit to exit.
+  OLD: Use signals mati secara baku; Ctrl-C/Ctrl-Z membatalkan teks belum terkirim. Keluar dengan /quit.
+  NEW: «Gunakan sinyal» mati secara baku; Ctrl-C/Ctrl-Z membatalkan teks belum terkirim. Keluar dengan /quit.
+id: You are joined to this channel. Part leaves it but keeps its history and unfinished draft. Close removes the view.
+  OLD: Anda bergabung di kanal ini. Part keluar sambil menyimpan riwayat dan draf. Close menghapus tampilan.
+  NEW: Anda bergabung di kanal ini. «Keluar kanal» keluar sambil menyimpan riwayat dan draf. «Tutup» menghapus tampilan.
+id: You are not joined to this channel. The retained view keeps its scrollback and unfinished draft. Use /join to join again, or Close to remove it.
+  OLD: Anda tidak bergabung di kanal ini. Riwayat dan draf tetap tersimpan. Gunakan /join untuk bergabung lagi atau Close untuk menghapus tampilan.
+  NEW: Anda tidak bergabung di kanal ini. Riwayat dan draf tetap tersimpan. Gunakan /join untuk bergabung lagi atau «Tutup» untuk menghapus tampilan.
+id: [input] use_signals=false disables terminal-generated signals while this client owns the tty. true enables the existing terminal signal mappings. Apply takes effect now; Save persists this primary-owned preference.
+  OLD: [input] use_signals=false Secara bawaan Use signals = no. Ctrl-C dan Ctrl-Z membatalkan pesan atau perintah yang belum dikirim, bukan menghentikan aplikasi. Pilih yes pada panel 0 (atau pengaturan Interface vipirc) untuk mengaktifkan sinyal terminal. Apply berlaku segera; Save juga menyimpan [input] use_signals=true|false. Pengaturan terminal asal dipulihkan saat keluar atau ditangguhkan.
+  NEW: [input] use_signals=false menonaktifkan sinyal yang dihasilkan terminal selama klien menguasai tty. true mengaktifkan pemetaan sinyal terminal yang ada. «Terapkan» langsung berlaku; «Simpan» menyimpan preferensi milik konfigurasi utama ini.
+id: yes = terminal Ctrl-C interrupts and Ctrl-Z suspends; no (default) = cancel an unsent compose instead. Applies now in this terminal; Save retains it for later launches. External kill signals still work.
+  OLD: yes = Ctrl-C menginterupsi dan Ctrl-Z menangguhkan; no = batalkan draf belum terkirim. Berlaku sekarang; Save menyimpan untuk nanti.
+  NEW: yes = Ctrl-C menginterupsi dan Ctrl-Z menangguhkan; no = batalkan draf belum terkirim. Berlaku sekarang; «Simpan» menyimpan untuk nanti.
+id: {description}
+
+Unread messages: {unread}; mentions: {mentions}. Selecting Open visits this view. Help preserves the view's unread counts, history and draft.
+  OLD: {description} Pesan belum dibaca: {unread}; penyebutan: {mentions}. Open membuka tampilan ini. Bantuan menjaga hitungan, riwayat, dan draf.
+  NEW: {description} Pesan belum dibaca: {unread}; penyebutan: {mentions}. «Buka» membuka tampilan ini. Bantuan menjaga hitungan, riwayat, dan draf.
+id: Use signals
+  OLD: 
+  NEW: Gunakan sinyal
+id: Whois
+  OLD: 
+  NEW: Info pengguna
+id: Ignore
+  OLD: 
+  NEW: Abaikan
+id: Unignore
+  OLD: 
+  NEW: Berhenti mengabaikan
+ms: Common is the default. Contextual prioritizes channel, query, server or client commands while retaining matching commands from other groups.
+  OLD: Common ialah lalai. Contextual mendahulukan arahan saluran, pertanyaan, pelayan atau klien sambil mengekalkan padanan lain.
+  NEW: «Lazim digunakan» ialah lalai. «Mengikut konteks» mendahulukan arahan saluran, pertanyaan, pelayan atau klien sambil mengekalkan padanan lain.
+ms: Common uses a curated useful order. Contextual remembers the actual screen that opened command entry, including a client-wide summary reader.
+  OLD: Common menggunakan susunan arahan terpilih. Contextual mengingati skrin asal, termasuk pembaca ringkasan seluruh klien.
+  NEW: «Lazim digunakan» menggunakan susunan arahan terpilih. «Mengikut konteks» mengingati skrin asal, termasuk pembaca ringkasan seluruh klien.
+ms: Commonly used prioritizes common tasks for the live connection. Recent history lists retained commands. Most used ranks this configuration's saved command-name counts. Alphabetical sorts names. Contextual uses the screen that opened command entry. Down selects; Enter inserts for review. Delete forgets a history entry or resets a personal count. Apply uses the mode now; Save keeps the choice.
+  OLD: Commonly used mengutamakan tugas lazim pada sambungan aktif. Recent history menyenaraikan arahan tersimpan. Most used menyusun mengikut kekerapan dalam konfigurasi ini. Alphabetical menyusun mengikut abjad. Contextual mengikut skrin asal arahan. Down memilih; Enter memasukkan untuk semakan. Delete memadam sejarah atau menetapkan semula bilangan. Apply guna sekarang; Save menyimpan.
+  NEW: «Lazim digunakan» mengutamakan tugas lazim pada sambungan aktif. «Sejarah terkini» menyenaraikan arahan tersimpan. «Paling kerap dengan konfigurasi ini» menyusun mengikut kekerapan dalam konfigurasi ini. «Mengikut abjad» menyusun mengikut abjad. «Mengikut konteks» mengikut skrin asal arahan. Down memilih; Enter memasukkan untuk semakan. Delete memadam sejarah atau menetapkan semula bilangan. «Guna» guna sekarang; «Simpan» menyimpan.
+ms: Connection: {state}. Open visits channel 0 for this server. Connect starts its connection; Disconnect ends it while retaining its views. Close removes a secondary session and its drafts after confirmation. Away changes this server's away state.
+
+Selecting this entry or reading help does not switch servers or connect.
+  OLD: Sambungan: {state}. Open membuka saluran 0 pelayan ini. Connect menyambung; Disconnect memutus tanpa membuang paparan. Close membuang sesi tambahan dan draf selepas pengesahan. Away mengubah status tiada. Memilih atau membaca bantuan tidak menukar pelayan atau menyambung.
+  NEW: Sambungan: {state}. «Buka» membuka saluran 0 pelayan ini. «Sambung» menyambung; «Putuskan» memutus tanpa membuang paparan. «Tutup» membuang sesi tambahan dan draf selepas pengesahan. «Jauh» mengubah status tiada. Memilih atau membaca bantuan tidak menukar pelayan atau menyambung.
+ms: Enter yes or no for Use signals.
+  OLD: Masukkan yes atau no untuk Use signals.
+  NEW: Masukkan yes atau no untuk «Guna isyarat».
+ms: Query opens a private conversation without sending. Whois asks the server for public nickname information. Ignore changes local filtering. Back returns to the conversation. Up/Down chooses an action; Enter activates it.
+  OLD: Query membuka perbualan peribadi tanpa menghantar. Whois meminta maklumat nama samaran awam daripada pelayan. Ignore mengubah penapisan setempat. Back kembali ke perbualan. Up/Down memilih tindakan; Enter melaksanakannya.
+  NEW: «Mesej peribadi» membuka perbualan peribadi tanpa menghantar. «Maklumat pengguna» meminta maklumat nama samaran awam daripada pelayan. «Abaikan» mengubah penapisan setempat. «Kembali» kembali ke perbualan. Up/Down memilih tindakan; Enter melaksanakannya.
+ms: R refreshes; Up/Down, Page Up/Page Down, Home/End scroll. Left/Right selects Refresh or Back. / opens a command prompt; cancelling it restores this snapshot. Escape returns to the originating screen.
+  OLD: R memuat semula; Up/Down, Page Up/Page Down, Home/End menatal. Left/Right memilih Refresh atau Back. / membuka input arahan; membatalkannya memulihkan ringkasan ini. Escape kembali ke skrin asal.
+  NEW: R memuat semula; Up/Down, Page Up/Page Down, Home/End menatal. Left/Right memilih «Muat semula» atau «Kembali». / membuka input arahan; membatalkannya memulihkan ringkasan ini. Escape kembali ke skrin asal.
+ms: Servers lists every current server session. Up/Down chooses a server; Left/Right chooses an action; Enter activates that action. Open selects its channel 0, which shows server notices, /list results and connection replies. The server list and /list are different: /list requests channel names from the selected network.
+  OLD: Servers memaparkan setiap sesi pelayan semasa. Up/Down memilih pelayan; Left/Right memilih tindakan; Enter melaksanakannya. Open memilih saluran 0 bagi notis pelayan, hasil /list dan balasan sambungan. Senarai pelayan berbeza daripada /list: /list meminta nama saluran daripada rangkaian terpilih.
+  NEW: «Pelayan» memaparkan setiap sesi pelayan semasa. Up/Down memilih pelayan; Left/Right memilih tindakan; Enter melaksanakannya. «Buka» memilih saluran 0 bagi notis pelayan, hasil /list dan balasan sambungan. Senarai pelayan berbeza daripada /list: /list meminta nama saluran daripada rangkaian terpilih.
+ms: The inherited terminal interrupt, quit, and suspend key assignments remain unchanged; Use signals = no disables their signal effects while the client is active.
+  OLD: Pemetaan kekunci terminal bagi sampukan, keluar dan gantung tidak diubah; Use signals = no menyahaktifkan kesan isyaratnya semasa klien aktif.
+  NEW: Pemetaan kekunci terminal bagi sampukan, keluar dan gantung tidak diubah; «Guna isyarat» = no menyahaktifkan kesan isyaratnya semasa klien aktif.
+ms: These lists show views already open in the selected server session. Up/Down selects a view; Left/Right selects Open, New, Part or Close as appropriate; Enter performs the selected action. Channel 0 is the server. /cl and /channels show local channel views; /list [MASK] [OPTIONS] opens the sortable network channel directory. /ql shows private conversations.
+  OLD: Senarai ini menunjukkan paparan terbuka pada pelayan dipilih. Up/Down memilih; Left/Right memilih Open, New, Part atau Close; Enter melaksana. Saluran 0 ialah pelayan. /cl dan /channels menunjukkan saluran setempat; /list [MASK] [OPTIONS] membuka direktori rangkaian; /ql menunjukkan perbualan peribadi.
+  NEW: Senarai ini menunjukkan paparan terbuka pada pelayan dipilih. Up/Down memilih; Left/Right memilih «Buka», «Baharu», «Tinggalkan saluran» atau «Tutup»; Enter melaksana. Saluran 0 ialah pelayan. /cl dan /channels menunjukkan saluran setempat; /list [MASK] [OPTIONS] membuka direktori rangkaian; /ql menunjukkan perbualan peribadi.
+ms: This is a private conversation. Open selects it without sending. Close discards its retained view and draft after any required confirmation.
+  OLD: Ini perbualan peribadi. Open memilih tanpa menghantar. Close membuang paparan dan draf selepas pengesahan jika diperlukan.
+  NEW: Ini perbualan peribadi. «Buka» memilih tanpa menghantar. «Tutup» membuang paparan dan draf selepas pengesahan jika diperlukan.
+ms: Use signals is off by default; Ctrl-C/Ctrl-Z cancel unsent text. Use /quit to exit.
+  OLD: Use signals dimatikan secara lalai; Ctrl-C/Ctrl-Z membatalkan teks belum dihantar. Keluar dengan /quit.
+  NEW: «Guna isyarat» dimatikan secara lalai; Ctrl-C/Ctrl-Z membatalkan teks belum dihantar. Keluar dengan /quit.
+ms: You are joined to this channel. Part leaves it but keeps its history and unfinished draft. Close removes the view.
+  OLD: Anda berada dalam saluran ini. Part meninggalkannya sambil mengekalkan sejarah dan draf. Close membuang paparan.
+  NEW: Anda berada dalam saluran ini. «Tinggalkan saluran» meninggalkannya sambil mengekalkan sejarah dan draf. «Tutup» membuang paparan.
+ms: You are not joined to this channel. The retained view keeps its scrollback and unfinished draft. Use /join to join again, or Close to remove it.
+  OLD: Anda tidak berada dalam saluran ini. Sejarah dan draf masih dikekalkan. Guna /join untuk masuk semula atau Close untuk membuang paparan.
+  NEW: Anda tidak berada dalam saluran ini. Sejarah dan draf masih dikekalkan. Guna /join untuk masuk semula atau «Tutup» untuk membuang paparan.
+ms: [input] use_signals=false disables terminal-generated signals while this client owns the tty. true enables the existing terminal signal mappings. Apply takes effect now; Save persists this primary-owned preference.
+  OLD: [input] use_signals=false Use signals = no secara lalai. Ctrl-C dan Ctrl-Z membatalkan mesej atau arahan yang belum dihantar, bukan menamatkan aplikasi. Pilih yes dalam panel 0 (atau tetapan Interface vipirc) untuk mengaktifkan isyarat terminal. Apply berkuat kuasa serta-merta; Save turut menyimpan [input] use_signals=true|false. Tetapan terminal asal dipulihkan apabila keluar atau digantung.
+  NEW: [input] use_signals=false mematikan isyarat yang dijana terminal semasa klien menguasai tty. true membolehkan pemetaan isyarat terminal sedia ada. «Guna» berkuat kuasa serta-merta; «Simpan» menyimpan keutamaan milik konfigurasi utama ini.
+ms: yes = terminal Ctrl-C interrupts and Ctrl-Z suspends; no (default) = cancel an unsent compose instead. Applies now in this terminal; Save retains it for later launches. External kill signals still work.
+  OLD: yes = Ctrl-C menyampuk dan Ctrl-Z menggantung; no = batalkan draf belum dihantar. Berkuat kuasa kini; Save menyimpan untuk kemudian.
+  NEW: yes = Ctrl-C menyampuk dan Ctrl-Z menggantung; no = batalkan draf belum dihantar. Berkuat kuasa kini; «Simpan» menyimpan untuk kemudian.
+ms: {description}
+
+Unread messages: {unread}; mentions: {mentions}. Selecting Open visits this view. Help preserves the view's unread counts, history and draft.
+  OLD: {description} Mesej belum dibaca: {unread}; sebutan: {mentions}. Open membuka paparan ini. Bantuan mengekalkan kiraan, sejarah dan draf.
+  NEW: {description} Mesej belum dibaca: {unread}; sebutan: {mentions}. «Buka» membuka paparan ini. Bantuan mengekalkan kiraan, sejarah dan draf.
+ms: Use signals
+  OLD: 
+  NEW: Guna isyarat
+ms: Whois
+  OLD: 
+  NEW: Maklumat pengguna
+ms: Ignore
+  OLD: 
+  NEW: Abaikan
+ms: Unignore
+  OLD: 
+  NEW: Berhenti mengabaikan
+tr: Common is the default. Contextual prioritizes channel, query, server or client commands while retaining matching commands from other groups.
+  OLD: Common varsayılandır. Contextual kanal, özel sohbet, sunucu veya istemci komutlarına öncelik verir; diğer eşleşmeleri de tutar.
+  NEW: «Sık kullanılan» varsayılandır. «Bağlamsal» kanal, özel sohbet, sunucu veya istemci komutlarına öncelik verir; diğer eşleşmeleri de tutar.
+tr: Common uses a curated useful order. Contextual remembers the actual screen that opened command entry, including a client-wide summary reader.
+  OLD: Common seçilmiş yararlı sırayı kullanır. Contextual, genel özet okuyucu dahil komutun açıldığı ekranı hatırlar.
+  NEW: «Sık kullanılan» seçilmiş yararlı sırayı kullanır. «Bağlamsal», genel özet okuyucu dahil komutun açıldığı ekranı hatırlar.
+tr: Commonly used prioritizes common tasks for the live connection. Recent history lists retained commands. Most used ranks this configuration's saved command-name counts. Alphabetical sorts names. Contextual uses the screen that opened command entry. Down selects; Enter inserts for review. Delete forgets a history entry or resets a personal count. Apply uses the mode now; Save keeps the choice.
+  OLD: Commonly used etkin bağlantıdaki yaygın görevleri öne çıkarır. Recent history kaydedilmiş komutları gösterir. Most used bu yapılandırmadaki kullanım sayısına göre sıralar. Alphabetical alfabetik sıralar. Contextual komutun açıldığı ekranı kullanır. Down seçer; Enter incelemek için ekler. Delete geçmiş kaydını siler veya sayacı sıfırlar. Apply hemen uygular; Save kaydeder.
+  NEW: «Sık kullanılan» etkin bağlantıdaki yaygın görevleri öne çıkarır. «Son geçmiş» kaydedilmiş komutları gösterir. «Bu yapılandırmada en sık kullanılan» bu yapılandırmadaki kullanım sayısına göre sıralar. «Alfabetik» alfabetik sıralar. «Bağlamsal» komutun açıldığı ekranı kullanır. Down seçer; Enter incelemek için ekler. Delete geçmiş kaydını siler veya sayacı sıfırlar. «Uygula» hemen uygular; «Kaydet» kaydeder.
+tr: Connection: {state}. Open visits channel 0 for this server. Connect starts its connection; Disconnect ends it while retaining its views. Close removes a secondary session and its drafts after confirmation. Away changes this server's away state.
+
+Selecting this entry or reading help does not switch servers or connect.
+  OLD: Bağlantı: {state}. Open bu sunucunun kanal 0 görünümünü açar. Connect bağlanır; Disconnect görünümleri koruyarak bağlantıyı keser. Close onaydan sonra ikincil oturumu ve taslakları kaldırır. Away uzaklık durumunu değiştirir. Seçmek veya yardımı okumak sunucuyu değiştirmez ya da bağlantı kurmaz.
+  NEW: Bağlantı: {state}. «Aç» bu sunucunun kanal 0 görünümünü açar. «Bağlan» bağlanır; «Bağlantıyı kes» görünümleri koruyarak bağlantıyı keser. «Kapat» onaydan sonra ikincil oturumu ve taslakları kaldırır. «Uzakta» uzaklık durumunu değiştirir. Seçmek veya yardımı okumak sunucuyu değiştirmez ya da bağlantı kurmaz.
+tr: Enter yes or no for Use signals.
+  OLD: Use signals için yes veya no girin.
+  NEW: «Sinyalleri kullan» için yes veya no girin.
+tr: Query opens a private conversation without sending. Whois asks the server for public nickname information. Ignore changes local filtering. Back returns to the conversation. Up/Down chooses an action; Enter activates it.
+  OLD: Query göndermeden özel konuşma açar. Whois sunucudan herkese açık takma ad bilgisini ister. Ignore yerel filtrelemeyi değiştirir. Back konuşmaya döner. Up/Down eylem seçer; Enter etkinleştirir.
+  NEW: «Özel mesaj» göndermeden özel konuşma açar. «Kullanıcı bilgisi» sunucudan herkese açık takma ad bilgisini ister. «Yoksay» yerel filtrelemeyi değiştirir. «Geri» konuşmaya döner. Up/Down eylem seçer; Enter etkinleştirir.
+tr: R refreshes; Up/Down, Page Up/Page Down, Home/End scroll. Left/Right selects Refresh or Back. / opens a command prompt; cancelling it restores this snapshot. Escape returns to the originating screen.
+  OLD: R yeniler; Up/Down, Page Up/Page Down, Home/End kaydırır. Left/Right Refresh veya Back seçer. / komut girişini açar; iptal edilince bu görüntü geri gelir. Escape önceki ekrana döner.
+  NEW: R yeniler; Up/Down, Page Up/Page Down, Home/End kaydırır. Left/Right «Yenile» veya «Geri» seçer. / komut girişini açar; iptal edilince bu görüntü geri gelir. Escape önceki ekrana döner.
+tr: Servers lists every current server session. Up/Down chooses a server; Left/Right chooses an action; Enter activates that action. Open selects its channel 0, which shows server notices, /list results and connection replies. The server list and /list are different: /list requests channel names from the selected network.
+  OLD: Servers tüm mevcut sunucu oturumlarını listeler. Up/Down sunucu seçer; Left/Right eylem seçer; Enter eylemi başlatır. Open sunucu bildirimlerini, /list sonuçlarını ve bağlantı yanıtlarını gösteren kanal 0'ı açar. Sunucu listesi /list komutundan farklıdır: /list seçili ağdan kanal adlarını ister.
+  NEW: «Sunucular» tüm mevcut sunucu oturumlarını listeler. Up/Down sunucu seçer; Left/Right eylem seçer; Enter eylemi başlatır. «Aç» sunucu bildirimlerini, /list sonuçlarını ve bağlantı yanıtlarını gösteren kanal 0'ı açar. Sunucu listesi /list komutundan farklıdır: /list seçili ağdan kanal adlarını ister.
+tr: The inherited terminal interrupt, quit, and suspend key assignments remain unchanged; Use signals = no disables their signal effects while the client is active.
+  OLD: Terminalin kesme, çıkma ve askıya alma tuş atamaları değiştirilmez; Use signals = no istemci etkinken bunların sinyal üretmesini engeller.
+  NEW: Terminalin kesme, çıkma ve askıya alma tuş atamaları değiştirilmez; «Sinyalleri kullan» = no istemci etkinken bunların sinyal üretmesini engeller.
+tr: These lists show views already open in the selected server session. Up/Down selects a view; Left/Right selects Open, New, Part or Close as appropriate; Enter performs the selected action. Channel 0 is the server. /cl and /channels show local channel views; /list [MASK] [OPTIONS] opens the sortable network channel directory. /ql shows private conversations.
+  OLD: Bu listeler seçili sunucudaki açık görünümleri gösterir. Up/Down seçer; Left/Right Open, New, Part veya Close seçer; Enter uygular. Kanal 0 sunucudur. /cl ve /channels yerel görünümleri, /list [MASK] [OPTIONS] ağ dizinini, /ql özel sohbetleri gösterir.
+  NEW: Bu listeler seçili sunucudaki açık görünümleri gösterir. Up/Down seçer; Left/Right «Aç», «Yeni», «Ayrıl» veya «Kapat» seçer; Enter uygular. Kanal 0 sunucudur. /cl ve /channels yerel görünümleri, /list [MASK] [OPTIONS] ağ dizinini, /ql özel sohbetleri gösterir.
+tr: This is a private conversation. Open selects it without sending. Close discards its retained view and draft after any required confirmation.
+  OLD: Bu özel sohbettir. Open göndermeden seçer. Close gerekiyorsa onaydan sonra korunmuş görünümü ve taslağı siler.
+  NEW: Bu özel sohbettir. «Aç» göndermeden seçer. «Kapat» gerekiyorsa onaydan sonra korunmuş görünümü ve taslağı siler.
+tr: Use signals is off by default; Ctrl-C/Ctrl-Z cancel unsent text. Use /quit to exit.
+  OLD: Use signals varsayılan olarak kapalıdır; Ctrl-C/Ctrl-Z gönderilmemiş metni iptal eder. /quit ile çıkın.
+  NEW: «Sinyalleri kullan» varsayılan olarak kapalıdır; Ctrl-C/Ctrl-Z gönderilmemiş metni iptal eder. /quit ile çıkın.
+tr: You are joined to this channel. Part leaves it but keeps its history and unfinished draft. Close removes the view.
+  OLD: Bu kanala katıldınız. Part ayrılırken geçmişi ve taslağı korur. Close görünümü kaldırır.
+  NEW: Bu kanala katıldınız. «Ayrıl» ayrılırken geçmişi ve taslağı korur. «Kapat» görünümü kaldırır.
+tr: You are not joined to this channel. The retained view keeps its scrollback and unfinished draft. Use /join to join again, or Close to remove it.
+  OLD: Bu kanala katılmadınız. Geçmiş ve taslak korunur. Yeniden katılmak için /join, görünümü kaldırmak için Close kullanın.
+  NEW: Bu kanala katılmadınız. Geçmiş ve taslak korunur. Yeniden katılmak için /join, görünümü kaldırmak için «Kapat» kullanın.
+tr: [input] use_signals=false disables terminal-generated signals while this client owns the tty. true enables the existing terminal signal mappings. Apply takes effect now; Save persists this primary-owned preference.
+  OLD: [input] use_signals=false Use signals varsayılan olarak no değerindedir. Ctrl-C ve Ctrl-Z, gönderilmemiş ileti veya komutu iptal eder; uygulamayı kapatmaz ya da askıya almaz. Terminal sinyallerini açmak için panel 0 veya vipirc Interface ayarlarında yes seçin. Apply hemen uygulanır; Save ayrıca [input] use_signals=true|false değerini kaydeder. Çıkışta veya askıya almada eski terminal ayarları geri yüklenir.
+  NEW: [input] use_signals=false, istemci tty denetimini elinde tutarken terminalin ürettiği sinyalleri devre dışı bırakır. true, mevcut terminal sinyal eşlemelerini etkinleştirir. «Uygula» hemen uygular; «Kaydet» ana yapılandırmaya kaydeder.
+tr: yes = terminal Ctrl-C interrupts and Ctrl-Z suspends; no (default) = cancel an unsent compose instead. Applies now in this terminal; Save retains it for later launches. External kill signals still work.
+  OLD: yes = Ctrl-C keser ve Ctrl-Z askıya alır; no = gönderilmemiş taslağı iptal eder. Şimdi uygulanır; Save sonraya saklar.
+  NEW: yes = Ctrl-C keser ve Ctrl-Z askıya alır; no = gönderilmemiş taslağı iptal eder. Şimdi uygulanır; «Kaydet» sonraya saklar.
+tr: {description}
+
+Unread messages: {unread}; mentions: {mentions}. Selecting Open visits this view. Help preserves the view's unread counts, history and draft.
+  OLD: {description} Okunmamış mesajlar: {unread}; bahsetmeler: {mentions}. Open görünümü açar. Yardım sayıları, geçmişi ve taslağı değiştirmez.
+  NEW: {description} Okunmamış mesajlar: {unread}; bahsetmeler: {mentions}. «Aç» görünümü açar. Yardım sayıları, geçmişi ve taslağı değiştirmez.
+tr: Use signals
+  OLD: 
+  NEW: Sinyalleri kullan
+tr: Whois
+  OLD: 
+  NEW: Kullanıcı bilgisi
+tr: Ignore
+  OLD: 
+  NEW: Yoksay
+tr: Unignore
+  OLD: 
+  NEW: Yoksaymayı kaldır
+es: Common is the default. Contextual prioritizes channel, query, server or client commands while retaining matching commands from other groups.
+  OLD: Common es el predeterminado. Contextual prioriza comandos de canal, consulta, servidor o cliente sin ocultar otras coincidencias.
+  NEW: «De uso frecuente» es el predeterminado. «Contextual» prioriza comandos de canal, consulta, servidor o cliente sin ocultar otras coincidencias.
+es: Common uses a curated useful order. Contextual remembers the actual screen that opened command entry, including a client-wide summary reader.
+  OLD: Common usa un orden útil seleccionado. Contextual recuerda la pantalla que abrió el comando, incluido el lector de resumen general.
+  NEW: «De uso frecuente» usa un orden útil seleccionado. «Contextual» recuerda la pantalla que abrió el comando, incluido el lector de resumen general.
+es: Commonly used prioritizes common tasks for the live connection. Recent history lists retained commands. Most used ranks this configuration's saved command-name counts. Alphabetical sorts names. Contextual uses the screen that opened command entry. Down selects; Enter inserts for review. Delete forgets a history entry or resets a personal count. Apply uses the mode now; Save keeps the choice.
+  OLD: Commonly used prioriza tareas frecuentes de la conexión activa. Recent history muestra comandos guardados. Most used ordena por uso en está configuración. Alphabetical ordena alfabeticamente. Contextual usa la pantalla que abrio la entrada de comandos. Down selecciona; Enter inserta para revisar. Delete borra un historial o reinicia un contador. Apply aplica ahora; Save guarda.
+  NEW: «De uso frecuente» prioriza tareas frecuentes de la conexión activa. «Historial reciente» muestra comandos guardados. «Más usado con esta configuración» ordena por uso en está configuración. «Alfabético» ordena alfabeticamente. «Contextual» usa la pantalla que abrio la entrada de comandos. Down selecciona; Enter inserta para revisar. Delete borra un historial o reinicia un contador. «Aplicar» aplica ahora; «Guardar» guarda.
+es: Connection: {state}. Open visits channel 0 for this server. Connect starts its connection; Disconnect ends it while retaining its views. Close removes a secondary session and its drafts after confirmation. Away changes this server's away state.
+
+Selecting this entry or reading help does not switch servers or connect.
+  OLD: Conexión: {state}. Open abre el canal 0 de este servidor. Connect inicia la conexión; Disconnect la termina, conservando vistas. Close elimina una sesión secundaria y sus borradores tras confirmar. Away cambia la ausencia. Elegir o consultar ayuda no cambia de servidor ni conecta.
+  NEW: Conexión: {state}. «Abrir» abre el canal 0 de este servidor. «Conectar» inicia la conexión; «Desconectar» la termina, conservando vistas. «Cerrar» elimina una sesión secundaria y sus borradores tras confirmar. «Ausente» cambia la ausencia. Elegir o consultar ayuda no cambia de servidor ni conecta.
+es: Enter yes or no for Use signals.
+  OLD: Introduce yes o no para Use signals.
+  NEW: Introduce yes o no para «Usar señales».
+es: Query opens a private conversation without sending. Whois asks the server for public nickname information. Ignore changes local filtering. Back returns to the conversation. Up/Down chooses an action; Enter activates it.
+  OLD: Query abre una conversación privada sin enviar. Whois pide al servidor datos públicos del apodo. Ignore cambia el filtrado local. Back vuelve a la conversación. Up/Down elige una acción y Enter la ejecuta.
+  NEW: «Mensaje privado» abre una conversación privada sin enviar. «Información del usuario» pide al servidor datos públicos del apodo. «Ignorar» cambia el filtrado local. «Volver» vuelve a la conversación. Up/Down elige una acción y Enter la ejecuta.
+es: R refreshes; Up/Down, Page Up/Page Down, Home/End scroll. Left/Right selects Refresh or Back. / opens a command prompt; cancelling it restores this snapshot. Escape returns to the originating screen.
+  OLD: R actualiza; Up/Down, Page Up/Page Down y Home/End desplazan. Left/Right elige Refresh o Back. / abre comandos; cancelarlos recupera esta vista. Escape regresa a la pantalla anterior.
+  NEW: R actualiza; Up/Down, Page Up/Page Down y Home/End desplazan. Left/Right elige «Actualizar» o «Volver». / abre comandos; cancelarlos recupera esta vista. Escape regresa a la pantalla anterior.
+es: Servers lists every current server session. Up/Down chooses a server; Left/Right chooses an action; Enter activates that action. Open selects its channel 0, which shows server notices, /list results and connection replies. The server list and /list are different: /list requests channel names from the selected network.
+  OLD: Servers muestra todas las sesiones actuales de servidor. Up/Down elige servidor; Left/Right elige acción; Enter la ejecuta. Open abre el canal 0, con avisos del servidor, resultados de /list y respuestas de conexión. La lista de servidores no es /list: /list solicita nombres de canales a la red seleccionada.
+  NEW: «Servidores» muestra todas las sesiones actuales de servidor. Up/Down elige servidor; Left/Right elige acción; Enter la ejecuta. «Abrir» abre el canal 0, con avisos del servidor, resultados de /list y respuestas de conexión. La lista de servidores no es /list: /list solicita nombres de canales a la red seleccionada.
+es: The inherited terminal interrupt, quit, and suspend key assignments remain unchanged; Use signals = no disables their signal effects while the client is active.
+  OLD: Las teclas de interrupción, salida y suspensión conservan sus asignaciones; Use signals = no desactiva sus señales mientras el cliente está activo.
+  NEW: Las teclas de interrupción, salida y suspensión conservan sus asignaciones; «Usar señales» = no desactiva sus señales mientras el cliente está activo.
+es: These lists show views already open in the selected server session. Up/Down selects a view; Left/Right selects Open, New, Part or Close as appropriate; Enter performs the selected action. Channel 0 is the server. /cl and /channels show local channel views; /list [MASK] [OPTIONS] opens the sortable network channel directory. /ql shows private conversations.
+  OLD: Estas listas muestran vistas abiertas del servidor seleccionado. Up/Down elige; Left/Right escoge Open, New, Part o Close; Enter ejecuta. El canal 0 es el servidor. /cl y /channels muestran vistas locales; /list [MASK] [OPTIONS] abre el directorio de red; /ql muestra conversaciones privadas.
+  NEW: Estas listas muestran vistas abiertas del servidor seleccionado. Up/Down elige; Left/Right escoge «Abrir», «Nuevo», «Salir del canal» o «Cerrar»; Enter ejecuta. El canal 0 es el servidor. /cl y /channels muestran vistas locales; /list [MASK] [OPTIONS] abre el directorio de red; /ql muestra conversaciones privadas.
+es: This is a private conversation. Open selects it without sending. Close discards its retained view and draft after any required confirmation.
+  OLD: Es una conversación privada. Open la selecciona sin enviar. Close elimina su vista y borrador guardados, con confirmación cuando corresponda.
+  NEW: Es una conversación privada. «Abrir» la selecciona sin enviar. «Cerrar» elimina su vista y borrador guardados, con confirmación cuando corresponda.
+es: Use signals is off by default; Ctrl-C/Ctrl-Z cancel unsent text. Use /quit to exit.
+  OLD: Use signals está desactivado por defecto; Ctrl-C/Ctrl-Z cancelan texto sin enviar. Salga con /quit.
+  NEW: «Usar señales» está desactivado por defecto; Ctrl-C/Ctrl-Z cancelan texto sin enviar. Salga con /quit.
+es: You are joined to this channel. Part leaves it but keeps its history and unfinished draft. Close removes the view.
+  OLD: Estás unido al canal. Part sale, conservando el historial y el borrador. Close elimina la vista.
+  NEW: Estás unido al canal. «Salir del canal» sale, conservando el historial y el borrador. «Cerrar» elimina la vista.
+es: You are not joined to this channel. The retained view keeps its scrollback and unfinished draft. Use /join to join again, or Close to remove it.
+  OLD: No estás unido al canal. Se conservan el historial y el borrador. Usa /join para volver o Close para eliminar la vista.
+  NEW: No estás unido al canal. Se conservan el historial y el borrador. Usa /join para volver o «Cerrar» para eliminar la vista.
+es: [input] use_signals=false disables terminal-generated signals while this client owns the tty. true enables the existing terminal signal mappings. Apply takes effect now; Save persists this primary-owned preference.
+  OLD: [input] use_signals=false Use signals está desactivado (no) por defecto. Ctrl-C y Ctrl-Z cancelan un mensaje o comando sin enviar; no cierran ni suspenden la aplicación. Seleccione yes en el panel 0 o en Interface de vipirc para activar las señales del terminal. Apply surte efecto inmediatamente; Save también guarda [input] use_signals=true|false. Al salir o suspenderse, se restauran los ajustes originales del terminal.
+  NEW: [input] use_signals=false desactiva las señales generadas por la terminal mientras el cliente controla la tty. true activa las asignaciones de señales existentes. «Aplicar» surte efecto ahora; «Guardar» guarda esta preferencia en la configuración principal.
+es: yes = terminal Ctrl-C interrupts and Ctrl-Z suspends; no (default) = cancel an unsent compose instead. Applies now in this terminal; Save retains it for later launches. External kill signals still work.
+  OLD: yes = Ctrl-C interrumpe y Ctrl-Z suspende; no = cancela un borrador sin enviar. Se aplica ahora; Save lo guarda para después.
+  NEW: yes = Ctrl-C interrumpe y Ctrl-Z suspende; no = cancela un borrador sin enviar. Se aplica ahora; «Guardar» lo guarda para después.
+es: {description}
+
+Unread messages: {unread}; mentions: {mentions}. Selecting Open visits this view. Help preserves the view's unread counts, history and draft.
+  OLD: {description} Mensajes sin leer: {unread}; menciones: {mentions}. Open abre esta vista. La ayuda conserva los contadores, el historial y el borrador.
+  NEW: {description} Mensajes sin leer: {unread}; menciones: {mentions}. «Abrir» abre esta vista. La ayuda conserva los contadores, el historial y el borrador.
+es: Use signals
+  OLD: 
+  NEW: Usar señales
+es: Whois
+  OLD: 
+  NEW: Información del usuario
+es: Ignore
+  OLD: 
+  NEW: Ignorar
+es: Unignore
+  OLD: 
+  NEW: Dejar de ignorar
+pt: Common is the default. Contextual prioritizes channel, query, server or client commands while retaining matching commands from other groups.
+  OLD: Common é o padrão. Contextual prioriza comandos de canal, conversa, servidor ou cliente, sem excluir outras correspondências.
+  NEW: «Usado com frequência» é o padrão. «Contextual» prioriza comandos de canal, conversa, servidor ou cliente, sem excluir outras correspondências.
+pt: Common uses a curated useful order. Contextual remembers the actual screen that opened command entry, including a client-wide summary reader.
+  OLD: Common usa ordem útil pré-selecionada. Contextual lembra a tela de origem, inclusive o leitor de resumo geral.
+  NEW: «Usado com frequência» usa ordem útil pré-selecionada. «Contextual» lembra a tela de origem, inclusive o leitor de resumo geral.
+pt: Commonly used prioritizes common tasks for the live connection. Recent history lists retained commands. Most used ranks this configuration's saved command-name counts. Alphabetical sorts names. Contextual uses the screen that opened command entry. Down selects; Enter inserts for review. Delete forgets a history entry or resets a personal count. Apply uses the mode now; Save keeps the choice.
+  OLD: Commonly used prioriza tarefas comuns da conexão ativa. Recent history lista comandos guardados. Most used ordena pela contagem de uso destá configuração. Alphabetical ordena alfabeticamente. Contextual usa a tela que abriu a entrada de comandos. Down seleciona; Enter insere para revisão. Delete apaga um registro ou zera uma contagem. Apply aplica agora; Save salva.
+  NEW: «Usado com frequência» prioriza tarefas comuns da conexão ativa. «Histórico recente» lista comandos guardados. «Mais usado nesta configuração» ordena pela contagem de uso destá configuração. «Alfabético» ordena alfabeticamente. «Contextual» usa a tela que abriu a entrada de comandos. Down seleciona; Enter insere para revisão. Delete apaga um registro ou zera uma contagem. «Aplicar» aplica agora; «Salvar» salva.
+pt: Connection: {state}. Open visits channel 0 for this server. Connect starts its connection; Disconnect ends it while retaining its views. Close removes a secondary session and its drafts after confirmation. Away changes this server's away state.
+
+Selecting this entry or reading help does not switch servers or connect.
+  OLD: Conexão: {state}. Open abre o canal 0 deste servidor. Connect conecta; Disconnect encerra a conexão e mantém as vistas. Close remove a sessão secundária e os rascunhos após confirmação. Away altera a ausência. Selecionar ou ler a ajuda não muda o servidor nem conecta.
+  NEW: Conexão: {state}. «Abrir» abre o canal 0 deste servidor. «Conectar» conecta; «Desconectar» encerra a conexão e mantém as vistas. «Fechar» remove a sessão secundária e os rascunhos após confirmação. «Ausente» altera a ausência. Selecionar ou ler a ajuda não muda o servidor nem conecta.
+pt: Enter yes or no for Use signals.
+  OLD: Digite yes ou no para Use signals.
+  NEW: Digite yes ou no para «Usar sinais».
+pt: Query opens a private conversation without sending. Whois asks the server for public nickname information. Ignore changes local filtering. Back returns to the conversation. Up/Down chooses an action; Enter activates it.
+  OLD: Query abre uma conversa privada sem enviar. Whois pede ao servidor informações públicas sobre o apelido. Ignore muda a filtragem local. Back volta à conversa. Up/Down escolhe a ação e Enter a executa.
+  NEW: «Mensagem privada» abre uma conversa privada sem enviar. «Informações do usuário» pede ao servidor informações públicas sobre o apelido. «Ignorar» muda a filtragem local. «Voltar» volta à conversa. Up/Down escolhe a ação e Enter a executa.
+pt: R refreshes; Up/Down, Page Up/Page Down, Home/End scroll. Left/Right selects Refresh or Back. / opens a command prompt; cancelling it restores this snapshot. Escape returns to the originating screen.
+  OLD: R atualiza; Up/Down, Page Up/Page Down e Home/End rolam. Left/Right escolhe Refresh ou Back. / abre comandos; cancelar restaura esta vista. Escape volta à tela anterior.
+  NEW: R atualiza; Up/Down, Page Up/Page Down e Home/End rolam. Left/Right escolhe «Atualizar» ou «Voltar». / abre comandos; cancelar restaura esta vista. Escape volta à tela anterior.
+pt: Servers lists every current server session. Up/Down chooses a server; Left/Right chooses an action; Enter activates that action. Open selects its channel 0, which shows server notices, /list results and connection replies. The server list and /list are different: /list requests channel names from the selected network.
+  OLD: Servers lista todas as sessões atuais de servidores. Up/Down escolhe o servidor; Left/Right escolhe a ação; Enter a executa. Open abre o canal 0, com avisos do servidor, resultados de /list e respostas de conexão. A lista de servidores é diferente de /list: /list solicita nomes de canais da rede selecionada.
+  NEW: «Servidores» lista todas as sessões atuais de servidores. Up/Down escolhe o servidor; Left/Right escolhe a ação; Enter a executa. «Abrir» abre o canal 0, com avisos do servidor, resultados de /list e respostas de conexão. A lista de servidores é diferente de /list: /list solicita nomes de canais da rede selecionada.
+pt: The inherited terminal interrupt, quit, and suspend key assignments remain unchanged; Use signals = no disables their signal effects while the client is active.
+  OLD: As teclas de interrupção, saída e suspensão mantêm as atribuições originais; Use signals = no desativa os respetivos sinais enquanto o cliente está ativo.
+  NEW: As teclas de interrupção, saída e suspensão mantêm as atribuições originais; «Usar sinais» = no desativa os respetivos sinais enquanto o cliente está ativo.
+pt: These lists show views already open in the selected server session. Up/Down selects a view; Left/Right selects Open, New, Part or Close as appropriate; Enter performs the selected action. Channel 0 is the server. /cl and /channels show local channel views; /list [MASK] [OPTIONS] opens the sortable network channel directory. /ql shows private conversations.
+  OLD: As listas mostram vistas abertas no servidor selecionado. Up/Down seleciona; Left/Right escolhe Open, New, Part ou Close; Enter executa. Canal 0 é o servidor. /cl e /channels mostram vistas locais; /list [MASK] [OPTIONS] abre o diretório da rede; /ql mostra conversas privadas.
+  NEW: As listas mostram vistas abertas no servidor selecionado. Up/Down seleciona; Left/Right escolhe «Abrir», «Novo», «Sair do canal» ou «Fechar»; Enter executa. Canal 0 é o servidor. /cl e /channels mostram vistas locais; /list [MASK] [OPTIONS] abre o diretório da rede; /ql mostra conversas privadas.
+pt: This is a private conversation. Open selects it without sending. Close discards its retained view and draft after any required confirmation.
+  OLD: Esta é uma conversa privada. Open seleciona sem enviar. Close remove a vista e o rascunho após eventual confirmação.
+  NEW: Esta é uma conversa privada. «Abrir» seleciona sem enviar. «Fechar» remove a vista e o rascunho após eventual confirmação.
+pt: Use signals is off by default; Ctrl-C/Ctrl-Z cancel unsent text. Use /quit to exit.
+  OLD: Use signals está desligado por omissão; Ctrl-C/Ctrl-Z cancelam texto por enviar. Saia com /quit.
+  NEW: «Usar sinais» está desligado por omissão; Ctrl-C/Ctrl-Z cancelam texto por enviar. Saia com /quit.
+pt: You are joined to this channel. Part leaves it but keeps its history and unfinished draft. Close removes the view.
+  OLD: Você está no canal. Part sai sem perder histórico ou rascunho. Close remove a vista.
+  NEW: Você está no canal. «Sair do canal» sai sem perder histórico ou rascunho. «Fechar» remove a vista.
+pt: You are not joined to this channel. The retained view keeps its scrollback and unfinished draft. Use /join to join again, or Close to remove it.
+  OLD: Você não está no canal. Histórico e rascunho continuam salvos. Use /join para voltar ou Close para remover a vista.
+  NEW: Você não está no canal. Histórico e rascunho continuam salvos. Use /join para voltar ou «Fechar» para remover a vista.
+pt: [input] use_signals=false disables terminal-generated signals while this client owns the tty. true enables the existing terminal signal mappings. Apply takes effect now; Save persists this primary-owned preference.
+  OLD: [input] use_signals=false Use signals começa em no. Ctrl-C e Ctrl-Z cancelam uma mensagem ou comando por enviar, sem terminar nem suspender a aplicação. Selecione yes no painel 0 ou nas definições Interface do vipirc para ativar os sinais do terminal. Apply aplica imediatamente; Save também guarda [input] use_signals=true|false. As definições originais do terminal são repostas ao sair ou suspender.
+  NEW: [input] use_signals=false desativa sinais gerados pelo terminal enquanto o cliente controla a tty. true ativa os mapeamentos de sinais existentes. «Aplicar» tem efeito imediato; «Salvar» grava esta preferência na configuração principal.
+pt: yes = terminal Ctrl-C interrupts and Ctrl-Z suspends; no (default) = cancel an unsent compose instead. Applies now in this terminal; Save retains it for later launches. External kill signals still work.
+  OLD: yes = Ctrl-C interrompe e Ctrl-Z suspende; no = cancela rascunho não enviado. Vale agora; Save guarda para depois.
+  NEW: yes = Ctrl-C interrompe e Ctrl-Z suspende; no = cancela rascunho não enviado. Vale agora; «Salvar» guarda para depois.
+pt: {description}
+
+Unread messages: {unread}; mentions: {mentions}. Selecting Open visits this view. Help preserves the view's unread counts, history and draft.
+  OLD: {description} Mensagens não lidas: {unread}; menções: {mentions}. Open abre esta vista. A ajuda não altera contagens, histórico nem rascunho.
+  NEW: {description} Mensagens não lidas: {unread}; menções: {mentions}. «Abrir» abre esta vista. A ajuda não altera contagens, histórico nem rascunho.
+pt: Use signals
+  OLD: 
+  NEW: Usar sinais
+pt: Whois
+  OLD: 
+  NEW: Informações do usuário
+pt: Ignore
+  OLD: 
+  NEW: Ignorar
+pt: Unignore
+  OLD: 
+  NEW: Deixar de ignorar
+fr: Common is the default. Contextual prioritizes channel, query, server or client commands while retaining matching commands from other groups.
+  OLD: Common est le défaut. Contextual favorise les commandes de canal, dialogue, serveur ou client tout en gardant les autres correspondances.
+  NEW: «Fréquemment utilisé» est le défaut. «Contextuel» favorise les commandes de canal, dialogue, serveur ou client tout en gardant les autres correspondances.
+fr: Common uses a curated useful order. Contextual remembers the actual screen that opened command entry, including a client-wide summary reader.
+  OLD: Common suit un ordre utile prédéfini. Contextual retient l'écran d'origine, y compris le lecteur de résumé général.
+  NEW: «Fréquemment utilisé» suit un ordre utile prédéfini. «Contextuel» retient l'écran d'origine, y compris le lecteur de résumé général.
+fr: Commonly used prioritizes common tasks for the live connection. Recent history lists retained commands. Most used ranks this configuration's saved command-name counts. Alphabetical sorts names. Contextual uses the screen that opened command entry. Down selects; Enter inserts for review. Delete forgets a history entry or resets a personal count. Apply uses the mode now; Save keeps the choice.
+  OLD: Commonly used favorise les tâches courantes de la connexion active. Recent history affiche les commandes conservées. Most used classe les commandes par fréquence dans cette configuration. Alphabetical les classe par ordre alphabétique. Contextual dépend de l'écran d'origine. Down sélectionne ; Enter insère pour examen. Delete oublie une entrée ou remet un compteur à zéro. Apply applique ; Save enregistre.
+  NEW: «Fréquemment utilisé» favorise les tâches courantes de la connexion active. «Historique récent» affiche les commandes conservées. «Le plus utilisé avec cette configuration» classe les commandes par fréquence dans cette configuration. «Alphabétique» les classe par ordre alphabétique. «Contextuel» dépend de l'écran d'origine. Down sélectionne ; Enter insère pour examen. Delete oublie une entrée ou remet un compteur à zéro. «Appliquer» applique ; «Enregistrer» enregistre.
+fr: Connection: {state}. Open visits channel 0 for this server. Connect starts its connection; Disconnect ends it while retaining its views. Close removes a secondary session and its drafts after confirmation. Away changes this server's away state.
+
+Selecting this entry or reading help does not switch servers or connect.
+  OLD: Connexion : {state}. Open ouvre le canal 0 de ce serveur. Connect établit la connexion ; Disconnect la coupe en conservant les vues. Close supprime une session secondaire et ses brouillons après confirmation. Away modifie l'absence. Choisir une entrée ou lire l'aide ne change pas de serveur et ne connecte pas.
+  NEW: Connexion : {state}. «Ouvrir» ouvre le canal 0 de ce serveur. «Connecter» établit la connexion ; «Déconnecter» la coupe en conservant les vues. «Fermer» supprime une session secondaire et ses brouillons après confirmation. «Absent» modifie l'absence. Choisir une entrée ou lire l'aide ne change pas de serveur et ne connecte pas.
+fr: Enter yes or no for Use signals.
+  OLD: Saisissez yes ou no pour Use signals.
+  NEW: Saisissez yes ou no pour «Utiliser les signaux».
+fr: Query opens a private conversation without sending. Whois asks the server for public nickname information. Ignore changes local filtering. Back returns to the conversation. Up/Down chooses an action; Enter activates it.
+  OLD: Query ouvre une discussion privée sans envoi. Whois demande au serveur des renseignements publics sur le pseudo. Ignore modifie le filtrage local. Back revient à la conversation. Up/Down choisit une action ; Enter l'exécute.
+  NEW: «Message privé» ouvre une discussion privée sans envoi. «Infos utilisateur» demande au serveur des renseignements publics sur le pseudo. «Ignorer» modifie le filtrage local. «Retour» revient à la conversation. Up/Down choisit une action ; Enter l'exécute.
+fr: R refreshes; Up/Down, Page Up/Page Down, Home/End scroll. Left/Right selects Refresh or Back. / opens a command prompt; cancelling it restores this snapshot. Escape returns to the originating screen.
+  OLD: R actualise ; Up/Down, Page Up/Page Down et Home/End font défiler. Left/Right choisit Refresh ou Back. / ouvre la saisie des commandes ; l'annuler rétablit cette vue. Escape revient à l'écran d'origine.
+  NEW: R actualise ; Up/Down, Page Up/Page Down et Home/End font défiler. Left/Right choisit «Actualiser» ou «Retour». / ouvre la saisie des commandes ; l'annuler rétablit cette vue. Escape revient à l'écran d'origine.
+fr: Servers lists every current server session. Up/Down chooses a server; Left/Right chooses an action; Enter activates that action. Open selects its channel 0, which shows server notices, /list results and connection replies. The server list and /list are different: /list requests channel names from the selected network.
+  OLD: Servers affiche toutes les sessions serveur actives. Up/Down choisit un serveur ; Left/Right une action ; Enter l'exécute. Open ouvre le canal 0 et ses avis, résultats /list et réponses de connexion. La liste des serveurs diffère de /list : /list demande les noms de canaux au réseau sélectionné.
+  NEW: «Serveurs» affiche toutes les sessions serveur actives. Up/Down choisit un serveur ; Left/Right une action ; Enter l'exécute. «Ouvrir» ouvre le canal 0 et ses avis, résultats /list et réponses de connexion. La liste des serveurs diffère de /list : /list demande les noms de canaux au réseau sélectionné.
+fr: The inherited terminal interrupt, quit, and suspend key assignments remain unchanged; Use signals = no disables their signal effects while the client is active.
+  OLD: Les touches d'interruption, de sortie et de suspension conservent leurs affectations ; Use signals = no désactive leurs signaux tant que le client est actif.
+  NEW: Les touches d'interruption, de sortie et de suspension conservent leurs affectations ; «Utiliser les signaux» = no désactive leurs signaux tant que le client est actif.
+fr: These lists show views already open in the selected server session. Up/Down selects a view; Left/Right selects Open, New, Part or Close as appropriate; Enter performs the selected action. Channel 0 is the server. /cl and /channels show local channel views; /list [MASK] [OPTIONS] opens the sortable network channel directory. /ql shows private conversations.
+  OLD: Ces listes montrent les vues déjà ouvertes du serveur choisi. Up/Down choisit ; Left/Right sélectionne Open, New, Part ou Close ; Enter exécute. Le canal 0 est le serveur. /cl et /channels affichent les vues locales ; /list [MASK] [OPTIONS] ouvre le répertoire réseau ; /ql montre les conversations privées.
+  NEW: Ces listes montrent les vues déjà ouvertes du serveur choisi. Up/Down choisit ; Left/Right sélectionne «Ouvrir», «Nouveau», «Quitter le canal» ou «Fermer» ; Enter exécute. Le canal 0 est le serveur. /cl et /channels affichent les vues locales ; /list [MASK] [OPTIONS] ouvre le répertoire réseau ; /ql montre les conversations privées.
+fr: This is a private conversation. Open selects it without sending. Close discards its retained view and draft after any required confirmation.
+  OLD: C'est une conversation privée. Open la sélectionne sans envoi. Close supprime la vue et le brouillon après confirmation si nécessaire.
+  NEW: C'est une conversation privée. «Ouvrir» la sélectionne sans envoi. «Fermer» supprime la vue et le brouillon après confirmation si nécessaire.
+fr: Use signals is off by default; Ctrl-C/Ctrl-Z cancel unsent text. Use /quit to exit.
+  OLD: Use signals est désactivé par défaut ; Ctrl-C/Ctrl-Z annulent un texte non envoyé. Quittez avec /quit.
+  NEW: «Utiliser les signaux» est désactivé par défaut ; Ctrl-C/Ctrl-Z annulent un texte non envoyé. Quittez avec /quit.
+fr: You are joined to this channel. Part leaves it but keeps its history and unfinished draft. Close removes the view.
+  OLD: Vous avez rejoint ce canal. Part le quitte en conservant l'historique et le brouillon. Close supprime la vue.
+  NEW: Vous avez rejoint ce canal. «Quitter le canal» le quitte en conservant l'historique et le brouillon. «Fermer» supprime la vue.
+fr: You are not joined to this channel. The retained view keeps its scrollback and unfinished draft. Use /join to join again, or Close to remove it.
+  OLD: Vous n'avez pas rejoint ce canal. L'historique et le brouillon sont conservés. Utilisez /join pour revenir ou Close pour supprimer la vue.
+  NEW: Vous n'avez pas rejoint ce canal. L'historique et le brouillon sont conservés. Utilisez /join pour revenir ou «Fermer» pour supprimer la vue.
+fr: [input] use_signals=false disables terminal-generated signals while this client owns the tty. true enables the existing terminal signal mappings. Apply takes effect now; Save persists this primary-owned preference.
+  OLD: [input] use_signals=false Use signals est réglé sur no par défaut. Ctrl-C et Ctrl-Z annulent un message ou une commande non envoyés sans quitter ni suspendre le programme. Choisissez yes dans le panneau 0 ou les paramètres Interface de vipirc pour activer les signaux du terminal. Apply agit immédiatement ; Save enregistre aussi [input] use_signals=true|false. Les paramètres initiaux du terminal sont rétablis à la sortie ou lors de la suspension.
+  NEW: [input] use_signals=false désactive les signaux émis par le terminal tant que le client contrôle le tty. true active les affectations de signaux existantes. «Appliquer» prend effet immédiatement ; «Enregistrer» conserve ce réglage dans la configuration principale.
+fr: yes = terminal Ctrl-C interrupts and Ctrl-Z suspends; no (default) = cancel an unsent compose instead. Applies now in this terminal; Save retains it for later launches. External kill signals still work.
+  OLD: yes = Ctrl-C interrompt et Ctrl-Z suspend ; no = annule un brouillon non envoyé. Effet immédiat ; Save conserve le choix.
+  NEW: yes = Ctrl-C interrompt et Ctrl-Z suspend ; no = annule un brouillon non envoyé. Effet immédiat ; «Enregistrer» conserve le choix.
+fr: {description}
+
+Unread messages: {unread}; mentions: {mentions}. Selecting Open visits this view. Help preserves the view's unread counts, history and draft.
+  OLD: {description} Messages non lus : {unread} ; mentions : {mentions}. Open ouvre cette vue. L'aide préserve les compteurs, l'historique et le brouillon.
+  NEW: {description} Messages non lus : {unread} ; mentions : {mentions}. «Ouvrir» ouvre cette vue. L'aide préserve les compteurs, l'historique et le brouillon.
+fr: Use signals
+  OLD: 
+  NEW: Utiliser les signaux
+fr: Whois
+  OLD: 
+  NEW: Infos utilisateur
+fr: Ignore
+  OLD: 
+  NEW: Ignorer
+fr: Unignore
+  OLD: 
+  NEW: Ne plus ignorer
+de: Common is the default. Contextual prioritizes channel, query, server or client commands while retaining matching commands from other groups.
+  OLD: Common ist Standard. Contextual priorisiert Kanal-, Dialog-, Server- und Clientbefehle, ohne andere Treffer zu verbergen.
+  NEW: «Häufig verwendet» ist Standard. «Kontextbezogen» priorisiert Kanal-, Dialog-, Server- und Clientbefehle, ohne andere Treffer zu verbergen.
+de: Common uses a curated useful order. Contextual remembers the actual screen that opened command entry, including a client-wide summary reader.
+  OLD: Common nutzt eine gewählte sinnvolle Reihenfolge. Contextual merkt das Ursprungsfenster, auch den globalen Übersichtsleser.
+  NEW: «Häufig verwendet» nutzt eine gewählte sinnvolle Reihenfolge. «Kontextbezogen» merkt das Ursprungsfenster, auch den globalen Übersichtsleser.
+de: Commonly used prioritizes common tasks for the live connection. Recent history lists retained commands. Most used ranks this configuration's saved command-name counts. Alphabetical sorts names. Contextual uses the screen that opened command entry. Down selects; Enter inserts for review. Delete forgets a history entry or resets a personal count. Apply uses the mode now; Save keeps the choice.
+  OLD: Commonly used bevorzugt häufige Aufgaben der aktiven Verbindung. Recent history zeigt gespeicherte Befehle. Most used sortiert nach Häufigkeit in dieser Konfiguration. Alphabetical sortiert alphabetisch. Contextual berücksichtigt den aufrufenden Bildschirm. Down wählt; Enter fügt zur Prüfung ein. Delete löscht einen Verlaufseintrag oder setzt einen Zähler zurück. Apply übernimmt sofort; Save speichert.
+  NEW: «Häufig verwendet» bevorzugt häufige Aufgaben der aktiven Verbindung. «Letzter Verlauf» zeigt gespeicherte Befehle. «In dieser Konfiguration am häufigsten verwendet» sortiert nach Häufigkeit in dieser Konfiguration. «Alphabetisch» sortiert alphabetisch. «Kontextbezogen» berücksichtigt den aufrufenden Bildschirm. Down wählt; Enter fügt zur Prüfung ein. Delete löscht einen Verlaufseintrag oder setzt einen Zähler zurück. «Anwenden» übernimmt sofort; «Speichern» speichert.
+de: Connection: {state}. Open visits channel 0 for this server. Connect starts its connection; Disconnect ends it while retaining its views. Close removes a secondary session and its drafts after confirmation. Away changes this server's away state.
+
+Selecting this entry or reading help does not switch servers or connect.
+  OLD: Verbindung: {state}. Open öffnet Kanal 0 dieses Servers. Connect stellt die Verbindung her; Disconnect trennt unter Beibehaltung der Ansichten. Close entfernt nach Bestätigung eine weitere Sitzung mit Entwürfen. Away ändert den Abwesenheitsstatus. Auswählen oder Hilfe lesen wechselt weder den Server noch verbindet es.
+  NEW: Verbindung: {state}. «Öffnen» öffnet Kanal 0 dieses Servers. «Verbinden» stellt die Verbindung her; «Trennen» trennt unter Beibehaltung der Ansichten. «Schließen» entfernt nach Bestätigung eine weitere Sitzung mit Entwürfen. «Abwesend» ändert den Abwesenheitsstatus. Auswählen oder Hilfe lesen wechselt weder den Server noch verbindet es.
+de: Enter yes or no for Use signals.
+  OLD: Geben Sie yes oder no für Use signals ein.
+  NEW: Geben Sie yes oder no für «Signale verwenden» ein.
+de: Query opens a private conversation without sending. Whois asks the server for public nickname information. Ignore changes local filtering. Back returns to the conversation. Up/Down chooses an action; Enter activates it.
+  OLD: Query öffnet privaten Chat ohne Senden. Whois fragt öffentliche Nickdaten beim Server ab. Ignore ändert lokale Filter. Back führt zurück. Up/Down wählt eine Aktion, Enter führt sie aus.
+  NEW: «Privatnachricht» öffnet privaten Chat ohne Senden. «Benutzerinfo» fragt öffentliche Nickdaten beim Server ab. «Ignorieren» ändert lokale Filter. «Zurück» führt zurück. Up/Down wählt eine Aktion, Enter führt sie aus.
+de: R refreshes; Up/Down, Page Up/Page Down, Home/End scroll. Left/Right selects Refresh or Back. / opens a command prompt; cancelling it restores this snapshot. Escape returns to the originating screen.
+  OLD: R aktualisiert; Up/Down, Page Up/Page Down und Home/End scrollen. Left/Right wählt Refresh oder Back. / öffnet die Befehleingabe; Abbrechen stellt diese Ansicht wieder her. Escape kehrt zum Ausgangsbildschirm zurück.
+  NEW: R aktualisiert; Up/Down, Page Up/Page Down und Home/End scrollen. Left/Right wählt «Aktualisieren» oder «Zurück». / öffnet die Befehleingabe; Abbrechen stellt diese Ansicht wieder her. Escape kehrt zum Ausgangsbildschirm zurück.
+de: Servers lists every current server session. Up/Down chooses a server; Left/Right chooses an action; Enter activates that action. Open selects its channel 0, which shows server notices, /list results and connection replies. The server list and /list are different: /list requests channel names from the selected network.
+  OLD: Servers zeigt alle aktuellen Serversitzungen. Up/Down wählt einen Server, Left/Right eine Aktion und Enter führt sie aus. Open öffnet Kanal 0 mit Serverhinweisen, /list-Ergebnissen und Verbindungsantworten. Die Serverliste ist nicht /list: /list fordert Kanalnamen vom gewählten Netzwerk an.
+  NEW: «Server» zeigt alle aktuellen Serversitzungen. Up/Down wählt einen Server, Left/Right eine Aktion und Enter führt sie aus. «Öffnen» öffnet Kanal 0 mit Serverhinweisen, /list-Ergebnissen und Verbindungsantworten. Die Serverliste ist nicht /list: /list fordert Kanalnamen vom gewählten Netzwerk an.
+de: The inherited terminal interrupt, quit, and suspend key assignments remain unchanged; Use signals = no disables their signal effects while the client is active.
+  OLD: Die Tastenbelegungen für Unterbrechen, Beenden und Anhalten bleiben unverändert; Use signals = no deaktiviert ihre Signalwirkung während der Client läuft.
+  NEW: Die Tastenbelegungen für Unterbrechen, Beenden und Anhalten bleiben unverändert; «Signale verwenden» = no deaktiviert ihre Signalwirkung während der Client läuft.
+de: These lists show views already open in the selected server session. Up/Down selects a view; Left/Right selects Open, New, Part or Close as appropriate; Enter performs the selected action. Channel 0 is the server. /cl and /channels show local channel views; /list [MASK] [OPTIONS] opens the sortable network channel directory. /ql shows private conversations.
+  OLD: Diese Listen zeigen bereits geöffnete Ansichten des gewählten Servers. Up/Down wählt; Left/Right wählt Open, New, Part oder Close; Enter führt aus. Kanal 0 ist der Server. /cl und /channels zeigen lokale Ansichten; /list [MASK] [OPTIONS] öffnet das Netzwerkverzeichnis; /ql zeigt Privatgespräche.
+  NEW: Diese Listen zeigen bereits geöffnete Ansichten des gewählten Servers. Up/Down wählt; Left/Right wählt «Öffnen», «Neu», «Verlassen» oder «Schließen»; Enter führt aus. Kanal 0 ist der Server. /cl und /channels zeigen lokale Ansichten; /list [MASK] [OPTIONS] öffnet das Netzwerkverzeichnis; /ql zeigt Privatgespräche.
+de: This is a private conversation. Open selects it without sending. Close discards its retained view and draft after any required confirmation.
+  OLD: Dies ist ein Privatgespräch. Open wählt ohne Senden. Close entfernt Ansicht und Entwurf nach gegebenenfalls erforderlicher Bestätigung.
+  NEW: Dies ist ein Privatgespräch. «Öffnen» wählt ohne Senden. «Schließen» entfernt Ansicht und Entwurf nach gegebenenfalls erforderlicher Bestätigung.
+de: Use signals is off by default; Ctrl-C/Ctrl-Z cancel unsent text. Use /quit to exit.
+  OLD: Use signals ist standardmäßig aus; Ctrl-C/Ctrl-Z verwerfen ungesendeten Text. Mit /quit beenden.
+  NEW: «Signale verwenden» ist standardmäßig aus; Ctrl-C/Ctrl-Z verwerfen ungesendeten Text. Mit /quit beenden.
+de: You are joined to this channel. Part leaves it but keeps its history and unfinished draft. Close removes the view.
+  OLD: Sie sind diesem Kanal beigetreten. Part verlässt ihn und erhält Verlauf sowie Entwurf. Close entfernt die Ansicht.
+  NEW: Sie sind diesem Kanal beigetreten. «Verlassen» verlässt ihn und erhält Verlauf sowie Entwurf. «Schließen» entfernt die Ansicht.
+de: You are not joined to this channel. The retained view keeps its scrollback and unfinished draft. Use /join to join again, or Close to remove it.
+  OLD: Sie sind diesem Kanal nicht beigetreten. Verlauf und Entwurf bleiben erhalten. Mit /join erneut beitreten oder mit Close die Ansicht entfernen.
+  NEW: Sie sind diesem Kanal nicht beigetreten. Verlauf und Entwurf bleiben erhalten. Mit /join erneut beitreten oder mit «Schließen» die Ansicht entfernen.
+de: [input] use_signals=false disables terminal-generated signals while this client owns the tty. true enables the existing terminal signal mappings. Apply takes effect now; Save persists this primary-owned preference.
+  OLD: [input] use_signals=false Use signals steht standardmäßig auf no. Ctrl-C und Ctrl-Z brechen eine ungesendete Nachricht oder einen Befehl ab, statt das Programm zu beenden oder anzuhalten. Wählen Sie yes in Panel 0 oder den Interface-Einstellungen von vipirc, um Terminalsignale zuzulassen. Apply wirkt sofort; Save speichert zusätzlich [input] use_signals=true|false. Beim Beenden oder Anhalten werden die ursprünglichen Terminaleinstellungen wiederhergestellt.
+  NEW: [input] use_signals=false deaktiviert vom Terminal erzeugte Signale, solange der Client das tty kontrolliert. true aktiviert die bestehenden Signalbelegungen. «Anwenden» wirkt sofort; «Speichern» speichert diese Einstellung in der Hauptkonfiguration.
+de: yes = terminal Ctrl-C interrupts and Ctrl-Z suspends; no (default) = cancel an unsent compose instead. Applies now in this terminal; Save retains it for later launches. External kill signals still work.
+  OLD: yes = Ctrl-C unterbricht und Ctrl-Z hält an; no = ungesendeten Entwurf abbrechen. Sofort wirksam; Save speichert für später.
+  NEW: yes = Ctrl-C unterbricht und Ctrl-Z hält an; no = ungesendeten Entwurf abbrechen. Sofort wirksam; «Speichern» speichert für später.
+de: {description}
+
+Unread messages: {unread}; mentions: {mentions}. Selecting Open visits this view. Help preserves the view's unread counts, history and draft.
+  OLD: {description} Ungelesene Nachrichten: {unread}; Erwähnungen: {mentions}. Open öffnet die Ansicht. Die Hilfe erhält Zähler, Verlauf und Entwurf.
+  NEW: {description} Ungelesene Nachrichten: {unread}; Erwähnungen: {mentions}. «Öffnen» öffnet die Ansicht. Die Hilfe erhält Zähler, Verlauf und Entwurf.
+de: Use signals
+  OLD: 
+  NEW: Signale verwenden
+de: Whois
+  OLD: 
+  NEW: Benutzerinfo
+de: Ignore
+  OLD: 
+  NEW: Ignorieren
+de: Unignore
+  OLD: 
+  NEW: Nicht mehr ignorieren
+ru: Common is the default. Contextual prioritizes channel, query, server or client commands while retaining matching commands from other groups.
+  OLD: Common — по умолчанию. Contextual выделяет команды канала, диалога, сервера или клиента, сохраняя другие совпадения.
+  NEW: «Часто используемые» — по умолчанию. «Контекстные» выделяет команды канала, диалога, сервера или клиента, сохраняя другие совпадения.
+ru: Common uses a curated useful order. Contextual remembers the actual screen that opened command entry, including a client-wide summary reader.
+  OLD: Common использует заранее заданный удобный порядок. Contextual помнит исходный экран, включая общий просмотр сводки.
+  NEW: «Часто используемые» использует заранее заданный удобный порядок. «Контекстные» помнит исходный экран, включая общий просмотр сводки.
+ru: Commonly used prioritizes common tasks for the live connection. Recent history lists retained commands. Most used ranks this configuration's saved command-name counts. Alphabetical sorts names. Contextual uses the screen that opened command entry. Down selects; Enter inserts for review. Delete forgets a history entry or resets a personal count. Apply uses the mode now; Save keeps the choice.
+  OLD: Commonly used выводит частые задачи активного подключения. Recent history показывает сохранённые команды. Most used сортирует по числу использований в этой конфигурации. Alphabetical сортирует по алфавиту. Contextual учитывает экран вызова команды. Down выбирает; Enter вставляет для проверки. Delete удаляет запись или обнуляет счётчик. Apply применяет сейчас; Save сохраняет.
+  NEW: «Часто используемые» выводит частые задачи активного подключения. «Недавняя история» показывает сохранённые команды. «Наиболее используемые в этой конфигурации» сортирует по числу использований в этой конфигурации. «По алфавиту» сортирует по алфавиту. «Контекстные» учитывает экран вызова команды. Down выбирает; Enter вставляет для проверки. Delete удаляет запись или обнуляет счётчик. «Применить» применяет сейчас; «Сохранить» сохраняет.
+ru: Connection: {state}. Open visits channel 0 for this server. Connect starts its connection; Disconnect ends it while retaining its views. Close removes a secondary session and its drafts after confirmation. Away changes this server's away state.
+
+Selecting this entry or reading help does not switch servers or connect.
+  OLD: Соединение: {state}. Open открывает канал 0 сервера. Connect подключает; Disconnect отключает, сохраняя представления. Close удаляет дополнительный сеанс с черновиками после подтверждения. Away меняет статус отсутствия. Выбор и просмотр справки не переключают сервер и не подключают его.
+  NEW: Соединение: {state}. «Открыть» открывает канал 0 сервера. «Подключиться» подключает; «Отключиться» отключает, сохраняя представления. «Закрыть» удаляет дополнительный сеанс с черновиками после подтверждения. «Отошёл» меняет статус отсутствия. Выбор и просмотр справки не переключают сервер и не подключают его.
+ru: Enter yes or no for Use signals.
+  OLD: Введите yes или no для Use signals.
+  NEW: Введите yes или no для «Использовать сигналы».
+ru: Query opens a private conversation without sending. Whois asks the server for public nickname information. Ignore changes local filtering. Back returns to the conversation. Up/Down chooses an action; Enter activates it.
+  OLD: Query открывает личную беседу без отправки. Whois запрашивает общедоступные данные о нике. Ignore меняет местную фильтрацию. Back возвращает к беседе. Up/Down выбирает действие; Enter выполняет его.
+  NEW: «Личное сообщение» открывает личную беседу без отправки. «Сведения о пользователе» запрашивает общедоступные данные о нике. «Игнорировать» меняет местную фильтрацию. «Назад» возвращает к беседе. Up/Down выбирает действие; Enter выполняет его.
+ru: R refreshes; Up/Down, Page Up/Page Down, Home/End scroll. Left/Right selects Refresh or Back. / opens a command prompt; cancelling it restores this snapshot. Escape returns to the originating screen.
+  OLD: R обновляет. Up/Down, Page Up/Page Down и Home/End прокручивают; Left/Right выбирает Refresh или Back. / открывает команды; отмена возвращает сводку. Escape возвращает к исходному экрану.
+  NEW: R обновляет. Up/Down, Page Up/Page Down и Home/End прокручивают; Left/Right выбирает «Обновить» или «Назад». / открывает команды; отмена возвращает сводку. Escape возвращает к исходному экрану.
+ru: Servers lists every current server session. Up/Down chooses a server; Left/Right chooses an action; Enter activates that action. Open selects its channel 0, which shows server notices, /list results and connection replies. The server list and /list are different: /list requests channel names from the selected network.
+  OLD: Servers показывает все текущие сеансы серверов. Up/Down выбирает сервер, Left/Right - действие, Enter его выполняет. Open открывает канал 0 с уведомлениями сервера, результатами /list и ответами соединения. Список серверов отличается от /list: /list запрашивает каналы выбранной сети.
+  NEW: «Серверы» показывает все текущие сеансы серверов. Up/Down выбирает сервер, Left/Right - действие, Enter его выполняет. «Открыть» открывает канал 0 с уведомлениями сервера, результатами /list и ответами соединения. Список серверов отличается от /list: /list запрашивает каналы выбранной сети.
+ru: The inherited terminal interrupt, quit, and suspend key assignments remain unchanged; Use signals = no disables their signal effects while the client is active.
+  OLD: Назначения клавиш прерывания, выхода и приостановки остаются прежними; Use signals = no отключает их сигналы, пока клиент активен.
+  NEW: Назначения клавиш прерывания, выхода и приостановки остаются прежними; «Использовать сигналы» = no отключает их сигналы, пока клиент активен.
+ru: These lists show views already open in the selected server session. Up/Down selects a view; Left/Right selects Open, New, Part or Close as appropriate; Enter performs the selected action. Channel 0 is the server. /cl and /channels show local channel views; /list [MASK] [OPTIONS] opens the sortable network channel directory. /ql shows private conversations.
+  OLD: Списки показывают открытые представления выбранного сервера. Up/Down выбирает; Left/Right выбирает Open, New, Part или Close; Enter выполняет. Канал 0 представляет сервер. /cl и /channels показывают локальные каналы; /list [MASK] [OPTIONS] открывает сетевой каталог; /ql показывает личные беседы.
+  NEW: Списки показывают открытые представления выбранного сервера. Up/Down выбирает; Left/Right выбирает «Открыть», «Новый», «Покинуть канал» или «Закрыть»; Enter выполняет. Канал 0 представляет сервер. /cl и /channels показывают локальные каналы; /list [MASK] [OPTIONS] открывает сетевой каталог; /ql показывает личные беседы.
+ru: This is a private conversation. Open selects it without sending. Close discards its retained view and draft after any required confirmation.
+  OLD: Это личная беседа. Open выбирает ее без отправки. Close удаляет сохраненный экран и черновик, при необходимости после подтверждения.
+  NEW: Это личная беседа. «Открыть» выбирает ее без отправки. «Закрыть» удаляет сохраненный экран и черновик, при необходимости после подтверждения.
+ru: Use signals is off by default; Ctrl-C/Ctrl-Z cancel unsent text. Use /quit to exit.
+  OLD: Use signals по умолчанию выключено: Ctrl-C/Ctrl-Z отменяют неотправленный текст. Выход: /quit.
+  NEW: «Использовать сигналы» по умолчанию выключено: Ctrl-C/Ctrl-Z отменяют неотправленный текст. Выход: /quit.
+ru: You are joined to this channel. Part leaves it but keeps its history and unfinished draft. Close removes the view.
+  OLD: Вы присоединились к каналу. Part выходит, сохраняя историю и черновик. Close удаляет представление.
+  NEW: Вы присоединились к каналу. «Покинуть канал» выходит, сохраняя историю и черновик. «Закрыть» удаляет представление.
+ru: You are not joined to this channel. The retained view keeps its scrollback and unfinished draft. Use /join to join again, or Close to remove it.
+  OLD: Вы не присоединились к каналу. История и черновик сохранены. Используйте /join, чтобы войти снова, или Close, чтобы удалить представление.
+  NEW: Вы не присоединились к каналу. История и черновик сохранены. Используйте /join, чтобы войти снова, или «Закрыть», чтобы удалить представление.
+ru: [input] use_signals=false disables terminal-generated signals while this client owns the tty. true enables the existing terminal signal mappings. Apply takes effect now; Save persists this primary-owned preference.
+  OLD: [input] use_signals=false По умолчанию Use signals = no. Ctrl-C и Ctrl-Z отменяют неотправленное сообщение или команду, не завершая и не приостанавливая программу. Выберите yes на панели 0 или в настройках Interface клиента vipirc, чтобы разрешить сигналы терминала. Apply действует сразу; Save также сохраняет [input] use_signals=true|false. При выходе и приостановке исходные настройки терминала восстанавливаются.
+  NEW: [input] use_signals=false отключает сигналы терминала, пока клиент управляет tty. true включает прежние назначения сигналов. «Применить» действует сразу; «Сохранить» сохраняет настройку в основной конфигурации.
+ru: yes = terminal Ctrl-C interrupts and Ctrl-Z suspends; no (default) = cancel an unsent compose instead. Applies now in this terminal; Save retains it for later launches. External kill signals still work.
+  OLD: yes = Ctrl-C прерывает, Ctrl-Z останавливает; no = отменяет черновик. Действует сейчас; Save сохраняет выбор.
+  NEW: yes = Ctrl-C прерывает, Ctrl-Z останавливает; no = отменяет черновик. Действует сейчас; «Сохранить» сохраняет выбор.
+ru: {description}
+
+Unread messages: {unread}; mentions: {mentions}. Selecting Open visits this view. Help preserves the view's unread counts, history and draft.
+  OLD: {description} Непрочитанных сообщений: {unread}; упоминаний: {mentions}. Open открывает представление. Справка сохраняет счетчики, историю и черновик.
+  NEW: {description} Непрочитанных сообщений: {unread}; упоминаний: {mentions}. «Открыть» открывает представление. Справка сохраняет счетчики, историю и черновик.
+ru: Use signals
+  OLD: 
+  NEW: Использовать сигналы
+ru: Whois
+  OLD: 
+  NEW: Сведения о пользователе
+ru: Ignore
+  OLD: 
+  NEW: Игнорировать
+ru: Unignore
+  OLD: 
+  NEW: Не игнорировать
+it: Common is the default. Contextual prioritizes channel, query, server or client commands while retaining matching commands from other groups.
+  OLD: Common è predefinito. Contextual privilegia comandi di canale, chat privata, server o client conservando le altre corrispondenze.
+  NEW: «Usati spesso» è predefinito. «Contestuale» privilegia comandi di canale, chat privata, server o client conservando le altre corrispondenze.
+it: Common uses a curated useful order. Contextual remembers the actual screen that opened command entry, including a client-wide summary reader.
+  OLD: Common usa un ordine utile selezionato. Contextual ricorda la schermata che ha aperto il comando, incluso il lettore di riepilogo generale.
+  NEW: «Usati spesso» usa un ordine utile selezionato. «Contestuale» ricorda la schermata che ha aperto il comando, incluso il lettore di riepilogo generale.
+it: Commonly used prioritizes common tasks for the live connection. Recent history lists retained commands. Most used ranks this configuration's saved command-name counts. Alphabetical sorts names. Contextual uses the screen that opened command entry. Down selects; Enter inserts for review. Delete forgets a history entry or resets a personal count. Apply uses the mode now; Save keeps the choice.
+  OLD: Commonly used privilegia le attività frequenti della connessione attiva. Recent history mostra i comandi conservati. Most used ordina per uso in questa configurazione. Alphabetical ordina per alfabeto. Contextual usa la schermata di origine. Down seleziona; Enter inserisce per la verifica. Delete elimina una voce o azzera un contatore. Apply applica ora; Save salva.
+  NEW: «Usati spesso» privilegia le attività frequenti della connessione attiva. «Cronologia recente» mostra i comandi conservati. «Più usati con questa configurazione» ordina per uso in questa configurazione. «Alfabetico» ordina per alfabeto. «Contestuale» usa la schermata di origine. Down seleziona; Enter inserisce per la verifica. Delete elimina una voce o azzera un contatore. «Applica» applica ora; «Salva» salva.
+it: Connection: {state}. Open visits channel 0 for this server. Connect starts its connection; Disconnect ends it while retaining its views. Close removes a secondary session and its drafts after confirmation. Away changes this server's away state.
+
+Selecting this entry or reading help does not switch servers or connect.
+  OLD: Connessione: {state}. Open apre il canale 0 del server. Connect connette; Disconnect termina la connessione mantenendo le viste. Close rimuove una sessione secondaria e le bozze dopo conferma. Away cambia lo stato di assenza. Selezionare o leggere la guida non cambia server e non connette.
+  NEW: Connessione: {state}. «Apri» apre il canale 0 del server. «Connetti» connette; «Disconnetti» termina la connessione mantenendo le viste. «Chiudi» rimuove una sessione secondaria e le bozze dopo conferma. «Assente» cambia lo stato di assenza. Selezionare o leggere la guida non cambia server e non connette.
+it: Enter yes or no for Use signals.
+  OLD: Inserisci yes o no per Use signals.
+  NEW: Inserisci yes o no per «Usa segnali».
+it: Query opens a private conversation without sending. Whois asks the server for public nickname information. Ignore changes local filtering. Back returns to the conversation. Up/Down chooses an action; Enter activates it.
+  OLD: Query apre una chat privata senza inviare. Whois chiede al server informazioni pubbliche sul nick. Ignore modifica il filtro locale. Back torna alla chat. Up/Down sceglie l'azione; Enter la esegue.
+  NEW: «Messaggio privato» apre una chat privata senza inviare. «Info utente» chiede al server informazioni pubbliche sul nick. «Ignora» modifica il filtro locale. «Indietro» torna alla chat. Up/Down sceglie l'azione; Enter la esegue.
+it: R refreshes; Up/Down, Page Up/Page Down, Home/End scroll. Left/Right selects Refresh or Back. / opens a command prompt; cancelling it restores this snapshot. Escape returns to the originating screen.
+  OLD: R aggiorna; Up/Down, Page Up/Page Down e Home/End scorrono. Left/Right sceglie Refresh o Back. / apre i comandi; annullare ripristina questa vista. Escape torna alla schermata iniziale.
+  NEW: R aggiorna; Up/Down, Page Up/Page Down e Home/End scorrono. Left/Right sceglie «Aggiorna» o «Indietro». / apre i comandi; annullare ripristina questa vista. Escape torna alla schermata iniziale.
+it: Servers lists every current server session. Up/Down chooses a server; Left/Right chooses an action; Enter activates that action. Open selects its channel 0, which shows server notices, /list results and connection replies. The server list and /list are different: /list requests channel names from the selected network.
+  OLD: Servers elenca tutte le sessioni server correnti. Up/Down sceglie un server, Left/Right un'azione, Enter la esegue. Open apre il canale 0 con avvisi del server, risultati /list e risposte di connessione. L'elenco server è diverso da /list: /list richiede i nomi dei canali alla rete selezionata.
+  NEW: «Server» elenca tutte le sessioni server correnti. Up/Down sceglie un server, Left/Right un'azione, Enter la esegue. «Apri» apre il canale 0 con avvisi del server, risultati /list e risposte di connessione. L'elenco server è diverso da /list: /list richiede i nomi dei canali alla rete selezionata.
+it: The inherited terminal interrupt, quit, and suspend key assignments remain unchanged; Use signals = no disables their signal effects while the client is active.
+  OLD: I tasti di interruzione, uscita e sospensione mantengono le assegnazioni originali; Use signals = no ne disattiva i segnali mentre il client è attivo.
+  NEW: I tasti di interruzione, uscita e sospensione mantengono le assegnazioni originali; «Usa segnali» = no ne disattiva i segnali mentre il client è attivo.
+it: These lists show views already open in the selected server session. Up/Down selects a view; Left/Right selects Open, New, Part or Close as appropriate; Enter performs the selected action. Channel 0 is the server. /cl and /channels show local channel views; /list [MASK] [OPTIONS] opens the sortable network channel directory. /ql shows private conversations.
+  OLD: Questi elenchi mostrano viste aperte sul server selezionato. Up/Down sceglie; Left/Right seleziona Open, New, Part o Close; Enter esegue. Il canale 0 è il server. /cl e /channels mostrano viste locali; /list [MASK] [OPTIONS] apre la directory della rete; /ql mostra le conversazioni private.
+  NEW: Questi elenchi mostrano viste aperte sul server selezionato. Up/Down sceglie; Left/Right seleziona «Apri», «Nuovo», «Lascia canale» o «Chiudi»; Enter esegue. Il canale 0 è il server. /cl e /channels mostrano viste locali; /list [MASK] [OPTIONS] apre la directory della rete; /ql mostra le conversazioni private.
+it: This is a private conversation. Open selects it without sending. Close discards its retained view and draft after any required confirmation.
+  OLD: Questa è una conversazione privata. Open la seleziona senza inviare. Close rimuove la vista e la bozza conservate, dopo eventuale conferma.
+  NEW: Questa è una conversazione privata. «Apri» la seleziona senza inviare. «Chiudi» rimuove la vista e la bozza conservate, dopo eventuale conferma.
+it: Use signals is off by default; Ctrl-C/Ctrl-Z cancel unsent text. Use /quit to exit.
+  OLD: Use signals è disattivato per impostazione predefinita; Ctrl-C/Ctrl-Z annullano testo non inviato. Uscire con /quit.
+  NEW: «Usa segnali» è disattivato per impostazione predefinita; Ctrl-C/Ctrl-Z annullano testo non inviato. Uscire con /quit.
+it: You are joined to this channel. Part leaves it but keeps its history and unfinished draft. Close removes the view.
+  OLD: Hai aderito al canale. Part lo lascia conservando cronologia e bozza. Close rimuove la vista.
+  NEW: Hai aderito al canale. «Lascia canale» lo lascia conservando cronologia e bozza. «Chiudi» rimuove la vista.
+it: You are not joined to this channel. The retained view keeps its scrollback and unfinished draft. Use /join to join again, or Close to remove it.
+  OLD: Non hai aderito al canale. Cronologia e bozza sono conservate. Usa /join per rientrare o Close per rimuovere la vista.
+  NEW: Non hai aderito al canale. Cronologia e bozza sono conservate. Usa /join per rientrare o «Chiudi» per rimuovere la vista.
+it: [input] use_signals=false disables terminal-generated signals while this client owns the tty. true enables the existing terminal signal mappings. Apply takes effect now; Save persists this primary-owned preference.
+  OLD: [input] use_signals=false Use signals è impostato su no per impostazione predefinita. Ctrl-C e Ctrl-Z annullano un messaggio o comando non inviato, senza terminare o sospendere il programma. Scegliere yes nel pannello 0 o nelle impostazioni Interface di vipirc per abilitare i segnali del terminale. Apply ha effetto immediato; Save memorizza anche [input] use_signals=true|false. All'uscita o alla sospensione vengono ripristinate le impostazioni originali del terminale.
+  NEW: [input] use_signals=false disattiva i segnali generati dal terminale mentre il client controlla il tty. true attiva le associazioni dei segnali esistenti. «Applica» ha effetto immediato; «Salva» salva la preferenza nella configurazione principale.
+it: yes = terminal Ctrl-C interrupts and Ctrl-Z suspends; no (default) = cancel an unsent compose instead. Applies now in this terminal; Save retains it for later launches. External kill signals still work.
+  OLD: yes = Ctrl-C interrompe e Ctrl-Z sospende; no = annulla una bozza non inviata. Valido ora; Save conserva la scelta.
+  NEW: yes = Ctrl-C interrompe e Ctrl-Z sospende; no = annulla una bozza non inviata. Valido ora; «Salva» conserva la scelta.
+it: {description}
+
+Unread messages: {unread}; mentions: {mentions}. Selecting Open visits this view. Help preserves the view's unread counts, history and draft.
+  OLD: {description} Messaggi non letti: {unread}; menzioni: {mentions}. Open apre questa vista. La guida mantiene contatori, cronologia e bozza.
+  NEW: {description} Messaggi non letti: {unread}; menzioni: {mentions}. «Apri» apre questa vista. La guida mantiene contatori, cronologia e bozza.
+it: Use signals
+  OLD: 
+  NEW: Usa segnali
+it: Whois
+  OLD: 
+  NEW: Info utente
+it: Ignore
+  OLD: 
+  NEW: Ignora
+it: Unignore
+  OLD: 
+  NEW: Non ignorare più
+ar: Common is the default. Contextual prioritizes channel, query, server or client commands while retaining matching commands from other groups.
+  OLD: Common هو الافتراضي. يقدم Contextual أوامر القناة والمحادثة والخادم والعميل دون إخفاء المطابقات الأخرى.
+  NEW: «شائع الاستخدام» هو الافتراضي. يقدم «حسب السياق» أوامر القناة والمحادثة والخادم والعميل دون إخفاء المطابقات الأخرى.
+ar: Common uses a curated useful order. Contextual remembers the actual screen that opened command entry, including a client-wide summary reader.
+  OLD: يستخدم Common ترتيباً منتقى مفيداً. يتذكر Contextual الشاشة الأصلية، ومنها قارئ الملخص العام.
+  NEW: يستخدم «شائع الاستخدام» ترتيباً منتقى مفيداً. يتذكر «حسب السياق» الشاشة الأصلية، ومنها قارئ الملخص العام.
+ar: Commonly used prioritizes common tasks for the live connection. Recent history lists retained commands. Most used ranks this configuration's saved command-name counts. Alphabetical sorts names. Contextual uses the screen that opened command entry. Down selects; Enter inserts for review. Delete forgets a history entry or resets a personal count. Apply uses the mode now; Save keeps the choice.
+  OLD: يقدّم Commonly used المهام الشائعة للاتصال الحالي. يعرض Recent history الأوامر المحفوظة. يرتب Most used حسب مرات الاستخدام في هذا التكوين. ويرتب Alphabetical أبجدياً. يعتمد Contextual على الشاشة التي فتحت إدخال الأوامر. يحدد Down؛ ويدرج Enter الأمر للمراجعة. يحذف Delete سجلاً أو يعيد ضبط عداد. يطبق Apply الآن ويحفظ Save الاختيار.
+  NEW: يقدّم «شائع الاستخدام» المهام الشائعة للاتصال الحالي. يعرض «السجل الحديث» الأوامر المحفوظة. يرتب «الأكثر استخداما في هذا الإعداد» حسب مرات الاستخدام في هذا التكوين. ويرتب «أبجدي» أبجدياً. يعتمد «حسب السياق» على الشاشة التي فتحت إدخال الأوامر. يحدد Down؛ ويدرج Enter الأمر للمراجعة. يحذف Delete سجلاً أو يعيد ضبط عداد. يطبق «تطبيق» الآن ويحفظ «حفظ» الاختيار.
+ar: Connection: {state}. Open visits channel 0 for this server. Connect starts its connection; Disconnect ends it while retaining its views. Close removes a secondary session and its drafts after confirmation. Away changes this server's away state.
+
+Selecting this entry or reading help does not switch servers or connect.
+  OLD: الاتصال: {state}. يفتح Open القناة 0 لهذا الخادم. يبدأ Connect الاتصال؛ وينهيه Disconnect مع بقاء العروض. يحذف Close جلسة ثانوية ومسوداتها بعد التأكيد. يغير Away حالة الغياب. لا يبدل الاختيار أو قراءة المساعدة الخادم ولا يتصل به.
+  NEW: الاتصال: {state}. يفتح «فتح» القناة 0 لهذا الخادم. يبدأ «اتصال» الاتصال؛ وينهيه «قطع الاتصال» مع بقاء العروض. يحذف «إغلاق» جلسة ثانوية ومسوداتها بعد التأكيد. يغير «غائب» حالة الغياب. لا يبدل الاختيار أو قراءة المساعدة الخادم ولا يتصل به.
+ar: Enter yes or no for Use signals.
+  OLD: أدخل yes أو no لخيار Use signals.
+  NEW: أدخل yes أو no لخيار «استخدام الإشارات».
+ar: Query opens a private conversation without sending. Whois asks the server for public nickname information. Ignore changes local filtering. Back returns to the conversation. Up/Down chooses an action; Enter activates it.
+  OLD: Query يفتح محادثة خاصة دون إرسال. Whois يطلب معلومات اللقب العامة من الخادم. Ignore يغير التصفية المحلية. Back يعود إلى المحادثة. Up/Down يختار الإجراء وEnter ينفذه.
+  NEW: «رسالة خاصة» يفتح محادثة خاصة دون إرسال. «معلومات المستخدم» يطلب معلومات اللقب العامة من الخادم. «تجاهل» يغير التصفية المحلية. «رجوع» يعود إلى المحادثة. Up/Down يختار الإجراء وEnter ينفذه.
+ar: R refreshes; Up/Down, Page Up/Page Down, Home/End scroll. Left/Right selects Refresh or Back. / opens a command prompt; cancelling it restores this snapshot. Escape returns to the originating screen.
+  OLD: يحدّث R العرض؛ وتتنقل Up/Down وPage Up/Page Down وHome/End. يختار Left/Right بين Refresh وBack. يفتح / الأوامر ويعيد الإلغاء الخلاصة. يعيد Escape الشاشة الأصلية.
+  NEW: يحدّث R العرض؛ وتتنقل Up/Down وPage Up/Page Down وHome/End. يختار Left/Right بين «تحديث» و«رجوع». يفتح / الأوامر ويعيد الإلغاء الخلاصة. يعيد Escape الشاشة الأصلية.
+ar: Servers lists every current server session. Up/Down chooses a server; Left/Right chooses an action; Enter activates that action. Open selects its channel 0, which shows server notices, /list results and connection replies. The server list and /list are different: /list requests channel names from the selected network.
+  OLD: تعرض Servers جميع جلسات الخوادم الحالية. يختار Up/Down الخادم وLeft/Right الإجراء، وينفذه Enter. يفتح Open القناة 0 التي تعرض إشعارات الخادم ونتائج /list وردود الاتصال. تختلف قائمة الخوادم عن /list؛ إذ يطلب /list أسماء القنوات من الشبكة المحددة.
+  NEW: تعرض «الخوادم» جميع جلسات الخوادم الحالية. يختار Up/Down الخادم وLeft/Right الإجراء، وينفذه Enter. يفتح «فتح» القناة 0 التي تعرض إشعارات الخادم ونتائج /list وردود الاتصال. تختلف قائمة الخوادم عن /list؛ إذ يطلب /list أسماء القنوات من الشبكة المحددة.
+ar: The inherited terminal interrupt, quit, and suspend key assignments remain unchanged; Use signals = no disables their signal effects while the client is active.
+  OLD: تبقى تعيينات مفاتيح المقاطعة والإنهاء والتعليق في الطرفية كما هي؛ يعطّل Use signals = no تأثير إشاراتها أثناء تشغيل العميل.
+  NEW: تبقى تعيينات مفاتيح المقاطعة والإنهاء والتعليق في الطرفية كما هي؛ يعطّل «استخدام الإشارات» = no تأثير إشاراتها أثناء تشغيل العميل.
+ar: These lists show views already open in the selected server session. Up/Down selects a view; Left/Right selects Open, New, Part or Close as appropriate; Enter performs the selected action. Channel 0 is the server. /cl and /channels show local channel views; /list [MASK] [OPTIONS] opens the sortable network channel directory. /ql shows private conversations.
+  OLD: تعرض هذه القوائم العروض المفتوحة على الخادم المحدد. يختار Up/Down؛ ويختار Left/Right الإجراء Open أو New أو Part أو Close؛ وينفذ Enter. القناة 0 هي الخادم. يعرض /cl و/channels القنوات المحلية؛ يفتح /list [MASK] [OPTIONS] دليل الشبكة؛ يعرض /ql المحادثات الخاصة.
+  NEW: تعرض هذه القوائم العروض المفتوحة على الخادم المحدد. يختار Up/Down؛ ويختار Left/Right الإجراء «فتح» أو «جديد» أو «مغادرة القناة» أو «إغلاق»؛ وينفذ Enter. القناة 0 هي الخادم. يعرض /cl و/channels القنوات المحلية؛ يفتح /list [MASK] [OPTIONS] دليل الشبكة؛ يعرض /ql المحادثات الخاصة.
+ar: This is a private conversation. Open selects it without sending. Close discards its retained view and draft after any required confirmation.
+  OLD: هذه محادثة خاصة. يختارها Open دون إرسال. يحذف Close العرض والمسودة المحفوظين بعد التأكيد عند الحاجة.
+  NEW: هذه محادثة خاصة. يختارها «فتح» دون إرسال. يحذف «إغلاق» العرض والمسودة المحفوظين بعد التأكيد عند الحاجة.
+ar: Use signals is off by default; Ctrl-C/Ctrl-Z cancel unsent text. Use /quit to exit.
+  OLD: Use signals معطل افتراضيًا؛ يلغي Ctrl-C/Ctrl-Z النص غير المرسل. اخرج باستخدام /quit.
+  NEW: «استخدام الإشارات» معطل افتراضيًا؛ يلغي Ctrl-C/Ctrl-Z النص غير المرسل. اخرج باستخدام /quit.
+ar: You are joined to this channel. Part leaves it but keeps its history and unfinished draft. Close removes the view.
+  OLD: لقد انضممت إلى هذه القناة. يغادرها Part مع الاحتفاظ بالسجل والمسودة. يحذف Close العرض.
+  NEW: لقد انضممت إلى هذه القناة. يغادرها «مغادرة القناة» مع الاحتفاظ بالسجل والمسودة. يحذف «إغلاق» العرض.
+ar: You are not joined to this channel. The retained view keeps its scrollback and unfinished draft. Use /join to join again, or Close to remove it.
+  OLD: لم تنضم إلى هذه القناة. يبقى السجل والمسودة محفوظين. استخدم /join للانضمام مجددا أو Close لحذف العرض.
+  NEW: لم تنضم إلى هذه القناة. يبقى السجل والمسودة محفوظين. استخدم /join للانضمام مجددا أو «إغلاق» لحذف العرض.
+ar: [input] use_signals=false disables terminal-generated signals while this client owns the tty. true enables the existing terminal signal mappings. Apply takes effect now; Save persists this primary-owned preference.
+  OLD: [input] use_signals=false القيمة الافتراضية لإعداد Use signals هي no. يلغي Ctrl-C وCtrl-Z الرسالة أو الأمر غير المرسل، ولا ينهيان البرنامج ولا يعلّقانه. اختر yes من اللوحة 0 أو إعدادات Interface في vipirc للسماح بإشارات الطرفية. يطبّق Apply التغيير فوراً، ويحفظ Save أيضاً [input] use_signals=true|false. تُستعاد إعدادات الطرفية الأصلية عند الخروج أو التعليق.
+  NEW: يعطّل [input] use_signals=false الإشارات التي تولّدها الطرفية أثناء تحكم العميل في tty. يفعّل true تعيينات الإشارات الحالية. يسري «تطبيق» فورا؛ ويحفظ «حفظ» التفضيل في الإعداد الرئيسي.
+ar: yes = terminal Ctrl-C interrupts and Ctrl-Z suspends; no (default) = cancel an unsent compose instead. Applies now in this terminal; Save retains it for later launches. External kill signals still work.
+  OLD: yes = Ctrl-C يقاطع و Ctrl-Z يعلق؛ no = يلغي مسودة غير مرسلة. يسري الآن؛ Save يحفظه لاحقا.
+  NEW: yes = Ctrl-C يقاطع و Ctrl-Z يعلق؛ no = يلغي مسودة غير مرسلة. يسري الآن؛ «حفظ» يحفظه لاحقا.
+ar: {description}
+
+Unread messages: {unread}; mentions: {mentions}. Selecting Open visits this view. Help preserves the view's unread counts, history and draft.
+  OLD: {description} الرسائل غير المقروءة: {unread}؛ الإشارات: {mentions}. يفتح Open هذا العرض. تحفظ المساعدة العدادات والسجل والمسودة.
+  NEW: {description} الرسائل غير المقروءة: {unread}؛ الإشارات: {mentions}. يفتح «فتح» هذا العرض. تحفظ المساعدة العدادات والسجل والمسودة.
+ar: Use signals
+  OLD: 
+  NEW: استخدام الإشارات
+ar: Whois
+  OLD: 
+  NEW: معلومات المستخدم
+ar: Ignore
+  OLD: 
+  NEW: تجاهل
+ar: Unignore
+  OLD: 
+  NEW: إلغاء التجاهل
+
+Validation: all 11 language selections passed real guided setup question and review tests. Regenerated minimalist manuals with the actual command formatter and verified all 128 literal examples, 3 aliases, and 19 topic identifiers. Compiled catalog lookups, ANSI frontend compilation, and archive verification passed. Full ncurses validation and native-speaker review remain outstanding.

@@ -1,0 +1,244 @@
+Dynamic setup and contextual help label review. Protocol commands and configuration values are unchanged.
+1 new keys and 70 revised locale entries.
+id: Common is the default. Contextual prioritizes channel, query, server or client commands while retaining matching commands from other groups.
+  OLD: Common adalah bawaan. Contextual mengutamakan perintah kanal, query, server, atau klien tanpa menghilangkan kecocokan kelompok lain.
+  NEW: «Sering digunakan» adalah bawaan. «Sesuai konteks» mengutamakan perintah kanal, query, server, atau klien tanpa menghilangkan kecocokan kelompok lain.
+id: Common uses a curated useful order. Contextual remembers the actual screen that opened command entry, including a client-wide summary reader.
+  OLD: Common mengurutkan daftar perintah yang dikurasi. Contextual mengingat layar asal, termasuk pembaca ringkasan seluruh klien.
+  NEW: «Sering digunakan» mengurutkan daftar perintah yang dikurasi. «Sesuai konteks» mengingat layar asal, termasuk pembaca ringkasan seluruh klien.
+id: Enter yes or no for Use signals.
+  OLD: Masukkan yes atau no untuk Use signals.
+  NEW: Masukkan yes atau no untuk «Gunakan sinyal».
+id: The inherited terminal interrupt, quit, and suspend key assignments remain unchanged; Use signals = no disables their signal effects while the client is active.
+  OLD: Penetapan tombol interupsi, keluar, dan tunda pada terminal tidak diubah; Use signals = no menonaktifkan efek sinyalnya selama klien aktif.
+  NEW: Penetapan tombol interupsi, keluar, dan tunda pada terminal tidak diubah; «Gunakan sinyal» = no menonaktifkan efek sinyalnya selama klien aktif.
+id: Use signals is off by default; Ctrl-C/Ctrl-Z cancel unsent text. Use /quit to exit.
+  OLD: Use signals mati secara baku; Ctrl-C/Ctrl-Z membatalkan teks belum terkirim. Keluar dengan /quit.
+  NEW: «Gunakan sinyal» mati secara baku; Ctrl-C/Ctrl-Z membatalkan teks belum terkirim. Keluar dengan /quit.
+id: [input] use_signals=false disables terminal-generated signals while this client owns the tty. true enables the existing terminal signal mappings. Apply takes effect now; Save persists this primary-owned preference.
+  OLD: [input] use_signals=false Secara bawaan Use signals = no. Ctrl-C dan Ctrl-Z membatalkan pesan atau perintah yang belum dikirim, bukan menghentikan aplikasi. Pilih yes pada panel 0 (atau pengaturan Interface vipirc) untuk mengaktifkan sinyal terminal. Apply berlaku segera; Save juga menyimpan [input] use_signals=true|false. Pengaturan terminal asal dipulihkan saat keluar atau ditangguhkan.
+  NEW: [input] use_signals=false menonaktifkan sinyal yang dihasilkan terminal selama klien menguasai tty. true mengaktifkan pemetaan sinyal terminal yang ada. «Terapkan» langsung berlaku; «Simpan» menyimpan preferensi milik konfigurasi utama ini.
+id: yes = terminal Ctrl-C interrupts and Ctrl-Z suspends; no (default) = cancel an unsent compose instead. Applies now in this terminal; Save retains it for later launches. External kill signals still work.
+  OLD: yes = Ctrl-C menginterupsi dan Ctrl-Z menangguhkan; no = batalkan draf belum terkirim. Berlaku sekarang; Save menyimpan untuk nanti.
+  NEW: yes = Ctrl-C menginterupsi dan Ctrl-Z menangguhkan; no = batalkan draf belum terkirim. Berlaku sekarang; «Simpan» menyimpan untuk nanti.
+id: Use signals
+  OLD: 
+  NEW: Gunakan sinyal
+ms: Common is the default. Contextual prioritizes channel, query, server or client commands while retaining matching commands from other groups.
+  OLD: Common ialah lalai. Contextual mendahulukan arahan saluran, pertanyaan, pelayan atau klien sambil mengekalkan padanan lain.
+  NEW: «Lazim digunakan» ialah lalai. «Mengikut konteks» mendahulukan arahan saluran, pertanyaan, pelayan atau klien sambil mengekalkan padanan lain.
+ms: Common uses a curated useful order. Contextual remembers the actual screen that opened command entry, including a client-wide summary reader.
+  OLD: Common menggunakan susunan arahan terpilih. Contextual mengingati skrin asal, termasuk pembaca ringkasan seluruh klien.
+  NEW: «Lazim digunakan» menggunakan susunan arahan terpilih. «Mengikut konteks» mengingati skrin asal, termasuk pembaca ringkasan seluruh klien.
+ms: Enter yes or no for Use signals.
+  OLD: Masukkan yes atau no untuk Use signals.
+  NEW: Masukkan yes atau no untuk «Guna isyarat».
+ms: The inherited terminal interrupt, quit, and suspend key assignments remain unchanged; Use signals = no disables their signal effects while the client is active.
+  OLD: Pemetaan kekunci terminal bagi sampukan, keluar dan gantung tidak diubah; Use signals = no menyahaktifkan kesan isyaratnya semasa klien aktif.
+  NEW: Pemetaan kekunci terminal bagi sampukan, keluar dan gantung tidak diubah; «Guna isyarat» = no menyahaktifkan kesan isyaratnya semasa klien aktif.
+ms: Use signals is off by default; Ctrl-C/Ctrl-Z cancel unsent text. Use /quit to exit.
+  OLD: Use signals dimatikan secara lalai; Ctrl-C/Ctrl-Z membatalkan teks belum dihantar. Keluar dengan /quit.
+  NEW: «Guna isyarat» dimatikan secara lalai; Ctrl-C/Ctrl-Z membatalkan teks belum dihantar. Keluar dengan /quit.
+ms: [input] use_signals=false disables terminal-generated signals while this client owns the tty. true enables the existing terminal signal mappings. Apply takes effect now; Save persists this primary-owned preference.
+  OLD: [input] use_signals=false Use signals = no secara lalai. Ctrl-C dan Ctrl-Z membatalkan mesej atau arahan yang belum dihantar, bukan menamatkan aplikasi. Pilih yes dalam panel 0 (atau tetapan Interface vipirc) untuk mengaktifkan isyarat terminal. Apply berkuat kuasa serta-merta; Save turut menyimpan [input] use_signals=true|false. Tetapan terminal asal dipulihkan apabila keluar atau digantung.
+  NEW: [input] use_signals=false mematikan isyarat yang dijana terminal semasa klien menguasai tty. true membolehkan pemetaan isyarat terminal sedia ada. «Guna» berkuat kuasa serta-merta; «Simpan» menyimpan keutamaan milik konfigurasi utama ini.
+ms: yes = terminal Ctrl-C interrupts and Ctrl-Z suspends; no (default) = cancel an unsent compose instead. Applies now in this terminal; Save retains it for later launches. External kill signals still work.
+  OLD: yes = Ctrl-C menyampuk dan Ctrl-Z menggantung; no = batalkan draf belum dihantar. Berkuat kuasa kini; Save menyimpan untuk kemudian.
+  NEW: yes = Ctrl-C menyampuk dan Ctrl-Z menggantung; no = batalkan draf belum dihantar. Berkuat kuasa kini; «Simpan» menyimpan untuk kemudian.
+ms: Use signals
+  OLD: 
+  NEW: Guna isyarat
+tr: Common is the default. Contextual prioritizes channel, query, server or client commands while retaining matching commands from other groups.
+  OLD: Common varsayılandır. Contextual kanal, özel sohbet, sunucu veya istemci komutlarına öncelik verir; diğer eşleşmeleri de tutar.
+  NEW: «Sık kullanılan» varsayılandır. «Bağlamsal» kanal, özel sohbet, sunucu veya istemci komutlarına öncelik verir; diğer eşleşmeleri de tutar.
+tr: Common uses a curated useful order. Contextual remembers the actual screen that opened command entry, including a client-wide summary reader.
+  OLD: Common seçilmiş yararlı sırayı kullanır. Contextual, genel özet okuyucu dahil komutun açıldığı ekranı hatırlar.
+  NEW: «Sık kullanılan» seçilmiş yararlı sırayı kullanır. «Bağlamsal», genel özet okuyucu dahil komutun açıldığı ekranı hatırlar.
+tr: Enter yes or no for Use signals.
+  OLD: Use signals için yes veya no girin.
+  NEW: «Sinyalleri kullan» için yes veya no girin.
+tr: The inherited terminal interrupt, quit, and suspend key assignments remain unchanged; Use signals = no disables their signal effects while the client is active.
+  OLD: Terminalin kesme, çıkma ve askıya alma tuş atamaları değiştirilmez; Use signals = no istemci etkinken bunların sinyal üretmesini engeller.
+  NEW: Terminalin kesme, çıkma ve askıya alma tuş atamaları değiştirilmez; «Sinyalleri kullan» = no istemci etkinken bunların sinyal üretmesini engeller.
+tr: Use signals is off by default; Ctrl-C/Ctrl-Z cancel unsent text. Use /quit to exit.
+  OLD: Use signals varsayılan olarak kapalıdır; Ctrl-C/Ctrl-Z gönderilmemiş metni iptal eder. /quit ile çıkın.
+  NEW: «Sinyalleri kullan» varsayılan olarak kapalıdır; Ctrl-C/Ctrl-Z gönderilmemiş metni iptal eder. /quit ile çıkın.
+tr: [input] use_signals=false disables terminal-generated signals while this client owns the tty. true enables the existing terminal signal mappings. Apply takes effect now; Save persists this primary-owned preference.
+  OLD: [input] use_signals=false Use signals varsayılan olarak no değerindedir. Ctrl-C ve Ctrl-Z, gönderilmemiş ileti veya komutu iptal eder; uygulamayı kapatmaz ya da askıya almaz. Terminal sinyallerini açmak için panel 0 veya vipirc Interface ayarlarında yes seçin. Apply hemen uygulanır; Save ayrıca [input] use_signals=true|false değerini kaydeder. Çıkışta veya askıya almada eski terminal ayarları geri yüklenir.
+  NEW: [input] use_signals=false, istemci tty denetimini elinde tutarken terminalin ürettiği sinyalleri devre dışı bırakır. true, mevcut terminal sinyal eşlemelerini etkinleştirir. «Uygula» hemen uygular; «Kaydet» ana yapılandırmaya kaydeder.
+tr: yes = terminal Ctrl-C interrupts and Ctrl-Z suspends; no (default) = cancel an unsent compose instead. Applies now in this terminal; Save retains it for later launches. External kill signals still work.
+  OLD: yes = Ctrl-C keser ve Ctrl-Z askıya alır; no = gönderilmemiş taslağı iptal eder. Şimdi uygulanır; Save sonraya saklar.
+  NEW: yes = Ctrl-C keser ve Ctrl-Z askıya alır; no = gönderilmemiş taslağı iptal eder. Şimdi uygulanır; «Kaydet» sonraya saklar.
+tr: Use signals
+  OLD: 
+  NEW: Sinyalleri kullan
+es: Common is the default. Contextual prioritizes channel, query, server or client commands while retaining matching commands from other groups.
+  OLD: Common es el predeterminado. Contextual prioriza comandos de canal, consulta, servidor o cliente sin ocultar otras coincidencias.
+  NEW: «De uso frecuente» es el predeterminado. «Contextual» prioriza comandos de canal, consulta, servidor o cliente sin ocultar otras coincidencias.
+es: Common uses a curated useful order. Contextual remembers the actual screen that opened command entry, including a client-wide summary reader.
+  OLD: Common usa un orden útil seleccionado. Contextual recuerda la pantalla que abrió el comando, incluido el lector de resumen general.
+  NEW: «De uso frecuente» usa un orden útil seleccionado. «Contextual» recuerda la pantalla que abrió el comando, incluido el lector de resumen general.
+es: Enter yes or no for Use signals.
+  OLD: Introduce yes o no para Use signals.
+  NEW: Introduce yes o no para «Usar señales».
+es: The inherited terminal interrupt, quit, and suspend key assignments remain unchanged; Use signals = no disables their signal effects while the client is active.
+  OLD: Las teclas de interrupción, salida y suspensión conservan sus asignaciones; Use signals = no desactiva sus señales mientras el cliente está activo.
+  NEW: Las teclas de interrupción, salida y suspensión conservan sus asignaciones; «Usar señales» = no desactiva sus señales mientras el cliente está activo.
+es: Use signals is off by default; Ctrl-C/Ctrl-Z cancel unsent text. Use /quit to exit.
+  OLD: Use signals está desactivado por defecto; Ctrl-C/Ctrl-Z cancelan texto sin enviar. Salga con /quit.
+  NEW: «Usar señales» está desactivado por defecto; Ctrl-C/Ctrl-Z cancelan texto sin enviar. Salga con /quit.
+es: [input] use_signals=false disables terminal-generated signals while this client owns the tty. true enables the existing terminal signal mappings. Apply takes effect now; Save persists this primary-owned preference.
+  OLD: [input] use_signals=false Use signals está desactivado (no) por defecto. Ctrl-C y Ctrl-Z cancelan un mensaje o comando sin enviar; no cierran ni suspenden la aplicación. Seleccione yes en el panel 0 o en Interface de vipirc para activar las señales del terminal. Apply surte efecto inmediatamente; Save también guarda [input] use_signals=true|false. Al salir o suspenderse, se restauran los ajustes originales del terminal.
+  NEW: [input] use_signals=false desactiva las señales generadas por la terminal mientras el cliente controla la tty. true activa las asignaciones de señales existentes. «Aplicar» surte efecto ahora; «Guardar» guarda esta preferencia en la configuración principal.
+es: yes = terminal Ctrl-C interrupts and Ctrl-Z suspends; no (default) = cancel an unsent compose instead. Applies now in this terminal; Save retains it for later launches. External kill signals still work.
+  OLD: yes = Ctrl-C interrumpe y Ctrl-Z suspende; no = cancela un borrador sin enviar. Se aplica ahora; Save lo guarda para después.
+  NEW: yes = Ctrl-C interrumpe y Ctrl-Z suspende; no = cancela un borrador sin enviar. Se aplica ahora; «Guardar» lo guarda para después.
+es: Use signals
+  OLD: 
+  NEW: Usar señales
+pt: Common is the default. Contextual prioritizes channel, query, server or client commands while retaining matching commands from other groups.
+  OLD: Common é o padrão. Contextual prioriza comandos de canal, conversa, servidor ou cliente, sem excluir outras correspondências.
+  NEW: «Usado com frequência» é o padrão. «Contextual» prioriza comandos de canal, conversa, servidor ou cliente, sem excluir outras correspondências.
+pt: Common uses a curated useful order. Contextual remembers the actual screen that opened command entry, including a client-wide summary reader.
+  OLD: Common usa ordem útil pré-selecionada. Contextual lembra a tela de origem, inclusive o leitor de resumo geral.
+  NEW: «Usado com frequência» usa ordem útil pré-selecionada. «Contextual» lembra a tela de origem, inclusive o leitor de resumo geral.
+pt: Enter yes or no for Use signals.
+  OLD: Digite yes ou no para Use signals.
+  NEW: Digite yes ou no para «Usar sinais».
+pt: The inherited terminal interrupt, quit, and suspend key assignments remain unchanged; Use signals = no disables their signal effects while the client is active.
+  OLD: As teclas de interrupção, saída e suspensão mantêm as atribuições originais; Use signals = no desativa os respetivos sinais enquanto o cliente está ativo.
+  NEW: As teclas de interrupção, saída e suspensão mantêm as atribuições originais; «Usar sinais» = no desativa os respetivos sinais enquanto o cliente está ativo.
+pt: Use signals is off by default; Ctrl-C/Ctrl-Z cancel unsent text. Use /quit to exit.
+  OLD: Use signals está desligado por omissão; Ctrl-C/Ctrl-Z cancelam texto por enviar. Saia com /quit.
+  NEW: «Usar sinais» está desligado por omissão; Ctrl-C/Ctrl-Z cancelam texto por enviar. Saia com /quit.
+pt: [input] use_signals=false disables terminal-generated signals while this client owns the tty. true enables the existing terminal signal mappings. Apply takes effect now; Save persists this primary-owned preference.
+  OLD: [input] use_signals=false Use signals começa em no. Ctrl-C e Ctrl-Z cancelam uma mensagem ou comando por enviar, sem terminar nem suspender a aplicação. Selecione yes no painel 0 ou nas definições Interface do vipirc para ativar os sinais do terminal. Apply aplica imediatamente; Save também guarda [input] use_signals=true|false. As definições originais do terminal são repostas ao sair ou suspender.
+  NEW: [input] use_signals=false desativa sinais gerados pelo terminal enquanto o cliente controla a tty. true ativa os mapeamentos de sinais existentes. «Aplicar» tem efeito imediato; «Salvar» grava esta preferência na configuração principal.
+pt: yes = terminal Ctrl-C interrupts and Ctrl-Z suspends; no (default) = cancel an unsent compose instead. Applies now in this terminal; Save retains it for later launches. External kill signals still work.
+  OLD: yes = Ctrl-C interrompe e Ctrl-Z suspende; no = cancela rascunho não enviado. Vale agora; Save guarda para depois.
+  NEW: yes = Ctrl-C interrompe e Ctrl-Z suspende; no = cancela rascunho não enviado. Vale agora; «Salvar» guarda para depois.
+pt: Use signals
+  OLD: 
+  NEW: Usar sinais
+fr: Common is the default. Contextual prioritizes channel, query, server or client commands while retaining matching commands from other groups.
+  OLD: Common est le défaut. Contextual favorise les commandes de canal, dialogue, serveur ou client tout en gardant les autres correspondances.
+  NEW: «Fréquemment utilisé» est le défaut. «Contextuel» favorise les commandes de canal, dialogue, serveur ou client tout en gardant les autres correspondances.
+fr: Common uses a curated useful order. Contextual remembers the actual screen that opened command entry, including a client-wide summary reader.
+  OLD: Common suit un ordre utile prédéfini. Contextual retient l'écran d'origine, y compris le lecteur de résumé général.
+  NEW: «Fréquemment utilisé» suit un ordre utile prédéfini. «Contextuel» retient l'écran d'origine, y compris le lecteur de résumé général.
+fr: Enter yes or no for Use signals.
+  OLD: Saisissez yes ou no pour Use signals.
+  NEW: Saisissez yes ou no pour «Utiliser les signaux».
+fr: The inherited terminal interrupt, quit, and suspend key assignments remain unchanged; Use signals = no disables their signal effects while the client is active.
+  OLD: Les touches d'interruption, de sortie et de suspension conservent leurs affectations ; Use signals = no désactive leurs signaux tant que le client est actif.
+  NEW: Les touches d'interruption, de sortie et de suspension conservent leurs affectations ; «Utiliser les signaux» = no désactive leurs signaux tant que le client est actif.
+fr: Use signals is off by default; Ctrl-C/Ctrl-Z cancel unsent text. Use /quit to exit.
+  OLD: Use signals est désactivé par défaut ; Ctrl-C/Ctrl-Z annulent un texte non envoyé. Quittez avec /quit.
+  NEW: «Utiliser les signaux» est désactivé par défaut ; Ctrl-C/Ctrl-Z annulent un texte non envoyé. Quittez avec /quit.
+fr: [input] use_signals=false disables terminal-generated signals while this client owns the tty. true enables the existing terminal signal mappings. Apply takes effect now; Save persists this primary-owned preference.
+  OLD: [input] use_signals=false Use signals est réglé sur no par défaut. Ctrl-C et Ctrl-Z annulent un message ou une commande non envoyés sans quitter ni suspendre le programme. Choisissez yes dans le panneau 0 ou les paramètres Interface de vipirc pour activer les signaux du terminal. Apply agit immédiatement ; Save enregistre aussi [input] use_signals=true|false. Les paramètres initiaux du terminal sont rétablis à la sortie ou lors de la suspension.
+  NEW: [input] use_signals=false désactive les signaux émis par le terminal tant que le client contrôle le tty. true active les affectations de signaux existantes. «Appliquer» prend effet immédiatement ; «Enregistrer» conserve ce réglage dans la configuration principale.
+fr: yes = terminal Ctrl-C interrupts and Ctrl-Z suspends; no (default) = cancel an unsent compose instead. Applies now in this terminal; Save retains it for later launches. External kill signals still work.
+  OLD: yes = Ctrl-C interrompt et Ctrl-Z suspend ; no = annule un brouillon non envoyé. Effet immédiat ; Save conserve le choix.
+  NEW: yes = Ctrl-C interrompt et Ctrl-Z suspend ; no = annule un brouillon non envoyé. Effet immédiat ; «Enregistrer» conserve le choix.
+fr: Use signals
+  OLD: 
+  NEW: Utiliser les signaux
+de: Common is the default. Contextual prioritizes channel, query, server or client commands while retaining matching commands from other groups.
+  OLD: Common ist Standard. Contextual priorisiert Kanal-, Dialog-, Server- und Clientbefehle, ohne andere Treffer zu verbergen.
+  NEW: «Häufig verwendet» ist Standard. «Kontextbezogen» priorisiert Kanal-, Dialog-, Server- und Clientbefehle, ohne andere Treffer zu verbergen.
+de: Common uses a curated useful order. Contextual remembers the actual screen that opened command entry, including a client-wide summary reader.
+  OLD: Common nutzt eine gewählte sinnvolle Reihenfolge. Contextual merkt das Ursprungsfenster, auch den globalen Übersichtsleser.
+  NEW: «Häufig verwendet» nutzt eine gewählte sinnvolle Reihenfolge. «Kontextbezogen» merkt das Ursprungsfenster, auch den globalen Übersichtsleser.
+de: Enter yes or no for Use signals.
+  OLD: Geben Sie yes oder no für Use signals ein.
+  NEW: Geben Sie yes oder no für «Signale verwenden» ein.
+de: The inherited terminal interrupt, quit, and suspend key assignments remain unchanged; Use signals = no disables their signal effects while the client is active.
+  OLD: Die Tastenbelegungen für Unterbrechen, Beenden und Anhalten bleiben unverändert; Use signals = no deaktiviert ihre Signalwirkung während der Client läuft.
+  NEW: Die Tastenbelegungen für Unterbrechen, Beenden und Anhalten bleiben unverändert; «Signale verwenden» = no deaktiviert ihre Signalwirkung während der Client läuft.
+de: Use signals is off by default; Ctrl-C/Ctrl-Z cancel unsent text. Use /quit to exit.
+  OLD: Use signals ist standardmäßig aus; Ctrl-C/Ctrl-Z verwerfen ungesendeten Text. Mit /quit beenden.
+  NEW: «Signale verwenden» ist standardmäßig aus; Ctrl-C/Ctrl-Z verwerfen ungesendeten Text. Mit /quit beenden.
+de: [input] use_signals=false disables terminal-generated signals while this client owns the tty. true enables the existing terminal signal mappings. Apply takes effect now; Save persists this primary-owned preference.
+  OLD: [input] use_signals=false Use signals steht standardmäßig auf no. Ctrl-C und Ctrl-Z brechen eine ungesendete Nachricht oder einen Befehl ab, statt das Programm zu beenden oder anzuhalten. Wählen Sie yes in Panel 0 oder den Interface-Einstellungen von vipirc, um Terminalsignale zuzulassen. Apply wirkt sofort; Save speichert zusätzlich [input] use_signals=true|false. Beim Beenden oder Anhalten werden die ursprünglichen Terminaleinstellungen wiederhergestellt.
+  NEW: [input] use_signals=false deaktiviert vom Terminal erzeugte Signale, solange der Client das tty kontrolliert. true aktiviert die bestehenden Signalbelegungen. «Anwenden» wirkt sofort; «Speichern» speichert diese Einstellung in der Hauptkonfiguration.
+de: yes = terminal Ctrl-C interrupts and Ctrl-Z suspends; no (default) = cancel an unsent compose instead. Applies now in this terminal; Save retains it for later launches. External kill signals still work.
+  OLD: yes = Ctrl-C unterbricht und Ctrl-Z hält an; no = ungesendeten Entwurf abbrechen. Sofort wirksam; Save speichert für später.
+  NEW: yes = Ctrl-C unterbricht und Ctrl-Z hält an; no = ungesendeten Entwurf abbrechen. Sofort wirksam; «Speichern» speichert für später.
+de: Use signals
+  OLD: 
+  NEW: Signale verwenden
+ru: Common is the default. Contextual prioritizes channel, query, server or client commands while retaining matching commands from other groups.
+  OLD: Common — по умолчанию. Contextual выделяет команды канала, диалога, сервера или клиента, сохраняя другие совпадения.
+  NEW: «Часто используемые» — по умолчанию. «Контекстные» выделяет команды канала, диалога, сервера или клиента, сохраняя другие совпадения.
+ru: Common uses a curated useful order. Contextual remembers the actual screen that opened command entry, including a client-wide summary reader.
+  OLD: Common использует заранее заданный удобный порядок. Contextual помнит исходный экран, включая общий просмотр сводки.
+  NEW: «Часто используемые» использует заранее заданный удобный порядок. «Контекстные» помнит исходный экран, включая общий просмотр сводки.
+ru: Enter yes or no for Use signals.
+  OLD: Введите yes или no для Use signals.
+  NEW: Введите yes или no для «Использовать сигналы».
+ru: The inherited terminal interrupt, quit, and suspend key assignments remain unchanged; Use signals = no disables their signal effects while the client is active.
+  OLD: Назначения клавиш прерывания, выхода и приостановки остаются прежними; Use signals = no отключает их сигналы, пока клиент активен.
+  NEW: Назначения клавиш прерывания, выхода и приостановки остаются прежними; «Использовать сигналы» = no отключает их сигналы, пока клиент активен.
+ru: Use signals is off by default; Ctrl-C/Ctrl-Z cancel unsent text. Use /quit to exit.
+  OLD: Use signals по умолчанию выключено: Ctrl-C/Ctrl-Z отменяют неотправленный текст. Выход: /quit.
+  NEW: «Использовать сигналы» по умолчанию выключено: Ctrl-C/Ctrl-Z отменяют неотправленный текст. Выход: /quit.
+ru: [input] use_signals=false disables terminal-generated signals while this client owns the tty. true enables the existing terminal signal mappings. Apply takes effect now; Save persists this primary-owned preference.
+  OLD: [input] use_signals=false По умолчанию Use signals = no. Ctrl-C и Ctrl-Z отменяют неотправленное сообщение или команду, не завершая и не приостанавливая программу. Выберите yes на панели 0 или в настройках Interface клиента vipirc, чтобы разрешить сигналы терминала. Apply действует сразу; Save также сохраняет [input] use_signals=true|false. При выходе и приостановке исходные настройки терминала восстанавливаются.
+  NEW: [input] use_signals=false отключает сигналы терминала, пока клиент управляет tty. true включает прежние назначения сигналов. «Применить» действует сразу; «Сохранить» сохраняет настройку в основной конфигурации.
+ru: yes = terminal Ctrl-C interrupts and Ctrl-Z suspends; no (default) = cancel an unsent compose instead. Applies now in this terminal; Save retains it for later launches. External kill signals still work.
+  OLD: yes = Ctrl-C прерывает, Ctrl-Z останавливает; no = отменяет черновик. Действует сейчас; Save сохраняет выбор.
+  NEW: yes = Ctrl-C прерывает, Ctrl-Z останавливает; no = отменяет черновик. Действует сейчас; «Сохранить» сохраняет выбор.
+ru: Use signals
+  OLD: 
+  NEW: Использовать сигналы
+it: Common is the default. Contextual prioritizes channel, query, server or client commands while retaining matching commands from other groups.
+  OLD: Common è predefinito. Contextual privilegia comandi di canale, chat privata, server o client conservando le altre corrispondenze.
+  NEW: «Usati spesso» è predefinito. «Contestuale» privilegia comandi di canale, chat privata, server o client conservando le altre corrispondenze.
+it: Common uses a curated useful order. Contextual remembers the actual screen that opened command entry, including a client-wide summary reader.
+  OLD: Common usa un ordine utile selezionato. Contextual ricorda la schermata che ha aperto il comando, incluso il lettore di riepilogo generale.
+  NEW: «Usati spesso» usa un ordine utile selezionato. «Contestuale» ricorda la schermata che ha aperto il comando, incluso il lettore di riepilogo generale.
+it: Enter yes or no for Use signals.
+  OLD: Inserisci yes o no per Use signals.
+  NEW: Inserisci yes o no per «Usa segnali».
+it: The inherited terminal interrupt, quit, and suspend key assignments remain unchanged; Use signals = no disables their signal effects while the client is active.
+  OLD: I tasti di interruzione, uscita e sospensione mantengono le assegnazioni originali; Use signals = no ne disattiva i segnali mentre il client è attivo.
+  NEW: I tasti di interruzione, uscita e sospensione mantengono le assegnazioni originali; «Usa segnali» = no ne disattiva i segnali mentre il client è attivo.
+it: Use signals is off by default; Ctrl-C/Ctrl-Z cancel unsent text. Use /quit to exit.
+  OLD: Use signals è disattivato per impostazione predefinita; Ctrl-C/Ctrl-Z annullano testo non inviato. Uscire con /quit.
+  NEW: «Usa segnali» è disattivato per impostazione predefinita; Ctrl-C/Ctrl-Z annullano testo non inviato. Uscire con /quit.
+it: [input] use_signals=false disables terminal-generated signals while this client owns the tty. true enables the existing terminal signal mappings. Apply takes effect now; Save persists this primary-owned preference.
+  OLD: [input] use_signals=false Use signals è impostato su no per impostazione predefinita. Ctrl-C e Ctrl-Z annullano un messaggio o comando non inviato, senza terminare o sospendere il programma. Scegliere yes nel pannello 0 o nelle impostazioni Interface di vipirc per abilitare i segnali del terminale. Apply ha effetto immediato; Save memorizza anche [input] use_signals=true|false. All'uscita o alla sospensione vengono ripristinate le impostazioni originali del terminale.
+  NEW: [input] use_signals=false disattiva i segnali generati dal terminale mentre il client controlla il tty. true attiva le associazioni dei segnali esistenti. «Applica» ha effetto immediato; «Salva» salva la preferenza nella configurazione principale.
+it: yes = terminal Ctrl-C interrupts and Ctrl-Z suspends; no (default) = cancel an unsent compose instead. Applies now in this terminal; Save retains it for later launches. External kill signals still work.
+  OLD: yes = Ctrl-C interrompe e Ctrl-Z sospende; no = annulla una bozza non inviata. Valido ora; Save conserva la scelta.
+  NEW: yes = Ctrl-C interrompe e Ctrl-Z sospende; no = annulla una bozza non inviata. Valido ora; «Salva» conserva la scelta.
+it: Use signals
+  OLD: 
+  NEW: Usa segnali
+ar: Common is the default. Contextual prioritizes channel, query, server or client commands while retaining matching commands from other groups.
+  OLD: Common هو الافتراضي. يقدم Contextual أوامر القناة والمحادثة والخادم والعميل دون إخفاء المطابقات الأخرى.
+  NEW: «شائع الاستخدام» هو الافتراضي. يقدم «حسب السياق» أوامر القناة والمحادثة والخادم والعميل دون إخفاء المطابقات الأخرى.
+ar: Common uses a curated useful order. Contextual remembers the actual screen that opened command entry, including a client-wide summary reader.
+  OLD: يستخدم Common ترتيباً منتقى مفيداً. يتذكر Contextual الشاشة الأصلية، ومنها قارئ الملخص العام.
+  NEW: يستخدم «شائع الاستخدام» ترتيباً منتقى مفيداً. يتذكر «حسب السياق» الشاشة الأصلية، ومنها قارئ الملخص العام.
+ar: Enter yes or no for Use signals.
+  OLD: أدخل yes أو no لخيار Use signals.
+  NEW: أدخل yes أو no لخيار «استخدام الإشارات».
+ar: The inherited terminal interrupt, quit, and suspend key assignments remain unchanged; Use signals = no disables their signal effects while the client is active.
+  OLD: تبقى تعيينات مفاتيح المقاطعة والإنهاء والتعليق في الطرفية كما هي؛ يعطّل Use signals = no تأثير إشاراتها أثناء تشغيل العميل.
+  NEW: تبقى تعيينات مفاتيح المقاطعة والإنهاء والتعليق في الطرفية كما هي؛ يعطّل «استخدام الإشارات» = no تأثير إشاراتها أثناء تشغيل العميل.
+ar: Use signals is off by default; Ctrl-C/Ctrl-Z cancel unsent text. Use /quit to exit.
+  OLD: Use signals معطل افتراضيًا؛ يلغي Ctrl-C/Ctrl-Z النص غير المرسل. اخرج باستخدام /quit.
+  NEW: «استخدام الإشارات» معطل افتراضيًا؛ يلغي Ctrl-C/Ctrl-Z النص غير المرسل. اخرج باستخدام /quit.
+ar: [input] use_signals=false disables terminal-generated signals while this client owns the tty. true enables the existing terminal signal mappings. Apply takes effect now; Save persists this primary-owned preference.
+  OLD: [input] use_signals=false القيمة الافتراضية لإعداد Use signals هي no. يلغي Ctrl-C وCtrl-Z الرسالة أو الأمر غير المرسل، ولا ينهيان البرنامج ولا يعلّقانه. اختر yes من اللوحة 0 أو إعدادات Interface في vipirc للسماح بإشارات الطرفية. يطبّق Apply التغيير فوراً، ويحفظ Save أيضاً [input] use_signals=true|false. تُستعاد إعدادات الطرفية الأصلية عند الخروج أو التعليق.
+  NEW: يعطّل [input] use_signals=false الإشارات التي تولّدها الطرفية أثناء تحكم العميل في tty. يفعّل true تعيينات الإشارات الحالية. يسري «تطبيق» فورا؛ ويحفظ «حفظ» التفضيل في الإعداد الرئيسي.
+ar: yes = terminal Ctrl-C interrupts and Ctrl-Z suspends; no (default) = cancel an unsent compose instead. Applies now in this terminal; Save retains it for later launches. External kill signals still work.
+  OLD: yes = Ctrl-C يقاطع و Ctrl-Z يعلق؛ no = يلغي مسودة غير مرسلة. يسري الآن؛ Save يحفظه لاحقا.
+  NEW: yes = Ctrl-C يقاطع و Ctrl-Z يعلق؛ no = يلغي مسودة غير مرسلة. يسري الآن؛ «حفظ» يحفظه لاحقا.
+ar: Use signals
+  OLD: 
+  NEW: استخدام الإشارات
+
+Validation: all 11 language selections passed real guided setup question and review tests. Regenerated minimalist manuals with the actual command formatter and verified all 128 literal examples, 3 aliases, and 19 topic identifiers. Compiled catalog lookups, ANSI frontend compilation, and archive verification passed. Full ncurses validation and native-speaker review remain outstanding.

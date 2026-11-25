@@ -1,0 +1,14 @@
+LANGUAGE PACK 1.0-a FOR onekeyirc 1.0-a / ENGLISH SOURCE r1
+
+Language pack 1.0-a is optional; apply it to a clean English 1.0-a source tree before configuring or building. Do not layer packs.
+
+    tar -xzf onekeyirc-1.0-a.tar.gz
+    tar -xzf onekeyirc-languages-1.0-a.tar.gz
+    ONEKEYIRC_LANG=fr sh onekeyirc-languages-1.0-a/apply.sh onekeyirc-1.0-a
+    cd onekeyirc-1.0-a
+    ONEKEYIRC_LANG=fr ./configure && make
+    ONEKEYIRC_LANG=fr ./onekeyirc --version
+
+Expected translated build marker: `onekeyirc 1.0-a [lang-rtl-1.0-a]`. Without the optional pack, `--version` reports `onekeyirc 1.0-a` and interface text is English. Use a UTF-8 terminal; ONEKEYIRC_LANG selects the interface language. Restart detached workers to change their language. Supported locales: id, ms, tr, es, pt, fr, de, ru, it, ar. Command names, configuration keys and IRC protocol remain literal.
+
+This is the public alpha 1.0-a, based on RC4. Community translation review and platform testing are invited; this is not a final stable release. See `doc/ALPHA-STATUS.txt`, `doc/LOCALIZATION.md` and `CHANGELOG.md`.

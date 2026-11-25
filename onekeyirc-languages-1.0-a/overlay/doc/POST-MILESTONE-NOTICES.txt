@@ -1,0 +1,39 @@
+Optional localization r86: 2044 keys per locale (+34). Post-milestone audit: queue, disconnect, ignore-list, conversation and settings notices. Application version unchanged. Apply to clean English r1.
+
+Added keys:
+ (PART requested)
+ /save preserves the list.
+ One in-flight message will finish.
+ Test session only; /save is disabled.
+/save preserves this setting.
+Autoconnect {state}; {persistence}
+Clearing away status; waiting for server confirmation.
+Closed {target}{part}; {count} queued message cancelled.{inflight}
+Closed {target}{part}; {count} queued messages cancelled.{inflight}
+Configuration saved to {path}
+Ignore limit is {limit} masks; remove one before adding another.
+Ignore list cleared.{persistence}
+Ignore list shown in the server view.{persistence}
+Ignore mask added.{persistence}
+Ignore mask removed.{persistence}
+Ignore masks: {count}/{limit}. Matching user PRIVMSG/NOTICE are hidden locally.
+Input exceeds {limit} UTF-8 bytes.
+Leaving {channel}; history retained; {count} queued messages cancelled.{inflight}
+Nickname is already in use.{detail} Use /nick another-nick.
+Nickname was rejected.{detail} Use /nick another-nick.
+Nickname {nick} is already in use.{detail} Use /nick another-nick.
+Nickname {nick} was rejected.{detail} Use /nick another-nick.
+OFFLINE TEST MODE stopped: {error}
+OFFLINE TEST MODE stopped: {error}. Pending output cleared; /connect restarts simulation.
+Opened query {nick}. No message was sent.
+Setting away status; waiting for server confirmation.
+The outgoing queue cannot hold all {count} messages; nothing queued.
+User list {state}; {persistence}
+You are not in this channel; use /join {channel}.
+test-session change only; /save is disabled.
+test-session setting only; simulator remains offline.
+{count} message queued; paced at one per 1.2 seconds.
+{count} messages queued; paced at one per 1.2 seconds.
+{error}. Pending output cleared; use /connect to reconnect.
+
+Display-only changes. Literal values and original fallback messages are preserved. Reused vipirc translations in onekeyirc where applicable. No protocol or configuration changes.

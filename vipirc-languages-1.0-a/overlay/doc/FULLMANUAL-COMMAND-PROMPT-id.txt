@@ -1,0 +1,22 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / COMMAND PROMPT
+English source SHA-256: 26d0386cf8c86773f04d44700c574befc084cde6939832553f44b1d52e3b3b6f
+Source lines: 479-539
+
+PROMPT PERINTAH
+
+Buka Command melalui F1 > Command, melalui /, atau dengan mengetik / pada posisi nol kursor percakapan. Draf dan posisi kursor percakapan disimpan terpisah. Garis miring di posisi lain, atau dalam tempelan chat bracketed paste, hanyalah teks. Enter/Run mengirim perintah; Escape/Cancel kembali ke layar pembuka, termasuk Summary. Masukan kosong tidak melakukan apa pun. Perintah yang diterima kembali ke chat kecuali membuka layar lain; yang tidak sah atau ditolak tetap dapat disunting.
+
+Pengaturan > Antarmuka > Command suggestions menyediakan lima urutan: Commonly used (baku, daftar pilihan disesuaikan dengan koneksi dan tampilan), Recent history (baris perintah lengkap yang diterima, terbaru dahulu), Most used (hitung penggunaan perintah kanonis untuk profil tersimpan), Alphabetical (nama perintah yang tersedia), dan Contextual (memprioritaskan layar asal, tanpa menyembunyikan hasil lain).
+
+Ketik awalan nama perintah tanpa membedakan huruf besar/kecil untuk menyaring saran; argumen tidak ditebak. Down memilih saran, Up/Down menelusuri, dan Up dari baris pertama kembali ke kolom input. Enter pada saran hanya menyisipkannya, bukan menjalankannya: pilihan katalog mempertahankan argumen yang ada, sedangkan pilihan riwayat menyisipkan seluruh baris. Periksa/sunting, lalu tekan Enter lagi setelah saran terlihat. Byte Enter tambahan dalam batch input yang sama tidak dapat menjalankannya. Tanda ? pada saran membuka bantuan lalu memulihkan pilihan; ? di kolom input bersifat literal.
+
+Delete menghapus entri Recent yang dipilih atau mengatur ulang hitungan Most used; tidak pernah menghapus perintah yang didukung. Page Up/Page Down atau roda tetikus menelusuri saran. Baris tidak terlihat pada terminal sempit tidak bisa dipilih. Right di ujung awalan nama melengkapi atau menggilir perintah; klik pada saran menyisipkannya. Tab tidak menavigasi header dan tidak menjalankan. Pelengkapan nickname hanya ada di chat.
+
+Up dari kolom input memanggil perintah yang diterima dengan awalan yang cocok dengan draf awal; Down bergerak ke yang lebih baru dan kembali ke draf. Argumen dicocokkan byte-for-byte. Perintah gagal tidak direkam. Riwayat maksimum 64 entri/64 KiB per server, menghilangkan duplikat berurutan dan membuang yang paling lama. Pemanggilan riwayat hanya selama frontend dan server itu terbuka; mengganti frontend atau mengakhiri worker menghapusnya.
+
+Hitungan pemakaian permanen terpisah: CONFIG_PATH.commands menyimpan maksimum 96 nama kanonis beserta hitungan terbatas, tanpa argumen, sasaran, atau isi chat. Profil tersimpan memungkinkan pembaruan privat atomik otomatis saat perintah diterima atau hitungan diatur ulang; profil yang belum disimpan hanya menyimpan hitungan di memori sampai Save. Berkas hitungan yang rusak atau hilang tidak menghalangi startup. Test mode tidak membaca maupun menulisnya; konfigurasi utama tidak berisi hitungan tersebut.
+
+Perintah join berkey dan pesan layanan/autentikasi yang dikenali tidak pernah dimasukkan ke riwayat. Pesan biasa kepada layanan sensitif yang dikenal juga dikecualikan. Filter tidak bisa mengenali setiap rahasia sembarang; jangan kirim rahasia melalui chat biasa. Kontrol bouncer dijelaskan di BOUNCER CONNECTIONS.
+
+Menempel pada Command hanya data: CR/LF/Tab menjadi spasi, kontrol tidak didukung atau ukuran melampaui batas dilaporkan, dan Enter/Run baru tetap wajib. Tidak ada pengutipan shell, substitusi, rangkaian perintah, maupun eksekusi shell. Argumen TEXT/PATH menghabiskan sisa teks secara literal; kutip #channel hanya dalam shell sungguhan, bukan dalam Command. /msg, /me, dan // tetap tunduk pada anggaran pesan, jeda pengiriman, dan persetujuan pemisahan dengan pilihan baku No. // adalah chat literal dan tidak masuk riwayat Command. Tindakan Join/New mengisi awal /join atau /pm.

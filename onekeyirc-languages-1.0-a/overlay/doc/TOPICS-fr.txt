@@ -1,0 +1,64 @@
+vipirc / onekeyirc - help topics (fr)
+========================================
+
+Commands and option tokens stay in English. Refer to MANUAL.txt and SECURITY.md for exact details.
+
+AUTHENTICATION
+--------------
+Utilisez TLS vérifié avec /autoauth sasl USER file PATH ou /autoauth sasl USER gpg PATH.
+
+Les réglages d'authentification prennent effet au prochain /connect après déconnexion ; /save les enregistre.
+
+BOUNCERS (ZNC / soju)
+---------------------
+Ouvrez /panel, choisissez un serveur, puis le type znc ou soju.
+
+Enregistrez un profil par réseau en amont. Si plusieurs profils utilisent le même hôte, sélectionnez le profil voulu avant /connect sans argument.
+
+Les bouncers rétablissent les canaux rejoints. Les listes de connexion automatique aux canaux ne sont pas rejouées et les modifications via /autojoin sont refusées ; utilisez /join et /part pour modifier les canaux rejoints.
+
+Le client se connecte uniquement au bouncer. Configurez séparément le TLS en amont du bouncer, l'authentification au réseau et la conservation des messages.
+
+SESSION RECOVERY
+----------------
+Depuis le shell, lancez --sessions. Consultez l'etat attache/detache et utilisez l'ID du travail, pas le PID.
+
+Si l'ancien terminal SSH garde le travail, faites --detach-session NUMBER puis --resume NUMBER. IRC reste actif.
+
+N'utilisez --close-session NUMBER que pour terminer tout le travail. Il ferme IRC et les transferts; brouillons et historique RAM sont perdus, fichiers et journaux conservés.
+
+TLS
+---
+TLS vérifié est le défaut. Nom/adresse du serveur et chaine de certificats doivent etre valides; aucun contournement ni repli plaintext.
+
+Un port ne desactive pas TLS. --plain ou /connect -plain choisit IRC non chiffre et interdit les identifiants compte/serveur.
+
+--check-config ne teste pas la connexion TLS ni le bon fonctionnement du CA ou des identifiants. --test-mode ne contacte aucun serveur.
+
+TLS ne protège que cette connexion. Avec un bouncer, la connexion en amont et l'historique conservé en clair sont gérés séparément par le bouncer.
+
+LOGGING
+-------
+Les logs persistants sont facultatifs et desactives par défaut. /set persistent_logging on active; /save output conserve le choix.
+
+Les logs sont plaintext, pas des sauvegardes chiffrées. Limite 16 MiB/fichier; une erreur arrête le log, pas la discussion.
+
+/clear efface seulement la RAM. Les logs restent après sortie, --close-session et sauvegarde. Désactiver les logs arrête les nouvelles entrées sans effacer les anciennes.
+
+RECONNECT
+---------
+--reconnect active les tentatives de reconnexion pour ce processus; il ne sauve rien et n'ouvre pas la connexion.
+
+Les messages en attente sont perdus a la déconnexion et jamais renvoyes automatiquement.
+
+TROUBLESHOOTING
+---------------
+Occupe apres coupure SSH ? Faites --sessions, vérifiez le travail, puis --detach-session NUMBER et --resume NUMBER. Évitez --close-session. See /help sessions.
+
+Aucun canal après connexion : consultez la vue serveur et terminez l'enregistrement et l'authentification. Pour un profil direct, utilisez /autojoin list ; les bouncers rétablissent les canaux rejoints, modifiables via /join ou /part.
+
+Echec d'authentification ? Vérifiez compte, source, droits, TLS et agent GPG. /autoauth status ne lit aucun secret.
+
+Un réglage appliqué semble ignoré : les changements de connexion nécessitent /connect après déconnexion ; l'enregistrement et la connexion automatique au démarrage sont deux choix distincts. Les préférences de lancement relatives à l'interface et aux signaux du terminal exigent un nouveau lancement.
+
+Utilisez --check-config et doc/TROUBLESHOOTING.txt. --test-mode teste l'interface, pas DNS, TLS, identifiants ou bouncer réel.

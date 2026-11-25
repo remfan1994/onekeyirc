@@ -1,0 +1,1305 @@
+.POSIX:
+
+PREFIX = @PREFIX@
+DESTDIR =
+BINDIR = $(PREFIX)/bin
+MANDIR = $(PREFIX)/share/man
+DOCDIR = $(PREFIX)/share/doc/onekeyirc
+CC = @CC@
+CPPFLAGS = @CPPFLAGS@
+CFLAGS = @CFLAGS@
+LDFLAGS = @LDFLAGS@
+TLS_LIBS = @TLS_LIBS@
+# Optional dynamic loader, kept separate from TLS for editor-only tests.
+DL_LIBS = @DL_LIBS@
+PYTHON = python3
+SANFLAGS = -O1 -g -fsanitize=address,undefined -fno-omit-frame-pointer
+SESSION_CLI_DEFINES = -DONEKEY_ONLY
+SESSION_CLI_SRC = tests/test_session_cli.c src/summary.c src/idle_commands.c src/idle_setup.c src/client.c src/app.c src/sim.c src/net.c src/config.c src/autocommands.c src/protocol.c src/editor.c src/commands.c src/credentials.c src/nicks.c src/background.c src/dcc.c src/dcc_commands.c
+SECURITY_BINS = build/test_security_app build/test_security_list build/test_security_auth build/test_dcc_file_identity build/test_process_security build/test_security_background_output build/test_idle_background_boundary build/test_session_cli build/test_security_state build/test_dcc_backpressure build/test_security_presence build/test_security_history build/test_dcc_adversarial build/test_notice_delivery build/test_credential_lifecycle build/test_security_history_flow
+SECURITY_IDLE_SRC = tests/test_idle_background_boundary.c src/summary.c src/idle_commands.c src/idle_setup.c src/client.c src/app.c src/sim.c src/net.c src/config.c src/autocommands.c src/protocol.c src/editor.c src/commands.c src/credentials.c src/nicks.c src/background.c src/dcc.c src/dcc_commands.c
+CATCHUP_TEST_SRC = tests/test_idle_catchup.c src/summary.c src/idle_commands.c src/idle_setup.c src/client.c src/app.c src/sim.c src/net.c src/config.c src/autocommands.c src/protocol.c src/editor.c src/commands.c src/credentials.c src/nicks.c src/background.c src/dcc.c src/dcc_commands.c
+
+SRC = src/main.c src/summary.c src/idle.c src/idle_commands.c src/idle_setup.c src/client.c src/app.c src/sim.c src/net.c src/config.c src/autocommands.c src/protocol.c src/editor.c src/commands.c src/credentials.c src/nicks.c src/background.c src/dcc.c src/dcc_commands.c
+HEADERS = src/summary.h src/dcc.h src/dcc_commands.h src/app.h src/background.h src/client.h src/commands.h src/config.h src/credentials.h src/editor.h src/idle.h src/l10n.h src/arabic_visual.h src/idle_commands.h src/idle_setup.h src/manual.h src/net.h src/nicks.h src/protocol.h src/sim.h src/ui.h src/display_l10n.h src/uncommon_numeric_l10n.h
+COMMAND_TEST_SRC = tests/test_idle_commands.c src/summary.c src/dcc.c src/idle_commands.c src/commands.c src/client.c src/app.c src/config.c src/autocommands.c src/protocol.c src/sim.c src/net.c src/credentials.c tests/test_l10n_stub.c
+SETUP_TEST_SRC = tests/test_idle_setup.c src/commands.c src/idle_setup.c src/client.c src/app.c src/config.c src/autocommands.c src/protocol.c src/sim.c src/net.c src/credentials.c
+UNIT_BINS = build/test_summary build/test_commands build/test_dcc build/test_protocol build/test_editor build/test_nicks build/test_background build/test_config build/test_credentials build/test_app build/test_client build/test_idle_config build/test_idle_commands build/test_idle_setup build/test_roster build/test_idle_catchup
+
+# Source-relative docs preserve README links; flat copies retain older paths.
+# tests/README.md has no flat copy: README.md belongs to the project overview.
+DOCFILES = doc/CLI-LOCALIZATION-r32.txt doc/CLI-LOCALIZATION-r32.tsv doc/TRANSLATION-STATUS-r22.txt doc/TRUST-BOUNDARY-en.txt doc/TRUST-BOUNDARY-id.txt doc/TRUST-BOUNDARY-ms.txt doc/TRUST-BOUNDARY-tr.txt doc/TRUST-BOUNDARY-es.txt doc/TRUST-BOUNDARY-pt.txt doc/TRUST-BOUNDARY-fr.txt doc/TRUST-BOUNDARY-de.txt doc/TRUST-BOUNDARY-ru.txt doc/TRUST-BOUNDARY-it.txt doc/TRUST-BOUNDARY-ar.txt doc/TRANSLATION-STATUS-r19.txt doc/SOURCE-REGIONS-r19.json  doc/TRANSLATION-STATUS-r18.txt doc/DCC-MINIMAL-en.txt doc/DCC-MINIMAL-id.txt doc/DCC-MINIMAL-ms.txt doc/DCC-MINIMAL-tr.txt doc/DCC-MINIMAL-es.txt doc/DCC-MINIMAL-pt.txt doc/DCC-MINIMAL-fr.txt doc/DCC-MINIMAL-de.txt doc/DCC-MINIMAL-ru.txt doc/DCC-MINIMAL-it.txt doc/DCC-MINIMAL-ar.txt doc/TRANSLATION-STATUS-r17.txt doc/BACKGROUND-COMMAND-en.txt doc/BACKGROUND-COMMAND-id.txt doc/BACKGROUND-COMMAND-ms.txt doc/BACKGROUND-COMMAND-tr.txt doc/BACKGROUND-COMMAND-es.txt doc/BACKGROUND-COMMAND-pt.txt doc/BACKGROUND-COMMAND-fr.txt doc/BACKGROUND-COMMAND-de.txt doc/BACKGROUND-COMMAND-ru.txt doc/BACKGROUND-COMMAND-it.txt doc/BACKGROUND-COMMAND-ar.txt doc/SECURITY-BOUNDARIES-en.txt doc/SECURITY-BOUNDARIES-id.txt doc/SECURITY-BOUNDARIES-ms.txt doc/SECURITY-BOUNDARIES-tr.txt doc/SECURITY-BOUNDARIES-es.txt doc/SECURITY-BOUNDARIES-pt.txt doc/SECURITY-BOUNDARIES-fr.txt doc/SECURITY-BOUNDARIES-de.txt doc/SECURITY-BOUNDARIES-ru.txt doc/SECURITY-BOUNDARIES-it.txt doc/SECURITY-BOUNDARIES-ar.txt doc/LOCALIZATION-SECURITY-en.txt doc/LOCALIZATION-SECURITY-id.txt doc/LOCALIZATION-SECURITY-ms.txt doc/LOCALIZATION-SECURITY-tr.txt doc/LOCALIZATION-SECURITY-es.txt doc/LOCALIZATION-SECURITY-pt.txt doc/LOCALIZATION-SECURITY-fr.txt doc/LOCALIZATION-SECURITY-de.txt doc/LOCALIZATION-SECURITY-ru.txt doc/LOCALIZATION-SECURITY-it.txt doc/LOCALIZATION-SECURITY-ar.txt doc/SETTINGS-id.txt doc/SETTINGS-ms.txt doc/SETTINGS-tr.txt doc/SETTINGS-es.txt doc/SETTINGS-pt.txt doc/SETTINGS-fr.txt doc/SETTINGS-de.txt doc/SETTINGS-ru.txt doc/SETTINGS-it.txt doc/SETTINGS-ar.txt doc/CHANNELS-id.txt doc/CHANNELS-ms.txt doc/CHANNELS-tr.txt doc/CHANNELS-es.txt doc/CHANNELS-pt.txt doc/CHANNELS-fr.txt doc/CHANNELS-de.txt doc/CHANNELS-ru.txt doc/CHANNELS-it.txt doc/CHANNELS-ar.txt doc/CONFIGURATION-id.txt doc/CONFIGURATION-ms.txt doc/CONFIGURATION-tr.txt doc/CONFIGURATION-es.txt doc/CONFIGURATION-pt.txt doc/CONFIGURATION-fr.txt doc/CONFIGURATION-de.txt doc/CONFIGURATION-ru.txt doc/CONFIGURATION-it.txt doc/CONFIGURATION-ar.txt doc/STATUS-id.txt doc/STATUS-ms.txt doc/STATUS-tr.txt doc/STATUS-es.txt doc/STATUS-pt.txt doc/STATUS-fr.txt doc/STATUS-de.txt doc/STATUS-ru.txt doc/STATUS-it.txt doc/STATUS-ar.txt doc/WORKFLOWS-id.txt doc/WORKFLOWS-ms.txt doc/WORKFLOWS-tr.txt doc/WORKFLOWS-es.txt doc/WORKFLOWS-pt.txt doc/WORKFLOWS-fr.txt doc/WORKFLOWS-de.txt doc/WORKFLOWS-ru.txt doc/WORKFLOWS-it.txt doc/WORKFLOWS-ar.txt doc/RECOVERY-id.txt doc/RECOVERY-ms.txt doc/RECOVERY-tr.txt doc/RECOVERY-es.txt doc/RECOVERY-pt.txt doc/RECOVERY-fr.txt doc/RECOVERY-de.txt doc/RECOVERY-ru.txt doc/RECOVERY-it.txt doc/RECOVERY-ar.txt doc/PRACTICAL-GUIDE-id.txt doc/PRACTICAL-GUIDE-ms.txt doc/PRACTICAL-GUIDE-tr.txt doc/PRACTICAL-GUIDE-es.txt doc/PRACTICAL-GUIDE-pt.txt doc/PRACTICAL-GUIDE-fr.txt doc/PRACTICAL-GUIDE-de.txt doc/PRACTICAL-GUIDE-ru.txt doc/PRACTICAL-GUIDE-it.txt doc/PRACTICAL-GUIDE-ar.txt doc/OPERATIONS-id.txt doc/OPERATIONS-ms.txt doc/OPERATIONS-tr.txt doc/OPERATIONS-es.txt doc/OPERATIONS-pt.txt doc/OPERATIONS-fr.txt doc/OPERATIONS-de.txt doc/OPERATIONS-ru.txt doc/OPERATIONS-it.txt doc/OPERATIONS-ar.txt doc/AUTH-BOUNCERS-id.txt doc/AUTH-BOUNCERS-ms.txt doc/AUTH-BOUNCERS-tr.txt doc/AUTH-BOUNCERS-es.txt doc/AUTH-BOUNCERS-pt.txt doc/AUTH-BOUNCERS-fr.txt doc/AUTH-BOUNCERS-de.txt doc/AUTH-BOUNCERS-ru.txt doc/AUTH-BOUNCERS-it.txt doc/AUTH-BOUNCERS-ar.txt doc/AUTH-BOUNCERS-LOCALIZATION.txt doc/CONNECTION-id.txt doc/CONNECTION-ms.txt doc/CONNECTION-tr.txt doc/CONNECTION-es.txt doc/CONNECTION-pt.txt doc/CONNECTION-fr.txt doc/CONNECTION-de.txt doc/CONNECTION-ru.txt doc/CONNECTION-it.txt doc/CONNECTION-ar.txt doc/CONNECTION-LOCALIZATION-2026-11-19.txt doc/NAVIGATION-LOCALIZATION-2026-11-19.txt doc/LOCALIZATION-UPDATE-2026-11-19.txt doc/HELP-LOCALIZATION-COVERAGE.txt doc/NAVIGATION-id.txt doc/NAVIGATION-ms.txt doc/NAVIGATION-tr.txt doc/NAVIGATION-es.txt doc/NAVIGATION-pt.txt doc/NAVIGATION-fr.txt doc/NAVIGATION-de.txt doc/NAVIGATION-ru.txt doc/NAVIGATION-it.txt doc/NAVIGATION-ar.txt doc/COMMANDS-id.txt doc/COMMANDS-ms.txt doc/COMMANDS-tr.txt doc/COMMANDS-es.txt doc/COMMANDS-pt.txt doc/COMMANDS-fr.txt doc/COMMANDS-de.txt doc/COMMANDS-ru.txt doc/COMMANDS-it.txt doc/COMMANDS-ar.txt doc/LOCALIZATION-RELEASE-2026-11-19.txt doc/TOPICS-id.txt doc/TOPICS-ms.txt doc/TOPICS-tr.txt doc/TOPICS-es.txt doc/TOPICS-pt.txt doc/TOPICS-fr.txt doc/TOPICS-de.txt doc/TOPICS-ru.txt doc/TOPICS-it.txt doc/TOPICS-ar.txt doc/START-id.txt doc/START-ms.txt doc/START-tr.txt doc/START-es.txt doc/START-pt.txt doc/START-fr.txt doc/START-de.txt doc/START-ru.txt doc/START-it.txt doc/START-ar.txt doc/USE-MODIFY-REDISTRIBUTE.txt doc/LOCALIZATION.md doc/LOCALIZATION-CONTINUATION.txt doc/TROUBLESHOOTING.txt doc/DOCUMENTATION-REFINEMENT-0.7.36-0.1.35.txt doc/DOCUMENTATION-REFINEMENT-RESULTS.json CONTRIBUTING.md doc/SOURCE-MAP.txt tests/README.md doc/DOCUMENTATION-REVIEW-0.7.35-0.1.34.txt doc/DOCUMENTATION-PASS-RESULTS.json doc/STABILITY-REVIEW-0.7.34-0.1.33.txt doc/STABILITY-PASS-RESULTS.json doc/SECURITY-REVIEW-0.7.33-0.1.32.txt doc/SECURITY-PASS-RESULTS.json doc/HOTKEYS.txt doc/HOTKEYS-VALIDATION.txt doc/HOTKEYS-RESULTS.json README.md INSTALL DESIGN.md SECURITY.md CHANGELOG.md NOTICE LICENSE.md doc/onekeyirc-manual.txt doc/onekeyirc-start.txt doc/OPENBSD-VPS.txt doc/OPENBSD-VALIDATION.txt doc/ONEKEYIRC-RENAME.txt doc/SECURITY-REVIEW.txt doc/VALIDATION.txt doc/SECURITY-TEST-RESULTS.json doc/SECURITY-VALIDATION.txt doc/SESSION-CONTROLS.txt doc/SESSION-CONTROL-TEST-RESULTS.json doc/SESSION-CONTROL-VALIDATION.txt doc/DISPLAY-CLIPPING.txt doc/DISPLAY-TEST-RESULTS.json doc/TLS-RETRY-VALIDATION.txt doc/CATCHUP-VALIDATION.txt doc/PRESENCE-VALIDATION.txt doc/SECURITY-FOLLOWUP-2026-11-16.txt doc/FOLLOWUP-TEST-RESULTS.json doc/SECURITY-DEEP-REVIEW-2026-11-16.txt doc/DEEP-TEST-RESULTS.json doc/AUDIT-2026-11-15.txt doc/AUDIT-TEST-RESULTS.json doc/PRE-AUDIT-VALIDATION.txt examples/onekeyirc.ini doc/BOUNCERS.txt doc/BOUNCER-VALIDATION.txt doc/BOUNCER-TEST-RESULTS.json doc/SECURITY-REVIEW-0.7.30-0.1.29.txt doc/SECURITY-BOUNDARY-RESULTS.json examples/bouncer-znc.ini examples/bouncer-soju.ini MANUAL.txt doc/DOCUMENTATION-VALIDATION.txt doc/DOCUMENTATION-RESULTS.json doc/onekeyirc.1 doc/FIRST-USE-id.txt doc/FIRST-USE-ms.txt doc/FIRST-USE-tr.txt doc/FIRST-USE-es.txt doc/FIRST-USE-pt.txt doc/FIRST-USE-fr.txt doc/FIRST-USE-de.txt doc/FIRST-USE-ru.txt doc/FIRST-USE-it.txt doc/FIRST-USE-ar.txt doc/ARABIC-TERMINALS.txt doc/HELP-REFERENCE-id.txt doc/HELP-REFERENCE-ms.txt doc/HELP-REFERENCE-tr.txt doc/HELP-REFERENCE-es.txt doc/HELP-REFERENCE-pt.txt doc/HELP-REFERENCE-fr.txt doc/HELP-REFERENCE-de.txt doc/HELP-REFERENCE-ru.txt doc/HELP-REFERENCE-it.txt doc/HELP-REFERENCE-ar.txt doc/CHANNEL-COMMANDS-id.txt doc/CHANNEL-COMMANDS-ms.txt doc/CHANNEL-COMMANDS-tr.txt doc/CHANNEL-COMMANDS-es.txt doc/CHANNEL-COMMANDS-pt.txt doc/CHANNEL-COMMANDS-fr.txt doc/CHANNEL-COMMANDS-de.txt doc/CHANNEL-COMMANDS-ru.txt doc/CHANNEL-COMMANDS-it.txt doc/CHANNEL-COMMANDS-ar.txt doc/MINIMAL-MANUAL-en.txt doc/MINIMAL-MANUAL-id.txt doc/MINIMAL-MANUAL-ms.txt doc/MINIMAL-MANUAL-tr.txt doc/MINIMAL-MANUAL-es.txt doc/MINIMAL-MANUAL-pt.txt doc/MINIMAL-MANUAL-fr.txt doc/MINIMAL-MANUAL-de.txt doc/MINIMAL-MANUAL-ru.txt doc/MINIMAL-MANUAL-it.txt doc/MINIMAL-MANUAL-ar.txt doc/ARABIC-TERMINALS-ar.txt doc/MINIMAL-MANUAL-LOCALIZATION.txt doc/TRANSLATION-STATUS-r20.txt
+
+all: onekeyirc
+
+onekeyirc: $(SRC) $(HEADERS)
+	$(CC) $(CPPFLAGS) $(CFLAGS) -DONEKEY_ONLY $(LDFLAGS) -o $@.tmp $(SRC) $(TLS_LIBS) $(DL_LIBS)
+	test -s $@.tmp && test -x $@.tmp && mv -f $@.tmp $@
+
+build/.stamp:
+	mkdir -p build
+	: > build/.stamp
+
+build/test_protocol: tests/test_protocol.c src/protocol.c $(HEADERS) build/.stamp
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -Isrc -o $@ tests/test_protocol.c src/protocol.c
+
+build/test_editor: tests/test_editor.c src/editor.c $(HEADERS) build/.stamp
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -Isrc -o $@ tests/test_editor.c src/editor.c $(DL_LIBS)
+
+build/test_nicks: tests/test_nicks.c src/nicks.c src/editor.c src/protocol.c $(HEADERS) build/.stamp
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -Isrc -o $@ tests/test_nicks.c src/nicks.c src/editor.c src/protocol.c $(DL_LIBS)
+
+build/test_background: tests/test_background.c src/background.c $(HEADERS) build/.stamp
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(SESSION_CLI_DEFINES) $(LDFLAGS) -Isrc -o $@ tests/test_background.c
+
+build/test_config: tests/test_config.c src/config.c src/autocommands.c src/protocol.c $(HEADERS) build/.stamp
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -Isrc -o $@ tests/test_config.c src/config.c src/autocommands.c src/protocol.c
+
+build/test_credentials: tests/test_credentials.c src/credentials.c src/config.c src/autocommands.c src/protocol.c $(HEADERS) build/.stamp
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -Isrc -o $@ tests/test_credentials.c src/credentials.c src/config.c src/autocommands.c src/protocol.c
+
+build/test_app: tests/test_app.c src/app.c src/autocommands.c src/sim.c src/protocol.c $(HEADERS) build/.stamp
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -Isrc -o $@ tests/test_app.c src/app.c src/autocommands.c src/sim.c src/protocol.c tests/test_l10n_stub.c
+
+build/test_client: tests/test_client.c src/client.c src/config.c src/autocommands.c src/protocol.c $(HEADERS) build/.stamp
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -Isrc -o $@ tests/test_client.c src/client.c src/config.c src/autocommands.c src/protocol.c tests/test_l10n_stub.c
+
+build/test_idle_config: tests/test_idle_config.c src/config.c src/autocommands.c src/protocol.c $(HEADERS) build/.stamp
+	$(CC) $(CPPFLAGS) $(CFLAGS) -DONEKEY_ONLY $(LDFLAGS) -Isrc -o $@ tests/test_idle_config.c src/config.c src/autocommands.c src/protocol.c
+
+build/test_idle_commands: $(COMMAND_TEST_SRC) $(HEADERS) build/.stamp
+	$(CC) $(CPPFLAGS) $(CFLAGS) -DONEKEY_ONLY $(LDFLAGS) -Isrc -o $@ $(COMMAND_TEST_SRC) $(TLS_LIBS) $(DL_LIBS)
+
+build/test_idle_setup: $(SETUP_TEST_SRC) $(HEADERS) build/.stamp
+	$(CC) $(CPPFLAGS) $(CFLAGS) -DONEKEY_ONLY $(LDFLAGS) -Isrc -o $@ $(SETUP_TEST_SRC) $(TLS_LIBS) $(DL_LIBS)
+
+check-unit: $(SECURITY_BINS) $(UNIT_BINS)
+	./build/test_summary
+	./build/test_commands
+	./build/test_dcc
+	./build/test_protocol
+	./build/test_editor
+	./build/test_nicks
+	./build/test_background
+	./build/test_config
+	./build/test_credentials
+	./build/test_app
+	./build/test_roster
+	./build/test_idle_catchup
+	./build/test_security_app
+	./build/test_security_list
+	./build/test_security_auth
+	./build/test_security_state
+	./build/test_security_presence
+	./build/test_security_history
+	./build/test_security_history_flow
+	./build/test_credential_lifecycle
+	./build/test_dcc_adversarial
+	./build/test_notice_delivery
+	./build/test_dcc_backpressure
+	./build/test_dcc_file_identity
+	./build/test_process_security
+	./build/test_session_cli
+	./build/test_security_background_output
+	./build/test_idle_background_boundary
+	./build/test_client
+	./build/test_idle_config
+	./build/test_idle_commands
+	./build/test_idle_setup
+
+check: onekeyirc check-unit check-idle-availability check-net-retry check-rename
+	VIPIRC_IDLE_BINARY="" $(PYTHON) tests/test_idle_cli.py
+	VIPIRC_IDLE_BINARY="" $(PYTHON) tests/test_idle_commands.py
+	$(PYTHON) tests/test_idle_terminal.py
+	$(PYTHON) tests/test_idle_context.py
+	$(PYTHON) tests/test_idle_setup.py
+	$(PYTHON) tests/test_setup_async.py --mode one
+	$(PYTHON) tests/test_setup_paths.py --mode one
+	$(PYTHON) tests/test_autojoin.py --mode onekey --binary ./onekeyirc
+	$(PYTHON) tests/test_idle_dcc.py
+	$(PYTHON) tests/test_background_start.py
+	$(PYTHON) tests/test_reconnect.py
+	$(PYTHON) tests/test_sessions.py
+	$(PYTHON) tests/test_background_replies.py --binary ./onekeyirc
+
+check-gpg: build/test_credentials
+	$(PYTHON) tests/test_credentials_gpg.py
+
+check-setup-gpg: onekeyirc
+	$(PYTHON) tests/test_setup_gpg.py --mode one
+
+sanitize: build/.stamp
+	mkdir -p build/sanitize
+	$(CC) $(CPPFLAGS) $(SANFLAGS) -DONEKEY_ONLY $(LDFLAGS) -o build/sanitize/onekeyirc $(SRC) $(TLS_LIBS) $(DL_LIBS)
+	$(CC) $(CPPFLAGS) $(SANFLAGS) -DONEKEY_ONLY $(LDFLAGS) -Isrc -o build/sanitize/test_summary $(SUMMARY_TEST_SRC) $(TLS_LIBS) $(DL_LIBS)
+	$(CC) $(CPPFLAGS) $(SANFLAGS) -DONEKEY_ONLY $(LDFLAGS) -Isrc -o build/sanitize/test_idle_commands $(COMMAND_TEST_SRC) $(TLS_LIBS) $(DL_LIBS)
+	$(CC) $(CPPFLAGS) $(SANFLAGS) -DONEKEY_ONLY $(LDFLAGS) -Isrc -o build/sanitize/test_idle_setup $(SETUP_TEST_SRC) $(TLS_LIBS) $(DL_LIBS)
+	./build/sanitize/test_summary
+	./build/sanitize/test_idle_commands
+	./build/sanitize/test_idle_setup
+	VIPIRC_IDLE_BINARY="" ONEKEY_BINARY="`pwd`/build/sanitize/onekeyirc" $(PYTHON) tests/test_idle_cli.py
+	VIPIRC_IDLE_BINARY="" ONEKEY_BINARY="`pwd`/build/sanitize/onekeyirc" $(PYTHON) tests/test_idle_commands.py
+	ONEKEY_BINARY="`pwd`/build/sanitize/onekeyirc" $(PYTHON) tests/test_idle_terminal.py
+	ONEKEY_BINARY="`pwd`/build/sanitize/onekeyirc" $(PYTHON) tests/test_idle_context.py
+	ONEKEY_BINARY="`pwd`/build/sanitize/onekeyirc" $(PYTHON) tests/test_idle_setup.py
+	ONEKEY_BINARY="`pwd`/build/sanitize/onekeyirc" $(PYTHON) tests/test_setup_async.py --mode one
+	ONEKEY_BINARY="`pwd`/build/sanitize/onekeyirc" $(PYTHON) tests/test_idle_dcc.py
+	ONEKEY_BINARY="`pwd`/build/sanitize/onekeyirc" $(PYTHON) tests/test_background_start.py
+	ONEKEY_BINARY="`pwd`/build/sanitize/onekeyirc" $(PYTHON) tests/test_sessions.py
+	$(PYTHON) tests/test_background_replies.py --binary build/sanitize/onekeyirc
+
+# Publish a complete new inode; running workers retain the old executable.
+# Failed binary staging preserves the destination. Docs install separately.
+install: onekeyirc
+	mkdir -p "$(DESTDIR)$(BINDIR)" "$(DESTDIR)$(MANDIR)/man1" "$(DESTDIR)$(DOCDIR)"
+	@set -eu; \
+		target="$(DESTDIR)$(BINDIR)/onekeyirc"; \
+		if [ -d "$$target" ]; then printf '%s\n' 'Refusing to install over a directory.' >&2; exit 1; fi; \
+		staged=$$(mktemp "$${target}.tmp.XXXXXXXX"); \
+		trap 'rm -f "$$staged"' 0; \
+		trap 'exit 1' HUP INT TERM; \
+		cp onekeyirc "$$staged"; \
+		chmod 755 "$$staged"; \
+		mv -f "$$staged" "$$target"; \
+		trap - 0 HUP INT TERM
+	cp doc/onekeyirc.1 "$(DESTDIR)$(MANDIR)/man1/onekeyirc.1"
+	chmod 644 "$(DESTDIR)$(MANDIR)/man1/onekeyirc.1"
+	@set -e; for lang in id ms tr es pt fr de ru it ar; do \
+		dir="$(DESTDIR)$(MANDIR)/$$lang/man1"; mkdir -p "$$dir"; \
+		cp "doc/man/$$lang/onekeyirc.1" "$$dir/onekeyirc.1"; chmod 644 "$$dir/onekeyirc.1"; \
+	done
+	@for file in $(DOCFILES); do \
+		case "$$file" in */*) mkdir -p "$(DESTDIR)$(DOCDIR)/$${file%/*}" || exit 1;; esac; \
+		cp "$$file" "$(DESTDIR)$(DOCDIR)/$$file" || exit 1; \
+		chmod 644 "$(DESTDIR)$(DOCDIR)/$$file" || exit 1; \
+		case "$$file" in tests/README.md) ;; */*) \
+			cp "$$file" "$(DESTDIR)$(DOCDIR)/$${file##*/}" || exit 1; \
+			chmod 644 "$(DESTDIR)$(DOCDIR)/$${file##*/}" || exit 1;; esac; \
+	done
+
+# Keep guards in this recipe, before recursive install, even under make -j.
+# The executable and the text rc.d script are separate installed files.
+.PHONY: install-openbsd-service install-openbsd-services
+install-openbsd-services: install-openbsd-service
+
+install-openbsd-service:
+	@if [ "`uname -s`" != OpenBSD ]; then echo "install-openbsd-service requires OpenBSD; nothing installed." >&2; exit 1; fi
+	@if [ "`id -u`" != 0 ]; then echo "Run install-openbsd-service as root." >&2; exit 1; fi
+	@if [ "$(BINDIR)" != /usr/local/bin ]; then echo "The bundled OpenBSD service requires BINDIR=/usr/local/bin; nothing installed." >&2; exit 1; fi
+	@if [ -L "$(DESTDIR)/etc/rc.d" ] || { [ -e "$(DESTDIR)/etc/rc.d" ] && [ ! -d "$(DESTDIR)/etc/rc.d" ]; }; then echo "Refusing a symlink or non-directory rc.d destination; nothing installed." >&2; exit 1; fi
+	$(MAKE) install DESTDIR="$(DESTDIR)"
+	@if [ ! -d "$(DESTDIR)/etc/rc.d" ]; then /usr/bin/install -d -o root -g wheel -m 0755 "$(DESTDIR)/etc/rc.d"; fi
+	/usr/bin/install -o root -g wheel -m 0555 packaging/openbsd/onekeyirc "$(DESTDIR)/etc/rc.d/onekeyirc"
+
+uninstall:
+	rm -f "$(DESTDIR)$(BINDIR)/onekeyirc" "$(DESTDIR)$(MANDIR)/man1/onekeyirc.1"
+	@set -e; for lang in id ms tr es pt fr de ru it ar; do rm -f "$(DESTDIR)$(MANDIR)/$$lang/man1/onekeyirc.1"; done
+	@for file in $(DOCFILES); do \
+		rm -f "$(DESTDIR)$(DOCDIR)/$$file" || exit 1; \
+		case "$$file" in tests/README.md) ;; *) \
+			rm -f "$(DESTDIR)$(DOCDIR)/$${file##*/}" || exit 1;; esac; \
+	done
+	-rmdir "$(DESTDIR)$(DOCDIR)/doc" "$(DESTDIR)$(DOCDIR)/examples" "$(DESTDIR)$(DOCDIR)/tests"
+	-rmdir "$(DESTDIR)$(DOCDIR)"
+
+clean:
+	rm -f build/test_manual_localization
+	rm -f build/test_localized_help_output build/test_arabic_visual_core build/test_arabic_visual_disabled
+	rm -f build/test_arabic_layout build/test_arabic_layout_disabled build/test_editor_visual build/test_editor_visual_disabled
+	rm -f build/test_editor_visual_failure build/test_editor_visual_failure_disabled
+	rm -f $(STABILITY_BINS) build/stability-sanitize/list-recovery build/stability-sanitize/idle-recovery build/stability-sanitize/credential-resources
+	rm -f $(SECURITY_PASS_BINS) build/security-pass-sanitize/config-create build/security-pass-sanitize/replay-auth build/security-pass-sanitize/dcc-parser build/security-pass-sanitize/idle-paste build/security-pass-sanitize/ui-paste
+	rm -f $(BOUNDARY_BINS) build/boundary-sanitize/ownership build/boundary-sanitize/standard-fds build/boundary-sanitize/guard-pages build/boundary-sanitize/dcc-counters build/boundary-sanitize/session-cli
+	rm -f build/bouncer-sanitize/oldnick-privacy
+	rm -f build/bouncer-sanitize/state-properties
+	rm -f build/bouncer-sanitize/cap-sasl
+	rm -f $(BOUNCER_BINS) build/test_idle_stream build/bouncer-sanitize/config build/bouncer-sanitize/core build/bouncer-sanitize/commands build/bouncer-sanitize/setup build/bouncer-sanitize/stream
+	rm -f $(DEEP_BINS) build/deep-sanitize/test_presence_cancellation build/deep-sanitize/test_presence_recovery build/deep-sanitize/test_credential_descendants build/deep-sanitize/test_credential_signals build/deep-sanitize/test_background_rights
+	rm -f build/test_background_control build/idle_hangup_fixture build/session-sanitize/test_background_control build/session-sanitize/test_session_cli build/session-sanitize/idle_hangup_fixture
+	rm -f $(SECURITY_BINS) build/security-sanitize/test_security_history_flow build/security-sanitize/test_credential_lifecycle build/security-sanitize/test_security_presence build/security-sanitize/test_security_history build/security-sanitize/test_dcc_adversarial build/security-sanitize/test_notice_delivery build/security-sanitize/test_security_state build/security-sanitize/test_dcc_backpressure build/security-sanitize/test_roster build/security-sanitize/test_idle_catchup build/security-sanitize/test_session_cli build/security-sanitize/test_config build/security-sanitize/test_commands build/idle_background_fixture build/security-sanitize/test_security_background_output build/security-sanitize/test_idle_background_boundary build/security-sanitize/test_security_app build/security-sanitize/test_security_list build/security-sanitize/test_security_auth build/security-sanitize/test_dcc_file_identity build/security-sanitize/test_protocol build/security-sanitize/test_process_security
+	rm -f onekeyirc onekeyirc.tmp $(UNIT_BINS) build/.stamp
+	rm -f build/sanitize/onekeyirc build/sanitize/test_summary build/sanitize/test_idle_commands build/sanitize/test_idle_setup
+
+distclean: clean
+	rm -f Makefile config.log
+
+build/test_commands: tests/test_commands.c src/commands.c src/protocol.c $(HEADERS) build/.stamp
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -Isrc -o $@ tests/test_commands.c src/commands.c src/protocol.c
+
+build/test_dcc: tests/test_dcc.c src/dcc.c src/protocol.c $(HEADERS) build/.stamp
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -Isrc -o $@ tests/test_dcc.c src/dcc.c src/protocol.c
+
+SUMMARY_TEST_SRC = tests/test_summary.c src/summary.c src/dcc.c src/app.c src/config.c src/autocommands.c src/protocol.c src/sim.c src/net.c src/credentials.c tests/test_l10n_stub.c
+build/test_summary: $(SUMMARY_TEST_SRC) $(HEADERS) build/.stamp
+	$(CC) $(CPPFLAGS) $(CFLAGS) -DONEKEY_ONLY $(LDFLAGS) -Isrc -o $@ $(SUMMARY_TEST_SRC) $(TLS_LIBS) $(DL_LIBS)
+
+check-net-retry:
+	CC="$(CC)" CPPFLAGS="$(CPPFLAGS)" CFLAGS="$(CFLAGS)" LDFLAGS="$(LDFLAGS)" $(PYTHON) tests/test_net_retry.py
+
+check-reconnect: onekeyirc
+	$(PYTHON) tests/test_reconnect.py
+
+.PHONY: check-rename
+check-rename: onekeyirc
+	$(PYTHON) tests/test_rename.py --onekey ./onekeyirc
+
+# Focused security regressions are shared by both frontends and packages.
+SECURITY_PROCESS_SRC = tests/test_process_security.c src/summary.c src/idle.c src/idle_commands.c src/idle_setup.c src/client.c src/app.c src/sim.c src/net.c src/config.c src/autocommands.c src/protocol.c src/editor.c src/commands.c src/credentials.c src/nicks.c src/background.c src/dcc.c src/dcc_commands.c
+
+build/test_security_app: tests/test_security_app.c tests/test_app.c src/app.c src/autocommands.c src/sim.c src/protocol.c $(HEADERS) build/.stamp
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -Isrc -o $@ tests/test_security_app.c src/app.c src/autocommands.c src/sim.c src/protocol.c tests/test_l10n_stub.c
+
+build/test_security_auth: tests/test_security_auth.c tests/test_app.c src/app.c src/autocommands.c src/sim.c src/protocol.c $(HEADERS) build/.stamp
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -Isrc -o $@ tests/test_security_auth.c src/app.c src/autocommands.c src/sim.c src/protocol.c tests/test_l10n_stub.c
+
+build/test_security_state: tests/test_security_state.c tests/test_app.c src/app.c src/autocommands.c src/sim.c src/protocol.c $(HEADERS) build/.stamp
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -Isrc -o $@ tests/test_security_state.c src/app.c src/autocommands.c src/sim.c src/protocol.c tests/test_l10n_stub.c
+
+build/test_dcc_backpressure: tests/test_dcc_backpressure.c src/dcc.c src/protocol.c $(HEADERS) build/.stamp
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -Isrc -o $@ tests/test_dcc_backpressure.c src/protocol.c
+
+build/test_dcc_file_identity: tests/test_dcc_file_identity.c src/dcc.c src/protocol.c $(HEADERS) build/.stamp
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -Isrc -o $@ tests/test_dcc_file_identity.c src/protocol.c
+
+build/test_process_security: $(SECURITY_PROCESS_SRC) src/main.c $(HEADERS) build/.stamp
+	$(CC) $(CPPFLAGS) $(CFLAGS) -DONEKEY_ONLY $(LDFLAGS) -Isrc -o $@ $(SECURITY_PROCESS_SRC) $(TLS_LIBS) $(DL_LIBS)
+
+check-security: $(SECURITY_BINS) build/test_protocol build/test_config build/test_commands check-idle-availability check-presence-availability
+	./build/test_security_app
+	./build/test_security_list
+	./build/test_security_auth
+	./build/test_security_state
+	./build/test_security_presence
+	./build/test_security_history
+	./build/test_security_history_flow
+	./build/test_credential_lifecycle
+	./build/test_dcc_adversarial
+	./build/test_notice_delivery
+	./build/test_dcc_backpressure
+	./build/test_dcc_file_identity
+	./build/test_process_security
+	./build/test_session_cli
+	./build/test_security_background_output
+	./build/test_idle_background_boundary
+	./build/test_protocol
+	./build/test_config
+	./build/test_commands
+	CC="$(CC)" CPPFLAGS="$(CPPFLAGS)" CFLAGS="$(CFLAGS)" LDFLAGS="$(LDFLAGS)" $(PYTHON) tests/test_net.py
+	CC="$(CC)" CPPFLAGS="$(CPPFLAGS)" CFLAGS="$(CFLAGS)" LDFLAGS="$(LDFLAGS)" $(PYTHON) tests/test_net_retry.py
+
+check-security-sanitize: build/.stamp
+	mkdir -p build/security-sanitize
+	$(CC) $(CPPFLAGS) $(SANFLAGS) $(LDFLAGS) -Isrc -o build/security-sanitize/test_security_list tests/test_security_list.c src/app.c src/autocommands.c src/sim.c src/protocol.c tests/test_l10n_stub.c
+	$(CC) $(CPPFLAGS) $(SANFLAGS) $(LDFLAGS) -Isrc -o build/security-sanitize/test_security_app tests/test_security_app.c src/app.c src/autocommands.c src/sim.c src/protocol.c tests/test_l10n_stub.c
+	$(CC) $(CPPFLAGS) $(SANFLAGS) $(LDFLAGS) -Isrc -o build/security-sanitize/test_security_auth tests/test_security_auth.c src/app.c src/autocommands.c src/sim.c src/protocol.c tests/test_l10n_stub.c
+	$(CC) $(CPPFLAGS) $(SANFLAGS) $(LDFLAGS) -Isrc -o build/security-sanitize/test_security_state tests/test_security_state.c src/app.c src/autocommands.c src/sim.c src/protocol.c tests/test_l10n_stub.c
+	$(CC) $(CPPFLAGS) $(SANFLAGS) $(LDFLAGS) -Isrc -o build/security-sanitize/test_roster tests/test_roster.c src/app.c src/autocommands.c src/sim.c src/protocol.c tests/test_l10n_stub.c
+	$(CC) $(CPPFLAGS) $(SANFLAGS) $(LDFLAGS) -Isrc -o build/security-sanitize/test_dcc_backpressure tests/test_dcc_backpressure.c src/protocol.c
+	$(CC) $(CPPFLAGS) $(SANFLAGS) $(LDFLAGS) -Isrc -o build/security-sanitize/test_dcc_file_identity tests/test_dcc_file_identity.c src/protocol.c
+	$(CC) $(CPPFLAGS) $(SANFLAGS) $(LDFLAGS) -Isrc -o build/security-sanitize/test_protocol tests/test_protocol.c src/protocol.c
+	$(CC) $(CPPFLAGS) $(SANFLAGS) -DONEKEY_ONLY $(LDFLAGS) -Isrc -o build/security-sanitize/test_process_security $(SECURITY_PROCESS_SRC) $(TLS_LIBS) $(DL_LIBS)
+	$(CC) $(CPPFLAGS) $(SANFLAGS) $(LDFLAGS) -Isrc -o build/security-sanitize/test_security_background_output tests/test_security_background_output.c
+	$(CC) $(CPPFLAGS) $(SANFLAGS) -DONEKEY_ONLY $(LDFLAGS) -Isrc -o build/security-sanitize/test_idle_background_boundary $(SECURITY_IDLE_SRC) $(TLS_LIBS) $(DL_LIBS)
+	$(CC) $(CPPFLAGS) $(SANFLAGS) $(LDFLAGS) -Isrc -o build/security-sanitize/test_config tests/test_config.c src/config.c src/autocommands.c src/protocol.c
+	$(CC) $(CPPFLAGS) $(SANFLAGS) $(LDFLAGS) -Isrc -o build/security-sanitize/test_commands tests/test_commands.c src/commands.c src/protocol.c
+	$(CC) $(CPPFLAGS) $(SANFLAGS) $(SESSION_CLI_DEFINES) $(LDFLAGS) -Isrc -o build/security-sanitize/test_session_cli $(SESSION_CLI_SRC) $(TLS_LIBS) $(DL_LIBS)
+	$(CC) $(CPPFLAGS) $(SANFLAGS) -DONEKEY_ONLY $(LDFLAGS) -Isrc -o build/security-sanitize/test_idle_catchup $(CATCHUP_TEST_SRC) $(TLS_LIBS) $(DL_LIBS)
+	$(CC) $(CPPFLAGS) $(SANFLAGS) $(LDFLAGS) -Isrc -o build/security-sanitize/test_security_presence tests/test_security_presence.c src/app.c src/autocommands.c src/sim.c src/protocol.c tests/test_l10n_stub.c
+	$(CC) $(CPPFLAGS) $(SANFLAGS) -DONEKEY_ONLY $(LDFLAGS) -Isrc -o build/security-sanitize/test_security_history $(HISTORY_SECURITY_SRC) $(TLS_LIBS) $(DL_LIBS)
+	$(CC) $(CPPFLAGS) $(SANFLAGS) $(LDFLAGS) -Isrc -o build/security-sanitize/test_dcc_adversarial tests/test_dcc_adversarial.c src/protocol.c
+	$(CC) $(CPPFLAGS) $(SANFLAGS) -DONEKEY_ONLY $(LDFLAGS) -Isrc -o build/security-sanitize/test_notice_delivery $(NOTICE_DELIVERY_SRC) $(TLS_LIBS) $(DL_LIBS)
+	$(CC) $(CPPFLAGS) $(SANFLAGS) $(LDFLAGS) -Isrc -Itests -o build/security-sanitize/test_credential_lifecycle tests/test_credential_lifecycle.c src/config.c src/autocommands.c src/protocol.c
+	$(CC) $(CPPFLAGS) $(SANFLAGS) -DONEKEY_ONLY $(LDFLAGS) -Isrc -o build/security-sanitize/test_security_history_flow $(HISTORY_FLOW_SECURITY_SRC) $(TLS_LIBS) $(DL_LIBS)
+	./build/security-sanitize/test_security_app
+	./build/security-sanitize/test_security_list
+	./build/security-sanitize/test_security_auth
+	./build/security-sanitize/test_security_state
+	./build/security-sanitize/test_security_presence
+	./build/security-sanitize/test_security_history
+	./build/security-sanitize/test_security_history_flow
+	./build/security-sanitize/test_credential_lifecycle
+	./build/security-sanitize/test_dcc_adversarial
+	./build/security-sanitize/test_notice_delivery
+	./build/security-sanitize/test_roster
+	./build/security-sanitize/test_idle_catchup
+	./build/security-sanitize/test_dcc_backpressure
+	./build/security-sanitize/test_dcc_file_identity
+	./build/security-sanitize/test_protocol
+	./build/security-sanitize/test_config
+	./build/security-sanitize/test_commands
+	./build/security-sanitize/test_process_security
+	./build/security-sanitize/test_session_cli
+	./build/security-sanitize/test_security_background_output
+	./build/security-sanitize/test_idle_background_boundary
+
+build/test_security_list: tests/test_security_list.c tests/test_app.c src/app.c src/autocommands.c src/sim.c src/protocol.c $(HEADERS) build/.stamp
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -Isrc -o $@ tests/test_security_list.c src/app.c src/autocommands.c src/sim.c src/protocol.c tests/test_l10n_stub.c
+
+# Run explicitly on a normal host; this checks the actual terminal event loop.
+check-security-idle: onekeyirc
+	$(PYTHON) tests/test_security_idle.py --binary ./onekeyirc --seconds 90
+
+.PHONY: check-security check-security-sanitize check-security-idle check-security-detach
+
+build/test_security_background_output: tests/test_security_background_output.c src/background.c $(HEADERS)
+	mkdir -p build
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -Isrc -o $@ tests/test_security_background_output.c
+
+build/test_idle_background_boundary: $(SECURITY_IDLE_SRC) src/idle.c $(HEADERS)
+	mkdir -p build
+	$(CC) $(CPPFLAGS) $(CFLAGS) -DONEKEY_ONLY $(LDFLAGS) -Isrc -o $@ $(SECURITY_IDLE_SRC) $(TLS_LIBS) $(DL_LIBS)
+
+build/idle_background_fixture: $(SECURITY_IDLE_SRC) src/idle.c src/main.c $(HEADERS)
+	mkdir -p build
+	$(CC) $(CPPFLAGS) $(CFLAGS) -DONEKEY_ONLY -DIDLE_BOUNDARY_FIXTURE $(LDFLAGS) -Isrc -o $@ $(SECURITY_IDLE_SRC) src/main.c $(TLS_LIBS) $(DL_LIBS)
+
+check-security-detach: build/test_idle_background_boundary build/test_security_background_output build/idle_background_fixture
+	./build/test_idle_background_boundary
+	./build/test_security_background_output
+	$(PYTHON) tests/test_security_detach.py --fixture build/idle_background_fixture
+
+# Real argument parsing with controlled frontend/session boundaries. No curses
+# screen or session socket is required; native lifecycle tests are separate.
+build/test_session_cli: $(SESSION_CLI_SRC) src/main.c $(HEADERS)
+	mkdir -p build
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(SESSION_CLI_DEFINES) $(LDFLAGS) -Isrc -o $@ $(SESSION_CLI_SRC) $(TLS_LIBS) $(DL_LIBS)
+
+.PHONY: check-session-cli
+check-session-cli: build/test_session_cli
+	./build/test_session_cli
+
+# Real PTY and private IRC peer: wrap retained chat in the input view while
+# keeping the complete payload and ordinary log unchanged.
+.PHONY: check-idle-display
+check-idle-display: onekeyirc
+	$(PYTHON) tests/test_idle_wrapping.py --binary ./onekeyirc
+
+# Socket-independent fixtures exercise real parsers and terminal loops.
+# The AF_UNIX/SCM_RIGHTS lifecycle gate is separate and requires a normal host.
+SESSION_HANGUP_SRC = tests/test_idle_hangup_fixture.c src/main.c src/summary.c src/idle_commands.c src/idle_setup.c src/client.c src/app.c src/sim.c src/net.c src/config.c src/autocommands.c src/protocol.c src/editor.c src/commands.c src/credentials.c src/nicks.c src/dcc.c src/dcc_commands.c
+
+build/test_background_control: tests/test_background_control.c src/background.c $(HEADERS)
+	mkdir -p build
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(SESSION_CLI_DEFINES) $(LDFLAGS) -Isrc -o $@ tests/test_background_control.c
+
+build/idle_hangup_fixture: $(SESSION_HANGUP_SRC) src/idle.c src/background.c $(HEADERS)
+	mkdir -p build
+	$(CC) $(CPPFLAGS) $(CFLAGS) -DONEKEY_ONLY $(LDFLAGS) -Isrc -o $@ $(SESSION_HANGUP_SRC) $(TLS_LIBS) $(DL_LIBS)
+
+.PHONY: check-session-controls check-session-controls-sanitize check-session-lifecycle
+check-session-controls: build/test_background_control build/test_session_cli build/idle_hangup_fixture build/test_config build/test_client build/test_idle_config build/test_idle_commands build/test_idle_setup
+	./build/test_background_control
+	./build/test_session_cli
+	./build/test_config
+	./build/test_client
+	./build/test_idle_config
+	./build/test_idle_commands
+	./build/test_idle_setup
+	$(PYTHON) tests/test_idle_hangup.py --fixture build/idle_hangup_fixture
+
+check-session-controls-sanitize:
+	mkdir -p build/session-sanitize
+	$(CC) $(CPPFLAGS) $(SANFLAGS) $(SESSION_CLI_DEFINES) $(LDFLAGS) -Isrc -o build/session-sanitize/test_background_control tests/test_background_control.c
+	$(CC) $(CPPFLAGS) $(SANFLAGS) $(SESSION_CLI_DEFINES) $(LDFLAGS) -Isrc -o build/session-sanitize/test_session_cli $(SESSION_CLI_SRC) $(TLS_LIBS) $(DL_LIBS)
+	$(CC) $(CPPFLAGS) $(SANFLAGS) -DONEKEY_ONLY $(LDFLAGS) -Isrc -o build/session-sanitize/idle_hangup_fixture $(SESSION_HANGUP_SRC) $(TLS_LIBS) $(DL_LIBS)
+	./build/session-sanitize/test_background_control
+	./build/session-sanitize/test_session_cli
+	$(PYTHON) tests/test_idle_hangup.py --fixture build/session-sanitize/idle_hangup_fixture
+
+check-session-lifecycle: onekeyirc build/test_background
+	./build/test_background
+	$(PYTHON) tests/test_session_hangup.py --binary ./onekeyirc
+
+
+.PHONY: check-idle-availability
+check-idle-availability: onekeyirc
+	$(PYTHON) tests/test_idle_availability.py --binary ./onekeyirc
+
+build/test_roster: tests/test_roster.c tests/test_app.c src/app.c src/autocommands.c src/sim.c src/protocol.c $(HEADERS) build/.stamp
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -Isrc -o $@ tests/test_roster.c src/app.c src/autocommands.c src/sim.c src/protocol.c tests/test_l10n_stub.c
+
+# Bounded roster maintenance and indexed saved-log navigation.
+.PHONY: check-efficiency
+check-efficiency: build/test_roster build/test_idle_catchup
+	./build/test_roster
+	./build/test_idle_catchup
+
+build/test_idle_catchup: $(CATCHUP_TEST_SRC) src/idle.c $(HEADERS) build/.stamp
+	$(CC) $(CPPFLAGS) $(CFLAGS) -DONEKEY_ONLY $(LDFLAGS) -Isrc -o $@ $(CATCHUP_TEST_SRC) $(TLS_LIBS) $(DL_LIBS)
+
+# Local reminder must remain once per worker without modifying IRC presence.
+.PHONY: check-session-notice
+check-session-notice: onekeyirc build/idle_hangup_fixture
+	$(PYTHON) tests/test_session_notice.py --binary ./onekeyirc --hangup-fixture build/idle_hangup_fixture
+
+HISTORY_SECURITY_SRC = $(COMMAND_TEST_SRC:tests/test_idle_commands.c=tests/test_security_history.c)
+NOTICE_DELIVERY_SRC = $(CATCHUP_TEST_SRC:tests/test_idle_catchup.c=tests/test_notice_delivery.c)
+
+build/test_security_presence: tests/test_security_presence.c tests/test_app.c src/app.c src/autocommands.c src/sim.c src/protocol.c $(HEADERS) build/.stamp
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -Isrc -o $@ tests/test_security_presence.c src/app.c src/autocommands.c src/sim.c src/protocol.c tests/test_l10n_stub.c
+
+build/test_security_history: $(HISTORY_SECURITY_SRC) tests/test_idle_commands.c $(HEADERS) build/.stamp
+	$(CC) $(CPPFLAGS) $(CFLAGS) -DONEKEY_ONLY $(LDFLAGS) -Isrc -o $@ $(HISTORY_SECURITY_SRC) $(TLS_LIBS) $(DL_LIBS)
+
+build/test_dcc_adversarial: tests/test_dcc_adversarial.c src/dcc.c src/protocol.c $(HEADERS) build/.stamp
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -Isrc -o $@ tests/test_dcc_adversarial.c src/protocol.c
+
+build/test_notice_delivery: $(NOTICE_DELIVERY_SRC) src/idle.c $(HEADERS) build/.stamp
+	$(CC) $(CPPFLAGS) $(CFLAGS) -DONEKEY_ONLY $(LDFLAGS) -Isrc -o $@ $(NOTICE_DELIVERY_SRC) $(TLS_LIBS) $(DL_LIBS)
+
+# Real helper-child lifecycle with controlled private test helper behavior.
+build/test_credential_lifecycle: tests/test_credential_lifecycle.c tests/test_credentials.c src/credentials.c src/config.c src/autocommands.c src/protocol.c $(HEADERS) build/.stamp
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -Isrc -Itests -o $@ tests/test_credential_lifecycle.c src/config.c src/autocommands.c src/protocol.c
+
+HISTORY_FLOW_SECURITY_SRC = $(CATCHUP_TEST_SRC:tests/test_idle_catchup.c=tests/test_security_history_flow.c)
+
+build/test_security_history_flow: $(HISTORY_FLOW_SECURITY_SRC) src/idle.c $(HEADERS) build/.stamp
+	$(CC) $(CPPFLAGS) $(CFLAGS) -DONEKEY_ONLY $(LDFLAGS) -Isrc -o $@ $(HISTORY_FLOW_SECURITY_SRC) $(TLS_LIBS) $(DL_LIBS)
+
+.PHONY: check-presence-availability
+check-presence-availability: build/idle_hangup_fixture
+	$(PYTHON) tests/test_presence_availability.py --fixture build/idle_hangup_fixture
+
+# Real-shell foreground signal policy and exact pre-shell terminal restoration.
+.PHONY: check-terminal-signals
+check-terminal-signals: onekeyirc
+	$(PYTHON) tests/test_terminal_signals.py --binary ./onekeyirc
+
+# Exercise panel 0 Apply, terminal ISIG update, and compose cancellation.
+.PHONY: check-use-signals-panel
+check-use-signals-panel: onekeyirc
+	$(PYTHON) tests/test_use_signals_panel.py
+
+# Bounded TLS, child ownership, presence and native descriptor regressions.
+DEEP_BINS = build/test_presence_cancellation build/test_presence_recovery build/test_credential_descendants build/test_credential_signals build/test_background_rights
+check-unit: check-deep
+check-security: check-deep
+check-security-sanitize: check-deep-sanitize
+
+build/test_presence_cancellation: tests/test_presence_cancellation.c tests/test_app.c src/app.c src/autocommands.c src/sim.c src/protocol.c $(HEADERS) build/.stamp
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -Isrc -Itests -o $@ tests/test_presence_cancellation.c src/app.c src/autocommands.c src/sim.c src/protocol.c tests/test_l10n_stub.c
+
+build/test_presence_recovery: tests/test_presence_recovery.c tests/test_app.c src/app.c src/autocommands.c src/sim.c src/protocol.c $(HEADERS) build/.stamp
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -Isrc -Itests -o $@ tests/test_presence_recovery.c src/app.c src/autocommands.c src/sim.c src/protocol.c tests/test_l10n_stub.c
+
+build/test_credential_descendants: tests/test_credential_descendants.c tests/test_credentials.c src/credentials.c src/config.c src/autocommands.c src/protocol.c $(HEADERS) build/.stamp
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -Isrc -Itests -o $@ tests/test_credential_descendants.c src/config.c src/autocommands.c src/protocol.c
+
+build/test_credential_signals: tests/test_credential_signals.c tests/test_credentials.c src/credentials.c src/config.c src/autocommands.c src/protocol.c $(HEADERS) build/.stamp
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -Isrc -Itests -o $@ tests/test_credential_signals.c src/config.c src/autocommands.c src/protocol.c
+
+build/test_background_rights: tests/test_background_rights.c tests/test_l10n_stub.c src/background.c $(HEADERS) build/.stamp
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -Isrc -Itests -o $@ tests/test_background_rights.c tests/test_l10n_stub.c 
+
+check-deep: $(DEEP_BINS)
+	./build/test_presence_cancellation
+	./build/test_presence_recovery
+	./build/test_credential_descendants
+	./build/test_credential_signals
+	./build/test_background_rights
+	CC="$(CC)" CPPFLAGS="$(CPPFLAGS)" CFLAGS="$(CFLAGS)" LDFLAGS="$(LDFLAGS)" $(PYTHON) tests/test_net_tls_budget.py; result=$$?; test $$result -eq 0 -o $$result -eq 77
+	CC="$(CC)" CPPFLAGS="$(CPPFLAGS)" CFLAGS="$(CFLAGS)" LDFLAGS="$(LDFLAGS)" $(PYTHON) tests/test_net_resolver_ownership.py
+
+check-deep-sanitize: build/.stamp
+	mkdir -p build/deep-sanitize
+	$(CC) $(CPPFLAGS) $(SANFLAGS) $(LDFLAGS) -Isrc -Itests -o build/deep-sanitize/test_presence_cancellation tests/test_presence_cancellation.c src/app.c src/autocommands.c src/sim.c src/protocol.c tests/test_l10n_stub.c
+	$(CC) $(CPPFLAGS) $(SANFLAGS) $(LDFLAGS) -Isrc -Itests -o build/deep-sanitize/test_presence_recovery tests/test_presence_recovery.c src/app.c src/autocommands.c src/sim.c src/protocol.c tests/test_l10n_stub.c
+	$(CC) $(CPPFLAGS) $(SANFLAGS) $(LDFLAGS) -Isrc -Itests -o build/deep-sanitize/test_credential_descendants tests/test_credential_descendants.c src/config.c src/autocommands.c src/protocol.c
+	$(CC) $(CPPFLAGS) $(SANFLAGS) $(LDFLAGS) -Isrc -Itests -o build/deep-sanitize/test_credential_signals tests/test_credential_signals.c src/config.c src/autocommands.c src/protocol.c
+	$(CC) $(CPPFLAGS) $(SANFLAGS) $(LDFLAGS) -Isrc -Itests -o build/deep-sanitize/test_background_rights tests/test_background_rights.c tests/test_l10n_stub.c 
+	./build/deep-sanitize/test_presence_cancellation
+	./build/deep-sanitize/test_presence_recovery
+	./build/deep-sanitize/test_credential_descendants
+	./build/deep-sanitize/test_credential_signals
+	./build/deep-sanitize/test_background_rights
+	CC="$(CC)" CPPFLAGS="$(CPPFLAGS)" CFLAGS="$(SANFLAGS)" LDFLAGS="$(LDFLAGS) -fsanitize=address,undefined" $(PYTHON) tests/test_net_tls_budget.py; result=$$?; test $$result -eq 0 -o $$result -eq 77
+	CC="$(CC)" CPPFLAGS="$(CPPFLAGS)" CFLAGS="$(SANFLAGS)" LDFLAGS="$(LDFLAGS) -fsanitize=address,undefined" $(PYTHON) tests/test_net_resolver_ownership.py
+
+# The retained transport harnesses honor the same instrumented toolchain.
+check-security-sanitize: check-net-sanitize
+
+check-net-sanitize:
+	CC="$(CC)" CPPFLAGS="$(CPPFLAGS)" CFLAGS="$(SANFLAGS)" LDFLAGS="$(LDFLAGS) -fsanitize=address,undefined" $(PYTHON) tests/test_net.py
+	CC="$(CC)" CPPFLAGS="$(CPPFLAGS)" CFLAGS="$(SANFLAGS)" LDFLAGS="$(LDFLAGS) -fsanitize=address,undefined" $(PYTHON) tests/test_net_retry.py
+
+# Bouncer profiles reuse the shared connection, credential and bounded history core.
+BOUNCER_BINS = build/test_bouncer_config build/test_bouncer_core build/test_bouncer_commands build/test_bouncer_setup build/test_cap_sasl_final build/test_bouncer_state_properties build/test_bouncer_oldnick_privacy
+BOUNCER_COMMAND_SRC = $(COMMAND_TEST_SRC:tests/test_idle_commands.c=tests/test_bouncer_commands.c)
+BOUNCER_SETUP_SRC = $(SETUP_TEST_SRC:tests/test_idle_setup.c=tests/test_bouncer_setup.c)
+STREAM_TEST_SRC = $(CATCHUP_TEST_SRC:tests/test_idle_catchup.c=tests/test_idle_stream.c)
+
+build/test_bouncer_config: tests/test_bouncer_config.c src/config.c src/autocommands.c src/protocol.c $(HEADERS) build/.stamp
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -Isrc -o $@ tests/test_bouncer_config.c src/config.c src/autocommands.c src/protocol.c
+
+build/test_bouncer_core: tests/test_bouncer_core.c tests/test_app.c src/app.c src/autocommands.c src/sim.c src/protocol.c $(HEADERS) build/.stamp
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -Isrc -Itests -o $@ tests/test_bouncer_core.c src/app.c src/autocommands.c src/sim.c src/protocol.c tests/test_l10n_stub.c
+
+build/test_bouncer_commands: $(BOUNCER_COMMAND_SRC) tests/test_idle_commands.c $(HEADERS) build/.stamp
+	$(CC) $(CPPFLAGS) $(CFLAGS) -DONEKEY_ONLY $(LDFLAGS) -Isrc -Itests -o $@ $(BOUNCER_COMMAND_SRC) $(TLS_LIBS) $(DL_LIBS)
+
+build/test_bouncer_setup: $(BOUNCER_SETUP_SRC) tests/test_idle_setup.c $(HEADERS) build/.stamp
+	$(CC) $(CPPFLAGS) $(CFLAGS) -DONEKEY_ONLY $(LDFLAGS) -Isrc -Itests -o $@ $(BOUNCER_SETUP_SRC) $(TLS_LIBS) $(DL_LIBS)
+
+build/test_idle_stream: $(STREAM_TEST_SRC) tests/test_idle_catchup.c src/idle.c $(HEADERS) build/.stamp
+	$(CC) $(CPPFLAGS) $(CFLAGS) -DONEKEY_ONLY $(LDFLAGS) -Isrc -Itests -o $@ $(STREAM_TEST_SRC) $(TLS_LIBS) $(DL_LIBS)
+
+
+build/test_cap_sasl_final: tests/test_cap_sasl_final.c tests/test_app.c src/app.c src/autocommands.c src/sim.c src/protocol.c $(HEADERS) build/.stamp
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -Isrc -Itests -o $@ tests/test_cap_sasl_final.c src/app.c src/autocommands.c src/sim.c src/protocol.c tests/test_l10n_stub.c
+
+
+build/test_bouncer_state_properties: tests/test_bouncer_state_properties.c tests/test_app.c src/app.c src/autocommands.c src/sim.c src/protocol.c $(HEADERS) build/.stamp
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -Isrc -Itests -o $@ tests/test_bouncer_state_properties.c src/app.c src/autocommands.c src/sim.c src/protocol.c tests/test_l10n_stub.c
+
+
+build/test_bouncer_oldnick_privacy: tests/test_bouncer_oldnick_privacy.c tests/test_app.c src/app.c src/autocommands.c src/sim.c src/protocol.c $(HEADERS) build/.stamp
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -Isrc -Itests -o $@ tests/test_bouncer_oldnick_privacy.c src/app.c src/autocommands.c src/sim.c src/protocol.c tests/test_l10n_stub.c
+
+check-bouncers: $(BOUNCER_BINS)
+	./build/test_bouncer_oldnick_privacy
+	./build/test_bouncer_state_properties
+	./build/test_cap_sasl_final
+	./build/test_bouncer_config
+	./build/test_bouncer_core
+	./build/test_bouncer_commands
+	./build/test_bouncer_setup
+
+check-bouncers-sanitize: build/.stamp
+	mkdir -p build/bouncer-sanitize
+	$(CC) $(CPPFLAGS) $(SANFLAGS) $(LDFLAGS) -Isrc -Itests -o build/bouncer-sanitize/oldnick-privacy tests/test_bouncer_oldnick_privacy.c src/app.c src/autocommands.c src/sim.c src/protocol.c tests/test_l10n_stub.c
+	./build/bouncer-sanitize/oldnick-privacy
+	$(CC) $(CPPFLAGS) $(SANFLAGS) $(LDFLAGS) -Isrc -Itests -o build/bouncer-sanitize/state-properties tests/test_bouncer_state_properties.c src/app.c src/autocommands.c src/sim.c src/protocol.c tests/test_l10n_stub.c
+	./build/bouncer-sanitize/state-properties
+	$(CC) $(CPPFLAGS) $(SANFLAGS) $(LDFLAGS) -Isrc -Itests -o build/bouncer-sanitize/cap-sasl tests/test_cap_sasl_final.c src/app.c src/autocommands.c src/sim.c src/protocol.c tests/test_l10n_stub.c
+	./build/bouncer-sanitize/cap-sasl
+	$(CC) $(CPPFLAGS) $(SANFLAGS) $(LDFLAGS) -Isrc -o build/bouncer-sanitize/config tests/test_bouncer_config.c src/config.c src/autocommands.c src/protocol.c
+	$(CC) $(CPPFLAGS) $(SANFLAGS) $(LDFLAGS) -Isrc -Itests -o build/bouncer-sanitize/core tests/test_bouncer_core.c src/app.c src/autocommands.c src/sim.c src/protocol.c tests/test_l10n_stub.c
+	$(CC) $(CPPFLAGS) $(SANFLAGS) -DONEKEY_ONLY $(LDFLAGS) -Isrc -Itests -o build/bouncer-sanitize/commands $(BOUNCER_COMMAND_SRC) $(TLS_LIBS) $(DL_LIBS)
+	$(CC) $(CPPFLAGS) $(SANFLAGS) -DONEKEY_ONLY $(LDFLAGS) -Isrc -Itests -o build/bouncer-sanitize/setup $(BOUNCER_SETUP_SRC) $(TLS_LIBS) $(DL_LIBS)
+	$(CC) $(CPPFLAGS) $(SANFLAGS) -DONEKEY_ONLY $(LDFLAGS) -Isrc -Itests -o build/bouncer-sanitize/stream $(STREAM_TEST_SRC) $(TLS_LIBS) $(DL_LIBS)
+	./build/bouncer-sanitize/config
+	./build/bouncer-sanitize/core
+	./build/bouncer-sanitize/commands
+	./build/bouncer-sanitize/setup
+	./build/bouncer-sanitize/stream
+
+check-bouncers-terminal: onekeyirc
+	$(PYTHON) tests/test_bouncer_terminal.py --binary ./onekeyirc
+
+check-unit: check-bouncers
+check-security: check-bouncers
+check-security-sanitize: check-bouncers-sanitize
+check-efficiency: check-stream
+
+check-stream: build/test_idle_stream
+	./build/test_idle_stream
+
+# Descriptor ownership, pinned CA sources and parser/counter edge regressions.
+BOUNDARY_BINS = build/test_background_ownership build/test_standard_fds build/test_runtime_guard_pages build/test_dcc_counter_edges
+STANDARD_FDS_SRC = $(SESSION_CLI_SRC:tests/test_session_cli.c=tests/test_standard_fds.c)
+
+build/test_background_ownership: tests/test_background_ownership.c tests/test_l10n_stub.c src/background.c $(HEADERS) build/.stamp
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(SESSION_CLI_DEFINES) $(LDFLAGS) -Isrc -o $@ tests/test_background_ownership.c tests/test_l10n_stub.c
+
+build/test_standard_fds: $(STANDARD_FDS_SRC) src/main.c $(HEADERS) build/.stamp
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(SESSION_CLI_DEFINES) $(LDFLAGS) -Isrc -Itests -o $@ $(STANDARD_FDS_SRC) $(TLS_LIBS) $(DL_LIBS)
+
+build/test_runtime_guard_pages: tests/test_runtime_guard_pages.c src/dcc.c src/editor.c src/protocol.c $(HEADERS) build/.stamp
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -Isrc -o $@ tests/test_runtime_guard_pages.c src/dcc.c src/editor.c src/protocol.c $(DL_LIBS)
+
+build/test_dcc_counter_edges: tests/test_dcc_counter_edges.c src/dcc.c src/protocol.c $(HEADERS) build/.stamp
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -Isrc -o $@ tests/test_dcc_counter_edges.c src/protocol.c
+
+check-security-boundaries: $(BOUNDARY_BINS) build/test_session_cli
+	./build/test_background_ownership
+	./build/test_standard_fds
+	./build/test_runtime_guard_pages
+	./build/test_dcc_counter_edges
+	./build/test_session_cli
+	CC="$(CC)" CPPFLAGS="$(CPPFLAGS)" CFLAGS="$(CFLAGS)" LDFLAGS="$(LDFLAGS)" $(PYTHON) tests/test_net_ca.py
+
+check-security-boundaries-sanitize: build/.stamp
+	mkdir -p build/boundary-sanitize
+	$(CC) $(CPPFLAGS) $(SANFLAGS) $(SESSION_CLI_DEFINES) $(LDFLAGS) -Isrc -o build/boundary-sanitize/ownership tests/test_background_ownership.c tests/test_l10n_stub.c
+	$(CC) $(CPPFLAGS) $(SANFLAGS) $(SESSION_CLI_DEFINES) $(LDFLAGS) -Isrc -Itests -o build/boundary-sanitize/standard-fds $(STANDARD_FDS_SRC) $(TLS_LIBS) $(DL_LIBS)
+	$(CC) $(CPPFLAGS) $(SANFLAGS) $(LDFLAGS) -Isrc -o build/boundary-sanitize/guard-pages tests/test_runtime_guard_pages.c src/dcc.c src/editor.c src/protocol.c $(DL_LIBS)
+	$(CC) $(CPPFLAGS) $(SANFLAGS) $(LDFLAGS) -Isrc -o build/boundary-sanitize/dcc-counters tests/test_dcc_counter_edges.c src/protocol.c
+	$(CC) $(CPPFLAGS) $(SANFLAGS) $(SESSION_CLI_DEFINES) $(LDFLAGS) -Isrc -Itests -o build/boundary-sanitize/session-cli $(SESSION_CLI_SRC) $(TLS_LIBS) $(DL_LIBS)
+	./build/boundary-sanitize/ownership
+	./build/boundary-sanitize/standard-fds
+	./build/boundary-sanitize/guard-pages
+	./build/boundary-sanitize/dcc-counters
+	./build/boundary-sanitize/session-cli
+	CC="$(CC)" CPPFLAGS="$(CPPFLAGS)" CFLAGS="$(SANFLAGS)" LDFLAGS="$(LDFLAGS) -fsanitize=address,undefined" $(PYTHON) tests/test_net_ca.py
+
+.PHONY: check-security-boundaries check-security-boundaries-sanitize
+check-unit: check-security-boundaries
+check-security: check-security-boundaries
+check-security-sanitize: check-security-boundaries-sanitize
+
+# Optional maintainer workflow; generated docs ship in source archives.
+# Ordinary all/install targets need no Python interpreter.
+.PHONY: docs check-docs
+docs: onekeyirc
+	$(PYTHON) scripts/sync_docs.py --binary ./onekeyirc
+
+check-docs: onekeyirc
+	$(PYTHON) scripts/sync_docs.py --binary ./onekeyirc --check
+
+# Custom bindings start empty; exercise their input and persistence boundaries.
+HOTKEY_COMMAND_SRC = $(COMMAND_TEST_SRC:tests/test_idle_commands.c=tests/test_hotkey_preferences.c)
+HOTKEY_IDLE_SRC = $(CATCHUP_TEST_SRC:tests/test_idle_catchup.c=tests/test_idle_hotkeys.c)
+
+build/test_hotkeys: tests/test_hotkeys.c src/config.c src/autocommands.c src/protocol.c $(HEADERS) build/.stamp
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -Isrc -o $@ tests/test_hotkeys.c src/config.c src/autocommands.c src/protocol.c
+
+build/test_hotkey_preferences: $(HOTKEY_COMMAND_SRC) $(HEADERS) build/.stamp
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(SESSION_CLI_DEFINES) $(LDFLAGS) -Isrc -o $@ $(HOTKEY_COMMAND_SRC) $(TLS_LIBS) $(DL_LIBS)
+
+build/test_idle_hotkeys: $(HOTKEY_IDLE_SRC) src/idle.c $(HEADERS) build/.stamp
+	$(CC) $(CPPFLAGS) $(CFLAGS) -DONEKEY_ONLY $(LDFLAGS) -Isrc -o $@ $(HOTKEY_IDLE_SRC) $(TLS_LIBS) $(DL_LIBS)
+
+check-hotkeys: build/test_hotkeys build/test_hotkey_preferences build/test_idle_hotkeys
+	./build/test_hotkeys
+	./build/test_hotkey_preferences
+	./build/test_idle_hotkeys
+
+check-hotkeys-terminal: onekeyirc
+	$(PYTHON) tests/test_idle_hotkeys.py --mode one
+
+
+# Reproduced paste/privacy/config-creation boundaries and DCC input properties.
+SECURITY_PASS_BINS = build/test_config_create build/test_replay_auth_privacy build/test_dcc_parse_properties
+
+build/test_config_create: tests/test_config_create.c src/config.c src/autocommands.c src/protocol.c $(HEADERS) build/.stamp
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -Isrc -o $@ tests/test_config_create.c src/autocommands.c src/protocol.c
+
+build/test_replay_auth_privacy: tests/test_replay_auth_privacy.c tests/test_app.c src/app.c src/autocommands.c src/sim.c src/protocol.c $(HEADERS) build/.stamp
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -Isrc -o $@ tests/test_replay_auth_privacy.c src/app.c src/autocommands.c src/sim.c src/protocol.c tests/test_l10n_stub.c
+
+build/test_dcc_parse_properties: tests/test_dcc_parse_properties.c src/dcc.c src/protocol.c $(HEADERS) build/.stamp
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -Isrc -o $@ tests/test_dcc_parse_properties.c src/dcc.c src/protocol.c
+
+.PHONY: check-security-pass check-security-pass-sanitize
+check-security-pass: $(SECURITY_PASS_BINS) check-hotkeys
+	./build/test_config_create
+	./build/test_replay_auth_privacy
+	./build/test_dcc_parse_properties
+
+check-security-pass-sanitize: build/.stamp
+	mkdir -p build/security-pass-sanitize
+	$(CC) $(CPPFLAGS) $(SANFLAGS) $(LDFLAGS) -Isrc -o build/security-pass-sanitize/config-create tests/test_config_create.c src/autocommands.c src/protocol.c
+	$(CC) $(CPPFLAGS) $(SANFLAGS) $(LDFLAGS) -Isrc -o build/security-pass-sanitize/replay-auth tests/test_replay_auth_privacy.c src/app.c src/autocommands.c src/sim.c src/protocol.c tests/test_l10n_stub.c
+	$(CC) $(CPPFLAGS) $(SANFLAGS) $(LDFLAGS) -Isrc -o build/security-pass-sanitize/dcc-parser tests/test_dcc_parse_properties.c src/dcc.c src/protocol.c
+	$(CC) $(CPPFLAGS) $(SANFLAGS) -DONEKEY_ONLY $(LDFLAGS) -Isrc -o build/security-pass-sanitize/idle-paste $(HOTKEY_IDLE_SRC) $(TLS_LIBS) $(DL_LIBS)
+	./build/security-pass-sanitize/config-create
+	./build/security-pass-sanitize/replay-auth
+	./build/security-pass-sanitize/dcc-parser
+	./build/security-pass-sanitize/idle-paste
+
+check-security: check-security-pass
+check-security-sanitize: check-security-pass-sanitize
+
+.PHONY: check-install
+check-install:
+	$(PYTHON) tests/test_install.py
+
+# Recovery must release obsolete state without losing drafts or owned resources.
+STABILITY_BINS = build/test_list_recovery build/test_idle_recovery build/test_credential_resources
+STABILITY_IDLE_SRC = $(CATCHUP_TEST_SRC:tests/test_idle_catchup.c=tests/test_idle_recovery.c)
+
+build/test_list_recovery: tests/test_list_recovery.c tests/test_app.c src/app.c src/autocommands.c src/sim.c src/protocol.c $(HEADERS) build/.stamp
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -Isrc -Itests -o $@ tests/test_list_recovery.c src/app.c src/autocommands.c src/sim.c src/protocol.c tests/test_l10n_stub.c
+
+build/test_idle_recovery: $(STABILITY_IDLE_SRC) src/idle.c $(HEADERS) build/.stamp
+	$(CC) $(CPPFLAGS) $(CFLAGS) -DONEKEY_ONLY $(LDFLAGS) -Isrc -Itests -o $@ $(STABILITY_IDLE_SRC) $(TLS_LIBS) $(DL_LIBS)
+
+build/test_credential_resources: tests/test_credential_resources.c tests/test_credentials.c src/credentials.c src/config.c src/autocommands.c src/protocol.c $(HEADERS) build/.stamp
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -Isrc -Itests -o $@ tests/test_credential_resources.c src/config.c src/autocommands.c src/protocol.c
+
+.PHONY: check-stability check-stability-sanitize check-idle-load
+check-stability: $(STABILITY_BINS)
+	./build/test_list_recovery
+	./build/test_idle_recovery
+	./build/test_credential_resources
+
+check-stability-sanitize: build/.stamp
+	mkdir -p build/stability-sanitize
+	$(CC) $(CPPFLAGS) $(SANFLAGS) $(LDFLAGS) -Isrc -Itests -o build/stability-sanitize/list-recovery tests/test_list_recovery.c src/app.c src/autocommands.c src/sim.c src/protocol.c tests/test_l10n_stub.c
+	$(CC) $(CPPFLAGS) $(SANFLAGS) -DONEKEY_ONLY $(LDFLAGS) -Isrc -Itests -o build/stability-sanitize/idle-recovery $(STABILITY_IDLE_SRC) $(TLS_LIBS) $(DL_LIBS)
+	$(CC) $(CPPFLAGS) $(SANFLAGS) $(LDFLAGS) -Isrc -Itests -o build/stability-sanitize/credential-resources tests/test_credential_resources.c src/config.c src/autocommands.c src/protocol.c
+	./build/stability-sanitize/list-recovery
+	./build/stability-sanitize/idle-recovery
+	./build/stability-sanitize/credential-resources
+
+check-unit: check-stability
+check-security: check-stability
+check-security-sanitize: check-stability-sanitize
+
+check-idle-load: onekeyirc
+	$(PYTHON) tests/test_idle_load.py --binary ./onekeyirc --tls --seconds 60
+
+# Run independently of the network and curses frontend.
+check-l10n: build/.stamp build/test_localized_help_output
+	$(CC) $(CPPFLAGS) $(CFLAGS) -DONEKEY_ONLY -Isrc -o build/test_l10n_onekey tests/test_l10n_onekey.c
+	./build/test_l10n_onekey
+	$(CC) $(CPPFLAGS) $(CFLAGS) -Isrc -o build/test_l10n tests/test_l10n.c
+	./build/test_l10n
+	$(CC) $(CPPFLAGS) $(CFLAGS) -Isrc -o build/test_l10n_disabled tests/test_l10n_disabled.c
+	./build/test_l10n_disabled
+	$(PYTHON) tests/test_first_use_translation.py
+	$(PYTHON) tools/generate_locale_first_use_guides.py --check
+	$(PYTHON) tools/generate_locale_practical_guides.py --check
+	$(PYTHON) tests/test_practical_help_translation.py
+	$(PYTHON) tests/test_recovery_help_translation.py
+	$(PYTHON) tools/generate_locale_workflow_guides.py --check
+	$(PYTHON) tests/test_workflow_help_translation.py
+	$(PYTHON) tools/generate_locale_config_status_guides.py --check
+	$(PYTHON) tests/test_r6_help_translations.py
+	$(PYTHON) tools/generate_locale_r7_guides.py --check
+	$(PYTHON) tests/test_r7_translations.py
+	$(PYTHON) tools/generate_locale_r8_guides.py --check
+	$(PYTHON) tests/test_r8_help_translations.py
+	$(PYTHON) tools/generate_help_reference.py --check
+	$(PYTHON) tests/test_complete_help_translation.py --binary ./build/test_localized_help_output
+	$(PYTHON) tests/test_locale_catalog.py
+	$(PYTHON) tests/test_help_translation_catalog.py
+	$(PYTHON) tests/test_l10n_generator.py
+	$(PYTHON) tests/test_review_localizations.py
+	$(PYTHON) tools/generate_locale_guides.py --check
+	$(PYTHON) tools/generate_locale_topic_guides.py --check
+	$(PYTHON) tests/test_detailed_help_translation.py
+	$(PYTHON) tools/generate_locale_command_guides.py --check
+	$(PYTHON) tools/generate_locale_navigation_guides.py --check
+	$(PYTHON) tests/test_navigation_help_translation.py
+	$(PYTHON) tools/generate_locale_connection_guides.py --check
+	$(PYTHON) tests/test_connection_help_translation.py
+	$(PYTHON) tools/generate_locale_bouncer_auth_guides.py --check
+	$(PYTHON) tests/test_auth_bouncer_help_translation.py
+	$(PYTHON) tools/generate_locale_operations_guides.py --check
+	$(PYTHON) tests/test_operations_help_translation.py
+	$(PYTHON) tools/audit_help_coverage.py --check
+	$(PYTHON) tests/test_help_prose_translation.py
+	$(PYTHON) tests/test_diagnostic_translation.py
+	$(PYTHON) tests/test_l10n_terminal.py --binary ./onekeyirc
+	$(PYTHON) tests/test_l10n_help_terminal.py --binary ./onekeyirc
+	$(PYTHON) tests/test_l10n_topics_terminal.py --binary ./onekeyirc
+	$(PYTHON) tests/test_l10n_command_terminal.py --binary ./onekeyirc
+	$(PYTHON) tests/test_l10n_navigation_terminal.py --binary ./onekeyirc
+	$(PYTHON) tests/test_l10n_connection_terminal.py --binary ./onekeyirc
+	$(PYTHON) tests/test_l10n_auth_bouncer_terminal.py --binary ./onekeyirc
+	$(PYTHON) tests/test_l10n_operations_terminal.py --binary ./onekeyirc
+	$(PYTHON) tests/test_first_use_terminal.py --binary ./onekeyirc
+	$(PYTHON) tests/test_l10n_practical_terminal.py --binary ./onekeyirc
+	$(PYTHON) tests/test_recovery_help_terminal.py --binary ./onekeyirc
+	$(PYTHON) tests/test_workflow_help_terminal.py --binary ./onekeyirc
+	$(PYTHON) tests/test_r6_help_terminal.py --binary ./onekeyirc
+	$(PYTHON) tests/test_r7_help_terminal.py --binary ./onekeyirc
+	$(PYTHON) tests/test_arabic_visual.py --binary ./onekeyirc
+	$(PYTHON) tests/test_r8_help_terminal.py --binary ./onekeyirc
+
+.PHONY: check-l10n
+
+# Check every translated fixed help line after the real C command reader has
+# emitted/sanitized it. No IRC connection or personal configuration is used.
+LOCALIZED_HELP_TEST_SRC = $(COMMAND_TEST_SRC:tests/test_idle_commands.c=tests/test_localized_help_output.c)
+build/test_localized_help_output: $(LOCALIZED_HELP_TEST_SRC) tests/test_idle_commands.c $(HEADERS) build/.stamp
+	$(CC) $(CPPFLAGS) $(CFLAGS) -DONEKEY_ONLY $(LDFLAGS) -Isrc -o $@ $(LOCALIZED_HELP_TEST_SRC) $(TLS_LIBS) $(DL_LIBS)
+
+# Optional Arabic presentation and its no-loader fallback share the same
+# fixtures; code 77 records a missing optional system FriBidi library.
+ARABIC_TEST_SRC = $(CATCHUP_TEST_SRC:tests/test_idle_catchup.c=tests/test_arabic_visual_core.c)
+build/test_arabic_visual_core: $(ARABIC_TEST_SRC) src/idle.c src/arabic_visual.h $(HEADERS) build/.stamp
+	$(CC) $(CPPFLAGS) $(CFLAGS) -DONEKEY_ONLY $(LDFLAGS) -Isrc -o $@ $(ARABIC_TEST_SRC) $(TLS_LIBS) $(DL_LIBS)
+build/test_arabic_visual_disabled: $(ARABIC_TEST_SRC) src/idle.c src/arabic_visual.h $(HEADERS) build/.stamp
+	$(CC) $(CPPFLAGS) $(CFLAGS) -DONEKEY_ONLY -DIRC_NO_ARABIC_VISUAL $(LDFLAGS) -Isrc -o $@ $(ARABIC_TEST_SRC) $(TLS_LIBS)
+build/test_arabic_layout: tests/test_arabic_layout.c src/arabic_visual.h build/.stamp
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(SESSION_CLI_DEFINES) $(LDFLAGS) -Isrc -o $@ tests/test_arabic_layout.c $(DL_LIBS)
+build/test_arabic_layout_disabled: tests/test_arabic_layout.c src/arabic_visual.h build/.stamp
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(SESSION_CLI_DEFINES) -DIRC_NO_ARABIC_VISUAL $(LDFLAGS) -Isrc -o $@ tests/test_arabic_layout.c
+build/test_editor_visual: tests/test_editor_visual.c src/editor.c $(HEADERS) build/.stamp
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(SESSION_CLI_DEFINES) $(LDFLAGS) -Isrc -o $@ tests/test_editor_visual.c src/editor.c $(DL_LIBS)
+build/test_editor_visual_disabled: tests/test_editor_visual.c src/editor.c $(HEADERS) build/.stamp
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(SESSION_CLI_DEFINES) -DIRC_NO_ARABIC_VISUAL $(LDFLAGS) -Isrc -o $@ tests/test_editor_visual.c src/editor.c
+
+# This fixture includes editor.c to inject failures in all snapshot allocations.
+build/test_editor_visual_failure: tests/test_editor_visual_failure.c src/editor.c $(HEADERS) build/.stamp
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(SESSION_CLI_DEFINES) $(LDFLAGS) -Isrc -o $@ tests/test_editor_visual_failure.c $(DL_LIBS)
+build/test_editor_visual_failure_disabled: tests/test_editor_visual_failure.c src/editor.c $(HEADERS) build/.stamp
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(SESSION_CLI_DEFINES) -DIRC_NO_ARABIC_VISUAL $(LDFLAGS) -Isrc -o $@ tests/test_editor_visual_failure.c
+
+check-arabic-visual: onekeyirc build/test_arabic_visual_core build/test_arabic_visual_disabled build/test_arabic_layout build/test_arabic_layout_disabled build/test_editor_visual build/test_editor_visual_disabled build/test_editor_visual_failure build/test_editor_visual_failure_disabled
+	./build/test_arabic_visual_core || test $$? -eq 77
+	./build/test_arabic_visual_disabled
+	./build/test_arabic_layout
+	./build/test_arabic_layout_disabled
+	./build/test_editor_visual || test $$? -eq 77
+	./build/test_editor_visual_disabled
+	./build/test_editor_visual_failure || test $$? -eq 77
+	./build/test_editor_visual_failure_disabled
+	$(PYTHON) tests/test_arabic_visual.py --binary ./onekeyirc
+	$(PYTHON) tests/test_arabic_editor_terminal.py --binary ./onekeyirc
+.PHONY: check-arabic-visual
+
+# Export complete logical UTF-8 manuals through the real command formatter.
+MANUAL_LOCALIZATION_TEST_SRC = $(COMMAND_TEST_SRC:tests/test_idle_commands.c=tests/test_manual_localization.c)
+build/test_manual_localization: $(MANUAL_LOCALIZATION_TEST_SRC) $(HEADERS) build/.stamp
+	$(CC) $(CPPFLAGS) $(CFLAGS) -DONEKEY_ONLY $(LDFLAGS) -Isrc -o $@ $(MANUAL_LOCALIZATION_TEST_SRC) $(TLS_LIBS) $(DL_LIBS)
+
+.PHONY: localized-manuals check-localized-manuals
+localized-manuals: build/test_manual_localization
+	$(PYTHON) tools/generate_minimal_manuals.py --fixture ./build/test_manual_localization --program onekeyirc
+
+check-localized-manuals: build/test_manual_localization
+	$(PYTHON) tools/generate_minimal_manuals.py --fixture ./build/test_manual_localization --program onekeyirc --check
+	$(PYTHON) tests/test_minimal_manual_exports.py --fixture ./build/test_manual_localization --program onekeyirc
+
+check-l10n: check-localized-manuals
+
+
+# Optional language/RTL hardening regressions (also useful on their own).
+build/test_localization_security: tests/test_localization_security.c src/protocol.c src/arabic_visual.h $(HEADERS) build/.stamp
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -Isrc -o $@ tests/test_localization_security.c src/protocol.c $(DL_LIBS)
+
+check-l10n-security: build/test_localization_security
+	./build/test_localization_security
+	$(PYTHON) tests/test_localization_catalog_security.py
+
+# r23 optional localization status
+DOCFILES += doc/TRANSLATION-STATUS-r23.txt
+
+# r25 localization status and index (documentation only).
+DOCFILES += doc/TRANSLATION-STATUS-r25.txt doc/TRANSLATION-INDEX-r25.txt
+
+# Optional localization r27: source-linked draft security sections.
+DOCFILES += doc/SECURITY-SECTION-TRUST-en.txt doc/SECURITY-SECTION-TRUST-id.txt doc/SECURITY-SECTION-TRUST-ms.txt doc/SECURITY-SECTION-TRUST-tr.txt doc/SECURITY-SECTION-TRUST-es.txt doc/SECURITY-SECTION-TRUST-pt.txt
+DOCFILES += doc/SECURITY-SECTION-TRUST-fr.txt doc/SECURITY-SECTION-TRUST-de.txt doc/SECURITY-SECTION-TRUST-ru.txt doc/SECURITY-SECTION-TRUST-it.txt doc/SECURITY-SECTION-TRUST-ar.txt doc/SECURITY-SECTION-TLS-en.txt
+DOCFILES += doc/SECURITY-SECTION-TLS-id.txt doc/SECURITY-SECTION-TLS-ms.txt doc/SECURITY-SECTION-TLS-tr.txt doc/SECURITY-SECTION-TLS-es.txt doc/SECURITY-SECTION-TLS-pt.txt doc/SECURITY-SECTION-TLS-fr.txt
+DOCFILES += doc/SECURITY-SECTION-TLS-de.txt doc/SECURITY-SECTION-TLS-ru.txt doc/SECURITY-SECTION-TLS-it.txt doc/SECURITY-SECTION-TLS-ar.txt doc/SECURITY-SECTION-FILES-en.txt doc/SECURITY-SECTION-FILES-id.txt
+DOCFILES += doc/SECURITY-SECTION-FILES-ms.txt doc/SECURITY-SECTION-FILES-tr.txt doc/SECURITY-SECTION-FILES-es.txt doc/SECURITY-SECTION-FILES-pt.txt doc/SECURITY-SECTION-FILES-fr.txt doc/SECURITY-SECTION-FILES-de.txt
+DOCFILES += doc/SECURITY-SECTION-FILES-ru.txt doc/SECURITY-SECTION-FILES-it.txt doc/SECURITY-SECTION-FILES-ar.txt doc/SECURITY-SECTION-CHILDREN-en.txt doc/SECURITY-SECTION-CHILDREN-id.txt doc/SECURITY-SECTION-CHILDREN-ms.txt
+DOCFILES += doc/SECURITY-SECTION-CHILDREN-tr.txt doc/SECURITY-SECTION-CHILDREN-es.txt doc/SECURITY-SECTION-CHILDREN-pt.txt doc/SECURITY-SECTION-CHILDREN-fr.txt doc/SECURITY-SECTION-CHILDREN-de.txt doc/SECURITY-SECTION-CHILDREN-ru.txt
+DOCFILES += doc/SECURITY-SECTION-CHILDREN-it.txt doc/SECURITY-SECTION-CHILDREN-ar.txt doc/SECURITY-PARTIAL-en.txt doc/SECURITY-PARTIAL-id.txt doc/SECURITY-PARTIAL-ms.txt doc/SECURITY-PARTIAL-tr.txt
+DOCFILES += doc/SECURITY-PARTIAL-es.txt doc/SECURITY-PARTIAL-pt.txt doc/SECURITY-PARTIAL-fr.txt doc/SECURITY-PARTIAL-de.txt doc/SECURITY-PARTIAL-ru.txt doc/SECURITY-PARTIAL-it.txt
+DOCFILES += doc/SECURITY-PARTIAL-ar.txt doc/SECURITY-COVERAGE-r27.tsv doc/SECURITY-SOURCE-r27.json doc/SECURITY-TRANSLATION-NOTES-r27.txt
+
+.PHONY: check-security-docs-r27
+check-security-docs-r27:
+	$(PYTHON) tests/test_security_l10n_r27.py
+check-l10n-security: check-security-docs-r27
+
+# Current app-level terminal signal policy in ten localized references.
+DOCFILES += doc/USE-SIGNALS-en.txt doc/USE-SIGNALS-id.txt doc/USE-SIGNALS-ms.txt doc/USE-SIGNALS-tr.txt doc/USE-SIGNALS-es.txt doc/USE-SIGNALS-pt.txt doc/USE-SIGNALS-fr.txt doc/USE-SIGNALS-de.txt doc/USE-SIGNALS-ru.txt doc/USE-SIGNALS-it.txt doc/USE-SIGNALS-ar.txt
+
+# r29: complete drafts for history/logging, automatic commands, and key bindings.
+DOCFILES += doc/SECURITY-SECTION-LOG-en.txt doc/SECURITY-SECTION-LOG-id.txt doc/SECURITY-SECTION-LOG-ms.txt doc/SECURITY-SECTION-LOG-tr.txt doc/SECURITY-SECTION-LOG-es.txt doc/SECURITY-SECTION-LOG-pt.txt
+DOCFILES += doc/SECURITY-SECTION-LOG-fr.txt doc/SECURITY-SECTION-LOG-de.txt doc/SECURITY-SECTION-LOG-ru.txt doc/SECURITY-SECTION-LOG-it.txt doc/SECURITY-SECTION-LOG-ar.txt doc/SECURITY-SECTION-AUTO-en.txt
+DOCFILES += doc/SECURITY-SECTION-AUTO-id.txt doc/SECURITY-SECTION-AUTO-ms.txt doc/SECURITY-SECTION-AUTO-tr.txt doc/SECURITY-SECTION-AUTO-es.txt doc/SECURITY-SECTION-AUTO-pt.txt doc/SECURITY-SECTION-AUTO-fr.txt
+DOCFILES += doc/SECURITY-SECTION-AUTO-de.txt doc/SECURITY-SECTION-AUTO-ru.txt doc/SECURITY-SECTION-AUTO-it.txt doc/SECURITY-SECTION-AUTO-ar.txt doc/SECURITY-SECTION-KEYS-en.txt doc/SECURITY-SECTION-KEYS-id.txt
+DOCFILES += doc/SECURITY-SECTION-KEYS-ms.txt doc/SECURITY-SECTION-KEYS-tr.txt doc/SECURITY-SECTION-KEYS-es.txt doc/SECURITY-SECTION-KEYS-pt.txt doc/SECURITY-SECTION-KEYS-fr.txt doc/SECURITY-SECTION-KEYS-de.txt
+DOCFILES += doc/SECURITY-SECTION-KEYS-ru.txt doc/SECURITY-SECTION-KEYS-it.txt doc/SECURITY-SECTION-KEYS-ar.txt doc/SECURITY-COVERAGE-r29.tsv doc/SECURITY-SOURCE-r29.json doc/SECURITY-TRANSLATION-NOTES-r29.txt
+
+.PHONY: check-security-docs-r29
+check-security-docs-r29:
+	$(PYTHON) tests/test_security_l10n_r29.py
+check-l10n-security: check-security-docs-r29
+
+# Optional r30 source-linked security documentation (translation-only).
+DOCFILES += doc/SECURITY-SECTION-PROTOCOL-en.txt doc/SECURITY-SECTION-PROTOCOL-id.txt doc/SECURITY-SECTION-PROTOCOL-ms.txt doc/SECURITY-SECTION-PROTOCOL-tr.txt doc/SECURITY-SECTION-PROTOCOL-es.txt
+DOCFILES += doc/SECURITY-SECTION-PROTOCOL-pt.txt doc/SECURITY-SECTION-PROTOCOL-fr.txt doc/SECURITY-SECTION-PROTOCOL-de.txt doc/SECURITY-SECTION-PROTOCOL-ru.txt doc/SECURITY-SECTION-PROTOCOL-it.txt
+DOCFILES += doc/SECURITY-SECTION-PROTOCOL-ar.txt doc/SECURITY-SECTION-SESSIONS-en.txt doc/SECURITY-SECTION-SESSIONS-id.txt doc/SECURITY-SECTION-SESSIONS-ms.txt doc/SECURITY-SECTION-SESSIONS-tr.txt
+DOCFILES += doc/SECURITY-SECTION-SESSIONS-es.txt doc/SECURITY-SECTION-SESSIONS-pt.txt doc/SECURITY-SECTION-SESSIONS-fr.txt doc/SECURITY-SECTION-SESSIONS-de.txt doc/SECURITY-SECTION-SESSIONS-ru.txt
+DOCFILES += doc/SECURITY-SECTION-SESSIONS-it.txt doc/SECURITY-SECTION-SESSIONS-ar.txt doc/SECURITY-SECTION-BOUNCER-en.txt doc/SECURITY-SECTION-BOUNCER-id.txt doc/SECURITY-SECTION-BOUNCER-ms.txt
+DOCFILES += doc/SECURITY-SECTION-BOUNCER-tr.txt doc/SECURITY-SECTION-BOUNCER-es.txt doc/SECURITY-SECTION-BOUNCER-pt.txt doc/SECURITY-SECTION-BOUNCER-fr.txt doc/SECURITY-SECTION-BOUNCER-de.txt
+DOCFILES += doc/SECURITY-SECTION-BOUNCER-ru.txt doc/SECURITY-SECTION-BOUNCER-it.txt doc/SECURITY-SECTION-BOUNCER-ar.txt doc/SECURITY-SOURCE-r30.json doc/SECURITY-COVERAGE-r30.tsv
+DOCFILES += doc/SECURITY-TRANSLATION-NOTES-r30.txt
+
+.PHONY: check-security-docs-r30
+check-security-docs-r30:
+	$(PYTHON) tests/test_security_l10n_r30.py
+check-l10n-security: check-security-docs-r30
+
+# r31: complete source-linked security translations, optional install.
+DOCFILES += doc/SECURITY-SECTION-DCC-en.txt doc/SECURITY-SECTION-DCC-id.txt doc/SECURITY-SECTION-DCC-ms.txt doc/SECURITY-SECTION-DCC-tr.txt doc/SECURITY-SECTION-DCC-es.txt
+DOCFILES += doc/SECURITY-SECTION-DCC-pt.txt doc/SECURITY-SECTION-DCC-fr.txt doc/SECURITY-SECTION-DCC-de.txt doc/SECURITY-SECTION-DCC-ru.txt doc/SECURITY-SECTION-DCC-it.txt
+DOCFILES += doc/SECURITY-SECTION-DCC-ar.txt doc/SECURITY-SECTION-OFFLINE-en.txt doc/SECURITY-SECTION-OFFLINE-id.txt doc/SECURITY-SECTION-OFFLINE-ms.txt doc/SECURITY-SECTION-OFFLINE-tr.txt
+DOCFILES += doc/SECURITY-SECTION-OFFLINE-es.txt doc/SECURITY-SECTION-OFFLINE-pt.txt doc/SECURITY-SECTION-OFFLINE-fr.txt doc/SECURITY-SECTION-OFFLINE-de.txt doc/SECURITY-SECTION-OFFLINE-ru.txt
+DOCFILES += doc/SECURITY-SECTION-OFFLINE-it.txt doc/SECURITY-SECTION-OFFLINE-ar.txt doc/SECURITY-FULL-en.txt doc/SECURITY-FULL-id.txt doc/SECURITY-FULL-ms.txt
+DOCFILES += doc/SECURITY-FULL-tr.txt doc/SECURITY-FULL-es.txt doc/SECURITY-FULL-pt.txt doc/SECURITY-FULL-fr.txt doc/SECURITY-FULL-de.txt
+DOCFILES += doc/SECURITY-FULL-ru.txt doc/SECURITY-FULL-it.txt doc/SECURITY-FULL-ar.txt doc/SECURITY-SOURCE-r31.json doc/SECURITY-COVERAGE-r31.tsv
+DOCFILES += doc/SECURITY-TRANSLATION-NOTES-r31.txt doc/SECURITY-REVIEW-CHECKLIST-r31.txt
+
+.PHONY: check-security-docs-r31
+check-security-docs-r31:
+	$(PYTHON) tests/test_security_l10n_r31.py
+check-l10n-security: check-security-docs-r31
+
+# r33: catalog-to-source command-line diagnostics and executable smoke tests.
+check-cli-localization:
+	$(PYTHON) tests/test_cli_r38.py
+check-l10n-security: check-cli-localization
+
+# Optional r33 diagnostic/UI display inventory for redistributors.
+DOCFILES += doc/CLI-LOCALIZATION-r33.txt doc/CLI-LOCALIZATION-r33.tsv
+
+# r34 source-linked status translation and named-field safety checks.
+.PHONY: check-ui-localization-r34
+check-ui-localization-r34:
+	$(PYTHON) tests/test_ui_r34.py
+check-l10n-security: check-ui-localization-r34
+
+DOCFILES += doc/UI-LOCALIZATION-r34.txt doc/UI-LOCALIZATION-r34.tsv
+
+# r35: source-linked connection/settings diagnostics; original versions unchanged.
+.PHONY: check-ui-localization-r35
+check-ui-localization-r35:
+	$(PYTHON) tests/test_ui_r35.py
+check-l10n-security: check-ui-localization-r35
+DOCFILES += doc/UI-LOCALIZATION-r35.txt doc/UI-LOCALIZATION-r35.tsv doc/UI-LOCALIZATION-r35.json
+
+# r36: live display diagnostics, full-screen ncurses text, and command history.
+.PHONY: check-ui-localization-r36
+check-ui-localization-r36:
+	$(PYTHON) tests/test_ui_r36.py
+check-l10n-security: check-ui-localization-r36
+DOCFILES += doc/UI-LOCALIZATION-r36.txt doc/UI-LOCALIZATION-r36.tsv doc/UI-LOCALIZATION-r36.json
+
+# r37: Settings context help, full-screen statuses and literal dynamic data.
+.PHONY: check-ui-localization-r37
+check-ui-localization-r37:
+	$(PYTHON) tests/test_ui_r37.py
+	$(CC) $(CFLAGS) -DONEKEY_ONLY -std=c11 -Wall -Wextra -Werror -o tests/test_l10n_runtime_r37.bin tests/test_l10n_runtime_r37.c
+	./tests/test_l10n_runtime_r37.bin
+	rm -f tests/test_l10n_runtime_r37.bin
+check-l10n-security: check-ui-localization-r37
+DOCFILES += doc/UI-LOCALIZATION-r37.txt doc/UI-LOCALIZATION-r37.tsv doc/UI-LOCALIZATION-r37.json
+
+# r38: bounded literal statuses and setup help in ten locales.
+.PHONY: check-ui-localization-r38
+check-ui-localization-r38:
+	$(PYTHON) tests/test_ui_r38.py
+	$(CC) $(CFLAGS) -std=c11 -Wall -Wextra -Werror -o tests/test_l10n_runtime_r38.bin tests/test_l10n_runtime_r38.c
+	./tests/test_l10n_runtime_r38.bin
+	rm -f tests/test_l10n_runtime_r38.bin
+check-l10n-security: check-ui-localization-r38
+DOCFILES += doc/UI-LOCALIZATION-r38.txt doc/UI-LOCALIZATION-r38.tsv doc/UI-LOCALIZATION-r38.json
+
+# r39: new source-linked interface labels and literal connection status.
+.PHONY: check-ui-localization-r39
+check-ui-localization-r39:
+	$(PYTHON) tests/test_ui_r39.py
+	$(CC) $(CFLAGS) -std=c11 -Wall -Wextra -Werror -o tests/test_l10n_runtime_r39.bin tests/test_l10n_runtime_r39.c
+	./tests/test_l10n_runtime_r39.bin
+	rm -f tests/test_l10n_runtime_r39.bin
+check-l10n-security: check-ui-localization-r39
+DOCFILES += doc/UI-LOCALIZATION-r39.txt doc/UI-LOCALIZATION-r39.tsv doc/UI-LOCALIZATION-r39.json
+
+# r40: contextual interface messages and literal named fields.
+.PHONY: check-ui-localization-r40
+check-ui-localization-r40:
+	$(PYTHON) tests/test_ui_r40.py
+	$(CC) $(CFLAGS) -std=c11 -Wall -Wextra -Werror -o tests/test_l10n_runtime_r40.bin tests/test_l10n_runtime_r40.c
+	./tests/test_l10n_runtime_r40.bin
+	rm -f tests/test_l10n_runtime_r40.bin
+check-l10n-security: check-ui-localization-r40
+DOCFILES += doc/UI-LOCALIZATION-r40.txt doc/UI-LOCALIZATION-r40.tsv doc/UI-LOCALIZATION-r40.json
+
+# r41 command and context help translations.
+.PHONY: check-ui-localization-r41
+check-ui-localization-r41:
+	$(PYTHON) tests/test_ui_r41.py
+	$(CC) $(CFLAGS) -std=c11 -Wall -Wextra -Werror -o tests/test_l10n_runtime_r41.bin tests/test_l10n_runtime_r41.c
+	./tests/test_l10n_runtime_r41.bin
+	rm -f tests/test_l10n_runtime_r41.bin
+check-l10n-security: check-ui-localization-r41
+DOCFILES += doc/UI-LOCALIZATION-r41.txt doc/UI-LOCALIZATION-r41.tsv doc/UI-LOCALIZATION-r41.json
+
+# r42 context help and literal-field headings.
+.PHONY: check-ui-localization-r42
+check-ui-localization-r42:
+	$(PYTHON) tests/test_ui_r42.py
+	$(CC) $(CFLAGS) -std=c11 -Wall -Wextra -Werror -o tests/test_l10n_runtime_r42.bin tests/test_l10n_runtime_r42.c
+	./tests/test_l10n_runtime_r42.bin
+	rm -f tests/test_l10n_runtime_r42.bin
+check-l10n-security: check-ui-localization-r42
+DOCFILES += doc/UI-LOCALIZATION-r42.txt doc/UI-LOCALIZATION-r42.tsv doc/UI-LOCALIZATION-r42.json
+
+# r43: literal fields and source-linked context/help runtime translations.
+.PHONY: check-ui-localization-r43
+check-ui-localization-r43:
+	$(PYTHON) tests/test_ui_r43.py
+	$(CC) $(CFLAGS) -std=c11 -Wall -Wextra -Werror -o tests/test_l10n_runtime_r43.bin tests/test_l10n_runtime_r43.c
+	./tests/test_l10n_runtime_r43.bin
+	rm -f tests/test_l10n_runtime_r43.bin
+check-l10n-security: check-ui-localization-r43
+DOCFILES += doc/UI-LOCALIZATION-r43.txt doc/UI-LOCALIZATION-r43.tsv doc/UI-LOCALIZATION-r43.json
+
+# r44: runtime-linked help paragraphs and literal status fields.
+.PHONY: check-ui-localization-r44
+check-ui-localization-r44:
+	$(PYTHON) tests/test_ui_r44.py
+	$(CC) $(CFLAGS) -std=c11 -Wall -Wextra -Werror -o tests/test_l10n_runtime_r44.bin tests/test_l10n_runtime_r44.c
+	./tests/test_l10n_runtime_r44.bin
+	rm -f tests/test_l10n_runtime_r44.bin
+check-l10n-security: check-ui-localization-r44
+DOCFILES += doc/UI-LOCALIZATION-r44.txt doc/UI-LOCALIZATION-r44.tsv doc/UI-LOCALIZATION-r44.json
+
+# r45: translated summary and review notices, literal server fields.
+.PHONY: check-ui-localization-r45
+check-ui-localization-r45:
+	$(PYTHON) tests/test_ui_r45.py
+	$(CC) $(CFLAGS) -std=c11 -Wall -Wextra -Werror -o tests/test_l10n_runtime_r45.bin tests/test_l10n_runtime_r45.c
+	./tests/test_l10n_runtime_r45.bin
+	rm -f tests/test_l10n_runtime_r45.bin
+check-l10n-security: check-ui-localization-r45
+DOCFILES += doc/UI-LOCALIZATION-r45.txt doc/UI-LOCALIZATION-r45.tsv doc/UI-LOCALIZATION-r45.json
+
+# r46: DCC security notices and curses-free server/channel diagnostics.
+.PHONY: check-ui-localization-r46
+check-ui-localization-r46:
+	$(PYTHON) tests/test_ui_r46.py
+	$(PYTHON) tools/generate_localizations.py --check
+	$(CC) $(CFLAGS) -std=c11 -Wall -Wextra -Werror -Isrc -o tests/test_l10n_runtime_r46.bin tests/test_l10n_runtime_r46.c
+	./tests/test_l10n_runtime_r46.bin
+	rm -f tests/test_l10n_runtime_r46.bin
+check-l10n-security: check-ui-localization-r46
+DOCFILES += doc/UI-LOCALIZATION-r46.txt doc/UI-LOCALIZATION-r46.tsv doc/UI-LOCALIZATION-r46.json
+
+# r47: DCC picker/forms and shared authentication/bouncer status text.
+.PHONY: check-ui-localization-r47
+check-ui-localization-r47:
+	$(PYTHON) tests/test_ui_r47.py
+	$(PYTHON) tools/generate_localizations.py --check
+check-l10n-security: check-ui-localization-r47
+DOCFILES += doc/UI-LOCALIZATION-r47.txt doc/UI-LOCALIZATION-r47.tsv doc/UI-LOCALIZATION-r47.json
+
+.PHONY: check-l10n-runtime-r47
+check-l10n-runtime-r47:
+	$(CC) -D_POSIX_C_SOURCE=200809L -std=c11 -Wall -Wextra -Werror -Isrc -o tests/test_l10n_runtime_r47.bin tests/test_l10n_runtime_r47.c
+	./tests/test_l10n_runtime_r47.bin
+	rm -f tests/test_l10n_runtime_r47.bin
+check-l10n-security: check-l10n-runtime-r47
+
+# r48: command discovery strings in curses-free picker and help views.
+.PHONY: check-command-localization-r48
+check-command-localization-r48:
+	$(PYTHON) tests/test_command_l10n_r48.py
+	$(PYTHON) tests/test_setup_l10n_r48.py
+	$(CC) -D_POSIX_C_SOURCE=200809L -std=c11 -Wall -Wextra -Werror -Isrc -o tests/test_setup_l10n_r48.bin tests/test_setup_l10n_r48.c
+	./tests/test_setup_l10n_r48.bin
+	rm -f tests/test_setup_l10n_r48.bin
+	$(PYTHON) tools/generate_localizations.py --check
+	$(CC) -D_POSIX_C_SOURCE=200809L -std=c11 -Wall -Wextra -Werror -Isrc -o tests/test_command_l10n_r48.bin tests/test_command_l10n_r48.c
+	./tests/test_command_l10n_r48.bin
+	rm -f tests/test_command_l10n_r48.bin
+check-l10n-security: check-command-localization-r48
+DOCFILES += doc/COMMAND-LOCALIZATION-r48.txt doc/COMMAND-LOCALIZATION-r48.tsv doc/COMMAND-LOCALIZATION-r48.json
+
+DOCFILES += doc/SETUP-LOCALIZATION-r48.json doc/SETUP-LOCALIZATION-r48.txt
+
+# r49: translated user-facing setup/credential validation errors.
+.PHONY: check-setup-validation-r49
+check-setup-validation-r49:
+	$(PYTHON) tests/test_setup_validation_r49.py
+	$(PYTHON) tools/generate_localizations.py --check
+	$(CC) -D_POSIX_C_SOURCE=200809L -std=c11 -Wall -Wextra -Werror -Isrc -o tests/test_setup_validation_r49.bin tests/test_setup_validation_r49.c
+	./tests/test_setup_validation_r49.bin
+	rm -f tests/test_setup_validation_r49.bin
+check-l10n-security: check-setup-validation-r49
+DOCFILES += doc/SETUP-VALIDATION-r49.json doc/SETUP-VALIDATION-r49.txt doc/SETUP-VALIDATION-r49.tsv
+
+# r50: standalone user-facing guided setup error localization tests.
+.PHONY: check-setup-errors-r50
+check-setup-errors-r50:
+	$(PYTHON) tests/test_setup_errors_r50.py
+	$(PYTHON) tools/generate_localizations.py --check
+	$(CC) -D_POSIX_C_SOURCE=200809L -std=c11 -Wall -Wextra -Werror -Isrc -o tests/test_setup_errors_r50.bin tests/test_setup_errors_r50.c
+	./tests/test_setup_errors_r50.bin
+	rm -f tests/test_setup_errors_r50.bin
+check-l10n-security: check-setup-errors-r50
+DOCFILES += doc/SETUP-ERRORS-r50.json doc/SETUP-ERRORS-r50.txt doc/SETUP-ERRORS-r50.tsv
+
+# r51: fixed-string guided setup-help tests in ten locales.
+.PHONY: check-setup-help-r51
+check-setup-help-r51:
+	$(PYTHON) tests/test_setup_help_r51.py
+	$(PYTHON) tools/generate_localizations.py --check
+	$(CC) -D_POSIX_C_SOURCE=200809L -std=c11 -Wall -Wextra -Werror -Isrc -o tests/test_setup_help_r51.bin tests/test_setup_help_r51.c
+	./tests/test_setup_help_r51.bin
+	rm -f tests/test_setup_help_r51.bin
+check-l10n-security: check-setup-help-r51
+DOCFILES += doc/SETUP-HELP-r51.json doc/SETUP-HELP-r51.tsv doc/SETUP-HELP-r51.txt
+
+# r52: user-facing guided setup summaries; fixed-string and bounded field tests.
+.PHONY: check-setup-summaries-r52
+check-setup-summaries-r52:
+	$(PYTHON) tests/test_setup_summaries_r52.py
+	$(PYTHON) tools/generate_localizations.py --check
+	$(CC) -D_POSIX_C_SOURCE=200809L -std=c11 -Wall -Wextra -Werror -Isrc -o tests/test_setup_summaries_r52.bin tests/test_setup_summaries_r52.c
+	./tests/test_setup_summaries_r52.bin
+	rm -f tests/test_setup_summaries_r52.bin
+check-l10n-security: check-setup-summaries-r52
+DOCFILES += doc/SETUP-SUMMARIES-r52.json doc/SETUP-SUMMARIES-r52.tsv doc/SETUP-SUMMARIES-r52.txt
+
+# r53: guided FINISH review and encrypted-credential confirmation localization.
+.PHONY: check-finish-review-r53
+check-finish-review-r53:
+	$(PYTHON) tests/test_finish_review_r53.py
+	$(PYTHON) tools/generate_localizations.py --check
+	$(CC) -D_POSIX_C_SOURCE=200809L -std=c11 -Wall -Wextra -Werror -Isrc -o tests/test_finish_review_r53.bin tests/test_finish_review_r53.c
+	./tests/test_finish_review_r53.bin
+	rm -f tests/test_finish_review_r53.bin
+
+.PHONY: check-connection-l10n-r54
+check-connection-l10n-r54:
+	$(PYTHON) tools/generate_localizations.py --check
+	$(PYTHON) tests/test_connection_l10n_r54.py
+
+check-l10n-security: check-connection-l10n-r54
+
+# Optional language patch r69: formatted configuration and GPG failures.
+.PHONY: check-dynamic-diagnostic-l10n
+check-dynamic-diagnostic-l10n: build/.stamp
+	$(PYTHON) tools/generate_localizations.py --check
+	$(CC) $(CPPFLAGS) $(CFLAGS) -Isrc -o build/test_dynamic_diagnostic_l10n tests/test_dynamic_diagnostic_l10n.c
+	TEST_EXPECT_TRANSLATION= ./build/test_dynamic_diagnostic_l10n
+	for lang in id ms tr es pt fr de ru it ar; do ONEKEYIRC_LANG=$$lang TEST_EXPECT_TRANSLATION=1 ./build/test_dynamic_diagnostic_l10n || exit 1; done
+
+check-l10n-security: check-dynamic-diagnostic-l10n
+
+# Standalone compiled catalogs and numeric display dispatch, all locales.
+check-uncommon-numeric-l10n: build/.stamp
+	$(CC) $(CPPFLAGS) $(CFLAGS) -Isrc -o build/test_uncommon_numeric_l10n tests/test_uncommon_numeric_l10n.c
+	ONEKEYIRC_LANG=en VIPIRC_LANG=en build/test_uncommon_numeric_l10n
+	@set -e; for lang in id ms tr es pt fr de ru it ar; do ONEKEYIRC_LANG=$$lang VIPIRC_LANG=$$lang TEST_LOCALIZED=1 build/test_uncommon_numeric_l10n; done
+
+.PHONY: check-additional-interface-l10n
+check-additional-interface-l10n: build/.stamp
+	$(CC) $(CPPFLAGS) $(CFLAGS) -Isrc -o build/test_additional_interface_l10n tests/test_additional_interface_l10n.c
+	@set -e; for lang in en id ms tr es pt fr de ru it ar; do ONEKEYIRC_LANG=$$lang VIPIRC_LANG=$$lang build/test_additional_interface_l10n; done
+
+.PHONY: check-dialog-status-l10n
+check-dialog-status-l10n: build/.stamp
+	$(CC) $(CPPFLAGS) $(CFLAGS) -Isrc -o build/test_dialog_status_l10n tests/test_dialog_status_l10n.c
+	@set -e; for lang in en id ms tr es pt fr de ru it ar; do ONEKEYIRC_LANG=$$lang VIPIRC_LANG=$$lang build/test_dialog_status_l10n; done
+
+.PHONY: check-transfer-notice-l10n
+check-transfer-notice-l10n: build/.stamp
+	$(CC) $(CPPFLAGS) $(CFLAGS) -Isrc -o build/test_transfer_notice_l10n tests/test_transfer_notice_l10n.c
+	@set -e; for lang in en id ms tr es pt fr de ru it ar; do ONEKEYIRC_LANG=$$lang VIPIRC_LANG=$$lang build/test_transfer_notice_l10n; done
+
+.PHONY: check-connection-ui-l10n
+check-connection-ui-l10n: build/.stamp
+	$(CC) $(CPPFLAGS) $(CFLAGS) -Isrc -o build/test_connection_ui_l10n tests/test_connection_ui_l10n.c
+	@set -e; for lang in en id ms tr es pt fr de ru it ar; do ONEKEYIRC_LANG=$$lang VIPIRC_LANG=$$lang build/test_connection_ui_l10n; done
+
+.PHONY: check-auth-status-l10n
+check-auth-status-l10n: build/.stamp
+	$(CC) $(CPPFLAGS) $(CFLAGS) -Isrc -o build/test_auth_status_fields tests/test_auth_status_fields.c
+	$(CC) $(CPPFLAGS) $(CFLAGS) -DONEKEY_ONLY $(LDFLAGS) -Isrc -o build/test_auth_status_l10n tests/test_auth_status_l10n.c src/summary.c src/dcc.c src/idle_commands.c src/commands.c src/client.c src/app.c src/config.c src/autocommands.c src/protocol.c src/sim.c src/net.c src/credentials.c $(TLS_LIBS) $(DL_LIBS)
+	@set -e; for lang in en id ms tr es pt fr de ru it ar; do ONEKEYIRC_LANG=$$lang VIPIRC_LANG=$$lang build/test_auth_status_fields; ONEKEYIRC_LANG=$$lang VIPIRC_LANG=$$lang build/test_auth_status_l10n; done
+
+.PHONY: check-settings-path-l10n
+check-settings-path-l10n: build/.stamp
+	$(CC) $(CPPFLAGS) $(CFLAGS) -Isrc -o build/test_settings_path_fields tests/test_settings_path_fields.c
+	$(CC) $(CPPFLAGS) $(CFLAGS) -DONEKEY_ONLY $(LDFLAGS) -Isrc -o build/test_settings_path_l10n tests/test_settings_path_l10n.c src/summary.c src/dcc.c src/idle_commands.c src/commands.c src/client.c src/app.c src/config.c src/autocommands.c src/protocol.c src/sim.c src/net.c src/credentials.c $(TLS_LIBS) $(DL_LIBS)
+	@set -e; for lang in en id ms tr es pt fr de ru it ar; do ONEKEYIRC_LANG=$$lang VIPIRC_LANG=$$lang build/test_settings_path_fields; ONEKEYIRC_LANG=$$lang VIPIRC_LANG=$$lang build/test_settings_path_l10n; done
+
+.PHONY: check-conversation-reader-l10n
+check-conversation-reader-l10n: build/.stamp
+	$(CC) $(CPPFLAGS) $(CFLAGS) -Isrc -o build/test_conversation_reader_fields tests/test_conversation_reader_fields.c
+	$(CC) $(CPPFLAGS) $(CFLAGS) -DONEKEY_ONLY $(LDFLAGS) -Isrc -o build/test_conversation_reader_l10n tests/test_conversation_reader_l10n.c src/summary.c src/dcc.c src/idle_commands.c src/commands.c src/client.c src/app.c src/config.c src/autocommands.c src/protocol.c src/sim.c src/net.c src/credentials.c $(TLS_LIBS) $(DL_LIBS)
+	@set -e; for lang in en id ms tr es pt fr de ru it ar; do ONEKEYIRC_LANG=$$lang VIPIRC_LANG=$$lang build/test_conversation_reader_fields; ONEKEYIRC_LANG=$$lang VIPIRC_LANG=$$lang build/test_conversation_reader_l10n; done
+
+.PHONY: check-server-directory-reader-l10n
+check-server-directory-reader-l10n: build/.stamp
+	$(CC) $(CPPFLAGS) $(CFLAGS) -Isrc -o build/test_server_directory_reader_fields tests/test_server_directory_reader_fields.c
+	$(CC) $(CPPFLAGS) $(CFLAGS) -DONEKEY_ONLY $(LDFLAGS) -Isrc -o build/test_server_directory_reader_l10n tests/test_server_directory_reader_l10n.c src/summary.c src/dcc.c src/idle_commands.c src/commands.c src/client.c src/app.c src/config.c src/autocommands.c src/protocol.c src/sim.c src/net.c src/credentials.c $(TLS_LIBS) $(DL_LIBS)
+	@set -e; for lang in en id ms tr es pt fr de ru it ar; do ONEKEYIRC_LANG=$$lang VIPIRC_LANG=$$lang build/test_server_directory_reader_fields; ONEKEYIRC_LANG=$$lang VIPIRC_LANG=$$lang build/test_server_directory_reader_l10n; done
+
+.PHONY: check-hotkey-watch-reader-l10n
+check-hotkey-watch-reader-l10n: build/.stamp
+	$(CC) $(CPPFLAGS) $(CFLAGS) -Isrc -o build/test_hotkey_watch_reader_fields tests/test_hotkey_watch_reader_fields.c
+	$(CC) $(CPPFLAGS) $(CFLAGS) -DONEKEY_ONLY $(LDFLAGS) -Isrc -o build/test_hotkey_watch_reader_l10n tests/test_hotkey_watch_reader_l10n.c src/summary.c src/dcc.c src/idle_commands.c src/commands.c src/client.c src/app.c src/config.c src/autocommands.c src/protocol.c src/sim.c src/net.c src/credentials.c $(TLS_LIBS) $(DL_LIBS)
+	@set -e; for lang in en id ms tr es pt fr de ru it ar; do ONEKEYIRC_LANG=$$lang VIPIRC_LANG=$$lang build/test_hotkey_watch_reader_fields; ONEKEYIRC_LANG=$$lang VIPIRC_LANG=$$lang build/test_hotkey_watch_reader_l10n; done
+
+.PHONY: check-connection-bouncer-l10n
+check-connection-bouncer-l10n: build/.stamp
+	$(CC) $(CPPFLAGS) $(CFLAGS) -Isrc -o build/test_connection_bouncer_fields tests/test_connection_bouncer_fields.c
+	$(CC) $(CPPFLAGS) $(CFLAGS) -DONEKEY_ONLY $(LDFLAGS) -Isrc -o build/test_connection_bouncer_l10n tests/test_connection_bouncer_l10n.c src/summary.c src/dcc.c src/idle_commands.c src/commands.c src/client.c src/app.c src/config.c src/autocommands.c src/protocol.c src/sim.c src/net.c src/credentials.c $(TLS_LIBS) $(DL_LIBS)
+	@set -e; for lang in en id ms tr es pt fr de ru it ar; do ONEKEYIRC_LANG=$$lang VIPIRC_LANG=$$lang build/test_connection_bouncer_fields; ONEKEYIRC_LANG=$$lang VIPIRC_LANG=$$lang build/test_connection_bouncer_l10n; done
+
+.PHONY: check-indirect-diagnostic-l10n
+check-indirect-diagnostic-l10n: build/.stamp
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -Isrc -o build/test_indirect_diagnostic_l10n tests/test_indirect_diagnostic_l10n.c src/credentials.c src/config.c src/autocommands.c src/protocol.c
+	@ONEKEYIRC_LANG=en VIPIRC_LANG=en TEST_EXPECT_TRANSLATION= build/test_indirect_diagnostic_l10n
+	@set -e; for lang in id ms tr es pt fr de ru it ar; do ONEKEYIRC_LANG=$$lang VIPIRC_LANG=$$lang TEST_EXPECT_TRANSLATION=1 build/test_indirect_diagnostic_l10n; done
+
+.PHONY: check-config-number-l10n
+check-config-number-l10n: build/.stamp
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -Isrc -o build/test_config_number_l10n tests/test_config_number_l10n.c src/config.c src/autocommands.c src/protocol.c
+	@ONEKEYIRC_LANG=en VIPIRC_LANG=en TEST_EXPECT_TRANSLATION= build/test_config_number_l10n
+	@set -e; for lang in id ms tr es pt fr de ru it ar; do ONEKEYIRC_LANG=$$lang VIPIRC_LANG=$$lang TEST_EXPECT_TRANSLATION=1 build/test_config_number_l10n; done
+
+.PHONY: check-background-display-l10n
+check-background-display-l10n: build/.stamp
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -Isrc -o build/test_background_display_l10n tests/test_background_display_l10n.c src/config.c src/autocommands.c src/protocol.c
+	@ONEKEYIRC_LANG=en VIPIRC_LANG=en TEST_EXPECT_TRANSLATION= build/test_background_display_l10n
+	@set -e; for lang in id ms tr es pt fr de ru it ar; do ONEKEYIRC_LANG=$$lang VIPIRC_LANG=$$lang TEST_EXPECT_TRANSLATION=1 build/test_background_display_l10n; done
+
+.PHONY: check-context-reader-l10n
+CONTEXT_READER_TEST_SRC = $(CATCHUP_TEST_SRC:tests/test_idle_catchup.c=tests/test_context_reader_l10n.c)
+check-context-reader-l10n: build/.stamp
+	$(CC) $(CPPFLAGS) $(CFLAGS) -DONEKEY_ONLY $(LDFLAGS) -Isrc -o build/test_context_reader_l10n $(CONTEXT_READER_TEST_SRC) $(TLS_LIBS) $(DL_LIBS)
+	@ONEKEYIRC_LANG=en VIPIRC_LANG=en TEST_EXPECT_TRANSLATION= build/test_context_reader_l10n
+	@set -e; for lang in id ms tr es pt fr de ru it ar; do ONEKEYIRC_LANG=$$lang VIPIRC_LANG=$$lang TEST_EXPECT_TRANSLATION=1 build/test_context_reader_l10n; done
+
+.PHONY: check-milestone-notices-l10n
+check-milestone-notices-l10n: build/.stamp
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -Isrc -o build/test_milestone_notices_l10n tests/test_milestone_notices_l10n.c src/app.c src/autocommands.c src/sim.c src/protocol.c
+	@set -e; for lang in en id ms tr es pt fr de ru it ar; do ONEKEYIRC_LANG=$$lang VIPIRC_LANG=$$lang build/test_milestone_notices_l10n; done
+
+DOCFILES += doc/SETUP-CONTROL-LOCALIZATION-REVIEW.txt tests/test_setup_control_labels.py tests/setup-control-labels.json
+
+DOCFILES += doc/CONTEXT-CONTROL-LOCALIZATION-REVIEW.txt tests/test_context_control_labels.py tests/context-control-labels.json
+
+# Actual guided setup test in all ten locales and English.
+.PHONY: check-context-setup-app
+check-context-setup-app:
+	$(CC) $(CPPFLAGS) $(CFLAGS) -DONEKEY_ONLY $(LDFLAGS) -Isrc -Itests -o tests/test_context_setup_app.bin tests/test_context_setup_app.c src/commands.c src/idle_setup.c src/client.c src/app.c src/config.c src/autocommands.c src/protocol.c src/sim.c src/net.c src/credentials.c $(TLS_LIBS) $(DL_LIBS)
+	./tests/test_context_setup_app.bin
+	rm -f tests/test_context_setup_app.bin
+DOCFILES += tests/test_context_setup_app.c
+
+# Localization regression: real command handler with fake IRC transport and loopback DCC.
+check-dcc-command-l10n:
+	mkdir -p build
+	$(PYTHON) tools/generate_localizations.py --check
+	$(PYTHON) tools/test_named_fields.py
+	$(PYTHON) tests/test_dcc_validation_catalog.py
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(SESSION_CLI_DEFINES) -D_XOPEN_SOURCE=700 $(LDFLAGS) -Isrc -o build/test_dcc_command_confirmations tests/test_dcc_command_confirmations.c src/app.c src/autocommands.c src/sim.c src/protocol.c src/dcc.c src/dcc_commands.c
+	set -e; for l in en id ms tr es pt fr de ru it ar; do VIPIRC_LANG=$$l ONEKEYIRC_LANG=$$l ./build/test_dcc_command_confirmations; done
+
+# RC2: shared report and transport display fixture; no IRC connection required.
+SUMMARY_L10N_TEST_SRC = tests/test_summary_l10n.c src/summary.c src/dcc.c src/app.c src/config.c src/autocommands.c src/protocol.c src/sim.c src/net.c src/credentials.c
+check-summary-l10n: build/.stamp
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(SESSION_CLI_DEFINES) $(LDFLAGS) -Isrc -o build/test_summary_l10n $(SUMMARY_L10N_TEST_SRC) $(TLS_LIBS) $(DL_LIBS)
+	@set -e; for lang in en id ms tr es pt fr de ru it ar; do ONEKEYIRC_LANG=$$lang VIPIRC_LANG=$$lang ./build/test_summary_l10n; done
+.PHONY: check-summary-l10n
+
+check-transport-l10n: check-summary-l10n
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(SESSION_CLI_DEFINES) $(LDFLAGS) -Isrc -o build/test_transport_l10n tests/test_transport_l10n.c src/app.c src/autocommands.c src/sim.c src/protocol.c
+	@set -e; for lang in en id ms tr es pt fr de ru it ar; do ONEKEYIRC_LANG=$$lang VIPIRC_LANG=$$lang ./build/test_transport_l10n; done
+.PHONY: check-transport-l10n
+
+# RC3: literal lookup and named-template coverage, independent of terminal.
+.PHONY: check-runtime-catalog
+check-runtime-catalog:
+	$(PYTHON) tools/audit_runtime_catalog.py
+check-l10n: check-runtime-catalog
+DOCFILES += tools/audit_runtime_catalog.py
+
+.PHONY: check-literal-tokens
+check-literal-tokens:
+	$(PYTHON) tools/audit_literal_tokens.py
+check-l10n: check-literal-tokens

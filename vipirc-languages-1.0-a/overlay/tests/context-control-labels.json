@@ -1,0 +1,76 @@
+{
+  "Common is the default. Contextual prioritizes channel, query, server or client commands while retaining matching commands from other groups.": [
+    "Commonly used",
+    "Contextual"
+  ],
+  "Common uses a curated useful order. Contextual remembers the actual screen that opened command entry, including a client-wide summary reader.": [
+    "Commonly used",
+    "Contextual"
+  ],
+  "Enter yes or no for Use signals.": [
+    "Use signals"
+  ],
+  "The inherited terminal interrupt, quit, and suspend key assignments remain unchanged; Use signals = no disables their signal effects while the client is active.": [
+    "Use signals"
+  ],
+  "Use signals is off by default; Ctrl-C/Ctrl-Z cancel unsent text. Use /quit to exit.": [
+    "Use signals"
+  ],
+  "yes = terminal Ctrl-C interrupts and Ctrl-Z suspends; no (default) = cancel an unsent compose instead. Applies now in this terminal; Save retains it for later launches. External kill signals still work.": [
+    "Save"
+  ],
+  "Connection: {state}. Open visits channel 0 for this server. Connect starts its connection; Disconnect ends it while retaining its views. Close removes a secondary session and its drafts after confirmation. Away changes this server's away state.\n\nSelecting this entry or reading help does not switch servers or connect.": [
+    "Away",
+    "Close",
+    "Connect",
+    "Disconnect",
+    "Open"
+  ],
+  "Query opens a private conversation without sending. Whois asks the server for public nickname information. Ignore changes local filtering. Back returns to the conversation. Up/Down chooses an action; Enter activates it.": [
+    "Back",
+    "Ignore",
+    "Query",
+    "Whois"
+  ],
+  "R refreshes; Up/Down, Page Up/Page Down, Home/End scroll. Left/Right selects Refresh or Back. / opens a command prompt; cancelling it restores this snapshot. Escape returns to the originating screen.": [
+    "Back",
+    "Refresh"
+  ],
+  "Servers lists every current server session. Up/Down chooses a server; Left/Right chooses an action; Enter activates that action. Open selects its channel 0, which shows server notices, /list results and connection replies. The server list and /list are different: /list requests channel names from the selected network.": [
+    "Open",
+    "Servers"
+  ],
+  "These lists show views already open in the selected server session. Up/Down selects a view; Left/Right selects Open, New, Part or Close as appropriate; Enter performs the selected action. Channel 0 is the server. /cl and /channels show local channel views; /list [MASK] [OPTIONS] opens the sortable network channel directory. /ql shows private conversations.": [
+    "Close",
+    "New",
+    "Open",
+    "Part"
+  ],
+  "This is a private conversation. Open selects it without sending. Close discards its retained view and draft after any required confirmation.": [
+    "Close",
+    "Open"
+  ],
+  "{description}\n\nUnread messages: {unread}; mentions: {mentions}. Selecting Open visits this view. Help preserves the view's unread counts, history and draft.": [
+    "Open"
+  ],
+  "You are joined to this channel. Part leaves it but keeps its history and unfinished draft. Close removes the view.": [
+    "Close",
+    "Part"
+  ],
+  "You are not joined to this channel. The retained view keeps its scrollback and unfinished draft. Use /join to join again, or Close to remove it.": [
+    "Close"
+  ],
+  "Commonly used prioritizes common tasks for the live connection. Recent history lists retained commands. Most used ranks this configuration's saved command-name counts. Alphabetical sorts names. Contextual uses the screen that opened command entry. Down selects; Enter inserts for review. Delete forgets a history entry or resets a personal count. Apply uses the mode now; Save keeps the choice.": [
+    "Alphabetical",
+    "Apply",
+    "Commonly used",
+    "Contextual",
+    "Most used with this configuration",
+    "Recent history",
+    "Save"
+  ],
+  "[input] use_signals=false disables terminal-generated signals while this client owns the tty. true enables the existing terminal signal mappings. Apply takes effect now; Save persists this primary-owned preference.": [
+    "Apply",
+    "Save"
+  ]
+}

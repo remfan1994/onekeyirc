@@ -1,0 +1,25 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / GLOBAL HEADER AND CHAT CONTROLS
+English source SHA-256: cb80307ba98bc7df400c1362ee1848d1abb75e531c711c9ad421eda17beaed43
+Source lines: 407-458
+
+CABEÇALHO GLOBAL E CONTROLOS DE CONVERSA
+
+    F1 vipirc                Aplicação, definições, ajuda, About e licença.
+    F2 Servers (N)           Sessões de servidor configuradas ou retidas.
+    F3 Channels (N)          Canais retidos do servidor selecionado.
+    F4 Queries (N)           Conversas privadas do servidor selecionado.
+    F5 Mentions/unread (M/U) Menções retidas / conversas de origem não lidas.
+    F6 File transfers (N)    Transferências retidas em todos os servidores.
+
+Só aparecem categorias com conteúdo; vipirc está sempre disponível. Canais abandonados com histórico e registos de transferências concluídas continuam a contar. Os números fixos das teclas de função não mudam quando as categorias desaparecem. O atalho de uma categoria oculta não a cria; comandos explícitos de listagem ainda podem abrir listas vazias. TERM determina a interpretação das teclas; as teclas reservadas pelo terminal têm de chegar ao cliente. Sequências coladas nunca ativam atalhos.
+
+A conversa dispõe da sua própria linha abaixo do cabeçalho; o nick de uma conversa privada não substitui Queries. Cabeçalhos estreitos mantêm visível a categoria selecionada. Configurações > Interface > Rótulos de atalhos oculta os rótulos comuns F1..F6; as teclas não associadas continuam funcionais. Hints controla separadamente a orientação opcional. As duas preferências pertencem ao perfil principal e exigem Save para persistirem.
+
+As setas operam o conteúdo/editor e nunca a barra superior. Escape numa conversa privada abre Queries com essa conversa selecionada; noutras conversas abre vipirc; em painéis comuns restaura conversa/rascunho/cursor; Settings e a licença regressam a vipirc. F1 abre vipirc diretamente. Os diálogos de segurança e a captura de colagem tratam a entrada primeiro.
+
+No painel vipirc, b/Back regressa à conversa; Escape pergunta Really quit? [Y/N]. Apenas um novo y/Y confirma. As outras teclas normais cancelam; colagens, cliques e mudanças de tamanho não podem confirmar. Os sinais de interrupção/suspensão do terminal seguem TERMINAL SIGNALS.
+
+As listas partilham controlos: Up/Down ou k/j selecionam linhas, Left/Right ou h/l selecionam ações e Enter executa. Home/End ou g/G selecionam os extremos. Open é a ação inicialmente selecionada; mudar de linha mantém a ação escolhida. A seleção pára nos extremos. Linha e ação permanecem realçadas. Clique num item para o abrir ou na sua linha de ações para agir sobre a seleção. Delete invoca Close nas linhas de servidor/canal/conversa privada, com as proteções/confirmações habituais; nos editores apaga texto.
+
+As setas na conversa editam texto, hjkl são texto literal, Tab/Shift-Tab completam nicks, Page Up/Page Down percorrem o histórico e / na posição zero do cursor abre Command. Enter envia; /clearinput limpa todo o rascunho. O modo de rato também mostra Clear/Send por baixo do campo fixo. Ambos os caminhos de envio usam as mesmas verificações de mensagens. A colagem delimitada na conversa (bracketed paste) é literal: os tabuladores tornam-se espaços e colar nunca envia. Depois de terminar a colagem, teclas/cliques aguardam um ecrã completo visível, um lote posterior de entrada e um intervalo de inatividade. Manter as teclas premidas prolonga a espera. Quadros demasiado pequenos ou falhados não contam; redimensione, solte as teclas e só depois aja. Listas/leitores/diálogos de segurança ignoram a colagem. Os editores ativos de Command/Settings/transferências aceitam dados segundo as suas regras.

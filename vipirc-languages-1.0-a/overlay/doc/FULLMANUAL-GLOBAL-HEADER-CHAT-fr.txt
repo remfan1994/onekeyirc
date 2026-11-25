@@ -1,0 +1,25 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / GLOBAL HEADER AND CHAT CONTROLS
+English source SHA-256: cb80307ba98bc7df400c1362ee1848d1abb75e531c711c9ad421eda17beaed43
+Source lines: 407-458
+
+EN-TÊTE GLOBAL ET CONTRÔLES DU CHAT
+
+    F1 vipirc                Application, paramètres, aide, About et licence.
+    F2 Servers (N)           Sessions serveur configurées ou conservées.
+    F3 Channels (N)          Canaux conservés du serveur sélectionné.
+    F4 Queries (N)           Conversations privées du serveur sélectionné.
+    F5 Mentions/unread (M/U) Mentions conservées / conversations sources non lues.
+    F6 File transfers (N)    Transferts conservés sur tous les serveurs.
+
+Seules les catégories non vides apparaissent ; vipirc reste toujours présent. Les canaux quittés mais conservant un historique et les enregistrements de transferts terminés comptent encore. Les numéros fixes des touches de fonction ne se décalent pas lorsque des catégories disparaissent. Le raccourci d'une catégorie masquée ne la crée pas ; les commandes explicites de liste peuvent encore ouvrir des listes vides. TERM détermine le décodage des touches ; les touches réservées par le terminal doivent être transmises au client. Les séquences collées n'activent jamais les raccourcis.
+
+La conversation possède sa propre ligne sous l'en-tête ; le pseudonyme d'une conversation privée ne remplace pas Queries. Un en-tête étroit conserve la catégorie sélectionnée visible. Paramètres > Interface > Étiquettes des raccourcis masque les indications F1..F6 ordinaires ; les touches non associées continuent de fonctionner. Hints contrôle séparément les conseils facultatifs. Ces deux préférences appartiennent au profil principal et nécessitent Save pour être conservées.
+
+Les flèches agissent sur le contenu ou l'éditeur, jamais sur la barre supérieure. Escape depuis une conversation privée ouvre Queries avec celle-ci sélectionnée ; depuis un autre chat, ouvre vipirc ; depuis les panneaux ordinaires, restaure le chat/le brouillon/le curseur ; Settings et la licence reviennent à vipirc. F1 ouvre directement vipirc. Les dialogues de sécurité et la capture du collage traitent l'entrée en priorité.
+
+Dans le panneau vipirc, b/Back retourne au chat ; Escape demande Really quit? [Y/N]. Seule une nouvelle pression sur y/Y confirme. Les autres touches ordinaires annulent ; un collage, un clic ou un redimensionnement ne peuvent pas confirmer. Le comportement des signaux d'interruption et de suspension est décrit dans TERMINAL SIGNALS.
+
+Les listes partagent les mêmes contrôles : Up/Down ou k/j choisissent une ligne, Left/Right ou h/l une action, Enter l'exécute. Home/End ou g/G atteignent les extrémités. Open est l'action initiale ; changer de ligne conserve l'action sélectionnée. La sélection s'arrête aux extrémités. Ligne et action restent toutes deux surlignées. Cliquez sur un élément pour l'ouvrir ou sur sa ligne d'actions pour agir sur la sélection. Delete appelle Close sur les lignes serveur/canal/conversation privée, avec les protections et confirmations habituelles ; dans les éditeurs, il supprime du texte.
+
+Dans le chat, les flèches modifient le texte, hjkl reste du texte littéral, Tab/Shift-Tab complètent les pseudonymes, Page Up/Page Down parcourent l'historique, et / à la position zéro du curseur ouvre Command. Enter envoie ; /clearinput efface tout le brouillon. Le mode souris affiche aussi Clear/Send sous le champ fixe. Les deux voies d'envoi appliquent les mêmes contrôles. Le collage encadré (bracketed paste) est littéral : les tabulations deviennent des espaces et un collage n'envoie jamais. Après le collage, touches et clics attendent l'affichage d'un écran complet, un lot d'entrées ultérieur et un intervalle calme. Maintenir des touches enfoncées prolonge l'attente. Les images trop petites ou ratées ne comptent pas ; redimensionnez, relâchez les touches, puis agissez. Listes, lecteurs et dialogues de sécurité ignorent les collages. Les éditeurs actifs de Command/Settings/transferts acceptent les données selon leurs propres règles.

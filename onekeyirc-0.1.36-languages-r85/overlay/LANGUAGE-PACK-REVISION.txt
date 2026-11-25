@@ -1,7 +1,0 @@
-OPTIONAL LANGUAGE + ARABIC RTL PATCH REVISION: r85
-BASE APPLICATION VERSION: 0.1.36
-BASE SOURCE: English r1 (unchanged)
-PATCHED --version: onekeyirc 0.1.36 [lang-rtl-r85]
-2010 keys per locale (+2 new) in ten languages.
-Summary report label and interactive terminal requirement.
-Native-speaker and live OpenBSD/IRC validation remain outstanding.

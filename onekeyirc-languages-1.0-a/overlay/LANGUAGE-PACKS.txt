@@ -1,0 +1,177 @@
+LANGUAGE PACK 1.0-a FOR onekeyirc 1.0-a
+
+Language pack 1.0-a is optional; apply it to a clean English 1.0-a source tree before configuring or building. Do not layer packs.
+
+    tar -xzf onekeyirc-1.0-a.tar.gz
+    tar -xzf onekeyirc-languages-1.0-a.tar.gz
+    ONEKEYIRC_LANG=fr sh onekeyirc-languages-1.0-a/apply.sh onekeyirc-1.0-a
+    cd onekeyirc-1.0-a
+    ONEKEYIRC_LANG=fr ./configure && make
+    ONEKEYIRC_LANG=fr ./onekeyirc --version
+
+Expected translated build marker: `onekeyirc 1.0-a [lang-rtl-1.0-a]`. Without the optional pack, `--version` reports `onekeyirc 1.0-a` and interface text is English. Use a UTF-8 terminal; ONEKEYIRC_LANG selects the interface language. Restart detached workers to change their language. Supported locales: id, ms, tr, es, pt, fr, de, ru, it, ar. Command names, configuration keys and IRC protocol remain literal.
+
+This is the public alpha 1.0-a, based on RC4. Community translation review and platform testing are invited; this is not a final stable release. See `doc/ALPHA-STATUS.txt`, `doc/LOCALIZATION.md` and `CHANGELOG.md`.
+
+2148 keys per locale. Historical change notes follow; old installation instructions no longer apply.
+
+Optional localization r100: Localized configure messages and Unix manual pages for all ten languages. Updated the Arabic terminal guides.
+
+Optional localization r99: Translated all ten language-pack installer messages in ten languages. Use ONEKEYIRC_LANG to select the installer language.
+
+Optional localization r98: 2148 keys per locale (+5). Added offline-simulator, history-resize and credential-size diagnostics in all ten locales. Application version and protocol behavior unchanged. Apply to clean English r1.
+
+Optional localization r97: 2143 keys per locale (+15). Localized DCC command usage, missing-transfer errors, accept/reject/cancel confirmations, offline and connection restrictions, outgoing-offer results and unencrypted peer warnings. Command syntax, wire protocol, filenames, IDs, addresses, sizes and security checks are unchanged. Application version unchanged. Apply to clean English r1.
+
+Optional localization r96: 2128 keys per locale. Completed all fixed DCC parser and transfer-validation diagnostics; localized incoming-offer rejection reasons, transfer-list direction, states, progress and peer details. Existing DCC protocol, file access and security checks are unchanged. Application version unchanged. Apply to clean English r1.
+
+Optional localization r95: 2088 keys per locale. Localized retained DCC transfer failures and eight system-error templates, including command error output and retained transfer details. DCC protocol, permissions, transfer state and paths are unchanged. Application version unchanged. Apply to clean English r1.
+
+Optional localization r94: 2064 keys per locale. Localized the Use signals setup heading and selected command-suggestion summary; synchronized contextual help and corrected terminal-signal instructions. Application version unchanged. Apply to clean English r1.
+
+Optional localization r93: 2063 keys per locale. Synchronized guided setup and help instructions with localized controls; refined selected Italian, Indonesian, French and German terminology. Application version unchanged. Apply to clean English r1.
+
+Optional localization r92: 2063 keys per locale. Localized startup warning and key prompt; English fallback on non-UTF-8 terminals. Application version unchanged. Apply to clean English r1.
+
+Optional localization r91: 2062 keys per locale (no new keys). Post-milestone quality pass: French proofreading of shared authentication, bouncer, TLS and troubleshooting help. Application version unchanged. Apply to clean English r1.
+
+Optional localization r90: 2062 keys per locale (no new keys). Post-milestone quality pass: corrected menu terminology, fully localized pack README counts, current localization status and build-time named-field validation. Application version unchanged. Apply to clean English r1.
+
+Optional localization r89: 2062 keys per locale (+1). Post-milestone quality pass: localized version output, harmonized shared terminology. Application version unchanged. Apply to clean English r1.
+
+Optional localization r88: 2061 keys per locale (+14). Post-milestone quality pass: command-line help, guided empty-field indicator. Application version unchanged. Apply to clean English r1.
+
+Optional localization r87: 2047 keys per locale (+3). Post-milestone audit: presence acknowledgments, bare server errors and remaining settings/usage display paths. Application version unchanged. Apply to clean English r1.
+
+Optional localization r86: 2044 keys per locale (+34). Post-milestone audit: queue, disconnect, ignore-list, conversation and settings notices. Application version unchanged. Apply to clean English r1.
+
+Optional localization r85: 2010 keys per locale (+2). Summary report label and interactive terminal requirement. IRC commands and values remain literal. Apply to clean English r1 before configure/make. Application version unchanged.
+
+Optional localization r84: 2008 keys per locale (+6). Background startup, detach instructions, session-list server counts and nested filesystem diagnostics. Wire protocol and security checks are unchanged. Apply to clean English r1 before configure/make. Application version unchanged.
+
+Optional localization r83: 2002 keys per locale (+17). Numeric configuration diagnostics, field limits, GPG UID and permission-mode errors. Numeric values, config identifiers and paths remain literal. Apply to clean English r1 before configure/make. Application version unchanged.
+
+Optional localization r82: 1985 keys per locale (+26). GPG credential and encrypted-file diagnostics. Underlying security policy, filenames, OS error strings and credentials remain unchanged. Apply to clean English r1 before configure/make. Application version unchanged.
+
+Optional localization r81: 1959 keys per locale (+9). Connection argument validation, bouncer restrictions, invalid input, and mention clearing. Server names, topics, system errors and command tokens remain literal. Apply to clean English r1 before configure/make. Application version unchanged.
+
+Optional localization r80: 1950 keys per locale (+41). Hotkey descriptions, binding results, watch and ignore summaries, and server commands. Server names, topics, system errors and command tokens remain literal. Apply to clean English r1 before configure/make. Application version unchanged.
+
+Optional localization r79: 1909 keys per locale (+27). Server summaries, network directory counts, staged auto-join and profile save notices. Server names, topics, system errors and command tokens remain literal. Apply to clean English r1 before configure/make. Application version unchanged.
+
+Optional localization r78: 1882 keys per locale (+27). Conversation counts, roster headings, automatic command readers and parser errors. Command contents and channel keys remain hidden. IRC names and command tokens remain literal. Apply to clean English r1 before configure/make. Application version unchanged.
+
+Optional localization r77: 1855 keys per locale (+31). Credential path labels, settings command summaries and connection failures. Path bytes remain recoverable; settings and summary redact credential paths and contents. Literal configuration tokens remain unchanged. Apply to clean English r1 before configure/make. Application version unchanged.
+
+Optional localization r76: 1824 keys per locale (+32). Authentication, auto-join and presence command summaries. Credential contents remain redacted; only explicit auth inquiries show configured paths. Named fields preserve literal identifiers and messages. Apply to clean English r1 before configure/make. Application version unchanged.
+
+Optional localization r75: 1792 keys per locale (+6). Connection and command messages, directory filters and UI labels. Named fields preserve IRC identifiers and other literal values. Apply to clean English r1 before configure/make. Application version unchanged.
+
+Optional localization r74: 1786 keys per locale (+11). File transfer notices and channel directory display. IRC identifiers, wire commands and numeric fields remain literal. Apply to clean English r1 before configure/make. Application version unchanged.
+
+Optional localization r73: 1775 keys per locale (+13). Command cancellation, watch status, and interface dialogs where applicable; IRC commands and identifiers remain literal. Apply to clean English r1 before configure/make. Application version unchanged.
+
+Optional localization r72: 1762 keys per locale (+14). Additional interface and connection notices; literal protocol fields, secrets and commands are not translated. Apply to clean English r1 before configure/make. Application version unchanged.
+
+Optional localization r71: 1748 keys per locale (+22). Localized standard uncommon IRC numeric replies; literal server fields preserved and nonstandard forms fall back to generic display. Apply to clean English r1 before configure/make. Application version unchanged.
+
+Optional localization r70: 1726 keys per locale (+4). Localized ANSI composer byte counts, editor coordinates, stream history omission and setup labels. Apply to clean English r1 before configure/make; verify [lang-rtl-r70]. Application version unchanged.
+
+CURRENT LANGUAGE PACK r69 FOR onekeyirc-0.1.36
+1722 catalog keys per locale; 27 new formatted configuration and GPG diagnostic templates in 10 languages.
+The error-source code is unchanged; arbitrary OS details, file names, configuration syntax and IRC protocol bytes remain literal.
+Apply only to clean English r1 source using onekeyirc-0.1.36-languages-r69/apply.sh before building.
+Do not layer overlays; the application version is unchanged. Previous release notes below are historical.
+
+CURRENT LANGUAGE PACK r67 FOR onekeyirc-0.1.36
+1690 catalog keys per locale; 11 new numeric-error/channel-list templates. Apply only to clean English r1 source using onekeyirc-0.1.36-languages-r67/apply.sh before building. No patch layering; application version unchanged. Older notices below are historical.
+
+OPTIONAL LOCALIZATION UPDATE r66, onekeyirc-0.1.36 (application version unchanged).
+21 source-linked IRC numeric reply messages translated in ten language catalogs.
+WHOIS, channel list, topic metadata, account/mode, MOTD, server notices.
+Untrusted server text is inserted only as literal named fields; English fallback preserved.
+No changes to socket, protocol, configuration or credential operations.
+Install on clean English r1; verify [lang-rtl-r66].
+
+OPTIONAL LOCALIZATION UPDATE r65, onekeyirc-0.1.36 (application version unchanged).
+15 IRC conversation events translated into ten locale catalogs (1658 keys per language).
+JOIN, PART, QUIT, NICK, KICK, MODE, INVITE, TOPIC and CTCP are display-only.
+Server-supplied nicknames, channel names and reasons remain literal.
+Install onto clean English r1; verify [lang-rtl-r65] before testing.
+
+OPTIONAL LOCALIZATION UPDATE r64, onekeyirc-0.1.36 (application version unchanged).
+55 additional fixed configuration diagnostics translated in ten locale catalogs.
+Includes boolean option values, server profiles, automatic away,
+command-usage counters, UTF-8 constraints, and mode choices.
+Literal configuration keys and enumerated values stay unchanged.
+Real config_validate producer paths tested across 29 conditions.
+Display-only helper now bounds-checks short diagnostic strings.
+No changes to config.c, TLS, GPG, settings serialization, IRC protocol.
+Arabic terminal layout, vipirc ncurses, native speakers remain unverified.
+
+OPTIONAL LOCALIZATION UPDATE r63, onekeyirc-0.1.36 (application version unchanged).
+30 additional fixed configuration validation and security diagnostic strings
+are translated in ten language catalogs. Source validation, credential handling,
+TLS state, config grammar, GPG invocation and IRC protocol remain untouched.
+Six command-interface error call sites now display localized validation details.
+File paths, accepted option values, server messages and raw OS diagnostics
+remain unchanged. Source-linked tests cover 30 exact errors in all locales.
+Full vipirc ncurses and Arabic terminal review remain pending.
+
+OPTIONAL LOCALIZATION UPDATE r62, onekeyirc-0.1.36 (application unchanged).
+31 additional GPG/credential/private-file diagnostic keys per locale,
+310 new translated values in ten languages. Error display only: GPG
+invocation, keys, secret file access, permission checks, symlink policy,
+paths, raw OS details, IRC wire text and saved settings are unchanged.
+English source r1 and prior overlays remain unmodified. The translated
+files are new standalone source patches; never apply over another pack.
+Some credential and configuration error templates still need translation,
+full vipirc curses/Arabic geometry and native review remain outstanding.
+
+OPTIONAL LOCALIZATION UPDATE r61, onekeyirc-0.1.36 (application unchanged).
+14 source-linked safety/connection display messages, ten locales.
+11 fixed disconnect reasons, two local pending-chat safety notices,
+and one explicit user-disconnect reason. IRC commands, TLS decisions,
+SASL state, credential data, passwords, wire bytes and saved settings
+are unchanged. Full vipirc terminal and native quality tests pending.
+
+Optional language pack r60: network diagnostics and connection-state display (2026-11-23).
+37 source-controlled network error messages and 15 connection states,
+51 new catalog keys per locale in ten locales.
+Network TLS/certificate/retry/IPC decisions and raw OS, server and
+protocol information remain unchanged; translations occur at display.
+Native-speaker and vipirc curses terminal testing remain outstanding.
+
+Optional language pack r59: client profile and session errors (2026-11-23).
+18 new messages per language; 19 source-linked paths, including one existing key.
+Only displayed error descriptions changed: profile serialization, accepted
+commands, paths and IRC QUIT reasons remain literal and unchanged.
+No native-speaker or live OpenBSD terminal certification is claimed.
+
+Optional language pack r58: command-line guidance and persistent logging (2026-11-23).
+13 CLI help and 10 private logging diagnostic strings localized in ten languages.
+Exact CLI syntax, permissions, log file handling and network protocol unchanged.
+All remaining extended help and UI messages are not yet translated.
+
+Optional r57 command-line option-description localization (2026-11-23).
+The option names are fixed; the 23 descriptions, Usage, program synopsis,
+and command-line overview are translated in ten supported languages.
+onekeyirc help now documents ONEKEYIRC_LANG, not VIPIRC_LANG.
+Other prose paragraphs in --help and some diagnostics still need localization.
+
+Optional localized background resume, detach and close feedback: r56 (2026-11-23).
+Optional localization of private background-job registry, worker startup and session listing: r55 (2026-11-23).
+
+Optional connection and SASL diagnostics overlay: r54 (2026-11-23).
+FINISH review and credential creation display translations r53, clean English r1 only.
+Localized guided setup summaries r52, on clean English r1 only; never layer over r51.
+Standalone source-linked guided setup help localization r51 (application unchanged).
+Apply only to matching clean English r1; never layer over r50.
+Optional source-linked validation/error localization r50 for English r1 (app unchanged).
+Apply on clean r1 only; never layer over r49.
+Optional language and Arabic RTL patch r49 for onekeyirc-0.1.36 English source r1.
+Install on clean source r1 only, then run ./configure && make.
+Ten locales: id, ms, tr, es, pt, fr, de, ru, it, ar.
+Documentation and Arabic shaping require fluent and native terminal review.
+
+r48 follow-up: eight setup help explanations are now source-linked in all ten languages. The minimalist command picker uses its separate pretranslated native catalog.

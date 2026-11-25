@@ -1,0 +1,62 @@
+Guide pratique vipirc / onekeyirc - Configuration
+======================================================
+
+TRADUCTION PROVISOIRE. Tapez les commandes et options exactement comme indiqué.
+Pour la sécurité, consultez MANUAL.txt et SECURITY.md en anglais.
+
+/help configuration
+-------------------
+
+[connection] contient server, port, tls, nick, username, realname, channel, autoconnect, auth et les sources des identifiants.
+
+[bouncer] type=none|znc|soju, username, network, client et automatic_away définissent le profil bouncer par réseau; voir /help bouncers.
+
+[input] send_mode=direct|review et [output] format=compact|full, queue_notices=true|false, program_messages=true|false, persistent_logging=true|false sont des préférences du fichier principal.
+
+[input] command_suggestions=common|history|frequent|alphabetical|contextual définit le classement; common est le défaut.
+
+[input] composer_mode=line|fullscreen choisit la saisie et les commandes minimalistes; line est le défaut. Les deux montrent les messages récents.
+
+[input] use_signals=false désactive les signaux émis par le terminal tant que le client contrôle le tty. true active les affectations de signaux existantes. «Appliquer» prend effet immédiatement ; «Enregistrer» conserve ce réglage dans la configuration principale.
+
+[hotkeys] contient jusqu'à 64 raccourcis KEY=action facultatifs, sans défaut. Propriété du fichier principal ; voir /help hotkeys.
+
+[session] single_session=true|false permet ou non plusieurs tâches en arrière-plan; false par défaut.
+
+[session] default_interface=ncurses|idle est une préférence principale. Les options au démarrage sont expliquées plus bas.
+
+Le format compact est le défaut. history_lines dans le fichier principal règle la rétention sur tous les serveurs.
+
+[mentions] word= et [ignore] mask= peuvent être répétés.
+
+[autocommands] contient enabled, delay_seconds, interval_seconds et des lignes command= répétées pour un serveur.
+
+Ces commandes sont en clair dans le fichier privé. /autocommands les gère sans divulguer les secrets dans les listes ni l'historique.
+
+Les serveurs supplémentaires enregistrés utilisent le catalogue .servers et le répertoire .d voisins.
+
+Connectez-vous avec /connect HOST, puis /join #channel et /saveconf pour enregistrer votre configuration.
+
+/saveconf conserve préférences et profils sains et mémorise le serveur choisi pour un prochain /connect sans argument.
+
+/quickstart pose quatre questions de connexion. /panel utilise 0 pour les préférences, 1..8 pour les profils; 1 modifie le principal.
+
+Les changements du panneau restent privés avant «Terminer». Un chemin GPG accepté peut préparer un dossier 0700; chiffrement, sauvegarde et connexion attendent le choix final.
+
+Pour garder les changements : /save pour le serveur choisi, /save input ou /save output pour le principal, ou /saveconf pour les profils sains et le défaut.
+
+La configuration enregistrée utilise <config_path>.commands pour lire/écrire les compteurs de commandes; le fichier principal ne les stocke pas.
+
+Ce fichier privé borné ne stocke que noms canoniques et compteurs, sans arguments ni historique. Le mode test ne le lit ni ne l’écrit.
+
+Les changements [connection] préparés par /autojoin ou /autoauth s’appliquent au prochain /connect déconnecté, sans modifier la connexion active.
+
+Les fichiers de configuration sont privés; chaque fichier est remplacé atomiquement, pas tout l’espace en une transaction. Pas d’import/export.
+
+Sections, clés ou valeurs inconnues sont refusées. La configuration utilise des valeurs littérales, sans guillemets shell, échappements, variables ou ~.
+
+Les valeurs ordinaires sont élaguées aux extrémités. password= et server_password= gardent tout après = sauf la fin de ligne ; sans commentaires ni guillemets.
+
+Enregistrer réécrit les réglages pris en charge et remplace formatage/commentaires manuels. Gardez les notes ailleurs.
+
+Voir /help authentication pour secrets, /help tls pour CA, /help logging pour journaux et /help sessions pour tâches actives.

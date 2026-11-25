@@ -1,0 +1,24 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / SETTINGS
+English source SHA-256: 9c87d089b996a2f8af0ff0340f97da2bd4c3650e5fbc7816868f35b0df91ee05
+Source lines: 724-781
+
+AYARLAR
+
+F1 > Ayarlar veya /settings, mevcut sohbeti değiştirmeden arayüz ayarlarını, tüm sunucu profillerini ve New server seçeneğini açar. Satırlarda otomatik bağlanma ve kaydedilme durumu gösterilir. Sunucu alanları taşıma yöntemi, kimlik, otomatik kanala katılma ve otomatik bağlanma, hesap ile sunucu parolası (PASS) kaynakları, özel CA, bouncer türü/kullanıcı adı/ağ/istemci/otomatik uzakta durumu, geçmiş, bahsetmeler ve yok sayma kurallarını içerir. Arayüz bölümünde User list, Mouse, Hints, Shortcut labels, bildirimler, günlük tutma, tek oturum modu, komut önerileri ve varsayılan arayüz bulunur.
+
+    Edit    Apply    Save    Back    Cancel
+
+Up/Down veya k/j alanı; Left/Right veya h/l işlemi seçer; Enter işlemi gerçekleştirir. Home/End veya g/G listenin uçlarına gider. Edit bir mantıksal değeri değiştirir, seçim açar ya da metin/sayı düzenler. Düzenleyicide Enter yalnızca o değeri aşamaya alır; Tab/Shift-Tab ilerlemeden önce doğrular ve aşamaya alır. Geçersiz giriş düzenlenebilir durumda kalır. Düzenleyicideki harfler metin olarak girilir. Var olan watch/ignore alanını boşaltmak onu siler; Add sınırlar içinde yeni bir kayıt oluşturur.
+
+Apply, canlı tercihleri, watch/ignore listelerini ve otomatik bağlantıyı doğrulayıp uygular; ardından Edit seçiliyken Settings ekranında kalır. Bouncer kimliği dahil bağlantı alanları, bağlantı kesildikten sonra açıkça verilen Connect komutunu bekler. Apply asla kaydetmez, yeniden bağlanmaz veya etkin oturumu başka hedefe yönlendirmez. /nick, /join ve /part çalışan bağlantıyı etkiler. Save geçerli profili özel izinlerle ve atomik biçimde yazar, sonra uygular; /save bekleyen seçimleri de korur. İkincil sunucunun ilk Save işlemi onun yalıtılmış profilini ve katalog kaydını oluşturur.
+
+Interface Apply, mevcut ve gelecekteki tüm sunucu yuvalarını günceller. Interface Save, uygulamadan önce birincil yapılandırmayı yazar. Interface Save başarısız olur veya engellenirse tüm oturumlar değişmeden kalır. İkincil profilin arayüz anahtarları başlangıçta birincili geçersiz kılamaz. Tam modda geçmiş sunucu başına ayrıdır. Varsayılan arayüz seçimi yalnızca yeni başlatmaları etkiler.
+
+Hints, başlıkları, denetimleri, hataları ve güvenlik onaylarını koruyarak isteğe bağlı rehberliği gizler. Shortcut labels, olağan F1..F6 öneklerini gizler. İkisi de varsayılan olarak açıktır ve [interface] altında kaydedilir. Bu tercihler terminalin normal renklerinden ve odak için kalın yazı kullanımından bağımsızdır.
+
+Server değerini büyük/küçük harf farkı dışında farklı bir değere çevirmek, aşamadaki formdan devralınan kimlik doğrulamayı, auth user değerini, tüm hesap/PASS kaynaklarını ve autojoin ayarlarını siler. Bouncer türünü değiştirmek devralınan kimlik bilgilerini/komutları temizler; istenen değerleri yeniden girin. Etkin oturum değişmez. Düzenlerken dosyalar okunmaz veya şifresi çözülmez; satır içi düz metin parola alanları maskelenir ancak paroladaki boşluklar korunur. Transport, şifreli parola depolamadan bağımsız olarak doğrulanmış TLS ile açıkça seçilmiş düz metin arasında seçim yapar.
+
+Back, Settings ana sayfasına döner. Cancel/Escape, bir alanda veya açılır pencerede olsanız da formun tamamını kapatır, uygulanmamış değişiklikleri atar ve vipirc ekranına döner. Uygulanmış tercihler/bekleyen seçimler ve sohbet taslakları korunur. Test modu, bellekte Apply işlemine izin verir fakat Save işlemini reddeder. Settings üzerinden sunucu oluşturmak veya bağlanmak etkin sohbet seçimini korur.
+
+Köşeli ayraçlı yapıştırma (bracketed paste) yalnızca etkin alanda çalışır; onaylamadan metin ekler ve sekmeleri boşluğa dönüştürür. CR/LF/Escape ve desteklenmeyen denetim karakterleri reddedilir. Liste ve seçim pencerelerine yapıştırma yok sayılır. Metni gözden geçirin, sonra aşamaya almak için Enter tuşuna basın. /panel yönlendirmeli akışı MINIMALIST INTERFACE bölümünde açıklanan ayrı bir soru-cevap sürecidir.

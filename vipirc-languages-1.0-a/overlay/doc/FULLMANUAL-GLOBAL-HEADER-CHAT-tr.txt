@@ -1,0 +1,25 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / GLOBAL HEADER AND CHAT CONTROLS
+English source SHA-256: cb80307ba98bc7df400c1362ee1848d1abb75e531c711c9ad421eda17beaed43
+Source lines: 407-458
+
+GENEL ÜST ÇUBUK VE SOHBET DENETİMLERİ
+
+    F1 vipirc                Uygulama, ayarlar, yardım, About ve lisans.
+    F2 Servers (N)           Yapılandırılmış/saklanan sunucu oturumları.
+    F3 Channels (N)          Seçili sunucunun saklanan kanalları.
+    F4 Queries (N)           Seçili sunucunun özel konuşmaları.
+    F5 Mentions/unread (M/U) Saklanan anılmalar / okunmamış kaynak konuşmalar.
+    F6 File transfers (N)    Tüm sunuculardaki saklanan aktarımlar.
+
+Yalnızca içeriği olan kategoriler görünür; vipirc her zaman görünür. Geçmişi saklanan ayrılmış kanallar ve tamamlanmış dosya aktarımı kayıtları da sayılır. Kategoriler gizlenince sabit işlev tuşu numaraları kaymaz. Gizli kategorinin kısayolu onu oluşturmaz; açık liste komutları boş listeleri yine açabilir. Tuşların yorumlanmasını TERM belirler; terminalin ayırdığı tuşlar istemciye iletilmelidir. Yapıştırılan diziler kısayolları etkinleştirmez.
+
+Konuşmanın üst çubuğun altında kendi satırı vardır; sorgu takma adı Queries başlığının yerine geçmez. Dar üst çubuklar seçili kategoriyi görünür tutar. Ayarlar > Arayüz > Kısayol etiketleri sıradan F1..F6 etiketlerini gizler; atanmamış tuşlar çalışmaya devam eder. Hints isteğe bağlı yönlendirmeyi ayrıca kontrol eder. Her iki tercih de ana profile aittir ve kalıcı olması için Save gerekir.
+
+Ok tuşları üst çubuğu değil içerik alanını/düzenleyiciyi yönetir. Sorgudan Escape, o sorgu seçili olarak Queries ekranını açar; diğer sohbetlerden vipirc ekranını açar; sıradan panellerden sohbeti, taslağı ve imleci geri getirir; Settings ve lisans vipirc ekranına döner. F1 doğrudan vipirc açar. Güvenlik diyalogları ve yapıştırma yakalama önce girdiyi işler.
+
+vipirc panelinde b/Back sohbete döner; Escape, Really quit? [Y/N] sorusunu gösterir. Yalnızca o anda yeni basılan y/Y onaylar. Diğer normal tuşlar iptal eder; yapıştırma, tıklama ve boyut değiştirme onaylayamaz. Terminal kesme/askıya alma davranışı TERMINAL SIGNALS bölümündedir.
+
+Listelerde ortak denetimler kullanılır: Up/Down veya k/j satır seçer, Left/Right veya h/l eylem seçer, Enter uygular. Home/End veya g/G uçlara gider. İlk seçili eylem Open'dır; satır değişince seçili eylem korunur. Satır seçimi uçlarda durur. Satır ile eylem birlikte vurgulanır. Bir öğeye tıklamak onu açar; eylem satırına tıklamak seçime uygular. Delete, sunucu/kanal/sorgu satırlarında olağan korumalar ve onaylarla Close işlemini çağırır; düzenleyicide metin siler.
+
+Sohbette ok tuşları metni düzenler, hjkl düz yazıdır, Tab/Shift-Tab takma adları tamamlar, Page Up/Page Down geçmişte gezinir ve imleç sıfır konumundayken /, Command açar. Enter gönderir; /clearinput tüm taslağı temizler. Fare modunda sabit alanın altında Clear/Send de görünür. Her iki gönderme yolu aynı ileti denetimlerini kullanır. Köşeli ayraçlı sohbet yapıştırması düz metindir; sekmeler boşluğa dönüşür ve yapıştırma gönderemez. Yapıştırma sona erdiğinde tuşlar/tıklamalar tam görünür ekranı, sonraki giriş grubunu ve sakin bir aralığı bekler. Tuşları basılı tutmak beklemeyi uzatır. Çok küçük veya başarısız kareler sayılmaz; pencereyi yeniden boyutlandırın, tuşları bırakın, sonra işlem yapın. Listeler/okuyucular/güvenlik diyalogları yapıştırmayı yok sayar. Etkin Command/Settings/aktarım düzenleyicileri kendi kurallarına göre veri kabul eder.

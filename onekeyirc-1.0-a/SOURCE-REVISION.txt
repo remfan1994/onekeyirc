@@ -1,0 +1,5 @@
+APPLICATION VERSION: 1.0-a
+ENGLISH SOURCE REVISION: r1
+RELEASE STATUS: public alpha (not final stable 1.0)
+
+Promotes 1.0rc4 without new application features. Apply only the matching 1.0-a optional language pack to fresh unconfigured source. No IRC protocol, authentication or session-format changes.

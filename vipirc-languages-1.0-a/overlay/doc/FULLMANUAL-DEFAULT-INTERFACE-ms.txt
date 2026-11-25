@@ -1,0 +1,16 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / DEFAULT INTERFACE
+English source SHA-256: 9767b356dcf1c634d38900a5165f736d96e65c58251579e065cdfa4d44b92e3c
+
+ANTARA MUKA LALAI
+
+Untuk mengingati mod minimalis, jalankan dalam mana-mana antara muka:
+
+    /set default_interface idle
+    /save input
+
+Anda juga boleh memilih Tetapan > Antara muka > Antara muka lalai atau /panel > 0. Sebagai pilihan lain, letakkan default_interface=idle dalam seksyen [session] sedia ada bagi konfigurasi utama, tanpa membuang kekunci lain. Jika tidak ditetapkan, lalainya ncurses. Tetapan ini menentukan antara muka untuk pelancaran baharu termasuk --background; ia tidak mengubah antara muka semasa atau menyambung semula IRC.
+
+-i/--idle atau -N/--ncurses memilih antara muka bagi pelancaran ini; pilihan terakhir diguna pakai, dan menyimpan tetapan yang tidak berkaitan tidak menjadikannya kekal. -n/--nick dengan huruf kecil kekal sebagai pilihan nama samaran. Untuk memulihkan antara muka penuh sebagai lalai, gunakan /set default_interface ncurses dan /save input. Profil sekunder tidak memiliki pilihan ini.
+
+--resume tanpa pilihan antara muka mengekalkan antara muka proses sedia ada. -i --resume NUMBER meminta minimalis; -N --resume NUMBER meminta ncurses tanpa menyambung semula atau menggantikan proses pekerja. Proses lama yang tiada ciri pertukaran kekal dengan antara muka asal. Pertukaran membuang draf dan ingatan arahan khusus antara muka; lihat RUNNING IN THE BACKGROUND. onekeyirc sentiasa menggunakan antara muka minimalis dan menolak -N/--ncurses. dahulu.

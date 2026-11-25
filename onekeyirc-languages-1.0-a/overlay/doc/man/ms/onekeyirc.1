@@ -1,0 +1,2078 @@
+.TH ONEKEYIRC 1 "" "onekeyirc 1.0-a"
+.nh
+.ad l
+.SH NAME
+onekeyirc \- IRC terminal berasaskan arahan
+.SH SYNOPSIS
+.B onekeyirc
+[OPTION]...
+.br
+\&onekeyirc \- IRC terminal berasaskan arahan
+.br
+\&Bukan vegetarian? www.bloodguiltcurse.net akan mengubah fikiran anda
+.br
+\&onekeyirc bantuan perintah
+.br
+\&Lihat topik bantuan: /help ls.
+.br
+\&Senarai perintah: /help commands. Butiran: /help COMMAND.
+.br
+\&Sambungan pertama: /connect irc.example.org, kemudian /join #channel.
+.br
+\&Sembang peribadi: /query NICK atau /msg NICK TEXT.
+.br
+\&Persediaan berpandu: /quickstart atau /panel.
+.br
+\&Simpan tetapan: /saveconf. Simpanan tidak mengaktifkan autoconnect.
+.br
+\&Tukar paparan: /servers, /channels, /ql.
+.br
+\&Pilihan mula: /help autoconnect, /help autojoin, /help autoauth.
+.br
+\&Pulihkan sesi SSH: /help sessions.
+.br
+\&Panduan bouncer: /help bouncers.
+.br
+\&Tetapan dan kekunci pintas: /help configuration, /help hotkeys.
+.br
+\&Masalah dan keselamatan TLS: /help troubleshooting, /help security, /help tls.
+.br
+\&Sejarah dan log: /help history, /help logging.
+.br
+\&Pilih bahasa: /help language.
+.br
+\&Rujukan penuh: /help all atau /manual.
+.br
+\&Escape menutup pembaca; / membuka Perintah.
+.PP
+.SH "about"
+.br
+\&Aplikasi ThatIAm.vip (www.thatiam.vip), direka oleh remfan1994.
+.br
+\&Lesen: IALA (Insha\-Allah License Agreement); lihat teks lesen yang disertakan.
+.br
+\&Amaran pembukaan: Bukan vegetarian? www.bloodguiltcurse.net akan mengubah fikiran anda
+.br
+\&Sesi yang berjalan turut memaparkan peringatan setempat ini sekali apabila antara muka dipasang:
+.br
+\&Membunuh lembu ialah menumpahkan darah yang tidak bersalah. www.bloodguiltcurse.net \- haramkan daging lembu.
+.br
+\&Peringatan ini tiada soalan tambahan dan tidak dihantar ke IRC. Sambungan semula dan pemasangan semula antara muka tidak menetapkan semula penanda sekali bagi setiap proses pekerja.
+.PP
+.SH "aliases"
+.br
+\&Nama alias mesti tepat; tiada pelaksanaan kabur atau padanan anggaran.
+.br
+\&/conn = /connect; /disc = /disconnect; /detach = /background; /exit = /quit
+.br
+\&/j = /join; /leave = /part; /message dan /privmsg = /msg
+.br
+\&/nickname = /nick; /names dan /nicks = /users; /unaway = /back
+.br
+\&/channellist = /cl; /querylist = /ql; /serverlist = /servers
+.br
+\&/configure dan /preferences = /panel; /saveconfig = /saveconf
+.br
+\&/autocommand = /autocommands
+.br
+\&Pelengkapan mencadangkan nama rasmi; argumen dikekalkan dan tapisan sejarah rahsia tetap sama.
+.PP
+.SH "authentication"
+.br
+\&Gunakan TLS disahkan dengan /autoauth sasl USER file PATH atau /autoauth sasl USER gpg PATH.
+.br
+\&Fail kata laluan atau kandungan GPG yang dinyahsulit membekalkan kelayakan; laluan digunakan secara literal.
+.br
+\&Gunakan /panel untuk membuat kelayakan tersulit GPG bagi cap jari kunci awam setempat yang sedia ada.
+.br
+\&Gunakan kunci GPG yang sudah dibuka. pinentry tidak dijalankan dalam penyunting sembang.
+.br
+\&password= dan server_password= dalam teks biasa turut disokong dalam fail konfigurasi peribadi.
+.br
+\&Pilih satu sumber bagi setiap kelayakan. /settings dan /summary menyembunyikan lokasi fail.
+.br
+\&/autoauth status memaparkan lokasi fail kelayakan semasa dan tertangguh tanpa membaca fail atau menunjukkan kata laluan.
+.br
+\&Tetapan pengesahan berkuat kuasa pada /connect seterusnya selepas putus; /save menyimpannya.
+.br
+\&Dalam profil bouncer, urus log masuk dan sumbernya bersama melalui /panel; perubahan /autoauth ditolak.
+.br
+\&Fail kelayakan mesti fail biasa milik pengguna, mod 0600 atau 0400; pautan simbolik dan lintasan direktori induk ditolak.
+.br
+\&Had kelayakan SASL ialah 1024 bait; PASS pelayan biasa 503 bait. Log masuk ZNC gabungan juga mesti muat dalam satu baris IRC.
+.br
+\&\-\-check\-config menyemak konfigurasi dan sumber tanpa membaca kelayakan atau menguji log masuk. Lihat /help tls dan /help bouncers.
+.PP
+.SH "bouncers"
+.br
+\&Gunakan /panel, pilih pelayan, kemudian jenis sambungan znc atau soju.
+.br
+\&Masukkan nama hos dan port TLS bouncer, nama pengguna bouncer, nama rangkaian huluan sedia ada dan nama klien tetap pilihan.
+.br
+\&Simpan satu profil bagi setiap rangkaian huluan. Pilih profil betul sebelum /connect tanpa argumen jika nama hos sama.
+.br
+\&Klien membina identiti log masuk. ZNC memakai sumber kata laluan pelayan; soju memakai sumber pengesahan. Masukkan kata laluan bouncer sahaja, bukan identiti gabungan atau kata laluan NickServ.
+.br
+\&Bouncer memulihkan saluran disertai. /autojoin setempat tidak dimainkan semula dan tidak boleh diubah; gunakan /join dan /part.
+.br
+\&Arahan permulaan nyata masih dijalankan. Semak sebelum menghidupkan profil bouncer supaya arahan join atau servis tidak berulang tanpa sengaja.
+.br
+\&Away automatik semasa melahu/latar dimatikan bagi setiap profil bouncer kecuali dihidupkan. /away dan /back manual masih berfungsi.
+.br
+\&Sejarah yang dihantar menggunakan cap waktu UTC asal, menghala mesej peribadi kepada penerima dan tidak mencipta mention, melaksanakan CTCP/DCC atau mengubah keadaan aktif.
+.br
+\&Sejarah dihadkan. Tiada carian arkib atas permintaan, penemuan rangkaian automatik atau pembinaan profil automatik bagi setiap rangkaian.
+.br
+\&Guna /znc atau /soju tanpa argumen untuk bantuan perkhidmatan. Teks kawalan dikecualikan daripada sejarah dan gema; balasan dipapar pada pelayan tanpa log berterusan.
+.br
+\&Salinan kawalan keluar yang dikenali disekat walaupun ulang tayang memakai nama lama. Teks suntingan masih boleh muncul dan bouncer mengurus dasar log sendiri.
+.br
+\&Klien hanya bersambung ke bouncer. Tetapkan TLS, pengesahan dan penyimpanan sejarah huluan secara berasingan.
+.br
+\&Lihat doc/BOUNCERS.txt dan contoh bouncer dalam examples/ untuk persediaan dan had pengesahan yang direkodkan.
+.PP
+.SH "configuration"
+.br
+\&Fail konfigurasi lalai: $XDG_CONFIG_HOME/onekeyirc/config.ini; XDG_CONFIG_HOME mesti laluan mutlak.
+.br
+\&Apabila XDG_CONFIG_HOME tidak ditetapkan atau kosong: $HOME/.config/onekeyirc/config.ini. \-\-config FILE memilih fail lain.
+.br
+\&Jika fail lalai baharu tiada, 1keyirc/config.ini yang sedia ada di bawah direktori asas konfigurasi yang sama digunakan di tempat asalnya.
+.br
+\&Tetapan, katalog pelayan dan laluan kelayakan sedia ada tidak dipindahkan. Fail lalai onekeyirc diutamakan jika kedua\-duanya wujud.
+.br
+\&Fail lalai yang tidak selamat atau tidak boleh dibaca dilaporkan, bukannya memilih fail lain secara senyap. \-\-config FILE mengatasi pemilihan ini.
+.br
+\&[history] lines= menetapkan had sejarah perbualan yang dikekalkan. Konfigurasi tidak mengandungi pilihan [interface].
+.br
+\&[connection] mengandungi server, port, tls, nick, username, realname, channel, autoconnect, auth dan sumber kelayakan.
+.br
+\&[bouncer] type=none|znc|soju, username, network, client dan automatic_away menetapkan profil bouncer setiap rangkaian; lihat /help bouncers.
+.br
+\&[input] send_mode=direct|review dan [output] format=compact|full, queue_notices=true|false, program_messages=true|false, persistent_logging=true|false ialah keutamaan konfigurasi utama.
+.br
+\&[input] command_suggestions=common|history|frequent|alphabetical|contextual menentukan susunan arahan; lalai common.
+.br
+\&[input] composer_mode=line|fullscreen memilih susun atur editor/arahan minimalis; lalai line. Kedua\-duanya memaparkan mesej terkini.
+.br
+\&[input] use_signals=false mematikan isyarat yang dijana terminal semasa klien menguasai tty. true membolehkan pemetaan isyarat terminal sedia ada. «Guna» berkuat kuasa serta\-merta; «Simpan» menyimpan keutamaan milik konfigurasi utama ini.
+.br
+\&[hotkeys] mengandungi hingga 64 ikatan pilihan KEY=action tanpa tetapan lalai. Milik konfigurasi utama; lihat /help hotkeys.
+.br
+\&[session] single_session=true|false mengawal sama ada beberapa kerja latar dibenarkan; lalai false.
+.br
+\&[session] default_interface=ncurses|idle ialah keutamaan aplikasi utama. Pilihan permulaan diterangkan di bawah.
+.br
+\&Paparan compact ialah lalai. history_lines dalam konfigurasi utama mengawal sejarah yang disimpan merentas semua pelayan.
+.br
+\&[mentions] word= dan [ignore] mask= boleh diulang.
+.br
+\&[autocommands] mengandungi enabled, delay_seconds, interval_seconds dan baris command= berulang bagi satu pelayan.
+.br
+\&Arahan ini ialah teks biasa dalam konfigurasi peribadi. /autocommands menguruskannya tanpa membocor rahsia dalam senarai/sejarah.
+.br
+\&Pelayan tambahan yang disimpan menggunakan katalog .servers dan direktori .d bersebelahan.
+.br
+\&Sambung dengan /connect HOST, kemudian /join #channel dan /saveconf untuk menyimpan konfigurasi yang berfungsi.
+.br
+\&/saveconf menyimpan keutamaan dan profil pelayan yang sihat, serta mengingati pelayan dipilih untuk /connect tanpa argumen kelak.
+.br
+\&/quickstart bertanya empat soalan sambungan. /panel guna 0 untuk keutamaan dan 1..8 untuk profil; panel 1 mengubah profil utama.
+.br
+\&Suntingan panel kekal peribadi hingga «Selesai». Menerima destinasi GPG boleh menyediakan direktori 0700; penyulitan, simpanan dan sambungan tunggu pilihan akhir.
+.br
+\&Untuk kekal selepas mula semula: /save untuk pelayan dipilih, /save input atau /save output untuk profil utama, atau /saveconf untuk profil sihat serta lalai.
+.br
+\&Konfigurasi tersimpan menggunakan <config_path>.commands untuk bacaan/tulisan kiraan arahan sendiri; konfigurasi utama tidak menyimpan kiraan.
+.br
+\&Fail peribadi terhad ini hanya ada nama arahan kanonik dan kiraan, bukan argumen atau sejarah mesej. Mod ujian tidak membaca/menulisnya.
+.br
+\&Perubahan [connection] melalui /autojoin atau /autoauth berkuat kuasa pada /connect seterusnya ketika terputus; sambungan aktif tidak berubah.
+.br
+\&Fail konfigurasi adalah peribadi; setiap fail diganti secara atomik, bukan seluruh ruang kerja sebagai satu transaksi. Tiada import/eksport.
+.br
+\&Seksyen, kunci atau nilai tidak dikenali adalah ralat. Konfigurasi menggunakan nilai literal, bukan petikan shell, escape, pemboleh ubah atau ~.
+.br
+\&Nilai biasa dipangkas pada hujungnya. password= dan server_password= mengekalkan segala selepas = kecuali hujung baris; jangan tambah komen atau petikan.
+.br
+\&Simpan menulis semula tetapan disokong dan menggantikan format/komen tulisan tangan. Simpan nota di luar konfigurasi terjana.
+.br
+\&Lihat /help authentication untuk rahsia, /help tls untuk CA, /help logging untuk log cakera dan /help sessions untuk kawalan pekerja aktif.
+.br
+\&onekeyirc sentiasa menggunakan idle. Panel aplikasinya tidak memaparkan pemilihan antara muka; /set default_interface hanya menerima idle.
+.br
+\&Penghurai konfigurasi bersama mengekalkan mana\-mana nilai tersimpan yang dikenali. Nilai ncurses tersimpan tidak mengubah antara muka klien kendiri ini.
+.PP
+.SH "deployment"
+.br
+\&Gunakan \-\-background untuk memulakan sesi tanpa terminal atau menekan kekunci alu\-aluan.
+.br
+\&Tetapkan dan simpan /autoconnect on bagi setiap pelayan yang perlu bermula.
+.br
+\&\-\-background tidak menghidupkan autoconnect sendiri; \-\-no\-connect masih menghalang sambungan permulaan.
+.br
+\&Amaran biasa dicetak sekali sebelum terpisah daripada terminal. Berjaya bermakna tugas setempat wujud, bukan log masuk IRC berjaya.
+.br
+\&Dari terminal lain dengan akaun pengguna yang sama, gunakan \-\-sessions dan \-\-resume [NUMBER].
+.br
+\&\-\-sessions merangkumi tugas terpasang. \-\-detach\-session NUMBER melepaskan terminal tanpa memusnahkan tugas agar boleh disambung di tempat lain. \-\-close\-session NUMBER menamatkan tugas terpilih dan semua sambungan IRC.
+.br
+\&Gunakan ID tugas tersenarai, bukan PID. Pekerja tidak responsif atau versi lama tanpa kawalan yang diminta boleh gagal. Lihat /help sessions untuk pemulihan dan naik taraf.
+.br
+\&But semula VPS menamatkan tugas lama, draf dan sejarah RAM. Tugas permulaan OS boleh melancar klien baharu.
+.br
+\&Arahan OpenBSD dan contoh rc.d pilihan ada di doc/OPENBSD\-VPS.txt.
+.br
+\&Jalankan sebagai pengguna biasa dengan laluan konfigurasi dan kelayakan mutlak. Kunci GPG terkunci tidak boleh meminta input semasa but.
+.br
+\&\-\-check\-config menyemak tetapan, bukan akses kelayakan, DNS, TLS atau log masuk IRC.
+.br
+\&Gunakan \-\-reconnect untuk gangguan rangkaian sementara; pemantauan proses yang ranap ialah tugas OS berasingan.
+.br
+\&Pelancar mesti membenarkan anak ditunggu: SIGCHLD diabaikan atau penuaian anak automatik menggagalkan permulaan latar pertama, penciptaan penyelesai atau pembantu kelayakan. Pelepasan semula terurus tidak mencipta pekerja baharu.
+.PP
+.SH "documentation"
+.br
+\&Cari tugasan melalui /help ls; /help commands menerangkan cara memasukkan arahan dan menyenaraikan arahan tersedia. Gunakan satu topik atau nama arahan pada satu masa.
+.br
+\&/help COMMAND menunjukkan sintaks, kesan dan contoh. /help /ls menerangkan senarai setempat; /help ls menyenaraikan topik.
+.br
+\&/help all atau /manual membuka rujukan ini. \-\-help menerangkan pilihan permulaan; output \-\-manual dalam mod minimum boleh dihalakan ke fail.
+.br
+\&README.md memetakan panduan; MANUAL.txt menerangkan antara muka, INSTALL cara membina. Halaman man terpasang menerangkan penggunaan melalui shell.
+.br
+\&CONTRIBUTING.md menerangkan perubahan; doc/SOURCE\-MAP.txt menunjukkan kod; tests/README.md memetakan ujian. DESIGN.md merekod pemilikan dan turutan.
+.br
+\&doc/TROUBLESHOOTING.txt memberi semakan mengikut gejala. SECURITY.md menerangkan ancaman; doc/BOUNCERS.txt dan doc/SESSION\-CONTROLS.txt mengenai operasi. Audit hanya sah untuk versi dan persekitaran yang dinyatakan.
+.PP
+.SH "history"
+.br
+\&Sejarah paparan dan arahan terhad dalam RAM. Log kekal adalah pilihan dan dimatikan secara lalai.
+.br
+\&Menukar paparan mengulang rekod terkininya; /mentions mengulang baris sumber yang sepadan.
+.br
+\&Tetapan sejarah aplikasi mengehadkan jumlah rekod semua pelayan/paparan; sunting melalui /panel, kemudian 0.
+.br
+\&Pengekalan dihadkan kepada nilai lebih kecil antara tetapan itu dan 2048 rekod, dengan had bait mutlak berasingan 512 KiB.
+.br
+\&/catchup dalam saluran atau perbualan peribadi bermula pada mesej gubahan terakhir yang dihantar setempat. Ia mencuba log peribadi yang layak, kemudian memori tersimpan; /help catchup menerangkan kedua\-dua pembaca.
+.br
+\&Pemulihan kekal berasingan bagi setiap pelayan dan perbualan. Log mesti sudah aktif semasa mesej rujukan dihantar; ia transkrip teks biasa peribadi, maksimum 16 MiB setiap profil tersimpan, tanpa penyulitan.
+.br
+\&Sejarah arahan mengekalkan paling banyak 64 entri dan 64 KiB serta membuang yang tertua. /clear mengosongkan sejarah perbualan, bukan sejarah arahan.
+.br
+\&Cadangan Sejarah terkini menggunakan baris lengkap ini. Delete membuang baris sejarah terpilih.
+.br
+\&Cadangan Paling kerap menggunakan paling banyak 96 nama arahan baku dan kiraan terhad dalam <config_path>.commands.
+.br
+\&Bagi konfigurasi tersimpan, arahan diterima dan penetapan semula kekerapan mengemas kini fail peribadi itu secara automatik. Argumen, sasaran dan mesej tidak disimpan di dalamnya.
+.br
+\&Profil belum tersimpan mengekalkan kiraan dalam memori sehingga Simpan pertama berjaya. Fail kiraan hilang atau tidak boleh digunakan tidak menghalang permulaan.
+.br
+\&Bantuan dan respons arahan berbilang baris menggunakan pembaca berasingan dengan penimbal terhad 512 KiB. Ia tidak menjadi sejarah perbualan.
+.br
+\&Arahan diterima boleh dipanggil semula dalam penyunting arahan. Perubahan pengesahan, penyertaan berkunci dan mesej perkhidmatan sensitif dikecualikan.
+.br
+\&Up/Down dalam Compose menggerakkan kursor, bukan mengingat sembang dihantar. Hanya arahan diterima diingat dalam Command.
+.br
+\&Lepas/sambung pada antara muka sama mengekalkan draf dan sejarah arahan. Penukaran antara muka, jika disokong, membuang kedua\-duanya serta borang; keluar/reboot turut menghapus perbualan dalam memori dan rujukan catch\-up.
+.br
+\&Kiraan kekerapan tersimpan hanya mengandungi nama. Log teks biasa lama kekal selepas keluar tetapi tidak diimport automatik ke sesi baharu atau penyunting.
+.br
+\&/clear memadam sejarah RAM paparan, bukan transkrip lama di cakera. Ulangan bouncer dibekalkan oleh bouncer.
+.br
+\&Had sejarah aplikasi lalai ialah 100 rekod.
+.PP
+.SH "hotkeys"
+.br
+\&Klien ini menyunting ikatan kekunci melalui arahan; /bindings menyenaraikan jadual semasa.
+.br
+\&Ikatan kekunci tersuai adalah pilihan dan kosong secara lalai. Navigasi dan editor asal masih berfungsi.
+.br
+\&Gunakan /bindings untuk senarai, /bindings keys untuk kekunci dan /bindings actions untuk fungsi setempat.
+.br
+\&Tetapkan melalui /bind KEY ACTION; tetapkan semula untuk mengganti. Buang dengan /unbind KEY atau /unbind all.
+.br
+\&Perubahan terus terpakai pada semua pelayan; /save input menyimpan pada konfigurasi utama. Profil tambahan tidak mengatasi jadual ini.
+.br
+\&Format [hotkeys] diikuti satu KEY=action setiap baris, sehingga 64. Kekunci pendua termasuk alias terminal ialah ralat.
+.br
+\&Tindakan tersuai hanya di sembang utama dan prompt arahan, bukan kata laluan, persediaan, tampalan, pembaca atau pengesahan.
+.br
+\&Dalam mod minimum, pembaca mengekalkan draf dan kursor. Pintasan pengalih paparan/editor menolak draf berisi; habiskan atau padam dahulu.
+.br
+\&Tiada tindakan hantar, arahan bebas, kod shell atau makro teks. Latar dan keluar kekal dengan fungsi asal.
+.br
+\&Tersedia F1..F12, Ctrl\-A..Z, Alt\-a..z/0..9 dan kekunci navigasi; aksara boleh cetak kekal teks.
+.br
+\&Ctrl\-H/Backspace, Ctrl\-I/Tab, Ctrl\-J/Ctrl\-M/Enter dan Ctrl\-[/Escape berkongsi bait; tidak boleh diikat berasingan.
+.br
+\&Isyarat dan pintasan terminal/pemultipleks diutamakan. Ctrl\-C atau Ctrl\-Z hanya jika bait sampai; tiada pemetaan semula kekunci.
+.br
+\&Tampalan berbingkai yang dikenal pasti tidak menjalankan pintasan. Tampalan biasa menyerupai menaip; lihat /help keys.
+.PP
+.SH "keys"
+.br
+\&Log: / membuka Arahan; ? menerangkan log perbualan/pantauan terpilih. Kekunci cetak lain membuka Tulis mesej dengan aksara itu dikekalkan.
+.br
+\&Ikatan tersuai boleh menggantikan kawalan ini dalam perbualan utama/Arahan; tiada yang ditetapkan secara lalai. Lihat /help hotkeys.
+.br
+\&Log langsung: Up mundur satu baris, Page Up satu halaman, Home ke halaman tersimpan tertua. Down/Page Down/End kekal langsung; Left/Right/Delete/Backspace tidak membuka Tulis mesej.
+.br
+\&Insert atau Enter membuka Tulis mesej kosong. Anak panah, Home/End, Delete dan Backspace menyunting teks. Tab/Shift\-Tab melengkapkan nama samaran dalam Tulis mesej dan nama arahan dalam Arahan.
+.br
+\&Mod penggubah sebaris mengekalkan satu baris input di bawah ekor log langsung; skrin penuh menggunakan penyunting berbilang baris dengan panel log langsung lebih kecil.
+.br
+\&Dalam Arahan, Down memilih cadangan. Up/Down bergerak antara cadangan; Up dari yang pertama kembali ke input.
+.br
+\&Enter pada cadangan memasukkannya tanpa menjalankan. Baca/sunting, kemudian tekan Enter berasingan selepas paparan untuk menjalankan.
+.br
+\&Dalam Arahan, Up memanggil sejarah diterima yang sepadan; Down kembali ke arah input asal. Dalam Tulis mesej, Up/Down menggerakkan kursor, termasuk semasa ditahan; Enter menghantar.
+.br
+\&Delete membuang baris Sejarah terkini terpilih atau menetapkan semula kiraan Paling kerap terpilih. Arahan katalog tetap tersedia.
+.br
+\&? pada arahan terpilih menerangkannya dan memautkan bantuan skrin arahan. Dalam semua penyunting teks, ? ialah teks biasa.
+.br
+\&Semakan memakai skrin alternatif sementara; draf/gesaannya tidak masuk sejarah perbualan. Enter baharu mengesahkan; Escape atau menaip memulihkan penyunting/draf/kursor. Layari dengan Up/Down, Page Up/Down dan Home/End.
+.br
+\&Dalam bantuan/respons, Up/Down menatal; Page Up/Down menukar halaman; Home/End ke awal/akhir.
+.br
+\&Dalam senarai pengguna, Enter kembali ke log; pembaca bantuan dan respons lain menggunakan Enter untuk menatal satu baris.
+.br
+\&Dalam pembaca, / membuka Arahan dengan pelengkapan/sejarah biasa. Escape membatalkan gesaan itu dan kembali ke pembaca.
+.br
+\&Dalam pembaca ringkasan, r menyegarkan petikan; ? menerangkan respons dan pembacanya.
+.br
+\&Dalam bantuan konteks, Enter mengikuti pautan Perihal skrin yang diserlahkan. Escape kembali ke bantuan item, kemudian ke skrin asal yang tepat.
+.br
+\&Dalam persediaan, Tab memilih tajuk soalan; ? menerangkan pilihan/skrinnya. Tab/Enter kembali menyunting jawapan.
+.br
+\&Menjalankan arahan menggantikan respons terdahulu. Pengesahan ringkas kembali ke log; ralat ringkas membolehkan arahan terus disunting.
+.br
+\&Escape membatalkan penyunting Tulis mesej/Arahan ke log. Dari Semakan, Escape kembali ke penyunting tanpa membuang draf. Escape pada log meletakkan klien di latar belakang.
+.br
+\&Escape tunggal menunggu kira\-kira 500 ms; jujukan berjalan membenarkan 1000 ms antara bait sambungan. Rangkaian terus berjalan.
+.br
+\&Jujukan kekunci lengkap diproses segera. Penanda awal tampal yang tertunda selepas Escape pertamanya melebihi tempoh itu boleh meletakkan klien di latar belakang.
+.br
+\&Selepas tangkapan tampal bermula, penanda akhirnya tetap dikenali walaupun bacaan terpisah dan tertunda selama apa pun.
+.br
+\&Pemetaan kekunci terminal bagi sampukan, keluar dan gantung tidak diubah; «Guna isyarat» = no menyahaktifkan kesan isyaratnya semasa klien aktif.
+.br
+\&[input] use_signals=false No (lalai) menyahaktifkan isyarat terminal semasa aplikasi mengawal terminal; Ctrl\-C/Ctrl\-Z membatalkan draf. Yes menggunakan pemetaan isyarat terminal sedia ada tanpa mengubah kekunci. Isyarat proses luaran masih berfungsi ([input] use_signals=true).
+.br
+\&Isyarat terminal aktif menamatkan atau menggantung selepas memulihkan terminal; fg menyambung semula tugas tergantung.
+.br
+\&Ctrl\-D tidak berfungsi kecuali diikat dalam perbualan utama/Arahan. /quit keluar; /background melepaskan terminal sementara rangkaian terus berjalan.
+.br
+\&Skrin rutin tidak mengulangi petua kekunci; topik ini kekal sebagai rujukan papan kekunci lengkap.
+.br
+\&Tampalan berbingkai yang dikenali kekal literal. Kekunci menunggu penyunting kelihatan, input baharu dan jeda. Bingkai kecil/gagal tidak boleh meluluskannya; ubah saiz dan lepaskan kekunci tertahan.
+.br
+\&Tampalan pada log pantauan membuka Tulis mesej dengan garis condong literal. Tampalan dalam Arahan kekal di situ; CR/LF/Tab menjadi ruang. Semak, kemudian tekan Enter baharu.
+.br
+\&Tampalan tanpa bingkai tidak dapat dibezakan daripada menaip; gunakan sokongan tampalan berbingkai.
+.PP
+.SH "limits"
+.br
+\&Had IRC dikira dalam bait, bukan bilangan aksara dipaparkan. Aksara UTF\-8 boleh menggunakan lebih daripada satu bait.
+.br
+\&Klien mengira ruang mesej termasuk sasaran, arahan dan lebihan geganti; ia tidak memotong aksara UTF\-8.
+.br
+\&Pada had satu mesej, teks tambahan disekat sehingga Enter mengesahkan sambung menyunting; Enter itu tidak menghantar.
+.br
+\&Mesej berbilang bahagian tetap perlu izin berasingan sebelum dibariskan, walaupun mod terus. Sembang dihantar satu baris setiap 1.2 saat.
+.br
+\&Satu rancangan hantar terhad kepada 64 mesej dan 16384 bait teks. Ringkaskan teks atau hantar berasingan dengan sengaja.
+.br
+\&Maksimum 8 slot pelayan dan 32 paparan bagi setiap pelayan, termasuk paparan simpanan.
+.PP
+.SH "logging"
+.br
+\&Log berterusan pilihan dan dimatikan secara lalai. /set persistent_logging on menghidupkan; /save output menyimpan pilihan.
+.br
+\&Setiap profil pelayan tersimpan menambah CONFIG_PATH.log. Direktori induk terakhir mesti milik pengguna, mod 0700; fail mesti biasa, milik pengguna, satu pautan dan tepat 0600. Symlink dan rentasan induk ditolak.
+.br
+\&Log ialah plaintext, bukan sandaran tersulit. Had 16 MiB setiap fail; ralat menutup log tetapi sembang diteruskan.
+.br
+\&Arkibkan log penuh di luar laluan aktif, kemudian matikan/hidupkan log. Putaran atau penulisan semula boleh membatalkan penanda /catchup; hantar mesej layak baharu sebelum bergantung padanya.
+.br
+\&Kelayakan yang dikenal dan draf belum dihantar dikecualikan, termasuk pengesahan berulang memakai nama lama. Sembang biasa, format khidmat tak dikenal dan rahsia ditaip boleh direkod. Simpanan pelayan/bouncer berasingan.
+.br
+\&/catchup hanya guna log sihat apabila penanda setempat tepat dirakam sepanjang proses ini. Ia tidak meminta arkib bouncer atau mengimport log lama selepas mula semula.
+.br
+\&/clear hanya mengosongkan RAM. Log kekal selepas keluar, \-\-close\-session atau simpan. Mematikan log menghentikan rekod baharu, bukan memadam rekod lama.
+.br
+\&I/O cakera boleh melambatkan proses pada storan perlahan. Lihat /help catchup, /help history dan SECURITY.md.
+.PP
+.SH "messages"
+.br
+\&Gunakan /join #channel untuk menyertai dan memilih saluran, atau /query NICK untuk membuka perbualan peribadi.
+.br
+\&Pilih saluran tersimpan dengan /channel. /msg TARGET TEXT menghantar ke destinasi khusus; /me TEXT menghantar tindakan.
+.br
+\&/query membuka perbualan tanpa menghantar; /pm ialah alias. /ql mengasingkan perbualan peribadi daripada saluran.
+.br
+\&Penghantaran terus ialah lalai; /set send_mode review menambah semakan. /set composer_mode line|fullscreen mengubah paparan.
+.br
+\&Apabila had satu mesej dicapai, sahkan untuk terus menyunting; pemecahan mesej tetap memerlukan izin berasingan.
+.br
+\&Penyertaan dan pengesahan mesti selesai sebelum mesej boleh dibariskan. /cancel membatalkan barisan, bukan mesej terkirim.
+.PP
+.SH "reconnect"
+.br
+\&\-\-reconnect membolehkan percubaan semula untuk proses ini; ia tidak menyimpan tetapan atau memulakan sambungan.
+.br
+\&Tanpa pilihan ini, sambungan gagal memerlukan /connect. /autoconnect hanya untuk permulaan.
+.br
+\&Masalah DNS sementara, sambungan ditolak/terputus dan tamat masa pelayan dicuba semula selepas 5, 10, 20, 40, 80, 160 lalu 300 saat.
+.br
+\&Sambungan berdaftar sekurang\-kurangnya 60 saat menetapkan semula sela. Pengundian tidak menggunakan tidur yang menyekat.
+.br
+\&Ralat sijil, pengesahan, protokol rosak dan konfigurasi kekal terputus sehingga dibetulkan.
+.br
+\&ERROR pelayan sebelum pendaftaran dikekalkan; selepas pendaftaran ia boleh mencetuskan sambungan semula.
+.br
+\&/disconnect secara jelas membatalkan cubaan tertangguh. /connect kemudian memulakan cubaan baharu.
+.br
+\&Cubaan semula menggunakan tetapan sambungan semasa; suntingan tertangguh tetap memerlukan /connect.
+.br
+\&Mesej tertunda dibuang apabila terputus dan tidak dihantar semula secara automatik.
+.br
+\&Pengesahan dan perintah mula berulang. Profil langsung menjalankan autojoin selepas pendaftaran; bouncer memulihkan salurannya sendiri.
+.br
+\&Mod ujian luar talian tidak pernah menyambung semula ke rangkaian.
+.PP
+.SH "security"
+.br
+\&Teks jauh ditapis sebelum dipaparkan pada terminal. Input diproses sebagai arahan IRC setempat, bukan arahan shell.
+.br
+\&Tiada /raw, pelarian shell atau penerimaan fail automatik. Tampalan bracketed yang dikenali tidak menghantar arahan.
+.br
+\&TLS mengesahkan identiti pelayan. SASL, PASS dan arahan pengesahan peribadi yang dikenali memerlukan TLS disahkan. Kemas kini pustaka TLS sistem; lihat SECURITY.md.
+.br
+\&Bundel CA tersuai mesti fail PEM biasa yang tidak kosong, paling besar 16 MiB, tanpa gesaan kata laluan.
+.br
+\&Kata laluan yang ditetapkan disembunyikan daripada bantuan/tetapan. Arahan kelayakan yang dikenali tidak disimpan untuk panggil semula; rahsia ditaip sebagai teks biasa mungkin kekal.
+.br
+\&Transkrip perbualan tidak disimpan pada cakera secara lalai. Perubahan konfigurasi mesti disimpan secara nyata.
+.br
+\&Proses lain di bawah akaun sama, pelayan IRC atau bouncer, serta terminal atau sistem yang diceroboh berada di luar perlindungan ini. TLS bukan penyulitan sembang hujung\-ke\-hujung.
+.br
+\&Log pilihan dan rahsia dalam konfigurasi ialah teks biasa. Arahan sensitif yang diketahui ditapis, tetapi rahsia bebas dalam sembang tidak dapat dikenal pasti dengan pasti.
+.br
+\&Lihat /help tls, /help authentication, /help logging dan SECURITY.md bagi had perlindungan dan sejarah audit.
+.PP
+.SH "sessions"
+.br
+\&Satu kerja ialah proses klien dengan semua pelayan, pemindahan, draf dan sejarahnya. Nombor pelayan dalam aplikasi bukan ID kerja shell.
+.br
+\&Daripada shell jalankan \-\-sessions. Semak status terpasang/tertanggal dan gunakan ID kerja, bukannya ID proses.
+.br
+\&Jika terminal SSH lama masih memegang sesi, jalankan \-\-detach\-session NUMBER kemudian \-\-resume NUMBER. IRC terus berjalan.
+.br
+\&\-\-resume tanpa nombor hanya memilih satu kerja terpisah yang disahkan. Beberapa kerja memerlukan nombor; kerja yang terlampir sibuk sehingga dipisahkan. Nombor boleh digunakan semula.
+.br
+\&Gunakan \-\-close\-session NUMBER hanya untuk menamatkan seluruh kerja. Semua sambungan IRC dan pemindahan ditutup; draf serta sejarah RAM hilang. Konfigurasi dan log tersimpan kekal.
+.br
+\&Penutupan berjaya hanya selepas pembersihan disahkan. Jika tamat masa, semak \-\-sessions: tugas mungkin selesai kemudian. Kegagalan tidak memadam endpoint aktif atau memberi isyarat kepada PID tekaan.
+.br
+\&Hanya kerja terurus kekal selepas terminal hilang. Proses biasa di latar depan tidak boleh disambung semula selepas SSH terputus. Mulakan dengan \-\-background atau gunakan /background dahulu.
+.br
+\&Kerja milik akaun Unix dan hos yang sama, dengan satu terminal terlampir pada satu masa. Program lain di bawah akaun itu berada dalam sempadan kepercayaan sama.
+.br
+\&Memasang fail boleh laksana baharu tidak mengganti kod proses yang sedang berjalan. Simpan konfigurasi, hentikan yang lama, semak \-\-version dan mulakan proses baharu.
+.br
+\&Kerja lama mungkin tiada kawalan atau pertukaran antara muka terkini. Kekalkan boleh laksana yang serasi sehingga dihentikan jika masih perlu dilampirkan.
+.br
+\&Klien tidak mengubah dasar tamat masa lengah SSH. Lihat /help background, /help deployment dan doc/SESSION\-CONTROLS.txt.
+.PP
+.SH "startup"
+.br
+\&Jalankan program, tutup skrin alu\-aluan, kemudian taip /connect irc.example.org dan /join #channel.
+.br
+\&Tidak perlu cipta profil pelayan, alias atau nombor dahulu. /server HOST ialah alias bagi sambungan terus.
+.br
+\&Jika nama samaran tidak diberi, nama log masuk sistem yang sah digunakan, atau user sebagai pilihan ganti. Tiada gesaan nama samaran.
+.br
+\&Gunakan /saveconf untuk menyimpan konfigurasi dan pilihan lalai. Pada pelancaran seterusnya, /connect menggunakannya.
+.br
+\&Menyimpan tidak menghidupkan sambung automatik; itu pilihan berasingan. /quickstart dan /panel ialah panduan pilihan.
+.br
+\&Pilihan shell juga boleh digunakan: \-\-server HOST, \-\-channel '#CHANNEL' dan \-\-nick NICK. Petik #CHANNEL dalam shell.
+.br
+\&Ketika mula biasa, \-\-nick, \-\-port, \-\-channel, \-\-tls, \-\-plain dan \-\-ca\-file mengatasi pilihan lalai tersimpan.
+.br
+\&\-\-server yang dinyatakan memilih sambungan pertama. \-\-init\-config dan \-\-check\-config menggunakan fail konfigurasi utama.
+.br
+\&Menukar \-\-server kepada hos lain membuang kelayakan hos lama, CA khas, identiti bouncer, saluran dan arahan mula.
+.br
+\&Jika pilihan lalai tersimpan tiada, nyatakan \-\-server atau baikinya sebelum mengatasi pilihan sambungan.
+.br
+\&Autoconnect, autojoin dan autoauth adalah khusus bagi setiap profil pelayan tersimpan. Lihat /help autoconnect.
+.br
+\&\-\-no\-connect menghalang sambungan permulaan; \-\-test\-mode mensimulasi aktiviti tanpa rangkaian atau menulis konfigurasi.
+.br
+\&\-\-sessions menyenaraikan tugas terpasang dan terpisah. \-\-resume [NUMBER] menyambung semula; lihat /help background.
+.br
+\&\-\-close\-session NUMBER menutup seluruh tugas dipilih dan semua sambungan IRC selepas penyelesaian disahkan. NUMBER ialah ID tugas, bukan PID.
+.br
+\&Selepas terminal terputus, guna \-\-sessions, kemudian \-\-detach\-session NUMBER dan \-\-resume NUMBER. Pekerja masih guna kod lama sehingga dimulakan semula; lihat /help sessions.
+.br
+\&\-h/\-\-help dan \-v/\-\-version berfungsi tanpa terminal.
+.br
+\&onekeyirc sentiasa menggunakan idle. Panel aplikasinya tidak memaparkan pemilihan antara muka; /set default_interface hanya menerima idle.
+.br
+\&Penghurai konfigurasi bersama mengekalkan mana\-mana nilai tersimpan yang dikenali. Nilai ncurses tersimpan tidak mengubah antara muka klien kendiri ini.
+.br
+\&Dari shell: onekeyirc \-\-sessions; onekeyirc \-\-detach\-session NUMBER; onekeyirc \-\-resume NUMBER; onekeyirc \-\-close\-session NUMBER.
+.br
+\&onekeyirc \-\-manual mencetak seluruh manual ini.
+.PP
+.SH "tls"
+.br
+\&TLS disahkan digunakan secara lalai. Nama hos/alamat dan rantaian sijil mesti sah; tiada pintasan atau undur ke plaintext.
+.br
+\&Nombor port tidak mematikan TLS. \-\-plain atau /connect \-plain memilih IRC tanpa penyulitan dan tidak boleh guna kelayakan akaun/pelayan.
+.br
+\&Gunakan nama hos dan port TLS tepat daripada penyedia. Kegagalan mungkin titik hujung salah, sijil tamat/tidak dipercayai atau amanah setempat; semak ralat dahulu.
+.br
+\&Secara lalai TLS menggunakan stor amanah sistem. \-\-ca\-file FILE atau ca_file= memilih himpunan CA PEM khas, bukan mengepin sijil hujung.
+.br
+\&Himpunan CA khusus mesti fail biasa yang tidak kosong, maksimum 16 MiB. Pautan simbolik ke fail CA dibenar; laluan rahsia/konfigurasi lebih ketat.
+.br
+\&Fail CA dibuka sekali, dihadkan dan saiz disemak ketika dibaca. FIFO, peranti dan input bukan fail ditolak; PEM berkata laluan tidak boleh meminta input.
+.br
+\&Had saiz fail tidak mengehadkan kependaman I/O fail biasa atau sistem fail rangkaian. Gunakan himpunan CA dipercayai pada storan sesuai.
+.br
+\&\-\-check\-config tidak menguji sambungan TLS atau membuktikan fail CA dan sumber kelayakan berfungsi. \-\-test\-mode tidak menghubungi pelayan.
+.br
+\&TLS hanya melindungi sambungan ini. TLS huluan dan sejarah plaintext bouncer diurus secara berasingan.
+.PP
+.SH "troubleshooting"
+.br
+\&Sibuk selepas SSH putus? Jalankan \-\-sessions, semak kerja, kemudian \-\-detach\-session NUMBER dan \-\-resume NUMBER. Elakkan \-\-close\-session. See /help sessions.
+.br
+\&Up tidak memanggil semula teks: Compose menyunting mesej; Command memanggil semula arahan diterima. Buka Command dengan / dari log. Sembang dihantar dan arahan sensitif bukan sejarah panggil semula.
+.br
+\&Jika mesej berbalut nampak terpotong, paparan input menempah baris untuk editor dan menunjukkan baris terkini. Keluar editor atau pilih saluran semula; paparan bukan bukti penerimaan jauh.
+.br
+\&Jika pertukaran saluran menunjukkan teks penuh, bezanya pada paparan. Jika masalah berterusan, catat antara muka, mod, saiz terminal, locale dan langkah selamat tanpa kata laluan atau sembang peribadi.
+.br
+\&Tiada saluran? Semak paparan pelayan dan pengesahan. Profil terus guna /autojoin list; bouncer memulihkan saluran; guna /join atau /part.
+.br
+\&Pengesahan gagal? Semak akaun, sumber kelayakan, izin fail, TLS dan ejen GPG. /autoauth status tidak membaca rahsia.
+.br
+\&Catch\-up tidak tersedia: penanda mungkin terbuang, logging bermula kemudian atau terhenti, atau fail berubah. Lihat /help catchup dan /help logging; log tidak menghidupkan kerja mati.
+.br
+\&Tetapan tidak berkesan? Perubahan sambungan perlu /connect selepas putus. Menyimpan tidak mengaktifkan autoconnect; pilihan pelancaran perlu mula semula.
+.br
+\&Jika pelancaran proses bantuan gagal, betulkan dasar SIGCHLD atau pungutan anak automatik pelancar supaya klien boleh menunggu proses anaknya.
+.br
+\&Gunakan \-\-check\-config dan doc/TROUBLESHOOTING.txt. \-\-test\-mode hanya menguji antara muka, bukan DNS, TLS, kelayakan atau bouncer sebenar.
+.PP
+.SH "Sistem perintah"
+.br
+\&Tekan / pada log untuk membuka Arahan; garis condong pembuka sudah dimasukkan. Enter semasa fokus pada input menjalankan arahan yang disunting; Escape membatalkannya.
+.br
+\&Sintaks: /COMMAND ARGUMENTS. Nama tidak membezakan huruf besar/kecil; gunakan kata pilihan yang dipaparkan. Perkataan HURUF BESAR (UPPERCASE) ialah ruang letak, [items] pilihan, dan | bermaksud pilih satu alternatif.
+.br
+\&Masukkan satu arahan pada satu masa. Ruang memisahkan argumen; tiada petikan, pengembangan atau rantaian arahan shell. Pilihan pelancaran shell digunakan di luar penyunting ini.
+.br
+\&TEXT dan PATH kelayakan menggunakan baki baris secara literal, termasuk ruang. Untuk menampal /command lengkap, buang dahulu garis condong praisi; baris baharu yang ditampal menjadi ruang, bukan arahan berasingan.
+.br
+\&Home/End/Delete/Backspace menyunting. Tab/Shift\-Tab melengkapkan nama arahan; Up dari input memanggil semula sejarah yang diterima.
+.br
+\&Down memilih cadangan; Enter memasukkan arahan terpilih untuk disunting. Enter berasingan selepas paparan menjalankannya.
+.br
+\&Pilih Lazim, Sejarah terkini, Paling kerap dengan konfigurasi ini, Mengikut abjad atau Mengikut konteks dalam Tetapan aplikasi.
+.br
+\&Lazim menggunakan susunan berguna yang dipilih khas. Mengikut konteks mengingati skrin sebenar yang membuka input arahan. Padanan awalan lain tetap tersedia.
+.br
+\&? pada cadangan terpilih membuka bantuan item dan skrin. Dalam input, ia kekal teks biasa.
+.br
+\&Delete membuang entri terkini terpilih atau menetapkan semula kiraan kekerapan peribadi; ia tidak pernah membuang arahan katalog.
+.br
+\&Hanya arahan selamat yang diterima masuk ke sejarah dalam memori yang terhad. Arahan kata laluan/perkhidmatan dan penyertaan berkunci dikecualikan.
+.br
+\&Arahan dengan argumen tidak dijangka gagal tanpa melakukan tindakan yang diminta. Bantuan menunjukkan sintaks, kesan dan contoh.
+.br
+\&Arahan mesej membentuk pelan penghantaran. Mod hantar dan pengesahan wajib berbilang mesej terpakai sebelum dimasukkan ke baris gilir.
+.br
+\&Kebanyakan arahan bertindak pada pelayan terpilih. /server NUMBER memilih pelayan lain; /server sahaja memilih paparan MOTD pelayan itu.
+.br
+\&Gunakan /connect HOST, /join #channel, /query NICK dan /saveconf untuk aliran sambungan dan perbualan biasa.
+.br
+\&Simpan tetapan yang diterima untuk mengekalkannya selepas mula semula. Profil tersimpan mengemas kini fail peribadi .commands secara automatik bagi kiraan penggunaan sahaja; ia tidak mengandungi argumen atau perbualan.
+.br
+\&/summary membaca semua keadaan klien semasa secara setempat; /list [MASK] meminta saluran rangkaian, manakala /ls dan /cl menyenaraikan paparan setempat.
+.br
+\&/help ls menyenaraikan semua topik bantuan.
+.SH "Perintah (guna /help COMMAND untuk sintaks dan contoh)"
+.PP
+.br
+\&  /autoauth     Periksa atau sediakan pengesahan SASL
+.PP
+.br
+\&  /autocommands Sediakan arahan tertunda untuk sambungan seterusnya
+.PP
+.br
+\&  /autoconnect  Periksa atau ubah sambungan automatik semasa mula
+.PP
+.br
+\&  /autojoin     Periksa atau sediakan penyertaan saluran semasa mula
+.PP
+.br
+\&  /away         Tetapkan status jauh, atau kosongkannya tanpa mesej
+.PP
+.br
+\&  /back         Kosongkan status jauh
+.PP
+.br
+\&  /background   Kekalkan sambungan dan lepaskan terminal
+.PP
+.br
+\&  /bind         Tetapkan kekunci tersuai pada fungsi setempat program
+.PP
+.br
+\&  /bindings     Senaraikan kekunci tersuai atau tindakan dan kekunci tersedia
+.PP
+.br
+\&  /cancel       Batalkan perbualan dan arahan permulaan dalam baris gilir
+.PP
+.br
+\&  /catchup      Baca perbualan ini mulai mesej terkirim terkini anda
+.PP
+.br
+\&  /channel      Pilih saluran; nombor 0 memilih pelayan
+.PP
+.br
+\&  /channels     Senaraikan saluran pada pelayan terpilih
+.PP
+.br
+\&  /cl           Senaraikan saluran (alias /channels)
+.PP
+.br
+\&  /clear        Kosongkan sejarah tersimpan bagi paparan terpilih
+.PP
+.br
+\&  /close        Tutup paparan saluran atau perbualan peribadi
+.PP
+.br
+\&  /connect      Sambung terus ke pelayan atau guna sambungan tersimpan
+.PP
+.br
+\&  /dcc          Tawarkan, semak dan urus pemindahan fail langsung
+.PP
+.br
+\&  /disconnect   Putuskan pelayan sambil mengekalkan profilnya
+.PP
+.br
+\&  /help         Baca bantuan topik, sintaks dan contoh praktikal
+.PP
+.br
+\&  /ignore       Urus penghantar yang diabaikan secara setempat
+.PP
+.br
+\&  /join         Sertai saluran pada pelayan yang dipilih
+.PP
+.br
+\&  /list         Minta dan tapis direktori saluran rangkaian
+.PP
+.br
+\&  /ls           Senaraikan entri pelayan, saluran, perbualan peribadi atau belum dibaca
+.PP
+.br
+\&  /manual       Baca manual terbina dalam yang lengkap
+.PP
+.br
+\&  /me           Hantar mesej tindakan ke perbualan terpilih
+.PP
+.br
+\&  /mentions     Lihat sebutan atau kosongkan sebutan tersimpan merentasi pelayan
+.PP
+.br
+\&  /msg          Hantar teks kepada nama pengguna atau saluran
+.PP
+.br
+\&  /next         Pilih perbualan seterusnya pada pelayan ini
+.PP
+.br
+\&  /nick         Tetapkan atau minta nama samaran semasa
+.PP
+.br
+\&  /panel        Buka panel konfigurasi interaktif
+.PP
+.br
+\&  /part         Tinggalkan saluran dengan sebab pilihan dan kekalkan sejarahnya
+.PP
+.br
+\&  /pm           Pilih atau buka perbualan peribadi tanpa menghantar
+.PP
+.br
+\&  /prev         Pilih perbualan terdahulu pada pelayan ini
+.PP
+.br
+\&  /ql           Senaraikan perbualan peribadi pada pelayan terpilih
+.PP
+.br
+\&  /queries      Senaraikan perbualan peribadi (alias /ql)
+.PP
+.br
+\&  /query        Buka atau pilih perbualan peribadi
+.PP
+.br
+\&  /quickstart   Buka persediaan sambungan berpandu
+.PP
+.br
+\&  /quit         Keluar program dan tutup semua sesi
+.PP
+.br
+\&  /save         Simpan pelayan semasa, keutamaan aplikasi atau semua profil
+.PP
+.br
+\&  /saveconf     Simpan konfigurasi dan ingat sambungan dipilih
+.PP
+.br
+\&  /server       Sambung ke pelayan, atau pilih yang sedia ada
+.PP
+.br
+\&  /servers      Senaraikan semua sesi pelayan yang dikonfigurasi
+.PP
+.br
+\&  /set          Pilih keutamaan input, output dan kehadiran untuk seluruh aplikasi
+.PP
+.br
+\&  /settings     Papar tetapan berkuat kuasa dengan kelayakan disembunyikan
+.PP
+.br
+\&  /sl           Senaraikan pelayan (alias /servers)
+.PP
+.br
+\&  /soju         Kawal bouncer soju terpilih
+.PP
+.br
+\&  /summary      Ringkaskan semua sesi pelayan dan aktiviti semasa
+.PP
+.br
+\&  /topic        Minta atau ubah topik saluran semasa
+.PP
+.br
+\&  /transfers    Urus pemindahan fail (alias /dcc)
+.PP
+.br
+\&  /unbind       Buang satu atau semua ikatan kekunci tersuai
+.PP
+.br
+\&  /unignore     Buang satu corak abaian setempat
+.PP
+.br
+\&  /unread       Senaraikan perbualan belum dibaca merentasi pelayan
+.PP
+.br
+\&  /users        Cetak pengguna yang diketahui pada saluran semasa atau yang dinamakan
+.PP
+.br
+\&  /view         Pilih perbualan bernama atau saluran bernombor
+.PP
+.br
+\&  /views        Senaraikan saluran (alias /channels)
+.PP
+.br
+\&  /watch        Urus rentetan sebutan literal tambahan
+.PP
+.br
+\&  /whois        Minta maklumat nama samaran daripada pelayan
+.PP
+.br
+\&  /znc          Kawal bouncer ZNC terpilih
+.PP
+.SH "/autoauth \- Periksa atau sediakan pengesahan SASL"
+.br
+\&Penggunaan: /autoauth [status|off|sasl USER file PATH|sasl USER gpg PATH]
+.PP
+.br
+\&Mengubah pengesahan pelayan terpilih untuk sambungan seterusnya. TLS yang disahkan diperlukan.
+.br
+\&Tanpa argumen atau dengan status, papar keadaan sambungan/pengesahan dan laluan fail kelayakan, bukan kandungan kata laluan.
+.br
+\&Tetapan semasa dan tertangguh dibezakan. Laluan panjang dipapar lengkap pada baris sambungan berlabel.
+.br
+\&PATH ialah semua teks yang tinggal, termasuk ruang; tiada pengembangan shell atau tafsiran petikan.
+.br
+\&Perintah ini tidak membuka fail. Kunci GPG mesti dinyahkunci di luar program.
+.br
+\&Kata laluan teks biasa hanya boleh ditetapkan secara jelas dalam fail konfigurasi persendirian, bukan argumen perintah.
+.br
+\&Gunakan /panel bagi profil bouncer; /autoauth ditolak kerana identiti log masuk dan sumber kelayakan diurus bersama.
+.br
+\&Gunakan /save untuk menyimpan. Putuskan sambungan dahulu, kemudian /connect untuk perubahan; sambungan aktif tidak dialih.
+.PP
+.br
+\&Contoh:
+.br
+\&/autoauth status
+.br
+\&/autoauth sasl myaccount gpg /home/me/irc\-account.gpg
+.br
+\&/autoauth off
+.br
+\&/save
+.PP
+.SH "/autocommands \- Sediakan arahan tertunda untuk sambungan seterusnya"
+.br
+\&Penggunaan: /autocommands [list|add COMMAND|remove NUMBER|clear|on|off|delay SECONDS|interval SECONDS]
+.PP
+.br
+\&Arahan milik pelayan terpilih. Ia berjalan sekali selepas pendaftaran dan SASL wajib berjaya.
+.br
+\&Jeda lalai ialah 15 saat, dengan sekurang\-kurangnya 2 saat antara arahan yang selesai.
+.br
+\&Gunakan delay 0..300 dan interval 2..60 untuk melaras masa. Sambungan tersekat tidak mencetuskan arahan susulan bertubi\-tubi.
+.br
+\&Arahan disokong: /msg, /join, /nick, /away, /back dan /whois, termasuk alias tepat yang didokumenkan.
+.br
+\&Maksimum 16 arahan, setiap satu 511 bait UTF\-8. Satu arahan mesti muat dalam satu mesej IRC; tidak dipecah secara senyap.
+.br
+\&Tiada shell, IRC mentah atau pengembangan perbualan semasa. Sertai saluran secara automatik tidak menukar paparan.
+.br
+\&Perubahan berkuat kuasa pada sambungan berikutnya. /cancel menghentikan arahan permulaan yang belum dihantar.
+.br
+\&Senarai menyembunyikan teks mesej dan kunci saluran; arahan automatik tidak disimpan dalam sejarah atau gema tempatan.
+.br
+\&Simpan dengan /save. Fail mesti peribadi (0600 atau 0400); senarai aktif yang berisi arahan memerlukan TLS disahkan.
+.br
+\&Mod ujian tidak menjalankan arahan automatik. Teksnya disimpan sebagaimana asal dalam konfigurasi, tanpa penyulitan GPG.
+.PP
+.br
+\&Contoh:
+.br
+\&/autocommands add /msg ChanServ op #chat mynick
+.br
+\&/autocommands delay 15
+.br
+\&/autocommands interval 2
+.br
+\&/autocommands list
+.br
+\&/save
+.PP
+.SH "/autoconnect \- Periksa atau ubah sambungan automatik semasa mula"
+.br
+\&Penggunaan: /autoconnect [on|off]
+.PP
+.br
+\&Tanpa argumen, papar tetapan pelayan dipilih. Perubahan berkuat kuasa pada permulaan program seterusnya.
+.br
+\&Gunakan /connect untuk sambungan segera; gunakan /save untuk menyimpan pilihan sambungan semasa mula.
+.br
+\&Setiap pelayan tersimpan mempunyai tetapan sambungan automatik, saluran sertai automatik dan pengesahan sendiri.
+.PP
+.br
+\&Contoh:
+.br
+\&/autoconnect
+.br
+\&/autoconnect on
+.br
+\&/save
+.PP
+.SH "/autojoin \- Periksa atau sediakan penyertaan saluran semasa mula"
+.br
+\&Penggunaan: /autojoin [list|add #CHANNEL|remove #CHANNEL|clear]
+.PP
+.br
+\&Tanpa argumen atau dengan list, papar pelayan, keadaan pendaftaran/pengesahan, serta senarai aktif dan tertangguh.
+.br
+\&Ubah senarai sertai automatik bagi /connect seterusnya. add/remove menerima satu saluran tanpa kunci.
+.br
+\&Perubahan disahkan sebelum digunakan dan tidak menyertai atau meninggalkan saluran aktif.
+.br
+\&Cubaan semula automatik mengekalkan senarai aktif. Putuskan sambungan, kemudian /connect untuk senarai tertangguh.
+.br
+\&Gunakan /join atau /part untuk sambungan semasa, dan /save untuk menyimpan perubahan permulaan.
+.br
+\&Profil bouncer memulihkan saluran sendiri; /autojoin ditolak. Gunakan /join dan /part.
+.PP
+.br
+\&Contoh:
+.br
+\&/autojoin list
+.br
+\&/autojoin add #ircnow
+.br
+\&/autojoin remove #old
+.br
+\&/save
+.PP
+.SH "/away \- Tetapkan status jauh, atau kosongkannya tanpa mesej"
+.br
+\&Penggunaan: /away [MESSAGE]
+.PP
+.br
+\&Perlu berdaftar pada pelayan. Pelayan mengesahkan status tiada. MESSAGE ialah teks sebenar.
+.PP
+.br
+\&Contoh:
+.br
+\&/away Back after lunch
+.br
+\&/away
+.PP
+.SH "/back \- Kosongkan status jauh"
+.br
+\&Penggunaan: /back
+.PP
+.br
+\&Sama seperti /away tanpa mesej. Memerlukan sambungan berdaftar.
+.PP
+.br
+\&Contoh:
+.br
+\&/back
+.PP
+.SH "/background \- Kekalkan sambungan dan lepaskan terminal"
+.br
+\&Penggunaan: /background
+.PP
+.br
+\&Memulihkan terminal kemudian menanggalkan sesi aktif. Shell menerima arahan bernombor untuk menyambungnya.
+.br
+\&Di shell, \-\-sessions menyenaraikan tugas persendirian yang terpasang dan tertanggal; \-\-resume menyambung satu\-satunya tugas tertanggal.
+.br
+\&Jika beberapa tugas wujud, guna \-\-resume NUMBER. NUMBER ialah ID tugas, bukan PID; kekal hingga tamat dan boleh digunakan semula selepas itu.
+.br
+\&\-\-detach\-session NUMBER melepaskan terminal terpasang tetapi mengekalkan proses, sambungan IRC, draf dan sejarah untuk \-\-resume NUMBER.
+.br
+\&\-\-close\-session NUMBER menamatkan seluruh tugas, sambungan IRC, pemindahan, draf belum disimpan dan sejarah RAM. Kejayaan hanya dilapor selepas penutupan disahkan.
+.br
+\&Jika sambungan sibuk selepas terminal SSH terputus, senaraikan tugas, tanggalkan tugas itu dan sambungnya. Lihat /help sessions.
+.br
+\&Pekerja yang tidak responsif atau versi lama tanpa kawalan diminta mungkin gagal. Memasang binari baharu tidak mengemas kini proses aktif; mulakan semula selepas naik taraf.
+.br
+\&Sambungan memaparkan sejarah RAM walaupun tiada mesej baharu. /set single_session on menolak tugas latar kedua supaya \-\-resume tidak mengelirukan.
+.br
+\&Untuk mula tanpa terminal, guna \-\-background dalam shell; lihat \-\-help untuk pilihannya.
+.br
+\&Jika background_away aktif dan profil mengizinkan, /background atau kehilangan terminal menghantar AWAY selepas ditanggalkan. Sambungan hanya memadam status automatik itu; /away manual kekal.
+.br
+\&Tambah \-\-reconnect untuk cuba semula kegagalan sambungan sementara. Lihat /help deployment dan /help reconnect.
+.br
+\&Tiada pemultipleks terminal diperlukan. Penyelesai nama atau pembantu bukti kelayakan yang masih menunggu mungkin perlu dicuba lagi.
+.br
+\&Menggantung proses biasa di latar hadapan menghentikan rangkaiannya. Tugas yang disambung boleh menggantung pengawal terminal sementara pekerjanya terus berhubung.
+.br
+\&Dari shell: onekeyirc \-\-sessions; onekeyirc \-\-detach\-session NUMBER; onekeyirc \-\-resume NUMBER; onekeyirc \-\-close\-session NUMBER.
+.PP
+.br
+\&Contoh:
+.br
+\&/background
+.PP
+.SH "/bind \- Tetapkan kekunci tersuai pada fungsi setempat program"
+.br
+\&Penggunaan: /bind KEY ACTION
+.PP
+.br
+\&Tiada kekunci tersuai secara lalai. Gunakan /bindings keys dan /bindings actions untuk nama yang disokong.
+.br
+\&Ikatan baharu menggantikan tindakan lama kekunci itu pada semua pelayan; ikatan lain dikekalkan.
+.br
+\&Pintasan berfungsi di sembang dan prompt arahan, bukan dalam tampalan, kata laluan, persediaan, pembaca atau pengesahan.
+.br
+\&Perubahan berkuat kuasa kini tetapi memerlukan /save input untuk kekal. Navigasi biasa berfungsi jika tiada ikatan aktif.
+.br
+\&Hanya fungsi tempatan bernama dibenarkan; tiada arahan bebas, makro, tindakan hantar atau pengembangan shell.
+.br
+\&Kekunci yang ditempah terminal mungkin tidak sampai ke program; mengikatnya tidak menukar isyarat terminal.
+.PP
+.br
+\&Contoh:
+.br
+\&/bindings actions
+.br
+\&/bind F7 summary
+.br
+\&/bind Alt\-c command
+.br
+\&/save input
+.PP
+.SH "/bindings \- Senaraikan kekunci tersuai atau tindakan dan kekunci tersedia"
+.br
+\&Penggunaan: /bindings [actions|keys]
+.PP
+.br
+\&Tanpa argumen, senaraikan pintasan tersuai seluruh aplikasi. Senarai kosong bermakna tiada.
+.br
+\&Guna /bind untuk menetap atau mengganti, /unbind KEY untuk membuang dan /unbind all untuk mengosongkan senarai.
+.br
+\&Menyokong F1..F12, Ctrl\-A..Ctrl\-Z, Alt\-a..Alt\-z, Alt\-0..Alt\-9 serta kekunci navigasi bernama.
+.br
+\&Ctrl\-H ialah Backspace, Ctrl\-I ialah Tab, Ctrl\-J dan Ctrl\-M ialah Enter, Ctrl\-[ ialah Escape; ikatannya sama.
+.br
+\&Huruf Alt menggunakan huruf kecil tanpa Shift. Kekunci fungsi/Alt bergantung pada terminal dan pemultipleks.
+.br
+\&Sehingga 64 ikatan KEY=action disimpan dalam [hotkeys] konfigurasi utama. /save input menyimpan perubahan.
+.br
+\&Lihat /help hotkeys untuk skop, perlindungan draf dan isyarat terminal.
+.br
+\&Klien ini menyunting ikatan kekunci melalui arahan; /bindings menyenaraikan jadual semasa.
+.PP
+.br
+\&Contoh:
+.br
+\&/bindings
+.br
+\&/bindings keys
+.br
+\&/bindings actions
+.br
+\&/help hotkeys
+.PP
+.SH "/cancel \- Batalkan perbualan dan arahan permulaan dalam baris gilir"
+.br
+\&Penggunaan: /cancel
+.PP
+.br
+\&Buang mesej sembang yang menunggu giliran dan hentikan arahan automatik tertunda pada pelayan dipilih.
+.br
+\&Bingkai yang sedang ditulis dibenarkan selesai.
+.br
+\&Pembatalan tidak menarik balik mesej yang sudah diterima pelayan.
+.PP
+.br
+\&Contoh:
+.br
+\&/cancel
+.PP
+.SH "/catchup \- Baca perbualan ini mulai mesej terkirim terkini anda"
+.br
+\&Penggunaan: /catchup
+.PP
+.br
+\&Bermula dari sembang atau tindakan terakhir yang dihantar setempat di saluran atau perbualan dipilih. Paparan pelayan dan sebutan tiada penanda hantaran.
+.br
+\&Log peribadi yang sah dicuba dahulu. Ia mesti aktif ketika penanda dihantar dan masih sihat; teks pengesahan sensitif bukan penanda cakera. Jika tidak, guna sejarah RAM jika penanda masih ada.
+.br
+\&Pembaca cakera ialah petikan tetap: Up/Down sebaris; Page Up/Page Down sehalaman; Home ke penanda; End ke halaman terbaru; Escape kembali langsung. Trafik baharu tidak mengalihkannya.
+.br
+\&Gantian RAM membuka sejarah tersimpan pada penanda: Home ke halaman tertua; End atau Escape kembali langsung. Mesej lama masih boleh dilihat.
+.br
+\&Rekod penanda yang diubah atau diganti tidak sah pada cakera. Proses baharu tidak memulihkan penanda daripada log lama. Lihat /help logging dan /help history.
+.PP
+.br
+\&Contoh:
+.br
+\&/catchup
+.PP
+.SH "/channel \- Pilih saluran; nombor 0 memilih pelayan"
+.br
+\&Penggunaan: /channel NUMBER|#CHANNEL
+.PP
+.br
+\&Nombor disenaraikan oleh /channels. Pilihan ini menukar perbualan yang dipaparkan dan sasaran teks biasa seterusnya.
+.br
+\&Ini tidak menyertai saluran. Saluran yang telah ditinggalkan mesti disertai semula sebelum menghantar.
+.PP
+.br
+\&Contoh:
+.br
+\&/channels
+.br
+\&/channel 0
+.br
+\&/channel #ircnow
+.PP
+.SH "/channels \- Senaraikan saluran pada pelayan terpilih"
+.br
+\&Penggunaan: /channels
+.PP
+.br
+\&Saluran 0 sentiasa memaparkan mesej pelayan/MOTD. Perbualan peribadi mempunyai senarai /ql sendiri.
+.br
+\&Baris menunjukkan status sertai/tinggal dan bilangan belum dibaca/sebutan.
+.PP
+.br
+\&Contoh:
+.br
+\&/channels
+.br
+\&/channel 1
+.PP
+.SH "/cl \- Senaraikan saluran (alias /channels)"
+.br
+\&Penggunaan: /cl
+.PP
+.br
+\&Menyenaraikan paparan saluran pelayan ini, termasuk saluran 0 untuk mesej pelayan serta status sertai/tinggal.
+.br
+\&Gunakan /channel NUMBER atau /channel #NAME untuk memilih satu. Perbualan peribadi mempunyai senarai /ql sendiri.
+.PP
+.br
+\&Contoh:
+.br
+\&/cl
+.br
+\&/channel 1
+.PP
+.SH "/clear \- Kosongkan sejarah tersimpan bagi paparan terpilih"
+.br
+\&Penggunaan: /clear
+.PP
+.br
+\&Memadamkan sejarah terhad dalam RAM bagi paparan ini. Tidak keluar saluran, memutuskan sambungan, menarik mesej atau memadam log sedia ada.
+.br
+\&Sejarah skrol terminal yang telah dicetak dikawal oleh terminal.
+.br
+\&Dalam sembang utama: Up satu baris lama, Page Up satu halaman, Home paling lama; Down/Page Down bergerak baharu. Trafik baharu tidak mengalih halaman dibaca. End/Escape kembali ke langsung; kekunci navigasi tidak membuka penyunting.
+.PP
+.br
+\&Contoh:
+.br
+\&/clear
+.PP
+.SH "/close \- Tutup paparan saluran atau perbualan peribadi"
+.br
+\&Penggunaan: /close [NAME|NUMBER]
+.PP
+.br
+\&Tanpa argumen, tutup perbualan semasa. Saluran ditinggalkan sebelum paparannya dibuang.
+.br
+\&Paparan pelayan dan sebutan kekal tidak boleh ditutup. Nombor saluran terdapat dalam /channels.
+.PP
+.br
+\&Contoh:
+.br
+\&/close alice
+.br
+\&/close #old
+.PP
+.SH "/connect \- Sambung terus ke pelayan atau guna sambungan tersimpan"
+.br
+\&Penggunaan: /connect [\-tls|\-plain] [\-nick NICK] HOST [PORT] | /connect
+.PP
+.br
+\&Mulakan dengan /connect irc.example.org. Profil, alias atau nombor pelayan tidak perlu dicipta dahulu.
+.br
+\&Pelayan baharu menggunakan TLS yang disahkan pada port 6697 dan nama log masuk sistem, atau user jika tidak sesuai.
+.br
+\&Pelayan sepadan yang sedia ada mengekalkan port, pengangkutan, nama gelaran dan pengesahannya.
+.br
+\&Gunakan \-nick NICK untuk nama panggilan tertentu, atau /nick NICK sebelum bersambung. Kata laluan bukan argumen kedudukan.
+.br
+\&Gunakan \-plain untuk IRC tanpa penyulitan (port lalai 6667). \-tls dan \-ssl memilih TLS yang disahkan.
+.br
+\&+PORT juga memilih TLS. Nombor port biasa tidak mematikan TLS. \-\-tls, \-\-plain dan \-\-nick turut diterima.
+.br
+\&Sambungan dipilih dan paparan pelayan/MOTD dibuka. Sambungan sepadan yang aktif tidak diduakan.
+.br
+\&Titik hujung lain mendapat tetapan pengesahan baharu; kelayakan dan saluran pelayan lain tidak disalin.
+.br
+\&/connect tanpa argumen menggunakan pelayan terpilih dan tetapan akan datang. /saveconf menyimpan pelayan lalai seterusnya.
+.br
+\&Bagi profil bouncer pada hos sama, pilih profil dengan /server NUMBER, kemudian gunakan /connect sahaja.
+.br
+\&Nombor pelayan sedia ada diterima untuk keserasian. Mod ujian kekal luar talian; perubahan konfigurasi perlu disimpan secara jelas.
+.PP
+.br
+\&Contoh:
+.br
+\&/connect irc.example.org
+.br
+\&/join #chat
+.br
+\&/saveconf
+.br
+\&/connect
+.br
+\&/connect \-nick mynick irc.example.org +6697
+.br
+\&/connect \-plain localhost 6667
+.PP
+.SH "/dcc \- Tawarkan, semak dan urus pemindahan fail langsung"
+.br
+\&Penggunaan: /dcc [list|NICK PATH|send [\-address IPV4] [\-port PORT] NICK PATH|accept NUMBER [DIRECTORY]|reject NUMBER|cancel NUMBER]
+.PP
+.br
+\&Tanpa argumen, senaraikan pemindahan. /dcc NICK PATH menawarkan fail pada pelayan terpilih.
+.br
+\&PATH ialah baki teks literal termasuk ruang; laluannya relatif kepada direktori ketika proses bermula.
+.br
+\&Klien tidak pernah menukar direktori itu, termasuk ketika menyemak fail atau berjalan di latar.
+.br
+\&Bentuk hantar ringkas mengumumkan IPv4 setempat IRC. Di belakang NAT, guna \-address dengan IPv4 boleh dicapai dan \-port port dimajukan.
+.br
+\&Tiada permintaan carian alamat luaran. Sambungan IRC IPv6 sahaja memerlukan IPv4 dinyatakan jelas.
+.br
+\&DCC ialah sambungan terus tanpa penyulitan. Rakan menerima IP yang diumumkan; menerima tawaran turut mendedahkan IP anda.
+.br
+\&Tawaran masuk kekal tertutup sehingga /dcc accept NUMBER. DIRECTORY lalai ke direktori mula dan mesti milik anda serta peribadi.
+.br
+\&Fail destinasi sedia ada tidak ditimpa; pautan simbolik dan fail khas ditolak. Mod ujian tidak membuka fail atau soket.
+.br
+\&Guna /dcc reject NUMBER untuk menolak tawaran atau /dcc cancel NUMBER bagi membatalkan pemindahan aktif.
+.br
+\&Nombor pemindahan dikongsi antara pelayan proses ini. Menutup pelayan asal membatalkan pemindahannya; putus IRC tidak membatalkan yang diterima.
+.PP
+.br
+\&Contoh:
+.br
+\&/dcc alice file.txt
+.br
+\&/dcc list
+.br
+\&/dcc accept 1 ./downloads
+.br
+\&/dcc send \-address 203.0.113.20 \-port 5000 alice file.txt
+.br
+\&/dcc cancel 2
+.PP
+.SH "/disconnect \- Putuskan pelayan sambil mengekalkan profilnya"
+.br
+\&Penggunaan: /disconnect [SERVER_NUMBER]
+.PP
+.br
+\&Tanpa nombor, putuskan sambungan pelayan yang dipilih. Sejarah dan konfigurasi kekal tersedia.
+.br
+\&Ini tidak mengubah tetapan sambung automatik pada permulaan seterusnya.
+.PP
+.br
+\&Contoh:
+.br
+\&/disconnect
+.br
+\&/disconnect 1
+.PP
+.SH "/help \- Baca bantuan topik, sintaks dan contoh praktikal"
+.br
+\&Penggunaan: /help [TOPIC|COMMAND]
+.PP
+.br
+\&Gunakan /help ls untuk indeks topik, /help commands untuk arahan dan senarainya, atau /help autoconnect untuk satu arahan.
+.br
+\&Minta satu topik atau nama arahan tanpa argumen. /help /ls menerangkan senarai setempat; /help ls menyenaraikan topik. Garis miring awal tidak wajib.
+.br
+\&/help all membuka manual penuh dalam pembaca bantuan berasingan.
+.PP
+.br
+\&Contoh:
+.br
+\&/help
+.br
+\&/help ls
+.br
+\&/help commands
+.br
+\&/help autoconnect
+.br
+\&/help /ls
+.PP
+.SH "/ignore \- Urus penghantar yang diabaikan secara setempat"
+.br
+\&Penggunaan: /ignore [list|clear|[add|remove] MASK]
+.PP
+.br
+\&Menerima nama samaran atau topeng nick!user@host dengan kad bebas * dan ?. Mesej/notis pengguna yang sepadan disembunyikan secara setempat.
+.br
+\&Teks diabaikan tidak mencipta sembang peribadi atau sebutan. Status protokol, notis pelayan dan keahlian masih berfungsi.
+.br
+\&Guna /save untuk menyimpan topeng pelayan ini.
+.PP
+.br
+\&Contoh:
+.br
+\&/ignore list
+.br
+\&/ignore add noisy!*@*
+.br
+\&/ignore remove noisy!*@*
+.PP
+.SH "/join \- Sertai saluran pada pelayan yang dipilih"
+.br
+\&Penggunaan: /join #CHANNEL [KEY]
+.PP
+.br
+\&Perlu berdaftar. Kunci ialah satu token ASCII boleh cetak; tidak disimpan atau direkod dalam sejarah arahan.
+.br
+\&Pada sambungan terus, nama saluran masuk senarai sertai automatik semasa; suntingan /autojoin yang menunggu diutamakan apabila disimpan.
+.br
+\&Guna /autojoin untuk ubah sambungan nyata berikutnya bagi profil terus tanpa menyertai kini. Bouncer mengurus keahliannya sendiri.
+.PP
+.br
+\&Contoh:
+.br
+\&/join #ircnow
+.br
+\&/join #private channel\-key
+.PP
+.SH "/list \- Minta dan tapis direktori saluran rangkaian"
+.br
+\&Penggunaan: /list [MASK] [\-\-min\-users N] [\-\-max\-users N] [\-\-name TEXT] [\-\-topic TEXT] [\-\-sort channel|users|topic] [\-\-asc|\-\-desc] [\-\-limit N] | /list show [\-\-sort channel|users|topic] [\-\-asc|\-\-desc] [\-\-limit N] | /list clear
+.PP
+.br
+\&Meminta senarai saluran daripada pelayan IRC terpilih; pendaftaran diperlukan. Hanya MASK dihantar sebagai penapis ke pelayan.
+.br
+\&Had pengguna minimum/maksimum, nama dan topik ditapis secara setempat walaupun rangkaian tiada penapisan LIST lanjutan.
+.br
+\&\-\-sort menerima nilai channel, users atau topic; lalai users secara menurun. \-\-limit 0 bererti tiada had paparan dalam cache terhad.
+.br
+\&/list show memaparkan cache; \-\-sort, \-\-asc/\-\-desc dan \-\-limit menyusun atau mengehadkannya tanpa permintaan IRC baharu. /list clear mengosongkan cache.
+.br
+\&Jika terputus atau pelayan menolak LIST, cache separa kekal tetapi permintaan tamat; cuba /list selepas berdaftar atau guna /list clear.
+.br
+\&Klien skrin penuh membuka pelayar saluran yang boleh diisih; mod minimum menggunakan pilihan sama dan /list show.
+.br
+\&Gunakan /ls atau /cl untuk senarai saluran setempat; /list mencari dalam rangkaian.
+.PP
+.br
+\&Contoh:
+.br
+\&/list
+.br
+\&/list *linux* \-\-min\-users 5 \-\-max\-users 500
+.br
+\&/list \-\-topic help \-\-sort users \-\-desc \-\-limit 100
+.br
+\&/list show \-\-sort channel \-\-asc \-\-limit 50
+.br
+\&/list clear
+.PP
+.SH "/ls \- Senaraikan entri pelayan, saluran, perbualan peribadi atau belum dibaca"
+.br
+\&Penggunaan: /ls [servers|channels|queries|unread]
+.PP
+.br
+\&Tanpa argumen, senaraikan saluran pada pelayan terpilih. Ini arahan senarai klien setempat, bukan arahan shell atau permintaan IRC LIST seluruh rangkaian.
+.br
+\&Gunakan /server N, /channel N dan /pm NICK untuk memilih entri berkaitan.
+.PP
+.br
+\&Contoh:
+.br
+\&/ls
+.br
+\&/ls servers
+.br
+\&/ls queries
+.br
+\&/ls unread
+.PP
+.SH "/manual \- Baca manual terbina dalam yang lengkap"
+.br
+\&Penggunaan: /manual
+.PP
+.br
+\&Bantuan topik dan arahan juga tersedia tanpa sambungan. /help TOPIC ialah jalan ringkas.
+.PP
+.br
+\&Contoh:
+.br
+\&/manual
+.PP
+.SH "/me \- Hantar mesej tindakan ke perbualan terpilih"
+.br
+\&Penggunaan: /me TEXT
+.PP
+.br
+\&Memerlukan saluran yang telah disertai atau perbualan peribadi dan sambungan berdaftar. Had mesej dan peraturan penghantaran terpakai.
+.br
+\&Antara muka menyemak mesej yang dipecahkan sebelum meletakkannya dalam giliran.
+.PP
+.br
+\&Contoh:
+.br
+\&/me waves
+.PP
+.SH "/mentions \- Lihat sebutan atau kosongkan sebutan tersimpan merentasi pelayan"
+.br
+\&Penggunaan: /mentions [clear]
+.PP
+.br
+\&Memilih paparan sebutan pelayan ini. Ia menyimpan baris sumber terkini yang terhad serta cap masa asal.
+.br
+\&/mentions clear membuang salinan sebutan tersimpan daripada semua pelayan semasa tanpa menukar paparan.
+.br
+\&Sejarah perbualan asal, bilangan belum dibaca dan kerja tertunda dikekalkan.
+.br
+\&Gunakan /watch untuk teks tambahan; /channel atau /pm kembali ke perbualan yang boleh menerima mesej.
+.PP
+.br
+\&Contoh:
+.br
+\&/mentions
+.br
+\&/mentions clear
+.br
+\&/channel #ircnow
+.PP
+.SH "/msg \- Hantar teks kepada nama pengguna atau saluran"
+.br
+\&Penggunaan: /msg TARGET TEXT
+.PP
+.br
+\&Memerlukan pendaftaran. Arahan ini menyediakan rancangan penghantaran; mod terus/semak dan persetujuan pemecahan mesej tetap terpakai.
+.br
+\&Ia tidak mengubah sasaran penghantaran semasa secara senyap. Mesej perkhidmatan/kelayakan tidak masuk sejarah arahan.
+.PP
+.br
+\&Contoh:
+.br
+\&/msg alice Hello
+.br
+\&/msg #ircnow Good evening
+.PP
+.SH "/next \- Pilih perbualan seterusnya pada pelayan ini"
+.br
+\&Penggunaan: /next
+.PP
+.br
+\&Berpusing antara paparan pelayan, sebutan, saluran dan perbualan peribadi; penimbal manual dalaman dilangkau.
+.PP
+.br
+\&Contoh:
+.br
+\&/next
+.PP
+.SH "/nick \- Tetapkan atau minta nama samaran semasa"
+.br
+\&Penggunaan: /nick NICK
+.PP
+.br
+\&Semasa tersambung, meminta perubahan yang disahkan pelayan. Semasa terputus, mengemas kini identiti sambungan seterusnya.
+.br
+\&Nama gelaran menggunakan sintaks IRC ASCII yang disokong dan terhad kepada 63 bait.
+.PP
+.br
+\&Contoh:
+.br
+\&/nick tutankh\-aten
+.PP
+.SH "/panel \- Buka panel konfigurasi interaktif"
+.br
+\&Penggunaan: /panel
+.PP
+.br
+\&Pilih 0 (lalai) untuk keutamaan aplikasi, atau panel profil 1..8; panel 1 menyunting profil utama. Ini pilihan panel, bukan ID tugas shell.
+.br
+\&Keutamaan aplikasi merangkumi pengekalan sejarah, mod hantar, format output, notis baris gilir dan cadangan arahan bagi semua pelayan.
+.br
+\&Ia berfungsi tanpa pelayan yang dikonfigurasi. Pilihan akhirnya ialah 1 Simpan (lalai) dan 2 Terapkan tanpa menyimpan; kedua\-duanya tidak menyambung.
+.br
+\&Panel pelayan hanya mengandungi tetapan sambungan, permulaan, pengesahan, sebutan dan abaian pelayan itu.
+.br
+\&Memilih mana\-mana panel tidak menukar perbualan anda.
+.br
+\&Enter mengekalkan nilai yang dipaparkan; '\-' mengosongkan medan pilihan. Escape kembali satu soalan; ulangi untuk keluar tanpa menerapkan suntingan.
+.br
+\&Tab memilih tajuk soalan. Tekan ? di situ untuk bantuan pilihan dan skrinnya; Tab atau Enter menyambung jawapan.
+.br
+\&Dalam setiap jawapan yang boleh disunting, ? kekal sebagai teks literal, termasuk aksara pertama dan corak kad bebas.
+.br
+\&Masukkan istilah pantauan dan corak abaian satu demi satu; entri baharu kosong menamatkan senarai itu.
+.br
+\&Input kelayakan disembunyikan; jawapan persediaan tidak pernah masuk sejarah arahan. Fail kelayakan sedia ada tidak dibaca semasa menyunting.
+.br
+\&Bagi sumber GPG, pilih Cipta baharu atau Guna sedia ada. Penciptaan menawarkan laluan lalai peribadi; Enter menerimanya dan menyediakan direktorinya (0700).
+.br
+\&Destinasi lain mesti dalam direktori sedia ada milik anda dengan mod 0700. Laluan disemak sebelum soalan kunci dan kata laluan.
+.br
+\&Penciptaan kemudian meminta cap jari penuh kunci awam setempat dan kata laluan dua kali. Fail serta pautan simbolik sedia ada tidak pernah diganti.
+.br
+\&Laluan kelayakan disimpan sebagai laluan mutlak. /autoauth status memaparkan lokasi terkonfigurasi yang lengkap tanpa membaca kandungannya.
+.br
+\&Penyulitan hanya bermula selepas Selesai, memastikan IRC responsif, dan tidak pernah menggunakan fail sementara teks biasa. Escape membatalkan kerja tertunda.
+.br
+\&Jika simpanan konfigurasi gagal, teks tersulit yang siap dikekalkan untuk cubaan semula yang disengajakan; fail rujukan konfigurasi tersimpan dikekalkan.
+.br
+\&Mod ujian tidak menjalankan GPG atau mencipta fail kelayakan. Buka kunci peribadi sepadan di luar aplikasi sebelum pengesahan.
+.br
+\&Pilihan akhir panel pelayan: 1 Simpan dan sambung, 2 Simpan sahaja (lalai), 3 Sambung sekali, atau 4 Terapkan sahaja.
+.br
+\&Membuka panel atau menjawab soalan awalnya sahaja tidak menerapkan, menyimpan atau menyambungkan apa\-apa.
+.br
+\&Sambung sekali menerap tanpa simpan; Terap sahaja tidak menyimpan atau menyambung. Sambungan hidup tidak diam\-diam menukar destinasi atau menyambung semula.
+.br
+\&Sambungan gagal tidak membatalkan perubahan yang sudah diterap atau disimpan oleh tindakan akhir.
+.br
+\&Gunakan /quickstart untuk persediaan pelayan, pengangkutan, port dan nama samaran yang lebih ringkas.
+.PP
+.br
+\&Contoh:
+.br
+\&/panel
+.PP
+.SH "/part \- Tinggalkan saluran dengan sebab pilihan dan kekalkan sejarahnya"
+.br
+\&Penggunaan: /part [#CHANNEL] [MESSAGE]
+.PP
+.br
+\&Tanpa nama saluran, keluar daripada saluran dipilih. Teks selepas saluran ialah sebab PART; tanpa saluran, teks ialah sebab untuk saluran dipilih.
+.br
+\&Jika tiada sebab nyata, part_message digunakan jika ditetapkan. Entri sertai automatik semasa dibuang.
+.br
+\&Mesej beratur untuk saluran dibatalkan; satu bingkai dalam penghantaran mungkin selesai. Guna /close untuk menutup paparan.
+.PP
+.br
+\&Contoh:
+.br
+\&/part
+.br
+\&/part Going offline
+.br
+\&/part #old Moving elsewhere
+.PP
+.SH "/pm \- Pilih atau buka perbualan peribadi tanpa menghantar"
+.br
+\&Penggunaan: /pm NICK|NUMBER
+.PP
+.br
+\&Nama membuka atau memilih perbualan peribadi. Nombor memilih perbualan sedia ada daripada senarai /ql pelayan ini.
+.br
+\&Membuka perbualan tidak menghubungi nama panggilan sehingga mesej dihantar. Nombor boleh berubah selepas menutup perbualan.
+.PP
+.br
+\&Contoh:
+.br
+\&/pm alice
+.br
+\&/ql
+.br
+\&/pm 1
+.PP
+.SH "/prev \- Pilih perbualan terdahulu pada pelayan ini"
+.br
+\&Penggunaan: /prev
+.PP
+.br
+\&Songsangan /next. Tidak menyambung, menyertai atau menghantar.
+.PP
+.br
+\&Contoh:
+.br
+\&/prev
+.PP
+.SH "/ql \- Senaraikan perbualan peribadi pada pelayan terpilih"
+.br
+\&Penggunaan: /ql
+.PP
+.br
+\&Nombor perbualan peribadi bermula pada 1 dan berasingan daripada nombor saluran. Gunakan /query NICK atau /query NUMBER.
+.br
+\&Gunakan /close NICK untuk menutup perbualan; jalankan /ql semula kerana nombor seterusnya mungkin berubah.
+.PP
+.br
+\&Contoh:
+.br
+\&/ql
+.br
+\&/query 1
+.br
+\&/query alice
+.PP
+.SH "/queries \- Senaraikan perbualan peribadi (alias /ql)"
+.br
+\&Penggunaan: /queries
+.PP
+.br
+\&Menggunakan senarai perbualan peribadi yang sama seperti /ql. Nombor saluran kekal berasingan.
+.PP
+.br
+\&Contoh:
+.br
+\&/queries
+.br
+\&/pm alice
+.PP
+.SH "/query \- Buka atau pilih perbualan peribadi"
+.br
+\&Penggunaan: /query NICK|NUMBER
+.PP
+.br
+\&Pilih perbualan peribadi tanpa menghantar mesej. Taip seperti biasa untuk menulis kepada nama gelaran itu.
+.br
+\&Gunakan /ql untuk senarai perbualan bernombor dan /close NICK untuk menutupnya. /pm menerima nama dan nombor sama.
+.br
+\&Nombor mesti merujuk perbualan sedia ada pada pelayan dipilih; 0 tidak memilih atau mencipta perbualan.
+.PP
+.br
+\&Contoh:
+.br
+\&/query alice
+.br
+\&/ql
+.br
+\&/query 1
+.br
+\&/close alice
+.PP
+.SH "/quickstart \- Buka persediaan sambungan berpandu"
+.br
+\&Penggunaan: /quickstart
+.PP
+.br
+\&Sunting pelayan, pengangkutan TLS, port dan nama samaran profil semasa mengikut turutan, kemudian semak tetapan.
+.br
+\&TLS yang disahkan ialah lalai. Sambungan teks biasa mesti dipilih secara nyata.
+.br
+\&Enter mengekalkan nilai yang dipapar. Escape undur satu soalan; ulang untuk keluar tanpa menerap. Jawapan tidak masuk sejarah arahan.
+.br
+\&Pada semakan akhir pilih 1 Simpan dan sambung, 2 Simpan sahaja, 3 Sambung sekali (lalai), atau 4 Terap sahaja.
+.br
+\&Membuka panduan dan menjawab soalan awal tidak menerapkan tetapan, menyimpan fail atau menyambung.
+.br
+\&Sambung sekali menerap tanpa simpan; Terap sahaja tidak menyimpan atau menyambung. Sambungan hidup tidak diam\-diam menukar destinasi atau menyambung semula.
+.br
+\&Sambungan gagal tidak membatalkan perubahan yang sudah diterap atau disimpan oleh tindakan akhir.
+.br
+\&Guna /panel untuk profil bouncer dan pilihan lain. Quickstart tidak mengubah log masuk bouncer yang sedia ada.
+.PP
+.br
+\&Contoh:
+.br
+\&/quickstart
+.PP
+.SH "/quit \- Keluar program dan tutup semua sesi"
+.br
+\&Penggunaan: /quit [MESSAGE]
+.PP
+.br
+\&Menghantar MESSAGE sebagai sebab IRC QUIT secara usaha terbaik pada setiap pelayan aktif, atau quit_message jika MESSAGE tiada; kemudian pulihkan terminal dan keluar.
+.br
+\&Gunakan /background supaya sambungan terus berjalan.
+.PP
+.br
+\&Contoh:
+.br
+\&/quit
+.br
+\&/quit Client restart
+.PP
+.SH "/save \- Simpan pelayan semasa, keutamaan aplikasi atau semua profil"
+.br
+\&Penggunaan: /save [input|output|all]
+.PP
+.br
+\&/save tanpa argumen menulis tetapan sebenar pelayan dipilih, termasuk perubahan sambungan yang disediakan.
+.br
+\&/save input dan /save output kedua\-duanya menyimpan profil utama penuh, keutamaan dan tetapan sambungan yang disediakan. Bukan subset dinamakan sahaja.
+.br
+\&/save all menyimpan setiap profil sihat secara berasingan. Jika satu gagal, fail terdahulu kekal disimpan dan kegagalan dilaporkan.
+.br
+\&Setiap penggantian fail adalah peribadi dan atomik, bukan satu transaksi merentasi semua fail. Mod ujian tidak menulis konfigurasi.
+.PP
+.br
+\&Contoh:
+.br
+\&/save
+.br
+\&/set send_mode review
+.br
+\&/save input
+.br
+\&/save all
+.PP
+.SH "/saveconf \- Simpan konfigurasi dan ingat sambungan dipilih"
+.br
+\&Penggunaan: /saveconf
+.PP
+.br
+\&Menyimpan pilihan aplikasi dan konfigurasi semua pelayan yang sihat, lalu mengingati pelayan terpilih sebagai lalai.
+.br
+\&Pada permulaan seterusnya, /connect menggunakan lalai tersimpan; nombor pelayan atau persediaan tambahan tidak diperlukan.
+.br
+\&Nama panggilan, saluran yang disertai, pengesahan dan pilihan mula termasuk; suntingan sambungan tertangguh diutamakan.
+.br
+\&Ini tidak menghidupkan sambungan automatik semasa mula. Gunakan /autoconnect on dahulu jika mahu.
+.br
+\&Setiap fail diganti secara peribadi dan atomik. Simpanan berjaya kekal walaupun fail lain gagal.
+.br
+\&Pelayan lalai diingati jika simpanannya berjaya; kegagalan dilapor dan profil tidak boleh dibaca tidak ditimpa.
+.br
+\&Mod ujian tidak menulis konfigurasi. /save masih menyediakan cara khusus bagi profil dan pilihan.
+.PP
+.br
+\&Contoh:
+.br
+\&/connect irc.example.org
+.br
+\&/join #chat
+.br
+\&/saveconf
+.br
+\&/quit
+.PP
+.SH "/server \- Sambung ke pelayan, atau pilih yang sedia ada"
+.br
+\&Penggunaan: /server [\-tls|\-plain] [\-nick NICK] HOST [PORT] | /server [NUMBER|add HOST [PORT] [NICK]|connect NUMBER|disconnect NUMBER|close NUMBER]
+.PP
+.br
+\&Dengan nama hos, ini sama seperti sambungan terus /connect. Tiada profil perlu diwujudkan dahulu.
+.br
+\&Tanpa argumen, memilih paparan mesej/MOTD pelayan semasa. NUMBER memilih slot tanpa menyambung.
+.br
+\&add mewujudkan profil berkelayakan baharu, TLS disahkan dan autoconnect mati; tidak memilih, menyambung atau menyimpan.
+.br
+\&PORT lalai ialah 6697. Port lain tidak mematikan TLS; sambungan tanpa enkripsi mesti dipilih secara nyata.
+.br
+\&connect/disconnect tidak menukar pilihan. close membuang sesi/entri katalog kedua, bukan fail profilnya.
+.br
+\&Nombor pelayan minimalis ialah 1..8, utama 1. Pelayan utama kekal; putuskan sambungan, jangan tutup.
+.br
+\&Nombor kekal sepanjang hayat sesi. Panel 0 dikhaskan untuk keutamaan aplikasi.
+.PP
+.br
+\&Contoh:
+.br
+\&/server irc.example.org
+.br
+\&/join #chat
+.br
+\&/saveconf
+.br
+\&/servers
+.br
+\&/server 1
+.PP
+.SH "/servers \- Senaraikan semua sesi pelayan yang dikonfigurasi"
+.br
+\&Penggunaan: /servers
+.PP
+.br
+\&Memaparkan slot pelayan minimum 1..8 (utama 1), pelayan terpilih, status sambungan dan autoconnect setiap pelayan.
+.br
+\&Profil yang dimuatkan masih tersedia walaupun tidak bersambung.
+.PP
+.br
+\&Contoh:
+.br
+\&/servers
+.br
+\&/server 1
+.PP
+.SH "/set \- Pilih keutamaan input, output dan kehadiran untuk seluruh aplikasi"
+.br
+\&Penggunaan: /set send_mode direct|review | /set composer_mode line|fullscreen | /set output_format compact|full | /set queue_notices on|off | /set program_messages on|off | /set persistent_logging on|off | /set single_session on|off | /set default_interface idle|ncurses | /set command_suggestions alphabetical|common|history|frequent|contextual | /set part_message [TEXT] | /set quit_message [TEXT] | /set background_away on|off | /set background_away_message TEXT | /set autoaway_minutes 0..1440 | /set autoaway_message TEXT
+.PP
+.br
+\&direct ialah lalai: Enter menghantar teks, dengan persetujuan wajib jika melibatkan beberapa mesej IRC.
+.br
+\&review menambah langkah semakan yang disengajakan sebelum mesej biasa dimasukkan dalam giliran.
+.br
+\&output_format compact ialah lalai: sembang terpilih menunjukkan [HH:MM:SS] <nick> teks.
+.br
+\&output_format full menunjukkan pelayan, tarikh dan sasaran pada setiap baris. Mod compact tetap menunjukkan asal sebutan dan diagnostik pelayan lain.
+.br
+\&queue_notices off menyembunyikan pengesahan giliran biasa. Mod minimum juga tidak mengulang pengesahan selepas semakan. Ralat dan pengesahan berbilang mesej kekal jelas.
+.br
+\&program_messages off menyembunyikan maklum balas setempat ringan seperti draf dibatal, input dikosongkan dan draf disimpan. Ralat serta pengesahan keselamatan kekal jelas.
+.br
+\&persistent_logging on menulis sembang ke fail .log peribadi (0600) dalam direktori konfigurasi (0700). Lalai mati; had 16 MiB: arkibkan dan tukar off/on. Fail tidak selamat/sibuk hentikan log, bukan sembang.
+.br
+\&single_session on membenarkan satu tugas latar bagi klien ini agar \-\-resume tanpa nombor jelas. Beberapa pelayan IRC masih boleh digunakan dalam sesi itu.
+.br
+\&default_interface memilih antara muka untuk pelancaran baharu yang menyokongnya, bukan sesi semasa. /save input menyimpan pilihan.
+.br
+\&command_suggestions memilih abjad, arahan lazim, sejarah terkini, paling kerap atau arahan mengikut skrin asal.
+.br
+\&composer_mode line mengekalkan satu baris input di bawah sembang langsung; fullscreen editor berbilang baris dan ruang sembang. Lalai: line.
+.br
+\&part_message dan quit_message ialah sebab keluar IRC lalai; mesej nyata /part atau /quit mengatasinya. Nilai kosong mematikan sebab lalai.
+.br
+\&background_away menghantar background_away_message selepas /background berjaya atau terminal terputus. autoaway_minutes menetapkan away ketika lengah; 0 mematikannya.
+.br
+\&Hanya keadaan away buatan klien dipadam automatik apabila sambung semula atau ada input sebenar. /away manual tidak diubah atau dipadam.
+.br
+\&«Lazim digunakan» ialah lalai. «Mengikut konteks» mendahulukan arahan saluran, pertanyaan, pelayan atau klien sambil mengekalkan padanan lain.
+.br
+\&«Lazim digunakan» menggunakan susunan arahan terpilih. «Mengikut konteks» mengingati skrin asal, termasuk pembaca ringkasan seluruh klien.
+.br
+\&Ini pilihan aplikasi untuk semua pelayan. Gunakan /save input atau /save output untuk menyimpannya.
+.br
+\&/panel diikuti 0 menyunting pilihan ini bersama had sejarah global.
+.br
+\&onekeyirc sentiasa menggunakan idle. Panel aplikasinya tidak memaparkan pemilihan antara muka; /set default_interface hanya menerima idle.
+.br
+\&Penghurai konfigurasi bersama mengekalkan mana\-mana nilai tersimpan yang dikenali. Nilai ncurses tersimpan tidak mengubah antara muka klien kendiri ini.
+.PP
+.br
+\&Contoh:
+.br
+\&/set send_mode review
+.br
+\&/set composer_mode line
+.br
+\&/set command_suggestions contextual
+.br
+\&/save input
+.br
+\&/set output_format full
+.br
+\&/set queue_notices off
+.br
+\&/set program_messages off
+.br
+\&/set persistent_logging on
+.br
+\&/set single_session on
+.br
+\&/save output
+.PP
+.SH "/settings \- Papar tetapan berkuat kuasa dengan kelayakan disembunyikan"
+.br
+\&Penggunaan: /settings
+.PP
+.br
+\&Memaparkan pilihan aplikasi berasingan daripada pilihan sambungan pelayan yang belum digunakan.
+.br
+\&Nilai pengesahan dilaporkan mengikut jenis sumber; kata laluan dan laluan kelayakan tidak pernah dicetak.
+.br
+\&Gunakan /autoconnect, /autojoin, /autoauth dan /set untuk mengubah tetapan masing\-masing.
+.PP
+.br
+\&Contoh:
+.br
+\&/settings
+.br
+\&/help configuration
+.PP
+.SH "/sl \- Senaraikan pelayan (alias /servers)"
+.br
+\&Penggunaan: /sl
+.PP
+.br
+\&Menggunakan senarai pelayan berkonfigurasi serta nombor slot tetap yang sama dengan /servers.
+.br
+\&Gunakan /server NUMBER untuk memilih pelayan.
+.PP
+.br
+\&Contoh:
+.br
+\&/sl
+.br
+\&/server 1
+.PP
+.SH "/soju \- Kawal bouncer soju terpilih"
+.br
+\&Penggunaan: /soju [COMMAND]
+.PP
+.br
+\&Memerlukan profil soju bersambung yang ditetapkan melalui /panel. Tanpa argumen, meminta bantuan BouncerServ.
+.br
+\&COMMAND dihantar sebagai satu mesej peribadi berjarak masa, tanpa gema tempatan atau sejarah arahan.
+.br
+\&Sambungan IRC terus tidak boleh menggunakan pintasan ini. Balasan muncul pada paparan pelayan.
+.br
+\&Gunakan bantuan bouncer sendiri untuk arahan akaun dan rangkaian.
+.PP
+.br
+\&Contoh:
+.br
+\&/soju
+.br
+\&/soju network status
+.PP
+.SH "/summary \- Ringkaskan semua sesi pelayan dan aktiviti semasa"
+.br
+\&Penggunaan: /summary
+.PP
+.br
+\&Memaparkan semua pelayan, channel 0, paparan saluran/pertanyaan, aktiviti belum dibaca, sebutan, giliran keluar, arahan mula dan pindahan fail.
+.br
+\&Ini ringkasan setempat yang berfungsi tanpa sambungan. Tekan r dalam pembacanya atau jalankan semula untuk kemas kini.
+.br
+\&Membukanya tidak menukar perbualan atau menanda dibaca. Salinan suapan sebutan tidak termasuk jumlah aktiviti.
+.br
+\&Sebutan mungkin juga belum dibaca; jangan tambah dua jumlah itu. Paparan saluran disertai dan ditinggalkan dibezakan.
+.br
+\&Laporan mempunyai pembaca boleh tatal dan mengekalkan draf. Garis miring membuka arahan; batal kembali ke ringkasan.
+.br
+\&Jika kemas kini gagal, ringkasan lama dikekalkan. Membuka atau mengemas kininya tidak membuat permintaan rangkaian.
+.br
+\&Kelayakan dan kandungan mesej beratur atau arahan automatik tidak pernah dipaparkan.
+.PP
+.br
+\&Contoh:
+.br
+\&/summary
+.PP
+.SH "/topic \- Minta atau ubah topik saluran semasa"
+.br
+\&Penggunaan: /topic [TEXT]
+.PP
+.br
+\&Perlu berdaftar dan menyertai saluran. Tanpa teks, minta topik; jika ada, hantar TEXT secara literal.
+.br
+\&Pelayan menentukan sama ada hak saluran anda membenarkan perubahan.
+.PP
+.br
+\&Contoh:
+.br
+\&/topic
+.br
+\&/topic Welcome to our channel
+.PP
+.SH "/transfers \- Urus pemindahan fail (alias /dcc)"
+.br
+\&Penggunaan: /transfers [ARGUMENTS]
+.PP
+.br
+\&Arahan dan perlindungan sama seperti /dcc. Lihat /help dcc untuk hantar, terima dan batal.
+.PP
+.br
+\&Contoh:
+.br
+\&/transfers
+.br
+\&/transfers alice file.txt
+.PP
+.SH "/unbind \- Buang satu atau semua ikatan kekunci tersuai"
+.br
+\&Penggunaan: /unbind KEY|all
+.PP
+.br
+\&Membuang ikatan memulihkan fungsi biasa kekunci. all hanya memadam senarai pintasan tersuai.
+.br
+\&Terus terpakai pada semua pelayan. Guna /save input agar kekal selepas dimulakan semula.
+.PP
+.br
+\&Contoh:
+.br
+\&/unbind F7
+.br
+\&/unbind all
+.br
+\&/save input
+.PP
+.SH "/unignore \- Buang satu corak abaian setempat"
+.br
+\&Penggunaan: /unignore MASK
+.PP
+.br
+\&Sama dengan /ignore remove MASK. Simpan profil terpilih supaya perubahan kekal.
+.PP
+.br
+\&Contoh:
+.br
+\&/unignore noisy!*@*
+.PP
+.SH "/unread \- Senaraikan perbualan belum dibaca merentasi pelayan"
+.br
+\&Penggunaan: /unread
+.PP
+.br
+\&Baris mengandungi nombor pelayan, nama perbualan, mesej belum dibaca dan bilangan sebutan.
+.br
+\&Gunakan /server NUMBER diikuti /channel atau /pm untuk memilih perbualan.
+.PP
+.br
+\&Contoh:
+.br
+\&/unread
+.br
+\&/server 1
+.br
+\&/pm alice
+.PP
+.SH "/users \- Cetak pengguna yang diketahui pada saluran semasa atau yang dinamakan"
+.br
+\&Penggunaan: /users [#CHANNEL]
+.PP
+.br
+\&Ini senarai pengguna berupa teks, bukan suis paparan. Awalan mod pengguna disertakan jika diketahui.
+.br
+\&Senarai dibuka dalam pembaca berasingan walaupun kosong. Enter, Escape atau q kembali ke log perbualan.
+.br
+\&Up/Down dan Page Up/Down menatal senarai. Dalam Help, Enter meneruskan tatal.
+.br
+\&Balasan NAMES yang tidak lengkap atau terhad kapasiti dilabel. Tiada permintaan WHOIS dihantar.
+.PP
+.br
+\&Contoh:
+.br
+\&/users
+.br
+\&/users #ircnow
+.PP
+.SH "/view \- Pilih perbualan bernama atau saluran bernombor"
+.br
+\&Penggunaan: /view NAME|NUMBER
+.PP
+.br
+\&Nombor saluran disenaraikan oleh /channels; nama perbualan peribadi oleh /ql. Nama pelayan dan sebutan juga diterima.
+.br
+\&Gunakan /help dan bukannya memilih penimbal manual dalaman.
+.PP
+.br
+\&Contoh:
+.br
+\&/view #ircnow
+.br
+\&/view alice
+.br
+\&/view 0
+.PP
+.SH "/views \- Senaraikan saluran (alias /channels)"
+.br
+\&Penggunaan: /views
+.PP
+.br
+\&Alias ini menggunakan nombor saluran; perbualan peribadi kekal dalam /ql.
+.PP
+.br
+\&Contoh:
+.br
+\&/views
+.PP
+.SH "/watch \- Urus rentetan sebutan literal tambahan"
+.br
+\&Penggunaan: /watch [list|add TEXT|remove TEXT]
+.PP
+.br
+\&Sebutan nama samaran sentiasa aktif. Add/remove menganggap baki sebagai teks tepat, bukan ungkapan biasa.
+.br
+\&Setiap pelayan boleh ada hingga 32 teks tambahan 1..127 bait UTF\-8. Guna /save untuk menyimpannya.
+.PP
+.br
+\&Contoh:
+.br
+\&/watch list
+.br
+\&/watch add release day
+.br
+\&/watch remove release day
+.br
+\&/mentions
+.PP
+.SH "/whois \- Minta maklumat nama samaran daripada pelayan"
+.br
+\&Penggunaan: /whois NICK
+.PP
+.br
+\&Perlu berdaftar. Pilih paparan pelayan agar balasannya kelihatan. Tiada arahan tempatan dijalankan.
+.PP
+.br
+\&Contoh:
+.br
+\&/whois alice
+.PP
+.SH "/znc \- Kawal bouncer ZNC terpilih"
+.br
+\&Penggunaan: /znc [COMMAND]
+.PP
+.br
+\&Memerlukan profil ZNC bersambung yang ditetapkan melalui /panel. Tanpa argumen, meminta Help daripada *status.
+.br
+\&COMMAND dihantar sebagai satu mesej peribadi berjarak masa, tanpa gema tempatan atau sejarah arahan.
+.br
+\&Gunakan /msg *module COMMAND untuk modul ZNC yang aktif. Balasan modul muncul pada paparan pelayan.
+.br
+\&Sambungan IRC terus tidak boleh menggunakan pintasan ini. Rujuk bantuan bouncer untuk arahannya.
+.PP
+.br
+\&Contoh:
+.br
+\&/znc
+.br
+\&/znc ListNetworks
+.br
+\&/znc Connect

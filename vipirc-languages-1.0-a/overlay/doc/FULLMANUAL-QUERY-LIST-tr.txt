@@ -1,0 +1,13 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / QUERY LIST
+English source SHA-256: 50d842376967fbb5836870d2c2a91cdda08d55297314accffeb37b598776d8c1
+
+ÖZEL KONUŞMALAR LİSTESİ
+
+F4 veya /ql (/queries), yalnızca bu sunucudaki özel konuşmaları kanallardan bağımsız olarak 1'den başlayarak numaralar. Olağan liste tuşları ve şu eylemler kullanılır:
+
+    Aç    Yeni    Kapat    Geri
+
+New, /pm hazırlanmış olarak Command'ı açar; boş listede New query... üzerindeki Open da aynısını yapar. c kapatır, o/n New'i açar. Boş olmayan taslağı kapatmak, varsayılan yanıtı No olan bir onay ister. /pm NICK|NUMBER veya /query NICK|NUMBER bağlantı yokken bile mesaj göndermeden açar ya da seçer. /msg NICK TEXT açıkça gönderir; /close NICK ada göre kapatır.
+
+Özel konuşmada Escape, nasıl açılmış olursa olsun o konuşma seçili olarak Queries'i açar; listeden Escape/Back, konuşmayı taslağıyla birlikte geri getirir. Konuşmanın adı başlık kategorisini değiştirmek yerine konuşma satırında kalır.

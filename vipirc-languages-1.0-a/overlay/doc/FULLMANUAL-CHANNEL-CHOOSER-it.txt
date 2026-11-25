@@ -1,0 +1,12 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / CHANNEL CHOOSER AND CLOSING CONVERSATIONS
+English source SHA-256: da114abc3568be30c5d0cc9c66a970f8f23b79ab9555afca690c56aa25e37060
+
+EXACT COMMAND/CONTROL EXAMPLES (not translated):
+Apri    Entra    Lascia canale    Chiudi    Indietro
+
+F3 o /channels (/cl, /views) mostra la voce server/MOTD 0 e le viste dei canali mantenuti, anche quelli lasciati. Vale la normale navigazione degli elenchi; le azioni sono Open, Join, Part, Close e Back.
+
+Join apre Command con /join preparato senza perdere le bozze. Part abbandona il canale ma ne mantiene la cronologia; Close rimuove la vista. p esegue Part, c Close, o apre Join. /channel NUMBER o #NAME seleziona una vista; /view NUMBER usa i numeri dei canali e /view NAME un nome di vista. Dopo la chiusura i numeri possono cambiare: consultare l'elenco attuale.
+
+Close prima abbandona un canale ancora raggiunto, elimina cronologia/bozza e annulla i messaggi in coda per quel destinatario; un messaggio già in transito può terminare. Una bozza non vuota richiede conferma, con No predefinito. Le viste server e menzioni non sono chiudibili; /disconnect ferma la rete del server. /close [NAME|NUMBER] chiude il canale o la conversazione indicati oppure quella attuale. Non si può lasciare il canale 0. Back/Escape torna alla chat.

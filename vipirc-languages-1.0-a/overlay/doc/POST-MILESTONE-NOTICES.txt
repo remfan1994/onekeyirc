@@ -1,0 +1,17 @@
+Optional localization r88: 2449 keys per locale (+12). Post-milestone audit: queue, disconnect, ignore-list, conversation and settings notices. Application version unchanged. Apply to clean English r1.
+
+Added keys:
+/save preserves this setting.
+Autoconnect {state}; {persistence}
+Ignore masks: {count}/{limit}. Matching user PRIVMSG/NOTICE are hidden locally.
+Leaving {channel}; history retained; {count} queued messages cancelled.{inflight}
+OFFLINE TEST MODE stopped: {error}. Pending output cleared; /connect restarts simulation.
+Opened query {nick}. No message was sent.
+User list {state}; {persistence}
+test-session change only; /save is disabled.
+test-session setting only; simulator remains offline.
+{count} message queued; paced at one per 1.2 seconds.
+{count} messages queued; paced at one per 1.2 seconds.
+{error}. Pending output cleared; use /connect to reconnect.
+
+Display-only changes. Literal values and original fallback messages are preserved. Reused vipirc translations in onekeyirc where applicable. No protocol or configuration changes.

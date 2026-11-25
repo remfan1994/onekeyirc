@@ -1,0 +1,17 @@
+RELEASE CANDIDATE 1.0rc3 - NOT FINAL 1.0
+
+Supersedes 1.0rc2. This is a verification and correction release, not a new
+feature release. No change to protocol or saved session formats.
+
+Changes:
+- Runtime literal/template audit added to make check-l10n.
+- Self PART fixture checks localized status, channel identity and retained history.
+- Restore missing onekeyirc self PART key and use consistent Arabic origin labels.
+- Synchronize generated practical/operations guides with their current catalogs.
+- Repair stale release-marker and configuration serialization assertions;
+  use actual project identity rather than checkout directory names in tests.
+- Link English translation stubs in standalone background-security fixtures.
+
+Still required: complete suite rerun, full vipirc ncurses build and terminal
+checks, OpenBSD 7.8 and actual Crostini tests, native-speaker review,
+remaining indirect/raw-output localization inspection.

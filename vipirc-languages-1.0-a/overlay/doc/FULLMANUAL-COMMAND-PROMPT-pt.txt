@@ -1,0 +1,22 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / COMMAND PROMPT
+English source SHA-256: 26d0386cf8c86773f04d44700c574befc084cde6939832553f44b1d52e3b3b6f
+Source lines: 479-539
+
+LINHA DE COMANDOS INTERATIVA
+
+Abra Command em F1 > Command, com /, ou escrevendo / na posição zero do cursor da conversa. O rascunho e cursor da conversa são preservados separadamente. Uma barra noutro local, ou numa colagem protegida de chat, é texto literal. Enter/Run envia; Escape/Cancel regressa ao ecrã de origem, incluindo Summary. Entrada vazia não faz nada. Comandos aceites regressam à conversa salvo quando abrem outro ecrã; comandos inválidos/recusados continuam editáveis.
+
+Configurações > Interface > Command suggestions oferece cinco ordens: Commonly used (seleção padrão adaptada à ligação/vista), Recent history (linhas completas aceites, recentes primeiro), Most used (contagens de comandos canónicos do perfil guardado), Alphabetical (nomes implementados) e Contextual (prioriza o ecrã de origem mantendo outras correspondências).
+
+Escreva um prefixo de nome de comando sem distinguir maiúsculas para filtrar; os argumentos não são previstos. Down seleciona sugestões; Up/Down percorre-as e Up desde a primeira regressa à entrada. Enter numa sugestão apenas a insere, não a executa: uma linha do catálogo conserva argumentos já escritos; uma de histórico insere a linha completa. Reveja/edite e prima Enter separadamente depois de aparecer. Bytes Enter adicionais no mesmo lote de entrada não a executam. ? numa linha selecionada abre ajuda e restaura a seleção; ? na entrada é literal.
+
+Delete remove a entrada Recent selecionada ou reinicia a contagem Most used, nunca o comando suportado. Page Up/Page Down ou a roda percorrem sugestões. Linhas invisíveis em terminais muito pequenos não podem ser selecionadas. Right no fim do prefixo completa/alterna o nome; um clique numa sugestão insere-a. Tab não navega pelo cabeçalho nem executa. Completar alcunhas só ocorre na conversa.
+
+Up desde a entrada recupera comandos aceites com o prefixo original; Down volta a entradas recentes e ao rascunho inicial. Argumentos correspondem byte-for-byte. Comandos falhados não são guardados. O histórico tem no máximo 64 entradas/64 KiB por servidor, elimina duplicados consecutivos e descarta os mais antigos. A recuperação dura apenas enquanto o frontend e o servidor estiverem abertos; trocar a interface ou terminar o worker descarta-a.
+
+As contagens persistentes são separadas: CONFIG_PATH.commands contém até 96 nomes canónicos e contagens limitadas, nunca argumentos, destinos ou conversas. Perfis guardados atualizam o ficheiro privada e atomicamente ao aceitar comandos/reiniciar contagens; em perfis não guardados ficam na memória até Save. Falhas ou ausência desse ficheiro não impedem o arranque. Test mode não lê/escreve contagens; a configuração principal não as contém.
+
+Joins com chave e mensagens reconhecidas de serviço/autenticação são excluídos por completo. Mensagens inofensivas a serviços sensíveis conhecidos também. O filtro não identifica qualquer segredo arbitrário; não inclua segredos em conversas normais. Os controlos do bouncer estão em BOUNCER CONNECTIONS.
+
+Colar em Command é apenas introduzir dados: CR/LF/Tab viram espaços, controlos ou tamanhos proibidos são reportados e continua a ser exigido um novo Enter/Run. Não existem citações/substituições de shell, encadeamento ou execução de shell. TEXT/PATH consome literalmente o resto; coloque #channel entre aspas apenas na shell real. /msg, /me e // mantêm limites de mensagem, espaçamento de envio e aprovação obrigatória de divisão com opção padrão No. // é conversa literal e não entra no histórico de Command. Join/New preenche /join ou /pm.

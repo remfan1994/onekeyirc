@@ -1,0 +1,44 @@
+Panduan praktikal vipirc / onekeyirc - Tetapan
+=======================================================
+
+DRAF TERJEMAHAN. Taip arahan dan pilihan tepat seperti yang ditunjukkan.
+Untuk syarat keselamatan penuh, rujuk MANUAL.txt dan SECURITY.md dalam bahasa Inggeris.
+
+/help set
+---------
+
+direct ialah lalai: Enter menghantar teks, dengan persetujuan wajib jika melibatkan beberapa mesej IRC.
+
+review menambah langkah semakan yang disengajakan sebelum mesej biasa dimasukkan dalam giliran.
+
+output_format compact ialah lalai: sembang terpilih menunjukkan [HH:MM:SS] <nick> teks.
+
+output_format full menunjukkan pelayan, tarikh dan sasaran pada setiap baris. Mod compact tetap menunjukkan asal sebutan dan diagnostik pelayan lain.
+
+queue_notices off menyembunyikan pengesahan giliran biasa. Mod minimum juga tidak mengulang pengesahan selepas semakan. Ralat dan pengesahan berbilang mesej kekal jelas.
+
+program_messages off menyembunyikan maklum balas setempat ringan seperti draf dibatal, input dikosongkan dan draf disimpan. Ralat serta pengesahan keselamatan kekal jelas.
+
+persistent_logging on menulis sembang ke fail .log peribadi (0600) dalam direktori konfigurasi (0700). Lalai mati; had 16 MiB: arkibkan dan tukar off/on. Fail tidak selamat/sibuk hentikan log, bukan sembang.
+
+single_session on membenarkan satu tugas latar bagi klien ini agar --resume tanpa nombor jelas. Beberapa pelayan IRC masih boleh digunakan dalam sesi itu.
+
+default_interface memilih antara muka untuk pelancaran baharu yang menyokongnya, bukan sesi semasa. /save input menyimpan pilihan.
+
+command_suggestions memilih abjad, arahan lazim, sejarah terkini, paling kerap atau arahan mengikut skrin asal.
+
+composer_mode line mengekalkan satu baris input di bawah sembang langsung; fullscreen editor berbilang baris dan ruang sembang. Lalai: line.
+
+part_message dan quit_message ialah sebab keluar IRC lalai; mesej nyata /part atau /quit mengatasinya. Nilai kosong mematikan sebab lalai.
+
+background_away menghantar background_away_message selepas /background berjaya atau terminal terputus. autoaway_minutes menetapkan away ketika lengah; 0 mematikannya.
+
+Hanya keadaan away buatan klien dipadam automatik apabila sambung semula atau ada input sebenar. /away manual tidak diubah atau dipadam.
+
+«Lazim digunakan» ialah lalai. «Mengikut konteks» mendahulukan arahan saluran, pertanyaan, pelayan atau klien sambil mengekalkan padanan lain.
+
+«Lazim digunakan» menggunakan susunan arahan terpilih. «Mengikut konteks» mengingati skrin asal, termasuk pembaca ringkasan seluruh klien.
+
+Ini pilihan aplikasi untuk semua pelayan. Gunakan /save input atau /save output untuk menyimpannya.
+
+/panel diikuti 0 menyunting pilihan ini bersama had sejarah global.

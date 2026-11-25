@@ -1,0 +1,44 @@
+Praxisleitfaden vipirc / onekeyirc - Einstellungen
+=======================================================
+
+ENTWURFSÜBERSETZUNG. Befehle und Optionen genauso wie gezeigt eingeben.
+Für Sicherheitsdetails die englischen Dateien MANUAL.txt und SECURITY.md lesen.
+
+/help set
+---------
+
+direct ist Standard: Enter sendet den Text; bei mehreren IRC-Nachrichten ist eine Bestätigung Pflicht.
+
+review fügt einen bewussten Prüfschritt hinzu, bevor normale Nachrichten in die Warteschlange kommen.
+
+output_format compact ist Standard: Der gewählte Chat zeigt [HH:MM:SS] <nick> Text.
+
+output_format full zeigt Server, Datum und Ziel je Zeile. compact behält bei Erwähnungen und fremden Serverdiagnosen die nötige Herkunft.
+
+queue_notices off blendet normale Warteschlangenmeldungen aus. Im Minimalmodus entfällt nach einer Prüfung die doppelte Bestätigung. Fehler und Mehrfach-Sendebestätigung bleiben sichtbar.
+
+program_messages off blendet geringe lokale Hinweise aus: Entwurf verworfen, Eingabe gelöscht, Entwurf erhalten. Fehler und Sicherheitsbestätigungen bleiben sichtbar.
+
+persistent_logging on schreibt Chat in private .log (0600) im privaten Konfigurationsordner (0700). Standard: aus. Limit 16 MiB: archivieren, off/on schalten. Unsichere/belegte Datei stoppt Log, nicht Chat.
+
+single_session on erlaubt nur einen Hintergrundauftrag pro Client, sodass --resume ohne Nummer eindeutig ist. Mehrere IRC-Server sind in der Sitzung möglich.
+
+default_interface wählt die Oberfläche beim nächsten neuen Start, sofern verfügbar. Nicht die aktuelle. /save input speichert die Vorgabe.
+
+command_suggestions wählt alphabetisch, häufige, letzte, meistgenutzte oder zum Ursprungsfenster passende Befehle.
+
+composer_mode line hat eine Eingabezeile unter dem Livechat; fullscreen einen mehrzeiligen Editor samt Chatbereich. Standard: line.
+
+part_message und quit_message liefern Standardgründe zum IRC-Verlassen. Explizite /part- oder /quit-Nachrichten gehen vor; leere Werte deaktivieren den Text.
+
+background_away sendet background_away_message nach /background oder Terminalverlust. autoaway_minutes setzt away bei lokaler Inaktivität; 0 deaktiviert.
+
+Nur vom Client gesetztes away wird beim Fortsetzen oder echter Eingabe gelöscht. Manuelles /away bleibt unverändert.
+
+«Häufig verwendet» ist Standard. «Kontextbezogen» priorisiert Kanal-, Dialog-, Server- und Clientbefehle, ohne andere Treffer zu verbergen.
+
+«Häufig verwendet» nutzt eine gewählte sinnvolle Reihenfolge. «Kontextbezogen» merkt das Ursprungsfenster, auch den globalen Übersichtsleser.
+
+Das sind globale Clientvorgaben für alle Server. Mit /save input oder /save output speichern.
+
+/panel gefolgt von 0 ändert diese Vorgaben und das globale Verlaufslimit.

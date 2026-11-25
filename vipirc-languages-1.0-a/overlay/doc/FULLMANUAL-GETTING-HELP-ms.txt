@@ -1,0 +1,23 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / GETTING HELP
+English source SHA-256: 3be6bd8e2513deace7dbc089f74905843298167e9259b20a4a0495570b4c691f
+
+EXACT COMMAND/CONTROL EXAMPLES (not translated):
+vipirc -h
+vipirc -v
+vipirc --manual
+vipirc -i --manual
+man vipirc
+/help
+/manual
+/help TEXT
+
+vipirc -h atau --help memaparkan ringkasan CLI; vipirc -v atau --version memaparkan versi; vipirc --manual mencetak manual penuh pada output piawai; vipirc -i --manual mencetak rujukan topik dan arahan minimalis. man vipirc membuka halaman manual terpasang. Dalam mod penuh, /help atau /manual membuka manual ini; /help TEXT mencari TEXT di dalamnya.
+
+Dalam mod penuh, /help TEXT mencari manual, bukannya membuka topik minimalis. /help commands dan /help ls mencari COMMAND PROMPT; /help all membuka keseluruhan manual; /view help juga tersedia. Frasa carian tidak perlu tanda petik. Pembaca berfungsi tanpa sambungan dan mengekalkan paparan, draf serta kedudukan kursor. Di sini / memulakan carian; dalam pembaca bantuan/respons minimalis, / membuka Command. Rujuk doc/TROUBLESHOOTING.txt untuk langkah mengikut gejala.
+
+Tekan ? semasa navigasi untuk penjelasan item dan skrin terpilih. Bantuan konteks mempunyai pautan About; Left/Right atau Tab memilih tindakan, Enter melaksanakannya dan Escape kembali ke tempat serta pilihan asal. Dalam medan boleh sunting, ? kekal huruf harfiah. Pilih cadangan Command dahulu sebelum meminta bantuannya.
+
+Tindakan manual ialah Kembali, Cari, Sebelumnya dan Seterusnya. Left/Right atau h/l memilih, Enter melaksanakan. Up/Down atau k/j menatal satu baris, Page Up/Down satu halaman, Home/End atau g/G ke hujung. Escape/q/Kembali kembali ke panel vipirc atau sembang sebelumnya. F1..F6 membuka kategori tersedia; pertukaran paparan melangkau manual. / atau Cari menyunting pertanyaan UTF-8 harfiah sehingga 256 bait. Enter mencari; Escape membatalkan suntingan. n/Seterusnya dan N/Sebelumnya berpusing melalui padanan. Perbezaan huruf besar-kecil ASCII diabaikan; aksara lain dibanding secara harfiah. Tiada regex, sintaks shell atau sejarah carian. Tampal diabaikan dalam pembaca dan carian.
+
+F1 mengandungi Pelayan, Nama panggilan, Tetapan, Pintasan kekunci, Manual, Arahan, Latar belakang, Perihal dan perjanjian lesen Insha-Allah. Pelayan/Nama panggilan membuka tetapan profil semasa; Nama panggilan memfokuskan medannya. Perihal menunjukkan versi, kredit dan petikan setempat apabila diminta: PID, masa beroperasi, jumlah CPU terkumpul, memori puncak yang disokong serta bilangan pelayan/paparan. Memori puncak bukan penggunaan semasa; jumlah CPU bukan peratus masa nyata. Pembaca lesen memaparkan seluruh LICENSE.md. Escape/Enter/q/Kembali kembali daripada Perihal atau lesen ke vipirc.

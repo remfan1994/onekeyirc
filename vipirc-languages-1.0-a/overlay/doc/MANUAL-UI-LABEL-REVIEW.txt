@@ -1,0 +1,12 @@
+r94 review: complete action strips and specific F1-F6, manual-reader and settings navigation references now use current catalog labels. Physical key names, commands, examples and configuration tokens remain literal. This is a focused review, not native-speaker certification or a complete audit of every UI reference.
+
+id: 15 changed full-manual lines; {'contents navigation': 1, 'header navigation': 1, 'reader actions': 1, 'main menu': 1, 'action strips': 4}
+ms: 15 changed full-manual lines; {'contents navigation': 1, 'header navigation': 1, 'reader actions': 1, 'main menu': 1, 'action strips': 4}
+tr: 14 changed full-manual lines; {'contents navigation': 1, 'header navigation': 1, 'reader actions': 1, 'main menu': 1, 'action strips': 4}
+es: 15 changed full-manual lines; {'contents navigation': 1, 'header navigation': 1, 'reader actions': 1, 'main menu': 1, 'action strips': 4}
+pt: 15 changed full-manual lines; {'contents navigation': 1, 'header navigation': 1, 'reader actions': 1, 'main menu': 1, 'action strips': 4}
+fr: 15 changed full-manual lines; {'contents navigation': 1, 'header navigation': 1, 'reader actions': 1, 'main menu': 1, 'action strips': 4}
+de: 15 changed full-manual lines; {'contents navigation': 1, 'header navigation': 1, 'reader actions': 1, 'main menu': 1, 'action strips': 4}
+ru: 15 changed full-manual lines; {'contents navigation': 1, 'header navigation': 1, 'reader actions': 1, 'main menu': 1, 'action strips': 4}
+it: 15 changed full-manual lines; {'contents navigation': 1, 'header navigation': 1, 'reader actions': 1, 'main menu': 1, 'action strips': 4}
+ar: 16 changed full-manual lines; {'contents navigation': 1, 'header navigation': 1, 'reader actions': 1, 'main menu': 1, 'action strips': 4}

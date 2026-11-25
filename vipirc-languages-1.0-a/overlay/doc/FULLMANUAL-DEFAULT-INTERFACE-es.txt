@@ -1,0 +1,16 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / DEFAULT INTERFACE
+English source SHA-256: 9767b356dcf1c634d38900a5165f736d96e65c58251579e065cdfa4d44b92e3c
+
+INTERFAZ PREDETERMINADA
+
+Para recordar el modo minimalista, ejecute en cualquiera de las dos interfaces:
+
+    /set default_interface idle
+    /save input
+
+También puede usar Ajustes > Interfaz > Interfaz predeterminada o /panel > 0. Otra posibilidad es poner default_interface=idle en la sección [session] del archivo principal, sin eliminar sus otras claves. Si no se establece esta preferencia, se usa ncurses. Afecta a los nuevos inicios, incluido --background; no cambia la interfaz actual ni vuelve a conectar IRC.
+
+-i/--idle o -N/--ncurses selecciona explícitamente la interfaz de esta ejecución; prevalece la última opción y guardar otros ajustes no la vuelve permanente. -n/--nick, en minúsculas, sigue siendo la opción del apodo. Para recuperar el valor predeterminado de la interfaz completa, ejecute /set default_interface ncurses y /save input. Los perfiles secundarios no tienen esta preferencia.
+
+--resume sin indicador de interfaz conserva la interfaz del proceso existente. -i --resume NUMBER solicita la minimalista; -N --resume NUMBER solicita ncurses, sin reconectar ni sustituir el proceso. Los procesos antiguos sin capacidad de cambio conservan su interfaz. Cambiar descarta borradores y comandos recordados que pertenecen a la interfaz; consulte RUNNING IN THE BACKGROUND. onekeyirc solo dispone de la interfaz minimalista y rechaza -N/--ncurses. antes de hacerlo.

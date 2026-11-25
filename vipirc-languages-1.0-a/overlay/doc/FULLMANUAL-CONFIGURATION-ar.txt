@@ -1,0 +1,69 @@
+CURRENT SIGNAL POLICY (vipirc-1.0-a):
+القيمة الافتراضية لإعداد Use signals هي no. يلغي Ctrl-C وCtrl-Z الرسالة أو الأمر غير المرسل، ولا ينهيان البرنامج ولا يعلّقانه. اختر yes من اللوحة 0 أو إعدادات Interface في vipirc للسماح بإشارات الطرفية. يطبّق Apply التغيير فوراً، ويحفظ Save أيضاً [input] use_signals=true|false. تُستعاد إعدادات الطرفية الأصلية عند الخروج أو التعليق.
+
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / CONFIGURATION
+English source SHA-256: e2956cfce20ea9e24f3a157c4edcdf403e26c851eb40004ecc77db98f83874de
+Source lines: 1452-1555
+
+الإعدادات
+
+أنشئ نقطة بدء خاصة قابلة للتعديل بالأمثلة التالية، ثم حرر الملف وتحقق منه:
+
+    vipirc --init-config --server irc.ircnow.org --channel '#ircnow'
+    vipirc --check-config
+
+يصف كل ملف ملفاً شخصياً واحداً؛ ويختار --config الإعداد الرئيسي وفهرس الخوادم المحفوظة المجاور له. تتشارك حتى ثمانية ملفات عملية واحدة، وتكوّن المسارات الرئيسية المنفصلة مساحات عمل مستقلة. تقدم الأمثلة المشحونة و--init-config الصياغة الكاملة. مخطط المفاتيح أدناه مرجع وليس كتلة جاهزة للصق: كل سطر فعلي من key=value يجب أن يكون منفرداً.
+
+الإعدادات الافتراضية هي send_mode=direct وcomposer_mode=line وcommand_suggestions=common وformat=compact وdefault_interface=ncurses. تحفظ تفضيلات التطبيق في الملف الأساسي وتطبق على جميع الخوادم؛ أما connection/auth/bouncer وقوائم watch وignore وأوامر البدء فتخص كل ملف. قسم [hotkeys] فارغ افتراضياً ويقبل حتى 64 سطراً من KEY=action.
+
+يختلف لقب IRC عن username. إن كان لقب الملف الأساسي التفاعلي فارغاً تظهر مطالبة تقترح اسم حساب الدخول. يُستمد username افتراضياً من الحساب؛ وrealname وصف لحقل USER وليس بالضرورة الاسم القانوني. channel قائمة autojoin لملف مباشر مفصولة بفواصل دون مسافات؛ وفراغها يعني عرض الخادم. يستعيد bouncer عضوية القنوات بنفسه.
+
+في SASL المباشر، يتطلب auth=sasl قيمة auth_user ومصدراً واحداً بالضبط لـpassword. يختار PASS الخاص بالخادم مصدراً واحداً مستقلاً لـserver_password. وجود أكثر من مصدر للاعتماد نفسه خطأ بلا بديل احتياطي، وكلاهما يشترط TLS متحققاً منه. يتطلب bouncer أن يكون auth_user فارغاً ويشتق بيانات دخوله. تبقى الأسرار المكتوبة داخل الملف نصاً واضحاً؛ قواعد الملفات وGPG تحت AUTHENTICATION.
+
+يقبل history_lines بين 50..5000 سطر لكل عرض، والافتراضي 500، مع حد نص قدره 8 MiB لكل خادم قد يطرد أسطراً أبكر. للوضع المبسط حدان إجماليان أيضاً: 2048 سجل و512 KiB. تقبل القيم المنطقية بحروف صغيرة true/false وyes/no و1/0. تؤدي الأقسام أو المفاتيح المجهولة والقيم غير الصالحة أو الكبيرة جداً إلى خطأ مع رقم السطر عند الاقتضاء. أغلب المفاتيح المكررة تأخذ آخر قيمة؛ وتُجمع إدخالات watch/ignore/autocommand المتكررة حتى حدودها.
+
+الأسطر التي تبدأ بـ# أو ; بعد الفراغات الأولية هي تعليقات؛ ولا توجد تعليقات في نهاية أسطر القيم. تُزال الفراغات الخارجية من القيم العادية. لا توجد صيغة اقتباس أو هروب أو توسيع متغيرات أو علامة tilde أو تنفيذ للصدفة. فضّل المسارات المطلقة الحرفية. يرفض Apply/Save فراغات ASCII الخارجية في الحقول المعتادة كي لا تتغير بعد إعادة القراءة؛ وتبقى الفراغات الداخلية مسموحة عندما تكون صحيحة.
+
+تحافظ الأسطر password= وserver_password= و[autocommands] command= على كل بايت بعد = عدا نهاية السطر، بما في ذلك المسافات و= و# و;. لا تُضف علامات اقتباس أو تعليقاً في السطر نفسه. كلمة المرور الفارغة تعني عدم وجود مصدر؛ أما المسافات وحدها فغير فارغة. عناصر التحكم والأسطر الجديدة في كلمة المرور غير صالحة.
+
+يعيد /save كتابة الإعدادات المدعومة، بما فيها الخيارات المعلقة، ويستبدل التعليقات والتنسيق؛ احتفظ بملاحظاتك منفصلة. تُحمّل تعديلات الملفات عند بدء عملية جديدة، لا عبر --resume. يُمنع Save في test mode. تُنشأ الملفات بصلاحية 0600 داخل دليل نهائي مملوك للمستخدم بصلاحية 0700؛ ويجب أن يكون ملف الإعداد الموجود مملوكاً له وغير قابل للكتابة من الآخرين. تُرفض الوصلات الرمزية بما فيها مكونات المسار، وكذلك '..'. أي كلمة مرور مضمّنة غير فارغة أو قائمة أوامر بدء حتى لو كانت معطلة تتطلب ملفاً عادياً مملوكاً للمستخدم بصلاحية 0600/0400. يُستبدل كل ملف ذرياً، لكن مساحة العمل كلها ليست معاملة واحدة.
+
+يمنع single_session=true تشغيل عامل vipirc مدار ثانٍ، لا عدة خوادم ضمن العامل نفسه. افتراضيات presence في المخطط؛ وتعطل autoaway_minutes=0 مؤقت الخمول. تمحو العودة التلقائية الغياب الذي أنشأه العميل فقط، ولا تمحو /away اليدوي. غياب bouncer التلقائي معطل افتراضياً بصورة مستقلة.
+
+تُقبل المفاتيح القديمة [interface] keymap=original|vim وfocus_style=reverse|brackets لكن يجري تجاهلها وحذفها عند Save؛ وأي قيم أخرى غير صالحة. تبقى الملاحة المعتادة وإبراز التركيز بأقواس عريضة. يشرح /keymap هذا التوافق ولا يختار تعيين أزرار. يمكن إخفاء إشعارات queue/program مستقلة، فيما تظل الأخطاء وتأكيدات السلامة المطلوبة ظاهرة.
+
+EXACT CONFIGURATION KEYS (reference only; not a block to paste):
+
+    [connection]
+    server, port, tls, nick, username, realname, channel, autoconnect,
+    auth, auth_user, password_file, password_gpg_file, password,
+    server_password_file, server_password_gpg_file, server_password, ca_file
+    [bouncer]
+    type=none|znc|soju, username, network, client, automatic_away=false
+    [interface]
+    user_list=true, mouse=true, hints=true, shortcut_labels=true,
+    history_lines=500
+    [input]
+    send_mode=direct|review, composer_mode=line|fullscreen,
+    command_suggestions=common|history|frequent|alphabetical|contextual,
+    use_signals=false
+    [hotkeys]
+    optional KEY=action rows; empty by default, at most 64
+    [output]
+    format=compact|full, queue_notices=true, program_messages=true,
+    persistent_logging=false
+    [session]
+    single_session=false, default_interface=ncurses|idle
+    [presence]
+    part_message=, quit_message=Client quit, background_away=true,
+    background_away_message=Detached from terminal,
+    autoaway_minutes=15, autoaway_message=Idle
+    [autocommands]
+    enabled=true, delay_seconds=15, interval_seconds=2, repeated command=
+    [mentions]
+    repeated word=literal phrase
+    [ignore]
+    repeated mask=nick!user@host
+
+    [interface] keymap=original|vim; focus_style=reverse|brackets

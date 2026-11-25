@@ -1,0 +1,14 @@
+RELEASE CANDIDATE 1.0rc2 - NOT FINAL 1.0
+
+The earlier staging archives are designated 1.0rc1. This candidate preserves the
+optional clean-source overlay workflow. No protocol, credential handling or
+session-format change is intended. Keep commands and configuration keys literal.
+
+RC2 scope: localize the full /summary display and plaintext/TLS mismatch
+messages; translate the optional-new-entry qualifier in settings. Add report
+and transport tests. Repair obsolete use_signals regression fixture members.
+
+Final release gates: complete the remaining source-literal triage; review
+translation accuracy and consistency; test Linux, Crostini and OpenBSD; test
+live interoperability, session recovery, and Arabic ncurses input/display.
+This is not an assertion of total localization or native-speaker signoff.

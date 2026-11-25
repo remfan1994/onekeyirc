@@ -1,0 +1,22 @@
+PUBLIC ALPHA 1.0-a
+
+This is the public alpha handoff of the RC4 code and language packs to the
+international development and translation community. It is not a final stable
+1.0 release. RC4 remains in the historical record. There are no new IRC features,
+wire-protocol changes, or configuration-format changes in this promotion.
+
+English source and optional localization packs are distributed separately.
+Use only the matching 1.0-a pack on a clean, unconfigured 1.0-a English tree.
+Check the published SHA256 hashes before extraction. Use a private directory.
+
+Review and testing still needed: native-speaker accuracy review, remaining
+end-to-end and real IRC interoperability testing, OpenBSD and Crostini testing,
+and full vipirc ncurses compilation and interactive Arabic terminal tests.
+Prior RC4 catalog coverage and installer checks do not certify all translations,
+all platforms, or all security properties. Please report reproducible issues
+with version, operating system, compiler, terminal, locale and relevant steps.
+Redact credentials, personal conversation contents, and private paths.
+See CONTRIBUTING.md, SECURITY.md, LICENSE.md and NOTICE for project guidance.
+
+Full vipirc configure/build is unverified in the packaging environment: wide-
+character ncurses development headers are unavailable.

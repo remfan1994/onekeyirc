@@ -1,0 +1,25 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / GLOBAL HEADER AND CHAT CONTROLS
+English source SHA-256: cb80307ba98bc7df400c1362ee1848d1abb75e531c711c9ad421eda17beaed43
+Source lines: 407-458
+
+GLOBALE KOPFZEILE UND CHATSTEUERUNG
+
+    F1 vipirc                Anwendung, Einstellungen, Hilfe, About und Lizenz.
+    F2 Servers (N)           Konfigurierte oder gespeicherte Serversitzungen.
+    F3 Channels (N)          Gespeicherte Kanäle des ausgewählten Servers.
+    F4 Queries (N)           Private Gespräche des ausgewählten Servers.
+    F5 Mentions/unread (M/U) Gespeicherte Erwähnungen / ungelesene Quellgespräche.
+    F6 File transfers (N)    Gespeicherte Übertragungen aller Server.
+
+Nur Kategorien mit Inhalt erscheinen; vipirc bleibt immer sichtbar. Verlassene Kanäle mit Verlauf und Einträge abgeschlossener Dateiübertragungen zählen weiterhin. Die festen Funktionstastennummern verschieben sich nicht, wenn Kategorien ausgeblendet werden. Die Taste einer verborgenen Kategorie erzeugt diese nicht; explizite Listenbefehle können auch leere Listen öffnen. TERM bestimmt die Tastenerkennung; vom Terminal reservierte Tasten müssen an den Client weitergegeben werden. Eingefügte Zeichenfolgen lösen nie Tastenkürzel aus.
+
+Das Gespräch hat unter der Kopfzeile eine eigene Zeile; der Nickname eines Privatgesprächs ersetzt nicht Queries. Auch schmale Kopfzeilen halten die gewählte Kategorie sichtbar. Einstellungen > Oberfläche > Kurztastenbeschriftungen blendet die üblichen Beschriftungen F1..F6 aus; nicht gebundene Tasten funktionieren weiterhin. Hints regelt optionale Hinweise separat. Beide Einstellungen gehören dem Hauptprofil und müssen mit Save dauerhaft gespeichert werden.
+
+Pfeiltasten steuern den Inhalt oder Editor, nie die obere Leiste. Escape aus einem Privatgespräch öffnet Queries mit diesem Gespräch ausgewählt; aus anderem Chat öffnet es vipirc; aus normalen Bereichen stellt es Chat/Entwurf/Cursor wieder her; Settings und Lizenz führen zu vipirc zurück. F1 öffnet vipirc direkt. Sicherheitsdialoge und die Erfassung eingefügter Daten verarbeiten Eingaben vorrangig.
+
+Im vipirc-Bereich führt b/Back zum Chat zurück; Escape fragt Really quit? [Y/N]. Nur ein neu gedrücktes y/Y bestätigt. Andere normale Tasten brechen ab; Einfügen, Klicken oder Größenänderungen können nicht bestätigen. Unterbrechungs- und Suspendiersignale folgen den Regeln unter TERMINAL SIGNALS.
+
+Listen verwenden dieselben Bedienelemente: Up/Down oder k/j wählen eine Zeile, Left/Right oder h/l eine Aktion und Enter führt sie aus. Home/End oder g/G wählen die Endpunkte. Open ist anfangs gewählt; beim Zeilenwechsel bleibt die gewählte Aktion erhalten. Die Zeilenwahl stoppt an den Endpunkten. Zeile und Aktion bleiben beide hervorgehoben. Ein Klick auf einen Eintrag öffnet ihn; ein Klick auf seine Aktionszeile führt die Aktion für die Auswahl aus. Delete ruft auf Server-/Kanal-/Privatgesprächszeilen Close mit den üblichen Schutzmaßnahmen und Bestätigungen auf; in Editoren löscht Delete Text.
+
+Im Chat bearbeiten Pfeiltasten Text, hjkl ist wörtlicher Text, Tab/Shift-Tab vervollständigen Nicknames, Page Up/Page Down durchsuchen den Verlauf und / bei Cursorposition null öffnet Command. Enter sendet; /clearinput leert den gesamten Entwurf. Im Mausmodus erscheinen außerdem Clear/Send unter dem festen Eingabefeld. Beide Sendewege führen dieselben Nachrichtenprüfungen aus. Eingeklammerte Chat-Einfügungen (bracketed paste) bleiben wörtlich; Tabulatoren werden zu Leerzeichen und Einfügen sendet nie. Nach dem Einfügen warten Tasten/Klicks auf einen vollständig sichtbaren Bildschirm, einen späteren Eingabeblock und ein Ruheintervall. Gedrückthalten von Tasten verlängert das Warten. Zu kleine oder fehlgeschlagene Frames zählen nicht; Größe ändern, Tasten loslassen, dann handeln. Listen/Leser/Sicherheitsdialoge ignorieren Einfügungen. Aktive Command-/Settings-/Übertragungseditoren nehmen Daten nach eigenen Regeln an.

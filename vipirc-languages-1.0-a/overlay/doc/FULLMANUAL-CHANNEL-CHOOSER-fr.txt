@@ -1,0 +1,12 @@
+SOURCE-LINKED TRANSLATION DRAFT - NATIVE REVIEW REQUIRED
+Source: MANUAL.txt / CHANNEL CHOOSER AND CLOSING CONVERSATIONS
+English source SHA-256: da114abc3568be30c5d0cc9c66a970f8f23b79ab9555afca690c56aa25e37060
+
+EXACT COMMAND/CONTROL EXAMPLES (not translated):
+Ouvrir    Rejoindre    Quitter le canal    Fermer    Retour
+
+F3 ou /channels (/cl, /views) affiche l'entrée serveur/MOTD 0 et les vues de canaux conservées, y compris ceux quittés. La navigation habituelle des listes s'applique ; actions : Open, Join, Part, Close et Back.
+
+Join ouvre Command avec /join préparé sans perdre les brouillons. Part quitte le canal mais garde l'historique ; Close supprime la vue. p effectue Part, c Close et o ouvre Join. /channel NUMBER ou #NAME sélectionne une vue conservée ; /view NUMBER utilise la numérotation des canaux et /view NAME choisit une vue par nom. Les numéros changent après une fermeture : utilisez la liste courante.
+
+Close quitte d'abord un canal encore rejoint, efface historique/brouillon et annule le chat en file pour cette destination ; un message en cours d'envoi peut finir. Un brouillon non vide demande confirmation, No par défaut. Les vues serveur et mentions ne peuvent être fermées ; /disconnect arrête le réseau du serveur. /close [NAME|NUMBER] ferme le canal ou la conversation indiquée, ou celle en cours. Impossible de quitter le canal 0. Back/Escape revient au chat.
